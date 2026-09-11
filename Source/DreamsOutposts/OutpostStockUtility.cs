@@ -76,6 +76,7 @@ namespace DreamsOutposts
 				}
 				Log.Error("Failed to add " + thing.stackCount + " " + thingDef.defName + " to outpost " + outpost.Label + "'s inventory; the stack is destroyed.");
 				thing.Destroy();
+				break;
 			}
 			return added;
 		}

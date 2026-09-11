@@ -169,7 +169,7 @@ namespace DreamsOutposts
 					break;
 				}
 				state.nextProductionTick += context.EffectiveInterval;
-				if (++cycles >= 100)
+				if (++cycles >= MaxCatchUpCyclesPerCheck)
 				{
 					break;
 				}
@@ -296,6 +296,7 @@ namespace DreamsOutposts
 			}
 			List<ThingDefCountClass> inputs = production.inputs;
 			HashSet<ThingDef> handled = new HashSet<ThingDef>();
+			Dictionary<ThingDef, int> required = new Dictionary<ThingDef, int>();
 			for (int i = 0; i < inputs.Count; i++)
 			{
 				ThingDefCountClass input = inputs[i];
@@ -315,19 +316,31 @@ namespace DreamsOutposts
 				int need = requiredPerUnit * amount;
 				if (need > 0)
 				{
-					int removed = OutpostStockUtility.TakeFromStock(outpost, input.thingDef, need);
-					if (removed < need)
-					{
-						Log.ErrorOnce("Outpost production could not consume its inputs: outpost=" + outpost.Label + ", production=" + RuleLabel(facility, production) + ", needed " + need + " " + input.thingDef.defName + " but removed only " + removed + ".", FailureKey(facility, production));
-						return false;
-					}
+					required[input.thingDef] = need;
 				}
+			}
+			foreach (KeyValuePair<ThingDef, int> entry in required)
+			{
+				int available = OutpostStockUtility.CountInStock(outpost, entry.Key);
+				if (available < entry.Value)
+				{
+					Log.ErrorOnce("Outpost production could not consume its inputs: outpost=" + outpost.Label + ", production=" + RuleLabel(facility, production) + ", needed " + entry.Value + " " + entry.Key.defName + " but available only " + available + ".", FailureKey(facility, production));
+					return false;
+				}
+			}
+			foreach (KeyValuePair<ThingDef, int> entry in required)
+			{
+				OutpostStockUtility.TakeFromStock(outpost, entry.Key, entry.Value);
 			}
 			return true;
 		}
 
 		public static List<Thing> MakeProductThings(ThingDef product, int amount)
 		{
+			if (amount <= 0)
+			{
+				return new List<Thing>();
+			}
 			if (product == null)
 			{
 				throw new InvalidOperationException("Production has no product def.");

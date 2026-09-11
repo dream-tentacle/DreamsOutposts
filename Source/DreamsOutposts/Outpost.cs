@@ -31,15 +31,18 @@ namespace DreamsOutposts
 
 		public ThingOwner<Pawn> pendingAirdropPawns;
 
+		private static readonly List<Pawn> EmptyPawns = new List<Pawn>();
+		private static readonly List<Thing> EmptyInventory = new List<Thing>();
+
 		public bool HasPendingAirdropCargo => pendingAirdropPawns != null && pendingAirdropPawns.Count > 0;
 
 		public bool ShouldTickContents => false;
 
-		public IEnumerable<Pawn> Pawns => pawns?.InnerListForReading;
+		public IEnumerable<Pawn> Pawns => pawns?.InnerListForReading ?? EmptyPawns;
 
-		public List<Pawn> PawnsListForReading => pawns?.InnerListForReading ?? new List<Pawn>();
+		public List<Pawn> PawnsListForReading => pawns?.InnerListForReading ?? EmptyPawns;
 
-		public List<Thing> InventoryItems => inventory?.InnerListForReading ?? new List<Thing>();
+		public List<Thing> InventoryItems => inventory?.InnerListForReading ?? EmptyInventory;
 
 		public IEnumerable<Pawn> Colonists => PawnsListForReading.Where((Pawn p) => p.IsColonist);
 
@@ -315,6 +318,7 @@ namespace DreamsOutposts
 
 		public override void PostRemove()
 		{
+			OutpostAirdropUtility.ReturnPendingCargo(this);
 			Worker?.OnRemoved(this);
 			base.PostRemove();
 			pawns?.ClearAndDestroyContentsOrPassToWorld();
