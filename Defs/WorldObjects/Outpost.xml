@@ -1,0 +1,15 @@
+<Defs>
+  <WorldObjectDef>
+    <defName>DreamsOutposts_Outpost</defName>
+    <label>outpost</label>
+    <description>A persistent outpost.</description>
+    <worldObjectClass>DreamsOutposts.Outpost</worldObjectClass>
+    <canHaveFaction>true</canHaveFaction>
+    <saved>true</saved>
+<canHaveMap>false</canHaveMap>
+    <selectable>true</selectable>
+<expandingIcon>true</expandingIcon>
+    <expandingIconTexture>World/WorldObjects/Expanding/Sites/Outpost</expandingIconTexture>
+    <texture>World/WorldObjects/Sites/Outpost</texture>
+  </WorldObjectDef>
+</Defs>

@@ -1,0 +1,353 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using RimWorld;
+using RimWorld.Planet;
+using UnityEngine;
+using Verse;
+
+namespace DreamsOutposts
+{
+	public class Outpost : WorldObject, IThingHolder, IThingHolderTickable
+	{
+		public OutpostTypeDef outpostTypeDef;
+
+		public ThingOwner<Pawn> pawns;
+
+		public ThingOwner<Thing> inventory;
+
+		public OutpostFacility coreFacility;
+
+		public List<OutpostSlot> extensionSlots;
+
+		public int establishedTick;
+
+		public int level = 1;
+
+		public int airdropPods;
+
+		public int nextBombardTick;
+
+		public ThingOwner<Pawn> pendingAirdropPawns;
+
+		public bool HasPendingAirdropCargo => pendingAirdropPawns != null && pendingAirdropPawns.Count > 0;
+
+		public bool ShouldTickContents => false;
+
+		public IEnumerable<Pawn> Pawns => pawns?.InnerListForReading;
+
+		public List<Pawn> PawnsListForReading => pawns?.InnerListForReading ?? new List<Pawn>();
+
+		public List<Thing> InventoryItems => inventory?.InnerListForReading ?? new List<Thing>();
+
+		public IEnumerable<Pawn> Colonists => PawnsListForReading.Where((Pawn p) => p.IsColonist);
+
+		public IEnumerable<Pawn> OtherPawns => PawnsListForReading.Where((Pawn p) => !p.IsColonist);
+
+		public IEnumerable<OutpostFacility> Facilities
+		{
+			get
+			{
+				if (coreFacility != null)
+				{
+					yield return coreFacility;
+				}
+				if (extensionSlots == null)
+				{
+					yield break;
+				}
+				for (int i = 0; i < extensionSlots.Count; i++)
+				{
+					OutpostFacility facility = extensionSlots[i].facility;
+					if (facility != null)
+					{
+						yield return facility;
+					}
+				}
+			}
+		}
+
+		public OutpostWorker Worker => outpostTypeDef?.Worker;
+
+		public int MaxLevel => outpostTypeDef?.MaxLevel ?? 1;
+
+		public bool IsMaxLevel => level >= MaxLevel;
+
+		public int SlotCountForLevel => outpostTypeDef?.GetSlotCount(level) ?? 0;
+
+		public OutpostLevelProperties CurrentLevelProperties => outpostTypeDef?.GetLevel(level);
+
+		public OutpostLevelProperties NextLevelProperties => IsMaxLevel ? null : outpostTypeDef?.GetLevel(level + 1);
+
+		public int TicksSinceEstablished => Mathf.Max(Find.TickManager.TicksGame - establishedTick, 0);
+
+		public float DaysSinceEstablished => (float)TicksSinceEstablished / 60000f;
+
+		public override string Label => outpostTypeDef?.label ?? base.Label;
+
+		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
+
+		protected override int UpdateRateTicks => 250;
+
+		public Outpost()
+		{
+			pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+			inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
+			pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+			extensionSlots = new List<OutpostSlot>();
+		}
+
+		protected override void TickInterval(int delta)
+		{
+			base.TickInterval(delta);
+			OutpostProductionUtility.TickOutpost(this);
+			AgePawns(delta);
+			OutpostAirdropUtility.CheckStalePending(this);
+		}
+
+		private void AgePawns(int delta)
+		{
+			if (pawns == null)
+			{
+				return;
+			}
+			List<Pawn> list = pawns.InnerListForReading;
+			for (int i = list.Count - 1; i >= 0; i--)
+			{
+				Pawn pawn = list[i];
+				if (pawn != null && !pawn.Dead && pawn.ageTracker != null)
+				{
+					pawn.ageTracker.AgeTickInterval(delta);
+				}
+			}
+		}
+
+		public override void ExposeData()
+		{
+			base.ExposeData();
+			Scribe_Defs.Look(ref outpostTypeDef, "outpostTypeDef");
+			Scribe_Values.Look(ref establishedTick, "establishedTick", 0);
+			Scribe_Values.Look(ref level, "level", 1);
+			Scribe_Values.Look(ref airdropPods, "airdropPods", 0);
+			Scribe_Values.Look(ref nextBombardTick, "nextBombardTick", 0);
+			Scribe_Deep.Look(ref coreFacility, "coreFacility");
+			Scribe_Collections.Look(ref extensionSlots, "extensionSlots", LookMode.Deep);
+			Scribe_Deep.Look(ref pawns, "pawns", this);
+			Scribe_Deep.Look(ref inventory, "inventory", this);
+			Scribe_Deep.Look(ref pendingAirdropPawns, "pendingAirdropPawns", this);
+			if (Scribe.mode == LoadSaveMode.PostLoadInit)
+			{
+				if (pawns == null)
+				{
+					pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+				}
+				if (inventory == null)
+				{
+					inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
+				}
+				if (pendingAirdropPawns == null)
+				{
+					pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+				}
+				if (pendingAirdropPawns.Count > 0)
+				{
+					OutpostAirdropUtility.ReturnPendingCargo(this);
+				}
+				if (outpostTypeDef != null && coreFacility == null)
+				{
+					Log.Error("Outpost " + Label + " had no core facility after loading; reinstalling it from " + outpostTypeDef.defName + ".");
+					InitializeCoreFacility();
+				}
+				EnsureExtensionSlots();
+			}
+		}
+
+		private void EnsureExtensionSlots()
+		{
+			if (extensionSlots == null)
+			{
+				extensionSlots = new List<OutpostSlot>();
+			}
+			int wanted = outpostTypeDef?.GetSlotCount(level) ?? 0;
+			while (extensionSlots.Count > wanted)
+			{
+				int index = extensionSlots.Count - 1;
+				for (int i = extensionSlots.Count - 1; i >= 0; i--)
+				{
+					if (extensionSlots[i] == null || extensionSlots[i].IsEmpty)
+					{
+						index = i;
+						break;
+					}
+				}
+				OutpostSlot removed = extensionSlots[index];
+				if (removed != null && !removed.IsEmpty)
+				{
+					Log.Error("Outpost " + Label + " level " + level + " allows only " + wanted + " extension slots, so the slot holding " + (removed.facility.def?.defName ?? "null") + " was removed and that facility is gone.");
+				}
+				extensionSlots.RemoveAt(index);
+			}
+			while (extensionSlots.Count < wanted)
+			{
+				extensionSlots.Add(new OutpostSlot());
+			}
+		}
+
+		public void SetLevel(int newLevel)
+		{
+			level = Mathf.Clamp(newLevel, 1, MaxLevel);
+			EnsureExtensionSlots();
+		}
+
+		private void InitializeCoreFacility()
+		{
+			OutpostFacilityDef def = outpostTypeDef?.coreFacility;
+			if (def == null)
+			{
+				Log.Error("Outpost type " + (outpostTypeDef?.defName ?? "null") + " declares no coreFacility; this outpost will have no core facility.");
+				coreFacility = null;
+			}
+			else
+			{
+				coreFacility = OutpostFacility.Create(def);
+			}
+		}
+
+		public ThingOwner GetDirectlyHeldThings()
+		{
+			return inventory;
+		}
+
+		public void GetChildHolders(List<IThingHolder> outChildren)
+		{
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pawns);
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, inventory);
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pendingAirdropPawns);
+		}
+
+		public override string GetInspectString()
+		{
+			StringBuilder stringBuilder = new StringBuilder(base.GetInspectString());
+			if (stringBuilder.Length != 0)
+			{
+				stringBuilder.AppendLine();
+			}
+			OutpostAirdropUtility.CheckStalePending(this);
+			stringBuilder.Append("Colonists: " + Colonists.Count());
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Other pawns: " + OtherPawns.Count());
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Item stacks: " + InventoryItems.Count);
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Airdrop pods: " + airdropPods);
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Core facility: " + (coreFacility?.def?.LabelCap ?? ((TaggedString)"none")));
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Extension facilities: " + extensionSlots.Count((OutpostSlot s) => !s.IsEmpty) + "/" + extensionSlots.Count);
+			stringBuilder.AppendLine();
+			stringBuilder.Append("Level: " + level + "/" + MaxLevel);
+			return stringBuilder.ToString();
+		}
+
+		public override IEnumerable<Gizmo> GetGizmos()
+		{
+			foreach (Gizmo gizmo in base.GetGizmos())
+			{
+				yield return gizmo;
+			}
+			if (base.Faction != Faction.OfPlayer)
+			{
+				yield break;
+			}
+			OutpostAirdropUtility.CheckStalePending(this);
+			yield return OutpostUtility.ManageCommand(this);
+			yield return OutpostAirdropUtility.BuyPodCommand(this);
+			yield return OutpostAirdropUtility.AirdropCommand(this);
+			Command bombardCommand = OutpostBombardmentUtility.BombardCommand(this);
+			if (bombardCommand != null)
+			{
+				yield return bombardCommand;
+			}
+			if (PawnsListForReading.Count > 0)
+			{
+				yield return OutpostCaravanUtility.FormCaravanCommand(this);
+			}
+			yield return OutpostAbandonUtility.AbandonCommand(this);
+			OutpostWorker worker = Worker;
+			if (worker == null)
+			{
+				yield break;
+			}
+			foreach (Gizmo gizmo2 in worker.GetGizmos(this))
+			{
+				yield return gizmo2;
+			}
+		}
+
+		public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
+		{
+			foreach (Gizmo caravanGizmo in base.GetCaravanGizmos(caravan))
+			{
+				yield return caravanGizmo;
+			}
+			if (base.Faction == Faction.OfPlayer && caravan != null && caravan.IsPlayerControlled && Find.WorldSelector.SingleSelectedObject == caravan)
+			{
+				yield return OutpostCaravanUtility.EnterOutpostCommand(this, caravan);
+			}
+		}
+
+		public override IEnumerable<FloatMenuOption> GetTransportersFloatMenuOptions(IEnumerable<IThingHolder> pods, Action<PlanetTile, TransportersArrivalAction> launchAction)
+		{
+			foreach (FloatMenuOption transportersFloatMenuOption in base.GetTransportersFloatMenuOptions(pods, launchAction))
+			{
+				yield return transportersFloatMenuOption;
+			}
+			if (base.Faction != Faction.OfPlayer)
+			{
+				yield break;
+			}
+			foreach (FloatMenuOption floatMenuOption in TransportersArrivalActionUtility.GetFloatMenuOptions(() => TransportersArrivalAction_StoreInOutpost.CanStoreIn(this, base.Tile), () => new TransportersArrivalAction_StoreInOutpost(this), "DreamsOutposts.StoreInOutpost".Translate(), launchAction, base.Tile))
+			{
+				yield return floatMenuOption;
+			}
+		}
+
+		public override void PostRemove()
+		{
+			Worker?.OnRemoved(this);
+			base.PostRemove();
+			pawns?.ClearAndDestroyContentsOrPassToWorld();
+		}
+
+		public static Outpost Create(Caravan caravan, OutpostTypeDef def)
+		{
+			Outpost outpost = (Outpost)WorldObjectMaker.MakeWorldObject(def.worldObjectDef);
+			outpost.Tile = caravan.Tile;
+			outpost.SetFaction(caravan.Faction);
+			outpost.outpostTypeDef = def;
+			outpost.establishedTick = Find.TickManager.TicksGame;
+			outpost.level = 1;
+			outpost.InitializeCoreFacility();
+			outpost.EnsureExtensionSlots();
+			OutpostUtility.TransferCaravanItemsTo(caravan, outpost);
+			for (int i = caravan.PawnsListForReading.Count - 1; i >= 0; i--)
+			{
+				Pawn pawn = caravan.PawnsListForReading[i];
+				caravan.RemovePawn(pawn);
+				if (!OutpostUtility.MovePawnIntoOutpost(outpost, pawn))
+				{
+					Log.Error("Failed to move " + pawn?.ToString() + " into outpost " + outpost.Label + "; putting it back into the caravan.");
+					caravan.AddPawn(pawn, addCarriedPawnToWorldPawnsIfAny: false);
+				}
+			}
+			Find.WorldObjects.Add(outpost);
+			def.Worker.OnCreated(outpost);
+			if (caravan.PawnsListForReading.Count == 0)
+			{
+				caravan.Destroy();
+			}
+			return outpost;
+		}
+	}
+}

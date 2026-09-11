@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+<DreamsOutposts.OutpostManagePageDef>
+    <defName>DreamsOutposts_ManagePage_Facilities</defName>
+    <label>facilities</label>
+    <description>This outpost's level, core facility and extension slots.</description>
+    <pageClass>DreamsOutposts.Page_OutpostFacilities</pageClass>
+    <order>0</order>
+  </DreamsOutposts.OutpostManagePageDef>
+<DreamsOutposts.OutpostManagePageDef>
+    <defName>DreamsOutposts_ManagePage_Warehouse</defName>
+    <label>warehouse</label>
+    <description>The colonists, other pawns and items kept in this outpost.</description>
+    <pageClass>DreamsOutposts.Page_OutpostInventory</pageClass>
+    <order>10</order>
+  </DreamsOutposts.OutpostManagePageDef>
+</Defs>

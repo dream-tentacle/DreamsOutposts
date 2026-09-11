@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.ProductionErrorTitle>Outpost production error</DreamsOutposts.ProductionErrorTitle>
+  <DreamsOutposts.ProductionErrorText>This outpost reported a production error, so items may not have been counted correctly. Please report this issue.\n\nOutpost: {0}\nFacility: {1}\nProduction: {2}</DreamsOutposts.ProductionErrorText>
+  <DreamsOutposts.StoreInOutpost>Store in outpost</DreamsOutposts.StoreInOutpost>
+  <DreamsOutposts.TransportPodsStoredInOutpost>The transport pods arrived, and their contents were stored in {0}.</DreamsOutposts.TransportPodsStoredInOutpost>
+  <DreamsOutposts.CommandAddAirdropPod>Add airdrop pod</DreamsOutposts.CommandAddAirdropPod>
+  <DreamsOutposts.CommandAddAirdropPodDesc>Spend {0} steel to add one airdrop pod to this outpost. Each pod carries {1} kg, and a launch consumes pods equal to the actual loaded mass, rounded up.</DreamsOutposts.CommandAddAirdropPodDesc>
+  <DreamsOutposts.CommandAirdrop>Airdrop</DreamsOutposts.CommandAirdrop>
+  <DreamsOutposts.CommandAirdropDesc>Choose the items and people to send, then choose a destination tile (up to {0} tiles away). Total capacity is {1} kg times the number of airdrop pods, and a launch consumes pods equal to the actual loaded mass, rounded up.</DreamsOutposts.CommandAirdropDesc>
+  <DreamsOutposts.CommandAbandonOutpost>Abandon outpost permanently</DreamsOutposts.CommandAbandonOutpost>
+  <DreamsOutposts.CommandAbandonOutpostDesc>Abandon this outpost for good. Everything in store and every airdrop pod is discarded and the outpost itself is removed from the world, but the people stationed here are not lost: they are banished exactly the way vanilla banishes a pawn, and become free pawns on the world map. Whatever they are wearing and carrying goes with them. This cannot be undone.</DreamsOutposts.CommandAbandonOutpostDesc>
+  <DreamsOutposts.ConfirmAbandonOutpostTitle>Abandon {0} permanently?</DreamsOutposts.ConfirmAbandonOutpostTitle>
+  <DreamsOutposts.ConfirmAbandonOutpost>The outpost currently holds:\n\n{0}\n\nThe outpost itself, everything in store, and every airdrop pod will be permanently discarded, with nothing to recover.\nThe people here are not discarded: they are banished exactly the way vanilla banishes a pawn, and become free pawns on the world map. Whatever they are wearing and carrying goes with them.\n\nThis cannot be undone.</DreamsOutposts.ConfirmAbandonOutpost>
+  <DreamsOutposts.ConfirmAbandonOutpostColonists>Colonists ({0}):</DreamsOutposts.ConfirmAbandonOutpostColonists>
+  <DreamsOutposts.ConfirmAbandonOutpostOtherPawns>Other pawns here: {0}</DreamsOutposts.ConfirmAbandonOutpostOtherPawns>
+  <DreamsOutposts.ConfirmAbandonOutpostItems>Item stacks in store: {0}</DreamsOutposts.ConfirmAbandonOutpostItems>
+  <DreamsOutposts.ConfirmAbandonOutpostPods>Airdrop pods: {0}</DreamsOutposts.ConfirmAbandonOutpostPods>
+  <DreamsOutposts.OutpostAbandoned>{0} has been abandoned. Everything in store is gone, and its people have been banished into the world.</DreamsOutposts.OutpostAbandoned>
+  <DreamsOutposts.AirdropMassCapacityExplanation>{0} kg x {1} airdrop pods.</DreamsOutposts.AirdropMassCapacityExplanation>
+  <DreamsOutposts.NotEnoughSteelForPod>Not enough steel: {0} needed, but the outpost only holds {1}.</DreamsOutposts.NotEnoughSteelForPod>
+  <DreamsOutposts.NoAirdropPods>This outpost has no airdrop pods. Add one first.</DreamsOutposts.NoAirdropPods>
+  <DreamsOutposts.OutpostGone>This outpost no longer exists.</DreamsOutposts.OutpostGone>
+  <DreamsOutposts.AirdropPodAdded>Added one airdrop pod. The outpost now has {0}.</DreamsOutposts.AirdropPodAdded>
+  <DreamsOutposts.AirdropNotEnoughPods>Not enough airdrop pods: this load needs {0}, but the outpost only has {1}.</DreamsOutposts.AirdropNotEnoughPods>
+  <DreamsOutposts.AirdropLaunched>The airdrop pods of {0} have launched: {1} pods carrying {2} kg, with {3} pawns and {4} item stacks.</DreamsOutposts.AirdropLaunched>
+  <DreamsOutposts.CommandBombard>Bombard</DreamsOutposts.CommandBombard>
+  <DreamsOutposts.CommandBombardDesc>Fire one mortar barrage from this outpost: {0} high-explosive shells for {1}, up to {2} tiles away, with a {3} cooldown.\n\nTargeting takes two steps: pick a tile that already has a map, then pick where the shells land on that map. Shells scatter around the chosen point the way vanilla mortars do, and cancelling costs nothing.</DreamsOutposts.CommandBombardDesc>
+  <DreamsOutposts.BombardNoMortar>This outpost has no facility capable of bombardment. Build a mortar emplacement first.</DreamsOutposts.BombardNoMortar>
+  <DreamsOutposts.BombardNoCrew>Nobody stationed here has {0} of {1} or higher, so there is no crew for the mortars.</DreamsOutposts.BombardNoCrew>
+  <DreamsOutposts.CommandBombardCrew>Requires someone in this outpost with {0} of {1} or higher.</DreamsOutposts.CommandBombardCrew>
+  <DreamsOutposts.BombardNoMapHere>That tile has no map, so there is nowhere for the shells to land.</DreamsOutposts.BombardNoMapHere>
+  <DreamsOutposts.BombardClickToChoose>Click to enter {0} and choose where the shells land.</DreamsOutposts.BombardClickToChoose>
+  <DreamsOutposts.BombardOnCooldown>The mortars are still reloading: {0} left.</DreamsOutposts.BombardOnCooldown>
+  <DreamsOutposts.BombardNotEnoughResources>The outpost store cannot pay for this bombardment: {0}.</DreamsOutposts.BombardNotEnoughResources>
+  <DreamsOutposts.BombardBrokenConfig>This outpost's bombardment is misconfigured (its shell has no usable projectile). Check the facility XML.</DreamsOutposts.BombardBrokenConfig>
+  <DreamsOutposts.BombardLaunched>The mortars of {0} open fire on {1}: {2} high-explosive shells are on their way.</DreamsOutposts.BombardLaunched>
+  <DreamsOutposts.InstallFail.SlotOccupied>This slot already holds {0}.</DreamsOutposts.InstallFail.SlotOccupied>
+  <DreamsOutposts.InstallFail.NotInstallable>This facility cannot be installed as an extension.</DreamsOutposts.InstallFail.NotInstallable>
+  <DreamsOutposts.InstallFail.WrongOutpostType>This facility cannot be installed in {0}.</DreamsOutposts.InstallFail.WrongOutpostType>
+  <DreamsOutposts.InstallFail.ResearchMissing>Requires research: {0}</DreamsOutposts.InstallFail.ResearchMissing>
+  <DreamsOutposts.InstallFail.LimitReached>This outpost already has the maximum of {0}.</DreamsOutposts.InstallFail.LimitReached>
+  <DreamsOutposts.InstallFail.CannotAfford>Not enough resources: missing {0}.</DreamsOutposts.InstallFail.CannotAfford>
+</LanguageData>

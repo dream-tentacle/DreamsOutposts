@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.ProductionErrorTitle>据点生产异常</DreamsOutposts.ProductionErrorTitle>
+  <DreamsOutposts.ProductionErrorText>据点工作异常，物品可能未正确计算，建议反馈该问题。\n\n据点：{0}\n设施：{1}\n生产规则：{2}</DreamsOutposts.ProductionErrorText>
+  <DreamsOutposts.StoreInOutpost>存入据点仓库</DreamsOutposts.StoreInOutpost>
+  <DreamsOutposts.TransportPodsStoredInOutpost>运输舱已抵达，货物已存入{0}的仓库。</DreamsOutposts.TransportPodsStoredInOutpost>
+  <DreamsOutposts.CommandAddAirdropPod>新增空投仓</DreamsOutposts.CommandAddAirdropPod>
+  <DreamsOutposts.CommandAddAirdropPodDesc>消耗{0}钢铁，在据点里增加1个空投仓。每个空投仓可承载{1}kg，空投时按实际装载重量向上取整消耗。</DreamsOutposts.CommandAddAirdropPodDesc>
+  <DreamsOutposts.CommandAirdrop>空投</DreamsOutposts.CommandAirdrop>
+  <DreamsOutposts.CommandAirdropDesc>选择要投送的物品与人员，然后在地图上选择落点（最远{0}格）。总承载为{1}kg×空投仓数量，起飞后按实际装载重量向上取整消耗空投仓。</DreamsOutposts.CommandAirdropDesc>
+  <DreamsOutposts.CommandAbandonOutpost>彻底废弃据点</DreamsOutposts.CommandAbandonOutpost>
+  <DreamsOutposts.CommandAbandonOutpostDesc>永久废弃这个据点：仓库里的物品和攒下的空投仓都会被丢弃，据点本体也会从世界上移除；但驻守在这里的人不会消失——他们会照原版放逐的方式离开，成为世界上的自由Pawn，身上穿的和拿的都跟着他们走。此操作无法撤销。</DreamsOutposts.CommandAbandonOutpostDesc>
+  <DreamsOutposts.ConfirmAbandonOutpostTitle>彻底废弃{0}？</DreamsOutposts.ConfirmAbandonOutpostTitle>
+  <DreamsOutposts.ConfirmAbandonOutpost>据点里现在有：\n\n{0}\n\n据点本体、仓库里的物品与空投仓都会被永久丢弃，无法找回。\n这里的人不会被丢弃：他们会照原版放逐的方式离开，成为世界上的自由Pawn，身上穿的和拿的都会跟着他们走。\n\n此操作无法撤销。</DreamsOutposts.ConfirmAbandonOutpost>
+  <DreamsOutposts.ConfirmAbandonOutpostColonists>殖民者（{0}人）：</DreamsOutposts.ConfirmAbandonOutpostColonists>
+  <DreamsOutposts.ConfirmAbandonOutpostOtherPawns>这里的其他人员：{0}人</DreamsOutposts.ConfirmAbandonOutpostOtherPawns>
+  <DreamsOutposts.ConfirmAbandonOutpostItems>仓库物品：{0}堆</DreamsOutposts.ConfirmAbandonOutpostItems>
+  <DreamsOutposts.ConfirmAbandonOutpostPods>空投仓：{0}个</DreamsOutposts.ConfirmAbandonOutpostPods>
+  <DreamsOutposts.OutpostAbandoned>{0}已被彻底废弃：仓库里的物品全部丢弃，这里的人被放逐到了世界上。</DreamsOutposts.OutpostAbandoned>
+  <DreamsOutposts.AirdropMassCapacityExplanation>{0}kg × {1}个空投仓。</DreamsOutposts.AirdropMassCapacityExplanation>
+  <DreamsOutposts.NotEnoughSteelForPod>钢铁不足：需要{0}，据点仓库里只有{1}。</DreamsOutposts.NotEnoughSteelForPod>
+  <DreamsOutposts.NoAirdropPods>据点里没有空投仓，请先新增空投仓。</DreamsOutposts.NoAirdropPods>
+  <DreamsOutposts.OutpostGone>这个据点已经不存在了。</DreamsOutposts.OutpostGone>
+  <DreamsOutposts.AirdropPodAdded>已新增1个空投仓，据点现有{0}个。</DreamsOutposts.AirdropPodAdded>
+  <DreamsOutposts.AirdropNotEnoughPods>空投仓不足：这次装载需要{0}个，据点只有{1}个。</DreamsOutposts.AirdropNotEnoughPods>
+  <DreamsOutposts.AirdropLaunched>{0}的空投仓已发射：共{1}个舱，载重{2}kg，人员{3}名、物品{4}堆。</DreamsOutposts.AirdropLaunched>
+  <DreamsOutposts.CommandBombard>炮击</DreamsOutposts.CommandBombard>
+  <DreamsOutposts.CommandBombardDesc>用据点的迫击炮打一次齐射：{0}发高爆弹，消耗{1}，射程{2}格，冷却{3}。\n\n选点分两步：先在世界地图上选一个已经有地图的地块，再在那张地图上选落点。炮弹会散布在落点周围（与原版迫击炮同样的精度），取消选择不会消耗任何资源。</DreamsOutposts.CommandBombardDesc>
+  <DreamsOutposts.BombardNoMortar>这个据点没有可以炮击的设施，请先安装迫击炮阵地。</DreamsOutposts.BombardNoMortar>
+  <DreamsOutposts.BombardNoCrew>据点里没有{0}达到{1}的人，没人能操作迫击炮。</DreamsOutposts.BombardNoCrew>
+  <DreamsOutposts.CommandBombardCrew>需要据点里有人{0} ≥ {1}。</DreamsOutposts.CommandBombardCrew>
+  <DreamsOutposts.BombardNoMapHere>这个地块上还没有地图，炮弹无处落地。</DreamsOutposts.BombardNoMapHere>
+  <DreamsOutposts.BombardClickToChoose>点击进入{0}，在地图上选择炮击位置。</DreamsOutposts.BombardClickToChoose>
+  <DreamsOutposts.BombardOnCooldown>迫击炮正在装填，还需{0}。</DreamsOutposts.BombardOnCooldown>
+  <DreamsOutposts.BombardNotEnoughResources>据点仓库不足以支撑这次炮击：{0}。</DreamsOutposts.BombardNotEnoughResources>
+  <DreamsOutposts.BombardBrokenConfig>这个据点的炮击配置有误（炮弹没有可用的弹道），请检查设施 XML。</DreamsOutposts.BombardBrokenConfig>
+  <DreamsOutposts.BombardLaunched>{0}的迫击炮开始炮击{1}：{2}发高爆弹正在落下。</DreamsOutposts.BombardLaunched>
+  <DreamsOutposts.InstallFail.SlotOccupied>这个槽位已经装了{0}。</DreamsOutposts.InstallFail.SlotOccupied>
+  <DreamsOutposts.InstallFail.NotInstallable>这种设施不能作为扩建设施安装。</DreamsOutposts.InstallFail.NotInstallable>
+  <DreamsOutposts.InstallFail.WrongOutpostType>这种设施不能安装在{0}里。</DreamsOutposts.InstallFail.WrongOutpostType>
+  <DreamsOutposts.InstallFail.ResearchMissing>需要先完成研究：{0}</DreamsOutposts.InstallFail.ResearchMissing>
+  <DreamsOutposts.InstallFail.LimitReached>每个据点最多{0}个，已经装满了。</DreamsOutposts.InstallFail.LimitReached>
+  <DreamsOutposts.InstallFail.CannotAfford>资源不足，还差{0}。</DreamsOutposts.InstallFail.CannotAfford>
+</LanguageData>

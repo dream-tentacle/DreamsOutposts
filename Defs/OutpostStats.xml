@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<StatDef>
+    <defName>DreamsOutposts_SmithingSpeed</defName>
+    <label>smithing speed</label>
+    <description>How fast this person carries out smithing, machining and assembly work at an outpost.</description>
+    <category>PawnWork</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.1</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+<supressDisabledError>true</supressDisabledError>
+    <statFactors>
+      <li>WorkSpeedGlobal</li>
+    </statFactors>
+<skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Crafting</skill>
+        <baseValue>0.04</baseValue>
+        <bonusPerLevel>0.12</bonusPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.5</weight>
+        <max>1</max>
+      </li>
+    </capacityFactors>
+    <displayPriorityInCategory>4890</displayPriorityInCategory>
+  </StatDef>
+</Defs>

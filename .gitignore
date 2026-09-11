@@ -1,0 +1,13 @@
+.vs/
+obj/
+bin/
+
+# 编译产物（部署脚本会把它们复制到游戏 Mods 目录，不需要进版本库）
+Assemblies/*.dll
+Assemblies/*.pdb
+
+# 只作为参考阅读的第三方模组源码（Vanilla Expanded Framework，约 2000 个文件）
+RefMods/
+
+# 2026-09-11 源码被清理脚本清空后建立的救援目录（反编译产物、原 DLL 备份、脚本）
+_recovery_backup/
