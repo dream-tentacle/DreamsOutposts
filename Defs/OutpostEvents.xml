@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
+  <DreamsOutposts.OutpostEventCategoryDef>
+    <defName>DreamsOutposts_Industrial</defName>
+    <label>industrial</label>
+    <baseWeight>10</baseWeight>
+  </DreamsOutposts.OutpostEventCategoryDef>
+  <DreamsOutposts.OutpostEventCategoryDef>
+    <defName>DreamsOutposts_BloodTide</defName>
+    <label>blood tide</label>
+    <baseWeight>0</baseWeight>
+  </DreamsOutposts.OutpostEventCategoryDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_TestEvent</defName>
     <label>test outpost event</label>
     <description>A minimal outpost event used to verify event definitions load correctly.</description>
+    <category>DreamsOutposts_Industrial</category>
+    <weight>1</weight>
     <options>
       <li>
         <id>optionA</id>

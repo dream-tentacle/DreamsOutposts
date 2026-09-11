@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.CommandAddAirdropPodDesc>Spend {0} steel to add one airdrop pod to this outpost. Each pod carries {1} kg, and a launch consumes pods equal to the actual loaded mass, rounded up.</DreamsOutposts.CommandAddAirdropPodDesc>
+  <DreamsOutposts.CommandAirdropDesc>Choose the items and people to send, then choose a destination tile (up to {0} tiles away). Total capacity is {1} kg times the number of airdrop pods, and a launch consumes pods equal to the actual loaded mass, rounded up.</DreamsOutposts.CommandAirdropDesc>
+  <DreamsOutposts.CommandAbandonOutpostDesc>Abandon this outpost for good. Everything in store and every airdrop pod is discarded and the outpost itself is removed from the world, but the people stationed here are not lost: they are banished exactly the way vanilla banishes a pawn, and become free pawns on the world map. Whatever they are wearing and carrying goes with them. This cannot be undone.</DreamsOutposts.CommandAbandonOutpostDesc>
+  <DreamsOutposts.ConfirmAbandonOutpostColonists>Colonists ({0}):</DreamsOutposts.ConfirmAbandonOutpostColonists>
+  <DreamsOutposts.ConfirmAbandonOutpostOtherPawns>Other pawns here: {0}</DreamsOutposts.ConfirmAbandonOutpostOtherPawns>
+  <DreamsOutposts.ConfirmAbandonOutpostItems>Item stacks in store: {0}</DreamsOutposts.ConfirmAbandonOutpostItems>
+  <DreamsOutposts.ConfirmAbandonOutpostPods>Airdrop pods: {0}</DreamsOutposts.ConfirmAbandonOutpostPods>
+  <DreamsOutposts.AirdropMassCapacityExplanation>{0} kg x {1} airdrop pods.</DreamsOutposts.AirdropMassCapacityExplanation>
+  <DreamsOutposts.Colonists>Colonists</DreamsOutposts.Colonists>
+  <DreamsOutposts.OtherPawns>Other pawns</DreamsOutposts.OtherPawns>
+  <DreamsOutposts.Items>Items</DreamsOutposts.Items>
+  <DreamsOutposts.None>(none)</DreamsOutposts.None>
+  <DreamsOutposts.NoNextLevelDefinition>Outpost type {0} has no definition for level {1}.</DreamsOutposts.NoNextLevelDefinition>
+  <DreamsOutposts.NoNextLevel>No definition for the next level.</DreamsOutposts.NoNextLevel>
+</LanguageData>
+

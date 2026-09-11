@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.ProductionErrorTitle>Outpost production error</DreamsOutposts.ProductionErrorTitle>
+  <DreamsOutposts.ProductionErrorText>This outpost reported a production error, so items may not have been counted correctly. Please report this issue.\n\nOutpost: {0}\nFacility: {1}\nProduction: {2}</DreamsOutposts.ProductionErrorText>
+  <DreamsOutposts.NoProduction>no production</DreamsOutposts.NoProduction>
+  <DreamsOutposts.InvalidProductionRule>invalid production rule</DreamsOutposts.InvalidProductionRule>
+  <DreamsOutposts.ProductionRemaining>{0}, {1} left</DreamsOutposts.ProductionRemaining>
+  <DreamsOutposts.Production>Production:</DreamsOutposts.Production>
+  <DreamsOutposts.ProductChosenAfterInstallation>product chosen after installation</DreamsOutposts.ProductChosenAfterInstallation>
+  <DreamsOutposts.NoCrop>no crop</DreamsOutposts.NoCrop>
+  <DreamsOutposts.ChooseCropTip>Click to choose the crop grown here.</DreamsOutposts.ChooseCropTip>
+  <DreamsOutposts.CropSummary>crop: {0}</DreamsOutposts.CropSummary>
+  <DreamsOutposts.CurrentCropSuffix> (current)</DreamsOutposts.CurrentCropSuffix>
+  <DreamsOutposts.NoCropAvailable>No crop can be grown here right now.</DreamsOutposts.NoCropAvailable>
+  <DreamsOutposts.Nothing>nothing</DreamsOutposts.Nothing>
+  <DreamsOutposts.PlantTooltip>{0}\n\n{1} days to grow\n{2} {3} per harvest</DreamsOutposts.PlantTooltip>
+</LanguageData>
+

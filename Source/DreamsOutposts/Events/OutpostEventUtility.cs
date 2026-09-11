@@ -7,6 +7,36 @@ namespace DreamsOutposts
 {
 	public static class OutpostEventUtility
 	{
+		public static float GetCategoryWeight(Outpost outpost, OutpostEventCategoryDef category)
+		{
+			if (category == null)
+			{
+				return 0f;
+			}
+			float weight = category.baseWeight;
+			if (outpost == null)
+			{
+				return weight;
+			}
+			foreach (OutpostFacility facility in outpost.Facilities)
+			{
+				List<OutpostEventCategoryModifier> modifiers = facility?.def?.eventCategoryModifiers;
+				if (modifiers == null)
+				{
+					continue;
+				}
+				for (int i = 0; i < modifiers.Count; i++)
+				{
+					OutpostEventCategoryModifier modifier = modifiers[i];
+					if (modifier != null && modifier.category == category)
+					{
+						weight += modifier.offset;
+					}
+				}
+			}
+			return weight;
+		}
+
 		public static Command AddTestEventCommand(Outpost outpost)
 		{
 			Command_Action command = new Command_Action

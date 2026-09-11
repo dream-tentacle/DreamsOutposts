@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.CommandBombard>炮击</DreamsOutposts.CommandBombard>
+  <DreamsOutposts.CommandBombardDesc>用据点的迫击炮打一次齐射：{0}发高爆弹，消耗{1}，射程{2}格，冷却{3}。\n\n选点分两步：先在世界地图上选一个已经有地图的地块，再在那张地图上选落点。炮弹会散布在落点周围（与原版迫击炮同样的精度），取消选择不会消耗任何资源。</DreamsOutposts.CommandBombardDesc>
+  <DreamsOutposts.BombardNoMortar>这个据点没有可以炮击的设施，请先安装迫击炮阵地。</DreamsOutposts.BombardNoMortar>
+  <DreamsOutposts.BombardNoCrew>据点里没有{0}达到{1}的人，没人能操作迫击炮。</DreamsOutposts.BombardNoCrew>
+  <DreamsOutposts.CommandBombardCrew>需要据点里有人{0} ≥ {1}。</DreamsOutposts.CommandBombardCrew>
+  <DreamsOutposts.BombardNoMapHere>这个地块上还没有地图，炮弹无处落地。</DreamsOutposts.BombardNoMapHere>
+  <DreamsOutposts.BombardClickToChoose>点击进入{0}，在地图上选择炮击位置。</DreamsOutposts.BombardClickToChoose>
+  <DreamsOutposts.BombardOnCooldown>迫击炮正在装填，还需{0}。</DreamsOutposts.BombardOnCooldown>
+  <DreamsOutposts.BombardNotEnoughResources>据点仓库不足以支撑这次炮击：{0}。</DreamsOutposts.BombardNotEnoughResources>
+  <DreamsOutposts.BombardBrokenConfig>这个据点的炮击配置有误（炮弹没有可用的弹道），请检查设施 XML。</DreamsOutposts.BombardBrokenConfig>
+  <DreamsOutposts.BombardLaunched>{0}的迫击炮开始炮击{1}：{2}发高爆弹正在落下。</DreamsOutposts.BombardLaunched>
+  <DreamsOutposts.BombardmentSummary>炮击：每次{0}发炮弹，射程{1}格，冷却{2}。</DreamsOutposts.BombardmentSummary>
+  <DreamsOutposts.BombardmentBonus>每次炮击额外增加{0}发炮弹。</DreamsOutposts.BombardmentBonus>
+</LanguageData>
+

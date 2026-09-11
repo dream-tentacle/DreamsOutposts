@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Events>事件</DreamsOutposts.Events>
+  <DreamsOutposts.NoCurrentEvents>当前没有事件</DreamsOutposts.NoCurrentEvents>
+  <DreamsOutposts.Remaining>剩余：{0}</DreamsOutposts.Remaining>
+  <DreamsOutposts.UnknownEvent>未知事件</DreamsOutposts.UnknownEvent>
+  <DreamsOutposts.EventLetter>{0}\n\n剩余：{1}</DreamsOutposts.EventLetter>
+  <DreamsOutposts.OnTimeout>超时自动选择：{0}</DreamsOutposts.OnTimeout>
+  <DreamsOutposts.UnknownOption>未知选项</DreamsOutposts.UnknownOption>
+  <DreamsOutposts.Result>结果：</DreamsOutposts.Result>
+  <DreamsOutposts.Options>选项</DreamsOutposts.Options>
+  <DreamsOutposts.EventCategoryWeights>事件分类权重：</DreamsOutposts.EventCategoryWeights>
+  <DreamsOutposts.EventCategoryModifier>事件分类：{0} {1}</DreamsOutposts.EventCategoryModifier>
+</LanguageData>
+

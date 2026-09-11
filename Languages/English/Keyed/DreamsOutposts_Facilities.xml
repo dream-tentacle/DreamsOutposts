@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.InstallFail.SlotOccupied>This slot already holds {0}.</DreamsOutposts.InstallFail.SlotOccupied>
+  <DreamsOutposts.InstallFail.NotInstallable>This facility cannot be installed as an extension.</DreamsOutposts.InstallFail.NotInstallable>
+  <DreamsOutposts.InstallFail.WrongOutpostType>This facility cannot be installed in {0}.</DreamsOutposts.InstallFail.WrongOutpostType>
+  <DreamsOutposts.InstallFail.ResearchMissing>Requires research: {0}</DreamsOutposts.InstallFail.ResearchMissing>
+  <DreamsOutposts.InstallFail.LimitReached>This outpost already has the maximum of {0}.</DreamsOutposts.InstallFail.LimitReached>
+  <DreamsOutposts.InstallFail.CannotAfford>Not enough resources: missing {0}.</DreamsOutposts.InstallFail.CannotAfford>
+  <DreamsOutposts.InstallFacility>Install facility</DreamsOutposts.InstallFacility>
+  <DreamsOutposts.NoInstallSlot>This page was opened without a slot to install into.</DreamsOutposts.NoInstallSlot>
+  <DreamsOutposts.ChooseFacility>Choose a facility to build here. Materials are paid from this outpost's store.</DreamsOutposts.ChooseFacility>
+  <DreamsOutposts.NoFacilityInstallable>No facility can be installed in this outpost.</DreamsOutposts.NoFacilityInstallable>
+  <DreamsOutposts.Build>Build</DreamsOutposts.Build>
+  <DreamsOutposts.Level>Level {0} / {1}</DreamsOutposts.Level>
+  <DreamsOutposts.MaxLevelReached>Max level reached ({0} slots).</DreamsOutposts.MaxLevelReached>
+  <DreamsOutposts.UpgradeToLevel>Upgrade to level {0}</DreamsOutposts.UpgradeToLevel>
+  <DreamsOutposts.CoreFacility>Core facility</DreamsOutposts.CoreFacility>
+  <DreamsOutposts.ExtensionFacilities>Extension facilities ({0}/{1})</DreamsOutposts.ExtensionFacilities>
+  <DreamsOutposts.NoExtensionSlots>(this outpost type has no extension slots)</DreamsOutposts.NoExtensionSlots>
+  <DreamsOutposts.EmptySlot>Empty slot</DreamsOutposts.EmptySlot>
+  <DreamsOutposts.Details>Details</DreamsOutposts.Details>
+  <DreamsOutposts.Demolish>Demolish</DreamsOutposts.Demolish>
+  <DreamsOutposts.ConfirmDemolish>Demolish {0}?\n\nThe slot becomes empty. You get back: {1}</DreamsOutposts.ConfirmDemolish>
+  <DreamsOutposts.UnknownFacility>Unknown facility</DreamsOutposts.UnknownFacility>
+  <DreamsOutposts.ThisFacility>this facility</DreamsOutposts.ThisFacility>
+  <DreamsOutposts.EmptySlotTip>Empty slot. Click to choose a facility to build here.</DreamsOutposts.EmptySlotTip>
+  <DreamsOutposts.RemoveFacility>Remove {0} from its slot.\n\nYou get back: {1}</DreamsOutposts.RemoveFacility>
+  <DreamsOutposts.FacilityNoDef>This facility has no def.</DreamsOutposts.FacilityNoDef>
+  <DreamsOutposts.NoMaterialsNeeded>No materials needed.</DreamsOutposts.NoMaterialsNeeded>
+  <DreamsOutposts.NoManagementPage>No management page is available for this outpost.</DreamsOutposts.NoManagementPage>
+  <DreamsOutposts.CoreFacilityInfo>Core facility: {0}</DreamsOutposts.CoreFacilityInfo>
+  <DreamsOutposts.Levels>Levels:</DreamsOutposts.Levels>
+  <DreamsOutposts.LevelInfo>- Level {0}: {1} {2}</DreamsOutposts.LevelInfo>
+  <DreamsOutposts.BuildCost>Build cost: {0}</DreamsOutposts.BuildCost>
+</LanguageData>
+

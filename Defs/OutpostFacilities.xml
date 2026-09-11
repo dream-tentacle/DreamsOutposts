@@ -177,6 +177,12 @@
       <ComponentIndustrial>12</ComponentIndustrial>
       <ComponentSpacer>2</ComponentSpacer>
     </buildCost>
+    <eventCategoryModifiers>
+      <li>
+        <category>DreamsOutposts_Industrial</category>
+        <offset>10</offset>
+      </li>
+    </eventCategoryModifiers>
     <productions>
       <li>
         <id>components</id>

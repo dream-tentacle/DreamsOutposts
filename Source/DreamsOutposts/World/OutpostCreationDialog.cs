@@ -98,10 +98,10 @@ namespace DreamsOutposts
 			}
 			if (report.Accepted)
 			{
-				return Widgets.ButtonText(createRect, "Create".Translate());
+				return Widgets.ButtonText(createRect, "DreamsOutposts.CreateOutpost".Translate());
 			}
 			TooltipHandler.TipRegion(createRect, new TipSignal(report.Reason ?? "DreamsOutposts.CannotCreateHere".Translate(), createRect.GetHashCode()));
-			Widgets.ButtonText(createRect, "Create".Translate(), drawBackground: true, doMouseoverSound: true, active: false);
+			Widgets.ButtonText(createRect, "DreamsOutposts.CreateOutpost".Translate(), drawBackground: true, doMouseoverSound: true, active: false);
 			Rect reasonRect = new Rect(rowRect.x, rowRect.yMax, rowRect.width, 20f);
 			Color previousColor = GUI.color;
 			GUI.color = ColorLibrary.RedReadable;

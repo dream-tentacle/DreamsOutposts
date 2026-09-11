@@ -25,6 +25,8 @@ namespace DreamsOutposts
 
 		public List<OutpostProductionModifier> productionModifiers = new List<OutpostProductionModifier>();
 
+		public List<OutpostEventCategoryModifier> eventCategoryModifiers = new List<OutpostEventCategoryModifier>();
+
 		public OutpostBombardmentProperties bombardment;
 
 		public int bombardmentShellBonus;

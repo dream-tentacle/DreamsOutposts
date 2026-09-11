@@ -348,6 +348,20 @@ namespace DreamsOutposts
 					}
 				}
 			}
+			if (!def.eventCategoryModifiers.NullOrEmpty())
+			{
+				if (stringBuilder.Length > 0) stringBuilder.AppendLine();
+				stringBuilder.AppendLine("DreamsOutposts.EventCategoryWeights".Translate());
+				for (int i = 0; i < def.eventCategoryModifiers.Count; i++)
+				{
+					OutpostEventCategoryModifier modifier = def.eventCategoryModifiers[i];
+					if (modifier?.category != null)
+					{
+						string sign = modifier.offset >= 0f ? "+" : string.Empty;
+						stringBuilder.AppendLine("DreamsOutposts.EventCategoryModifier".Translate(modifier.category.LabelCap, sign + modifier.offset.ToString("0.##")));
+					}
+				}
+			}
 			return stringBuilder.ToString().TrimEndNewlines();
 		}
 	}

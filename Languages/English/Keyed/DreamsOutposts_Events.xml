@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Events>Events</DreamsOutposts.Events>
+  <DreamsOutposts.NoCurrentEvents>No current events</DreamsOutposts.NoCurrentEvents>
+  <DreamsOutposts.Remaining>Remaining: {0}</DreamsOutposts.Remaining>
+  <DreamsOutposts.UnknownEvent>Unknown event</DreamsOutposts.UnknownEvent>
+  <DreamsOutposts.EventLetter>{0}\n\nRemaining: {1}</DreamsOutposts.EventLetter>
+  <DreamsOutposts.OnTimeout>On timeout: {0}</DreamsOutposts.OnTimeout>
+  <DreamsOutposts.UnknownOption>Unknown option</DreamsOutposts.UnknownOption>
+  <DreamsOutposts.Result>Result:</DreamsOutposts.Result>
+  <DreamsOutposts.Options>Options</DreamsOutposts.Options>
+  <DreamsOutposts.EventCategoryWeights>Event category weights:</DreamsOutposts.EventCategoryWeights>
+  <DreamsOutposts.EventCategoryModifier>Event category: {0} {1}</DreamsOutposts.EventCategoryModifier>
+</LanguageData>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.CommandAddAirdropPodDesc>消耗{0}钢铁，在据点里增加1个空投仓。每个空投仓可承载{1}kg，空投时按实际装载重量向上取整消耗。</DreamsOutposts.CommandAddAirdropPodDesc>
+  <DreamsOutposts.CommandAirdropDesc>选择要投送的物品与人员，然后在地图上选择落点（最远{0}格）。总承载为{1}kg×空投仓数量，起飞后按实际装载重量向上取整消耗空投仓。</DreamsOutposts.CommandAirdropDesc>
+  <DreamsOutposts.CommandAbandonOutpostDesc>永久废弃这个据点：仓库里的物品和攒下的空投仓都会被丢弃，据点本体也会从世界上移除；但驻守在这里的人不会消失——他们会照原版放逐的方式离开，成为世界上的自由Pawn，身上穿的和拿的都跟着他们走。此操作无法撤销。</DreamsOutposts.CommandAbandonOutpostDesc>
+  <DreamsOutposts.ConfirmAbandonOutpostColonists>殖民者（{0}人）：</DreamsOutposts.ConfirmAbandonOutpostColonists>
+  <DreamsOutposts.ConfirmAbandonOutpostOtherPawns>这里的其他人员：{0}人</DreamsOutposts.ConfirmAbandonOutpostOtherPawns>
+  <DreamsOutposts.ConfirmAbandonOutpostItems>仓库物品：{0}堆</DreamsOutposts.ConfirmAbandonOutpostItems>
+  <DreamsOutposts.ConfirmAbandonOutpostPods>空投仓：{0}个</DreamsOutposts.ConfirmAbandonOutpostPods>
+  <DreamsOutposts.AirdropMassCapacityExplanation>{0}kg × {1}个空投仓。</DreamsOutposts.AirdropMassCapacityExplanation>
+  <DreamsOutposts.Colonists>殖民者</DreamsOutposts.Colonists>
+  <DreamsOutposts.OtherPawns>其他人员</DreamsOutposts.OtherPawns>
+  <DreamsOutposts.Items>物品</DreamsOutposts.Items>
+  <DreamsOutposts.None>（无）</DreamsOutposts.None>
+  <DreamsOutposts.NoNextLevelDefinition>据点类型{0}没有等级{1}的定义。</DreamsOutposts.NoNextLevelDefinition>
+  <DreamsOutposts.NoNextLevel>没有下一级的定义。</DreamsOutposts.NoNextLevel>
+</LanguageData>
+

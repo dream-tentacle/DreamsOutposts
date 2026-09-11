@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.EnterOutpost>Enter outpost</DreamsOutposts.EnterOutpost>
+  <DreamsOutposts.EnterOutpostDesc>Move every pawn and everything this caravan carries into the outpost, then disband the caravan.</DreamsOutposts.EnterOutpostDesc>
+  <DreamsOutposts.CreateOutpostDesc>Create an outpost here.</DreamsOutposts.CreateOutpostDesc>
+  <DreamsOutposts.ManageOutpostDesc>Open this outpost's management window: its facilities and everything kept in store.</DreamsOutposts.ManageOutpostDesc>
+</LanguageData>
+

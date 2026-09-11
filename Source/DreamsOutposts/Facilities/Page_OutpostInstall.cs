@@ -68,7 +68,19 @@ namespace DreamsOutposts
 
 		private float CardHeight(int maxCostLines)
 		{
-			return 34f + (float)maxCostLines * 20f + 4f + 20f + 4f + 30f;
+			int maxModifierLines = MaxEventCategoryModifierLines(CollectCandidates());
+			return 34f + (float)maxCostLines * 20f + 4f + (float)maxModifierLines * 20f + 20f + 4f + 30f;
+		}
+
+		private static int MaxEventCategoryModifierLines(List<OutpostFacilityDef> candidates)
+		{
+			int lines = 0;
+			for (int i = 0; i < candidates.Count; i++)
+			{
+				int count = candidates[i]?.eventCategoryModifiers?.Count ?? 0;
+				if (count > lines) lines = count;
+			}
+			return lines;
 		}
 
 		private static int MaxCostLines(List<OutpostFacilityDef> candidates)
@@ -98,6 +110,9 @@ namespace DreamsOutposts
 			int costLines = Mathf.Max(def.BuildCost.Count, 1);
 			DrawCostRows(new Rect(card.x, y, card.width, (float)costLines * 20f), def);
 			y += (float)costLines * 20f + 4f;
+			int modifierLines = DrawEventCategoryModifiers(new Rect(card.x, y, card.width, 0f), def);
+			y += (float)modifierLines * 20f;
+			if (modifierLines > 0) y += 4f;
 			float bottom = card.yMax;
 			Rect buildRect = new Rect(card.x, bottom - 30f, card.width, 30f);
 			Rect statusRect = new Rect(card.x, y, card.width, Mathf.Max(buildRect.y - 4f - y, 0f));
@@ -111,6 +126,22 @@ namespace DreamsOutposts
 			{
 				CloseHostWindow();
 			}
+		}
+
+		private static int DrawEventCategoryModifiers(Rect rect, OutpostFacilityDef def)
+		{
+			List<OutpostEventCategoryModifier> modifiers = def?.eventCategoryModifiers;
+			if (modifiers.NullOrEmpty()) return 0;
+			int line = 0;
+			for (int i = 0; i < modifiers.Count; i++)
+			{
+				OutpostEventCategoryModifier modifier = modifiers[i];
+				if (modifier?.category == null) continue;
+				string sign = modifier.offset >= 0f ? "+" : string.Empty;
+				DrawStatusLine(new Rect(rect.x, rect.y + line * 20f, rect.width, 20f), "DreamsOutposts.EventCategoryModifier".Translate(modifier.category.LabelCap, sign + modifier.offset.ToString("0.##")), modifier.offset >= 0f ? Color.green : ColorLibrary.RedReadable);
+				line++;
+			}
+			return line;
 		}
 
 		private void DrawCostRows(Rect rect, OutpostFacilityDef def)

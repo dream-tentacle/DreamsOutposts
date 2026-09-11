@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.StoreInOutpost>Store in outpost</DreamsOutposts.StoreInOutpost>
+  <DreamsOutposts.TransportPodsStoredInOutpost>The transport pods arrived, and their contents were stored in {0}.</DreamsOutposts.TransportPodsStoredInOutpost>
+  <DreamsOutposts.CommandAddAirdropPod>Add airdrop pod</DreamsOutposts.CommandAddAirdropPod>
+  <DreamsOutposts.CommandAirdrop>Airdrop</DreamsOutposts.CommandAirdrop>
+  <DreamsOutposts.CommandAbandonOutpost>Abandon outpost permanently</DreamsOutposts.CommandAbandonOutpost>
+  <DreamsOutposts.ConfirmAbandonOutpostTitle>Abandon {0} permanently?</DreamsOutposts.ConfirmAbandonOutpostTitle>
+  <DreamsOutposts.ConfirmAbandonOutpost>The outpost currently holds:\n\n{0}\n\nThe outpost itself, everything in store, and every airdrop pod will be permanently discarded, with nothing to recover.\nThe people here are not discarded: they are banished exactly the way vanilla banishes a pawn, and become free pawns on the world map. Whatever they are wearing and carrying goes with them.\n\nThis cannot be undone.</DreamsOutposts.ConfirmAbandonOutpost>
+  <DreamsOutposts.OutpostAbandoned>{0} has been abandoned. Everything in store is gone, and its people have been banished into the world.</DreamsOutposts.OutpostAbandoned>
+  <DreamsOutposts.NotEnoughSteelForPod>Not enough steel: {0} needed, but the outpost only holds {1}.</DreamsOutposts.NotEnoughSteelForPod>
+  <DreamsOutposts.NoAirdropPods>This outpost has no airdrop pods. Add one first.</DreamsOutposts.NoAirdropPods>
+  <DreamsOutposts.OutpostGone>This outpost no longer exists.</DreamsOutposts.OutpostGone>
+  <DreamsOutposts.AirdropPodAdded>Added one airdrop pod. The outpost now has {0}.</DreamsOutposts.AirdropPodAdded>
+  <DreamsOutposts.AirdropNotEnoughPods>Not enough airdrop pods: this load needs {0}, but the outpost only has {1}.</DreamsOutposts.AirdropNotEnoughPods>
+  <DreamsOutposts.AirdropLaunched>The airdrop pods of {0} have launched: {1} pods carrying {2} kg, with {3} pawns and {4} item stacks.</DreamsOutposts.AirdropLaunched>
+  <DreamsOutposts.CreateOutpost>Create outpost</DreamsOutposts.CreateOutpost>
+  <DreamsOutposts.CannotCreateHere>Cannot create here</DreamsOutposts.CannotCreateHere>
+  <DreamsOutposts.InvalidCaravanOrOutpostType>Invalid caravan or outpost type.</DreamsOutposts.InvalidCaravanOrOutpostType>
+  <DreamsOutposts.TileCannotHostOutpost>This tile cannot host an outpost.</DreamsOutposts.TileCannotHostOutpost>
+  <DreamsOutposts.TileOccupied>This tile is occupied.</DreamsOutposts.TileOccupied>
+  <DreamsOutposts.NoOutpostTypesLoaded>No outpost types loaded.</DreamsOutposts.NoOutpostTypesLoaded>
+  <DreamsOutposts.ManageOutpost>Manage</DreamsOutposts.ManageOutpost>
+  <DreamsOutposts.NoLevelTable>this outpost type declares no level table</DreamsOutposts.NoLevelTable>
+  <DreamsOutposts.Slot>slot</DreamsOutposts.Slot>
+  <DreamsOutposts.Slots>slots</DreamsOutposts.Slots>
+  <DreamsOutposts.StartingLevel>the state an outpost starts in.</DreamsOutposts.StartingLevel>
+  <DreamsOutposts.DaysSinceFounding>{0} days since founding</DreamsOutposts.DaysSinceFounding>
+  <DreamsOutposts.Free>free</DreamsOutposts.Free>
+  <DreamsOutposts.InstallableFacilities>Facilities that can be installed here:</DreamsOutposts.InstallableFacilities>
+  <DreamsOutposts.InvalidOutpost>Invalid outpost.</DreamsOutposts.InvalidOutpost>
+  <DreamsOutposts.AlreadyHighestLevel>Already at the highest level ({0}).</DreamsOutposts.AlreadyHighestLevel>
+  <DreamsOutposts.NeedsMoreDays>Needs {0} more days since founding.</DreamsOutposts.NeedsMoreDays>
+  <DreamsOutposts.MaxLevel>Max level.</DreamsOutposts.MaxLevel>
+  <DreamsOutposts.UpgradeLevelSummary>Level {0}: </DreamsOutposts.UpgradeLevelSummary>
+  <DreamsOutposts.SlotsChange>Slots: {0} -&gt; {1}</DreamsOutposts.SlotsChange>
+  <DreamsOutposts.ReadyToUpgrade>Ready to upgrade.</DreamsOutposts.ReadyToUpgrade>
+  <DreamsOutposts.NotYet>Not yet: {0}</DreamsOutposts.NotYet>
+  <DreamsOutposts.SkillRequirement>Needs someone here with {0} &gt;= {1}.</DreamsOutposts.SkillRequirement>
+  <DreamsOutposts.CostPerStrike>Cost per strike: {0}.</DreamsOutposts.CostPerStrike>
+  <DreamsOutposts.Cost>Cost: {0}</DreamsOutposts.Cost>
+  <DreamsOutposts.LimitPerOutpost>Limit: {0} per outpost.</DreamsOutposts.LimitPerOutpost>
+  <DreamsOutposts.RequiresResearch>Requires research: {0}</DreamsOutposts.RequiresResearch>
+  <DreamsOutposts.Unknown>unknown</DreamsOutposts.Unknown>
+</LanguageData>
+

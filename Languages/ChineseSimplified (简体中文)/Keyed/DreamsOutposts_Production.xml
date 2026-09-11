@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.ProductionErrorTitle>据点生产异常</DreamsOutposts.ProductionErrorTitle>
+  <DreamsOutposts.ProductionErrorText>据点工作异常，物品可能未正确计算，建议反馈该问题。\n\n据点：{0}\n设施：{1}\n生产规则：{2}</DreamsOutposts.ProductionErrorText>
+  <DreamsOutposts.NoProduction>没有生产</DreamsOutposts.NoProduction>
+  <DreamsOutposts.InvalidProductionRule>生产规则无效</DreamsOutposts.InvalidProductionRule>
+  <DreamsOutposts.ProductionRemaining>{0}，还需{1}</DreamsOutposts.ProductionRemaining>
+  <DreamsOutposts.Production>生产：</DreamsOutposts.Production>
+  <DreamsOutposts.ProductChosenAfterInstallation>安装后选择产物</DreamsOutposts.ProductChosenAfterInstallation>
+  <DreamsOutposts.NoCrop>没有作物</DreamsOutposts.NoCrop>
+  <DreamsOutposts.ChooseCropTip>点击选择要种植的作物。</DreamsOutposts.ChooseCropTip>
+  <DreamsOutposts.CropSummary>作物：{0}</DreamsOutposts.CropSummary>
+  <DreamsOutposts.CurrentCropSuffix>（当前）</DreamsOutposts.CurrentCropSuffix>
+  <DreamsOutposts.NoCropAvailable>当前没有可以种植的作物。</DreamsOutposts.NoCropAvailable>
+  <DreamsOutposts.Nothing>无</DreamsOutposts.Nothing>
+  <DreamsOutposts.PlantTooltip>{0}\n\n生长需要{1}天\n每次收获{2}{3}</DreamsOutposts.PlantTooltip>
+</LanguageData>
+

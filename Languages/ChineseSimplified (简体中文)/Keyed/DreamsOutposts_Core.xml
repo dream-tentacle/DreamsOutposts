@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.StoreInOutpost>存入据点仓库</DreamsOutposts.StoreInOutpost>
+  <DreamsOutposts.TransportPodsStoredInOutpost>运输舱已抵达，货物已存入{0}的仓库。</DreamsOutposts.TransportPodsStoredInOutpost>
+  <DreamsOutposts.CommandAddAirdropPod>新增空投仓</DreamsOutposts.CommandAddAirdropPod>
+  <DreamsOutposts.CommandAirdrop>空投</DreamsOutposts.CommandAirdrop>
+  <DreamsOutposts.CommandAbandonOutpost>彻底废弃据点</DreamsOutposts.CommandAbandonOutpost>
+  <DreamsOutposts.ConfirmAbandonOutpostTitle>彻底废弃{0}？</DreamsOutposts.ConfirmAbandonOutpostTitle>
+  <DreamsOutposts.ConfirmAbandonOutpost>据点里现在有：\n\n{0}\n\n据点本体、仓库里的物品与空投仓都会被永久丢弃，无法找回。\n这里的人不会被丢弃：他们会照原版放逐的方式离开，成为世界上的自由Pawn，身上穿的和拿的都会跟着他们走。\n\n此操作无法撤销。</DreamsOutposts.ConfirmAbandonOutpost>
+  <DreamsOutposts.OutpostAbandoned>{0}已被彻底废弃：仓库里的物品全部丢弃，这里的人被放逐到了世界上。</DreamsOutposts.OutpostAbandoned>
+  <DreamsOutposts.NotEnoughSteelForPod>钢铁不足：需要{0}，据点仓库里只有{1}。</DreamsOutposts.NotEnoughSteelForPod>
+  <DreamsOutposts.NoAirdropPods>据点里没有空投仓，请先新增空投仓。</DreamsOutposts.NoAirdropPods>
+  <DreamsOutposts.OutpostGone>这个据点已经不存在了。</DreamsOutposts.OutpostGone>
+  <DreamsOutposts.AirdropPodAdded>已新增1个空投仓，据点现有{0}个。</DreamsOutposts.AirdropPodAdded>
+  <DreamsOutposts.AirdropNotEnoughPods>空投仓不足：这次装载需要{0}个，据点只有{1}个。</DreamsOutposts.AirdropNotEnoughPods>
+  <DreamsOutposts.AirdropLaunched>{0}的空投仓已发射：共{1}个舱，载重{2}kg，人员{3}名、物品{4}堆。</DreamsOutposts.AirdropLaunched>
+  <DreamsOutposts.CreateOutpost>创建据点</DreamsOutposts.CreateOutpost>
+  <DreamsOutposts.CannotCreateHere>无法在此处创建</DreamsOutposts.CannotCreateHere>
+  <DreamsOutposts.InvalidCaravanOrOutpostType>无效的商队或据点类型。</DreamsOutposts.InvalidCaravanOrOutpostType>
+  <DreamsOutposts.TileCannotHostOutpost>此地块不能建立据点。</DreamsOutposts.TileCannotHostOutpost>
+  <DreamsOutposts.TileOccupied>此地块已被占用。</DreamsOutposts.TileOccupied>
+  <DreamsOutposts.NoOutpostTypesLoaded>没有加载任何据点类型。</DreamsOutposts.NoOutpostTypesLoaded>
+  <DreamsOutposts.ManageOutpost>管理</DreamsOutposts.ManageOutpost>
+  <DreamsOutposts.NoLevelTable>此据点类型没有等级表</DreamsOutposts.NoLevelTable>
+  <DreamsOutposts.Slot>个槽位</DreamsOutposts.Slot>
+  <DreamsOutposts.Slots>个槽位</DreamsOutposts.Slots>
+  <DreamsOutposts.StartingLevel>据点建立时的初始状态。</DreamsOutposts.StartingLevel>
+  <DreamsOutposts.DaysSinceFounding>建立后{0}天</DreamsOutposts.DaysSinceFounding>
+  <DreamsOutposts.Free>免费</DreamsOutposts.Free>
+  <DreamsOutposts.InstallableFacilities>可在此处安装的设施：</DreamsOutposts.InstallableFacilities>
+  <DreamsOutposts.InvalidOutpost>无效的据点。</DreamsOutposts.InvalidOutpost>
+  <DreamsOutposts.AlreadyHighestLevel>已经达到最高等级（{0}）。</DreamsOutposts.AlreadyHighestLevel>
+  <DreamsOutposts.NeedsMoreDays>还需要据点建立{0}天。</DreamsOutposts.NeedsMoreDays>
+  <DreamsOutposts.MaxLevel>最高等级。</DreamsOutposts.MaxLevel>
+  <DreamsOutposts.UpgradeLevelSummary>等级{0}：</DreamsOutposts.UpgradeLevelSummary>
+  <DreamsOutposts.SlotsChange>槽位：{0} → {1}</DreamsOutposts.SlotsChange>
+  <DreamsOutposts.ReadyToUpgrade>可以升级。</DreamsOutposts.ReadyToUpgrade>
+  <DreamsOutposts.NotYet>暂时不能：{0}</DreamsOutposts.NotYet>
+  <DreamsOutposts.SkillRequirement>需要有人拥有{0} ≥ {1}。</DreamsOutposts.SkillRequirement>
+  <DreamsOutposts.CostPerStrike>每次炮击消耗：{0}。</DreamsOutposts.CostPerStrike>
+  <DreamsOutposts.Cost>费用：{0}</DreamsOutposts.Cost>
+  <DreamsOutposts.LimitPerOutpost>上限：每个据点{0}个。</DreamsOutposts.LimitPerOutpost>
+  <DreamsOutposts.RequiresResearch>需要研究：{0}</DreamsOutposts.RequiresResearch>
+  <DreamsOutposts.Unknown>未知</DreamsOutposts.Unknown>
+</LanguageData>
+
