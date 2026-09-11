@@ -32,21 +32,21 @@ namespace DreamsOutposts
 
 		private Vector2 scroll;
 
-		public override string Label => "Install facility";
+		public override string Label => "DreamsOutposts.InstallFacility".Translate();
 
 		public override void DoContents(Rect inRect)
 		{
 			if (slot == null)
 			{
-				Widgets.Label(new Rect(0f, 0f, inRect.width, 24f), "This page was opened without a slot to install into.");
+				Widgets.Label(new Rect(0f, 0f, inRect.width, 24f), "DreamsOutposts.NoInstallSlot".Translate());
 				return;
 			}
-			Widgets.Label(new Rect(0f, 0f, inRect.width, 24f), "Choose a facility to build here. Materials are paid from this outpost's store.");
+			Widgets.Label(new Rect(0f, 0f, inRect.width, 24f), "DreamsOutposts.ChooseFacility".Translate());
 			List<OutpostFacilityDef> candidates = CollectCandidates();
 			Rect viewRect = new Rect(0f, 24f, inRect.width, Mathf.Max(inRect.height - 24f, 0f));
 			if (candidates.Count == 0)
 			{
-				Widgets.Label(new Rect(viewRect.x, viewRect.y, viewRect.width, 30f), "No facility can be installed in this outpost.");
+				Widgets.Label(new Rect(viewRect.x, viewRect.y, viewRect.width, 30f), "DreamsOutposts.NoFacilityInstallable".Translate());
 				return;
 			}
 			float cardHeight = CardHeight(MaxCostLines(candidates));
@@ -107,7 +107,7 @@ namespace DreamsOutposts
 				DrawStatusLine(statusRect, report.Reason, ColorLibrary.RedReadable);
 				TooltipHandler.TipRegion(buildRect, new TipSignal(report.Reason, buildRect.GetHashCode()));
 			}
-			if (Widgets.ButtonText(buildRect, "Build", drawBackground: true, doMouseoverSound: true, report.Accepted) && slot.TryInstall(def, outpost, out var _))
+			if (Widgets.ButtonText(buildRect, "DreamsOutposts.Build".Translate(), drawBackground: true, doMouseoverSound: true, report.Accepted) && slot.TryInstall(def, outpost, out var _))
 			{
 				CloseHostWindow();
 			}
@@ -118,7 +118,7 @@ namespace DreamsOutposts
 			List<ThingDefCountClass> cost = def.BuildCost;
 			if (cost.NullOrEmpty())
 			{
-				DrawStatusLine(new Rect(rect.x, rect.y, rect.width, 20f), "No materials needed.", null);
+				DrawStatusLine(new Rect(rect.x, rect.y, rect.width, 20f), "DreamsOutposts.NoMaterialsNeeded".Translate(), null);
 				return;
 			}
 			for (int i = 0; i < cost.Count; i++)
@@ -166,7 +166,7 @@ namespace DreamsOutposts
 			}
 			stringBuilder.AppendLine();
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Cost: " + OutpostBuildUtility.CostLabel(def));
+			stringBuilder.Append("DreamsOutposts.Cost".Translate(OutpostBuildUtility.CostLabel(def)));
 			return stringBuilder.ToString();
 		}
 
@@ -178,19 +178,19 @@ namespace DreamsOutposts
 				stringBuilder.AppendLine(def.description);
 				stringBuilder.AppendLine();
 			}
-			stringBuilder.AppendLine("Build cost: " + OutpostBuildUtility.CostLabel(def));
+			stringBuilder.AppendLine("DreamsOutposts.BuildCost".Translate(OutpostBuildUtility.CostLabel(def)));
 			if (def.maxPerOutpost > 0)
 			{
-				stringBuilder.AppendLine("Limit: " + def.maxPerOutpost + " per outpost.");
+				stringBuilder.AppendLine("DreamsOutposts.LimitPerOutpost".Translate(def.maxPerOutpost));
 			}
 			if (!def.IsResearchUnlocked)
 			{
-				stringBuilder.AppendLine("Requires research: " + (def.FirstMissingResearch?.LabelCap ?? ((TaggedString)"unknown")));
+				stringBuilder.AppendLine("DreamsOutposts.RequiresResearch".Translate(def.FirstMissingResearch?.LabelCap ?? "DreamsOutposts.Unknown".Translate()));
 			}
 			if (!def.productions.NullOrEmpty())
 			{
 				stringBuilder.AppendLine();
-				stringBuilder.AppendLine("Production:");
+				stringBuilder.AppendLine("DreamsOutposts.Production".Translate());
 				for (int i = 0; i < def.productions.Count; i++)
 				{
 					OutpostProductionProperties production = def.productions[i];
@@ -203,7 +203,7 @@ namespace DreamsOutposts
 						}
 						else if (production.Worker.UsesDynamicProduct)
 						{
-							line.Append("product chosen after installation");
+							line.Append("DreamsOutposts.ProductChosenAfterInstallation".Translate());
 						}
 						else
 						{

@@ -45,9 +45,9 @@ namespace DreamsOutposts
 			Rect colonistRect = new Rect(columnsRect.x, columnsRect.y, colonistWidth, columnsRect.height);
 			Rect otherPawnRect = new Rect(colonistRect.xMax + 14f, columnsRect.y, otherPawnWidth, columnsRect.height);
 			Rect itemRect = new Rect(otherPawnRect.xMax + 14f, columnsRect.y, itemWidth, columnsRect.height);
-			DrawColumn(colonistRect, "Colonists", colonists, ref colonistsScroll);
-			DrawColumn(otherPawnRect, "Other pawns", otherPawns, ref otherPawnsScroll);
-			DrawColumn(itemRect, "Items", items, ref itemsScroll);
+			DrawColumn(colonistRect, "DreamsOutposts.Colonists".Translate(), colonists, ref colonistsScroll);
+			DrawColumn(otherPawnRect, "DreamsOutposts.OtherPawns".Translate(), otherPawns, ref otherPawnsScroll);
+			DrawColumn(itemRect, "DreamsOutposts.Items".Translate(), items, ref itemsScroll);
 		}
 
 		private void RefreshContents()
@@ -81,7 +81,7 @@ namespace DreamsOutposts
 			Widgets.BeginScrollView(viewRect, ref scroll, contentRect);
 			if (things.Count == 0)
 			{
-				Widgets.Label(new Rect(0f, 0f, contentRect.width, 30f), "(none)");
+				Widgets.Label(new Rect(0f, 0f, contentRect.width, 30f), "DreamsOutposts.None".Translate());
 			}
 			else
 			{

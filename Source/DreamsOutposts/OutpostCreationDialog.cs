@@ -47,7 +47,7 @@ namespace DreamsOutposts
 
 		public override void DoWindowContents(Rect inRect)
 		{
-			Widgets.Label(new Rect(0f, 0f, inRect.width, 35f), "Create outpost");
+			Widgets.Label(new Rect(0f, 0f, inRect.width, 35f), "DreamsOutposts.CreateOutpost".Translate());
 			Rect view = new Rect(0f, 40f, inRect.width - 20f, Mathf.Max(inRect.height - 80f, 0f));
 			float contentWidth = Mathf.Max(view.width - 16f, 0f);
 			float rowTotalHeight = 64f;
@@ -72,7 +72,7 @@ namespace DreamsOutposts
 				Close();
 				OutpostUtility.Create(caravan, selectedDef);
 			}
-			else if (Widgets.ButtonText(new Rect(inRect.width - 120f, inRect.height - 35f, 120f, 35f), "Cancel"))
+			else if (Widgets.ButtonText(new Rect(inRect.width - 120f, inRect.height - 35f, 120f, 35f), "Cancel".Translate()))
 			{
 				Close();
 			}
@@ -92,20 +92,20 @@ namespace DreamsOutposts
 			{
 				TooltipHandler.TipRegion(nameRect, new TipSignal(def.description, nameRect.GetHashCode()));
 			}
-			if (Widgets.ButtonText(detailsRect, "Details"))
+			if (Widgets.ButtonText(detailsRect, "Details".Translate()))
 			{
 				Find.WindowStack.Add(new Dialog_MessageBox(OutpostTypeInfoText(def), null, null, null, null, def.LabelCap));
 			}
 			if (report.Accepted)
 			{
-				return Widgets.ButtonText(createRect, "Create");
+				return Widgets.ButtonText(createRect, "Create".Translate());
 			}
-			TooltipHandler.TipRegion(createRect, new TipSignal(report.Reason ?? "Cannot create here", createRect.GetHashCode()));
-			Widgets.ButtonText(createRect, "Create", drawBackground: true, doMouseoverSound: true, active: false);
+			TooltipHandler.TipRegion(createRect, new TipSignal(report.Reason ?? "DreamsOutposts.CannotCreateHere".Translate(), createRect.GetHashCode()));
+			Widgets.ButtonText(createRect, "Create".Translate(), drawBackground: true, doMouseoverSound: true, active: false);
 			Rect reasonRect = new Rect(rowRect.x, rowRect.yMax, rowRect.width, 20f);
 			Color previousColor = GUI.color;
 			GUI.color = ColorLibrary.RedReadable;
-			Widgets.Label(reasonRect, report.Reason ?? "Cannot create here");
+			Widgets.Label(reasonRect, report.Reason ?? "DreamsOutposts.CannotCreateHere".Translate());
 			GUI.color = previousColor;
 			return false;
 		}
@@ -118,17 +118,17 @@ namespace DreamsOutposts
 				stringBuilder.AppendLine(def.description);
 				stringBuilder.AppendLine();
 			}
-			stringBuilder.Append("Core facility: " + (def.coreFacility?.LabelCap ?? ((TaggedString)"none")));
+			stringBuilder.Append("DreamsOutposts.CoreFacilityInfo".Translate(def.coreFacility?.LabelCap ?? "DreamsOutposts.None".Translate()));
 			if (def.coreFacility != null && !string.IsNullOrEmpty(def.coreFacility.description))
 			{
 				stringBuilder.Append("\n" + def.coreFacility.description);
 			}
 			stringBuilder.AppendLine();
 			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("Levels:");
+			stringBuilder.AppendLine("DreamsOutposts.Levels".Translate());
 			if (def.levels.NullOrEmpty())
 			{
-				stringBuilder.AppendLine("- (this outpost type declares no level table)");
+				stringBuilder.AppendLine("- " + "DreamsOutposts.NoLevelTable".Translate());
 			}
 			else
 			{
@@ -138,26 +138,27 @@ namespace DreamsOutposts
 					if (level != null)
 					{
 						int levelNumber = i + 1;
-						StringBuilder line = new StringBuilder("- Level " + levelNumber + ": " + level.slotCount + ((level.slotCount == 1) ? " slot" : " slots"));
+						string slotLabel = (level.slotCount == 1) ? "DreamsOutposts.Slot".Translate().ToString() : "DreamsOutposts.Slots".Translate().ToString();
+						StringBuilder line = new StringBuilder("DreamsOutposts.LevelInfo".Translate(levelNumber, level.slotCount, slotLabel));
 						if (levelNumber == 1)
 						{
-							line.Append(" — the state an outpost starts in.");
+							line.Append(" — " + "DreamsOutposts.StartingLevel".Translate());
 						}
 						else
 						{
-							line.Append(" — " + level.daysRequired.ToString("0.#") + " days since founding");
-							line.Append(level.cost.NullOrEmpty() ? ", free" : (", " + OutpostBuildUtility.CostLabel(level.cost)));
+							line.Append(" — " + "DreamsOutposts.DaysSinceFounding".Translate(level.daysRequired.ToString("0.#")));
+							line.Append(level.cost.NullOrEmpty() ? ", " + "DreamsOutposts.Free".Translate().ToString() : (", " + OutpostBuildUtility.CostLabel(level.cost)));
 						}
 						stringBuilder.AppendLine(line.ToString());
 					}
 				}
 			}
 			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("Facilities that can be installed here:");
+			stringBuilder.AppendLine("DreamsOutposts.InstallableFacilities".Translate());
 			List<OutpostFacilityDef> facilities = OutpostUtility.InstallableFacilities(def);
 			if (facilities.Count == 0)
 			{
-				stringBuilder.AppendLine("- (none)");
+				stringBuilder.AppendLine("- " + "DreamsOutposts.None".Translate());
 			}
 			else
 			{

@@ -11,23 +11,23 @@ namespace DreamsOutposts
 			reason = null;
 			if (outpost == null)
 			{
-				reason = "Invalid outpost.";
+				reason = "DreamsOutposts.InvalidOutpost".Translate();
 				return false;
 			}
 			if (outpost.IsMaxLevel)
 			{
-				reason = "Already at the highest level (" + outpost.MaxLevel + ").";
+				reason = "DreamsOutposts.AlreadyHighestLevel".Translate(outpost.MaxLevel);
 				return false;
 			}
 			OutpostLevelProperties nextLevel = outpost.NextLevelProperties;
 			if (nextLevel == null)
 			{
-				reason = "Outpost type " + (outpost.outpostTypeDef?.defName ?? "null") + " has no definition for level " + (outpost.level + 1) + ".";
+				reason = "DreamsOutposts.NoNextLevelDefinition".Translate(outpost.outpostTypeDef?.defName ?? "null", outpost.level + 1);
 				return false;
 			}
 			if (outpost.DaysSinceEstablished < nextLevel.daysRequired)
 			{
-				reason = "Needs " + (nextLevel.daysRequired - outpost.DaysSinceEstablished).ToString("0.#") + " more days since founding.";
+				reason = "DreamsOutposts.NeedsMoreDays".Translate((nextLevel.daysRequired - outpost.DaysSinceEstablished).ToString("0.#"));
 				return false;
 			}
 			List<ThingDefCountClass> missing = new List<ThingDefCountClass>();
@@ -64,28 +64,28 @@ namespace DreamsOutposts
 			}
 			if (outpost.IsMaxLevel)
 			{
-				return "Max level.";
+				return "DreamsOutposts.MaxLevel".Translate();
 			}
 			OutpostLevelProperties nextLevel = outpost.NextLevelProperties;
 			if (nextLevel == null)
 			{
-				return "No definition for the next level.";
+				return "DreamsOutposts.NoNextLevel".Translate();
 			}
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append("Level " + (outpost.level + 1) + ": ");
-			stringBuilder.Append(nextLevel.daysRequired.ToString("0.#") + " days since founding");
+			stringBuilder.Append("DreamsOutposts.UpgradeLevelSummary".Translate(outpost.level + 1));
+			stringBuilder.Append("DreamsOutposts.DaysSinceFounding".Translate(nextLevel.daysRequired.ToString("0.#")));
 			if (!nextLevel.cost.NullOrEmpty())
 			{
 				stringBuilder.Append(", " + OutpostBuildUtility.CostLabel(nextLevel.cost));
 			}
-			stringBuilder.Append("\nSlots: " + outpost.SlotCountForLevel + " -> " + nextLevel.slotCount);
+			stringBuilder.Append("\n" + "DreamsOutposts.SlotsChange".Translate(outpost.SlotCountForLevel, nextLevel.slotCount));
 			if (CanUpgrade(outpost, out var reason))
 			{
-				stringBuilder.Append("\n\nReady to upgrade.");
+				stringBuilder.Append("\n\n" + "DreamsOutposts.ReadyToUpgrade".Translate());
 			}
 			else
 			{
-				stringBuilder.Append("\n\nNot yet: " + reason);
+				stringBuilder.Append("\n\n" + "DreamsOutposts.NotYet".Translate(reason));
 			}
 			return stringBuilder.ToString();
 		}

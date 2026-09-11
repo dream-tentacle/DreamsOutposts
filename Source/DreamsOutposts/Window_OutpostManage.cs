@@ -67,14 +67,15 @@ namespace DreamsOutposts
 			Text.Font = GameFont.Small;
 			if (pages.Count == 0)
 			{
-				Widgets.Label(new Rect(0f, 34f, inRect.width, 24f), "No management page is available for this outpost.");
+				Widgets.Label(new Rect(0f, 34f, inRect.width, 24f), "DreamsOutposts.NoManagementPage".Translate());
 				return;
 			}
-			Rect body = new Rect(0f, 66f, inRect.width, Mathf.Max(inRect.height - 34f - 32f, 0f));
-			TabDrawer.DrawTabs(body, tabs);
-			float contentY = body.y + 1f + 12f;
-			Rect contentRect = new Rect(body.x, contentY, body.width, Mathf.Max(inRect.height - contentY, 0f));
-			pages[Mathf.Clamp(selectedIndex, 0, pages.Count - 1)].DoContents(contentRect);
+			Rect tabBase = new Rect(0f, 66f, inRect.width, Mathf.Max(inRect.height - 66f, 0f));
+			TabDrawer.DrawTabs(tabBase, tabs);
+			Rect contentRect = new Rect(0f, 86f, inRect.width, Mathf.Max(inRect.height - 86f, 0f));
+			GUI.BeginGroup(contentRect);
+			pages[Mathf.Clamp(selectedIndex, 0, pages.Count - 1)].DoContents(new Rect(0f, 0f, contentRect.width, contentRect.height));
+			GUI.EndGroup();
 		}
 
 		public override void PostClose()

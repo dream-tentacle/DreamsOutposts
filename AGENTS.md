@@ -1,25 +1,23 @@
 # Development Guide
 
 ## 概览
-本目录是一个新 mod 的骨架模板。开发前请先重命名占位符：
-- 目录 `Source\ModName`、工程名/程序集名/命名空间/主类 里的 `ModName`
-- `About\About.xml` 中的名称、`<packageId>`、作者
-- 若需修改部署目标目录名，运行 `.\deploy.ps1 -ModName <新名>`（未指定则用当前文件夹名）
+本目录是 `[DR] Dream's Outposts Expanded` mod，技术名称为 `DreamsOutposts`。
+- 源码目录：`Source\DreamsOutposts`
+- 工程名、程序集名、命名空间和主类：`DreamsOutposts`
+- 元数据：`About\About.xml`；packageId：`mjcg.DreamsOutposts`
+- 部署目标名可通过 `./deploy.ps1 -ModName <新名>` 修改，未指定时使用当前文件夹名。
 
 ## Build & Deploy
-进行c#修改后，需要使用以下命令编译并部署（需要申请沙箱外部权限运行，否则会失败）：
+进行 C# 修改后，需要使用以下命令编译并部署；运行部署命令时必须临时申请沙箱外部权限：
 ```
-& "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" "Source\ModName\ModName.csproj" /p:Configuration=Debug; .\deploy.ps1
+& "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe" "Source\DreamsOutposts\DreamsOutposts.csproj" /p:Configuration=Debug; .\deploy.ps1
 ```
 
-进行任何xml修改后，需要使用 `deploy.ps1` （需要申请沙箱外部权限运行，否则会失败）。部署后不允许额外核对，可以直接向用户汇报。
-
-运行命令需要注意：运行deploy.ps1时，必须临时申请沙箱外部权限。
+进行任何 XML 修改后，需要使用 `deploy.ps1`。部署后不允许额外核对，可以直接向用户汇报。
 
 ## C# Conventions
-
-- `ModName.csproj` uses an **explicit `<Compile Include>` file list**. Every new `.cs` file MUST be added to the csproj manually, or it won't be compiled (type-not-found errors at runtime).
-- `SimpleCurve` XML points are saved as value strings, not object nodes: `<points><li>(0, 1)</li><li>(1, 0)</li></points>` — do NOT use `<x>/<y>` child nodes.
+- `DreamsOutposts.csproj` 使用显式 `<Compile Include>` 文件清单。每个新增 `.cs` 文件都必须手动加入，否则不会被编译。
+- `SimpleCurve` XML 点使用值字符串：`<points><li>(0, 1)</li><li>(1, 0)</li></points>`，不得使用 `<x>/<y>` 子节点。
 
 ## Usage of GABS
 - 用户未提出要求操作GABS或游戏时，不得主动使用该工具。

@@ -29,7 +29,7 @@ namespace DreamsOutposts
 			float capacity = 0f;
 			foreach (Pawn pawn in pawns)
 			{
-				if (pawn != null && production.PawnMeetsSkillRequirement(pawn))
+				if (pawn != null && OutpostStatUtility.IsStatShownFor(production.capacityStat, pawn) && production.PawnMeetsSkillRequirement(pawn))
 				{
 					capacity += pawn.GetStatValue(production.capacityStat);
 				}

@@ -26,8 +26,8 @@ namespace DreamsOutposts
 		{
 			return new Command_Action
 			{
-				defaultLabel = "Enter outpost",
-				defaultDesc = "Move every pawn and everything this caravan carries into the outpost, then disband the caravan.",
+				defaultLabel = "DreamsOutposts.EnterOutpost".Translate(),
+				defaultDesc = "DreamsOutposts.EnterOutpostDesc".Translate(),
 				icon = SettleUtility.CreateCampCommandTex,
 				action = delegate
 				{

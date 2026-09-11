@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_TestEvent</defName>
+    <label>test outpost event</label>
+    <description>A minimal outpost event used to verify event definitions load correctly.</description>
+    <options>
+      <li>
+        <id>optionA</id>
+        <label>Option A</label>
+        <description>Receive a small compensation.</description>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
+            <thingDef>Steel</thingDef>
+            <count>50</count>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>optionB</id>
+        <label>Option B</label>
+        <description>Pay 100 Steel to improve everyone's mining skill.</description>
+        <requirements>
+          <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
+            <thingDef>Steel</thingDef>
+            <count>100</count>
+          </li>
+        </requirements>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_RemoveItem">
+            <thingDef>Steel</thingDef>
+            <count>100</count>
+          </li>
+          <li Class="DreamsOutposts.OutpostEventEffect_ImproveSkill">
+            <skillDef>Mining</skillDef>
+            <levels>5</levels>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>optionC</id>
+        <label>Option C</label>
+        <description>Choose this only when the outpost has strong mining capacity.</description>
+        <requirements>
+          <li Class="DreamsOutposts.OutpostEventRequirement_StatValue">
+            <stat>MiningSpeed</stat>
+            <minValue>1</minValue>
+          </li>
+        </requirements>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
+            <thingDef>Steel</thingDef>
+            <count>100</count>
+          </li>
+        </effects>
+      </li>
+    </options>
+    <defaultOptionId>optionA</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+</Defs>

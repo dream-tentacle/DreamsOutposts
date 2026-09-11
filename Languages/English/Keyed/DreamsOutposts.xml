@@ -41,4 +41,91 @@
   <DreamsOutposts.InstallFail.ResearchMissing>Requires research: {0}</DreamsOutposts.InstallFail.ResearchMissing>
   <DreamsOutposts.InstallFail.LimitReached>This outpost already has the maximum of {0}.</DreamsOutposts.InstallFail.LimitReached>
   <DreamsOutposts.InstallFail.CannotAfford>Not enough resources: missing {0}.</DreamsOutposts.InstallFail.CannotAfford>
+  <DreamsOutposts.CreateOutpost>Create outpost</DreamsOutposts.CreateOutpost>
+  <DreamsOutposts.CannotCreateHere>Cannot create here</DreamsOutposts.CannotCreateHere>
+  <DreamsOutposts.Events>Events</DreamsOutposts.Events>
+  <DreamsOutposts.NoCurrentEvents>No current events</DreamsOutposts.NoCurrentEvents>
+  <DreamsOutposts.Remaining>Remaining: {0}</DreamsOutposts.Remaining>
+  <DreamsOutposts.Colonists>Colonists</DreamsOutposts.Colonists>
+  <DreamsOutposts.OtherPawns>Other pawns</DreamsOutposts.OtherPawns>
+  <DreamsOutposts.Items>Items</DreamsOutposts.Items>
+  <DreamsOutposts.None>(none)</DreamsOutposts.None>
+  <DreamsOutposts.InstallFacility>Install facility</DreamsOutposts.InstallFacility>
+  <DreamsOutposts.NoInstallSlot>This page was opened without a slot to install into.</DreamsOutposts.NoInstallSlot>
+  <DreamsOutposts.ChooseFacility>Choose a facility to build here. Materials are paid from this outpost's store.</DreamsOutposts.ChooseFacility>
+  <DreamsOutposts.NoFacilityInstallable>No facility can be installed in this outpost.</DreamsOutposts.NoFacilityInstallable>
+  <DreamsOutposts.Build>Build</DreamsOutposts.Build>
+  <DreamsOutposts.Level>Level {0} / {1}</DreamsOutposts.Level>
+  <DreamsOutposts.MaxLevelReached>Max level reached ({0} slots).</DreamsOutposts.MaxLevelReached>
+  <DreamsOutposts.UpgradeToLevel>Upgrade to level {0}</DreamsOutposts.UpgradeToLevel>
+  <DreamsOutposts.CoreFacility>Core facility</DreamsOutposts.CoreFacility>
+  <DreamsOutposts.ExtensionFacilities>Extension facilities ({0}/{1})</DreamsOutposts.ExtensionFacilities>
+  <DreamsOutposts.NoExtensionSlots>(this outpost type has no extension slots)</DreamsOutposts.NoExtensionSlots>
+  <DreamsOutposts.EmptySlot>Empty slot</DreamsOutposts.EmptySlot>
+  <DreamsOutposts.Details>Details</DreamsOutposts.Details>
+  <DreamsOutposts.Demolish>Demolish</DreamsOutposts.Demolish>
+  <DreamsOutposts.ConfirmDemolish>Demolish {0}?\n\nThe slot becomes empty. You get back: {1}</DreamsOutposts.ConfirmDemolish>
+  <DreamsOutposts.UnknownFacility>Unknown facility</DreamsOutposts.UnknownFacility>
+  <DreamsOutposts.ThisFacility>this facility</DreamsOutposts.ThisFacility>
+  <DreamsOutposts.EmptySlotTip>Empty slot. Click to choose a facility to build here.</DreamsOutposts.EmptySlotTip>
+  <DreamsOutposts.RemoveFacility>Remove {0} from its slot.\n\nYou get back: {1}</DreamsOutposts.RemoveFacility>
+  <DreamsOutposts.NoProduction>no production</DreamsOutposts.NoProduction>
+  <DreamsOutposts.InvalidProductionRule>invalid production rule</DreamsOutposts.InvalidProductionRule>
+  <DreamsOutposts.FacilityNoDef>This facility has no def.</DreamsOutposts.FacilityNoDef>
+  <DreamsOutposts.NoMaterialsNeeded>No materials needed.</DreamsOutposts.NoMaterialsNeeded>
+  <DreamsOutposts.NoManagementPage>No management page is available for this outpost.</DreamsOutposts.NoManagementPage>
+  <DreamsOutposts.EnterOutpost>Enter outpost</DreamsOutposts.EnterOutpost>
+  <DreamsOutposts.EnterOutpostDesc>Move every pawn and everything this caravan carries into the outpost, then disband the caravan.</DreamsOutposts.EnterOutpostDesc>
+  <DreamsOutposts.CreateOutpostDesc>Create an outpost here.</DreamsOutposts.CreateOutpostDesc>
+  <DreamsOutposts.InvalidCaravanOrOutpostType>Invalid caravan or outpost type.</DreamsOutposts.InvalidCaravanOrOutpostType>
+  <DreamsOutposts.TileCannotHostOutpost>This tile cannot host an outpost.</DreamsOutposts.TileCannotHostOutpost>
+  <DreamsOutposts.TileOccupied>This tile is occupied.</DreamsOutposts.TileOccupied>
+  <DreamsOutposts.NoOutpostTypesLoaded>No outpost types loaded.</DreamsOutposts.NoOutpostTypesLoaded>
+  <DreamsOutposts.ManageOutpost>Manage</DreamsOutposts.ManageOutpost>
+  <DreamsOutposts.ManageOutpostDesc>Open this outpost's management window: its facilities and everything kept in store.</DreamsOutposts.ManageOutpostDesc>
+  <DreamsOutposts.CoreFacilityInfo>Core facility: {0}</DreamsOutposts.CoreFacilityInfo>
+  <DreamsOutposts.Levels>Levels:</DreamsOutposts.Levels>
+  <DreamsOutposts.NoLevelTable>this outpost type declares no level table</DreamsOutposts.NoLevelTable>
+  <DreamsOutposts.LevelInfo>- Level {0}: {1} {2}</DreamsOutposts.LevelInfo>
+  <DreamsOutposts.Slot>slot</DreamsOutposts.Slot>
+  <DreamsOutposts.Slots>slots</DreamsOutposts.Slots>
+  <DreamsOutposts.StartingLevel>the state an outpost starts in.</DreamsOutposts.StartingLevel>
+  <DreamsOutposts.DaysSinceFounding>{0} days since founding</DreamsOutposts.DaysSinceFounding>
+  <DreamsOutposts.Free>free</DreamsOutposts.Free>
+  <DreamsOutposts.InstallableFacilities>Facilities that can be installed here:</DreamsOutposts.InstallableFacilities>
+  <DreamsOutposts.UnknownEvent>Unknown event</DreamsOutposts.UnknownEvent>
+  <DreamsOutposts.EventLetter>{0}\n\nRemaining: {1}</DreamsOutposts.EventLetter>
+  <DreamsOutposts.InvalidOutpost>Invalid outpost.</DreamsOutposts.InvalidOutpost>
+  <DreamsOutposts.AlreadyHighestLevel>Already at the highest level ({0}).</DreamsOutposts.AlreadyHighestLevel>
+  <DreamsOutposts.NoNextLevelDefinition>Outpost type {0} has no definition for level {1}.</DreamsOutposts.NoNextLevelDefinition>
+  <DreamsOutposts.NeedsMoreDays>Needs {0} more days since founding.</DreamsOutposts.NeedsMoreDays>
+  <DreamsOutposts.MaxLevel>Max level.</DreamsOutposts.MaxLevel>
+  <DreamsOutposts.NoNextLevel>No definition for the next level.</DreamsOutposts.NoNextLevel>
+  <DreamsOutposts.UpgradeLevelSummary>Level {0}: </DreamsOutposts.UpgradeLevelSummary>
+  <DreamsOutposts.SlotsChange>Slots: {0} -&gt; {1}</DreamsOutposts.SlotsChange>
+  <DreamsOutposts.ReadyToUpgrade>Ready to upgrade.</DreamsOutposts.ReadyToUpgrade>
+  <DreamsOutposts.NotYet>Not yet: {0}</DreamsOutposts.NotYet>
+  <DreamsOutposts.OnTimeout>On timeout: {0}</DreamsOutposts.OnTimeout>
+  <DreamsOutposts.UnknownOption>Unknown option</DreamsOutposts.UnknownOption>
+  <DreamsOutposts.Result>Result:</DreamsOutposts.Result>
+  <DreamsOutposts.Options>Options</DreamsOutposts.Options>
+  <DreamsOutposts.ProductionRemaining>{0}, {1} left</DreamsOutposts.ProductionRemaining>
+  <DreamsOutposts.BombardmentSummary>Bombardment: {0} shells per strike, up to {1} tiles away, {2} cooldown.</DreamsOutposts.BombardmentSummary>
+  <DreamsOutposts.SkillRequirement>Needs someone here with {0} &gt;= {1}.</DreamsOutposts.SkillRequirement>
+  <DreamsOutposts.CostPerStrike>Cost per strike: {0}.</DreamsOutposts.CostPerStrike>
+  <DreamsOutposts.BombardmentBonus>Adds {0} shells to every bombardment from this outpost.</DreamsOutposts.BombardmentBonus>
+  <DreamsOutposts.Production>Production:</DreamsOutposts.Production>
+  <DreamsOutposts.Cost>Cost: {0}</DreamsOutposts.Cost>
+  <DreamsOutposts.BuildCost>Build cost: {0}</DreamsOutposts.BuildCost>
+  <DreamsOutposts.LimitPerOutpost>Limit: {0} per outpost.</DreamsOutposts.LimitPerOutpost>
+  <DreamsOutposts.RequiresResearch>Requires research: {0}</DreamsOutposts.RequiresResearch>
+  <DreamsOutposts.Unknown>unknown</DreamsOutposts.Unknown>
+  <DreamsOutposts.ProductChosenAfterInstallation>product chosen after installation</DreamsOutposts.ProductChosenAfterInstallation>
+  <DreamsOutposts.NoCrop>no crop</DreamsOutposts.NoCrop>
+  <DreamsOutposts.ChooseCropTip>Click to choose the crop grown here.</DreamsOutposts.ChooseCropTip>
+  <DreamsOutposts.CropSummary>crop: {0}</DreamsOutposts.CropSummary>
+  <DreamsOutposts.CurrentCropSuffix> (current)</DreamsOutposts.CurrentCropSuffix>
+  <DreamsOutposts.NoCropAvailable>No crop can be grown here right now.</DreamsOutposts.NoCropAvailable>
+  <DreamsOutposts.Nothing>nothing</DreamsOutposts.Nothing>
+  <DreamsOutposts.PlantTooltip>{0}\n\n{1} days to grow\n{2} {3} per harvest</DreamsOutposts.PlantTooltip>
 </LanguageData>

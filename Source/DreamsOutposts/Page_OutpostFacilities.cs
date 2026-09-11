@@ -47,14 +47,14 @@ namespace DreamsOutposts
 		private float DrawUpgradeRow(float y, float width)
 		{
 			Rect rowRect = new Rect(0f, y, width, 30f);
-			Widgets.Label(new Rect(rowRect.x, rowRect.y, 110f, rowRect.height), "Level " + outpost.level + " / " + outpost.MaxLevel);
+			Widgets.Label(new Rect(rowRect.x, rowRect.y, 110f, rowRect.height), "DreamsOutposts.Level".Translate(outpost.level, outpost.MaxLevel));
 			TooltipHandler.TipRegion(rowRect, new TipSignal(OutpostUpgradeUtility.UpgradeDescription(outpost), rowRect.GetHashCode()));
 			if (outpost.IsMaxLevel)
 			{
-				Widgets.Label(new Rect(rowRect.x + 110f, rowRect.y, Mathf.Max(width - 110f, 0f), rowRect.height), "Max level reached (" + outpost.SlotCountForLevel + " slots).");
+				Widgets.Label(new Rect(rowRect.x + 110f, rowRect.y, Mathf.Max(width - 110f, 0f), rowRect.height), "DreamsOutposts.MaxLevelReached".Translate(outpost.SlotCountForLevel));
 				return rowRect.yMax;
 			}
-			string buttonText = "Upgrade to level " + (outpost.level + 1);
+			string buttonText = "DreamsOutposts.UpgradeToLevel".Translate(outpost.level + 1);
 			if (OutpostUpgradeUtility.CanUpgrade(outpost, out var reason))
 			{
 				if (Widgets.ButtonText(new Rect(rowRect.x + 110f, rowRect.y, 190f, rowRect.height), buttonText))
@@ -83,7 +83,7 @@ namespace DreamsOutposts
 
 		private float DrawCoreFacilitySection(float y, float width, float cellHeight)
 		{
-			Widgets.Label(new Rect(0f, y, width, 24f), "Core facility");
+			Widgets.Label(new Rect(0f, y, width, 24f), "DreamsOutposts.CoreFacility".Translate());
 			Rect cellRect = new Rect(0f, y + 24f, 180f, cellHeight);
 			DrawFacilityCell(cellRect, outpost.coreFacility, null);
 			return cellRect.yMax;
@@ -101,7 +101,7 @@ namespace DreamsOutposts
 					used++;
 				}
 			}
-			Widgets.Label(new Rect(rect.x, rect.y, rect.width, 24f), "Extension facilities (" + used + "/" + count + ")");
+			Widgets.Label(new Rect(rect.x, rect.y, rect.width, 24f), "DreamsOutposts.ExtensionFacilities".Translate(used, count));
 			Rect viewRect = new Rect(rect.x, rect.y + 24f, rect.width, Mathf.Max(rect.height - 24f, 0f));
 			int perRow = Mathf.Max(1, Mathf.FloorToInt((viewRect.width + 10f) / 190f));
 			int rows = Mathf.Max(1, Mathf.CeilToInt((float)count / (float)perRow));
@@ -109,7 +109,7 @@ namespace DreamsOutposts
 			Widgets.BeginScrollView(viewRect, ref extensionScroll, contentRect);
 			if (count == 0)
 			{
-				Widgets.Label(new Rect(0f, 0f, contentRect.width, 30f), "(this outpost type has no extension slots)");
+				Widgets.Label(new Rect(0f, 0f, contentRect.width, 30f), "DreamsOutposts.NoExtensionSlots".Translate());
 			}
 			else
 			{
@@ -128,7 +128,7 @@ namespace DreamsOutposts
 			Rect buttonRect = new Rect(rect.x, rect.y, rect.width, 30f);
 			if (facility != null)
 			{
-				string label = facility.def?.LabelCap ?? ((TaggedString)"Unknown facility");
+			string label = facility.def?.LabelCap ?? "DreamsOutposts.UnknownFacility".Translate();
 				TooltipHandler.TipRegion(buttonRect, new TipSignal(FacilityTooltip(facility), buttonRect.GetHashCode()));
 				if (Widgets.ButtonText(buttonRect, label))
 				{
@@ -138,12 +138,12 @@ namespace DreamsOutposts
 			}
 			else if (installTarget == null)
 			{
-				Widgets.Label(buttonRect, "(none)");
+				Widgets.Label(buttonRect, "DreamsOutposts.None".Translate());
 			}
 			else
 			{
-				TooltipHandler.TipRegion(buttonRect, new TipSignal("Empty slot. Click to choose a facility to build here.", buttonRect.GetHashCode()));
-				if (Widgets.ButtonText(buttonRect, "Empty slot"))
+				TooltipHandler.TipRegion(buttonRect, new TipSignal("DreamsOutposts.EmptySlotTip".Translate(), buttonRect.GetHashCode()));
+				if (Widgets.ButtonText(buttonRect, "DreamsOutposts.EmptySlot".Translate()))
 				{
 					OpenInstallPage(installTarget);
 				}
@@ -162,10 +162,10 @@ namespace DreamsOutposts
 
 		private void OpenFacilityMenu(OutpostFacility facility, OutpostSlot slot)
 		{
-			string label = facility?.def?.LabelCap ?? ((TaggedString)"Unknown facility");
+			string label = facility?.def?.LabelCap ?? "DreamsOutposts.UnknownFacility".Translate();
 			List<FloatMenuOption> options = new List<FloatMenuOption>
 			{
-				new FloatMenuOption("Details", delegate
+				new FloatMenuOption("DreamsOutposts.Details".Translate(), delegate
 				{
 					Find.WindowStack.Add(new Dialog_MessageBox(FacilityInfoText(facility), null, null, null, null, label));
 				})
@@ -173,7 +173,7 @@ namespace DreamsOutposts
 			if (slot != null)
 			{
 				AcceptanceReport report = slot.CanRemove(outpost);
-				string removeLabel = "Demolish";
+				string removeLabel = "DreamsOutposts.Demolish".Translate();
 				if (!report.Accepted)
 				{
 					removeLabel = removeLabel + " (" + report.Reason + ")";
@@ -193,17 +193,17 @@ namespace DreamsOutposts
 
 		private void ConfirmRemove(OutpostFacility facility, OutpostSlot slot)
 		{
-			string label = facility?.def?.LabelCap ?? ((TaggedString)"Unknown facility");
-			string text = "Demolish " + label + "?\n\nThe slot becomes empty. You get back: " + OutpostBuildUtility.RefundLabel(facility?.def);
+			string label = facility?.def?.LabelCap ?? "DreamsOutposts.UnknownFacility".Translate();
+			string text = "DreamsOutposts.ConfirmDemolish".Translate(label, OutpostBuildUtility.RefundLabel(facility?.def));
 			Find.WindowStack.Add(new Dialog_MessageBox(text, "Demolish", delegate
 			{
 				slot.TryRemove(outpost, out var _);
-			}, "Cancel", null, label, buttonADestructive: true));
+			}, "Cancel".Translate(), null, label, buttonADestructive: true));
 		}
 
 		private static string RemoveTooltip(OutpostFacility facility)
 		{
-			return "Remove " + (facility?.def?.LabelCap ?? ((TaggedString)"this facility")) + " from its slot.\n\nYou get back: " + OutpostBuildUtility.RefundLabel(facility?.def);
+			return "DreamsOutposts.RemoveFacility".Translate(facility?.def?.LabelCap ?? "DreamsOutposts.ThisFacility".Translate(), OutpostBuildUtility.RefundLabel(facility?.def));
 		}
 
 		private void DrawProductionProgress(Rect rect, OutpostFacility facility)
@@ -211,7 +211,7 @@ namespace DreamsOutposts
 			float y = rect.y;
 			if (facility.def.productions.NullOrEmpty())
 			{
-				DrawProgressLine(new Rect(rect.x, y, rect.width, 36f), 0f, "no production");
+				DrawProgressLine(new Rect(rect.x, y, rect.width, 36f), 0f, "DreamsOutposts.NoProduction".Translate());
 				return;
 			}
 			for (int i = 0; i < facility.def.productions.Count; i++)
@@ -240,13 +240,13 @@ namespace DreamsOutposts
 		{
 			if (production == null)
 			{
-				return "invalid production rule";
+				return "DreamsOutposts.InvalidProductionRule".Translate();
 			}
 			OutpostProductionUtility.TryGetProductionProduct(facility, production, out var product);
-			string productLabel = product?.LabelCap ?? ((TaggedString)production.id);
+			string productLabel = product?.LabelCap ?? production.id;
 			float expectedOutput;
 			string text = (OutpostProductionUtility.TryCalculateExpectedOutput(outpost, facility, production, out expectedOutput) ? (productLabel + " x" + expectedOutput.ToString("0.#")) : productLabel);
-			return hasProgress ? (text + ", " + ticksRemaining.ToStringTicksToPeriod() + " left") : text;
+			return hasProgress ? "DreamsOutposts.ProductionRemaining".Translate(text, ticksRemaining.ToStringTicksToPeriod()).ToString() : text;
 		}
 
 		private static void DrawProgressLine(Rect rect, float progress, string label)
@@ -269,7 +269,7 @@ namespace DreamsOutposts
 			OutpostFacilityDef def = facility?.def;
 			if (def == null)
 			{
-				return "This facility has no def.";
+				return "DreamsOutposts.FacilityNoDef".Translate();
 			}
 			StringBuilder stringBuilder = new StringBuilder(def.LabelCap);
 			if (!string.IsNullOrEmpty(def.description))
@@ -286,7 +286,7 @@ namespace DreamsOutposts
 			OutpostFacilityDef def = facility?.def;
 			if (def == null)
 			{
-				return "This facility has no def.";
+				return "DreamsOutposts.FacilityNoDef".Translate();
 			}
 			StringBuilder stringBuilder = new StringBuilder();
 			if (!string.IsNullOrEmpty(def.description))
@@ -300,8 +300,10 @@ namespace DreamsOutposts
 				{
 					stringBuilder.AppendLine();
 				}
-				stringBuilder.AppendLine("Bombardment: " + shells + " shells per strike, up to " + def.bombardment.maxRangeTiles + " tiles away, " + def.bombardment.CooldownTicks.ToStringTicksToPeriod() + " cooldown." + (def.bombardment.HasSkillRequirement ? string.Concat(" Needs someone here with " + def.bombardment.requiredSkill.LabelCap + " >= ", def.bombardment.requiredSkillLevel.ToString(), ".") : string.Empty));
-				stringBuilder.AppendLine("Cost per strike: " + OutpostBuildUtility.CostLabel(def.bombardment.CostForShells(shells)) + ".");
+				string bombardmentSummary = "DreamsOutposts.BombardmentSummary".Translate(shells, def.bombardment.maxRangeTiles, def.bombardment.CooldownTicks.ToStringTicksToPeriod()).ToString();
+				string skillRequirement = def.bombardment.HasSkillRequirement ? " " + "DreamsOutposts.SkillRequirement".Translate(def.bombardment.requiredSkill.LabelCap, def.bombardment.requiredSkillLevel).ToString() : string.Empty;
+				stringBuilder.AppendLine(bombardmentSummary + skillRequirement);
+				stringBuilder.AppendLine("DreamsOutposts.CostPerStrike".Translate(OutpostBuildUtility.CostLabel(def.bombardment.CostForShells(shells))));
 			}
 			if (def.bombardmentShellBonus > 0)
 			{
@@ -309,7 +311,7 @@ namespace DreamsOutposts
 				{
 					stringBuilder.AppendLine();
 				}
-				stringBuilder.AppendLine("Adds " + def.bombardmentShellBonus + " shells to every bombardment from this outpost.");
+				stringBuilder.AppendLine("DreamsOutposts.BombardmentBonus".Translate(def.bombardmentShellBonus));
 			}
 			if (!def.productions.NullOrEmpty())
 			{
@@ -317,7 +319,7 @@ namespace DreamsOutposts
 				{
 					stringBuilder.AppendLine();
 				}
-				stringBuilder.AppendLine("Production:");
+				stringBuilder.AppendLine("DreamsOutposts.Production".Translate());
 				for (int i = 0; i < def.productions.Count; i++)
 				{
 					OutpostProductionProperties production = def.productions[i];

@@ -63,8 +63,8 @@ namespace DreamsOutposts
 		{
 			if (production is OutpostProductionProperties_Farming farming)
 			{
-				string text = (FarmingState(state)?.selectedPlant?.LabelCap ?? ((TaggedString)"no crop")) + ": " + label;
-				TooltipHandler.TipRegion(rect, new TipSignal("Click to choose the crop grown here.", rect.GetHashCode()));
+				string text = (FarmingState(state)?.selectedPlant?.LabelCap ?? "DreamsOutposts.NoCrop".Translate()) + ": " + label;
+				TooltipHandler.TipRegion(rect, new TipSignal("DreamsOutposts.ChooseCropTip".Translate(), rect.GetHashCode()));
 				if (Widgets.ButtonText(rect, text))
 				{
 					OpenPlantMenu(farming, state);
@@ -78,7 +78,7 @@ namespace DreamsOutposts
 			{
 				return null;
 			}
-			return "crop: " + (FarmingState(state)?.selectedPlant?.LabelCap ?? ((TaggedString)"none"));
+			return "DreamsOutposts.CropSummary".Translate(FarmingState(state)?.selectedPlant?.LabelCap ?? "DreamsOutposts.None".Translate());
 		}
 
 		private static void OpenPlantMenu(OutpostProductionProperties_Farming farming, OutpostProductionState state)
@@ -89,7 +89,7 @@ namespace DreamsOutposts
 			for (int i = 0; i < candidates.Count; i++)
 			{
 				ThingDef plantDef = candidates[i];
-				string suffix = ((plantDef == current) ? " (current)" : string.Empty);
+				string suffix = ((plantDef == current) ? "DreamsOutposts.CurrentCropSuffix".Translate().ToString() : string.Empty);
 				options.Add(new FloatMenuOption(plantDef.LabelCap + suffix, delegate
 				{
 					TrySetPlant(farming, state, plantDef);
@@ -100,7 +100,7 @@ namespace DreamsOutposts
 			}
 			if (options.Count == 0)
 			{
-				options.Add(new FloatMenuOption("No crop can be grown here right now.", null));
+				options.Add(new FloatMenuOption("DreamsOutposts.NoCropAvailable".Translate(), null));
 			}
 			Find.WindowStack.Add(new FloatMenu(options));
 		}
@@ -125,8 +125,8 @@ namespace DreamsOutposts
 		private static string PlantTooltip(ThingDef plant)
 		{
 			PlantProperties properties = plant.plant;
-			string productLabel = properties.harvestedThingDef?.LabelCap ?? ((TaggedString)"nothing");
-			return plant.LabelCap + "\n\n" + properties.growDays.ToString("0.##") + " days to grow" + "\n" + properties.harvestYield.ToString("0.##") + " " + productLabel + " per harvest";
+			string productLabel = properties.harvestedThingDef?.LabelCap ?? "DreamsOutposts.Nothing".Translate();
+			return "DreamsOutposts.PlantTooltip".Translate(plant.LabelCap, properties.growDays.ToString("0.##"), properties.harvestYield.ToString("0.##"), productLabel);
 		}
 
 		public override IEnumerable<string> ConfigErrors(OutpostProductionProperties production)

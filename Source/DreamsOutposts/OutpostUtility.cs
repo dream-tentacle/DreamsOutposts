@@ -13,17 +13,17 @@ namespace DreamsOutposts
 		{
 			if (caravan == null || def == null)
 			{
-				return "Invalid caravan or outpost type.";
+				return "DreamsOutposts.InvalidCaravanOrOutpostType".Translate();
 			}
 			if (!SettleInEmptyTileUtility.CanCreateMapAt(caravan.Tile))
 			{
-				return "This tile cannot host an outpost.";
+				return "DreamsOutposts.TileCannotHostOutpost".Translate();
 			}
 			foreach (WorldObject obj in Find.WorldObjects.ObjectsAt(caravan.Tile))
 			{
 				if (obj != caravan)
 				{
-					return "This tile is occupied.";
+					return "DreamsOutposts.TileOccupied".Translate();
 				}
 			}
 			return def.Worker.CanCreate(caravan.PawnsListForReading, caravan.Tile);
@@ -46,8 +46,8 @@ namespace DreamsOutposts
 		{
 			Command_Action command = new Command_Action
 			{
-				defaultLabel = "Create outpost",
-				defaultDesc = "Create an outpost here.",
+				defaultLabel = "DreamsOutposts.CreateOutpost".Translate(),
+				defaultDesc = "DreamsOutposts.CreateOutpostDesc".Translate(),
 				icon = SettleUtility.SettleCommandTex
 			};
 			command.action = delegate
@@ -56,7 +56,7 @@ namespace DreamsOutposts
 			};
 			if (DefDatabase<OutpostTypeDef>.AllDefsListForReading.Count == 0)
 			{
-				command.Disable("No outpost types loaded.");
+				command.Disable("DreamsOutposts.NoOutpostTypesLoaded".Translate());
 			}
 			return command;
 		}
@@ -65,8 +65,8 @@ namespace DreamsOutposts
 		{
 			return new Command_Action
 			{
-				defaultLabel = "Manage",
-				defaultDesc = "Open this outpost's management window: its facilities and everything kept in store.",
+				defaultLabel = "DreamsOutposts.ManageOutpost".Translate(),
+				defaultDesc = "DreamsOutposts.ManageOutpostDesc".Translate(),
 				icon = TexCommand.Install,
 				action = delegate
 				{

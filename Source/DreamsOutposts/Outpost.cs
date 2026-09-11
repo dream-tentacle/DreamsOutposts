@@ -21,6 +21,8 @@ namespace DreamsOutposts
 
 		public List<OutpostSlot> extensionSlots;
 
+		public List<OutpostEventInstance> events;
+
 		public int establishedTick;
 
 		public int level = 1;
@@ -77,6 +79,29 @@ namespace DreamsOutposts
 
 		public bool IsMaxLevel => level >= MaxLevel;
 
+		public OutpostEventInstance AddEvent(OutpostEventDef eventDef)
+		{
+			if (eventDef == null)
+			{
+				Log.Error("Cannot add a null event Def to outpost " + Label + ".");
+				return null;
+			}
+			if (events == null)
+			{
+				events = new List<OutpostEventInstance>();
+			}
+			int createdTick = Find.TickManager.TicksGame;
+			OutpostEventInstance instance = new OutpostEventInstance
+			{
+				def = eventDef,
+				createdTick = createdTick,
+				expireTick = createdTick + eventDef.durationTicks
+			};
+			events.Add(instance);
+			OutpostEventUtility.SendCreatedLetter(this, instance);
+			return instance;
+		}
+
 		public int SlotCountForLevel => outpostTypeDef?.GetSlotCount(level) ?? 0;
 
 		public OutpostLevelProperties CurrentLevelProperties => outpostTypeDef?.GetLevel(level);
@@ -91,7 +116,7 @@ namespace DreamsOutposts
 
 		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
 
-		protected override int UpdateRateTicks => 250;
+		protected override int UpdateRateTicks => 1250;
 
 		public Outpost()
 		{
@@ -99,11 +124,13 @@ namespace DreamsOutposts
 			inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
 			pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
 			extensionSlots = new List<OutpostSlot>();
+			events = new List<OutpostEventInstance>();
 		}
 
 		protected override void TickInterval(int delta)
 		{
 			base.TickInterval(delta);
+			OutpostEventUtility.TickEvents(this);
 			OutpostProductionUtility.TickOutpost(this);
 			AgePawns(delta);
 			OutpostAirdropUtility.CheckStalePending(this);
@@ -136,6 +163,7 @@ namespace DreamsOutposts
 			Scribe_Values.Look(ref nextBombardTick, "nextBombardTick", 0);
 			Scribe_Deep.Look(ref coreFacility, "coreFacility");
 			Scribe_Collections.Look(ref extensionSlots, "extensionSlots", LookMode.Deep);
+			Scribe_Collections.Look(ref events, "events", LookMode.Deep);
 			Scribe_Deep.Look(ref pawns, "pawns", this);
 			Scribe_Deep.Look(ref inventory, "inventory", this);
 			Scribe_Deep.Look(ref pendingAirdropPawns, "pendingAirdropPawns", this);
@@ -152,6 +180,10 @@ namespace DreamsOutposts
 				if (pendingAirdropPawns == null)
 				{
 					pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+				}
+				if (events == null)
+				{
+					events = new List<OutpostEventInstance>();
 				}
 				if (pendingAirdropPawns.Count > 0)
 				{
@@ -262,6 +294,10 @@ namespace DreamsOutposts
 			if (base.Faction != Faction.OfPlayer)
 			{
 				yield break;
+			}
+			if (Prefs.DevMode)
+			{
+				yield return OutpostEventUtility.AddTestEventCommand(this);
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);

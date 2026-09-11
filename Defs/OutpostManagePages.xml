@@ -15,4 +15,11 @@
     <pageClass>DreamsOutposts.Page_OutpostInventory</pageClass>
     <order>10</order>
   </DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef>
+    <defName>DreamsOutposts_ManagePage_Events</defName>
+    <label>events</label>
+    <description>The current events affecting this outpost.</description>
+    <pageClass>DreamsOutposts.Page_OutpostEvents</pageClass>
+    <order>20</order>
+  </DreamsOutposts.OutpostManagePageDef>
 </Defs>
