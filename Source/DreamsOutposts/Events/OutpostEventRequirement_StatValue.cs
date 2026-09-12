@@ -22,7 +22,7 @@ namespace DreamsOutposts
 			{
 				foreach (Pawn pawn in pawns)
 				{
-					if (OutpostStatUtility.IsStatShownFor(stat, pawn))
+					if (OutpostStatUtility.CanSafelyReadStat(stat, pawn))
 					{
 						total += pawn.GetStatValue(stat);
 					}

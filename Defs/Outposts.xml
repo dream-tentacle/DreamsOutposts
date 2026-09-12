@@ -69,6 +69,12 @@
     <description>An industrial outpost for collecting and refining neutroamine precursors.</description>
     <coreFacility>DreamsOutposts_NeutroamineCollector</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_Research</defName>
+    <label>research outpost</label>
+    <description>A remote research station that steadily contributes knowledge to the colony's current research project.</description>
+    <coreFacility>DreamsOutposts_ResearchStation</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
 <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Town</defName>
     <label>town outpost</label>

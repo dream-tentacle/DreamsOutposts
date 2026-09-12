@@ -11,6 +11,9 @@ namespace DreamsOutposts
 
 		public ThingDef product;
 
+		/// <summary>用于无实体产物（例如科研点数）的本地化显示键。</summary>
+		public string outputLabelKey;
+
 		public StatDef capacityStat;
 
 		public int intervalTicks = 60000;

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+	<DreamsOutposts.EventWeight.Current>当前倾向</DreamsOutposts.EventWeight.Current>
+	<DreamsOutposts.EventWeight.Base>基础</DreamsOutposts.EventWeight.Base>
+	<DreamsOutposts.EventWeight.Level>据点等级（{0}）</DreamsOutposts.EventWeight.Level>
+	<DreamsOutposts.EventWeight.BuiltFacilities>已建设扩展设施（{0}）</DreamsOutposts.EventWeight.BuiltFacilities>
+	<DreamsOutposts.EventWeight.Isolation>距最近永久据点（{0}）</DreamsOutposts.EventWeight.Isolation>
+	<DreamsOutposts.EventWeight.DistanceTiles>{0}格</DreamsOutposts.EventWeight.DistanceTiles>
+	<DreamsOutposts.EventWeight.NoOtherOutpost>无其他据点</DreamsOutposts.EventWeight.NoOtherOutpost>
+	<DreamsOutposts.EventWeight.Facility>{0}</DreamsOutposts.EventWeight.Facility>
+	<DreamsOutposts.EventWeight.StockValue>可交易库存价值（{0}）</DreamsOutposts.EventWeight.StockValue>
+	<DreamsOutposts.EventWeight.Colonists>殖民者（{0}人）</DreamsOutposts.EventWeight.Colonists>
+	<DreamsOutposts.EventWeight.ResearchOutpost>科研据点</DreamsOutposts.EventWeight.ResearchOutpost>
+	<DreamsOutposts.EventWeight.Intellectual>最高智识（{0}）</DreamsOutposts.EventWeight.Intellectual>
   <DreamsOutposts.Events>事件</DreamsOutposts.Events>
   <DreamsOutposts.NoCurrentEvents>当前没有事件</DreamsOutposts.NoCurrentEvents>
   <DreamsOutposts.Remaining>剩余：{0}</DreamsOutposts.Remaining>
@@ -14,6 +26,5 @@
   <DreamsOutposts.EventCategorySummary>事件分类倾向：</DreamsOutposts.EventCategorySummary>
   <DreamsOutposts.EventCategoryBaseWeight>基础权重 {0}</DreamsOutposts.EventCategoryBaseWeight>
   <DreamsOutposts.EventCategoryCurrentWeight>当前权重 {0}</DreamsOutposts.EventCategoryCurrentWeight>
-  <DreamsOutposts.EventCategoryNoModifiers>没有设施影响</DreamsOutposts.EventCategoryNoModifiers>
 </LanguageData>
 

@@ -4,4 +4,6 @@
   <DreamsOutposts_Neutroamine.description>用于采集并提炼中性胺前体的工业据点。</DreamsOutposts_Neutroamine.description>
   <DreamsOutposts_AutomationCamp.label>自动化营地</DreamsOutposts_AutomationCamp.label>
   <DreamsOutposts_AutomationCamp.description>围绕集中式自动生产体系建立的专业营地。</DreamsOutposts_AutomationCamp.description>
+  <DreamsOutposts_Research.label>科研据点</DreamsOutposts_Research.label>
+  <DreamsOutposts_Research.description>持续为殖民地当前研究项目贡献科研点数的远程研究站。</DreamsOutposts_Research.description>
 </LanguageData>

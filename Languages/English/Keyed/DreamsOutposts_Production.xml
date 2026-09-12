@@ -19,5 +19,12 @@
   <DreamsOutposts.MineralSummary>mineral: {0}</DreamsOutposts.MineralSummary>
   <DreamsOutposts.CurrentMineralSuffix> (current)</DreamsOutposts.CurrentMineralSuffix>
   <DreamsOutposts.NoMineralAvailable>No mineable mineral is available in the loaded mod list.</DreamsOutposts.NoMineralAvailable>
+  <DreamsOutposts.RemotePower.Manage>Manage remote power links</DreamsOutposts.RemotePower.Manage>
+  <DreamsOutposts.RemotePower.ManageDesc>Choose which outpost generators transmit power to this receiver. A generator can be linked to only one receiver.</DreamsOutposts.RemotePower.ManageDesc>
+  <DreamsOutposts.RemotePower.NoSources>No remote generators are available.</DreamsOutposts.RemotePower.NoSources>
+  <DreamsOutposts.RemotePower.LinkedCount>Linked generators: {0}</DreamsOutposts.RemotePower.LinkedCount>
+  <DreamsOutposts.RemotePower.TotalOutput>Remote output: {0} W</DreamsOutposts.RemotePower.TotalOutput>
+  <DreamsOutposts.RemotePower.PowerOutput>power</DreamsOutposts.RemotePower.PowerOutput>
+  <DreamsOutposts.ResearchPoints>research points</DreamsOutposts.ResearchPoints>
 </LanguageData>
 

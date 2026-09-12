@@ -18,8 +18,6 @@
   <DreamsOutposts.Ui.Chip.DefenseTip>Total outpost defense, calculated live.</DreamsOutposts.Ui.Chip.DefenseTip>
   <DreamsOutposts.Ui.Chip.Bombardable>Can bombard</DreamsOutposts.Ui.Chip.Bombardable>
   <DreamsOutposts.Ui.Chip.ShellBonus>Bombard +{0} shells</DreamsOutposts.Ui.Chip.ShellBonus>
-  <DreamsOutposts.Ui.Chip.EventCategory>{0} {1}</DreamsOutposts.Ui.Chip.EventCategory>
-  <DreamsOutposts.Ui.Chip.EventCategoryTip>Event category modifier from {0}.</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <DreamsOutposts.Ui.Chip.ProductionFactor>Output x{0}</DreamsOutposts.Ui.Chip.ProductionFactor>
   <DreamsOutposts.Ui.Chip.ProductionDelta>{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
@@ -57,13 +55,11 @@
   <DreamsOutposts.Ui.Install.PayFromStock>Materials are paid from the outpost stock</DreamsOutposts.Ui.Install.PayFromStock>
   <DreamsOutposts.Ui.ModAllProductions>all</DreamsOutposts.Ui.ModAllProductions>
   <DreamsOutposts.Ui.ModProductionFactor>Output {0}</DreamsOutposts.Ui.ModProductionFactor>
-  <DreamsOutposts.Ui.ModEventCategory>Event category {0} {1}</DreamsOutposts.Ui.ModEventCategory>
   <DreamsOutposts.Ui.ModProduction>Produces {0} · every {1}</DreamsOutposts.Ui.ModProduction>
   <DreamsOutposts.Ui.ModProductionInputs>consumes {0}/unit</DreamsOutposts.Ui.ModProductionInputs>
   <DreamsOutposts.Ui.Section.Basics>Basics</DreamsOutposts.Ui.Section.Basics>
   <DreamsOutposts.Ui.Section.Production>Production</DreamsOutposts.Ui.Section.Production>
   <DreamsOutposts.Ui.Section.Bombardment>Bombardment</DreamsOutposts.Ui.Section.Bombardment>
-  <DreamsOutposts.Ui.Section.EventWeights>Event category weights</DreamsOutposts.Ui.Section.EventWeights>
   <DreamsOutposts.Ui.Kv.Location>Location</DreamsOutposts.Ui.Kv.Location>
   <DreamsOutposts.Ui.Kv.Refund>Refund on removal</DreamsOutposts.Ui.Kv.Refund>
   <DreamsOutposts.Ui.Kv.Cost>Build cost</DreamsOutposts.Ui.Kv.Cost>

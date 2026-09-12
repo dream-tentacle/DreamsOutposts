@@ -69,6 +69,16 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
+			OutpostProductionState_Power powerState = state as OutpostProductionState_Power;
+			OutpostProductionProperties_Power powerProps = production as OutpostProductionProperties_Power;
+			if (powerState != null && powerProps != null)
+			{
+				ticksRemaining = Mathf.Max(powerState.poweredUntilTick - Find.TickManager.TicksGame, 0);
+				if (ticksRemaining <= 0)
+					return false;
+				progress = Mathf.Clamp01(1f - (float)ticksRemaining / powerProps.fuelDurationTicks);
+				return true;
+			}
 			ticksRemaining = Mathf.Max(state.nextProductionTick - Find.TickManager.TicksGame, 0);
 			progress = Mathf.Clamp01(1f - (float)ticksRemaining / (float)production.intervalTicks);
 			return true;

@@ -146,9 +146,6 @@ namespace DreamsOutposts
 		public const float RuleCardPaddingH = 11f;
 		public const float RuleCardPaddingV = 10f;
 		public const float RuleCardGap = 7f;
-		public const float WeightBarHeight = 8f;
-		public const float WeightNameWidth = 120f;
-		public const float WeightValueWidth = 80f;
 
 		/// <summary>CSS auto-fill minmax(minCell, 1fr) 的等价列数。</summary>
 		public static int GridColumns(float width, float minCell, float gap)

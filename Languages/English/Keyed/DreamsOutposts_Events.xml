@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+	<DreamsOutposts.EventWeight.Current>Current tendencies</DreamsOutposts.EventWeight.Current>
+	<DreamsOutposts.EventWeight.Base>Base</DreamsOutposts.EventWeight.Base>
+	<DreamsOutposts.EventWeight.Level>Outpost level ({0})</DreamsOutposts.EventWeight.Level>
+	<DreamsOutposts.EventWeight.BuiltFacilities>Built extension facilities ({0})</DreamsOutposts.EventWeight.BuiltFacilities>
+	<DreamsOutposts.EventWeight.Isolation>Nearest permanent outpost distance ({0})</DreamsOutposts.EventWeight.Isolation>
+	<DreamsOutposts.EventWeight.DistanceTiles>{0} tiles</DreamsOutposts.EventWeight.DistanceTiles>
+	<DreamsOutposts.EventWeight.NoOtherOutpost>none</DreamsOutposts.EventWeight.NoOtherOutpost>
+	<DreamsOutposts.EventWeight.Facility>{0}</DreamsOutposts.EventWeight.Facility>
+	<DreamsOutposts.EventWeight.StockValue>Tradable inventory value ({0})</DreamsOutposts.EventWeight.StockValue>
+	<DreamsOutposts.EventWeight.Colonists>Colonists ({0})</DreamsOutposts.EventWeight.Colonists>
+	<DreamsOutposts.EventWeight.ResearchOutpost>Research outpost</DreamsOutposts.EventWeight.ResearchOutpost>
+	<DreamsOutposts.EventWeight.Intellectual>Highest Intellectual ({0})</DreamsOutposts.EventWeight.Intellectual>
   <DreamsOutposts.Events>Events</DreamsOutposts.Events>
   <DreamsOutposts.NoCurrentEvents>No current events</DreamsOutposts.NoCurrentEvents>
   <DreamsOutposts.Remaining>Remaining: {0}</DreamsOutposts.Remaining>
@@ -14,6 +26,5 @@
   <DreamsOutposts.EventCategorySummary>Event category tendencies:</DreamsOutposts.EventCategorySummary>
   <DreamsOutposts.EventCategoryBaseWeight>base {0}</DreamsOutposts.EventCategoryBaseWeight>
   <DreamsOutposts.EventCategoryCurrentWeight>current {0}</DreamsOutposts.EventCategoryCurrentWeight>
-  <DreamsOutposts.EventCategoryNoModifiers>No facility modifiers</DreamsOutposts.EventCategoryNoModifiers>
 </LanguageData>
 

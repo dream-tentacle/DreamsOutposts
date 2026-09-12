@@ -18,8 +18,6 @@
   <DreamsOutposts.Ui.Chip.DefenseTip>据点总防卫，实时计算。</DreamsOutposts.Ui.Chip.DefenseTip>
   <DreamsOutposts.Ui.Chip.Bombardable>可炮击</DreamsOutposts.Ui.Chip.Bombardable>
   <DreamsOutposts.Ui.Chip.ShellBonus>炮击 +{0} 发</DreamsOutposts.Ui.Chip.ShellBonus>
-  <DreamsOutposts.Ui.Chip.EventCategory>{0} {1}</DreamsOutposts.Ui.Chip.EventCategory>
-  <DreamsOutposts.Ui.Chip.EventCategoryTip>来自 {0} 的事件分类修正。</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <DreamsOutposts.Ui.Chip.ProductionFactor>产能 ×{0}</DreamsOutposts.Ui.Chip.ProductionFactor>
   <DreamsOutposts.Ui.Chip.ProductionDelta>{0} 产能 · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} 产量 · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
@@ -57,13 +55,11 @@
   <DreamsOutposts.Ui.Install.PayFromStock>材料将从据点仓库扣除</DreamsOutposts.Ui.Install.PayFromStock>
   <DreamsOutposts.Ui.ModAllProductions>全部</DreamsOutposts.Ui.ModAllProductions>
   <DreamsOutposts.Ui.ModProductionFactor>产能 {0}</DreamsOutposts.Ui.ModProductionFactor>
-  <DreamsOutposts.Ui.ModEventCategory>事件分类 {0} {1}</DreamsOutposts.Ui.ModEventCategory>
   <DreamsOutposts.Ui.ModProduction>生产 {0} · 每 {1}</DreamsOutposts.Ui.ModProduction>
   <DreamsOutposts.Ui.ModProductionInputs>消耗 {0}/单位</DreamsOutposts.Ui.ModProductionInputs>
   <DreamsOutposts.Ui.Section.Basics>基础</DreamsOutposts.Ui.Section.Basics>
   <DreamsOutposts.Ui.Section.Production>生产</DreamsOutposts.Ui.Section.Production>
   <DreamsOutposts.Ui.Section.Bombardment>炮击</DreamsOutposts.Ui.Section.Bombardment>
-  <DreamsOutposts.Ui.Section.EventWeights>事件分类倾向</DreamsOutposts.Ui.Section.EventWeights>
   <DreamsOutposts.Ui.Kv.Location>位置</DreamsOutposts.Ui.Kv.Location>
   <DreamsOutposts.Ui.Kv.Refund>拆除返还</DreamsOutposts.Ui.Kv.Refund>
   <DreamsOutposts.Ui.Kv.Cost>建造成本</DreamsOutposts.Ui.Kv.Cost>

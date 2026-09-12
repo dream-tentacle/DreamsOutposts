@@ -110,6 +110,7 @@ namespace DreamsOutposts
 				return false;
 			}
 			OutpostFacilityDef def = facility.def;
+			RemotePowerUtility.NotifyFacilityRemoved(facility);
 			facility = null;
 			OutpostBuildUtility.Refund(outpost, def);
 			report = AcceptanceReport.WasAccepted;

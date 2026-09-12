@@ -46,4 +46,16 @@
   <DreamsOutposts_HerbalGreenhouse.description>在受控环境中持续种植并采收草药的温室。</DreamsOutposts_HerbalGreenhouse.description>
   <DreamsOutposts_AutomaticAirdropper.label>自动空投机</DreamsOutposts_AutomaticAirdropper.label>
   <DreamsOutposts_AutomaticAirdropper.description>将选定设施的产出通过空投舱直接送往主殖民地。</DreamsOutposts_AutomaticAirdropper.description>
+  <DreamsOutposts_WoodPowerGenerator.label>木材发电设施</DreamsOutposts_WoodPowerGenerator.label>
+  <DreamsOutposts_WoodPowerGenerator.description>预先消耗木材，并将产生的电力输送至已绑定的远距离电力接收器。</DreamsOutposts_WoodPowerGenerator.description>
+  <DreamsOutposts_ChemfuelPowerGenerator.label>化合燃料发电设施</DreamsOutposts_ChemfuelPowerGenerator.label>
+  <DreamsOutposts_ChemfuelPowerGenerator.description>预先消耗9单位化合燃料，随后持续发电两天，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_ChemfuelPowerGenerator.description>
+  <DreamsOutposts_ResearchStation.label>科研站</DreamsOutposts_ResearchStation.label>
+  <DreamsOutposts_ResearchStation.description>每半天为殖民地当前研究项目贡献61.875点科研点数的常设研究设施。</DreamsOutposts_ResearchStation.description>
+  <DreamsOutposts_AdvancedResearchApparatus.label>高级研究装置</DreamsOutposts_AdvancedResearchApparatus.label>
+  <DreamsOutposts_AdvancedResearchApparatus.description>高科技研究设施，使科研产出乘以1.33。</DreamsOutposts_AdvancedResearchApparatus.description>
+  <DreamsOutposts_SterileAnalysisApparatus.label>无菌分析装置</DreamsOutposts_SterileAnalysisApparatus.label>
+  <DreamsOutposts_SterileAnalysisApparatus.description>无菌分析设施，使科研产出乘以1.3。</DreamsOutposts_SterileAnalysisApparatus.description>
+	<DreamsOutposts_Waystation.label>驿站</DreamsOutposts_Waystation.label>
+	<DreamsOutposts_Waystation.description>为过往人员和远行队提供食宿、补给与换乘服务的路边设施。驿站促进人口往来和商品流通，并大幅降低远行队进入此地块所需的时间。</DreamsOutposts_Waystation.description>
 </LanguageData>

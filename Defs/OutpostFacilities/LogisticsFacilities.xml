@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<DreamsOutposts.OutpostFacilityDef>
+		<defName>DreamsOutposts_Waystation</defName>
+		<facilityTag>Other</facilityTag>
+		<uiIcon>Store</uiIcon>
+		<label>waystation</label>
+		<description>A roadside facility that provides lodging, supplies and fresh transport for travellers and caravans. It encourages trade and settlement while greatly reducing the time caravans need to enter this tile.</description>
+		<maxPerOutpost>1</maxPerOutpost>
+		<buildCost>
+			<WoodLog>100</WoodLog>
+			<Steel>20</Steel>
+		</buildCost>
+		<eventCategoryModifiers>
+			<li>
+				<category>DreamsOutposts_Trade</category>
+				<offset>2</offset>
+			</li>
+			<li>
+				<category>DreamsOutposts_Population</category>
+				<offset>1</offset>
+			</li>
+		</eventCategoryModifiers>
+	</DreamsOutposts.OutpostFacilityDef>
+</Defs>

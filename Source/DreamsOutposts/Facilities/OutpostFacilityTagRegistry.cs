@@ -8,6 +8,7 @@ namespace DreamsOutposts
 		public const string Processing = "Processing";
 		public const string Defense = "Defense";
 		public const string AutomaticProduction = "AutomaticProduction";
+		public const string Training = "Training";
 		public const string Other = "Other";
 
 		private static readonly List<string> tags = new List<string>();
@@ -34,6 +35,7 @@ namespace DreamsOutposts
 			tags.Add(Processing);
 			tags.Add(Defense);
 			tags.Add(AutomaticProduction);
+			tags.Add(Training);
 			tags.Add(Other);
 		}
 
@@ -45,6 +47,7 @@ namespace DreamsOutposts
 				case Processing:
 				case Defense:
 				case AutomaticProduction:
+				case Training:
 				case Other:
 					return tag;
 				default:

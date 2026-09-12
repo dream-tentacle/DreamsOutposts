@@ -9,5 +9,10 @@ namespace DreamsOutposts
 		{
 			return stat != null && pawn != null && stat.Worker != null && stat.Worker.ShouldShowFor(StatRequest.For(pawn));
 		}
+
+		public static bool CanSafelyReadStat(StatDef stat, Pawn pawn)
+		{
+			return IsStatShownFor(stat, pawn) && !stat.Worker.IsDisabledFor(pawn);
+		}
 	}
 }

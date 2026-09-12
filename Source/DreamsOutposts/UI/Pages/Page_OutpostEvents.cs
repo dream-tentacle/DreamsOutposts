@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -34,6 +35,19 @@ namespace DreamsOutposts
 		private const float NoteMarginTop = 14f;
 
 		private const float NoteIconSize = 16f;
+
+		private const float TendencyPadding = 12f;
+
+		private const float TendencyMarginBottom = 14f;
+
+		private static readonly string[] TendencyDefNames =
+		{
+			"DreamsOutposts_Frontier",
+			"DreamsOutposts_Industrial",
+			"DreamsOutposts_Trade",
+			"DreamsOutposts_Population",
+			"DreamsOutposts_Research"
+		};
 
 		private OutpostUiCache fallbackCache;
 
@@ -90,6 +104,13 @@ namespace DreamsOutposts
 			}
 			OutpostUiCache cache = Cache;
 			float y = rect.y;
+			List<UiChipView> tendencyChips = BuildTendencyChips();
+			float tendencyHeight = TendencyHeight(rect.width, tendencyChips);
+			if (draw)
+			{
+				DrawTendencies(new Rect(rect.x, y, rect.width, tendencyHeight), tendencyChips);
+			}
+			y += tendencyHeight + TendencyMarginBottom;
 			if (cache.Events.Count == 0)
 			{
 				float emptyHeight = UiText.LineHeight(UiFont.Body) + 28f;
@@ -124,6 +145,61 @@ namespace DreamsOutposts
 				y += NoteMarginTop + noteHeight;
 			}
 			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private List<UiChipView> BuildTendencyChips()
+		{
+			List<UiChipView> chips = new List<UiChipView>(TendencyDefNames.Length);
+			for (int i = 0; i < TendencyDefNames.Length; i++)
+			{
+				OutpostEventCategoryDef category = DefDatabase<OutpostEventCategoryDef>.GetNamedSilentFail(TendencyDefNames[i]);
+				if (category == null) continue;
+				List<OutpostEventWeightContribution> details = new List<OutpostEventWeightContribution>();
+				float total = OutpostEventUtility.GetCategoryWeight(outpost, category, details);
+				chips.Add(new UiChipView(category.LabelCap + " " + total.ToString("0.#"), UiChipKind.Neutral, TendencyTooltip(category, total, details)));
+			}
+			return chips;
+		}
+
+		private static string TendencyTooltip(OutpostEventCategoryDef category, float total, List<OutpostEventWeightContribution> details)
+		{
+			StringBuilder builder = new StringBuilder();
+			builder.Append(category.LabelCap).Append("：").Append(total.ToString("0.#"));
+			for (int i = 0; i < details.Count; i++)
+			{
+				OutpostEventWeightContribution detail = details[i];
+				builder.AppendLine();
+				builder.Append(detail.Label).Append("：");
+				if (detail.Kind == OutpostEventWeightContributionKind.Multiply)
+				{
+					builder.Append('×').Append(detail.Value.ToString("0.##"));
+				}
+				else
+				{
+					if (detail.Value >= 0f) builder.Append('+');
+					builder.Append(detail.Value.ToString("0.##"));
+				}
+			}
+			return builder.ToString();
+		}
+
+		private static float TendencyHeight(float width, List<UiChipView> chips)
+		{
+			float innerWidth = Mathf.Max(width - TendencyPadding * 2f, 40f);
+			return TendencyPadding * 2f + UiText.LineHeight(UiFont.Caption) + 8f + UiDraw.ChipsHeight(chips, innerWidth, true);
+		}
+
+		private static void DrawTendencies(Rect rect, List<UiChipView> chips)
+		{
+			UiDebug.Scope("events.tendencies", rect);
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Card, UiPalette.Line);
+			float x = rect.x + TendencyPadding;
+			float y = rect.y + TendencyPadding;
+			float width = Mathf.Max(rect.width - TendencyPadding * 2f, 40f);
+			float titleHeight = UiText.LineHeight(UiFont.Caption);
+			UiText.Draw(new Rect(x, y, width, titleHeight), "DreamsOutposts.EventWeight.Current".Translate(), UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
+			y += titleHeight + 8f;
+			UiDraw.Chips(new Rect(x, y, width, rect.yMax - y - TendencyPadding), chips, true);
 		}
 
 		// ---------------------------------------------------------------

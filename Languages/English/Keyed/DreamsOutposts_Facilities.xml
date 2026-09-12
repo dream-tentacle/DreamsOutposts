@@ -42,9 +42,11 @@
   <DreamsOutposts.FacilityTag.Processing>Processing</DreamsOutposts.FacilityTag.Processing>
   <DreamsOutposts.FacilityTag.Defense>Defense</DreamsOutposts.FacilityTag.Defense>
   <DreamsOutposts.FacilityTag.AutomaticProduction>Automatic production</DreamsOutposts.FacilityTag.AutomaticProduction>
+  <DreamsOutposts.FacilityTag.Training>Training</DreamsOutposts.FacilityTag.Training>
   <DreamsOutposts.FacilityTag.Other>Other</DreamsOutposts.FacilityTag.Other>
   <DreamsOutposts.AutomaticAirdropSettings>Airdrop settings</DreamsOutposts.AutomaticAirdropSettings>
   <DreamsOutposts.AutomaticAirdropNoProducers>This outpost has no production facilities to select.</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>Automatic airdropper delivered: {0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
+	<DreamsOutposts.WaystationMovementFactor>Waystation: {0}</DreamsOutposts.WaystationMovementFactor>
 </LanguageData>
 

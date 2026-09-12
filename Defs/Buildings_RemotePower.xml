@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="BuildingBase">
+    <defName>DreamsOutposts_RemotePowerReceiver</defName>
+    <label>long-range power receiver</label>
+    <description>Receives power transmitted by linked outpost generators. Transmission efficiency falls with world-map distance.</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <graphicData><texPath>Things/Building/Misc/CommsConsole</texPath><graphicClass>Graphic_Multi</graphicClass><drawSize>(3,2)</drawSize></graphicData>
+    <size>(2,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <statBases><MaxHitPoints>250</MaxHitPoints><WorkToBuild>2200</WorkToBuild><Flammability>0.6</Flammability></statBases>
+    <costList><Steel>100</Steel><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <researchPrerequisites><li>Fabrication</li></researchPrerequisites>
+    <designationCategory>Power</designationCategory>
+    <tickerType>Normal</tickerType>
+    <comps>
+      <li Class="DreamsOutposts.CompProperties_RemotePowerReceiver"><basePowerConsumption>-1</basePowerConsumption><transmitsPower>true</transmitsPower></li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+    </comps>
+  </ThingDef>
+</Defs>

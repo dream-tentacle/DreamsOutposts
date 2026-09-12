@@ -5,7 +5,7 @@ using Verse;
 
 namespace DreamsOutposts
 {
-	/// <summary>设施详情弹窗正文（描述 / 基础 / 生产规则 / 炮击 / 事件分类倾向）。</summary>
+	/// <summary>设施详情弹窗正文（描述 / 基础 / 生产规则 / 炮击）。</summary>
 	public sealed class UiDetailsModalBody : IUiModalBody
 	{
 		private const float SectionTitleTop = 16f;
@@ -59,12 +59,6 @@ namespace DreamsOutposts
 				y = SectionTitle(rect.x, y, width, "DreamsOutposts.Ui.Section.Bombardment".Translate(), measure, firstSection);
 				firstSection = false;
 				y = KvGrid(rect.x, y, width, details.Bombardment, measure);
-			}
-			if (details.Weights.Count > 0)
-			{
-				y = SectionTitle(rect.x, y, width, "DreamsOutposts.Ui.Section.EventWeights".Translate(), measure, firstSection);
-				firstSection = false;
-				y = WeightList(rect.x, y, width, measure);
 			}
 			return Mathf.Max(y - rect.y, 1f);
 		}
@@ -202,30 +196,6 @@ namespace DreamsOutposts
 			return y + total;
 		}
 
-		private float WeightList(float x, float y, float width, bool measure)
-		{
-			float rowHeight = Mathf.Max(UiMetrics.WeightBarHeight, UiText.LineHeight(UiFont.Caption));
-			for (int i = 0; i < details.Weights.Count; i++)
-			{
-				UiWeightRow row = details.Weights[i];
-				float rowY = y + (rowHeight + 6f) * i;
-				if (measure)
-				{
-					continue;
-				}
-				float cursorX = x;
-				UiText.Draw(new Rect(cursorX, rowY, UiMetrics.WeightNameWidth, rowHeight), row.Name, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-				cursorX += UiMetrics.WeightNameWidth + 10f;
-				UiText.Draw(new Rect(cursorX, rowY, UiMetrics.WeightValueWidth, rowHeight), row.ValueText, UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleRight, true);
-				cursorX += UiMetrics.WeightValueWidth + 10f;
-				float barWidth = Mathf.Max(width - (cursorX - x) - 220f, 40f);
-				UiDraw.Bar(new Rect(cursorX, rowY + (rowHeight - UiMetrics.WeightBarHeight) * 0.5f, barWidth, UiMetrics.WeightBarHeight), row.BarFraction, UiPalette.Accent, UiPalette.Track);
-				cursorX += barWidth + 10f;
-				float noteWidth = Mathf.Max(x + width - cursorX, 40f);
-				UiText.Draw(new Rect(cursorX, rowY, noteWidth, rowHeight), row.Note + "  " + row.BaseNote, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-			}
-			return y + details.Weights.Count * (rowHeight + 6f);
-		}
 	}
 
 	/// <summary>安装设施弹窗正文（候选卡片栅格）。</summary>

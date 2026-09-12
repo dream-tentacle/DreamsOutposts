@@ -173,19 +173,6 @@ namespace DreamsOutposts
 		public string MaxCraftableText;
 	}
 
-	public sealed class UiWeightRow
-	{
-		public string Name;
-
-		public string ValueText;
-
-		public float BarFraction;
-
-		public string Note;
-
-		public string BaseNote;
-	}
-
 	public sealed class UiDetailsView
 	{
 		public string Title;
@@ -199,8 +186,6 @@ namespace DreamsOutposts
 		public readonly List<UiRuleView> Rules = new List<UiRuleView>();
 
 		public readonly List<KeyValuePair<string, string>> Bombardment = new List<KeyValuePair<string, string>>();
-
-		public readonly List<UiWeightRow> Weights = new List<UiWeightRow>();
 
 		public bool CanRemove;
 
@@ -598,22 +583,6 @@ namespace DreamsOutposts
 						UiChipKind.Info,
 						"DreamsOutposts.Ui.Chip.TrainingTip".Translate(def.training.skill.LabelCap, OutpostTrainingUtility.CountTrainees(outpost, def)).ToString()));
 				}
-				if (!def.eventCategoryModifiers.NullOrEmpty())
-				{
-					for (int i = 0; i < def.eventCategoryModifiers.Count; i++)
-					{
-						OutpostEventCategoryModifier modifier = def.eventCategoryModifiers[i];
-						if (modifier?.category == null)
-						{
-							continue;
-						}
-						string sign = (modifier.offset >= 0f) ? "+" : string.Empty;
-						view.Chips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.EventCategory".Translate(modifier.category.LabelCap, sign + modifier.offset.ToString("0.##")).ToString(),
-							(modifier.offset >= 0f) ? UiChipKind.Good : UiChipKind.Bad,
-							"DreamsOutposts.Ui.Chip.EventCategoryTip".Translate(view.Label).ToString()));
-					}
-				}
 				if (!def.productionModifiers.NullOrEmpty())
 				{
 					for (int i = 0; i < def.productionModifiers.Count; i++)
@@ -660,11 +629,10 @@ namespace DreamsOutposts
 					: source.SourceFacility.LabelCap.ToString();
 				if (!Mathf.Approximately(modifier.factor, 1f))
 				{
-					int percent = Mathf.RoundToInt((modifier.factor - 1f) * 100f);
-					string sign = percent >= 0 ? "+" : string.Empty;
+					string multiplier = "×" + modifier.factor.ToString("0.##");
 					productionView.ModifierChips.Add(new UiChipView(
-						"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(sign + percent + "%", sourceLabel).ToString(),
-						percent >= 0 ? UiChipKind.Good : UiChipKind.Bad,
+						"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(multiplier, sourceLabel).ToString(),
+						modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
 						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
 				}
 				if (!Mathf.Approximately(modifier.offset, 0f))
@@ -1076,7 +1044,9 @@ namespace DreamsOutposts
 				production.Product = product;
 				production.ProductLabel = (product != null)
 					? product.LabelCap.ToString()
-					: (production.UsesDynamicProduct ? "DreamsOutposts.NoCrop".Translate().ToString() : production.Props.id);
+					: (!string.IsNullOrEmpty(production.Props.outputLabelKey)
+						? production.Props.outputLabelKey.Translate().ToString()
+						: (production.UsesDynamicProduct ? "DreamsOutposts.NoCrop".Translate().ToString() : production.Props.id));
 				production.IntervalText = production.Props.intervalTicks.ToStringTicksToPeriod().ToString();
 				float capacity = 0f;
 				// 没写 capacityStat 的设施走固定产能：不再读 pawn 属性，所以也不调用产能计算
@@ -1229,22 +1199,7 @@ namespace DreamsOutposts
 							{
 								continue;
 							}
-							int percent = Mathf.RoundToInt((modifier.factor - 1f) * 100f);
-							string sign = (percent >= 0) ? "+" : string.Empty;
-							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate(sign + percent + "%").ToString());
-						}
-					}
-					if (!def.eventCategoryModifiers.NullOrEmpty())
-					{
-						for (int m = 0; m < def.eventCategoryModifiers.Count; m++)
-						{
-							OutpostEventCategoryModifier modifier = def.eventCategoryModifiers[m];
-							if (modifier?.category == null)
-							{
-								continue;
-							}
-							string sign = (modifier.offset >= 0f) ? "+" : string.Empty;
-							card.ModLines.Add("DreamsOutposts.Ui.ModEventCategory".Translate(modifier.category.LabelCap, sign + modifier.offset.ToString("0.##")).ToString());
+							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate("×" + modifier.factor.ToString("0.##")).ToString());
 						}
 					}
 					if (!def.productions.NullOrEmpty())
@@ -1258,7 +1213,9 @@ namespace DreamsOutposts
 							}
 							string productLabel = (production.product != null)
 								? production.product.LabelCap.ToString()
-								: (production.Worker.UsesDynamicProduct ? "DreamsOutposts.ProductChosenAfterInstallation".Translate().ToString() : production.id);
+								: (!string.IsNullOrEmpty(production.outputLabelKey)
+									? production.outputLabelKey.Translate().ToString()
+									: (production.Worker.UsesDynamicProduct ? "DreamsOutposts.ProductChosenAfterInstallation".Translate().ToString() : production.id));
 							string line = "DreamsOutposts.Ui.ModProduction".Translate(productLabel, production.intervalTicks.ToStringTicksToPeriod()).ToString();
 							if (production.HasInputs)
 							{
@@ -1436,50 +1393,6 @@ namespace DreamsOutposts
 				}
 				details.Bombardment.Add(new KeyValuePair<string, string>("DreamsOutposts.Ui.Kv.PerStrikeCost".Translate().ToString(),
 					OutpostBuildUtility.CostLabel(bombardment.CostForShells(shells))));
-			}
-			// 事件分类倾向
-			List<OutpostEventCategoryDef> categories = DefDatabase<OutpostEventCategoryDef>.AllDefsListForReading;
-			if (!categories.NullOrEmpty())
-			{
-				for (int i = 0; i < categories.Count; i++)
-				{
-					OutpostEventCategoryDef category = categories[i];
-					if (category == null)
-					{
-						continue;
-					}
-					float weight = OutpostEventUtility.GetCategoryWeight(outpost, category);
-					UiWeightRow row = new UiWeightRow();
-					row.Name = category.LabelCap;
-					row.ValueText = weight.ToString("0.##");
-					row.BarFraction = Mathf.Clamp01(weight / 40f);
-					StringBuilder note = new StringBuilder();
-					foreach (OutpostFacility facility in outpost.Facilities)
-					{
-						List<OutpostEventCategoryModifier> modifiers = facility?.def?.eventCategoryModifiers;
-						if (modifiers == null)
-						{
-							continue;
-						}
-						for (int m = 0; m < modifiers.Count; m++)
-						{
-							OutpostEventCategoryModifier modifier = modifiers[m];
-							if (modifier?.category != category)
-							{
-								continue;
-							}
-							if (note.Length > 0)
-							{
-								note.Append("、");
-							}
-							string sign = (modifier.offset >= 0f) ? "+" : string.Empty;
-							note.Append(facility.def.LabelCap).Append(' ').Append(sign).Append(modifier.offset.ToString("0.##"));
-						}
-					}
-					row.Note = (note.Length > 0) ? note.ToString() : "DreamsOutposts.EventCategoryNoModifiers".Translate().ToString();
-					row.BaseNote = "DreamsOutposts.Ui.WeightBase".Translate(category.baseWeight.ToString("0.##")).ToString();
-					details.Weights.Add(row);
-				}
 			}
 			return details;
 		}

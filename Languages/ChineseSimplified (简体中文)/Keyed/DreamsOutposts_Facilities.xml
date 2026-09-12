@@ -42,9 +42,11 @@
   <DreamsOutposts.FacilityTag.Processing>加工</DreamsOutposts.FacilityTag.Processing>
   <DreamsOutposts.FacilityTag.Defense>防卫</DreamsOutposts.FacilityTag.Defense>
   <DreamsOutposts.FacilityTag.AutomaticProduction>自动生产</DreamsOutposts.FacilityTag.AutomaticProduction>
+  <DreamsOutposts.FacilityTag.Training>训练</DreamsOutposts.FacilityTag.Training>
   <DreamsOutposts.FacilityTag.Other>其他</DreamsOutposts.FacilityTag.Other>
   <DreamsOutposts.AutomaticAirdropSettings>空投设置</DreamsOutposts.AutomaticAirdropSettings>
   <DreamsOutposts.AutomaticAirdropNoProducers>当前据点没有可选择的生产设施。</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>自动空投机已空投物品：{0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
+	<DreamsOutposts.WaystationMovementFactor>驿站：{0}</DreamsOutposts.WaystationMovementFactor>
 </LanguageData>
 

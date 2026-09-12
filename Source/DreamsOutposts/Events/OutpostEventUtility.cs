@@ -1,24 +1,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
 namespace DreamsOutposts
 {
+	public enum OutpostEventWeightContributionKind
+	{
+		Add,
+		Multiply
+	}
+
+	public sealed class OutpostEventWeightContribution
+	{
+		public string Label;
+
+		public float Value;
+
+		public OutpostEventWeightContributionKind Kind;
+	}
+
 	public static class OutpostEventUtility
 	{
-		public static float GetCategoryWeight(Outpost outpost, OutpostEventCategoryDef category)
+		public static float GetCategoryWeight(Outpost outpost, OutpostEventCategoryDef category, List<OutpostEventWeightContribution> details = null)
 		{
 			if (category == null)
 			{
 				return 0f;
 			}
 			float weight = category.baseWeight;
+			AddDetail(details, "DreamsOutposts.EventWeight.Base".Translate(), category.baseWeight);
 			if (outpost == null)
 			{
-				return weight;
+				return Mathf.Max(weight, 0f);
 			}
+			weight += SituationWeight(outpost, category, details);
+			float factor = 1f;
 			foreach (OutpostFacility facility in outpost.Facilities)
 			{
 				List<OutpostEventCategoryModifier> modifiers = facility?.def?.eventCategoryModifiers;
@@ -32,10 +51,162 @@ namespace DreamsOutposts
 					if (modifier != null && modifier.category == category)
 					{
 						weight += modifier.offset;
+						factor *= Mathf.Max(modifier.factor, 0f);
+						if (modifier.offset != 0f)
+						{
+							AddDetail(details, "DreamsOutposts.EventWeight.Facility".Translate(facility.def.LabelCap), modifier.offset);
+						}
+						if (modifier.factor != 1f)
+						{
+							MultiplyDetail(details, "DreamsOutposts.EventWeight.Facility".Translate(facility.def.LabelCap), modifier.factor);
+						}
 					}
 				}
 			}
+			return Mathf.Max(weight * factor, 0f);
+		}
+
+		private static float SituationWeight(Outpost outpost, OutpostEventCategoryDef category, List<OutpostEventWeightContribution> details)
+		{
+			switch (category.defName)
+			{
+				case "DreamsOutposts_Frontier":
+					return FrontierWeight(outpost, details);
+				case "DreamsOutposts_Industrial":
+					return IndustrialWeight(outpost, details);
+				case "DreamsOutposts_Trade":
+					return TradeWeight(outpost, details);
+				case "DreamsOutposts_Population":
+					return PopulationWeight(outpost, details);
+				case "DreamsOutposts_Research":
+					return ResearchWeight(outpost, details);
+				default:
+					return 0f;
+			}
+		}
+
+		private static float FrontierWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
+		{
+			int builtSlots = outpost.extensionSlots?.Count(slot => slot?.facility != null) ?? 0;
+			float level = -3f * (outpost.level - 1);
+			float facilities = -1.5f * builtSlots;
+			float isolation = IsolationBonus(outpost, out float nearest);
+			AddDetail(details, "DreamsOutposts.EventWeight.Level".Translate(outpost.level), level);
+			AddDetail(details, "DreamsOutposts.EventWeight.BuiltFacilities".Translate(builtSlots), facilities);
+			string distance = float.IsPositiveInfinity(nearest)
+				? "DreamsOutposts.EventWeight.NoOtherOutpost".Translate().ToString()
+				: "DreamsOutposts.EventWeight.DistanceTiles".Translate(nearest.ToString("0.#")).ToString();
+			AddDetail(details, "DreamsOutposts.EventWeight.Isolation".Translate(distance), isolation);
+			return level + facilities + isolation;
+		}
+
+		private static float IsolationBonus(Outpost outpost, out float nearest)
+		{
+			nearest = float.PositiveInfinity;
+			List<WorldObject> worldObjects = Find.WorldObjects?.AllWorldObjects;
+			if (worldObjects != null)
+			{
+				for (int i = 0; i < worldObjects.Count; i++)
+				{
+					WorldObject other = worldObjects[i];
+					if (other == null || other == outpost || other.Faction != Faction.OfPlayer || !(other is Settlement || other is Outpost) || !other.Tile.Valid || other.Tile.Layer != outpost.Tile.Layer)
+					{
+						continue;
+					}
+					nearest = Mathf.Min(nearest, Find.WorldGrid.ApproxDistanceInTiles(outpost.Tile, other.Tile));
+				}
+			}
+			if (nearest <= 2f) return 0f;
+			if (nearest <= 5f) return 2f;
+			if (nearest <= 10f) return 4f;
+			if (nearest <= 20f) return 6f;
+			return 8f;
+		}
+
+		private static float IndustrialWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
+		{
+			float weight = 0f;
+			foreach (OutpostFacility facility in outpost.Facilities)
+			{
+				OutpostFacilityDef def = facility?.def;
+				if (def == null || IsResearchFacility(outpost, def)) continue;
+				if (def == outpost.coreFacility?.def && def.IsProducer)
+				{
+					weight += 3f;
+					AddDetail(details, def.LabelCap, 3f);
+				}
+				else if (def.FacilityTag == OutpostFacilityTagRegistry.Processing) { weight += 4f; AddDetail(details, def.LabelCap, 4f); }
+				else if (def.FacilityTag == OutpostFacilityTagRegistry.AutomaticProduction) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
+				else if (def.FacilityTag == OutpostFacilityTagRegistry.ProductionBoost) { weight += 2f; AddDetail(details, def.LabelCap, 2f); }
+				else if (def.IsProducer) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
+			}
 			return weight;
+		}
+
+		private static float TradeWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
+		{
+			float marketValue = 0f;
+			List<Thing> items = outpost.InventoryItems;
+			for (int i = 0; i < items.Count; i++)
+			{
+				Thing thing = items[i];
+				if (thing != null && !thing.Destroyed) marketValue += thing.MarketValue * thing.stackCount;
+			}
+			float result = Mathf.Min(10f, 2f * Mathf.Log(1f + marketValue / 1000f, 2f));
+			AddDetail(details, "DreamsOutposts.EventWeight.StockValue".Translate(marketValue.ToStringMoney()), result);
+			return result;
+		}
+
+		private static float PopulationWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
+		{
+			int colonists = outpost.Colonists.Count();
+			float level = outpost.level - 1;
+			float population = Mathf.Min(4f, Mathf.Sqrt(colonists));
+			AddDetail(details, "DreamsOutposts.EventWeight.Level".Translate(outpost.level), level);
+			AddDetail(details, "DreamsOutposts.EventWeight.Colonists".Translate(colonists), population);
+			return level + population;
+		}
+
+		private static float ResearchWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
+		{
+			OutpostTypeDef researchType = DefDatabase<OutpostTypeDef>.GetNamedSilentFail("DreamsOutposts_Research");
+			float weight = outpost.outpostTypeDef == researchType ? 6f : 0f;
+			if (weight > 0f) AddDetail(details, "DreamsOutposts.EventWeight.ResearchOutpost".Translate(), weight);
+			foreach (OutpostFacility facility in outpost.Facilities)
+			{
+				OutpostFacilityDef def = facility?.def;
+				if (!IsResearchFacility(outpost, def)) continue;
+				weight += 3f;
+				AddDetail(details, def.LabelCap, 3f);
+			}
+			int bestIntellectual = 0;
+			foreach (Pawn pawn in outpost.Colonists)
+			{
+				SkillRecord skill = pawn.skills?.GetSkill(SkillDefOf.Intellectual);
+				if (skill != null && !skill.TotallyDisabled) bestIntellectual = Mathf.Max(bestIntellectual, skill.GetLevel());
+			}
+			float intellectual = Mathf.Min(5f, bestIntellectual / 4f);
+			AddDetail(details, "DreamsOutposts.EventWeight.Intellectual".Translate(bestIntellectual), intellectual);
+			return weight + intellectual;
+		}
+
+		private static void AddDetail(List<OutpostEventWeightContribution> details, string label, float value)
+		{
+			if (details == null) return;
+			details.Add(new OutpostEventWeightContribution { Label = label, Value = value, Kind = OutpostEventWeightContributionKind.Add });
+		}
+
+		private static void MultiplyDetail(List<OutpostEventWeightContribution> details, string label, float value)
+		{
+			if (details == null) return;
+			details.Add(new OutpostEventWeightContribution { Label = label, Value = value, Kind = OutpostEventWeightContributionKind.Multiply });
+		}
+
+		private static bool IsResearchFacility(Outpost outpost, OutpostFacilityDef def)
+		{
+			if (def == null) return false;
+			OutpostTypeDef researchType = DefDatabase<OutpostTypeDef>.GetNamedSilentFail("DreamsOutposts_Research");
+			return def == researchType?.coreFacility || (def.allowedOutpostTypes != null && def.allowedOutpostTypes.Contains(researchType));
 		}
 
 		/// <summary>
@@ -98,7 +269,7 @@ namespace DreamsOutposts
 				if (pair.Value.Count > 0 && categoryWeight > 0f)
 				{
 					categories.Add(pair.Key);
-					categoryWeights.Add(categoryWeight);
+					categoryWeights.Add(Mathf.Pow(categoryWeight, 1.5f));
 				}
 			}
 			int categoryIndex = WeightedIndex(categoryWeights);

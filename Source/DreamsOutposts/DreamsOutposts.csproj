@@ -109,6 +109,12 @@
     <Compile Include="Production\OutpostProductionState_AdaptiveMining.cs" />
     <Compile Include="Production\OutpostProductionUtility.cs" />
     <Compile Include="Production\OutpostProductionOutcome.cs" />
+	<Compile Include="Research\OutpostProductionWorker_Research.cs" />
+    <Compile Include="Power\OutpostProductionProperties_Power.cs" />
+    <Compile Include="Power\OutpostProductionState_Power.cs" />
+    <Compile Include="Power\OutpostProductionWorker_Power.cs" />
+    <Compile Include="Power\RemotePowerUtility.cs" />
+    <Compile Include="Power\CompRemotePowerReceiver.cs" />
     <Compile Include="Facilities\OutpostManagePage.cs" />
     <Compile Include="Facilities\OutpostFacilityTagRegistry.cs" />
     <Compile Include="Facilities\OutpostManagePageDef.cs" />
@@ -120,6 +126,7 @@
     <Compile Include="World\Window_FormCaravanFromOutpost.cs" />
     <Compile Include="World\WorldPawnGcPatch.cs" />
     <Compile Include="World\CaravanGizmoPatch.cs" />
+	<Compile Include="World\OutpostWaystationUtility.cs" />
     <Compile Include="Logistics\OutpostStockUtility.cs" />
     <Compile Include="Logistics\OutpostBuildUtility.cs" />
     <Compile Include="Logistics\OutpostAirdropUtility.cs" />
