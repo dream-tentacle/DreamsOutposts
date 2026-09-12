@@ -72,8 +72,9 @@
     <Compile Include="Core\OutpostWorker.cs" />
     <Compile Include="Core\Outpost.cs" />
     <Compile Include="Core\OutpostTypeRestrictionUtility.cs" />
+    <Compile Include="Core\OutpostTrainingProperties.cs" />
+    <Compile Include="Training\OutpostTrainingUtility.cs" />
     <Compile Include="Defense\OutpostDefenseUtility.cs" />
-    <Compile Include="Defense\Page_OutpostDefense.cs" />
     <Compile Include="Events\OutpostEventDef.cs" />
     <Compile Include="Events\OutpostEventCategoryDef.cs" />
     <Compile Include="Events\OutpostEventCategoryModifier.cs" />
@@ -95,8 +96,6 @@
     <Compile Include="Events\OutpostEventRequirement_StatValue.cs" />
     <Compile Include="Events\OutpostEventRequirement_MinDefense.cs" />
     <Compile Include="Events\OutpostStatUtility.cs" />
-    <Compile Include="Events\Page_OutpostEvents.cs" />
-    <Compile Include="Events\Window_OutpostEventDialog.cs" />
     <Compile Include="Production\OutpostProductionProperties.cs" />
     <Compile Include="Production\OutpostProductionProperties_Farming.cs" />
     <Compile Include="Production\OutpostProductionModifier.cs" />
@@ -110,9 +109,7 @@
     <Compile Include="Facilities\OutpostManagePage.cs" />
     <Compile Include="Facilities\OutpostManagePageDef.cs" />
     <Compile Include="Facilities\OutpostManagePageRegistry.cs" />
-    <Compile Include="Facilities\Page_OutpostFacilities.cs" />
     <Compile Include="Facilities\Page_OutpostInstall.cs" />
-    <Compile Include="Facilities\Page_OutpostInventory.cs" />
     <Compile Include="World\OutpostCreationDialog.cs" />
     <Compile Include="World\OutpostUtility.cs" />
     <Compile Include="World\OutpostUpgradeUtility.cs" />
@@ -131,6 +128,24 @@
     <Compile Include="Bombardment\MapComponent_OutpostBombardment.cs" />
     <Compile Include="UI\Window_OutpostManage.cs" />
     <Compile Include="UI\Window_OutpostPage.cs" />
+    <Compile Include="UI\IUiShellPage.cs" />
+    <Compile Include="UI\OutpostUiCache.cs" />
+    <Compile Include="UI\Window_OutpostModal.cs" />
+    <Compile Include="UI\DebugActions_OutpostUi.cs" />
+    <Compile Include="UI\Kit\UiPalette.cs" />
+    <Compile Include="UI\Kit\UiMetrics.cs" />
+    <Compile Include="UI\Kit\UiText.cs" />
+    <Compile Include="UI\Kit\UiLayout.cs" />
+    <Compile Include="UI\Kit\UiTex.cs" />
+    <Compile Include="UI\Kit\UiDraw.cs" />
+    <Compile Include="UI\Kit\UiWidgets.cs" />
+    <Compile Include="UI\Kit\UiDebug.cs" />
+    <Compile Include="UI\Pages\Page_OutpostFacilities.cs" />
+    <Compile Include="UI\Pages\Page_OutpostDefense.cs" />
+    <Compile Include="UI\Pages\Page_OutpostInventory.cs" />
+    <Compile Include="UI\Pages\Page_OutpostEvents.cs" />
+    <Compile Include="UI\Modals\UiFacilityModals.cs" />
+    <Compile Include="UI\Modals\UiEventModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

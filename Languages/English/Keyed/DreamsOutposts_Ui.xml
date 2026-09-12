@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- New UI shell and facilities page -->
+  <DreamsOutposts.Ui.Tile>Tile {0}</DreamsOutposts.Ui.Tile>
+  <DreamsOutposts.Ui.DaysSinceEstablished>{0} days since founding</DreamsOutposts.Ui.DaysSinceEstablished>
+  <DreamsOutposts.Ui.PipTooltip>Level {0}: {1} extension slots</DreamsOutposts.Ui.PipTooltip>
+  <DreamsOutposts.Ui.PipDaysRequired>needs {0} days since founding</DreamsOutposts.Ui.PipDaysRequired>
+  <DreamsOutposts.Ui.UpgradeTitle>Upgrade to level {0} · slots {1} to {2}</DreamsOutposts.Ui.UpgradeTitle>
+  <DreamsOutposts.Ui.Upgrade.Days>Days since founding</DreamsOutposts.Ui.Upgrade.Days>
+  <DreamsOutposts.Ui.Upgrade.DaysValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.DaysValue>
+  <DreamsOutposts.Ui.Upgrade.MaterialValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.MaterialValue>
+  <DreamsOutposts.Ui.Upgrade.Missing>Not enough materials: {0}</DreamsOutposts.Ui.Upgrade.Missing>
+  <DreamsOutposts.Ui.Upgrade.ConfirmTip>Upgrade this outpost now.</DreamsOutposts.Ui.Upgrade.ConfirmTip>
+  <DreamsOutposts.Ui.Chip.CurrentSlots>{0} slots now</DreamsOutposts.Ui.Chip.CurrentSlots>
+  <DreamsOutposts.Ui.Chip.CoreFacility>Core: {0}</DreamsOutposts.Ui.Chip.CoreFacility>
+  <DreamsOutposts.Ui.Chip.Defense>Defense +{0}</DreamsOutposts.Ui.Chip.Defense>
+  <DreamsOutposts.Ui.Chip.DefenseValue>Defense {0}</DreamsOutposts.Ui.Chip.DefenseValue>
+  <DreamsOutposts.Ui.Chip.DefenseTip>Total outpost defense, calculated live.</DreamsOutposts.Ui.Chip.DefenseTip>
+  <DreamsOutposts.Ui.Chip.Bombardable>Can bombard</DreamsOutposts.Ui.Chip.Bombardable>
+  <DreamsOutposts.Ui.Chip.ShellBonus>Bombard +{0} shells</DreamsOutposts.Ui.Chip.ShellBonus>
+  <DreamsOutposts.Ui.Chip.EventCategory>{0} {1}</DreamsOutposts.Ui.Chip.EventCategory>
+  <DreamsOutposts.Ui.Chip.EventCategoryTip>Event category modifier from {0}.</DreamsOutposts.Ui.Chip.EventCategoryTip>
+  <DreamsOutposts.Ui.Chip.ProductionFactor>Output x{0}</DreamsOutposts.Ui.Chip.ProductionFactor>
+  <DreamsOutposts.Ui.Chip.ProductionDelta>{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
+  <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
+  <DreamsOutposts.Ui.Chip.ProductionModifierTip>Production modifier from {0}.</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.Limit>Limit {0} (built {1})</DreamsOutposts.Ui.Chip.Limit>
+  <DreamsOutposts.Ui.Chip.ResearchDone>Research done</DreamsOutposts.Ui.Chip.ResearchDone>
+  <DreamsOutposts.Ui.Chip.ResearchMissing>Research needed: {0}</DreamsOutposts.Ui.Chip.ResearchMissing>
+  <DreamsOutposts.Ui.Chip.LevelOk>Level {0} outpost</DreamsOutposts.Ui.Chip.LevelOk>
+  <DreamsOutposts.Ui.Chip.LevelMissing>Needs level {1} (now {0})</DreamsOutposts.Ui.Chip.LevelMissing>
+  <DreamsOutposts.Ui.Chip.Training>Trains {0} {1}/h</DreamsOutposts.Ui.Chip.Training>
+  <DreamsOutposts.Ui.Chip.TrainingTip>{0}: every colonist stationed here gains {1} xp per hour. Pawns who are incapable of that work gain nothing.</DreamsOutposts.Ui.Chip.TrainingTip>
+  <DreamsOutposts.Ui.Rule.FixedCapacity>Fixed capacity 1 (no skill needed)</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <DreamsOutposts.Ui.CoreSubLabel>Core facility · cannot be removed</DreamsOutposts.Ui.CoreSubLabel>
+  <DreamsOutposts.Ui.SlotLabel>Slot {0}</DreamsOutposts.Ui.SlotLabel>
+  <DreamsOutposts.Ui.Nav.Slots>{0}/{1} slots</DreamsOutposts.Ui.Nav.Slots>
+  <DreamsOutposts.Ui.Nav.Defense>{0} defense</DreamsOutposts.Ui.Nav.Defense>
+  <DreamsOutposts.Ui.Nav.Items>{0} item kinds</DreamsOutposts.Ui.Nav.Items>
+  <DreamsOutposts.Ui.Nav.Events>{0} active</DreamsOutposts.Ui.Nav.Events>
+  <DreamsOutposts.Ui.FacilitiesHint>Click a facility card for details, click an empty slot to install something.</DreamsOutposts.Ui.FacilitiesHint>
+  <DreamsOutposts.Ui.CoreFacilityHint>Fixed by the outpost type</DreamsOutposts.Ui.CoreFacilityHint>
+  <DreamsOutposts.Ui.ExtensionHint>Paid from the outpost stock, half refunded on removal</DreamsOutposts.Ui.ExtensionHint>
+  <DreamsOutposts.Ui.EmptySlotHint>Slot {0} · click to choose a facility</DreamsOutposts.Ui.EmptySlotHint>
+  <DreamsOutposts.Ui.ProductionAmount>{0} x{1}</DreamsOutposts.Ui.ProductionAmount>
+  <DreamsOutposts.Ui.ProductionMetaWithCapacity>{0}, {1}</DreamsOutposts.Ui.ProductionMetaWithCapacity>
+  <DreamsOutposts.Ui.ProductionEvery>every {0}</DreamsOutposts.Ui.ProductionEvery>
+  <DreamsOutposts.Ui.Switch>Switch</DreamsOutposts.Ui.Switch>
+  <DreamsOutposts.Ui.Close>Close</DreamsOutposts.Ui.Close>
+  <DreamsOutposts.Ui.Cancel>Cancel</DreamsOutposts.Ui.Cancel>
+  <DreamsOutposts.Ui.ActionPending>This button gets wired up in the next pass; for now it only shows the layout.</DreamsOutposts.Ui.ActionPending>
+  <DreamsOutposts.Ui.Install.Sub>Choose a facility to build here. Materials are paid from the outpost stock. (Slot {0})</DreamsOutposts.Ui.Install.Sub>
+  <DreamsOutposts.Ui.Install.OnlyAvailable>Only buildable</DreamsOutposts.Ui.Install.OnlyAvailable>
+  <DreamsOutposts.Ui.Install.NoneAvailable>Nothing can be built right now.</DreamsOutposts.Ui.Install.NoneAvailable>
+  <DreamsOutposts.Ui.Install.PayFromStock>Materials are paid from the outpost stock</DreamsOutposts.Ui.Install.PayFromStock>
+  <DreamsOutposts.Ui.ModAllProductions>all</DreamsOutposts.Ui.ModAllProductions>
+  <DreamsOutposts.Ui.ModProductionFactor>Output {0} (tag {1})</DreamsOutposts.Ui.ModProductionFactor>
+  <DreamsOutposts.Ui.ModEventCategory>Event category {0} {1}</DreamsOutposts.Ui.ModEventCategory>
+  <DreamsOutposts.Ui.ModProduction>Produces {0} · every {1}</DreamsOutposts.Ui.ModProduction>
+  <DreamsOutposts.Ui.ModProductionInputs>consumes {0}/unit</DreamsOutposts.Ui.ModProductionInputs>
+  <DreamsOutposts.Ui.Section.Basics>Basics</DreamsOutposts.Ui.Section.Basics>
+  <DreamsOutposts.Ui.Section.Production>Production</DreamsOutposts.Ui.Section.Production>
+  <DreamsOutposts.Ui.Section.Bombardment>Bombardment</DreamsOutposts.Ui.Section.Bombardment>
+  <DreamsOutposts.Ui.Section.EventWeights>Event category weights</DreamsOutposts.Ui.Section.EventWeights>
+  <DreamsOutposts.Ui.Kv.Location>Location</DreamsOutposts.Ui.Kv.Location>
+  <DreamsOutposts.Ui.Kv.Refund>Refund on removal</DreamsOutposts.Ui.Kv.Refund>
+  <DreamsOutposts.Ui.Kv.Cost>Build cost</DreamsOutposts.Ui.Kv.Cost>
+  <DreamsOutposts.Ui.Kv.Limit>Limit per outpost</DreamsOutposts.Ui.Kv.Limit>
+  <DreamsOutposts.Ui.Kv.LimitValue>{0} (built {1})</DreamsOutposts.Ui.Kv.LimitValue>
+  <DreamsOutposts.Ui.Kv.ShellsPerStrike>Shells per strike</DreamsOutposts.Ui.Kv.ShellsPerStrike>
+  <DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>{0} x {1}</DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>
+  <DreamsOutposts.Ui.Kv.Range>Range</DreamsOutposts.Ui.Kv.Range>
+  <DreamsOutposts.Ui.Kv.Cooldown>Cooldown</DreamsOutposts.Ui.Kv.Cooldown>
+  <DreamsOutposts.Ui.Kv.SkillReq>Skill requirement</DreamsOutposts.Ui.Kv.SkillReq>
+  <DreamsOutposts.Ui.Kv.PerStrikeCost>Cost per strike</DreamsOutposts.Ui.Kv.PerStrikeCost>
+  <DreamsOutposts.Ui.Rule.Progress>Progress {0}%, {1} left</DreamsOutposts.Ui.Rule.Progress>
+  <DreamsOutposts.Ui.Rule.Output>Output {0} x {1}</DreamsOutposts.Ui.Rule.Output>
+  <DreamsOutposts.Ui.Rule.Expected>Expected {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
+  <DreamsOutposts.Ui.Rule.Capacity>{0} total {1}</DreamsOutposts.Ui.Rule.Capacity>
+  <DreamsOutposts.Ui.Rule.SkillFilter>{0} >= {1} only</DreamsOutposts.Ui.Rule.SkillFilter>
+  <DreamsOutposts.Ui.Rule.Tags>Tags {0}</DreamsOutposts.Ui.Rule.Tags>
+  <DreamsOutposts.Ui.Rule.PerUnit>(per unit)</DreamsOutposts.Ui.Rule.PerUnit>
+  <DreamsOutposts.Ui.Rule.MaxCraftable>Up to {0} units</DreamsOutposts.Ui.Rule.MaxCraftable>
+  <DreamsOutposts.Ui.Rule.MaxCraftableInfinite>Up to unlimited units</DreamsOutposts.Ui.Rule.MaxCraftableInfinite>
+  <DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>Stock is not limiting</DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>
+  <DreamsOutposts.Ui.WeightBase>(base {0})</DreamsOutposts.Ui.WeightBase>
+  <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
+  <DreamsOutposts.Ui.DefenseSkillDisabled>{0} disabled</DreamsOutposts.Ui.DefenseSkillDisabled>
+  <DreamsOutposts.Ui.Warehouse>Warehouse</DreamsOutposts.Ui.Warehouse>
+  <DreamsOutposts.Ui.WarehouseHint>Produced goods end up here automatically.</DreamsOutposts.Ui.WarehouseHint>
+  <DreamsOutposts.Ui.Stacks>{0} stacks</DreamsOutposts.Ui.Stacks>
+  <DreamsOutposts.Ui.Kv.RemainingTime>Time left</DreamsOutposts.Ui.Kv.RemainingTime>
+  <DreamsOutposts.Ui.Kv.Category>Category</DreamsOutposts.Ui.Kv.Category>
+  <DreamsOutposts.Ui.Kv.Duration>Duration</DreamsOutposts.Ui.Kv.Duration>
+  <DreamsOutposts.Ui.Kv.OnTimeout>On timeout</DreamsOutposts.Ui.Kv.OnTimeout>
+  <DreamsOutposts.Ui.EventChipRemaining>{0} left</DreamsOutposts.Ui.EventChipRemaining>
+  <DreamsOutposts.Ui.ScheduledNote>{0} scheduled follow-up events</DreamsOutposts.Ui.ScheduledNote>
+  <DreamsOutposts.Ui.EventNoOptions>This event has no options.</DreamsOutposts.Ui.EventNoOptions>
+  <DreamsOutposts.Ui.Option.NotPlayerSelectable>Not player-selectable</DreamsOutposts.Ui.Option.NotPlayerSelectable>
+  <DreamsOutposts.Ui.Option.RequirementsFailed>Requirements not met</DreamsOutposts.Ui.Option.RequirementsFailed>
+  <DreamsOutposts.Ui.Option.Confirm>Confirm</DreamsOutposts.Ui.Option.Confirm>
+  <DreamsOutposts.Ui.Option.Later>Later</DreamsOutposts.Ui.Option.Later>
+</LanguageData>

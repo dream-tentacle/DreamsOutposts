@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- UI 布局调试用的快捷键。不设默认键，玩家在「选项 → 快捷键 → 游戏」里自己绑。 -->
+  <KeyBindingDef>
+    <defName>DreamsOutposts_ToggleUiLayoutOverlay</defName>
+    <label>toggle outpost UI layout overlay</label>
+    <category>Game</category>
+  </KeyBindingDef>
+  <KeyBindingDef>
+    <defName>DreamsOutposts_DumpUiLayout</defName>
+    <label>dump outpost UI layout to log</label>
+    <category>Game</category>
+  </KeyBindingDef>
+</Defs>

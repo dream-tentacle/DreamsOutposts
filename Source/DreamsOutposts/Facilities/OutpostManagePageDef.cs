@@ -8,6 +8,9 @@ namespace DreamsOutposts
 	{
 		public Type pageClass = typeof(OutpostManagePage);
 
+		/// <summary>新 UI 侧栏图标名（对应 UiIcon 枚举）。留空时按页面类型推断。</summary>
+		public string uiIcon;
+
 		public float order;
 
 		public bool hidden;

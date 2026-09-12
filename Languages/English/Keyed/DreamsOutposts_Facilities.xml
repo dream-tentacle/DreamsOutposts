@@ -6,6 +6,11 @@
   <DreamsOutposts.InstallFail.ResearchMissing>Requires research: {0}</DreamsOutposts.InstallFail.ResearchMissing>
   <DreamsOutposts.InstallFail.LimitReached>This outpost already has the maximum of {0}.</DreamsOutposts.InstallFail.LimitReached>
   <DreamsOutposts.InstallFail.CannotAfford>Not enough resources: missing {0}.</DreamsOutposts.InstallFail.CannotAfford>
+  <DreamsOutposts.InstallFail.LevelTooLow>This outpost is level {0}; the facility requires level {1}.</DreamsOutposts.InstallFail.LevelTooLow>
+  <DreamsOutposts.RequiresOutpostLevel>Requires outpost level: {0}</DreamsOutposts.RequiresOutpostLevel>
+  <DreamsOutposts.TrainingInfo>Trains: {0} ({1} xp per hour)</DreamsOutposts.TrainingInfo>
+  <DreamsOutposts.TrainingTooltip>Trains {0} for colonists stationed here: {1} xp per hour.</DreamsOutposts.TrainingTooltip>
+  <DreamsOutposts.ProductionFixedPerCycle>{0} per cycle (no skill needed)</DreamsOutposts.ProductionFixedPerCycle>
   <DreamsOutposts.InstallFacility>Install facility</DreamsOutposts.InstallFacility>
   <DreamsOutposts.NoInstallSlot>This page was opened without a slot to install into.</DreamsOutposts.NoInstallSlot>
   <DreamsOutposts.ChooseFacility>Choose a facility to build here. Materials are paid from this outpost's store.</DreamsOutposts.ChooseFacility>

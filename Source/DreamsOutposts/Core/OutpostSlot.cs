@@ -35,6 +35,11 @@ namespace DreamsOutposts
 			{
 				return new AcceptanceReport("DreamsOutposts.InstallFail.ResearchMissing".Translate(def.FirstMissingResearch?.LabelCap ?? ((TaggedString)"null")));
 			}
+			AcceptanceReport levelReport = def.MeetsLevelRequirement(outpost);
+			if (!levelReport.Accepted)
+			{
+				return levelReport;
+			}
 			if (OutpostUtility.IsInstallLimitReached(outpost, def))
 			{
 				return new AcceptanceReport("DreamsOutposts.InstallFail.LimitReached".Translate(def.maxPerOutpost));

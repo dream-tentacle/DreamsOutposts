@@ -104,7 +104,7 @@ namespace DreamsOutposts
 		{
 			if (cost.NullOrEmpty())
 			{
-				return "none";
+				return "-";
 			}
 			StringBuilder stringBuilder = new StringBuilder();
 			for (int i = 0; i < cost.Count; i++)
@@ -115,7 +115,7 @@ namespace DreamsOutposts
 					AppendItem(stringBuilder, item.thingDef, item.count);
 				}
 			}
-			return (stringBuilder.Length == 0) ? "none" : stringBuilder.ToString();
+			return (stringBuilder.Length == 0) ? "-" : stringBuilder.ToString();
 		}
 
 		public static string CostLabel(OutpostFacilityDef def)

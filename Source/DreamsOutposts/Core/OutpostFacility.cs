@@ -9,6 +9,11 @@ namespace DreamsOutposts
 
 		public List<OutpostProductionState> productionStates;
 
+		/// <summary>
+		/// 上次结算训练经验的 tick。只用于按经过时间换算经验，避免重复或漏算。
+		/// </summary>
+		public int lastTrainingTick;
+
 		public OutpostFacility()
 		{
 			productionStates = new List<OutpostProductionState>();
@@ -104,6 +109,7 @@ namespace DreamsOutposts
 		public void ExposeData()
 		{
 			Scribe_Defs.Look(ref def, "def");
+			Scribe_Values.Look(ref lastTrainingTick, "lastTrainingTick", 0);
 			Scribe_Collections.Look(ref productionStates, "productionStates", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{

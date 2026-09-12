@@ -22,9 +22,11 @@ namespace DreamsOutposts
 			{
 				throw new ArgumentNullException("production");
 			}
+			// 没写 capacityStat 表示这个设施不依赖任何技能属性：产能固定为 1，
+			// 于是每周期产量就是 outputPerCapacity 本身，与人数、技能都无关。
 			if (production.capacityStat == null)
 			{
-				throw new InvalidOperationException("The default personnel capacity calculation requires a capacityStat.");
+				return 1f;
 			}
 			float capacity = 0f;
 			foreach (Pawn pawn in pawns)
@@ -86,10 +88,7 @@ namespace DreamsOutposts
 
 		public virtual IEnumerable<string> ConfigErrors(OutpostProductionProperties production)
 		{
-			if (production.capacityStat == null)
-			{
-				yield return "capacityStat is required by the default personnel capacity calculation.";
-			}
+			// capacityStat 留空是合法的：此时产能固定为 1，设施不依赖任何技能属性。
 			foreach (string item in StateClassErrors())
 			{
 				yield return item;

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- 新 UI 外壳与设施页 -->
+  <DreamsOutposts.Ui.Tile>地块 {0}</DreamsOutposts.Ui.Tile>
+  <DreamsOutposts.Ui.DaysSinceEstablished>建立后 {0} 天</DreamsOutposts.Ui.DaysSinceEstablished>
+  <DreamsOutposts.Ui.PipTooltip>等级 {0}：{1} 个扩展槽位</DreamsOutposts.Ui.PipTooltip>
+  <DreamsOutposts.Ui.PipDaysRequired>需要建立后 {0} 天</DreamsOutposts.Ui.PipDaysRequired>
+  <DreamsOutposts.Ui.UpgradeTitle>升级到等级 {0} · 槽位 {1} → {2}</DreamsOutposts.Ui.UpgradeTitle>
+  <DreamsOutposts.Ui.Upgrade.Days>建立后天数</DreamsOutposts.Ui.Upgrade.Days>
+  <DreamsOutposts.Ui.Upgrade.DaysValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.DaysValue>
+  <DreamsOutposts.Ui.Upgrade.MaterialValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.MaterialValue>
+  <DreamsOutposts.Ui.Upgrade.Missing>材料不足：{0}</DreamsOutposts.Ui.Upgrade.Missing>
+  <DreamsOutposts.Ui.Upgrade.ConfirmTip>立即升级此据点。</DreamsOutposts.Ui.Upgrade.ConfirmTip>
+  <DreamsOutposts.Ui.Chip.CurrentSlots>当前槽位 {0}</DreamsOutposts.Ui.Chip.CurrentSlots>
+  <DreamsOutposts.Ui.Chip.CoreFacility>核心设施 {0}</DreamsOutposts.Ui.Chip.CoreFacility>
+  <DreamsOutposts.Ui.Chip.Defense>防卫 +{0}</DreamsOutposts.Ui.Chip.Defense>
+  <DreamsOutposts.Ui.Chip.DefenseValue>防卫 {0}</DreamsOutposts.Ui.Chip.DefenseValue>
+  <DreamsOutposts.Ui.Chip.DefenseTip>据点总防卫，实时计算。</DreamsOutposts.Ui.Chip.DefenseTip>
+  <DreamsOutposts.Ui.Chip.Bombardable>可炮击</DreamsOutposts.Ui.Chip.Bombardable>
+  <DreamsOutposts.Ui.Chip.ShellBonus>炮击 +{0} 发</DreamsOutposts.Ui.Chip.ShellBonus>
+  <DreamsOutposts.Ui.Chip.EventCategory>{0} {1}</DreamsOutposts.Ui.Chip.EventCategory>
+  <DreamsOutposts.Ui.Chip.EventCategoryTip>来自 {0} 的事件分类修正。</DreamsOutposts.Ui.Chip.EventCategoryTip>
+  <DreamsOutposts.Ui.Chip.ProductionFactor>产能 ×{0}</DreamsOutposts.Ui.Chip.ProductionFactor>
+  <DreamsOutposts.Ui.Chip.ProductionDelta>{0} 产能 · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
+  <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} 产量 · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
+  <DreamsOutposts.Ui.Chip.ProductionModifierTip>来自 {0} 的产能修正。</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.Limit>上限 {0}（已建 {1}）</DreamsOutposts.Ui.Chip.Limit>
+  <DreamsOutposts.Ui.Chip.ResearchDone>研究已完成</DreamsOutposts.Ui.Chip.ResearchDone>
+  <DreamsOutposts.Ui.Chip.ResearchMissing>需要研究：{0}</DreamsOutposts.Ui.Chip.ResearchMissing>
+  <DreamsOutposts.Ui.Chip.LevelOk>据点{0}级起</DreamsOutposts.Ui.Chip.LevelOk>
+  <DreamsOutposts.Ui.Chip.LevelMissing>需要据点{1}级（当前{0}级）</DreamsOutposts.Ui.Chip.LevelMissing>
+  <DreamsOutposts.Ui.Chip.Training>训练 {0} {1}/时</DreamsOutposts.Ui.Chip.Training>
+  <DreamsOutposts.Ui.Chip.TrainingTip>{0}：驻扎在此的每个殖民者每小时获得{1}点经验。无法从事该工作的殖民者不会获得经验。</DreamsOutposts.Ui.Chip.TrainingTip>
+  <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1（不需要技能）</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <DreamsOutposts.Ui.CoreSubLabel>核心设施 · 不可拆除</DreamsOutposts.Ui.CoreSubLabel>
+  <DreamsOutposts.Ui.SlotLabel>槽位 {0}</DreamsOutposts.Ui.SlotLabel>
+  <DreamsOutposts.Ui.Nav.Slots>{0}/{1} 槽位</DreamsOutposts.Ui.Nav.Slots>
+  <DreamsOutposts.Ui.Nav.Defense>{0} 防卫值</DreamsOutposts.Ui.Nav.Defense>
+  <DreamsOutposts.Ui.Nav.Items>{0} 种物品</DreamsOutposts.Ui.Nav.Items>
+  <DreamsOutposts.Ui.Nav.Events>{0} 个进行中</DreamsOutposts.Ui.Nav.Events>
+  <DreamsOutposts.Ui.FacilitiesHint>点设施卡片打开详情，点空槽位安装新设施。</DreamsOutposts.Ui.FacilitiesHint>
+  <DreamsOutposts.Ui.CoreFacilityHint>由据点类型固定</DreamsOutposts.Ui.CoreFacilityHint>
+  <DreamsOutposts.Ui.ExtensionHint>材料从据点仓库支付，拆除返还一半</DreamsOutposts.Ui.ExtensionHint>
+  <DreamsOutposts.Ui.EmptySlotHint>槽位 {0} · 点击选择设施</DreamsOutposts.Ui.EmptySlotHint>
+  <DreamsOutposts.Ui.ProductionAmount>{0} ×{1}</DreamsOutposts.Ui.ProductionAmount>
+  <DreamsOutposts.Ui.ProductionMetaWithCapacity>{0}，{1}</DreamsOutposts.Ui.ProductionMetaWithCapacity>
+  <DreamsOutposts.Ui.ProductionEvery>每 {0}</DreamsOutposts.Ui.ProductionEvery>
+  <DreamsOutposts.Ui.Switch>切换</DreamsOutposts.Ui.Switch>
+  <DreamsOutposts.Ui.Close>关闭</DreamsOutposts.Ui.Close>
+  <DreamsOutposts.Ui.Cancel>取消</DreamsOutposts.Ui.Cancel>
+  <DreamsOutposts.Ui.ActionPending>此按钮将在下一期接线，目前只展示外观。</DreamsOutposts.Ui.ActionPending>
+  <DreamsOutposts.Ui.Install.Sub>选择要在此处建造的设施。材料将从据点仓库支付。（槽位 {0}）</DreamsOutposts.Ui.Install.Sub>
+  <DreamsOutposts.Ui.Install.OnlyAvailable>只看可建造</DreamsOutposts.Ui.Install.OnlyAvailable>
+  <DreamsOutposts.Ui.Install.NoneAvailable>当前没有可以建造的设施。</DreamsOutposts.Ui.Install.NoneAvailable>
+  <DreamsOutposts.Ui.Install.PayFromStock>材料将从据点仓库扣除</DreamsOutposts.Ui.Install.PayFromStock>
+  <DreamsOutposts.Ui.ModAllProductions>全部</DreamsOutposts.Ui.ModAllProductions>
+  <DreamsOutposts.Ui.ModProductionFactor>产能 {0}（标签 {1}）</DreamsOutposts.Ui.ModProductionFactor>
+  <DreamsOutposts.Ui.ModEventCategory>事件分类 {0} {1}</DreamsOutposts.Ui.ModEventCategory>
+  <DreamsOutposts.Ui.ModProduction>生产 {0} · 每 {1}</DreamsOutposts.Ui.ModProduction>
+  <DreamsOutposts.Ui.ModProductionInputs>消耗 {0}/单位</DreamsOutposts.Ui.ModProductionInputs>
+  <DreamsOutposts.Ui.Section.Basics>基础</DreamsOutposts.Ui.Section.Basics>
+  <DreamsOutposts.Ui.Section.Production>生产</DreamsOutposts.Ui.Section.Production>
+  <DreamsOutposts.Ui.Section.Bombardment>炮击</DreamsOutposts.Ui.Section.Bombardment>
+  <DreamsOutposts.Ui.Section.EventWeights>事件分类倾向</DreamsOutposts.Ui.Section.EventWeights>
+  <DreamsOutposts.Ui.Kv.Location>位置</DreamsOutposts.Ui.Kv.Location>
+  <DreamsOutposts.Ui.Kv.Refund>拆除返还</DreamsOutposts.Ui.Kv.Refund>
+  <DreamsOutposts.Ui.Kv.Cost>建造成本</DreamsOutposts.Ui.Kv.Cost>
+  <DreamsOutposts.Ui.Kv.Limit>每据点上限</DreamsOutposts.Ui.Kv.Limit>
+  <DreamsOutposts.Ui.Kv.LimitValue>{0} 个（已建 {1}）</DreamsOutposts.Ui.Kv.LimitValue>
+  <DreamsOutposts.Ui.Kv.ShellsPerStrike>每次炮击</DreamsOutposts.Ui.Kv.ShellsPerStrike>
+  <DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>{0} 发 {1}</DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>
+  <DreamsOutposts.Ui.Kv.Range>射程</DreamsOutposts.Ui.Kv.Range>
+  <DreamsOutposts.Ui.Kv.Cooldown>冷却</DreamsOutposts.Ui.Kv.Cooldown>
+  <DreamsOutposts.Ui.Kv.SkillReq>技能要求</DreamsOutposts.Ui.Kv.SkillReq>
+  <DreamsOutposts.Ui.Kv.PerStrikeCost>每次炮击消耗</DreamsOutposts.Ui.Kv.PerStrikeCost>
+  <DreamsOutposts.Ui.Rule.Progress>进度 {0}%，还需 {1}</DreamsOutposts.Ui.Rule.Progress>
+  <DreamsOutposts.Ui.Rule.Output>产量 {0} × {1}</DreamsOutposts.Ui.Rule.Output>
+  <DreamsOutposts.Ui.Rule.Expected>预期 {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
+  <DreamsOutposts.Ui.Rule.Capacity>{0} 合计 {1}</DreamsOutposts.Ui.Rule.Capacity>
+  <DreamsOutposts.Ui.Rule.SkillFilter>{0} ≥ {1} 才计入</DreamsOutposts.Ui.Rule.SkillFilter>
+  <DreamsOutposts.Ui.Rule.Tags>标签 {0}</DreamsOutposts.Ui.Rule.Tags>
+  <DreamsOutposts.Ui.Rule.PerUnit>（每单位）</DreamsOutposts.Ui.Rule.PerUnit>
+  <DreamsOutposts.Ui.Rule.MaxCraftable>最多可做 {0} 单位</DreamsOutposts.Ui.Rule.MaxCraftable>
+  <DreamsOutposts.Ui.Rule.MaxCraftableInfinite>最多可做 ∞ 单位</DreamsOutposts.Ui.Rule.MaxCraftableInfinite>
+  <DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>仓库材料不限</DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>
+  <DreamsOutposts.Ui.WeightBase>（基础 {0}）</DreamsOutposts.Ui.WeightBase>
+  <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
+  <DreamsOutposts.Ui.DefenseSkillDisabled>{0} 已禁用</DreamsOutposts.Ui.DefenseSkillDisabled>
+  <DreamsOutposts.Ui.Warehouse>仓库</DreamsOutposts.Ui.Warehouse>
+  <DreamsOutposts.Ui.WarehouseHint>生产出的产物会自动进入这里。</DreamsOutposts.Ui.WarehouseHint>
+  <DreamsOutposts.Ui.Stacks>{0} 堆</DreamsOutposts.Ui.Stacks>
+  <DreamsOutposts.Ui.Kv.RemainingTime>剩余时间</DreamsOutposts.Ui.Kv.RemainingTime>
+  <DreamsOutposts.Ui.Kv.Category>事件分类</DreamsOutposts.Ui.Kv.Category>
+  <DreamsOutposts.Ui.Kv.Duration>持续时间</DreamsOutposts.Ui.Kv.Duration>
+  <DreamsOutposts.Ui.Kv.OnTimeout>超时自动选择</DreamsOutposts.Ui.Kv.OnTimeout>
+  <DreamsOutposts.Ui.EventChipRemaining>剩余 {0}</DreamsOutposts.Ui.EventChipRemaining>
+  <DreamsOutposts.Ui.ScheduledNote>已排期 {0} 个后续事件</DreamsOutposts.Ui.ScheduledNote>
+  <DreamsOutposts.Ui.EventNoOptions>此事件没有可选项。</DreamsOutposts.Ui.EventNoOptions>
+  <DreamsOutposts.Ui.Option.NotPlayerSelectable>非玩家可选</DreamsOutposts.Ui.Option.NotPlayerSelectable>
+  <DreamsOutposts.Ui.Option.RequirementsFailed>条件不满足</DreamsOutposts.Ui.Option.RequirementsFailed>
+  <DreamsOutposts.Ui.Option.Confirm>确认</DreamsOutposts.Ui.Option.Confirm>
+  <DreamsOutposts.Ui.Option.Later>稍后再说</DreamsOutposts.Ui.Option.Later>
+</LanguageData>

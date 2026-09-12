@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
 
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MiningPlant</defName>
     <label>mining plant</label>
     <description>The facility that makes a mining outpost a mining outpost. Ore is dug out and dressed here.</description>
-<installableAsExtension>false</installableAsExtension>
+    <installableAsExtension>false</installableAsExtension>
     <productions>
       <li>
         <id>steel</id>
@@ -20,25 +20,25 @@
       </li>
     </productions>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_Farm</defName>
     <label>farm</label>
     <description>Fields and paddies worked by the outpost's residents. The crop is chosen by the player; faster-maturing crops yield more per day than slow, high-value ones.</description>
     <installableAsExtension>false</installableAsExtension>
     <productions>
-<li Class="DreamsOutposts.OutpostProductionProperties_Farming">
+      <li Class="DreamsOutposts.OutpostProductionProperties_Farming">
         <id>crops</id>
         <capacityStat>PlantWorkSpeed</capacityStat>
         <intervalTicks>60000</intervalTicks>
         <outputPerCapacity>160</outputPerCapacity>
-<sowTag>Ground</sowTag>
-<tags>
+        <sowTag>Ground</sowTag>
+        <tags>
           <li>Farming</li>
         </tags>
       </li>
     </productions>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_LoggingCamp</defName>
     <label>logging camp</label>
     <description>The facility that makes a logging outpost a logging outpost. Timber is felled, trimmed and stacked here.</description>
@@ -56,7 +56,7 @@
       </li>
     </productions>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_OilDerrick</defName>
     <label>oil derrick</label>
     <description>The facility that makes a drilling outpost a drilling outpost. Crude feedstock is pumped up and refined into chemfuel on site.</description>
@@ -74,13 +74,13 @@
       </li>
     </productions>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_TownCenter</defName>
     <label>town center</label>
     <description>The facility that makes a town outpost a town outpost. It produces nothing on its own - a town is the square, the roads and the people that hold it together, and everything it earns comes from the facilities built around it.</description>
     <installableAsExtension>false</installableAsExtension>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_OreSortingStation</defName>
     <label>ore sorting station</label>
     <description>Sorts and grades incoming ore, so the mining plant gets more usable material out of the same shift.</description>
@@ -164,7 +164,7 @@
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>
 
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ComponentsWorkshop</defName>
     <label>component workshop</label>
     <description>A workshop that machines steel stock into components. Only skilled craftsmen are trusted with it.</description>
@@ -192,13 +192,13 @@
         <outputPerCapacity>4</outputPerCapacity>
         <requiredSkill>Crafting</requiredSkill>
         <requiredSkillLevel>8</requiredSkillLevel>
-<inputs>
+        <inputs>
           <Steel>12</Steel>
         </inputs>
       </li>
     </productions>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MortarEmplacement</defName>
     <label>mortar emplacement</label>
     <description>A permanent mortar pit, dug in behind the outpost's perimeter and worked by a crew that never leaves. Range tables, a stock of shells and a telephone line are all it needs to drop high-explosive fire on any map within reach.</description>
@@ -242,7 +242,7 @@
     </buildCost>
     <bombardmentShellBonus>3</bombardmentShellBonus>
   </DreamsOutposts.OutpostFacilityDef>
-<DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_Warehouse</defName>
     <label>warehouse</label>
     <description>A plain storage building. Salvaged goods are sorted and repacked here.</description>
@@ -252,6 +252,38 @@
         <id>repacking</id>
         <product>WoodLog</product>
         <capacityStat>GeneralLaborSpeed</capacityStat>
+        <intervalTicks>60000</intervalTicks>
+        <outputPerCapacity>40</outputPerCapacity>
+      </li>
+    </productions>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_TrainingGround</defName>
+    <label>training ground</label>
+    <description>A patch of ground set aside for drilling. Colonists stationed here spend their free hours practising, and come back better at the work than they left.</description>
+    <installableAsExtension>true</installableAsExtension>
+    <buildCost>
+      <Steel>50</Steel>
+    </buildCost>
+    <training>
+      <skill>Mining</skill>
+      <xpPerHour>60</xpPerHour>
+    </training>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_SalvagePit</defName>
+    <label>salvage pit</label>
+    <description>An open pit where scrap is tipped, picked over and sorted by hand. Nobody needs to be any good at it, and the work goes on whether or not anyone is standing there.</description>
+    <installableAsExtension>true</installableAsExtension>
+    <buildCost>
+      <Steel>50</Steel>
+    </buildCost>
+    <productions>
+      <li>
+        <id>scrap</id>
+        <product>Steel</product>
         <intervalTicks>60000</intervalTicks>
         <outputPerCapacity>40</outputPerCapacity>
       </li>

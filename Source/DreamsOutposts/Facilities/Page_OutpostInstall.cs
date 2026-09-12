@@ -218,6 +218,14 @@ namespace DreamsOutposts
 			{
 				stringBuilder.AppendLine("DreamsOutposts.RequiresResearch".Translate(def.FirstMissingResearch?.LabelCap ?? "DreamsOutposts.Unknown".Translate()));
 			}
+			if (def.minOutpostLevel > 1)
+			{
+				stringBuilder.AppendLine("DreamsOutposts.RequiresOutpostLevel".Translate(def.minOutpostLevel));
+			}
+			if (OutpostTrainingUtility.Trains(def))
+			{
+				stringBuilder.AppendLine("DreamsOutposts.TrainingInfo".Translate(def.training.skill.LabelCap, def.training.xpPerHour.ToString("0.#")));
+			}
 			if (!def.productions.NullOrEmpty())
 			{
 				stringBuilder.AppendLine();
@@ -244,6 +252,10 @@ namespace DreamsOutposts
 						if (production.capacityStat != null)
 						{
 							line.Append(": " + production.outputPerCapacity.ToString("0.##") + " per " + production.capacityStat.LabelCap);
+						}
+						else
+						{
+							line.Append(": " + "DreamsOutposts.ProductionFixedPerCycle".Translate(production.outputPerCapacity.ToString("0.##")));
 						}
 						if (production.HasSkillRequirement)
 						{

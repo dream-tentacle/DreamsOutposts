@@ -6,6 +6,11 @@
   <DreamsOutposts.InstallFail.ResearchMissing>需要先完成研究：{0}</DreamsOutposts.InstallFail.ResearchMissing>
   <DreamsOutposts.InstallFail.LimitReached>每个据点最多{0}个，已经装满了。</DreamsOutposts.InstallFail.LimitReached>
   <DreamsOutposts.InstallFail.CannotAfford>资源不足，还差{0}。</DreamsOutposts.InstallFail.CannotAfford>
+  <DreamsOutposts.InstallFail.LevelTooLow>此据点当前等级为{0}，这种设施需要据点达到{1}级。</DreamsOutposts.InstallFail.LevelTooLow>
+  <DreamsOutposts.RequiresOutpostLevel>需要据点等级：{0}</DreamsOutposts.RequiresOutpostLevel>
+  <DreamsOutposts.TrainingInfo>训练：{0}（每小时{1}点经验）</DreamsOutposts.TrainingInfo>
+  <DreamsOutposts.TrainingTooltip>为驻扎在此的殖民者训练{0}：每小时{1}点经验。</DreamsOutposts.TrainingTooltip>
+  <DreamsOutposts.ProductionFixedPerCycle>每周期{0}（不需要技能）</DreamsOutposts.ProductionFixedPerCycle>
   <DreamsOutposts.InstallFacility>安装设施</DreamsOutposts.InstallFacility>
   <DreamsOutposts.NoInstallSlot>打开此页面时没有指定要安装的槽位。</DreamsOutposts.NoInstallSlot>
   <DreamsOutposts.ChooseFacility>选择要在此处建造的设施。材料将从据点仓库中支付。</DreamsOutposts.ChooseFacility>
