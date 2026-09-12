@@ -11,6 +11,8 @@ namespace DreamsOutposts
 
 		public List<ThingDefCountClass> cost = new List<ThingDefCountClass>();
 
+		public List<OutpostProductionModifier> productionModifiers = new List<OutpostProductionModifier>();
+
 		public int DaysRequiredTicks => (int)(daysRequired * 60000f);
 
 		public IEnumerable<string> ConfigErrors(int levelIndex)
@@ -53,6 +55,19 @@ namespace DreamsOutposts
 				if (!seen.Add(entry.thingDef))
 				{
 					yield return prefix + "duplicate cost entry for " + entry.thingDef.defName + ".";
+				}
+			}
+			for (int i = 0; i < (productionModifiers?.Count ?? 0); i++)
+			{
+				OutpostProductionModifier modifier = productionModifiers[i];
+				if (modifier == null)
+				{
+					yield return prefix + "productionModifiers[" + i + "] is null.";
+					continue;
+				}
+				foreach (string error in modifier.ConfigErrors())
+				{
+					yield return prefix + "productionModifiers[" + i + "]: " + error;
 				}
 			}
 		}

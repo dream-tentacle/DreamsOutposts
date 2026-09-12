@@ -236,7 +236,7 @@ namespace DreamsOutposts
 			{
 				return height;
 			}
-			float rowHeight = Mathf.Max(UiMetrics.ReqTickSize, UiText.LineHeight(UiFont.Body));
+			float rowHeight = Mathf.Max(Mathf.Max(UiMetrics.ReqTickSize, UiMetrics.MatIconSize), UiText.LineHeight(UiFont.Body));
 			height += cache.Upgrade.Checks.Count * (rowHeight + UiMetrics.ReqListGap);
 			height += UiMetrics.ReqListMarginBottom;
 			height += UiWidgets.ButtonHeight(UiButtonSize.Normal);
@@ -313,21 +313,32 @@ namespace DreamsOutposts
 					UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 			}
 			y += UiText.LineHeight(UiFont.Caption) + 10f;
-			float rowHeight = Mathf.Max(UiMetrics.ReqTickSize, UiText.LineHeight(UiFont.Body));
+			float rowHeight = Mathf.Max(Mathf.Max(UiMetrics.ReqTickSize, UiMetrics.MatIconSize), UiText.LineHeight(UiFont.Body));
 			for (int i = 0; i < cache.Upgrade.Checks.Count; i++)
 			{
 				UiUpgradeCheck check = cache.Upgrade.Checks[i];
 				Rect row = new Rect(rect.x, y, rect.width, rowHeight);
-				float tickY = row.y + (row.height - UiMetrics.ReqTickSize) * 0.5f;
-				Rect tickRect = new Rect(row.x, tickY, UiMetrics.ReqTickSize, UiMetrics.ReqTickSize);
-				UiDraw.Box(tickRect, (int)UiMetrics.RadiusSm2, check.Ok ? UiPalette.GoodBg : UiPalette.BadBg, check.Ok ? UiPalette.GoodLine : UiPalette.BadLine);
-				float glyph = Mathf.Round(UiMetrics.ReqTickSize * 0.62f);
-				UiDraw.Icon(new Rect(tickRect.center.x - glyph * 0.5f, tickRect.center.y - glyph * 0.5f, glyph, glyph),
-					check.Ok ? UiIcon.Check : UiIcon.Cross, check.Ok ? UiPalette.Good : UiPalette.Bad);
 				float valueWidth = Mathf.Max(UiText.Width(check.ValueText, UiFont.Caption, true), 60f);
-				float nameX = tickRect.xMax + 8f;
-				UiText.Draw(new Rect(nameX, row.y, Mathf.Max(row.width - (nameX - row.x) - valueWidth - 8f, 30f), row.height), check.Name,
-					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				if (check.Thing != null)
+				{
+					Rect iconRect = new Rect(row.x, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
+					float nameX = iconRect.xMax + 8f;
+					Rect nameRect = new Rect(nameX, row.y, Mathf.Max(row.width - (nameX - row.x) - valueWidth - 8f, 30f), row.height);
+					UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
+						check.Thing, check.Name, UiFont.Body, UiPalette.Ink2);
+				}
+				else
+				{
+					float tickY = row.y + (row.height - UiMetrics.ReqTickSize) * 0.5f;
+					Rect tickRect = new Rect(row.x, tickY, UiMetrics.ReqTickSize, UiMetrics.ReqTickSize);
+					UiDraw.Box(tickRect, (int)UiMetrics.RadiusSm2, check.Ok ? UiPalette.GoodBg : UiPalette.BadBg, check.Ok ? UiPalette.GoodLine : UiPalette.BadLine);
+					float glyph = Mathf.Round(UiMetrics.ReqTickSize * 0.62f);
+					UiDraw.Icon(new Rect(tickRect.center.x - glyph * 0.5f, tickRect.center.y - glyph * 0.5f, glyph, glyph),
+						check.Ok ? UiIcon.Check : UiIcon.Cross, check.Ok ? UiPalette.Good : UiPalette.Bad);
+					float nameX = tickRect.xMax + 8f;
+					UiText.Draw(new Rect(nameX, row.y, Mathf.Max(row.width - (nameX - row.x) - valueWidth - 8f, 30f), row.height), check.Name,
+						UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				}
 				UiText.Draw(new Rect(row.xMax - valueWidth, row.y, valueWidth, row.height), check.ValueText,
 					UiFont.Caption, check.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleRight, true);
 				y += rowHeight + UiMetrics.ReqListGap;
@@ -451,15 +462,20 @@ namespace DreamsOutposts
 			float topHeight = Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
 			if (draw)
 			{
-				if (production.Product != null)
-				{
-					UiDraw.ThingIcon(new Rect(innerX, cursor + (topHeight - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize), production.Product);
-				}
+				Rect iconRect = new Rect(innerX, cursor + (topHeight - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
 				float textX = innerX + ((production.Product != null) ? UiMetrics.MatIconSize + 8f : 0f);
 				string amount = "×" + production.Output.ToString("0.#");
 				float amountWidth = Mathf.Max(UiText.Width(amount, UiFont.Number, true) + 6f, 48f);
-				UiText.Draw(new Rect(textX, cursor, Mathf.Max(innerX + innerWidth - textX - amountWidth, 20f), topHeight), production.ProductLabel,
-					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				Rect nameRect = new Rect(textX, cursor, Mathf.Max(innerX + innerWidth - textX - amountWidth, 20f), topHeight);
+				if (production.Product != null)
+				{
+					UiDraw.ThingInfoLink(new Rect(iconRect.x, cursor, nameRect.xMax - iconRect.x, topHeight), iconRect, nameRect,
+						production.Product, production.ProductLabel, UiFont.Body, UiPalette.Ink2);
+				}
+				else
+				{
+					UiText.Draw(nameRect, production.ProductLabel, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				}
 				UiText.Draw(new Rect(innerX + innerWidth - amountWidth, cursor, amountWidth, topHeight), amount,
 					UiFont.Number, UiPalette.Ink, TextAnchor.MiddleRight, true);
 			}
@@ -482,7 +498,7 @@ namespace DreamsOutposts
 					UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 			}
 			cursor += UiText.LineHeight(UiFont.Caption);
-			// 配置行（作物）：一期只做外观，点击暂不切换
+			// 可配置生产规则：整行可点击，沿用生产 worker 提供的选择菜单。
 			if (production.HasConfiguration)
 			{
 				cursor += UiMetrics.ProdGap;
@@ -490,16 +506,18 @@ namespace DreamsOutposts
 				if (draw)
 				{
 					Rect row = new Rect(innerX, cursor, innerWidth, rowHeight);
-					UiDraw.Box(row, (int)UiMetrics.RadiusXs, UiPalette.Raised, UiPalette.Line);
-					string configuration = string.IsNullOrEmpty(production.ConfigurationSummary)
-						? "DreamsOutposts.NoCrop".Translate().ToString()
-						: production.ConfigurationSummary;
-					string text = "DreamsOutposts.CropSummary".Translate(configuration);
-					UiText.Draw(new Rect(row.x + 8f, row.y, Mathf.Max(row.width - 16f - 40f, 20f), row.height), text,
+					bool hovered = Mouse.IsOver(row);
+					UiDraw.Box(row, (int)UiMetrics.RadiusXs, hovered ? UiPalette.Hover : UiPalette.Raised, UiPalette.Line);
+					string configuration = production.ConfigurationSummary ?? string.Empty;
+					UiText.Draw(new Rect(row.x + 8f, row.y, Mathf.Max(row.width - 16f - 40f, 20f), row.height), configuration,
 						UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
 					UiText.Draw(new Rect(row.xMax - 8f - 34f, row.y, 34f, row.height), "DreamsOutposts.Ui.Switch".Translate(),
-						UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight);
-					UiWidgets.Tip(row, "DreamsOutposts.ChooseCropTip".Translate(), GenText.StableStringHash("crop-" + view.SlotIndex + "-" + production.Props.id));
+						UiFont.Caption, hovered ? UiPalette.Ink : UiPalette.Ink2, TextAnchor.MiddleRight);
+					UiWidgets.Tip(row, production.Props.Worker.ConfigurationTip(production.Props), GenText.StableStringHash("production-config-" + view.SlotIndex + "-" + production.Props.id));
+					if (Widgets.ButtonInvisible(row))
+					{
+						production.Props.Worker.OpenConfiguration(production.Props, view.Facility.GetProductionState(production.Props.id), Cache.Invalidate);
+					}
 				}
 				cursor += rowHeight;
 			}

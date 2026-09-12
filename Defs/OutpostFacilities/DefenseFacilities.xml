@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_TemporaryDefenses</defName>
+    <facilityTag>Defense</facilityTag>
+    <label>temporary defenses</label>
+    <description>Earthworks, firing steps and improvised barricades provide a modest defensive position.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost>
+      <Steel>70</Steel>
+      <WoodLog>50</WoodLog>
+    </buildCost>
+    <defense>20</defense>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_Fortifications</defName>
+    <facilityTag>Defense</facilityTag>
+    <label>fortifications</label>
+    <description>Hardened firing positions and prepared strongpoints provide reliable protection against attack.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>Machining</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>300</Steel>
+      <WoodLog>100</WoodLog>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </buildCost>
+    <defense>40</defense>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_MortarEmplacement</defName>
+    <facilityTag>Defense</facilityTag>
+    <label>mortar emplacement</label>
+    <description>A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver high-explosive fire on nearby targets.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>Mortars</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>150</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </buildCost>
+    <defense>5</defense>
+    <bombardment>
+      <shellDef>Shell_HighExplosive</shellDef>
+      <shellsPerStrike>4</shellsPerStrike>
+      <costPerShell>
+        <Steel>30</Steel>
+        <Chemfuel>18</Chemfuel>
+      </costPerShell>
+      <maxRangeTiles>12</maxRangeTiles>
+      <cooldownHours>18</cooldownHours>
+      <researchPrerequisite>Mortars</researchPrerequisite>
+      <ticksBetweenShells>60</ticksBetweenShells>
+      <requiredSkill>Shooting</requiredSkill>
+      <requiredSkillLevel>10</requiredSkillLevel>
+    </bombardment>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_AmmunitionDump</defName>
+    <facilityTag>Defense</facilityTag>
+    <label>ammunition dump</label>
+    <description>A protected shell store that adds three rounds to every bombardment fired by this outpost.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>Mortars</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>100</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </buildCost>
+    <bombardmentShellBonus>3</bombardmentShellBonus>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

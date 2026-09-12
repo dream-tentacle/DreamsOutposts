@@ -14,5 +14,10 @@
   <DreamsOutposts.NoCropAvailable>No crop can be grown here right now.</DreamsOutposts.NoCropAvailable>
   <DreamsOutposts.Nothing>nothing</DreamsOutposts.Nothing>
   <DreamsOutposts.PlantTooltip>{0}\n\n{1} days to grow\n{2} {3} per harvest</DreamsOutposts.PlantTooltip>
+  <DreamsOutposts.NoMineral>no mineral</DreamsOutposts.NoMineral>
+  <DreamsOutposts.ChooseMineralTip>Click to choose the mineral extracted here.</DreamsOutposts.ChooseMineralTip>
+  <DreamsOutposts.MineralSummary>mineral: {0}</DreamsOutposts.MineralSummary>
+  <DreamsOutposts.CurrentMineralSuffix> (current)</DreamsOutposts.CurrentMineralSuffix>
+  <DreamsOutposts.NoMineralAvailable>No mineable mineral is available in the loaded mod list.</DreamsOutposts.NoMineralAvailable>
 </LanguageData>
 

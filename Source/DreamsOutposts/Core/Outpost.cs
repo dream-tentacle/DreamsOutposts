@@ -162,7 +162,7 @@ namespace DreamsOutposts
 
 		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
 
-		protected override int UpdateRateTicks => 1250;
+		protected override int UpdateRateTicks => Window_OutpostManage.Current?.Outpost == this ? 60 : 1250;
 
 		public Outpost()
 		{
@@ -179,7 +179,7 @@ namespace DreamsOutposts
 			base.TickInterval(delta);
 			OutpostEventUtility.TickEvents(this);
 			OutpostProductionUtility.TickOutpost(this);
-			OutpostTrainingUtility.TickOutpost(this);
+			OutpostTrainingUtility.TickOutpost(this, delta);
 			AgePawns(delta);
 			OutpostAirdropUtility.CheckStalePending(this);
 		}

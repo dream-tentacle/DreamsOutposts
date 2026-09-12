@@ -160,7 +160,10 @@ namespace DreamsOutposts
 
 		public virtual void DeliverProducts(OutpostProductionContext context)
 		{
-			OutpostProductionUtility.StoreInOutpostInventory(context.Outpost, context.Products);
+			if (!OutpostAutomaticAirdropUtility.TryDeliver(context))
+			{
+				OutpostProductionUtility.StoreInOutpostInventory(context.Outpost, context.Products);
+			}
 		}
 
 		public virtual void AfterProduction(OutpostProductionContext context)
@@ -184,9 +187,18 @@ namespace DreamsOutposts
 		{
 		}
 
+		public virtual void OpenConfiguration(OutpostProductionProperties production, OutpostProductionState state, Action onChanged = null)
+		{
+		}
+
 		public virtual string ConfigurationSummary(OutpostProductionProperties production, OutpostProductionState state)
 		{
 			return null;
+		}
+
+		public virtual string ConfigurationTip(OutpostProductionProperties production)
+		{
+			return string.Empty;
 		}
 	}
 }

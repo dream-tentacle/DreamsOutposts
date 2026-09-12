@@ -26,6 +26,7 @@ namespace DreamsOutposts
 		public override void FinalizeInit()
 		{
 			base.FinalizeInit();
+			OutpostFacilityTagRegistry.Initialize();
 			// 新游戏，或旧存档里没有有效值（0）时，从当前时刻重新排期。
 			// 已经过期的值也重新排期，保证读档后不会立刻生成随机事件。
 			int now = Find.TickManager.TicksGame;

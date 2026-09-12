@@ -29,6 +29,8 @@ namespace DreamsOutposts
 
 	public struct UiUpgradeCheck
 	{
+		public ThingDef Thing;
+
 		public string Name;
 
 		public string ValueText;
@@ -641,45 +643,36 @@ namespace DreamsOutposts
 					productionView.Props = production;
 					productionView.HasConfiguration = production.Worker.HasConfiguration(production);
 					productionView.UsesDynamicProduct = production.Worker.UsesDynamicProduct;
-					BuildModifierChips(productionView, production);
+					BuildModifierChips(productionView, facility, production);
 					view.Productions.Add(productionView);
 				}
 			}
 			return view;
 		}
 
-		private void BuildModifierChips(UiProductionView productionView, OutpostProductionProperties production)
+		private void BuildModifierChips(UiProductionView productionView, OutpostFacility producingFacility, OutpostProductionProperties production)
 		{
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostProductionModifierSource source in OutpostProductionUtility.MatchingModifiers(outpost, producingFacility, production))
 			{
-				List<OutpostProductionModifier> modifiers = facility?.def?.productionModifiers;
-				if (modifiers == null)
+				OutpostProductionModifier modifier = source.Modifier;
+				string sourceLabel = source.IsLevelModifier
+					? "DreamsOutposts.Ui.LevelSource".Translate(outpost.level).ToString()
+					: source.SourceFacility.LabelCap.ToString();
+				if (!Mathf.Approximately(modifier.factor, 1f))
 				{
-					continue;
+					int percent = Mathf.RoundToInt((modifier.factor - 1f) * 100f);
+					string sign = percent >= 0 ? "+" : string.Empty;
+					productionView.ModifierChips.Add(new UiChipView(
+						"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(sign + percent + "%", sourceLabel).ToString(),
+						percent >= 0 ? UiChipKind.Good : UiChipKind.Bad,
+						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
 				}
-				for (int i = 0; i < modifiers.Count; i++)
+				if (!Mathf.Approximately(modifier.offset, 0f))
 				{
-					OutpostProductionModifier modifier = modifiers[i];
-					if (modifier == null || !modifier.Matches(production))
-					{
-						continue;
-					}
-					if (!Mathf.Approximately(modifier.factor, 1f))
-					{
-						int percent = Mathf.RoundToInt((modifier.factor - 1f) * 100f);
-						string sign = (percent >= 0) ? "+" : string.Empty;
-						productionView.ModifierChips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(sign + percent + "%", facility.def.LabelCap).ToString(),
-							(percent >= 0) ? UiChipKind.Good : UiChipKind.Bad,
-							"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(facility.def.LabelCap).ToString()));
-					}
-					if (!Mathf.Approximately(modifier.offset, 0f))
-					{
-						productionView.ModifierChips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.ProductionOffset".Translate(modifier.offset.ToString("0.##"), facility.def.LabelCap).ToString(),
-							UiChipKind.Neutral,
-							"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(facility.def.LabelCap).ToString()));
-					}
+					productionView.ModifierChips.Add(new UiChipView(
+						"DreamsOutposts.Ui.Chip.ProductionOffset".Translate(modifier.offset.ToString("0.##"), sourceLabel).ToString(),
+						UiChipKind.Neutral,
+						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
 				}
 			}
 		}
@@ -1036,6 +1029,7 @@ namespace DreamsOutposts
 						continue;
 					}
 					UiUpgradeCheck check = default(UiUpgradeCheck);
+					check.Thing = entry.thingDef;
 					check.Name = entry.thingDef.LabelCap;
 					int have = OutpostStockUtility.CountInStock(outpost, entry.thingDef);
 					check.Ok = have >= entry.count;
@@ -1237,10 +1231,7 @@ namespace DreamsOutposts
 							}
 							int percent = Mathf.RoundToInt((modifier.factor - 1f) * 100f);
 							string sign = (percent >= 0) ? "+" : string.Empty;
-							string tag = string.IsNullOrEmpty(modifier.NormalizedTag)
-								? "DreamsOutposts.Ui.ModAllProductions".Translate().ToString()
-								: modifier.NormalizedTag;
-							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate(sign + percent + "%", tag).ToString());
+							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate(sign + percent + "%").ToString());
 						}
 					}
 					if (!def.eventCategoryModifiers.NullOrEmpty())

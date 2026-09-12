@@ -63,6 +63,12 @@
     <description>A basic outpost for pumping and refining chemfuel.</description>
     <coreFacility>DreamsOutposts_OilDerrick</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_Neutroamine</defName>
+    <label>neutroamine outpost</label>
+    <description>An industrial outpost for collecting and refining neutroamine precursors.</description>
+    <coreFacility>DreamsOutposts_NeutroamineCollector</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
 <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Town</defName>
     <label>town outpost</label>
@@ -100,6 +106,18 @@
           <ComponentSpacer>3</ComponentSpacer>
         </cost>
       </li>
+    </levels>
+  </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_AutomationCamp</defName>
+    <label>automation camp</label>
+    <description>A specialized camp organized around centralized automated production.</description>
+    <coreFacility>DreamsOutposts_AutomationHub</coreFacility>
+    <levels Inherit="False">
+      <li><slotCount>2</slotCount><daysRequired>0</daysRequired><productionModifiers><li><facilityTag>AutomaticProduction</facilityTag><factor>2</factor></li></productionModifiers></li>
+      <li><slotCount>3</slotCount><daysRequired>10</daysRequired><cost><Steel>200</Steel><WoodLog>100</WoodLog></cost><productionModifiers><li><facilityTag>AutomaticProduction</facilityTag><factor>3</factor></li></productionModifiers></li>
+      <li><slotCount>4</slotCount><daysRequired>20</daysRequired><cost><Steel>300</Steel><WoodLog>200</WoodLog><ComponentIndustrial>10</ComponentIndustrial></cost><productionModifiers><li><facilityTag>AutomaticProduction</facilityTag><factor>4</factor></li></productionModifiers></li>
+      <li><slotCount>5</slotCount><daysRequired>40</daysRequired><cost><Steel>600</Steel><WoodLog>400</WoodLog><ComponentIndustrial>20</ComponentIndustrial><ComponentSpacer>3</ComponentSpacer></cost><productionModifiers><li><facilityTag>AutomaticProduction</facilityTag><factor>5</factor></li></productionModifiers></li>
     </levels>
   </DreamsOutposts.OutpostTypeDef>
 </Defs>

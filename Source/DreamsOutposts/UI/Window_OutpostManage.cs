@@ -351,6 +351,27 @@ namespace DreamsOutposts
 			ShowModal(window);
 		}
 
+		public void OpenAutomaticAirdropModal()
+		{
+			Window_OutpostModal window = new Window_OutpostModal();
+			window.TitleText = "DreamsOutposts.AutomaticAirdropSettings".Translate();
+			window.PanelWidth = UiMetrics.ModalNarrowWidth;
+			window.Body = new UiAutomaticAirdropModalBody(outpost);
+			window.FooterDrawer = delegate(Rect footerRect)
+			{
+				float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Normal);
+				string closeLabel = "DreamsOutposts.Ui.Close".Translate();
+				float closeWidth = UiWidgets.ButtonWidth(closeLabel);
+				Rect closeRect = new Rect(footerRect.xMax - closeWidth,
+					footerRect.y + (footerRect.height - buttonHeight) * 0.5f, closeWidth, buttonHeight);
+				if (UiWidgets.Button(closeRect, closeLabel))
+				{
+					CloseModal();
+				}
+			};
+			ShowModal(window);
+		}
+
 		/// <summary>打开事件弹窗（选项面板）。确认后按玩家选择结算。</summary>
 		public void OpenEventModal(UiEventView view)
 		{
@@ -413,6 +434,19 @@ namespace DreamsOutposts
 			}
 		}
 
+		public void TryForceInstall(OutpostSlot slot, UiInstallCardView card)
+		{
+			if (!DebugSettings.godMode || slot == null || card?.Def == null)
+			{
+				return;
+			}
+			if (slot.TryForceInstall(card.Def))
+			{
+				cache.Invalidate();
+				CloseModal();
+			}
+		}
+
 		public void CloseModal()
 		{
 			if (modal != null)
@@ -456,6 +490,17 @@ namespace DreamsOutposts
 			if (UiWidgets.Button(closeRect, closeLabel))
 			{
 				CloseModal();
+			}
+			if (details.Source?.Facility?.def?.automaticAirdropController == true)
+			{
+				string settingsLabel = "DreamsOutposts.AutomaticAirdropSettings".Translate();
+				float settingsWidth = UiWidgets.ButtonWidth(settingsLabel);
+				Rect settingsRect = new Rect(rect.x, y, settingsWidth, buttonHeight);
+				if (UiWidgets.Button(settingsRect, settingsLabel, UiButtonKind.Primary))
+				{
+					CloseModal();
+					OpenAutomaticAirdropModal();
+				}
 			}
 			if (!details.CanRemove)
 			{

@@ -386,5 +386,22 @@ namespace DreamsOutposts
 			Widgets.ThingIcon(rect, def);
 			GUI.color = previous;
 		}
+
+		/// <summary>
+		/// 统一的物品信息入口：图标与名称共用一个点击/悬停区域。
+		/// 悬停颜色默认使用品牌绿，调用方可覆盖。
+		/// </summary>
+		public static void ThingInfoLink(Rect hitRect, Rect iconRect, Rect labelRect, ThingDef def, string label,
+			UiFont font = UiFont.Body, Color? normalColor = null, Color? hoverColor = null, bool bold = false)
+		{
+			bool hovered = def != null && Mouse.IsOver(hitRect);
+			ThingIcon(iconRect, def);
+			UiText.Draw(labelRect, label, font, hovered ? (hoverColor ?? UiPalette.BrandText) : (normalColor ?? UiPalette.Ink),
+				TextAnchor.MiddleLeft, bold, false, true);
+			if (def != null && Widgets.ButtonInvisible(hitRect))
+			{
+				Find.WindowStack.Add(new Dialog_InfoCard(def));
+			}
+		}
 	}
 }

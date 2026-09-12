@@ -10,21 +10,12 @@ namespace DreamsOutposts
 	/// 扩建设施的「训练」机制：安装带 &lt;training&gt; 的设施后，据点里符合条件的殖民者
 	/// 会按 xpPerHour 持续获得对应技能的经验。
 	///
-	/// 结算发生在据点的 TickInterval 里（沿用 Outpost.UpdateRateTicks = 1250），
-	/// 因此不受游戏速度影响：一小时该拿多少经验，跑一小时就是多少。
+		/// 结算发生在据点的 TickInterval 里，并直接使用本次经过的 tick 数换算经验。
+		/// 因此不受游戏速度影响，也不需要为每个设施保存上次结算时间。
 	/// </summary>
 	public static class OutpostTrainingUtility
 	{
 		public const int TicksPerHour = 2500;
-
-		/// <summary>
-		/// 一次结算最多补多少 tick。据点被长时间搁置（例如读档、大地图暂停）后
-		/// lastTrainingTick 可能落后很多，这里给它一个上限，避免一次结算里
-		/// 灌进海量经验、直接顶满技能。
-		/// </summary>
-		public const int MaxElapsedTicksPerTick = 12500;
-
-		private static readonly HashSet<int> errorKeysReported = new HashSet<int>();
 
 		public static OutpostTrainingProperties GetTraining(OutpostFacilityDef def)
 		{
@@ -65,41 +56,26 @@ namespace DreamsOutposts
 			return count;
 		}
 
-		public static void TickOutpost(Outpost outpost)
+		public static void TickOutpost(Outpost outpost, int delta)
 		{
-			if (outpost == null || outpost.Destroyed)
+			if (outpost == null || outpost.Destroyed || delta <= 0)
 			{
 				return;
 			}
-			int now = Find.TickManager.TicksGame;
+			float elapsedHours = (float)delta / TicksPerHour;
 			foreach (OutpostFacility facility in outpost.Facilities)
 			{
 				if (Trains(facility?.def))
 				{
-					TickFacility(outpost, facility, now);
+					TickFacility(outpost, facility, elapsedHours);
 				}
 			}
 		}
 
-		private static void TickFacility(Outpost outpost, OutpostFacility facility, int now)
+		private static void TickFacility(Outpost outpost, OutpostFacility facility, float elapsedHours)
 		{
 			OutpostTrainingProperties training = facility.def.training;
-			if (facility.lastTrainingTick <= 0)
-			{
-				facility.lastTrainingTick = now;
-				return;
-			}
-			int elapsed = now - facility.lastTrainingTick;
-			if (elapsed <= 0)
-			{
-				return;
-			}
-			facility.lastTrainingTick = now;
-			if (elapsed > MaxElapsedTicksPerTick)
-			{
-				elapsed = MaxElapsedTicksPerTick;
-			}
-			float xp = training.xpPerHour * ((float)elapsed / (float)TicksPerHour);
+			float xp = training.xpPerHour * elapsedHours;
 			if (xp <= 0f)
 			{
 				return;
@@ -131,7 +107,10 @@ namespace DreamsOutposts
 				{
 					continue;
 				}
-				pawn.skills.Learn(skill, xp);
+				// 据点 Pawn 被封存在 ThingOwner 中，不进行正常的 Pawn/Skill tick。
+				// 使用 direct=true 跳过原版每日学习饱和惩罚，避免其学习效率永久卡在 20%。
+				// 热情与 Global Learning Factor 仍由 SkillRecord.Learn 正常处理。
+				pawn.skills.Learn(skill, xp, direct: true);
 			}
 		}
 	}

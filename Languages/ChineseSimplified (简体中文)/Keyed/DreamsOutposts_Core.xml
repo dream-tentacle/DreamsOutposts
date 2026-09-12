@@ -15,6 +15,7 @@
   <DreamsOutposts.AirdropNotEnoughPods>空投仓不足：这次装载需要{0}个，据点只有{1}个。</DreamsOutposts.AirdropNotEnoughPods>
   <DreamsOutposts.AirdropLaunched>{0}的空投仓已发射：共{1}个舱，载重{2}kg，人员{3}名、物品{4}堆。</DreamsOutposts.AirdropLaunched>
   <DreamsOutposts.CreateOutpost>创建据点</DreamsOutposts.CreateOutpost>
+  <DreamsOutposts.CreateOutpostHint>选择这支远行队要建立的领地类型。</DreamsOutposts.CreateOutpostHint>
   <DreamsOutposts.CannotCreateHere>无法在此处创建</DreamsOutposts.CannotCreateHere>
   <DreamsOutposts.InvalidCaravanOrOutpostType>无效的商队或据点类型。</DreamsOutposts.InvalidCaravanOrOutpostType>
   <DreamsOutposts.TileCannotHostOutpost>此地块不能建立据点。</DreamsOutposts.TileCannotHostOutpost>

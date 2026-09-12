@@ -144,6 +144,22 @@ namespace DreamsOutposts
 			return Widgets.ButtonInvisible(rect);
 		}
 
+		/// <summary>横向分页使用的分段标签。视觉语义与管理页侧栏选中项保持一致。</summary>
+		public static bool SegmentTab(Rect rect, string label, bool active)
+		{
+			if (rect.width <= 0f || rect.height <= 0f)
+			{
+				return false;
+			}
+			bool hovered = Mouse.IsOver(rect);
+			Color fill = active ? UiPalette.BrandTint : (hovered ? UiPalette.Hover : UiPalette.Clear);
+			Color border = active ? UiPalette.BrandLine : (hovered ? UiPalette.Line : UiPalette.Clear);
+			Color ink = active ? UiPalette.BrandText : (hovered ? UiPalette.Ink : UiPalette.Ink2);
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, fill, border);
+			UiText.Draw(rect, label, UiFont.Body, ink, TextAnchor.MiddleCenter, active, false, true);
+			return Widgets.ButtonInvisible(rect);
+		}
+
 		// ---------------- 侧栏导航项 ----------------
 
 		public static float NavItemHeight()

@@ -5,6 +5,13 @@ using Verse;
 
 namespace DreamsOutposts
 {
+	public sealed class OutpostProductionModifierSource
+	{
+		public OutpostProductionModifier Modifier;
+		public OutpostFacilityDef SourceFacility;
+		public bool IsLevelModifier;
+	}
+
 	public static class OutpostProductionUtility
 	{
 		public const int ProductionCheckIntervalTicks = 250;
@@ -85,28 +92,49 @@ namespace DreamsOutposts
 			}
 		}
 
-		public static void GetModifierTotals(Outpost outpost, OutpostProductionProperties production, out float offsetSum, out float factorProduct)
+		public static IEnumerable<OutpostProductionModifierSource> MatchingModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production)
 		{
-			offsetSum = 0f;
-			factorProduct = 1f;
 			if (outpost == null || production == null)
 			{
-				return;
+				yield break;
 			}
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility sourceFacility in outpost.Facilities)
 			{
-				if (facility?.def != null)
+				List<OutpostProductionModifier> modifiers = sourceFacility?.def?.productionModifiers;
+				for (int i = 0; i < (modifiers?.Count ?? 0); i++)
 				{
-					facility.def.GetProductionModifiersFor(production, out var offset, out var factor);
-					offsetSum += offset;
-					factorProduct *= factor;
+					OutpostProductionModifier modifier = modifiers[i];
+					if (modifier != null && modifier.Matches(production, producingFacility?.def))
+					{
+						yield return new OutpostProductionModifierSource { Modifier = modifier, SourceFacility = sourceFacility.def };
+					}
+				}
+			}
+			List<OutpostProductionModifier> levelModifiers = outpost.CurrentLevelProperties?.productionModifiers;
+			for (int i = 0; i < (levelModifiers?.Count ?? 0); i++)
+			{
+				OutpostProductionModifier modifier = levelModifiers[i];
+				if (modifier != null && modifier.Matches(production, producingFacility?.def))
+				{
+					yield return new OutpostProductionModifierSource { Modifier = modifier, IsLevelModifier = true };
 				}
 			}
 		}
 
-		public static float ApplyModifiers(Outpost outpost, OutpostProductionProperties production, float baseOutput)
+		public static void GetModifierTotals(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, out float offsetSum, out float factorProduct)
 		{
-			GetModifierTotals(outpost, production, out var offsetSum, out var factorProduct);
+			offsetSum = 0f;
+			factorProduct = 1f;
+			foreach (OutpostProductionModifierSource source in MatchingModifiers(outpost, producingFacility, production))
+			{
+				offsetSum += source.Modifier.offset;
+				factorProduct *= source.Modifier.factor;
+			}
+		}
+
+		public static float ApplyModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, float baseOutput)
+		{
+			GetModifierTotals(outpost, producingFacility, production, out var offsetSum, out var factorProduct);
 			return Mathf.Max((baseOutput + offsetSum) * factorProduct, 0f);
 		}
 
@@ -119,7 +147,7 @@ namespace DreamsOutposts
 			}
 			try
 			{
-				expectedOutput = ApplyModifiers(outpost, production, production.Worker.CalculateProduction(outpost.Pawns, outpost.outpostTypeDef, production, facility?.GetProductionState(production.id)));
+				expectedOutput = ApplyModifiers(outpost, facility, production, production.Worker.CalculateProduction(outpost.Pawns, outpost.outpostTypeDef, production, facility?.GetProductionState(production.id)));
 				return true;
 			}
 			catch (Exception ex)
@@ -210,7 +238,7 @@ namespace DreamsOutposts
 				return;
 			}
 			context.BaseOutput = worker.CalculateProduction(context.Outpost.Pawns, context.Outpost.outpostTypeDef, production, context.State);
-			context.ModifiedOutput = ApplyModifiers(context.Outpost, production, context.BaseOutput);
+			context.ModifiedOutput = ApplyModifiers(context.Outpost, context.Facility, production, context.BaseOutput);
 			context.WantedAmount = GenMath.RoundRandom(context.ModifiedOutput);
 			worker.ModifyProduction(context);
 			if (context.WantedAmount <= 0)

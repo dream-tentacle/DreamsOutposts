@@ -296,7 +296,7 @@ namespace DreamsOutposts
 					UiDraw.Box(row, (int)RowRadius, UiPalette.Hover);
 				}
 				float x = row.x + RowPaddingH;
-				UiDraw.ThingIcon(new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize), view.Def);
+				Rect iconRect = new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize);
 				x += IconSize + RowGap;
 				Rect infoRect = new Rect(row.xMax - RowPaddingH - InfoButtonSize, row.y + (row.height - InfoButtonSize) * 0.5f, InfoButtonSize, InfoButtonSize);
 				// 总数徽标
@@ -311,8 +311,9 @@ namespace DreamsOutposts
 				float subHeight = UiText.LineHeight(UiFont.Caption);
 				float textY = row.y + (row.height - (nameHeight + subHeight)) * 0.5f;
 				float textWidth = Mathf.Max(badgeRect.x - 6f - x, 30f);
-				UiText.Draw(new Rect(x, textY, textWidth, nameHeight), (view.Def != null) ? view.Def.LabelCap.ToString() : "-",
-					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				Rect nameRect = new Rect(x, textY, textWidth, nameHeight);
+				UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
+					view.Def, (view.Def != null) ? view.Def.LabelCap.ToString() : "-", UiFont.Body, UiPalette.Ink);
 				string sub = (view.Stacks > 1)
 					? "DreamsOutposts.Ui.Stacks".Translate(view.Stacks).ToString()
 					: ((view.Def != null) ? view.Def.defName : null);

@@ -121,11 +121,14 @@ namespace DreamsOutposts
 				float iconSize = UiMetrics.MatIconSize;
 				if (rule.Product != null)
 				{
-					UiDraw.ThingIcon(new Rect(head.x, head.y + (head.height - iconSize) * 0.5f, iconSize, iconSize), rule.Product);
+					Rect iconRect = new Rect(head.x, head.y + (head.height - iconSize) * 0.5f, iconSize, iconSize);
+					Rect labelRect = new Rect(head.x + iconSize + 9f, head.y, innerWidth - iconSize - 9f, head.height);
+					UiDraw.ThingInfoLink(head, iconRect, labelRect, rule.Product, rule.ProductLabel, UiFont.Body, UiPalette.Ink, null, true);
 				}
-				UiText.Draw(new Rect(head.x + ((rule.Product != null) ? iconSize + 9f : 0f), head.y,
-					innerWidth - ((rule.Product != null) ? iconSize + 9f : 0f), head.height), rule.ProductLabel,
-					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+				else
+				{
+					UiText.Draw(head, rule.ProductLabel, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+				}
 			}
 			float cursor = innerY + headHeight + UiMetrics.RuleCardGap;
 			// 事实 chips
@@ -167,11 +170,16 @@ namespace DreamsOutposts
 					if (!measure)
 					{
 						Rect row = new Rect(innerX, cursor, innerWidth, rowHeight);
-						UiDraw.ThingIcon(new Rect(row.x, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize), line.Thing);
-						string text = ((line.Thing != null) ? line.Thing.label : "-") + "  " + line.Have + " / " + line.Need
-							+ "  " + "DreamsOutposts.Ui.Rule.PerUnit".Translate();
-						UiText.Draw(new Rect(row.x + UiMetrics.MatIconSize + 6f, row.y, row.width - UiMetrics.MatIconSize - 6f, row.height),
-							text, UiFont.Caption, line.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleLeft, false, false, true);
+						Rect iconRect = new Rect(row.x, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
+						string name = (line.Thing != null) ? line.Thing.label : "-";
+						float nameX = iconRect.xMax + 6f;
+						float nameWidth = Mathf.Min(UiText.Width(name, UiFont.Caption) + 2f, Mathf.Max(row.width * 0.45f, 20f));
+						Rect nameRect = new Rect(nameX, row.y, nameWidth, row.height);
+						UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
+							line.Thing, name, UiFont.Caption, line.Ok ? UiPalette.Good : UiPalette.Bad);
+						string status = line.Have + " / " + line.Need + "  " + "DreamsOutposts.Ui.Rule.PerUnit".Translate();
+						UiText.Draw(new Rect(nameRect.xMax + 5f, row.y, Mathf.Max(row.xMax - nameRect.xMax - 5f, 10f), row.height),
+							status, UiFont.Caption, line.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleLeft, false, false, true);
 					}
 					cursor += rowHeight;
 				}
@@ -223,9 +231,12 @@ namespace DreamsOutposts
 	/// <summary>安装设施弹窗正文（候选卡片栅格）。</summary>
 	public sealed class UiInstallModalBody : IUiModalBody
 	{
+		private const float TagTabsHeight = 38f;
+
 		private readonly Window_OutpostManage shell;
 
 		private readonly OutpostSlot slot;
+		private string selectedTag = OutpostFacilityTagRegistry.ProductionBoost;
 
 		public UiInstallModalBody(Window_OutpostManage shell, OutpostSlot slot)
 		{
@@ -236,7 +247,13 @@ namespace DreamsOutposts
 		/// <summary>正文高度（只影响滚动范围，面板大小由 UseMaxHeight 固定）。</summary>
 		public float Height(float width)
 		{
-			return MeasureGrid(width, shell.Cache.InstallCandidates(slot, shell.InstallOnlyAvailable));
+			return TagTabsHeight + UiMetrics.InstallGridGap + MeasureGrid(width, FilteredCards());
+		}
+
+		private List<UiInstallCardView> FilteredCards()
+		{
+			List<UiInstallCardView> source = shell.Cache.InstallCandidates(slot, shell.InstallOnlyAvailable);
+			return source.FindAll(card => card?.Def != null && card.Def.FacilityTag == selectedTag);
 		}
 
 		private static float MeasureGrid(float width, List<UiInstallCardView> cards)
@@ -268,18 +285,21 @@ namespace DreamsOutposts
 
 		public void Draw(Rect rect)
 		{
-			List<UiInstallCardView> cards = shell.Cache.InstallCandidates(slot, shell.InstallOnlyAvailable);
+			DrawTagTabs(new Rect(rect.x, rect.y, rect.width, TagTabsHeight));
+			Rect gridRect = new Rect(rect.x, rect.y + TagTabsHeight + UiMetrics.InstallGridGap, rect.width,
+				Mathf.Max(rect.height - TagTabsHeight - UiMetrics.InstallGridGap, 0f));
+			List<UiInstallCardView> cards = FilteredCards();
 			if (cards.Count == 0)
 			{
 				string text = shell.InstallOnlyAvailable
 					? "DreamsOutposts.Ui.Install.NoneAvailable".Translate().ToString()
 					: "DreamsOutposts.NoFacilityInstallable".Translate().ToString();
-				UiText.Draw(new Rect(rect.x, rect.y, rect.width, UiText.LineHeight(UiFont.Body) * 2f), text, UiFont.Body, UiPalette.Ink2);
+				UiText.Draw(new Rect(gridRect.x, gridRect.y, gridRect.width, UiText.LineHeight(UiFont.Body) * 2f), text, UiFont.Body, UiPalette.Ink2);
 				return;
 			}
-			int columns = UiMetrics.GridColumns(rect.width, UiMetrics.InstallGridMinCell, UiMetrics.InstallGridGap);
-			float cellWidth = UiMetrics.GridCellWidth(rect.width, columns, UiMetrics.InstallGridGap);
-			float y = rect.y;
+			int columns = UiMetrics.GridColumns(gridRect.width, UiMetrics.InstallGridMinCell, UiMetrics.InstallGridGap);
+			float cellWidth = UiMetrics.GridCellWidth(gridRect.width, columns, UiMetrics.InstallGridGap);
+			float y = gridRect.y;
 			int rowCount = Mathf.CeilToInt((float)cards.Count / columns);
 			for (int row = 0; row < rowCount; row++)
 			{
@@ -300,13 +320,31 @@ namespace DreamsOutposts
 					{
 						break;
 					}
-					Rect cardRect = new Rect(rect.x + (cellWidth + UiMetrics.InstallGridGap) * column, y, cellWidth, rowHeight);
+					Rect cardRect = new Rect(gridRect.x + (cellWidth + UiMetrics.InstallGridGap) * column, y, cellWidth, rowHeight);
 					UiInstallCardRenderer.Draw(cardRect, cards[index], delegate(UiInstallCardView card)
 					{
 						shell.TryInstall(slot, card);
+					}, delegate(UiInstallCardView card)
+					{
+						shell.TryForceInstall(slot, card);
 					});
 				}
 				y += rowHeight + UiMetrics.InstallGridGap;
+			}
+		}
+
+		private void DrawTagTabs(Rect rect)
+		{
+			IReadOnlyList<string> tags = OutpostFacilityTagRegistry.Tags;
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
+			Rect inner = rect.ContractedBy(4f);
+			float gap = 3f;
+			float width = (inner.width - gap * (tags.Count - 1)) / tags.Count;
+			for (int i = 0; i < tags.Count; i++)
+			{
+				string tag = tags[i];
+				Rect button = new Rect(inner.x + i * (width + gap), inner.y, width, inner.height);
+				if (UiWidgets.SegmentTab(button, OutpostFacilityTagRegistry.LabelKey(tag).Translate(), tag == selectedTag)) selectedTag = tag;
 			}
 		}
 	}
@@ -319,12 +357,12 @@ namespace DreamsOutposts
 			return Layout(new Rect(0f, 0f, width, 0f), card, true, null);
 		}
 
-		public static void Draw(Rect rect, UiInstallCardView card, Action<UiInstallCardView> onBuild)
+		public static void Draw(Rect rect, UiInstallCardView card, Action<UiInstallCardView> onBuild, Action<UiInstallCardView> onForceBuild)
 		{
-			Layout(rect, card, false, onBuild);
+			Layout(rect, card, false, onBuild, onForceBuild);
 		}
 
-		private static float Layout(Rect rect, UiInstallCardView card, bool measure, Action<UiInstallCardView> onBuild)
+		private static float Layout(Rect rect, UiInstallCardView card, bool measure, Action<UiInstallCardView> onBuild, Action<UiInstallCardView> onForceBuild = null)
 		{
 			if (!measure)
 			{
@@ -370,12 +408,13 @@ namespace DreamsOutposts
 					if (!measure)
 					{
 						Rect row = new Rect(innerX, y, innerWidth, rowHeight);
-						UiDraw.ThingIcon(new Rect(row.x + UiMetrics.CostRowPaddingH, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize), line.Thing);
+						Rect iconRect = new Rect(row.x + UiMetrics.CostRowPaddingH, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
 						float textX = row.x + UiMetrics.CostRowPaddingH + UiMetrics.MatIconSize + UiMetrics.CostRowGap;
 						string number = line.Have + " / " + line.Need;
 						float numberWidth = UiText.Width(number, UiFont.Body, true);
-						UiText.Draw(new Rect(textX, row.y, Mathf.Max(row.width - textX + row.x - numberWidth - 6f, 20f), row.height),
-							(line.Thing != null) ? line.Thing.label : "-", UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+						Rect nameRect = new Rect(textX, row.y, Mathf.Max(row.width - textX + row.x - numberWidth - 6f, 20f), row.height);
+						UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
+							line.Thing, (line.Thing != null) ? line.Thing.label : "-", UiFont.Body, UiPalette.Ink2);
 						UiText.Draw(new Rect(row.xMax - UiMetrics.CostRowPaddingH - numberWidth, row.y, numberWidth, row.height), number,
 							UiFont.Body, line.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleRight, true);
 					}
@@ -406,7 +445,7 @@ namespace DreamsOutposts
 				}
 				y += lineHeight * card.ModLines.Count + UiMetrics.InstallCardGap;
 			}
-			// 底部：原因 + 建造按钮
+			// 底部：建造按钮（无法建造的原因保留在按钮 tooltip 中）
 			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Small);
 			float footerHeight = buttonHeight + 8f;
 			if (!measure)
@@ -422,10 +461,16 @@ namespace DreamsOutposts
 				{
 					onBuild(card);
 				}
-				string reason = card.Allowed ? "DreamsOutposts.Ui.Install.PayFromStock".Translate().ToString() : card.Reason;
-				float reasonWidth = Mathf.Max(buildRect.x - innerX - 8f, 20f);
-				UiText.Draw(new Rect(innerX, footerY - 2f, reasonWidth, buttonHeight + 4f), reason,
-					UiFont.Caption, card.Allowed ? UiPalette.Ink2 : UiPalette.Bad, TextAnchor.MiddleLeft, false, true);
+				if (DebugSettings.godMode)
+				{
+					string forceLabel = "DreamsOutposts.ForceBuild".Translate();
+					float forceWidth = Mathf.Max(UiWidgets.ButtonWidth(forceLabel, UiButtonSize.Small), 64f);
+					Rect forceRect = new Rect(buildRect.x - UiMetrics.ModalFootGap - forceWidth, footerY, forceWidth, buttonHeight);
+					if (UiWidgets.Button(forceRect, forceLabel, UiButtonKind.Danger, true, null, UiButtonSize.Small) && onForceBuild != null)
+					{
+						onForceBuild(card);
+					}
+				}
 			}
 			float total = y - rect.y + footerHeight + UiMetrics.InstallCardPadding - UiMetrics.InstallCardGap;
 			return total;

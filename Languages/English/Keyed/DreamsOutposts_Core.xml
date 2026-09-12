@@ -15,6 +15,7 @@
   <DreamsOutposts.AirdropNotEnoughPods>Not enough airdrop pods: this load needs {0}, but the outpost only has {1}.</DreamsOutposts.AirdropNotEnoughPods>
   <DreamsOutposts.AirdropLaunched>The airdrop pods of {0} have launched: {1} pods carrying {2} kg, with {3} pawns and {4} item stacks.</DreamsOutposts.AirdropLaunched>
   <DreamsOutposts.CreateOutpost>Create outpost</DreamsOutposts.CreateOutpost>
+  <DreamsOutposts.CreateOutpostHint>Choose the kind of territory this caravan will establish.</DreamsOutposts.CreateOutpostHint>
   <DreamsOutposts.CannotCreateHere>Cannot create here</DreamsOutposts.CannotCreateHere>
   <DreamsOutposts.InvalidCaravanOrOutpostType>Invalid caravan or outpost type.</DreamsOutposts.InvalidCaravanOrOutpostType>
   <DreamsOutposts.TileCannotHostOutpost>This tile cannot host an outpost.</DreamsOutposts.TileCannotHostOutpost>

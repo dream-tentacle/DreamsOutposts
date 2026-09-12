@@ -16,6 +16,7 @@
   <DreamsOutposts.ChooseFacility>Choose a facility to build here. Materials are paid from this outpost's store.</DreamsOutposts.ChooseFacility>
   <DreamsOutposts.NoFacilityInstallable>No facility can be installed in this outpost.</DreamsOutposts.NoFacilityInstallable>
   <DreamsOutposts.Build>Build</DreamsOutposts.Build>
+  <DreamsOutposts.ForceBuild>dev: Force build</DreamsOutposts.ForceBuild>
   <DreamsOutposts.Level>Level {0} / {1}</DreamsOutposts.Level>
   <DreamsOutposts.MaxLevelReached>Max level reached ({0} slots).</DreamsOutposts.MaxLevelReached>
   <DreamsOutposts.UpgradeToLevel>Upgrade to level {0}</DreamsOutposts.UpgradeToLevel>
@@ -37,5 +38,13 @@
   <DreamsOutposts.Levels>Levels:</DreamsOutposts.Levels>
   <DreamsOutposts.LevelInfo>- Level {0}: {1} {2}</DreamsOutposts.LevelInfo>
   <DreamsOutposts.BuildCost>Build cost: {0}</DreamsOutposts.BuildCost>
+  <DreamsOutposts.FacilityTag.ProductionBoost>Output boosts</DreamsOutposts.FacilityTag.ProductionBoost>
+  <DreamsOutposts.FacilityTag.Processing>Processing</DreamsOutposts.FacilityTag.Processing>
+  <DreamsOutposts.FacilityTag.Defense>Defense</DreamsOutposts.FacilityTag.Defense>
+  <DreamsOutposts.FacilityTag.AutomaticProduction>Automatic production</DreamsOutposts.FacilityTag.AutomaticProduction>
+  <DreamsOutposts.FacilityTag.Other>Other</DreamsOutposts.FacilityTag.Other>
+  <DreamsOutposts.AutomaticAirdropSettings>Airdrop settings</DreamsOutposts.AutomaticAirdropSettings>
+  <DreamsOutposts.AutomaticAirdropNoProducers>This outpost has no production facilities to select.</DreamsOutposts.AutomaticAirdropNoProducers>
+  <DreamsOutposts.AutomaticAirdropDelivered>Automatic airdropper delivered: {0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
 </LanguageData>
 

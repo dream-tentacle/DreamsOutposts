@@ -77,6 +77,17 @@ namespace DreamsOutposts
 			return TryInstall(def, outpost, out report);
 		}
 
+		/// <summary>上帝模式专用：只保护槽位和 Def 的数据完整性，其余安装限制与费用全部跳过。</summary>
+		public bool TryForceInstall(OutpostFacilityDef def)
+		{
+			if (!IsEmpty || def == null)
+			{
+				return false;
+			}
+			facility = OutpostFacility.Create(def);
+			return true;
+		}
+
 		public AcceptanceReport CanRemove(Outpost outpost)
 		{
 			if (IsEmpty)

@@ -9,10 +9,8 @@ namespace DreamsOutposts
 
 		public List<OutpostProductionState> productionStates;
 
-		/// <summary>
-		/// 上次结算训练经验的 tick。只用于按经过时间换算经验，避免重复或漏算。
-		/// </summary>
-		public int lastTrainingTick;
+		/// <summary>由自动空投机读取；true 时该设施新完成的生产会直接投送到主殖民地。</summary>
+		public bool autoAirdropEnabled;
 
 		public OutpostFacility()
 		{
@@ -109,7 +107,7 @@ namespace DreamsOutposts
 		public void ExposeData()
 		{
 			Scribe_Defs.Look(ref def, "def");
-			Scribe_Values.Look(ref lastTrainingTick, "lastTrainingTick", 0);
+			Scribe_Values.Look(ref autoAirdropEnabled, "autoAirdropEnabled", defaultValue: false);
 			Scribe_Collections.Look(ref productionStates, "productionStates", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{

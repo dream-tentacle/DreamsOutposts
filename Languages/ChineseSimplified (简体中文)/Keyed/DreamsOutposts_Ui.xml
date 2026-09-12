@@ -24,6 +24,8 @@
   <DreamsOutposts.Ui.Chip.ProductionDelta>{0} 产能 · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} 产量 · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
   <DreamsOutposts.Ui.Chip.ProductionModifierTip>来自 {0} 的产能修正。</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自据点等级 {0} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <DreamsOutposts.Ui.LevelSource>据点等级 {0}</DreamsOutposts.Ui.LevelSource>
   <DreamsOutposts.Ui.Chip.Limit>上限 {0}（已建 {1}）</DreamsOutposts.Ui.Chip.Limit>
   <DreamsOutposts.Ui.Chip.ResearchDone>研究已完成</DreamsOutposts.Ui.Chip.ResearchDone>
   <DreamsOutposts.Ui.Chip.ResearchMissing>需要研究：{0}</DreamsOutposts.Ui.Chip.ResearchMissing>
@@ -31,7 +33,7 @@
   <DreamsOutposts.Ui.Chip.LevelMissing>需要据点{1}级（当前{0}级）</DreamsOutposts.Ui.Chip.LevelMissing>
   <DreamsOutposts.Ui.Chip.Training>训练 {0} {1}/时</DreamsOutposts.Ui.Chip.Training>
   <DreamsOutposts.Ui.Chip.TrainingTip>{0}：驻扎在此的每个殖民者每小时获得{1}点经验。无法从事该工作的殖民者不会获得经验。</DreamsOutposts.Ui.Chip.TrainingTip>
-  <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1（不需要技能）</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1</DreamsOutposts.Ui.Rule.FixedCapacity>
   <DreamsOutposts.Ui.CoreSubLabel>核心设施 · 不可拆除</DreamsOutposts.Ui.CoreSubLabel>
   <DreamsOutposts.Ui.SlotLabel>槽位 {0}</DreamsOutposts.Ui.SlotLabel>
   <DreamsOutposts.Ui.Nav.Slots>{0}/{1} 槽位</DreamsOutposts.Ui.Nav.Slots>
@@ -54,7 +56,7 @@
   <DreamsOutposts.Ui.Install.NoneAvailable>当前没有可以建造的设施。</DreamsOutposts.Ui.Install.NoneAvailable>
   <DreamsOutposts.Ui.Install.PayFromStock>材料将从据点仓库扣除</DreamsOutposts.Ui.Install.PayFromStock>
   <DreamsOutposts.Ui.ModAllProductions>全部</DreamsOutposts.Ui.ModAllProductions>
-  <DreamsOutposts.Ui.ModProductionFactor>产能 {0}（标签 {1}）</DreamsOutposts.Ui.ModProductionFactor>
+  <DreamsOutposts.Ui.ModProductionFactor>产能 {0}</DreamsOutposts.Ui.ModProductionFactor>
   <DreamsOutposts.Ui.ModEventCategory>事件分类 {0} {1}</DreamsOutposts.Ui.ModEventCategory>
   <DreamsOutposts.Ui.ModProduction>生产 {0} · 每 {1}</DreamsOutposts.Ui.ModProduction>
   <DreamsOutposts.Ui.ModProductionInputs>消耗 {0}/单位</DreamsOutposts.Ui.ModProductionInputs>

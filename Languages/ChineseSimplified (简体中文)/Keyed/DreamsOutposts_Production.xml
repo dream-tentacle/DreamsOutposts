@@ -14,5 +14,10 @@
   <DreamsOutposts.NoCropAvailable>当前没有可以种植的作物。</DreamsOutposts.NoCropAvailable>
   <DreamsOutposts.Nothing>无</DreamsOutposts.Nothing>
   <DreamsOutposts.PlantTooltip>{0}\n\n生长需要{1}天\n每次收获{2}{3}</DreamsOutposts.PlantTooltip>
+  <DreamsOutposts.NoMineral>没有矿物</DreamsOutposts.NoMineral>
+  <DreamsOutposts.ChooseMineralTip>点击选择要开采的矿物。</DreamsOutposts.ChooseMineralTip>
+  <DreamsOutposts.MineralSummary>矿物：{0}</DreamsOutposts.MineralSummary>
+  <DreamsOutposts.CurrentMineralSuffix>（当前）</DreamsOutposts.CurrentMineralSuffix>
+  <DreamsOutposts.NoMineralAvailable>当前加载的模组中没有可供开采的矿物。</DreamsOutposts.NoMineralAvailable>
 </LanguageData>
 

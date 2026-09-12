@@ -67,8 +67,16 @@ namespace DreamsOutposts
 				TooltipHandler.TipRegion(rect, new TipSignal("DreamsOutposts.ChooseCropTip".Translate(), rect.GetHashCode()));
 				if (Widgets.ButtonText(rect, text))
 				{
-					OpenPlantMenu(farming, state);
+					OpenConfiguration(production, state);
 				}
+			}
+		}
+
+		public override void OpenConfiguration(OutpostProductionProperties production, OutpostProductionState state, Action onChanged = null)
+		{
+			if (production is OutpostProductionProperties_Farming farming)
+			{
+				OpenPlantMenu(farming, state, onChanged);
 			}
 		}
 
@@ -81,7 +89,12 @@ namespace DreamsOutposts
 			return "DreamsOutposts.CropSummary".Translate(FarmingState(state)?.selectedPlant?.LabelCap ?? "DreamsOutposts.None".Translate());
 		}
 
-		private static void OpenPlantMenu(OutpostProductionProperties_Farming farming, OutpostProductionState state)
+		public override string ConfigurationTip(OutpostProductionProperties production)
+		{
+			return "DreamsOutposts.ChooseCropTip".Translate();
+		}
+
+		private static void OpenPlantMenu(OutpostProductionProperties_Farming farming, OutpostProductionState state, Action onChanged)
 		{
 			List<ThingDef> candidates = farming.SowablePlants();
 			List<FloatMenuOption> options = new List<FloatMenuOption>();
@@ -93,6 +106,7 @@ namespace DreamsOutposts
 				options.Add(new FloatMenuOption(plantDef.LabelCap + suffix, delegate
 				{
 					TrySetPlant(farming, state, plantDef);
+					onChanged?.Invoke();
 				}, MenuOptionPriority.Default, delegate(Rect optionRect)
 				{
 					TooltipHandler.TipRegion(optionRect, new TipSignal(PlantTooltip(plantDef), optionRect.GetHashCode()));

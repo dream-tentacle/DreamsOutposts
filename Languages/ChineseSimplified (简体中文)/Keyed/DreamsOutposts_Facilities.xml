@@ -16,6 +16,7 @@
   <DreamsOutposts.ChooseFacility>选择要在此处建造的设施。材料将从据点仓库中支付。</DreamsOutposts.ChooseFacility>
   <DreamsOutposts.NoFacilityInstallable>此据点没有可安装的设施。</DreamsOutposts.NoFacilityInstallable>
   <DreamsOutposts.Build>建造</DreamsOutposts.Build>
+  <DreamsOutposts.ForceBuild>dev: 强制建造</DreamsOutposts.ForceBuild>
   <DreamsOutposts.Level>等级 {0} / {1}</DreamsOutposts.Level>
   <DreamsOutposts.MaxLevelReached>已达到最高等级（{0}个槽位）。</DreamsOutposts.MaxLevelReached>
   <DreamsOutposts.UpgradeToLevel>升级到等级{0}</DreamsOutposts.UpgradeToLevel>
@@ -37,5 +38,13 @@
   <DreamsOutposts.Levels>等级：</DreamsOutposts.Levels>
   <DreamsOutposts.LevelInfo>- 等级{0}：{1}{2}</DreamsOutposts.LevelInfo>
   <DreamsOutposts.BuildCost>建造费用：{0}</DreamsOutposts.BuildCost>
+  <DreamsOutposts.FacilityTag.ProductionBoost>增产</DreamsOutposts.FacilityTag.ProductionBoost>
+  <DreamsOutposts.FacilityTag.Processing>加工</DreamsOutposts.FacilityTag.Processing>
+  <DreamsOutposts.FacilityTag.Defense>防卫</DreamsOutposts.FacilityTag.Defense>
+  <DreamsOutposts.FacilityTag.AutomaticProduction>自动生产</DreamsOutposts.FacilityTag.AutomaticProduction>
+  <DreamsOutposts.FacilityTag.Other>其他</DreamsOutposts.FacilityTag.Other>
+  <DreamsOutposts.AutomaticAirdropSettings>空投设置</DreamsOutposts.AutomaticAirdropSettings>
+  <DreamsOutposts.AutomaticAirdropNoProducers>当前据点没有可选择的生产设施。</DreamsOutposts.AutomaticAirdropNoProducers>
+  <DreamsOutposts.AutomaticAirdropDelivered>自动空投机已空投物品：{0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
 </LanguageData>
 

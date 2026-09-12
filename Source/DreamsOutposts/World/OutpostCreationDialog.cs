@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
@@ -9,165 +8,65 @@ namespace DreamsOutposts
 {
 	public class OutpostCreationDialog : Window
 	{
-		private const float TitleHeight = 35f;
-
-		private const float RowHeight = 34f;
-
-		private const float ReasonHeight = 20f;
-
-		private const float RowGap = 10f;
-
-		private const float CreateButtonWidth = 120f;
-
-		private const float DetailsButtonWidth = 100f;
-
-		private const float ButtonGap = 6f;
-
-		private const float NameGap = 10f;
-
-		private const float ScrollBarWidth = 16f;
-
-		private const float BottomButtonHeight = 35f;
-
+		private const float CardHeight = 104f;
 		private readonly Caravan caravan;
-
 		private readonly List<OutpostTypeDef> defs;
-
 		private Vector2 scroll;
-
-		public override Vector2 InitialSize => new Vector2(600f, 600f);
+		public override Vector2 InitialSize => new Vector2(Mathf.Min(820f, UI.screenWidth - 20f), Mathf.Min(700f, UI.screenHeight - 20f));
+		protected override float Margin => 0f;
 
 		public OutpostCreationDialog(Caravan caravan)
 		{
 			this.caravan = caravan;
-			defs = DefDatabase<OutpostTypeDef>.AllDefsListForReading.OrderBy((OutpostTypeDef d) => d.label).ToList();
-			forcePause = true;
-			absorbInputAroundWindow = true;
+			defs = DefDatabase<OutpostTypeDef>.AllDefsListForReading.OrderBy(d => d.label).ToList();
+			forcePause = absorbInputAroundWindow = closeOnClickedOutside = true;
+			doWindowBackground = drawShadow = doCloseX = false;
 		}
 
 		public override void DoWindowContents(Rect inRect)
 		{
-			Widgets.Label(new Rect(0f, 0f, inRect.width, 35f), "DreamsOutposts.CreateOutpost".Translate());
-			Rect view = new Rect(0f, 40f, inRect.width - 20f, Mathf.Max(inRect.height - 80f, 0f));
-			float contentWidth = Mathf.Max(view.width - 16f, 0f);
-			float rowTotalHeight = 64f;
-			Rect content = new Rect(0f, 0f, contentWidth, (float)defs.Count * rowTotalHeight);
-			OutpostTypeDef selectedDef = null;
-			Widgets.BeginScrollView(view, ref scroll, content);
-			for (int i = 0; i < defs.Count; i++)
-			{
-				OutpostTypeDef def = defs[i];
-				if (def != null)
-				{
-					Rect rowRect = new Rect(0f, (float)i * rowTotalHeight, contentWidth, 34f);
-					if (DrawRow(rowRect, def))
-					{
-						selectedDef = def;
-					}
-				}
-			}
-			Widgets.EndScrollView();
-			if (selectedDef != null)
-			{
-				Close();
-				OutpostUtility.Create(caravan, selectedDef);
-			}
-			else if (Widgets.ButtonText(new Rect(inRect.width - 120f, inRect.height - 35f, 120f, 35f), "Cancel".Translate()))
-			{
-				Close();
-			}
+			Rect panel = inRect.ContractedBy(UiMetrics.WindowShadowMargin);
+			UiDraw.Shadow(panel, (int)UiMetrics.RadiusSm);
+			UiDraw.Box(panel, (int)UiMetrics.RadiusSm, UiPalette.Surface, UiPalette.Line);
+			Rect title = new Rect(panel.x, panel.y, panel.width, 76f);
+			UiDraw.Box(new Rect(title.x + 1f, title.y + 1f, title.width - 2f, title.height - 1f), (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.TopLeft | UiCorners.TopRight);
+			UiDraw.Divider(new Rect(title.x, title.yMax - 1f, title.width, 1f), UiPalette.Line);
+			float x = title.x + UiMetrics.TitlebarPaddingLeft;
+			UiText.Draw(new Rect(x, title.y + 14f, title.width - 90f, UiText.LineHeight(UiFont.Heading)), "DreamsOutposts.CreateOutpost".Translate(), UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true);
+			UiText.Draw(new Rect(x, title.y + 43f, title.width - 90f, UiText.LineHeight(UiFont.Caption)), "DreamsOutposts.CreateOutpostHint".Translate(), UiFont.Caption, UiPalette.Ink2);
+			Rect close = new Rect(title.xMax - UiMetrics.TitlebarPaddingRight - UiMetrics.CloseButtonSize, title.y + (title.height - UiMetrics.CloseButtonSize) * .5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+			if (UiWidgets.CloseButton(close, "DreamsOutposts.Ui.Close".Translate())) Close();
+			Rect body = new Rect(panel.x + 20f, title.yMax + 18f, panel.width - 40f, panel.yMax - title.yMax - 36f);
+			UiWidgets.ScrollView(body, ref scroll, Mathf.Max(defs.Count * 114f - 10f, 1f), DrawCards, true, GetHashCode(), true);
 		}
 
-		private bool DrawRow(Rect rowRect, OutpostTypeDef def)
+		private void DrawCards(Rect rect)
+		{
+			for (int i = 0; i < defs.Count; i++) DrawCard(new Rect(rect.x, rect.y + i * 114f, rect.width, CardHeight), defs[i]);
+		}
+
+		private void DrawCard(Rect rect, OutpostTypeDef def)
 		{
 			AcceptanceReport report = OutpostUtility.CanCreate(caravan, def);
-			Rect createRect = new Rect(rowRect.xMax - 120f, rowRect.y, 120f, rowRect.height);
-			Rect detailsRect = new Rect(createRect.x - 6f - 100f, rowRect.y, 100f, rowRect.height);
-			Rect nameRect = new Rect(rowRect.x, rowRect.y, Mathf.Max(detailsRect.x - 10f - rowRect.x, 0f), rowRect.height);
-			TextAnchor previousAnchor = Text.Anchor;
-			Text.Anchor = TextAnchor.MiddleLeft;
-			Widgets.Label(nameRect, def.LabelCap);
-			Text.Anchor = previousAnchor;
-			if (!string.IsNullOrEmpty(def.description))
+			UiDraw.Panel(rect, (int)UiMetrics.RadiusSm, UiPalette.Card, report.Accepted ? UiPalette.Line : UiPalette.BadLine, false);
+			Rect icon = new Rect(rect.x + 16f, rect.y + 16f, 48f, 48f);
+			UiDraw.Box(icon, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
+			UiDraw.Icon(icon.ContractedBy(9f), UiIconMap.ForFacility(def.coreFacility), report.Accepted ? UiPalette.BrandText : UiPalette.Ink2);
+			float bh = UiWidgets.ButtonHeight(UiButtonSize.Small);
+			Rect create = new Rect(rect.xMax - 144f, rect.center.y - bh * .5f, 128f, bh);
+			Rect details = new Rect(create.x - 94f, create.y, 86f, bh);
+			float tx = icon.xMax + 14f;
+			float tw = Mathf.Max(details.x - tx - 14f, 40f);
+			UiText.Draw(new Rect(tx, rect.y + 14f, tw, 24f), def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+			string coreFacility = "DreamsOutposts.CoreFacilityInfo".Translate(def.coreFacility?.LabelCap ?? "DreamsOutposts.None".Translate());
+			UiText.Draw(new Rect(tx, rect.y + 40f, tw, 24f), coreFacility, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+			if (!report.Accepted) UiText.Draw(new Rect(tx, rect.yMax - 24f, tw, 20f), report.Reason, UiFont.Caption, UiPalette.Bad, TextAnchor.UpperLeft, false, false, true);
+			if (UiWidgets.Button(details, "Details".Translate(), UiButtonKind.Secondary, true, null, UiButtonSize.Small)) Find.WindowStack.Add(new Dialog_InfoCard(def));
+			if (UiWidgets.Button(create, "DreamsOutposts.CreateOutpost".Translate(), UiButtonKind.Primary, report.Accepted, report.Reason, UiButtonSize.Small))
 			{
-				TooltipHandler.TipRegion(nameRect, new TipSignal(def.description, nameRect.GetHashCode()));
+				Close();
+				OutpostUtility.Create(caravan, def);
 			}
-			if (Widgets.ButtonText(detailsRect, "Details".Translate()))
-			{
-				Find.WindowStack.Add(new Dialog_MessageBox(OutpostTypeInfoText(def), null, null, null, null, def.LabelCap));
-			}
-			if (report.Accepted)
-			{
-				return Widgets.ButtonText(createRect, "DreamsOutposts.CreateOutpost".Translate());
-			}
-			TooltipHandler.TipRegion(createRect, new TipSignal(report.Reason ?? "DreamsOutposts.CannotCreateHere".Translate(), createRect.GetHashCode()));
-			Widgets.ButtonText(createRect, "DreamsOutposts.CreateOutpost".Translate(), drawBackground: true, doMouseoverSound: true, active: false);
-			Rect reasonRect = new Rect(rowRect.x, rowRect.yMax, rowRect.width, 20f);
-			Color previousColor = GUI.color;
-			GUI.color = ColorLibrary.RedReadable;
-			Widgets.Label(reasonRect, report.Reason ?? "DreamsOutposts.CannotCreateHere".Translate());
-			GUI.color = previousColor;
-			return false;
-		}
-
-		private static string OutpostTypeInfoText(OutpostTypeDef def)
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			if (!string.IsNullOrEmpty(def.description))
-			{
-				stringBuilder.AppendLine(def.description);
-				stringBuilder.AppendLine();
-			}
-			stringBuilder.Append("DreamsOutposts.CoreFacilityInfo".Translate(def.coreFacility?.LabelCap ?? "DreamsOutposts.None".Translate()));
-			if (def.coreFacility != null && !string.IsNullOrEmpty(def.coreFacility.description))
-			{
-				stringBuilder.Append("\n" + def.coreFacility.description);
-			}
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("DreamsOutposts.Levels".Translate());
-			if (def.levels.NullOrEmpty())
-			{
-				stringBuilder.AppendLine("- " + "DreamsOutposts.NoLevelTable".Translate());
-			}
-			else
-			{
-				for (int i = 0; i < def.levels.Count; i++)
-				{
-					OutpostLevelProperties level = def.levels[i];
-					if (level != null)
-					{
-						int levelNumber = i + 1;
-						string slotLabel = (level.slotCount == 1) ? "DreamsOutposts.Slot".Translate().ToString() : "DreamsOutposts.Slots".Translate().ToString();
-						StringBuilder line = new StringBuilder("DreamsOutposts.LevelInfo".Translate(levelNumber, level.slotCount, slotLabel));
-						if (levelNumber == 1)
-						{
-							line.Append(" — " + "DreamsOutposts.StartingLevel".Translate());
-						}
-						else
-						{
-							line.Append(" — " + "DreamsOutposts.DaysSinceFounding".Translate(level.daysRequired.ToString("0.#")));
-							line.Append(level.cost.NullOrEmpty() ? ", " + "DreamsOutposts.Free".Translate().ToString() : (", " + OutpostBuildUtility.CostLabel(level.cost)));
-						}
-						stringBuilder.AppendLine(line.ToString());
-					}
-				}
-			}
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("DreamsOutposts.InstallableFacilities".Translate());
-			List<OutpostFacilityDef> facilities = OutpostUtility.InstallableFacilities(def);
-			if (facilities.Count == 0)
-			{
-				stringBuilder.AppendLine("- " + "DreamsOutposts.None".Translate());
-			}
-			else
-			{
-				for (int j = 0; j < facilities.Count; j++)
-				{
-					stringBuilder.AppendLine("- " + facilities[j].LabelCap);
-				}
-			}
-			return stringBuilder.ToString().TrimEndNewlines();
 		}
 	}
 }

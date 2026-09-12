@@ -8,6 +8,8 @@ namespace DreamsOutposts
 	{
 		public string productionTag;
 
+		public string facilityTag;
+
 		public ThingDef product;
 
 		public float factor = 1f;
@@ -16,11 +18,19 @@ namespace DreamsOutposts
 
 		public string NormalizedTag => productionTag?.Trim();
 
-		public bool IsGlobal => string.IsNullOrEmpty(NormalizedTag) && product == null;
+		public string NormalizedFacilityTag => facilityTag?.Trim();
 
-		public bool Matches(OutpostProductionProperties production)
+		public bool IsGlobal => string.IsNullOrEmpty(NormalizedTag) && string.IsNullOrEmpty(NormalizedFacilityTag) && product == null;
+
+		public bool Matches(OutpostProductionProperties production, OutpostFacilityDef producingFacility = null)
 		{
 			if (production == null)
+			{
+				return false;
+			}
+			string wantedFacilityTag = NormalizedFacilityTag;
+			if (!string.IsNullOrEmpty(wantedFacilityTag) &&
+				!string.Equals(producingFacility?.facilityTag?.Trim(), wantedFacilityTag, StringComparison.OrdinalIgnoreCase))
 			{
 				return false;
 			}

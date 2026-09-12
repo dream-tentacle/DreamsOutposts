@@ -7,6 +7,11 @@ namespace DreamsOutposts
 	{
 		public bool installableAsExtension = true;
 
+		/// <summary>安装页面使用的固定分类。缺失或无效值统一归入 Other。</summary>
+		public string facilityTag = OutpostFacilityTagRegistry.Other;
+
+		public string FacilityTag => OutpostFacilityTagRegistry.Normalize(facilityTag);
+
 		/// <summary>
 		/// 新 UI 的图标名（对应 UiIcon 枚举，例如 Mine / Farm / Store / Turret）。
 		/// 留空时按 defName / label / 产物的关键字自动推断。以后有 PNG 资源时可以另外指定贴图。
@@ -39,6 +44,9 @@ namespace DreamsOutposts
 		public List<OutpostEventCategoryModifier> eventCategoryModifiers = new List<OutpostEventCategoryModifier>();
 
 		public OutpostBombardmentProperties bombardment;
+
+		/// <summary>此扩建设施是否提供生产设施的自动空投配置与投送能力。</summary>
+		public bool automaticAirdropController;
 
 		/// <summary>
 		/// 训练属性：安装后据点内的殖民者会持续获得经验。留空表示这个设施不训练任何人。

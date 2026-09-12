@@ -15,6 +15,10 @@ namespace DreamsOutposts
 			{
 				return "DreamsOutposts.InvalidCaravanOrOutpostType".Translate();
 			}
+			if (def.coreFacility != null && !def.coreFacility.IsResearchUnlocked)
+			{
+				return "DreamsOutposts.InstallFail.ResearchMissing".Translate(def.coreFacility.FirstMissingResearch?.LabelCap ?? ((TaggedString)"null"));
+			}
 			if (!SettleInEmptyTileUtility.CanCreateMapAt(caravan.Tile))
 			{
 				return "DreamsOutposts.TileCannotHostOutpost".Translate();
@@ -38,7 +42,9 @@ namespace DreamsOutposts
 			}
 			else
 			{
-				Outpost.Create(caravan, def);
+				Outpost created = Outpost.Create(caravan, def);
+				Find.WorldSelector.ClearSelection();
+				Find.WorldSelector.Select(created, playSound: false);
 			}
 		}
 
@@ -209,13 +215,35 @@ namespace DreamsOutposts
 			for (int i = 0; i < defs.Count; i++)
 			{
 				OutpostFacilityDef def = defs[i];
-				if (def != null && def.installableAsExtension && def.IsAllowedIn(outpostTypeDef))
+				if (def != null && def.installableAsExtension && def.IsAllowedIn(outpostTypeDef) && MatchesCoreProduction(def, outpostTypeDef))
 				{
 					result.Add(def);
 				}
 			}
 			result.Sort((OutpostFacilityDef a, OutpostFacilityDef b) => string.Compare(a.LabelCap, b.LabelCap, StringComparison.OrdinalIgnoreCase));
 			return result;
+		}
+
+		private static bool MatchesCoreProduction(OutpostFacilityDef facility, OutpostTypeDef outpostType)
+		{
+			if (facility.FacilityTag != OutpostFacilityTagRegistry.ProductionBoost)
+			{
+				return true;
+			}
+			List<OutpostProductionProperties> coreProductions = outpostType?.coreFacility?.productions;
+			if (coreProductions.NullOrEmpty() || facility.productionModifiers.NullOrEmpty())
+			{
+				return false;
+			}
+			for (int i = 0; i < facility.productionModifiers.Count; i++)
+			{
+				OutpostProductionModifier modifier = facility.productionModifiers[i];
+				for (int j = 0; j < coreProductions.Count; j++)
+				{
+					if (modifier != null && modifier.Matches(coreProductions[j])) return true;
+				}
+			}
+			return false;
 		}
 
 		public static int CountInstalled(Outpost outpost, OutpostFacilityDef def)
