@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace DreamsOutposts
@@ -37,12 +38,119 @@ namespace DreamsOutposts
 			return weight;
 		}
 
+		/// <summary>
+		/// 当前对这个据点合法的 EventDef，按 Category 归组。这里是合法事件筛选的唯一来源：
+		/// TryChooseRandomEvent 和 HasAnyValidEvent 都使用同一份结果，条件判断只写一遍。
+		/// </summary>
+		private static Dictionary<OutpostEventCategoryDef, List<OutpostEventDef>> BuildEligibleEventsByCategory(Outpost outpost)
+		{
+			Dictionary<OutpostEventCategoryDef, List<OutpostEventDef>> eventsByCategory = new Dictionary<OutpostEventCategoryDef, List<OutpostEventDef>>();
+			if (outpost == null)
+			{
+				return eventsByCategory;
+			}
+			OutpostEventContext context = new OutpostEventContext { outpost = outpost };
+			foreach (OutpostEventDef candidate in DefDatabase<OutpostEventDef>.AllDefs)
+			{
+				if (candidate == null || candidate.category == null || candidate.weight <= 0f || !HasValidOptionConfiguration(candidate) || !CheckRequirements(candidate.requirements, context, out var _))
+				{
+					continue;
+				}
+				if (!eventsByCategory.TryGetValue(candidate.category, out List<OutpostEventDef> events))
+				{
+					events = new List<OutpostEventDef>();
+					eventsByCategory.Add(candidate.category, events);
+				}
+				events.Add(candidate);
+			}
+			return eventsByCategory;
+		}
+
+		/// <summary>
+		/// 这个据点当前是否至少存在一个合法随机事件。只回答「有没有」，
+		/// 判定口径与 TryChooseRandomEvent 的 Category 权重筛选保持一致。
+		/// </summary>
+		public static bool HasAnyValidEvent(Outpost outpost)
+		{
+			foreach (KeyValuePair<OutpostEventCategoryDef, List<OutpostEventDef>> pair in BuildEligibleEventsByCategory(outpost))
+			{
+				if (pair.Value.Count > 0 && GetCategoryWeight(outpost, pair.Key) > 0f)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool TryChooseRandomEvent(Outpost outpost, out OutpostEventDef eventDef)
+		{
+			eventDef = null;
+			if (outpost == null)
+			{
+				return false;
+			}
+			Dictionary<OutpostEventCategoryDef, List<OutpostEventDef>> eventsByCategory = BuildEligibleEventsByCategory(outpost);
+			List<OutpostEventCategoryDef> categories = new List<OutpostEventCategoryDef>();
+			List<float> categoryWeights = new List<float>();
+			foreach (KeyValuePair<OutpostEventCategoryDef, List<OutpostEventDef>> pair in eventsByCategory)
+			{
+				float categoryWeight = GetCategoryWeight(outpost, pair.Key);
+				if (pair.Value.Count > 0 && categoryWeight > 0f)
+				{
+					categories.Add(pair.Key);
+					categoryWeights.Add(categoryWeight);
+				}
+			}
+			int categoryIndex = WeightedIndex(categoryWeights);
+			if (categoryIndex < 0)
+			{
+				return false;
+			}
+			List<OutpostEventDef> selectedEvents = eventsByCategory[categories[categoryIndex]];
+			List<float> eventWeights = new List<float>();
+			for (int i = 0; i < selectedEvents.Count; i++)
+			{
+				eventWeights.Add(selectedEvents[i].weight);
+			}
+			int eventIndex = WeightedIndex(eventWeights);
+			if (eventIndex < 0)
+			{
+				return false;
+			}
+			eventDef = selectedEvents[eventIndex];
+			return true;
+		}
+
+		private static bool HasValidOptionConfiguration(OutpostEventDef eventDef)
+		{
+			if (eventDef.options.NullOrEmpty() || string.IsNullOrEmpty(eventDef.defaultOptionId)) return false;
+			for (int i = 0; i < eventDef.options.Count; i++)
+			{
+				if (eventDef.options[i] != null && eventDef.options[i].id == eventDef.defaultOptionId) return true;
+			}
+			return false;
+		}
+
+		private static int WeightedIndex(List<float> weights)
+		{
+			float total = 0f;
+			for (int i = 0; i < weights.Count; i++) total += Mathf.Max(weights[i], 0f);
+			if (total <= 0f) return -1;
+			float roll = Rand.Range(0f, total);
+			for (int j = 0; j < weights.Count; j++)
+			{
+				roll -= Mathf.Max(weights[j], 0f);
+				if (roll < 0f) return j;
+			}
+			return weights.Count - 1;
+		}
+
 		public static Command AddTestEventCommand(Outpost outpost)
 		{
 			Command_Action command = new Command_Action
 			{
 				defaultLabel = "DEV: Add test event",
-				defaultDesc = "Create a test event instance on this outpost.",
+				defaultDesc = "Create the fixed test event instance on this outpost.",
 				icon = TexCommand.DesirePower
 			};
 			command.action = delegate
@@ -52,16 +160,35 @@ namespace DreamsOutposts
 			return command;
 		}
 
+		public static Command RollRandomEventCommand(Outpost outpost)
+		{
+			Command_Action command = new Command_Action
+			{
+				defaultLabel = "DEV: Roll random event",
+				defaultDesc = "Choose and create a random valid outpost event.",
+				icon = TexCommand.DesirePower
+			};
+			command.action = delegate
+			{
+				if (TryChooseRandomEvent(outpost, out OutpostEventDef eventDef)) outpost.AddEvent(eventDef);
+				else Log.Message("No valid outpost event found.");
+			};
+			return command;
+		}
+
+		/// <summary>
+		/// 开发者用的固定测试事件：延迟事件链的事件 A，用来验证「选项 → 3 天后事件 B」。
+		/// </summary>
 		public static void AddTestEvent(Outpost outpost)
 		{
 			if (outpost == null)
 			{
 				return;
 			}
-			OutpostEventDef def = DefDatabase<OutpostEventDef>.GetNamedSilentFail("DO_TestEvent");
+			OutpostEventDef def = DefDatabase<OutpostEventDef>.GetNamedSilentFail("DO_DelayedEventA");
 			if (def == null)
 			{
-				Log.Error("Could not create test outpost event: DO_TestEvent was not found.");
+				Log.Error("Could not create test outpost event: DO_DelayedEventA was not found.");
 				return;
 			}
 			outpost.AddEvent(def);
@@ -69,11 +196,16 @@ namespace DreamsOutposts
 
 		public static void TickEvents(Outpost outpost)
 		{
-			if (outpost?.events == null)
+			if (outpost == null)
 			{
 				return;
 			}
 			int now = Find.TickManager.TicksGame;
+			TickScheduledEvents(outpost, now);
+			if (outpost.events == null)
+			{
+				return;
+			}
 			for (int i = outpost.events.Count - 1; i >= 0; i--)
 			{
 				OutpostEventInstance instance = outpost.events[i];
@@ -81,6 +213,41 @@ namespace DreamsOutposts
 				{
 					ResolveByTimeout(outpost, instance);
 				}
+			}
+		}
+
+		/// <summary>
+		/// 到期就直接创建指定 EventDef。这条路径不走全局随机事件调度器、不检查 CanReceiveRandomEvent()、
+		/// 也不参与 Category/Event 权重抽取，但仍然通过 Outpost.AddEvent 这个统一创建入口，
+		/// 因此 createdTick、expireTick 和新事件 Letter 照常产生。
+		/// 无论如何都先把条目从 scheduledEvents 删掉，避免同一个排期重复触发。
+		/// </summary>
+		private static void TickScheduledEvents(Outpost outpost, int now)
+		{
+			List<OutpostScheduledEvent> scheduled = outpost.scheduledEvents;
+			if (scheduled.NullOrEmpty())
+			{
+				return;
+			}
+			for (int i = scheduled.Count - 1; i >= 0; i--)
+			{
+				OutpostScheduledEvent entry = scheduled[i];
+				if (entry == null)
+				{
+					scheduled.RemoveAt(i);
+					continue;
+				}
+				if (now < entry.triggerTick)
+				{
+					continue;
+				}
+				scheduled.RemoveAt(i);
+				if (entry.eventDef == null)
+				{
+					Log.Error("Outpost " + outpost.Label + " had a scheduled event with no EventDef; it was dropped without creating anything.");
+					continue;
+				}
+				outpost.AddEvent(entry.eventDef);
 			}
 		}
 
@@ -187,14 +354,19 @@ namespace DreamsOutposts
 
 		public static bool CheckRequirements(OutpostEventOption option, OutpostEventContext context, out string failureReason)
 		{
+			return CheckRequirements(option?.requirements, context, out failureReason);
+		}
+
+		public static bool CheckRequirements(List<OutpostEventRequirement> requirements, OutpostEventContext context, out string failureReason)
+		{
 			failureReason = null;
-			if (option?.requirements == null)
+			if (requirements == null)
 			{
 				return true;
 			}
-			for (int i = 0; i < option.requirements.Count; i++)
+			for (int i = 0; i < requirements.Count; i++)
 			{
-				OutpostEventRequirement requirement = option.requirements[i];
+				OutpostEventRequirement requirement = requirements[i];
 				if (requirement == null)
 				{
 					continue;

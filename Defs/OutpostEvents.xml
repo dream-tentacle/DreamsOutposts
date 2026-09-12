@@ -6,9 +6,9 @@
     <baseWeight>10</baseWeight>
   </DreamsOutposts.OutpostEventCategoryDef>
   <DreamsOutposts.OutpostEventCategoryDef>
-    <defName>DreamsOutposts_BloodTide</defName>
-    <label>blood tide</label>
-    <baseWeight>0</baseWeight>
+    <defName>DreamsOutposts_General</defName>
+    <label>general</label>
+    <baseWeight>5</baseWeight>
   </DreamsOutposts.OutpostEventCategoryDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_TestEvent</defName>
@@ -68,6 +68,120 @@
       </li>
     </options>
     <defaultOptionId>optionA</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_DelayedEventA</defName>
+    <label>delayed request</label>
+    <description>A neighbouring settlement asks the outpost for a promise. Whatever you answer, something will come of it later.</description>
+    <category>DreamsOutposts_Industrial</category>
+    <weight>1</weight>
+    <options>
+      <li>
+        <id>accept</id>
+        <label>Agree to their request</label>
+        <description>Give them your word. It will be a few days before that promise comes back around.</description>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_ScheduleEvent">
+            <eventDef>DO_DelayedEventB</eventDef>
+            <delayTicksRange>180000~300000</delayTicksRange> <!-- 3 to 5 days -->
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>driveOff</id>
+        <label>Drive them off by force</label>
+        <description>Show them the outpost is not worth arguing with.</description>
+        <requirements>
+          <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
+            <minDefense>30</minDefense>
+          </li>
+        </requirements>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
+            <thingDef>Steel</thingDef>
+            <count>100</count>
+          </li>
+        </effects>
+      </li>
+    </options>
+    <defaultOptionId>accept</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_DelayedEventB</defName>
+    <label>their side of the bargain</label>
+    <description>They kept their word. A shipment arrives at the outpost, a few days after you gave yours.</description>
+    <category>DreamsOutposts_Industrial</category>
+    <weight>0</weight>
+    <options>
+      <li>
+        <id>default</id>
+        <label>Continue</label>
+        <playerSelectable>false</playerSelectable>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
+            <thingDef>Steel</thingDef>
+            <count>50</count>
+          </li>
+        </effects>
+      </li>
+    </options>
+    <defaultOptionId>default</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_IndustrialEventB</defName>
+    <label>industrial event B</label>
+    <description>A second industrial test event.</description>
+    <category>DreamsOutposts_Industrial</category>
+    <weight>3</weight>
+    <options>
+      <li>
+        <id>default</id>
+        <label>Continue</label>
+        <playerSelectable>false</playerSelectable>
+      </li>
+    </options>
+    <defaultOptionId>default</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_GeneralEventA</defName>
+    <label>general event A</label>
+    <description>A general test event.</description>
+    <category>DreamsOutposts_General</category>
+    <weight>1</weight>
+    <options>
+      <li>
+        <id>default</id>
+        <label>Continue</label>
+        <playerSelectable>false</playerSelectable>
+      </li>
+    </options>
+    <defaultOptionId>default</defaultOptionId>
+    <durationTicks>60000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_GeneralEventB</defName>
+    <label>general event B</label>
+    <description>A gated general test event.</description>
+    <category>DreamsOutposts_General</category>
+    <weight>4</weight>
+    <options>
+      <li>
+        <id>default</id>
+        <label>Continue</label>
+        <playerSelectable>false</playerSelectable>
+      </li>
+    </options>
+    <defaultOptionId>default</defaultOptionId>
+    <requirements>
+      <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
+        <thingDef>Steel</thingDef>
+        <count>1000</count>
+      </li>
+    </requirements>
     <durationTicks>60000</durationTicks>
   </DreamsOutposts.OutpostEventDef>
 </Defs>

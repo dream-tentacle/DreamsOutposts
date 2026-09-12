@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Defense>防卫</DreamsOutposts.Defense>
+  <DreamsOutposts.DefenseFromPawns>人员：{0}</DreamsOutposts.DefenseFromPawns>
+  <DreamsOutposts.DefenseFromFacilities>设施：{0}</DreamsOutposts.DefenseFromFacilities>
+  <DreamsOutposts.SkillDisabled>已禁用</DreamsOutposts.SkillDisabled>
+</LanguageData>

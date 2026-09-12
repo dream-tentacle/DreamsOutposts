@@ -29,6 +29,12 @@ namespace DreamsOutposts
 
 		public OutpostBombardmentProperties bombardment;
 
+		/// <summary>
+		/// 这个设施已安装时给据点提供的固定防卫值。
+		/// 核心设施和扩展设施都通过 Outpost.Facilities 统一参与 OutpostDefenseUtility 的计算。
+		/// </summary>
+		public float defense;
+
 		public int bombardmentShellBonus;
 
 		public bool IsResearchUnlocked
@@ -145,6 +151,10 @@ namespace DreamsOutposts
 			if (maxPerOutpost < 0)
 			{
 				yield return "maxPerOutpost must not be negative; use 0 for unlimited.";
+			}
+			if (defense < 0f)
+			{
+				yield return "defense must not be negative.";
 			}
 			for (int i = 0; i < (researchPrerequisites?.Count ?? 0); i++)
 			{

@@ -11,5 +11,9 @@
   <DreamsOutposts.Options>Options</DreamsOutposts.Options>
   <DreamsOutposts.EventCategoryWeights>Event category weights:</DreamsOutposts.EventCategoryWeights>
   <DreamsOutposts.EventCategoryModifier>Event category: {0} {1}</DreamsOutposts.EventCategoryModifier>
+  <DreamsOutposts.EventCategorySummary>Event category tendencies:</DreamsOutposts.EventCategorySummary>
+  <DreamsOutposts.EventCategoryBaseWeight>base {0}</DreamsOutposts.EventCategoryBaseWeight>
+  <DreamsOutposts.EventCategoryCurrentWeight>current {0}</DreamsOutposts.EventCategoryCurrentWeight>
+  <DreamsOutposts.EventCategoryNoModifiers>No facility modifiers</DreamsOutposts.EventCategoryNoModifiers>
 </LanguageData>
 

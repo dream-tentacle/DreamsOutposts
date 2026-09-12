@@ -211,6 +211,7 @@
       <Steel>150</Steel>
       <ComponentIndustrial>6</ComponentIndustrial>
     </buildCost>
+    <defense>15</defense>
     <bombardment>
       <shellDef>Shell_HighExplosive</shellDef>
       <shellsPerStrike>4</shellsPerStrike>

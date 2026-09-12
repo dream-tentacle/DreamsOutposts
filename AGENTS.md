@@ -6,6 +6,7 @@
 - 工程名、程序集名、命名空间和主类：`DreamsOutposts`
 - 元数据：`About\About.xml`；packageId：`mjcg.DreamsOutposts`
 - 部署目标名可通过 `./deploy.ps1 -ModName <新名>` 修改，未指定时使用当前文件夹名。
+- 遍历文件时，注意跳过`./RefMods`
 
 ## Build & Deploy
 进行 C# 修改后，需要使用以下命令编译并部署；运行部署命令时必须临时申请沙箱外部权限：

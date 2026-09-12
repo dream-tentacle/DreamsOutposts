@@ -9,6 +9,13 @@
     <order>0</order>
   </DreamsOutposts.OutpostManagePageDef>
 <DreamsOutposts.OutpostManagePageDef>
+    <defName>DreamsOutposts_ManagePage_Defense</defName>
+    <label>defense</label>
+    <description>How well this outpost can defend itself, and where that strength comes from.</description>
+    <pageClass>DreamsOutposts.Page_OutpostDefense</pageClass>
+    <order>5</order>
+  </DreamsOutposts.OutpostManagePageDef>
+<DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Warehouse</defName>
     <label>warehouse</label>
     <description>The colonists, other pawns and items kept in this outpost.</description>

@@ -23,6 +23,12 @@ namespace DreamsOutposts
 
 		public List<OutpostEventInstance> events;
 
+		/// <summary>
+		/// 已排期、尚未发生的后续事件。这里的事件不在 events 里，也不参与普通随机事件抽取；
+		/// 到期后由 OutpostEventUtility.TickEvents 通过 AddEvent 转成真正的事件实例。
+		/// </summary>
+		public List<OutpostScheduledEvent> scheduledEvents;
+
 		public int establishedTick;
 
 		public int level = 1;
@@ -79,6 +85,11 @@ namespace DreamsOutposts
 
 		public bool IsMaxLevel => level >= MaxLevel;
 
+		/// <summary>
+		/// 据点当前防卫值：Σ 人员 + Σ 设施。不是存档值，每次读取都按当前 Pawn 和设施重新计算。
+		/// </summary>
+		public float Defense => OutpostDefenseUtility.TotalDefense(this);
+
 		public OutpostEventInstance AddEvent(OutpostEventDef eventDef)
 		{
 			if (eventDef == null)
@@ -100,6 +111,41 @@ namespace DreamsOutposts
 			events.Add(instance);
 			OutpostEventUtility.SendCreatedLetter(this, instance);
 			return instance;
+		}
+
+		/// <summary>
+		/// 登记一条 delayTicks 之后才发生的后续事件。只负责排期：
+		/// 不创建事件实例，不进 events，也不发 Letter。到期由 TickEvents 处理。
+		/// </summary>
+		public OutpostScheduledEvent AddScheduledEvent(OutpostEventDef eventDef, int delayTicks)
+		{
+			if (eventDef == null)
+			{
+				Log.Error("Cannot schedule a null event Def on outpost " + Label + ".");
+				return null;
+			}
+			if (scheduledEvents == null)
+			{
+				scheduledEvents = new List<OutpostScheduledEvent>();
+			}
+			OutpostScheduledEvent scheduled = new OutpostScheduledEvent
+			{
+				eventDef = eventDef,
+				triggerTick = Find.TickManager.TicksGame + Mathf.Max(delayTicks, 0)
+			};
+			scheduledEvents.Add(scheduled);
+			return scheduled;
+		}
+
+		/// <summary>
+		/// 这个据点当前是否允许成为「普通随机事件」的目标。第一版一律允许。
+		/// 只描述普通随机事件：剧情事件、后续事件、玩家行为触发事件和强制事件不一定受这里限制。
+		/// 以后据点特殊状态、事件屏蔽设施和第三方 Mod 设施都从这个统一入口阻止普通随机事件；
+		/// 全局调度器只调用这个方法，不自己去识别具体设施或状态。
+		/// </summary>
+		public virtual AcceptanceReport CanReceiveRandomEvent()
+		{
+			return true;
 		}
 
 		public int SlotCountForLevel => outpostTypeDef?.GetSlotCount(level) ?? 0;
@@ -125,6 +171,7 @@ namespace DreamsOutposts
 			pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
 			extensionSlots = new List<OutpostSlot>();
 			events = new List<OutpostEventInstance>();
+			scheduledEvents = new List<OutpostScheduledEvent>();
 		}
 
 		protected override void TickInterval(int delta)
@@ -164,6 +211,7 @@ namespace DreamsOutposts
 			Scribe_Deep.Look(ref coreFacility, "coreFacility");
 			Scribe_Collections.Look(ref extensionSlots, "extensionSlots", LookMode.Deep);
 			Scribe_Collections.Look(ref events, "events", LookMode.Deep);
+			Scribe_Collections.Look(ref scheduledEvents, "scheduledEvents", LookMode.Deep);
 			Scribe_Deep.Look(ref pawns, "pawns", this);
 			Scribe_Deep.Look(ref inventory, "inventory", this);
 			Scribe_Deep.Look(ref pendingAirdropPawns, "pendingAirdropPawns", this);
@@ -184,6 +232,10 @@ namespace DreamsOutposts
 				if (events == null)
 				{
 					events = new List<OutpostEventInstance>();
+				}
+				if (scheduledEvents == null)
+				{
+					scheduledEvents = new List<OutpostScheduledEvent>();
 				}
 				if (pendingAirdropPawns.Count > 0)
 				{
@@ -298,6 +350,7 @@ namespace DreamsOutposts
 			if (Prefs.DevMode)
 			{
 				yield return OutpostEventUtility.AddTestEventCommand(this);
+				yield return OutpostEventUtility.RollRandomEventCommand(this);
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);

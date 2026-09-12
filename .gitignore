@@ -11,3 +11,5 @@ RefMods/
 
 # 2026-09-11 源码被清理脚本清空后建立的救援目录（反编译产物、原 DLL 备份、脚本）
 _recovery_backup/
+
+temp/

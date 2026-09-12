@@ -362,7 +362,39 @@ namespace DreamsOutposts
 					}
 				}
 			}
+			AppendEventCategorySummary(stringBuilder);
 			return stringBuilder.ToString().TrimEndNewlines();
+		}
+
+		private void AppendEventCategorySummary(StringBuilder stringBuilder)
+		{
+			List<OutpostEventCategoryDef> categories = DefDatabase<OutpostEventCategoryDef>.AllDefsListForReading;
+			if (categories.NullOrEmpty()) return;
+			if (stringBuilder.Length > 0) stringBuilder.AppendLine();
+			stringBuilder.AppendLine("DreamsOutposts.EventCategorySummary".Translate());
+			for (int i = 0; i < categories.Count; i++)
+			{
+				OutpostEventCategoryDef category = categories[i];
+				if (category == null) continue;
+				stringBuilder.AppendLine("- " + category.LabelCap + ": " + "DreamsOutposts.EventCategoryBaseWeight".Translate(category.baseWeight.ToString("0.##")) + ", " + "DreamsOutposts.EventCategoryCurrentWeight".Translate(OutpostEventUtility.GetCategoryWeight(outpost, category).ToString("0.##")));
+				bool hasModifier = false;
+				foreach (OutpostFacility installed in outpost.Facilities)
+				{
+					List<OutpostEventCategoryModifier> modifiers = installed?.def?.eventCategoryModifiers;
+					if (modifiers == null) continue;
+					for (int j = 0; j < modifiers.Count; j++)
+					{
+						OutpostEventCategoryModifier modifier = modifiers[j];
+						if (modifier?.category == category)
+						{
+							string sign = modifier.offset >= 0f ? "+" : string.Empty;
+							stringBuilder.AppendLine("  - " + installed.def.LabelCap + ": " + sign + modifier.offset.ToString("0.##"));
+							hasModifier = true;
+						}
+					}
+				}
+				if (!hasModifier) stringBuilder.AppendLine("  - " + "DreamsOutposts.EventCategoryNoModifiers".Translate());
+			}
 		}
 	}
 }

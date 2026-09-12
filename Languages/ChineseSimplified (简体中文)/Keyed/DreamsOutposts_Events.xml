@@ -11,5 +11,9 @@
   <DreamsOutposts.Options>选项</DreamsOutposts.Options>
   <DreamsOutposts.EventCategoryWeights>事件分类权重：</DreamsOutposts.EventCategoryWeights>
   <DreamsOutposts.EventCategoryModifier>事件分类：{0} {1}</DreamsOutposts.EventCategoryModifier>
+  <DreamsOutposts.EventCategorySummary>事件分类倾向：</DreamsOutposts.EventCategorySummary>
+  <DreamsOutposts.EventCategoryBaseWeight>基础权重 {0}</DreamsOutposts.EventCategoryBaseWeight>
+  <DreamsOutposts.EventCategoryCurrentWeight>当前权重 {0}</DreamsOutposts.EventCategoryCurrentWeight>
+  <DreamsOutposts.EventCategoryNoModifiers>没有设施影响</DreamsOutposts.EventCategoryNoModifiers>
 </LanguageData>
 
