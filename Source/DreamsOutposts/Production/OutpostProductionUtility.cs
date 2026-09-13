@@ -20,33 +20,28 @@ namespace DreamsOutposts
 
 		private static readonly HashSet<int> failureDialogShown = new HashSet<int>();
 
-		public static void TickOutpost(Outpost outpost)
+		public static void TickFacility(Outpost outpost, OutpostFacility facility)
 		{
 			if (outpost == null || outpost.Destroyed)
 			{
 				return;
 			}
 			int now = Find.TickManager.TicksGame;
-			foreach (OutpostFacility facility in outpost.Facilities)
+			if (facility == null || facility.def == null)
+				return;
+			List<OutpostProductionProperties> productions = facility.def.Productions;
+			for (int i = 0; i < productions.Count; i++)
 			{
-				if (facility == null || facility.def == null || facility.def.productions == null)
+				OutpostProductionProperties production = productions[i];
+				if (production != null)
 				{
-					continue;
-				}
-				List<OutpostProductionProperties> productions = facility.def.productions;
-				for (int i = 0; i < productions.Count; i++)
-				{
-					OutpostProductionProperties production = productions[i];
-					if (production != null)
+					try
 					{
-						try
-						{
-							TickProduction(outpost, facility, production, now);
-						}
-						catch (Exception ex)
-						{
-							ReportFailure(outpost, facility, production, ex.ToString());
-						}
+						TickProduction(outpost, facility, production, now);
+					}
+					catch (Exception ex)
+					{
+						ReportFailure(outpost, facility, production, ex.ToString());
 					}
 				}
 			}
@@ -68,16 +63,6 @@ namespace DreamsOutposts
 			if (state == null)
 			{
 				return false;
-			}
-			OutpostProductionState_Power powerState = state as OutpostProductionState_Power;
-			OutpostProductionProperties_Power powerProps = production as OutpostProductionProperties_Power;
-			if (powerState != null && powerProps != null)
-			{
-				ticksRemaining = Mathf.Max(powerState.poweredUntilTick - Find.TickManager.TicksGame, 0);
-				if (ticksRemaining <= 0)
-					return false;
-				progress = Mathf.Clamp01(1f - (float)ticksRemaining / powerProps.fuelDurationTicks);
-				return true;
 			}
 			ticksRemaining = Mathf.Max(state.nextProductionTick - Find.TickManager.TicksGame, 0);
 			progress = Mathf.Clamp01(1f - (float)ticksRemaining / (float)production.intervalTicks);

@@ -28,12 +28,12 @@ namespace DreamsOutposts
 
 		public List<ResearchProjectDef> researchPrerequisites = new List<ResearchProjectDef>();
 
+		public List<OutpostFacilityCompProperties> comps = new List<OutpostFacilityCompProperties>();
+
 		/// <summary>
 		/// 安装这个扩建设施所需的据点最低等级。1 表示任何等级都可以安装。
 		/// </summary>
 		public int minOutpostLevel = 1;
-
-		public List<OutpostProductionProperties> productions = new List<OutpostProductionProperties>();
 
 		public List<ThingDefCountClass> buildCost = new List<ThingDefCountClass>();
 
@@ -51,8 +51,6 @@ namespace DreamsOutposts
 		/// <summary>
 		/// 训练属性：安装后据点内的殖民者会持续获得经验。留空表示这个设施不训练任何人。
 		/// </summary>
-		public OutpostTrainingProperties training;
-
 		/// <summary>
 		/// 这个设施已安装时给据点提供的固定防卫值。
 		/// 核心设施和扩展设施都通过 Outpost.Facilities 统一参与 OutpostDefenseUtility 的计算。
@@ -105,9 +103,20 @@ namespace DreamsOutposts
 
 		public bool HasBuildCost => !buildCost.NullOrEmpty();
 
-		public bool IsProducer => !productions.NullOrEmpty();
+		private static readonly List<OutpostProductionProperties> NoProductions = new List<OutpostProductionProperties>();
+
+		public List<OutpostProductionProperties> Productions => GetCompProperties<OutpostFacilityCompProperties_Production>()?.productions ?? NoProductions;
+
+		public bool IsProducer => !Productions.NullOrEmpty();
 
 		public bool IsProductionModifier => !productionModifiers.NullOrEmpty();
+
+		public T GetCompProperties<T>() where T : OutpostFacilityCompProperties
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++)
+				if (comps[i] is T result) return result;
+			return null;
+		}
 
 		public bool IsAllowedIn(OutpostTypeDef outpostTypeDef)
 		{
@@ -149,7 +158,8 @@ namespace DreamsOutposts
 
 		public OutpostProductionProperties GetProduction(string id)
 		{
-			if (productions == null || string.IsNullOrEmpty(id))
+			List<OutpostProductionProperties> productions = Productions;
+			if (string.IsNullOrEmpty(id))
 			{
 				return null;
 			}
@@ -186,12 +196,11 @@ namespace DreamsOutposts
 			{
 				yield return item5;
 			}
-			if (training != null)
+			for (int c = 0; c < (comps?.Count ?? 0); c++)
 			{
-				foreach (string item7 in training.ConfigErrors())
-				{
-					yield return "training: " + item7;
-				}
+				OutpostFacilityCompProperties comp = comps[c];
+				if (comp == null) { yield return "comps[" + c + "] is null."; continue; }
+				foreach (string error in comp.ConfigErrors()) yield return "comps[" + c + "]: " + error;
 			}
 			if (maxPerOutpost < 0)
 			{
@@ -216,11 +225,7 @@ namespace DreamsOutposts
 					yield return "researchPrerequisites[" + i + "] is null.";
 				}
 			}
-			if (productions == null)
-			{
-				yield return "productions must not be null.";
-				yield break;
-			}
+			List<OutpostProductionProperties> productions = Productions;
 			HashSet<string> ids = new HashSet<string>();
 			for (int j = 0; j < productions.Count; j++)
 			{

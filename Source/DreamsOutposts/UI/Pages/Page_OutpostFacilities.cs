@@ -418,8 +418,8 @@ namespace DreamsOutposts
 				}
 			}
 			y += headHeight + UiMetrics.CardGap;
-			// 生产块
-			if (view.Productions.Count == 0)
+			// 设施组件声明的功能区块
+			if (view.Sections.Count == 0)
 			{
 				float height = ProductionBlockMinHeight();
 				if (draw)
@@ -430,13 +430,13 @@ namespace DreamsOutposts
 			}
 			else
 			{
-				for (int i = 0; i < view.Productions.Count; i++)
+				for (int i = 0; i < view.Sections.Count; i++)
 				{
 					if (i > 0)
 					{
 						y += UiMetrics.ProdListGap;
 					}
-					y += LayoutProductionBlock(innerX, y, innerWidth, view, view.Productions[i], draw) + UiMetrics.CardGap;
+					y += LayoutFacilitySection(innerX, y, innerWidth, view.Sections[i], draw) + UiMetrics.CardGap;
 				}
 			}
 			// footer
@@ -452,6 +452,66 @@ namespace DreamsOutposts
 		private static float ProductionBlockMinHeight()
 		{
 			return UiMetrics.ProdPaddingV * 2f + Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
+		}
+
+		private float LayoutFacilitySection(float x, float y, float width, UiFacilitySectionView section, bool draw)
+		{
+			float innerX = x + UiMetrics.ProdPaddingH;
+			float innerWidth = Mathf.Max(width - UiMetrics.ProdPaddingH * 2f, 20f);
+			float cursor = y + UiMetrics.ProdPaddingV;
+			float topHeight = Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
+			if (draw)
+			{
+				float textX = innerX;
+				if (section.IconThing != null)
+				{
+					Rect icon = new Rect(innerX, cursor + (topHeight - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
+					Widgets.ThingIcon(icon, section.IconThing);
+					textX += UiMetrics.MatIconSize + 8f;
+				}
+				float mainWidth = string.IsNullOrEmpty(section.MainText) ? 0f : Mathf.Max(UiText.Width(section.MainText, UiFont.Number, true) + 6f, 48f);
+				UiText.Draw(new Rect(textX, cursor, Mathf.Max(innerX + innerWidth - textX - mainWidth, 20f), topHeight), section.Title ?? string.Empty, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				if (mainWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - mainWidth, cursor, mainWidth, topHeight), section.MainText, UiFont.Number, UiPalette.Ink, TextAnchor.MiddleRight, true);
+			}
+			cursor += topHeight;
+			if (section.ShowProgress)
+			{
+				cursor += UiMetrics.ProdGap;
+				if (draw)
+				{
+					Color fill = section.ProgressKind == UiChipKind.Good ? UiPalette.Good : section.ProgressKind == UiChipKind.Warn ? UiPalette.Warn : section.ProgressKind == UiChipKind.Bad ? UiPalette.Bad : UiPalette.Accent;
+					UiDraw.Bar(new Rect(innerX, cursor, innerWidth, UiMetrics.BarHeight), Mathf.Clamp01(section.Progress), fill, UiPalette.Track);
+				}
+				cursor += UiMetrics.BarHeight;
+			}
+			if (!string.IsNullOrEmpty(section.LeftText) || !string.IsNullOrEmpty(section.RightText))
+			{
+				cursor += UiMetrics.ProdGap;
+				if (draw)
+				{
+					float h = UiText.LineHeight(UiFont.Caption);
+					float rightWidth = string.IsNullOrEmpty(section.RightText) ? 0f : Mathf.Max(UiText.Width(section.RightText, UiFont.Caption) + 4f, 60f);
+					UiText.Draw(new Rect(innerX, cursor, Mathf.Max(innerWidth - rightWidth, 20f), h), section.LeftText ?? string.Empty, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+					if (rightWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - rightWidth, cursor, rightWidth, h), section.RightText, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+				}
+				cursor += UiText.LineHeight(UiFont.Caption);
+			}
+			if (section.Action != null)
+			{
+				cursor += UiMetrics.ProdGap;
+				float h = UiWidgets.ButtonHeight(UiButtonSize.Small);
+				if (draw && UiWidgets.Button(new Rect(innerX, cursor, innerWidth, h), section.ActionLabel ?? "DreamsOutposts.Ui.Switch".Translate(), UiButtonKind.Secondary, true, null, UiButtonSize.Small, section.ActionTooltip)) section.Action();
+				cursor += h;
+			}
+			if (section.Chips.Count > 0)
+			{
+				cursor += UiMetrics.ProdGap;
+				float h = UiDraw.ChipsHeight(section.Chips, innerWidth, true);
+				if (draw) UiDraw.Chips(new Rect(innerX, cursor, innerWidth, h), section.Chips, true);
+				cursor += h;
+			}
+			if (draw && !string.IsNullOrEmpty(section.Tooltip)) UiWidgets.Tip(new Rect(x, y, width, cursor + UiMetrics.ProdPaddingV - y), section.Tooltip, GenText.StableStringHash(section.Title ?? "facility-section"));
+			return cursor + UiMetrics.ProdPaddingV - y;
 		}
 
 		private float LayoutProductionBlock(float x, float y, float width, UiFacilityView view, UiProductionView production, bool draw)

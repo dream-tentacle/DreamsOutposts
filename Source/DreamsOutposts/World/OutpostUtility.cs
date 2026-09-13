@@ -230,7 +230,7 @@ namespace DreamsOutposts
 			{
 				return true;
 			}
-			List<OutpostProductionProperties> coreProductions = outpostType?.coreFacility?.productions;
+			List<OutpostProductionProperties> coreProductions = outpostType?.coreFacility?.Productions;
 			if (coreProductions.NullOrEmpty() || facility.productionModifiers.NullOrEmpty())
 			{
 				return false;

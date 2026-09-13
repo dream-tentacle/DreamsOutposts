@@ -66,9 +66,9 @@ namespace DreamsOutposts
 		private static string ProductSummary(OutpostFacility facility)
 		{
 			StringBuilder text = new StringBuilder();
-			for (int i = 0; i < facility.def.productions.Count; i++)
+			for (int i = 0; i < facility.def.Productions.Count; i++)
 			{
-				OutpostProductionProperties production = facility.def.productions[i];
+				OutpostProductionProperties production = facility.def.Productions[i];
 				ThingDef product = production?.Worker.GetProduct(production, facility.GetProductionState(production.id));
 				if (product == null)
 				{

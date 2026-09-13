@@ -7,14 +7,14 @@ namespace DreamsOutposts
 	{
 		public OutpostFacilityDef def;
 
-		public List<OutpostProductionState> productionStates;
+		public List<OutpostFacilityComp> comps;
 
 		/// <summary>由自动空投机读取；true 时该设施新完成的生产会直接投送到主殖民地。</summary>
 		public bool autoAirdropEnabled;
 
 		public OutpostFacility()
 		{
-			productionStates = new List<OutpostProductionState>();
+			comps = new List<OutpostFacilityComp>();
 		}
 
 		public OutpostFacility(OutpostFacilityDef def)
@@ -26,76 +26,47 @@ namespace DreamsOutposts
 		public static OutpostFacility Create(OutpostFacilityDef def)
 		{
 			OutpostFacility facility = new OutpostFacility(def);
-			facility.SynchronizeProductionStates();
+			facility.InitializeComps();
 			return facility;
+		}
+
+		private void InitializeComps()
+		{
+			comps = new List<OutpostFacilityComp>();
+			for (int i = 0; i < (def?.comps?.Count ?? 0); i++)
+			{
+				OutpostFacilityCompProperties properties = def.comps[i];
+				if (properties?.compClass == null) continue;
+				OutpostFacilityComp comp = (OutpostFacilityComp)System.Activator.CreateInstance(properties.compClass);
+				comp.Initialize(this, properties);
+				comps.Add(comp);
+			}
+		}
+
+		public T GetComp<T>() where T : OutpostFacilityComp
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++) if (comps[i] is T result) return result;
+			return null;
+		}
+
+		public void TickComps(Outpost outpost, int delta)
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.Tick(outpost, delta);
+		}
+
+		public void PreRemove(Outpost outpost)
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.PreRemove(outpost);
 		}
 
 		public void SynchronizeProductionStates()
 		{
-			if (productionStates == null)
-			{
-				productionStates = new List<OutpostProductionState>();
-			}
-			if (def == null)
-			{
-				Log.Error("Tried to synchronize production states of a facility with no def; keeping existing states untouched.");
-				return;
-			}
-			HashSet<string> seenIds = new HashSet<string>();
-			for (int i = 0; i < productionStates.Count; i++)
-			{
-				OutpostProductionState state = productionStates[i];
-				if (state == null || string.IsNullOrEmpty(state.productionId) || def.GetProduction(state.productionId) == null || !seenIds.Add(state.productionId))
-				{
-					productionStates.RemoveAt(i);
-					i--;
-				}
-			}
-			if (def.productions == null)
-			{
-				return;
-			}
-			int now = Find.TickManager.TicksGame;
-			for (int j = 0; j < def.productions.Count; j++)
-			{
-				OutpostProductionProperties production = def.productions[j];
-				if (production != null && !string.IsNullOrEmpty(production.id))
-				{
-					OutpostProductionWorker worker = production.Worker;
-					OutpostProductionState state2 = GetProductionState(production.id);
-					if (state2 != null && !worker.StateClass.IsInstanceOfType(state2))
-					{
-						Log.Warning("Production " + production.id + " of " + (def?.defName ?? "null") + " expects state type " + worker.StateClass.Name + " but the saved state is " + state2.GetType().Name + "; replacing it with a fresh state of the expected type.");
-						int carriedTick = ((state2.nextProductionTick > 0) ? state2.nextProductionTick : (now + production.intervalTicks));
-						productionStates.Remove(state2);
-						state2 = worker.CreateState(production.id, carriedTick);
-						productionStates.Add(state2);
-					}
-					if (state2 == null)
-					{
-						state2 = worker.CreateState(production.id, now + production.intervalTicks);
-						productionStates.Add(state2);
-					}
-					worker.EnsureConfiguration(production, state2);
-				}
-			}
+			GetComp<OutpostFacilityComp_Production>()?.SynchronizeStates();
 		}
 
 		public OutpostProductionState GetProductionState(string productionId)
 		{
-			if (productionStates == null || string.IsNullOrEmpty(productionId))
-			{
-				return null;
-			}
-			for (int i = 0; i < productionStates.Count; i++)
-			{
-				OutpostProductionState state = productionStates[i];
-				if (state != null && state.productionId == productionId)
-				{
-					return state;
-				}
-			}
-			return null;
+			return string.IsNullOrEmpty(productionId) ? null : GetComp<OutpostFacilityComp_Production>()?.GetState(productionId);
 		}
 
 		public bool TryGetProductionState(string productionId, out OutpostProductionState state)
@@ -108,12 +79,13 @@ namespace DreamsOutposts
 		{
 			Scribe_Defs.Look(ref def, "def");
 			Scribe_Values.Look(ref autoAirdropEnabled, "autoAirdropEnabled", defaultValue: false);
-			Scribe_Collections.Look(ref productionStates, "productionStates", LookMode.Deep);
+			Scribe_Collections.Look(ref comps, "comps", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
-				if (productionStates == null)
+				if (comps == null) InitializeComps();
+				for (int i = 0; i < comps.Count; i++)
 				{
-					productionStates = new List<OutpostProductionState>();
+					if (i < (def?.comps?.Count ?? 0)) comps[i].Initialize(this, def.comps[i]);
 				}
 				SynchronizeProductionStates();
 			}

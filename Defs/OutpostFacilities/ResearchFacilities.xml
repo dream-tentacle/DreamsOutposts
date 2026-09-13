@@ -5,17 +5,14 @@
     <label>research station</label>
     <description>A permanent research operation that contributes 61.875 research points to the colony's current project every half-day.</description>
     <installableAsExtension>false</installableAsExtension>
-    <productions>
-      <li>
-        <id>research</id>
-        <outputLabelKey>DreamsOutposts.ResearchPoints</outputLabelKey>
-        <capacityStat>ResearchSpeed</capacityStat>
-        <intervalTicks>30000</intervalTicks>
-        <outputPerCapacity>61.875</outputPerCapacity>
-        <tags><li>Research</li></tags>
-        <workerClass>DreamsOutposts.OutpostProductionWorker_Research</workerClass>
-      </li>
-    </productions>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Research">
+		<capacityStat>ResearchSpeed</capacityStat>
+		<intervalTicks>30000</intervalTicks>
+		<outputPerCapacity>61.875</outputPerCapacity>
+		<tags><li>Research</li></tags>
+	  </li>
+	</comps>
   </DreamsOutposts.OutpostFacilityDef>
 
   <DreamsOutposts.OutpostFacilityDef>

@@ -47,7 +47,7 @@ namespace DreamsOutposts
 			cachedPowerOutput = 0f;
 			foreach (RemotePowerSource source in RemotePowerUtility.AllSources())
 			{
-				if (source.State.linkedReceiver != parent)
+				if (source.Comp.linkedReceiver != parent)
 					continue;
 				cachedSources.Add(source);
 				cachedPowerOutput += RemotePowerUtility.PowerOutput(source, (Building)parent);
@@ -79,15 +79,15 @@ namespace DreamsOutposts
 			foreach (RemotePowerSource source in RemotePowerUtility.AllSources())
 			{
 				RemotePowerSource captured = source;
-				bool boundHere = source.State.linkedReceiver == parent;
+				bool boundHere = source.Comp.linkedReceiver == parent;
 				int distance = RemotePowerUtility.Distance(source, (Building)parent);
 				float efficiency = RemotePowerUtility.Efficiency(distance);
 				string marker = boundHere ? "[x] " : "[ ] ";
 				string label = marker + source.Outpost.LabelCap + " — " + source.Facility.def.LabelCap + " (" + distance + ", " + efficiency.ToStringPercent() + ")";
 				options.Add(new FloatMenuOption(label, delegate
 				{
-					Building oldReceiver = captured.State.linkedReceiver;
-					captured.State.linkedReceiver = boundHere ? null : (Building)parent;
+					Building oldReceiver = captured.Comp.linkedReceiver;
+					captured.Comp.linkedReceiver = boundHere ? null : (Building)parent;
 					if (oldReceiver != null && oldReceiver != parent)
 						RemotePowerUtility.NotifyReceiver(oldReceiver);
 					NotifySourceChanged();

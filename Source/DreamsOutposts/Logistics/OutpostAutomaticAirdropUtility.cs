@@ -25,7 +25,7 @@ namespace DreamsOutposts
 
 		public static bool IsSelectableProducer(OutpostFacility facility)
 		{
-			return facility?.def != null && !facility.def.automaticAirdropController && !facility.def.productions.NullOrEmpty();
+			return facility?.def != null && !facility.def.automaticAirdropController && !facility.def.Productions.NullOrEmpty();
 		}
 
 		public static bool TryDeliver(OutpostProductionContext context)

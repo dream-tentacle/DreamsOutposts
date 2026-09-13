@@ -25,6 +25,12 @@
   <DreamsOutposts.RemotePower.LinkedCount>Linked generators: {0}</DreamsOutposts.RemotePower.LinkedCount>
   <DreamsOutposts.RemotePower.TotalOutput>Remote output: {0} W</DreamsOutposts.RemotePower.TotalOutput>
   <DreamsOutposts.RemotePower.PowerOutput>power</DreamsOutposts.RemotePower.PowerOutput>
+  <DreamsOutposts.RemotePower.StatusUnbound>Not linked to a receiver</DreamsOutposts.RemotePower.StatusUnbound>
+  <DreamsOutposts.RemotePower.StatusWaitingFuel>Waiting for {1} {0}</DreamsOutposts.RemotePower.StatusWaitingFuel>
+  <DreamsOutposts.RemotePower.StatusActive>{0} W · {1} remaining</DreamsOutposts.RemotePower.StatusActive>
+  <DreamsOutposts.RemotePower.FuelCycle>{1} {0} / {2}</DreamsOutposts.RemotePower.FuelCycle>
+  <DreamsOutposts.RemotePower.SectionTitle>Remote power generation</DreamsOutposts.RemotePower.SectionTitle>
+  <DreamsOutposts.RemotePower.DistanceEfficiency>Distance {0} · {1} efficiency</DreamsOutposts.RemotePower.DistanceEfficiency>
   <DreamsOutposts.ResearchPoints>research points</DreamsOutposts.ResearchPoints>
 </LanguageData>
 

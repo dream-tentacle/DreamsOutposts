@@ -12,8 +12,7 @@ namespace DreamsOutposts
 	{
 		public Outpost Outpost;
 		public OutpostFacility Facility;
-		public OutpostProductionProperties_Power Properties;
-		public OutpostProductionState_Power State;
+		public OutpostFacilityComp_PowerGenerator Comp;
 	}
 
 	public static class RemotePowerUtility
@@ -33,13 +32,8 @@ namespace DreamsOutposts
 					continue;
 				foreach (OutpostFacility facility in outpost.Facilities)
 				{
-					foreach (OutpostProductionProperties production in facility.def?.productions ?? new List<OutpostProductionProperties>())
-					{
-						OutpostProductionProperties_Power props = production as OutpostProductionProperties_Power;
-						OutpostProductionState_Power state = facility.GetProductionState(production.id) as OutpostProductionState_Power;
-						if (props != null && state != null)
-							yield return new RemotePowerSource { Outpost = outpost, Facility = facility, Properties = props, State = state };
-					}
+					OutpostFacilityComp_PowerGenerator comp = facility.GetComp<OutpostFacilityComp_PowerGenerator>();
+					if (comp != null) yield return new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = comp };
 				}
 			}
 		}
@@ -60,9 +54,9 @@ namespace DreamsOutposts
 
 		public static float PowerOutput(RemotePowerSource source, Building receiver)
 		{
-			if (source?.State == null || source.State.linkedReceiver != receiver || !source.State.IsPoweredNow)
+			if (source?.Comp == null || source.Comp.linkedReceiver != receiver || !source.Comp.IsPoweredNow)
 				return 0f;
-			return source.Properties.basePowerOutput * Efficiency(Distance(source, receiver));
+			return source.Comp.Props.basePowerOutput * Efficiency(Distance(source, receiver));
 		}
 
 		public static void NotifyReceiver(Building receiver)
@@ -71,19 +65,5 @@ namespace DreamsOutposts
 				receiver.TryGetComp<CompRemotePowerReceiver>().NotifySourceChanged();
 		}
 
-		public static void NotifyFacilityRemoved(OutpostFacility facility)
-		{
-			if (facility?.productionStates == null)
-				return;
-			foreach (OutpostProductionState state in facility.productionStates)
-			{
-				OutpostProductionState_Power powerState = state as OutpostProductionState_Power;
-				if (powerState?.linkedReceiver == null)
-					continue;
-				Building receiver = powerState.linkedReceiver;
-				powerState.linkedReceiver = null;
-				NotifyReceiver(receiver);
-			}
-		}
 	}
 }

@@ -19,12 +19,13 @@ namespace DreamsOutposts
 
 		public static OutpostTrainingProperties GetTraining(OutpostFacilityDef def)
 		{
-			return def?.training;
+			return def?.GetCompProperties<OutpostTrainingProperties>();
 		}
 
 		public static bool Trains(OutpostFacilityDef def)
 		{
-			return def?.training?.skill != null && def.training.xpPerHour > 0f;
+			OutpostTrainingProperties training = GetTraining(def);
+			return training?.skill != null && training.xpPerHour > 0f;
 		}
 
 		/// <summary>这个殖民者能否从这个训练设施获得经验。</summary>
@@ -48,7 +49,7 @@ namespace DreamsOutposts
 			int count = 0;
 			foreach (Pawn pawn in outpost.Colonists)
 			{
-				if (CanTrain(pawn, def.training.skill))
+				if (CanTrain(pawn, GetTraining(def).skill))
 				{
 					count++;
 				}
@@ -56,25 +57,10 @@ namespace DreamsOutposts
 			return count;
 		}
 
-		public static void TickOutpost(Outpost outpost, int delta)
+		public static void TickFacility(Outpost outpost, OutpostTrainingProperties training, int delta)
 		{
-			if (outpost == null || outpost.Destroyed || delta <= 0)
-			{
-				return;
-			}
+			if (outpost == null || outpost.Destroyed || training == null || delta <= 0) return;
 			float elapsedHours = (float)delta / TicksPerHour;
-			foreach (OutpostFacility facility in outpost.Facilities)
-			{
-				if (Trains(facility?.def))
-				{
-					TickFacility(outpost, facility, elapsedHours);
-				}
-			}
-		}
-
-		private static void TickFacility(Outpost outpost, OutpostFacility facility, float elapsedHours)
-		{
-			OutpostTrainingProperties training = facility.def.training;
 			float xp = training.xpPerHour * elapsedHours;
 			if (xp <= 0f)
 			{
@@ -86,7 +72,7 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex)
 			{
-				Log.ErrorOnce("Outpost training failed: outpost=" + outpost.Label + ", facility=" + facility.def.defName + "\n" + ex, GenText.StableStringHash("DreamsOutposts.TrainingFailure." + facility.def.defName));
+				Log.ErrorOnce("Outpost training failed: outpost=" + outpost.Label + "\n" + ex, GenText.StableStringHash("DreamsOutposts.TrainingFailure." + training.skill?.defName));
 			}
 		}
 

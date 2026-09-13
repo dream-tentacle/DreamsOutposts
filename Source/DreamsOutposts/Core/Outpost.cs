@@ -178,8 +178,7 @@ namespace DreamsOutposts
 		{
 			base.TickInterval(delta);
 			OutpostEventUtility.TickEvents(this);
-			OutpostProductionUtility.TickOutpost(this);
-			OutpostTrainingUtility.TickOutpost(this, delta);
+			foreach (OutpostFacility facility in Facilities) facility.TickComps(this, delta);
 			AgePawns(delta);
 			OutpostAirdropUtility.CheckStalePending(this);
 		}

@@ -91,11 +91,11 @@ namespace DreamsOutposts
 			{
 				return byKeyword;
 			}
-			if (def.productions != null)
+			if (def.Productions != null)
 			{
-				for (int i = 0; i < def.productions.Count; i++)
+				for (int i = 0; i < def.Productions.Count; i++)
 				{
-					ThingDef product = def.productions[i]?.product;
+					ThingDef product = def.Productions[i]?.product;
 					if (product == null)
 					{
 						continue;

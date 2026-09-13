@@ -132,7 +132,11 @@ namespace DreamsOutposts
 
 		public readonly List<UiChipView> Chips = new List<UiChipView>();
 
+		public int PowerChipIndex = -1;
+
 		public readonly List<UiProductionView> Productions = new List<UiProductionView>();
+
+		public readonly List<UiFacilitySectionView> Sections = new List<UiFacilitySectionView>();
 
 		public int ChainId;
 
@@ -578,10 +582,26 @@ namespace DreamsOutposts
 				}
 				if (OutpostTrainingUtility.Trains(def))
 				{
+					OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
 					view.Chips.Add(new UiChipView(
-						"DreamsOutposts.Ui.Chip.Training".Translate(def.training.skill.LabelCap, def.training.xpPerHour.ToString("0.#")).ToString(),
+						"DreamsOutposts.Ui.Chip.Training".Translate(training.skill.LabelCap, training.xpPerHour.ToString("0.#")).ToString(),
 						UiChipKind.Info,
-						"DreamsOutposts.Ui.Chip.TrainingTip".Translate(def.training.skill.LabelCap, OutpostTrainingUtility.CountTrainees(outpost, def)).ToString()));
+						"DreamsOutposts.Ui.Chip.TrainingTip".Translate(training.skill.LabelCap, OutpostTrainingUtility.CountTrainees(outpost, def)).ToString()));
+				}
+				OutpostFacilityComp_PowerGenerator power = facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
+				if (power != null)
+				{
+					string status;
+					if (power.linkedReceiver == null) status = "DreamsOutposts.RemotePower.StatusUnbound".Translate();
+					else if (!power.IsPoweredNow) status = "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(power.Props.fuel.LabelCap, power.Props.fuelPerCycle);
+					else
+					{
+						RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = power };
+						float watts = RemotePowerUtility.PowerOutput(source, power.linkedReceiver);
+						status = "DreamsOutposts.RemotePower.StatusActive".Translate(watts.ToString("0"), (power.poweredUntilTick - Find.TickManager.TicksGame).ToStringTicksToPeriod());
+					}
+					view.PowerChipIndex = view.Chips.Count;
+					view.Chips.Add(new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn));
 				}
 				if (!def.productionModifiers.NullOrEmpty())
 				{
@@ -599,11 +619,11 @@ namespace DreamsOutposts
 				}
 			}
 			// 生产
-			if (def != null && !def.productions.NullOrEmpty())
+			if (def != null && !def.Productions.NullOrEmpty())
 			{
-				for (int i = 0; i < def.productions.Count; i++)
+				for (int i = 0; i < def.Productions.Count; i++)
 				{
-					OutpostProductionProperties production = def.productions[i];
+					OutpostProductionProperties production = def.Productions[i];
 					if (production == null)
 					{
 						continue;
@@ -695,10 +715,38 @@ namespace DreamsOutposts
 			RefreshUpgrade();
 			// 生产
 			RefreshProductions(Core);
+			RefreshSections(Core);
+			RefreshPowerChip(Core);
 			for (int i = 0; i < Slots.Count; i++)
 			{
 				RefreshProductions(Slots[i]);
+				RefreshSections(Slots[i]);
+				RefreshPowerChip(Slots[i]);
 			}
+		}
+
+		private void RefreshSections(UiFacilityView view)
+		{
+			if (view == null) return;
+			view.Sections.Clear();
+			for (int i = 0; i < (view.Facility?.comps?.Count ?? 0); i++)
+				view.Facility.comps[i]?.BuildUiSections(outpost, view.Sections);
+		}
+
+		private void RefreshPowerChip(UiFacilityView view)
+		{
+			if (view == null || view.PowerChipIndex < 0 || view.PowerChipIndex >= view.Chips.Count) return;
+			OutpostFacilityComp_PowerGenerator power = view.Facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
+			if (power == null) return;
+			string status;
+			if (power.linkedReceiver == null) status = "DreamsOutposts.RemotePower.StatusUnbound".Translate();
+			else if (!power.IsPoweredNow) status = "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(power.Props.fuel.LabelCap, power.Props.fuelPerCycle);
+			else
+			{
+				RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = view.Facility, Comp = power };
+				status = "DreamsOutposts.RemotePower.StatusActive".Translate(RemotePowerUtility.PowerOutput(source, power.linkedReceiver).ToString("0"), (power.poweredUntilTick - Find.TickManager.TicksGame).ToStringTicksToPeriod());
+			}
+			view.Chips[view.PowerChipIndex] = new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn);
 		}
 
 		/// <summary>防卫页数据：人员分解（按防卫值降序）+ 两侧合计；顺带维护仓库页要的两个分组。</summary>
@@ -1158,12 +1206,16 @@ namespace DreamsOutposts
 					}
 					if (OutpostTrainingUtility.Trains(def))
 					{
-						SkillDef trainingSkill = def.training.skill;
+						OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
+						SkillDef trainingSkill = training.skill;
 						int trainees = OutpostTrainingUtility.CountTrainees(outpost, def);
 						card.Chips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.Training".Translate(trainingSkill.LabelCap, def.training.xpPerHour.ToString("0.#")).ToString(),
+							"DreamsOutposts.Ui.Chip.Training".Translate(trainingSkill.LabelCap, training.xpPerHour.ToString("0.#")).ToString(),
 							(trainees > 0) ? UiChipKind.Good : UiChipKind.Bad));
 					}
+					OutpostFacilityCompProperties_PowerGenerator powerProps = def.GetCompProperties<OutpostFacilityCompProperties_PowerGenerator>();
+					if (powerProps != null)
+						card.Chips.Add(new UiChipView("DreamsOutposts.RemotePower.FuelCycle".Translate(powerProps.fuel.LabelCap, powerProps.fuelPerCycle, powerProps.cycleTicks.ToStringTicksToPeriod()).ToString(), UiChipKind.Info));
 					if (!def.researchPrerequisites.NullOrEmpty())
 					{
 						card.Chips.Add(def.IsResearchUnlocked
@@ -1202,11 +1254,11 @@ namespace DreamsOutposts
 							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate("×" + modifier.factor.ToString("0.##")).ToString());
 						}
 					}
-					if (!def.productions.NullOrEmpty())
+					if (!def.Productions.NullOrEmpty())
 					{
-						for (int p = 0; p < def.productions.Count; p++)
+						for (int p = 0; p < def.Productions.Count; p++)
 						{
-							OutpostProductionProperties production = def.productions[p];
+							OutpostProductionProperties production = def.Productions[p];
 							if (production == null)
 							{
 								continue;
@@ -1278,9 +1330,10 @@ namespace DreamsOutposts
 			}
 			if (OutpostTrainingUtility.Trains(def))
 			{
+				OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
 				builder.Append("\n").Append("DreamsOutposts.TrainingTooltip".Translate(
-					def.training.skill.LabelCap,
-					def.training.xpPerHour.ToString("0.#"),
+					training.skill.LabelCap,
+					training.xpPerHour.ToString("0.#"),
 					OutpostTrainingUtility.CountTrainees(outpost, def)));
 			}
 			return builder.ToString();
