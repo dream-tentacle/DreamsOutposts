@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: frontier -->
+  <DreamsOutposts_Frontier.label>荒野</DreamsOutposts_Frontier.label>
+  
+  <!-- EN: industrial -->
+  <DreamsOutposts_Industrial.label>工业</DreamsOutposts_Industrial.label>
+  
+  <!-- EN: population -->
+  <DreamsOutposts_Population.label>人口</DreamsOutposts_Population.label>
+  
+  <!-- EN: research -->
+  <DreamsOutposts_Research.label>科研</DreamsOutposts_Research.label>
+  
+</LanguageData>

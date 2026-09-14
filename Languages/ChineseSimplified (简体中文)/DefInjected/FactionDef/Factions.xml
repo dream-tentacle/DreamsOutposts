@@ -1,6 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  
+  <!-- EN: wilderness tribe -->
   <DreamsOutposts_WildernessTribe.label>荒野部落</DreamsOutposts_WildernessTribe.label>
+  <!-- EN: A hidden tribe dwelling beyond the reach of settled society. They recognize no peace with outsiders, but do not leave the wilderness to launch attacks of their own. -->
   <DreamsOutposts_WildernessTribe.description>一个隐居在文明疆界之外的部落。他们绝不与外来者和平相处，但也不会离开荒野主动发起袭击。</DreamsOutposts_WildernessTribe.description>
+  <!-- EN: Wilderness Tribe -->
   <DreamsOutposts_WildernessTribe.fixedName>荒野部落</DreamsOutposts_WildernessTribe.fixedName>
+  <!-- EN: chief -->
+  <DreamsOutposts_WildernessTribe.leaderTitle>酋长</DreamsOutposts_WildernessTribe.leaderTitle>
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <DreamsOutposts_WildernessTribe.messageDefendersAttacking>来自{1}的{0}正在攻击你的{2}。</DreamsOutposts_WildernessTribe.messageDefendersAttacking>
+  <!-- EN: tribesman -->
+  <DreamsOutposts_WildernessTribe.pawnSingular>部众</DreamsOutposts_WildernessTribe.pawnSingular>
+  <!-- EN: tribespeople -->
+  <DreamsOutposts_WildernessTribe.pawnsPlural>部众</DreamsOutposts_WildernessTribe.pawnsPlural>
+  
 </LanguageData>

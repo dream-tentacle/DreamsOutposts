@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  
+  <!-- EN: long-range power receiver -->
   <DreamsOutposts_RemotePowerReceiver.label>远距离电力接收器</DreamsOutposts_RemotePowerReceiver.label>
+  <!-- EN: Receives power transmitted by linked outpost generators. Transmission efficiency falls with world-map distance. -->
   <DreamsOutposts_RemotePowerReceiver.description>接收已绑定据点发电设施输送的电力。输电效率随世界地图距离增加而降低。</DreamsOutposts_RemotePowerReceiver.description>
+  
 </LanguageData>

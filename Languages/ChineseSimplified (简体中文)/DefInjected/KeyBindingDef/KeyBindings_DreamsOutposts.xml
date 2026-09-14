@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: dump outpost UI layout to log -->
+  <DreamsOutposts_DumpUiLayout.label>将据点UI布局输出到日志</DreamsOutposts_DumpUiLayout.label>
+  
+  <!-- EN: toggle outpost UI layout overlay -->
+  <DreamsOutposts_ToggleUiLayoutOverlay.label>开关据点UI布局叠层</DreamsOutposts_ToggleUiLayoutOverlay.label>
+  
+</LanguageData>

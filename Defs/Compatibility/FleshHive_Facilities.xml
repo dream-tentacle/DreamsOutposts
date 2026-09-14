@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_GrowthHormoneCultureTank</defName>
+    <facilityTag>ProductionBoost</facilityTag>
+    <label>growth hormone culture tank</label>
+    <description>A vat of concentrated growth hormones that multiplies the flesh cultivation bed's twisted meat output by 1.5.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost><Meat_Twisted>100</Meat_Twisted></buildCost>
+    <productionModifiers>
+      <li>
+        <productionTag>FleshCultivation</productionTag>
+        <factor>1.5</factor>
+      </li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshOutlet</defName>
+    <label>flesh outlet</label>
+    <description>A cultivated flesh outlet that produces 3 nerve chunks per day.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <researchPrerequisites><li>FH_Research_ComplexFleshHive</li></researchPrerequisites>
+    <buildCost><Meat_Twisted>112</Meat_Twisted></buildCost>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li>
+            <id>nerveFlesh</id>
+            <product>FH_NerveFlesh</product>
+            <intervalTicks>60000</intervalTicks>
+            <outputPerCapacity>3</outputPerCapacity>
+            <tags><li>NerveFlesh</li></tags>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_NerveExpansionSlot</defName>
+    <label>nerve expansion slot</label>
+    <description>A dedicated neural extension that adds 3 fleshbeast capacity to the hive network.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_FleshHiveRelay</li></allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <buildCost><Meat_Twisted>120</Meat_Twisted></buildCost>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_CarapaceCultureTank</defName>
+    <label>carapace culture tank</label>
+    <description>A specialized flesh culture tank that produces 5 flesh carapace per day.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <researchPrerequisites><li>FH_Research_FleshFurniture</li></researchPrerequisites>
+    <buildCost><Meat_Twisted>112</Meat_Twisted></buildCost>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li>
+            <id>fleshCarapace</id>
+            <product>FH_FleshCarapace</product>
+            <intervalTicks>60000</intervalTicks>
+            <outputPerCapacity>5</outputPerCapacity>
+            <tags><li>FleshCarapace</li></tags>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: advanced research apparatus -->
+  <DreamsOutposts_AdvancedResearchApparatus.label>高级研究装置</DreamsOutposts_AdvancedResearchApparatus.label>
+  <!-- EN: A high-tech research installation that multiplies research output by 1.33. -->
+  <DreamsOutposts_AdvancedResearchApparatus.description>高科技研究设施，使科研产出乘以1.33。</DreamsOutposts_AdvancedResearchApparatus.description>
+  
+  <!-- EN: research station -->
+  <DreamsOutposts_ResearchStation.label>科研站</DreamsOutposts_ResearchStation.label>
+  <!-- EN: A permanent research operation that contributes 61.875 research points to the colony's current project every half-day. -->
+  <DreamsOutposts_ResearchStation.description>每半天为殖民地当前研究项目贡献61.875点科研点数的常设研究设施。</DreamsOutposts_ResearchStation.description>
+  
+  <!-- EN: sterile analysis apparatus -->
+  <DreamsOutposts_SterileAnalysisApparatus.label>无菌分析装置</DreamsOutposts_SterileAnalysisApparatus.label>
+  <!-- EN: A sterile analytical suite that multiplies research output by 1.3. -->
+  <DreamsOutposts_SterileAnalysisApparatus.description>无菌分析设施，使科研产出乘以1.3。</DreamsOutposts_SterileAnalysisApparatus.description>
+  
+</LanguageData>

@@ -1,22 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <!-- EN: Invaders: {0}\nEnemy strength: {1}\nRaid points: {2} -->
   <DreamsOutposts.Attack.Enemy>入侵派系：{0}\n敌方攻势：{1}\n原版袭击点数：{2}</DreamsOutposts.Attack.Enemy>
+  <!-- EN: The battle will resolve automatically after eight hours. Its outcome is not yet known. -->
   <DreamsOutposts.Attack.Wait>战斗将在8小时后自动结算，结果尚未揭晓。</DreamsOutposts.Attack.Wait>
+  <!-- EN: Flawless victory -->
   <DreamsOutposts.Attack.Outcome0>完胜</DreamsOutposts.Attack.Outcome0>
+  <!-- EN: Victory -->
   <DreamsOutposts.Attack.Outcome1>胜利</DreamsOutposts.Attack.Outcome1>
+  <!-- EN: Incursion -->
   <DreamsOutposts.Attack.Outcome2>侵袭</DreamsOutposts.Attack.Outcome2>
+  <!-- EN: Withdrawal -->
   <DreamsOutposts.Attack.Outcome3>畏缩</DreamsOutposts.Attack.Outcome3>
+  <!-- EN: Crushing defeat -->
   <DreamsOutposts.Attack.Outcome4>惨败</DreamsOutposts.Attack.Outcome4>
+  <!-- EN: Your residents wiped out the attackers without losses. -->
   <DreamsOutposts.Attack.Result0>你们的居民完美地全歼了敌人，没有遭受损失。</DreamsOutposts.Attack.Result0>
+  <!-- EN: Your residents defeated most of the attackers without losses. The survivors were drawn toward your colony. -->
   <DreamsOutposts.Attack.Result1>你们的居民击败了绝大多数敌人，没有遭受损失。残余敌人被引向了主殖民地。</DreamsOutposts.Attack.Result1>
+  <!-- EN: Your residents were outmatched. They defeated some attackers, then drew the remainder toward your colony. -->
   <DreamsOutposts.Attack.Result2>你们的居民实力不足，只击败了一部分敌人，随后将他们引向了主殖民地。</DreamsOutposts.Attack.Result2>
+  <!-- EN: Your residents were unprepared. They hastily pulled back their lines and drew the attackers toward your colony. -->
   <DreamsOutposts.Attack.Result3>你们的居民完全没有准备好迎接敌人，只能匆忙收缩阵线，将他们引向了主殖民地。</DreamsOutposts.Attack.Result3>
+  <!-- EN: Your residents were plundered! The attackers are moving toward your colony. -->
   <DreamsOutposts.Attack.Result4>你们的居民被敌人掠夺了！敌人正向主殖民地进发。</DreamsOutposts.Attack.Result4>
+  <!-- EN: Defense: {0}\nEnemy strength: {1}\nDefense-to-strength ratio: {2} -->
   <DreamsOutposts.Attack.Comparison>据点防卫：{0}\n敌方攻势：{1}\n战力比：{2}</DreamsOutposts.Attack.Comparison>
+  <!-- EN: Recovered equipment: {0} silver market value (target: {1}). -->
   <DreamsOutposts.Attack.Loot>缴获装备总市值：{0}白银（目标价值：{1}）。</DreamsOutposts.Attack.Loot>
+  <!-- EN: All facility production ×{0} for 3 days. -->
   <DreamsOutposts.Attack.ProductionLoss>所有设施生产倍率×{0}，持续3天。</DreamsOutposts.Attack.ProductionLoss>
+  <!-- EN: Killed: {0} -->
   <DreamsOutposts.Attack.Casualties>阵亡居民：{0}</DreamsOutposts.Attack.Casualties>
+  <!-- EN: The survivors have attacked your colony: ×{0} raid strength ({1} points). -->
   <DreamsOutposts.Attack.Raid>残余敌人已袭击主殖民地：袭击倍率×{0}（{1}点）。</DreamsOutposts.Attack.Raid>
+  <!-- EN: The survivors did not reach your colony: no valid target or invading force could be generated. -->
   <DreamsOutposts.Attack.RaidFailed>残余敌人未能抵达主殖民地：没有可用目标，或未能组织起进攻。</DreamsOutposts.Attack.RaidFailed>
+  <!-- EN: {0}: {1} -->
   <DreamsOutposts.Attack.ResultTitle>{0}：{1}</DreamsOutposts.Attack.ResultTitle>
 </LanguageData>

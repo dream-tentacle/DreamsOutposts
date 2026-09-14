@@ -142,6 +142,7 @@ namespace DreamsOutposts
 		public const float InstallGridGap = 13f;
 		public const float InstallCardPadding = 13f;
 		public const float InstallCardGap = 9f;
+		public const float InstallCardFootGap = 8f;   // 卡片底部：正文与分隔线之间的留白
 		public const float CostListGap = 5f;
 		public const float CostRowPaddingH = 8f;
 		public const float CostRowPaddingV = 4f;

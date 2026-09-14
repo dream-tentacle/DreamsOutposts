@@ -1398,11 +1398,7 @@ namespace DreamsOutposts
 					rule.Facts.Add("DreamsOutposts.Ui.Rule.SkillFilter".Translate(props.requiredSkill.LabelCap, props.requiredSkillLevel).ToString());
 					rule.FactKinds.Add("warn");
 				}
-				if (!props.tags.NullOrEmpty())
-				{
-					rule.Facts.Add("DreamsOutposts.Ui.Rule.Tags".Translate(string.Join("/", props.tags.ToArray())).ToString());
-					rule.FactKinds.Add("neutral");
-				}
+				// 生产规则的 tags 不在详情页显示（只用于修正/事件匹配）
 				if (production.HasConfiguration && !string.IsNullOrEmpty(production.ConfigurationSummary))
 				{
 					rule.Facts.Add(production.ConfigurationSummary);

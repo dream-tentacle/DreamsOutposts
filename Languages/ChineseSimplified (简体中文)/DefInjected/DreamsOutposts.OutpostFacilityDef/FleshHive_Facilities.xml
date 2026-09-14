@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: carapace culture tank -->
+  <DreamsOutposts_CarapaceCultureTank.label>甲壳培育槽</DreamsOutposts_CarapaceCultureTank.label>
+  <!-- EN: A specialized flesh culture tank that produces 5 flesh carapace per day. -->
+  <DreamsOutposts_CarapaceCultureTank.description>用于培育坚韧血肉甲壳的专用培养槽，每天产出5单位血肉甲壳。</DreamsOutposts_CarapaceCultureTank.description>
+  
+  <!-- EN: flesh outlet -->
+  <DreamsOutposts_FleshOutlet.label>血肉产出口</DreamsOutposts_FleshOutlet.label>
+  <!-- EN: A cultivated flesh outlet that produces 3 nerve chunks per day. -->
+  <DreamsOutposts_FleshOutlet.description>经过培育的血肉产出口，每天产出3单位神经块。</DreamsOutposts_FleshOutlet.description>
+  
+  <!-- EN: growth hormone culture tank -->
+  <DreamsOutposts_GrowthHormoneCultureTank.label>生长激素培养槽</DreamsOutposts_GrowthHormoneCultureTank.label>
+  <!-- EN: A vat of concentrated growth hormones that multiplies the flesh cultivation bed's twisted meat output by 1.5. -->
+  <DreamsOutposts_GrowthHormoneCultureTank.description>充满高浓度生长激素的培养槽，使血肉培育床的扭曲肉产量乘以1.5。</DreamsOutposts_GrowthHormoneCultureTank.description>
+  
+  <!-- EN: nerve expansion slot -->
+  <DreamsOutposts_NerveExpansionSlot.label>神经扩展槽</DreamsOutposts_NerveExpansionSlot.label>
+  <!-- EN: A dedicated neural extension that adds 3 fleshbeast capacity to the hive network. -->
+  <DreamsOutposts_NerveExpansionSlot.description>专用神经扩展结构，为巢群网络增加3点血肉兽规模上限。</DreamsOutposts_NerveExpansionSlot.description>
+  
+</LanguageData>

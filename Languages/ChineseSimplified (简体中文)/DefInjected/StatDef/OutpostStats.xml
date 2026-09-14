@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: smithing speed -->
+  <DreamsOutposts_SmithingSpeed.label>锻造速度</DreamsOutposts_SmithingSpeed.label>
+  <!-- EN: How fast this person carries out smithing, machining and assembly work at an outpost.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
+  <DreamsOutposts_SmithingSpeed.description>此人在据点进行锻造、机加工与装配工作的速度。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_SmithingSpeed.description>
+  
+</LanguageData>

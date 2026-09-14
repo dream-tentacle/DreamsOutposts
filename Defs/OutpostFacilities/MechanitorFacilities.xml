@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_ExpandedBandNode</defName>
+    <facilityTag>Other</facilityTag>
+    <label>expanded band node</label>
+    <description>A dedicated mechanoid-band amplifier. Once tuned to a mechanitor, it provides 1 bandwidth while an intellectual operator maintains the signal.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_Mechanitor</li></allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>
+    <buildCost><Steel>200</Steel><ComponentIndustrial>4</ComponentIndustrial></buildCost>
+    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>1</bandwidth></li></comps>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

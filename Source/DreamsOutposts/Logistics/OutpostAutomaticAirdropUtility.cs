@@ -23,6 +23,16 @@ namespace DreamsOutposts
 			return false;
 		}
 
+		public static bool HasIntelligentController(Outpost outpost)
+		{
+			if (outpost == null) return false;
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
+			{
+				if (facility?.def?.intelligentAirdropController == true) return true;
+			}
+			return false;
+		}
+
 		public static bool IsSelectableProducer(OutpostFacility facility)
 		{
 			return facility?.def != null && !facility.def.automaticAirdropController && !facility.def.Productions.NullOrEmpty();
@@ -42,21 +52,42 @@ namespace DreamsOutposts
 			}
 
 			List<Thing> products = new List<Thing>();
+			List<Thing> storedProducts = new List<Thing>();
 			int totalCount = 0;
 			ThingDef productDef = null;
+			bool intelligent = HasIntelligentController(context.Outpost);
+			int keepRemaining = intelligent
+				? Mathf.Max(context.Facility.intelligentAirdropStockTarget - OutpostStockUtility.CountInStock(context.Outpost, context.Product), 0)
+				: 0;
 			for (int i = 0; i < context.Products.Count; i++)
 			{
 				Thing thing = context.Products[i];
 				if (thing != null && !thing.Destroyed && thing.stackCount > 0)
 				{
+					if (keepRemaining > 0)
+					{
+						int keep = Mathf.Min(keepRemaining, thing.stackCount);
+						if (keep == thing.stackCount)
+						{
+							storedProducts.Add(thing);
+							keepRemaining -= keep;
+							continue;
+						}
+						storedProducts.Add(thing.SplitOff(keep));
+						keepRemaining -= keep;
+					}
 					products.Add(thing);
 					totalCount += thing.stackCount;
 					productDef = productDef ?? thing.def;
 				}
 			}
+			if (storedProducts.Count > 0)
+			{
+				OutpostProductionUtility.StoreInOutpostInventory(context.Outpost, storedProducts);
+			}
 			if (products.Count == 0)
 			{
-				return false;
+				return true;
 			}
 
 			IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);

@@ -37,6 +37,14 @@
   </DreamsOutposts.OutpostTypeDef>
 
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_AnimalTaming</defName>
+    <label>ranger taming outpost</label>
+    <description>A wilderness station whose handlers track, capture and tame animals native to the surrounding region.</description>
+    <workerClass>DreamsOutposts.OutpostWorker_Taming</workerClass>
+    <coreFacility>DreamsOutposts_RangerCamp</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Mining</defName>
     <label>mining outpost</label>
     <description>A basic outpost for mining.</description>
@@ -113,6 +121,12 @@
         </cost>
       </li>
     </levels>
+  </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_Mechanitor</defName>
+    <label>mechanitor outpost</label>
+    <description>A remote signal-control site that expands the bandwidth of tuned mechanitors.</description>
+    <coreFacility>DreamsOutposts_MechanitorRelay</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_AutomationCamp</defName>

@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <!-- EN: Enter outpost -->
   <DreamsOutposts.EnterOutpost>进入据点</DreamsOutposts.EnterOutpost>
+  <!-- EN: Move every pawn and everything this caravan carries into the outpost, then disband the caravan. -->
   <DreamsOutposts.EnterOutpostDesc>将商队携带的所有人员和物品移入据点，然后解散商队。</DreamsOutposts.EnterOutpostDesc>
+  <!-- EN: Create an outpost here. -->
   <DreamsOutposts.CreateOutpostDesc>在此处创建据点。</DreamsOutposts.CreateOutpostDesc>
+  <!-- EN: Open this outpost's management window: its facilities and everything kept in store. -->
   <DreamsOutposts.ManageOutpostDesc>打开据点管理窗口：查看设施和仓库中的所有物品。</DreamsOutposts.ManageOutpostDesc>
 </LanguageData>
-

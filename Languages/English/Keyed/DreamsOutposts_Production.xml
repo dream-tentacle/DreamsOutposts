@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts.Taming.CapturedAnimals>tamed animals</DreamsOutposts.Taming.CapturedAnimals>
+  <DreamsOutposts.Taming.NoAnimals>No animals naturally occur on this tile, so a ranger taming outpost cannot be established here.</DreamsOutposts.Taming.NoAnimals>
   <DreamsOutposts.ProductionErrorTitle>Outpost production error</DreamsOutposts.ProductionErrorTitle>
   <DreamsOutposts.ProductionErrorText>This outpost reported a production error, so items may not have been counted correctly. Please report this issue.\n\nOutpost: {0}\nFacility: {1}\nProduction: {2}</DreamsOutposts.ProductionErrorText>
   <DreamsOutposts.NoProduction>no production</DreamsOutposts.NoProduction>

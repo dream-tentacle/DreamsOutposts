@@ -1,38 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <!-- EN: tamed animals -->
+  <DreamsOutposts.Taming.CapturedAnimals>已驯服动物</DreamsOutposts.Taming.CapturedAnimals>
+  <!-- EN: No animals naturally occur on this tile, so a ranger taming outpost cannot be established here. -->
+  <DreamsOutposts.Taming.NoAnimals>此地块没有能够自然出现的动物，无法建立巡猎驯养站。</DreamsOutposts.Taming.NoAnimals>
+  <!-- EN: Outpost production error -->
   <DreamsOutposts.ProductionErrorTitle>据点生产异常</DreamsOutposts.ProductionErrorTitle>
+  <!-- EN: This outpost reported a production error, so items may not have been counted correctly. Please report this issue.\n\nOutpost: {0}\nFacility: {1}\nProduction: {2} -->
   <DreamsOutposts.ProductionErrorText>据点工作异常，物品可能未正确计算，建议反馈该问题。\n\n据点：{0}\n设施：{1}\n生产规则：{2}</DreamsOutposts.ProductionErrorText>
+  <!-- EN: no production -->
   <DreamsOutposts.NoProduction>没有生产</DreamsOutposts.NoProduction>
+  <!-- EN: invalid production rule -->
   <DreamsOutposts.InvalidProductionRule>生产规则无效</DreamsOutposts.InvalidProductionRule>
+  <!-- EN: {0}, {1} left -->
   <DreamsOutposts.ProductionRemaining>{0}，还需{1}</DreamsOutposts.ProductionRemaining>
+  <!-- EN: Production: -->
   <DreamsOutposts.Production>生产：</DreamsOutposts.Production>
+  <!-- EN: product chosen after installation -->
   <DreamsOutposts.ProductChosenAfterInstallation>安装后选择产物</DreamsOutposts.ProductChosenAfterInstallation>
+  <!-- EN: no crop -->
   <DreamsOutposts.NoCrop>没有作物</DreamsOutposts.NoCrop>
+  <!-- EN: Click to choose the crop grown here. -->
   <DreamsOutposts.ChooseCropTip>点击选择要种植的作物。</DreamsOutposts.ChooseCropTip>
+  <!-- EN: crop: {0} -->
   <DreamsOutposts.CropSummary>作物：{0}</DreamsOutposts.CropSummary>
+  <!-- EN:  (current) -->
   <DreamsOutposts.CurrentCropSuffix>（当前）</DreamsOutposts.CurrentCropSuffix>
+  <!-- EN: No crop can be grown here right now. -->
   <DreamsOutposts.NoCropAvailable>当前没有可以种植的作物。</DreamsOutposts.NoCropAvailable>
+  <!-- EN: nothing -->
   <DreamsOutposts.Nothing>无</DreamsOutposts.Nothing>
+  <!-- EN: {0}\n\n{1} days to grow\n{2} {3} per harvest -->
   <DreamsOutposts.PlantTooltip>{0}\n\n生长需要{1}天\n每次收获{2}{3}</DreamsOutposts.PlantTooltip>
+  <!-- EN: no mineral -->
   <DreamsOutposts.NoMineral>没有矿物</DreamsOutposts.NoMineral>
+  <!-- EN: Click to choose the mineral extracted here. -->
   <DreamsOutposts.ChooseMineralTip>点击选择要开采的矿物。</DreamsOutposts.ChooseMineralTip>
+  <!-- EN: mineral: {0} -->
   <DreamsOutposts.MineralSummary>矿物：{0}</DreamsOutposts.MineralSummary>
+  <!-- EN:  (current) -->
   <DreamsOutposts.CurrentMineralSuffix>（当前）</DreamsOutposts.CurrentMineralSuffix>
+  <!-- EN: No mineable mineral is available in the loaded mod list. -->
   <DreamsOutposts.NoMineralAvailable>当前加载的模组中没有可供开采的矿物。</DreamsOutposts.NoMineralAvailable>
+  <!-- EN: Manage remote power links -->
   <DreamsOutposts.RemotePower.Manage>管理远距离供电</DreamsOutposts.RemotePower.Manage>
+  <!-- EN: Choose which outpost generators transmit power to this receiver. A generator can be linked to only one receiver. -->
   <DreamsOutposts.RemotePower.ManageDesc>选择向此接收器输送电力的据点发电设施。每个设施只能绑定一个接收器。</DreamsOutposts.RemotePower.ManageDesc>
+  <!-- EN: No remote generators are available. -->
   <DreamsOutposts.RemotePower.NoSources>没有可用的据点发电设施。</DreamsOutposts.RemotePower.NoSources>
+  <!-- EN: Linked generators: {0} -->
   <DreamsOutposts.RemotePower.LinkedCount>已连接设施：{0}</DreamsOutposts.RemotePower.LinkedCount>
+  <!-- EN: Remote output: {0} W -->
   <DreamsOutposts.RemotePower.TotalOutput>远程供电：{0} W</DreamsOutposts.RemotePower.TotalOutput>
+  <!-- EN: power -->
   <DreamsOutposts.RemotePower.PowerOutput>电力</DreamsOutposts.RemotePower.PowerOutput>
+  <!-- EN: Not linked to a receiver -->
   <DreamsOutposts.RemotePower.StatusUnbound>未绑定接收器</DreamsOutposts.RemotePower.StatusUnbound>
+  <!-- EN: Waiting for {1} {0} -->
   <DreamsOutposts.RemotePower.StatusWaitingFuel>等待{1}{0}</DreamsOutposts.RemotePower.StatusWaitingFuel>
+  <!-- EN: {0} W · {1} remaining -->
   <DreamsOutposts.RemotePower.StatusActive>{0} W · 剩余{1}</DreamsOutposts.RemotePower.StatusActive>
+  <!-- EN: {0} W · continuous output -->
   <DreamsOutposts.RemotePower.StatusContinuous>{0} W · 持续发电</DreamsOutposts.RemotePower.StatusContinuous>
+  <!-- EN: {1} {0} / {2} -->
   <DreamsOutposts.RemotePower.FuelCycle>每{2}消耗{1}{0}</DreamsOutposts.RemotePower.FuelCycle>
+  <!-- EN: Continuous output: {0} W -->
   <DreamsOutposts.RemotePower.Continuous>持续发电：{0} W</DreamsOutposts.RemotePower.Continuous>
+  <!-- EN: Remote power generation -->
   <DreamsOutposts.RemotePower.SectionTitle>远距离发电</DreamsOutposts.RemotePower.SectionTitle>
+  <!-- EN: Distance {0} · {1} efficiency -->
   <DreamsOutposts.RemotePower.DistanceEfficiency>距离{0} · 效率{1}</DreamsOutposts.RemotePower.DistanceEfficiency>
+  <!-- EN: research points -->
   <DreamsOutposts.ResearchPoints>科研点数</DreamsOutposts.ResearchPoints>
 </LanguageData>
-

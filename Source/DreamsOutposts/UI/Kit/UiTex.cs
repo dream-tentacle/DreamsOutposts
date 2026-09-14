@@ -110,6 +110,8 @@ namespace DreamsOutposts
 
 		private static Texture2D buildButtonTexture;
 
+		private static Texture2D infoButtonTexture;
+
 		private static readonly Texture2D[] navCornerArcs = new Texture2D[4];
 
 		/// <summary>图标资源目录（相对 Textures/）。所有图标都是静态 PNG，不在运行时绘制。</summary>
@@ -182,6 +184,21 @@ namespace DreamsOutposts
 				}
 			}
 			return buildButtonTexture;
+		}
+
+		/// <summary>设施卡「详情」按钮的白色透明底图：与建造按钮同版式，只有右侧图标换成了信息图标。</summary>
+		public static Texture2D InfoButtonTexture()
+		{
+			if (infoButtonTexture == null)
+			{
+				infoButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "InfoButton", false);
+				if (infoButtonTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: info button texture missing: Textures/" + IconFolder
+						+ "InfoButton.png.", GenText.StableStringHash("ui-info-button"));
+				}
+			}
+			return infoButtonTexture;
 		}
 
 		public static Texture2D NewTexture(int width, int height)

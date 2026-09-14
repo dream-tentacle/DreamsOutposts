@@ -402,6 +402,8 @@ namespace DreamsOutposts
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);
+			Command bandTuningCommand = OutpostBandTuningGizmo.GetCommand(this);
+			if (bandTuningCommand != null) yield return bandTuningCommand;
 			yield return OutpostAirdropUtility.BuyPodCommand(this);
 			yield return OutpostAirdropUtility.AirdropCommand(this);
 			Command bombardCommand = OutpostBombardmentUtility.BombardCommand(this);

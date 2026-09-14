@@ -1,18 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <!-- EN: Spend {0} steel to add one airdrop pod to this outpost. Each pod carries {1} kg, and a launch consumes pods equal to the actual loaded mass, rounded up. -->
   <DreamsOutposts.CommandAddAirdropPodDesc>消耗{0}钢铁，在据点里增加1个空投仓。每个空投仓可承载{1}kg，空投时按实际装载重量向上取整消耗。</DreamsOutposts.CommandAddAirdropPodDesc>
+  <!-- EN: Choose the items and people to send, then choose a destination tile (up to {0} tiles away). Total capacity is {1} kg times the number of airdrop pods, and a launch consumes pods equal to the actual loaded mass, rounded up. -->
   <DreamsOutposts.CommandAirdropDesc>选择要投送的物品与人员，然后在地图上选择落点（最远{0}格）。总承载为{1}kg×空投仓数量，起飞后按实际装载重量向上取整消耗空投仓。</DreamsOutposts.CommandAirdropDesc>
+  <!-- EN: Abandon this outpost for good. Everything in store and every airdrop pod is discarded and the outpost itself is removed from the world, but the people stationed here are not lost: they are banished exactly the way vanilla banishes a pawn, and become free pawns on the world map. Whatever they are wearing and carrying goes with them. This cannot be undone. -->
   <DreamsOutposts.CommandAbandonOutpostDesc>永久废弃这个据点：仓库里的物品和攒下的空投仓都会被丢弃，据点本体也会从世界上移除；但驻守在这里的人不会消失——他们会照原版放逐的方式离开，成为世界上的自由Pawn，身上穿的和拿的都跟着他们走。此操作无法撤销。</DreamsOutposts.CommandAbandonOutpostDesc>
+  <!-- EN: Colonists ({0}): -->
   <DreamsOutposts.ConfirmAbandonOutpostColonists>殖民者（{0}人）：</DreamsOutposts.ConfirmAbandonOutpostColonists>
+  <!-- EN: Other pawns here: {0} -->
   <DreamsOutposts.ConfirmAbandonOutpostOtherPawns>这里的其他人员：{0}人</DreamsOutposts.ConfirmAbandonOutpostOtherPawns>
+  <!-- EN: Item stacks in store: {0} -->
   <DreamsOutposts.ConfirmAbandonOutpostItems>仓库物品：{0}堆</DreamsOutposts.ConfirmAbandonOutpostItems>
+  <!-- EN: Airdrop pods: {0} -->
   <DreamsOutposts.ConfirmAbandonOutpostPods>空投仓：{0}个</DreamsOutposts.ConfirmAbandonOutpostPods>
+  <!-- EN: {0} kg x {1} airdrop pods. -->
   <DreamsOutposts.AirdropMassCapacityExplanation>{0}kg × {1}个空投仓。</DreamsOutposts.AirdropMassCapacityExplanation>
+  <!-- EN: Colonists -->
   <DreamsOutposts.Colonists>殖民者</DreamsOutposts.Colonists>
+  <!-- EN: Other pawns -->
   <DreamsOutposts.OtherPawns>其他人员</DreamsOutposts.OtherPawns>
+  <!-- EN: Items -->
   <DreamsOutposts.Items>物品</DreamsOutposts.Items>
+  <!-- EN: (none) -->
   <DreamsOutposts.None>（无）</DreamsOutposts.None>
+  <!-- EN: Outpost type {0} has no definition for level {1}. -->
   <DreamsOutposts.NoNextLevelDefinition>据点类型{0}没有等级{1}的定义。</DreamsOutposts.NoNextLevelDefinition>
+  <!-- EN: No definition for the next level. -->
   <DreamsOutposts.NoNextLevel>没有下一级的定义。</DreamsOutposts.NoNextLevel>
 </LanguageData>
-

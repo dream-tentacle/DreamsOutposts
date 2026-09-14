@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -92,7 +92,7 @@ namespace DreamsOutposts
 			}
 			y += levelHeight + SectionGap;
 			// 核心设施
-			y += SectionHead(rect.x, y, width, "DreamsOutposts.CoreFacility".Translate(), "DreamsOutposts.Ui.CoreFacilityHint".Translate(), draw);
+			y += SectionHead(rect.x, y, width, "DreamsOutposts.CoreFacility".Translate(), null, draw);
 			UiFacilityView core = cache.Core;
 			if (core != null)
 			{
@@ -482,26 +482,14 @@ namespace DreamsOutposts
 				}
 			}
 			y += headHeight + UiMetrics.CardGap;
-			// 设施组件声明的功能区块
-			if (view.Sections.Count == 0)
+			// 设施组件声明的功能区块；没有区块时中间直接留空，不再放「没有生产」占位文案
+			for (int i = 0; i < view.Sections.Count; i++)
 			{
-				float height = ProductionBlockMinHeight();
-				if (draw)
+				if (i > 0)
 				{
-					UiText.Draw(new Rect(innerX, y, innerWidth, height), "DreamsOutposts.NoProduction".Translate(), UiFont.Body, UiPalette.Ink2);
+					y += UiMetrics.ProdListGap;
 				}
-				y += height + UiMetrics.CardGap;
-			}
-			else
-			{
-				for (int i = 0; i < view.Sections.Count; i++)
-				{
-					if (i > 0)
-					{
-						y += UiMetrics.ProdListGap;
-					}
-					y += LayoutFacilitySection(innerX, y, innerWidth, view.Sections[i], draw) + UiMetrics.CardGap;
-				}
+				y += LayoutFacilitySection(innerX, y, innerWidth, view.Sections[i], draw) + UiMetrics.CardGap;
 			}
 			// footer
 			float footerHeight = LayoutFacilityFooter(rect, view, y, draw);
@@ -511,11 +499,6 @@ namespace DreamsOutposts
 				return natural;
 			}
 			return Mathf.Max(rect.height, natural);
-		}
-
-		private static float ProductionBlockMinHeight()
-		{
-			return UiMetrics.ProdPaddingV * 2f + Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
 		}
 
 		private float LayoutFacilitySection(float x, float y, float width, UiFacilitySectionView section, bool draw)
@@ -662,16 +645,15 @@ namespace DreamsOutposts
 		{
 			float innerX = cardRect.x + UiMetrics.CardPaddingH;
 			float innerWidth = Mathf.Max(cardRect.width - UiMetrics.CardPaddingH * 2f, 30f);
-			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Small);
 			string detailsLabel = "DreamsOutposts.Details".Translate();
-			float detailsWidth = Mathf.Max(UiWidgets.ButtonWidth(detailsLabel, UiButtonSize.Small), 48f);
-			float demolishWidth = 0f;
-			if (!view.IsCore)
-			{
-				demolishWidth = Mathf.Max(UiWidgets.ButtonWidth("DreamsOutposts.Demolish".Translate(), UiButtonSize.Small), 48f) + UiMetrics.FootGap;
-			}
-			float buttonsWidth = detailsWidth + demolishWidth;
-			float chipsLimit = Mathf.Max(innerWidth - buttonsWidth - UiMetrics.FootGap, 40f);
+			// 「详情」用安装弹窗里那个「建造」按钮的同款底图与同款尺寸算法，只把底图换成信息图标（InfoButton）。
+			// 槽位卡原来的「拆除」按钮已删除：拆除入口保留在详情弹窗底部。
+			float buttonHeight = (UiWidgets.ButtonHeight(UiButtonSize.Small) + 4f) * 1.2f;
+			Texture2D detailsTexture = UiTex.InfoButtonTexture();
+			float detailsWidth = ((detailsTexture != null) && detailsTexture.height > 0f)
+				? buttonHeight * detailsTexture.width / detailsTexture.height
+				: Mathf.Max(UiWidgets.ButtonWidth(detailsLabel, UiButtonSize.Small), 64f) * 3f;
+			float chipsLimit = Mathf.Max(innerWidth - detailsWidth - UiMetrics.FootGap, 40f);
 			float singleRowChipsHeight = UiDraw.ChipsHeight(view.Chips, chipsLimit, true);
 			bool singleRow = singleRowChipsHeight <= UiDraw.ChipHeight(true) + 0.5f;
 			float chipsHeight = singleRow ? singleRowChipsHeight : UiDraw.ChipsHeight(view.Chips, innerWidth, true);
@@ -691,26 +673,14 @@ namespace DreamsOutposts
 				UiDraw.Chips(new Rect(innerX, footerY + (rowHeight - chipsHeight) * 0.5f, singleRow ? chipsLimit : innerWidth, chipsHeight), view.Chips, true);
 			}
 			float buttonY = footerY + (rowHeight - buttonHeight) * 0.5f;
-			Rect detailsRect = new Rect(innerX + innerWidth - buttonsWidth, buttonY, detailsWidth, buttonHeight);
-			if (UiWidgets.Button(detailsRect, detailsLabel, UiButtonKind.Secondary, true, null, UiButtonSize.Small))
+			Rect detailsRect = new Rect(innerX + innerWidth - detailsWidth, buttonY, detailsWidth, buttonHeight);
+			// 贴图里的标签区（原始像素坐标）与建造按钮一致
+			if (UiWidgets.TexturedPrimaryButton(detailsRect, detailsLabel, detailsTexture, 420f, 300f, UiButtonSize.Normal))
 			{
 				Window_OutpostManage shell = Shell;
 				if (shell != null)
 				{
 					shell.OpenDetailsModal(view);
-				}
-			}
-			if (!view.IsCore)
-			{
-				Rect demolishRect = new Rect(detailsRect.xMax + UiMetrics.FootGap, buttonY, Mathf.Max(demolishWidth - UiMetrics.FootGap, 40f), buttonHeight);
-				if (UiWidgets.Button(demolishRect, "DreamsOutposts.Demolish".Translate(), UiButtonKind.Danger, view.CanRemove,
-					view.CanRemove ? null : view.RemoveReason, UiButtonSize.Small, view.RemoveTooltipGetter?.Invoke()))
-				{
-					Window_OutpostManage shell = Shell;
-					if (shell != null)
-					{
-						shell.OpenDemolishModal(view);
-					}
 				}
 			}
 			return rowHeight;

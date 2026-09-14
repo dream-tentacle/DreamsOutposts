@@ -9,6 +9,27 @@
     <minOutpostLevel>2</minOutpostLevel>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_ResourceBoostBase">
+    <defName>DreamsOutposts_TrappingPens</defName>
+    <label>trapping pens</label>
+    <description>Purpose-built traps and holding pens increase animal capture efficiency by 50%.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_AnimalTaming</li></allowedOutpostTypes>
+    <buildCost><Steel>100</Steel><WoodLog>150</WoodLog><ComponentIndustrial>2</ComponentIndustrial></buildCost>
+    <productionModifiers>
+      <li><productionTag>AnimalTaming</productionTag><factor>1.5</factor></li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_AdvancedResourceBoostBase">
+    <defName>DreamsOutposts_RareAnimalTrackingCenter</defName>
+    <label>rare animal tracking center</label>
+    <description>Long-range sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome.</description>
+    <allowedOutpostTypes><li>DreamsOutposts_AnimalTaming</li></allowedOutpostTypes>
+    <researchPrerequisites><li>Fabrication</li></researchPrerequisites>
+    <buildCost><Steel>250</Steel><ComponentIndustrial>7</ComponentIndustrial></buildCost>
+    <productionModifiers>
+      <li><productionTag>AnimalTaming</productionTag><factor>2</factor></li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_ResourceBoostBase">
     <defName>DreamsOutposts_OreSortingStation</defName>
     <label>ore sorting station</label>
     <description>Sorts and grades incoming ore, increasing steel output by 50%.</description>
@@ -371,7 +392,7 @@
             <id>automaticNeutroamine</id>
             <product>Neutroamine</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>4</outputPerCapacity>
+            <outputPerCapacity>2</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -459,32 +480,6 @@
     </comps>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
-    <defName>DreamsOutposts_HerbalGreenhouse</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
-    <label>herbal greenhouse</label>
-    <description>A controlled greenhouse that continuously cultivates and harvests medicinal herbs.</description>
-    <maxPerOutpost>1</maxPerOutpost>
-    <researchPrerequisites>
-      <li>Machining</li>
-    </researchPrerequisites>
-    <buildCost>
-      <Steel>100</Steel>
-      <ComponentIndustrial>10</ComponentIndustrial>
-    </buildCost>
-    <comps>
-      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
-        <productions>
-          <li>
-            <id>automaticHerbalMedicine</id>
-            <product>MedicineHerbal</product>
-            <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>2.4</outputPerCapacity>
-          </li>
-        </productions>
-      </li>
-    </comps>
-  </DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AdaptiveMiningMachine</defName>
     <facilityTag>AutomaticProduction</facilityTag>
     <label>adaptive mining machine</label>
@@ -525,10 +520,29 @@
       <ComponentIndustrial>6</ComponentIndustrial>
     </buildCost>
     <automaticAirdropController>true</automaticAirdropController>
+	<exclusiveGroup>AirdropController</exclusiveGroup>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_IntelligentAirdropper</defName>
+    <facilityTag>Other</facilityTag>
+    <uiIcon>Crate</uiIcon>
+    <label>intelligent airdropper</label>
+    <description>Maintains configured reserves of selected facility outputs in the outpost store and delivers only the excess to the primary colony.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>TransportPod</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>400</Steel>
+      <ComponentIndustrial>12</ComponentIndustrial>
+    </buildCost>
+    <automaticAirdropController>true</automaticAirdropController>
+    <intelligentAirdropController>true</intelligentAirdropController>
+	<exclusiveGroup>AirdropController</exclusiveGroup>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_WoodPowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>wood-fired outpost generator</label>
     <description>A remote generator that prepays its fuel and transmits power to a linked receiver.</description>
@@ -550,7 +564,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ChemfuelPowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>chemfuel outpost generator</label>
     <description>A remote generator that consumes nine chemfuel before transmitting power for two days.</description>
@@ -572,7 +586,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_GeothermalPowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>geothermal outpost generator</label>
     <description>A geothermal installation that continuously produces power and transmits it to a linked receiver.</description>
@@ -593,7 +607,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_WatermillPowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>watermill outpost generator</label>
     <description>A river-driven generator that continuously transmits power to a linked receiver.</description>
@@ -615,7 +629,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_SolarPowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>solar outpost generator</label>
     <description>A solar installation whose averaged output is transmitted continuously to a linked receiver.</description>
@@ -635,7 +649,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Anomaly">
     <defName>DreamsOutposts_BioferritePowerGenerator</defName>
-    <facilityTag>AutomaticProduction</facilityTag>
+    <facilityTag>PowerGeneration</facilityTag>
     <uiIcon>Generator</uiIcon>
     <label>bioferrite outpost generator</label>
     <description>A generator that burns bioferrite and transmits the resulting power to a linked receiver.</description>

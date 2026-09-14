@@ -8,9 +8,15 @@ namespace DreamsOutposts
 	/// <summary>自动空投机的紧凑设施选择列表。</summary>
 	public sealed class UiAutomaticAirdropModalBody : IUiModalBody
 	{
-		private const float RowHeight = 54f;
+		private const float BasicRowHeight = 54f;
+		private const float IntelligentRowHeight = 82f;
 		private const float RowGap = 8f;
 		private readonly Outpost outpost;
+		private readonly Dictionary<OutpostFacility, string> targetBuffers = new Dictionary<OutpostFacility, string>();
+
+		private bool Intelligent => OutpostAutomaticAirdropUtility.HasIntelligentController(outpost);
+
+		private float RowHeight => Intelligent ? IntelligentRowHeight : BasicRowHeight;
 
 		public UiAutomaticAirdropModalBody(Outpost outpost)
 		{
@@ -38,10 +44,23 @@ namespace DreamsOutposts
 				Rect row = new Rect(rect.x, rect.y + i * (RowHeight + RowGap), rect.width, RowHeight);
 				UiDraw.Box(row, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
 				bool enabled = facility.autoAirdropEnabled;
-				Rect checkbox = new Rect(row.x + 14f, row.y + 8f, row.width - 28f, row.height - 16f);
+				Rect checkbox = new Rect(row.x + 14f, row.y + 8f, row.width - 28f, BasicRowHeight - 16f);
 				if (UiWidgets.Checkbox(checkbox, ref enabled, facility.def.LabelCap, ProductSummary(facility)))
 				{
 					facility.autoAirdropEnabled = enabled;
+				}
+				if (Intelligent)
+				{
+					string buffer;
+					if (!targetBuffers.TryGetValue(facility, out buffer)) buffer = facility.intelligentAirdropStockTarget.ToString();
+					float labelWidth = Mathf.Min(UiText.Width("DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Caption) + 8f, row.width * 0.62f);
+					Rect labelRect = new Rect(row.x + 38f, row.y + 52f, labelWidth, 22f);
+					Rect fieldRect = new Rect(labelRect.xMax + 6f, labelRect.y, Mathf.Max(row.xMax - 14f - labelRect.xMax - 6f, 54f), 22f);
+					UiText.Draw(labelRect, "DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft);
+					int target = facility.intelligentAirdropStockTarget;
+					Widgets.TextFieldNumeric(fieldRect, ref target, ref buffer, 0, int.MaxValue);
+					facility.intelligentAirdropStockTarget = Mathf.Max(target, 0);
+					targetBuffers[facility] = buffer;
 				}
 			}
 		}

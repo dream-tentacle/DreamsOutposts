@@ -1,122 +1,276 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
-  <!-- 新 UI 外壳与设施页 -->
+  <!-- EN: Band tuning -->
+  <DreamsOutposts.BandTuning.Gizmo>频带调谐</DreamsOutposts.BandTuning.Gizmo>
+  <!-- EN: Tune this outpost's band relays to specific mechanitors. -->
+  <DreamsOutposts.BandTuning.GizmoDesc>将此据点的频带中继设施分别调谐至指定机械师。</DreamsOutposts.BandTuning.GizmoDesc>
+  <!-- EN: Band tuning -->
+  <DreamsOutposts.BandTuning.Title>频带调谐</DreamsOutposts.BandTuning.Title>
+  <!-- EN: Signal operator ready (Intellectual 8+). -->
+  <DreamsOutposts.BandTuning.OperatorReady>信号操作员就绪（智识8级以上）。</DreamsOutposts.BandTuning.OperatorReady>
+  <!-- EN: Inactive: this outpost needs a colonist with Intellectual 8 or higher. -->
+  <DreamsOutposts.BandTuning.OperatorMissing>未生效：据点需要至少一名智识达到8级的殖民者。</DreamsOutposts.BandTuning.OperatorMissing>
+  <!-- EN: +{0} bandwidth -->
+  <DreamsOutposts.BandTuning.Bonus>+{0}带宽</DreamsOutposts.BandTuning.Bonus>
+  <!-- EN: Tuned to {0} -->
+  <DreamsOutposts.BandTuning.Tuned>已调谐至{0}</DreamsOutposts.BandTuning.Tuned>
+  <!-- EN: Untuned -->
+  <DreamsOutposts.BandTuning.Untuned>尚未调谐</DreamsOutposts.BandTuning.Untuned>
+  <!-- EN: Retuning to {0} · {1} remaining -->
+  <DreamsOutposts.BandTuning.Retuning>正在重新调谐至{0} · 剩余{1}</DreamsOutposts.BandTuning.Retuning>
+  <!-- EN: Choose mechanitor -->
+  <DreamsOutposts.BandTuning.Choose>选择机械师</DreamsOutposts.BandTuning.Choose>
+  <!-- EN: No player mechanitors available -->
+  <DreamsOutposts.BandTuning.NoMechanitors>没有可用的玩家机械师</DreamsOutposts.BandTuning.NoMechanitors>
+  <!-- EN: Choose mechanitor -->
+  <DreamsOutposts.BandTuning.ChooseTitle>选择机械师</DreamsOutposts.BandTuning.ChooseTitle>
+  <!-- EN: Total bandwidth: {0} -->
+  <DreamsOutposts.BandTuning.MechanitorBandwidth>总带宽：{0}</DreamsOutposts.BandTuning.MechanitorBandwidth>
+  <!-- EN: Select -->
+  <DreamsOutposts.BandTuning.Select>选择</DreamsOutposts.BandTuning.Select>
+  <!-- EN: Restart tuning -->
+  <DreamsOutposts.BandTuning.Restart>重新开始调谐</DreamsOutposts.BandTuning.Restart>
+  <!-- New UI shell and facilities page -->
+  <!-- EN: Tile {0} -->
   <DreamsOutposts.Ui.Tile>地块 {0}</DreamsOutposts.Ui.Tile>
+  <!-- EN: {0} days since founding -->
   <DreamsOutposts.Ui.DaysSinceEstablished>建立后 {0} 天</DreamsOutposts.Ui.DaysSinceEstablished>
+  <!-- EN: Level {0}: {1} extension slots -->
   <DreamsOutposts.Ui.PipTooltip>等级 {0}：{1} 个扩展槽位</DreamsOutposts.Ui.PipTooltip>
+  <!-- EN: needs {0} days since founding -->
   <DreamsOutposts.Ui.PipDaysRequired>需要建立后 {0} 天</DreamsOutposts.Ui.PipDaysRequired>
+  <!-- EN: Upgrade to level {0} · slots {1} to {2} -->
   <DreamsOutposts.Ui.UpgradeTitle>升级到等级 {0} · 槽位 {1} → {2}</DreamsOutposts.Ui.UpgradeTitle>
+  <!-- EN: Days since founding -->
   <DreamsOutposts.Ui.Upgrade.Days>建立后天数</DreamsOutposts.Ui.Upgrade.Days>
+  <!-- EN: {0} / {1} -->
   <DreamsOutposts.Ui.Upgrade.DaysValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.DaysValue>
+  <!-- EN: {0} / {1} -->
   <DreamsOutposts.Ui.Upgrade.MaterialValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.MaterialValue>
+  <!-- EN: Not enough materials: {0} -->
   <DreamsOutposts.Ui.Upgrade.Missing>材料不足：{0}</DreamsOutposts.Ui.Upgrade.Missing>
+  <!-- EN: Upgrade this outpost now. -->
   <DreamsOutposts.Ui.Upgrade.ConfirmTip>立即升级此据点。</DreamsOutposts.Ui.Upgrade.ConfirmTip>
+  <!-- EN: {0} slots now -->
   <DreamsOutposts.Ui.Chip.CurrentSlots>当前槽位 {0}</DreamsOutposts.Ui.Chip.CurrentSlots>
+  <!-- EN: Core: {0} -->
   <DreamsOutposts.Ui.Chip.CoreFacility>核心设施 {0}</DreamsOutposts.Ui.Chip.CoreFacility>
+  <!-- EN: Defense +{0} -->
   <DreamsOutposts.Ui.Chip.Defense>防卫 +{0}</DreamsOutposts.Ui.Chip.Defense>
+  <!-- EN: Defense {0} -->
   <DreamsOutposts.Ui.Chip.DefenseValue>防卫 {0}</DreamsOutposts.Ui.Chip.DefenseValue>
+  <!-- EN: Total outpost defense, calculated live. -->
   <DreamsOutposts.Ui.Chip.DefenseTip>据点总防卫，实时计算。</DreamsOutposts.Ui.Chip.DefenseTip>
+  <!-- EN: Can bombard -->
   <DreamsOutposts.Ui.Chip.Bombardable>可炮击</DreamsOutposts.Ui.Chip.Bombardable>
+  <!-- EN: Bombard +{0} shells -->
   <DreamsOutposts.Ui.Chip.ShellBonus>炮击 +{0} 发</DreamsOutposts.Ui.Chip.ShellBonus>
+  <!-- EN: Output x{0} -->
   <DreamsOutposts.Ui.Chip.ProductionFactor>产能 ×{0}</DreamsOutposts.Ui.Chip.ProductionFactor>
+  <!-- EN: {0} output · {1} -->
   <DreamsOutposts.Ui.Chip.ProductionDelta>{0} 产能 · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
+  <!-- EN: +{0} output · {1} -->
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} 产量 · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
+  <!-- EN: Production modifier from {0}. -->
   <DreamsOutposts.Ui.Chip.ProductionModifierTip>来自 {0} 的产能修正。</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <!-- EN: Production modifier from outpost level {0}. -->
   <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自据点等级 {0} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <!-- EN: outpost level {0} -->
   <DreamsOutposts.Ui.LevelSource>据点等级 {0}</DreamsOutposts.Ui.LevelSource>
+  <!-- EN: Limit {0} (built {1}) -->
   <DreamsOutposts.Ui.Chip.Limit>上限 {0}（已建 {1}）</DreamsOutposts.Ui.Chip.Limit>
+  <!-- EN: Research done -->
   <DreamsOutposts.Ui.Chip.ResearchDone>研究已完成</DreamsOutposts.Ui.Chip.ResearchDone>
+  <!-- EN: Research needed: {0} -->
   <DreamsOutposts.Ui.Chip.ResearchMissing>需要研究：{0}</DreamsOutposts.Ui.Chip.ResearchMissing>
+  <!-- EN: Level {0} outpost -->
   <DreamsOutposts.Ui.Chip.LevelOk>据点{0}级起</DreamsOutposts.Ui.Chip.LevelOk>
+  <!-- EN: Needs level {1} (now {0}) -->
   <DreamsOutposts.Ui.Chip.LevelMissing>需要据点{1}级（当前{0}级）</DreamsOutposts.Ui.Chip.LevelMissing>
+  <!-- EN: Trains {0} {1}/h -->
   <DreamsOutposts.Ui.Chip.Training>训练 {0} {1}/时</DreamsOutposts.Ui.Chip.Training>
+  <!-- EN: {0}: every colonist stationed here gains {1} xp per hour. Pawns who are incapable of that work gain nothing. -->
   <DreamsOutposts.Ui.Chip.TrainingTip>{0}：驻扎在此的每个殖民者每小时获得{1}点经验。无法从事该工作的殖民者不会获得经验。</DreamsOutposts.Ui.Chip.TrainingTip>
+  <!-- EN: Fixed capacity 1 -->
   <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <!-- EN: Core facility · cannot be removed -->
   <DreamsOutposts.Ui.CoreSubLabel>核心设施 · 不可拆除</DreamsOutposts.Ui.CoreSubLabel>
+  <!-- EN: Slot {0} -->
   <DreamsOutposts.Ui.SlotLabel>槽位 {0}</DreamsOutposts.Ui.SlotLabel>
+  <!-- EN: {0}/{1} slots -->
   <DreamsOutposts.Ui.Nav.Slots>{0}/{1} 槽位</DreamsOutposts.Ui.Nav.Slots>
+  <!-- EN: {0} defense -->
   <DreamsOutposts.Ui.Nav.Defense>{0} 防卫值</DreamsOutposts.Ui.Nav.Defense>
+  <!-- EN: {0} item kinds -->
   <DreamsOutposts.Ui.Nav.Items>{0} 种物品</DreamsOutposts.Ui.Nav.Items>
+  <!-- EN: {0} active -->
   <DreamsOutposts.Ui.Nav.Events>{0} 个进行中</DreamsOutposts.Ui.Nav.Events>
+  <!-- EN: Click a facility card for details, click an empty slot to install something. -->
   <DreamsOutposts.Ui.FacilitiesHint>点设施卡片打开详情，点空槽位安装新设施。</DreamsOutposts.Ui.FacilitiesHint>
+  <!-- EN: Fixed by the outpost type -->
   <DreamsOutposts.Ui.CoreFacilityHint>由据点类型固定</DreamsOutposts.Ui.CoreFacilityHint>
+  <!-- EN: Paid from the outpost stock, half refunded on removal -->
   <DreamsOutposts.Ui.ExtensionHint>材料从据点仓库支付，拆除返还一半</DreamsOutposts.Ui.ExtensionHint>
+  <!-- EN: Slot {0} · click to choose a facility -->
   <DreamsOutposts.Ui.EmptySlotHint>槽位 {0} · 点击选择设施</DreamsOutposts.Ui.EmptySlotHint>
+  <!-- EN: {0} x{1} -->
   <DreamsOutposts.Ui.ProductionAmount>{0} ×{1}</DreamsOutposts.Ui.ProductionAmount>
+  <!-- EN: {0}, {1} -->
   <DreamsOutposts.Ui.ProductionMetaWithCapacity>{0}，{1}</DreamsOutposts.Ui.ProductionMetaWithCapacity>
+  <!-- EN: every {0} -->
   <DreamsOutposts.Ui.ProductionEvery>每 {0}</DreamsOutposts.Ui.ProductionEvery>
+  <!-- EN: Switch -->
   <DreamsOutposts.Ui.Switch>切换</DreamsOutposts.Ui.Switch>
+  <!-- EN: Close -->
   <DreamsOutposts.Ui.Close>关闭</DreamsOutposts.Ui.Close>
+  <!-- EN: Cancel -->
   <DreamsOutposts.Ui.Cancel>取消</DreamsOutposts.Ui.Cancel>
+  <!-- EN: This button gets wired up in the next pass; for now it only shows the layout. -->
   <DreamsOutposts.Ui.ActionPending>此按钮将在下一期接线，目前只展示外观。</DreamsOutposts.Ui.ActionPending>
+  <!-- EN: Choose a facility to build here. Materials are paid from the outpost stock. (Slot {0}) -->
   <DreamsOutposts.Ui.Install.Sub>选择要在此处建造的设施。材料将从据点仓库支付。（槽位 {0}）</DreamsOutposts.Ui.Install.Sub>
+  <!-- EN: Only buildable -->
   <DreamsOutposts.Ui.Install.OnlyAvailable>只看可建造</DreamsOutposts.Ui.Install.OnlyAvailable>
+  <!-- EN: Nothing can be built right now. -->
   <DreamsOutposts.Ui.Install.NoneAvailable>当前没有可以建造的设施。</DreamsOutposts.Ui.Install.NoneAvailable>
+  <!-- EN: Materials are paid from the outpost stock -->
   <DreamsOutposts.Ui.Install.PayFromStock>材料将从据点仓库扣除</DreamsOutposts.Ui.Install.PayFromStock>
+  <!-- EN: all -->
   <DreamsOutposts.Ui.ModAllProductions>全部</DreamsOutposts.Ui.ModAllProductions>
+  <!-- EN: Output {0} -->
   <DreamsOutposts.Ui.ModProductionFactor>产能 {0}</DreamsOutposts.Ui.ModProductionFactor>
+  <!-- EN: Produces {0} · every {1} -->
   <DreamsOutposts.Ui.ModProduction>生产 {0} · 每 {1}</DreamsOutposts.Ui.ModProduction>
+  <!-- EN: consumes {0}/unit -->
   <DreamsOutposts.Ui.ModProductionInputs>消耗 {0}/单位</DreamsOutposts.Ui.ModProductionInputs>
+  <!-- EN: Basics -->
   <DreamsOutposts.Ui.Section.Basics>基础</DreamsOutposts.Ui.Section.Basics>
+  <!-- EN: Production -->
   <DreamsOutposts.Ui.Section.Production>生产</DreamsOutposts.Ui.Section.Production>
+  <!-- EN: Bombardment -->
   <DreamsOutposts.Ui.Section.Bombardment>炮击</DreamsOutposts.Ui.Section.Bombardment>
+  <!-- EN: Location -->
   <DreamsOutposts.Ui.Kv.Location>位置</DreamsOutposts.Ui.Kv.Location>
+  <!-- EN: Refund on removal -->
   <DreamsOutposts.Ui.Kv.Refund>拆除返还</DreamsOutposts.Ui.Kv.Refund>
+  <!-- EN: Build cost -->
   <DreamsOutposts.Ui.Kv.Cost>建造成本</DreamsOutposts.Ui.Kv.Cost>
+  <!-- EN: Limit per outpost -->
   <DreamsOutposts.Ui.Kv.Limit>每据点上限</DreamsOutposts.Ui.Kv.Limit>
+  <!-- EN: {0} (built {1}) -->
   <DreamsOutposts.Ui.Kv.LimitValue>{0} 个（已建 {1}）</DreamsOutposts.Ui.Kv.LimitValue>
+  <!-- EN: Shells per strike -->
   <DreamsOutposts.Ui.Kv.ShellsPerStrike>每次炮击</DreamsOutposts.Ui.Kv.ShellsPerStrike>
+  <!-- EN: {0} x {1} -->
   <DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>{0} 发 {1}</DreamsOutposts.Ui.Kv.ShellsPerStrikeValue>
+  <!-- EN: Range -->
   <DreamsOutposts.Ui.Kv.Range>射程</DreamsOutposts.Ui.Kv.Range>
+  <!-- EN: Cooldown -->
   <DreamsOutposts.Ui.Kv.Cooldown>冷却</DreamsOutposts.Ui.Kv.Cooldown>
+  <!-- EN: Skill requirement -->
   <DreamsOutposts.Ui.Kv.SkillReq>技能要求</DreamsOutposts.Ui.Kv.SkillReq>
+  <!-- EN: Cost per strike -->
   <DreamsOutposts.Ui.Kv.PerStrikeCost>每次炮击消耗</DreamsOutposts.Ui.Kv.PerStrikeCost>
+  <!-- EN: Progress {0}%, {1} left -->
   <DreamsOutposts.Ui.Rule.Progress>进度 {0}%，还需 {1}</DreamsOutposts.Ui.Rule.Progress>
+  <!-- EN: Output {0} x {1} -->
   <DreamsOutposts.Ui.Rule.Output>产量 {0} × {1}</DreamsOutposts.Ui.Rule.Output>
+  <!-- EN: Expected {0} / {1} -->
   <DreamsOutposts.Ui.Rule.Expected>预期 {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
+  <!-- EN: Event output ×{0}, {1} left -->
   <DreamsOutposts.Ui.Rule.TemporaryProduction>事件产量 ×{0}，剩余 {1}</DreamsOutposts.Ui.Rule.TemporaryProduction>
+  <!-- EN: Event output ×{0} for the next production -->
   <DreamsOutposts.Ui.Rule.TemporaryProductionNext>事件产量 ×{0}，仅下次生产</DreamsOutposts.Ui.Rule.TemporaryProductionNext>
+  <!-- EN: {0} total {1} -->
   <DreamsOutposts.Ui.Rule.Capacity>{0} 合计 {1}</DreamsOutposts.Ui.Rule.Capacity>
+  <!-- EN: {0} >= {1} only -->
   <DreamsOutposts.Ui.Rule.SkillFilter>{0} ≥ {1} 才计入</DreamsOutposts.Ui.Rule.SkillFilter>
+  <!-- EN: Tags {0} -->
   <DreamsOutposts.Ui.Rule.Tags>标签 {0}</DreamsOutposts.Ui.Rule.Tags>
+  <!-- EN: (per unit) -->
   <DreamsOutposts.Ui.Rule.PerUnit>（每单位）</DreamsOutposts.Ui.Rule.PerUnit>
+  <!-- EN: Up to {0} units -->
   <DreamsOutposts.Ui.Rule.MaxCraftable>最多可做 {0} 单位</DreamsOutposts.Ui.Rule.MaxCraftable>
+  <!-- EN: Up to unlimited units -->
   <DreamsOutposts.Ui.Rule.MaxCraftableInfinite>最多可做 ∞ 单位</DreamsOutposts.Ui.Rule.MaxCraftableInfinite>
+  <!-- EN: Stock is not limiting -->
   <DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>仓库材料不限</DreamsOutposts.Ui.Rule.MaxCraftableUnlimited>
+  <!-- EN: (base {0}) -->
   <DreamsOutposts.Ui.WeightBase>（基础 {0}）</DreamsOutposts.Ui.WeightBase>
+  <!-- EN: {0} {1} -->
   <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
+  <!-- EN: {0} disabled -->
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} 已禁用</DreamsOutposts.Ui.DefenseSkillDisabled>
+  <!-- EN: Warehouse -->
   <DreamsOutposts.Ui.Warehouse>仓库</DreamsOutposts.Ui.Warehouse>
+  <!-- EN: Produced goods end up here automatically. -->
   <DreamsOutposts.Ui.WarehouseHint>生产出的产物会自动进入这里。</DreamsOutposts.Ui.WarehouseHint>
+  <!-- EN: {0} stacks -->
   <DreamsOutposts.Ui.Stacks>{0} 堆</DreamsOutposts.Ui.Stacks>
+  <!-- EN: Time left -->
   <DreamsOutposts.Ui.Kv.RemainingTime>剩余时间</DreamsOutposts.Ui.Kv.RemainingTime>
+  <!-- EN: Category -->
   <DreamsOutposts.Ui.Kv.Category>事件分类</DreamsOutposts.Ui.Kv.Category>
+  <!-- EN: Duration -->
   <DreamsOutposts.Ui.Kv.Duration>持续时间</DreamsOutposts.Ui.Kv.Duration>
+  <!-- EN: On timeout -->
   <DreamsOutposts.Ui.Kv.OnTimeout>超时自动选择</DreamsOutposts.Ui.Kv.OnTimeout>
+  <!-- EN: {0} left -->
   <DreamsOutposts.Ui.EventChipRemaining>剩余 {0}</DreamsOutposts.Ui.EventChipRemaining>
+  <!-- EN: {0} scheduled follow-up events -->
   <DreamsOutposts.Ui.ScheduledNote>已排期 {0} 个后续事件</DreamsOutposts.Ui.ScheduledNote>
+  <!-- EN: This event has no options. -->
   <DreamsOutposts.Ui.EventNoOptions>此事件没有可选项。</DreamsOutposts.Ui.EventNoOptions>
+  <!-- EN: Not player-selectable -->
   <DreamsOutposts.Ui.Option.NotPlayerSelectable>非玩家可选</DreamsOutposts.Ui.Option.NotPlayerSelectable>
+  <!-- EN: Requirements not met -->
   <DreamsOutposts.Ui.Option.RequirementsFailed>条件不满足</DreamsOutposts.Ui.Option.RequirementsFailed>
+  <!-- EN: Confirm -->
   <DreamsOutposts.Ui.Option.Confirm>确认</DreamsOutposts.Ui.Option.Confirm>
+  <!-- EN: Later -->
   <DreamsOutposts.Ui.Option.Later>稍后再说</DreamsOutposts.Ui.Option.Later>
+  <!-- EN: Tavern -->
   <DreamsOutposts.Tavern.Title>酒馆</DreamsOutposts.Tavern.Title>
+  <!-- EN: {0}/{1} candidates -->
   <DreamsOutposts.Tavern.Nav>{0}/{1} 名候选人</DreamsOutposts.Tavern.Nav>
+  <!-- EN: Review visiting adventurers and invite them to join this outpost for free. -->
   <DreamsOutposts.Tavern.Description>查看来访的冒险者，并免费邀请他们加入这个据点。</DreamsOutposts.Tavern.Description>
+  <!-- EN: One candidate arrives every 2 days. Each remains available for 10 days. -->
   <DreamsOutposts.Tavern.Hint>每2天出现1名候选人，每人会停留10天。</DreamsOutposts.Tavern.Hint>
+  <!-- EN: Skill preference -->
   <DreamsOutposts.Tavern.Preference>技能倾向</DreamsOutposts.Tavern.Preference>
+  <!-- EN: No preference -->
   <DreamsOutposts.Tavern.AnySkill>无倾向</DreamsOutposts.Tavern.AnySkill>
+  <!-- EN: Next candidate in {0} -->
   <DreamsOutposts.Tavern.Next>下一名候选人：{0}</DreamsOutposts.Tavern.Next>
+  <!-- EN: All candidate slots are occupied -->
   <DreamsOutposts.Tavern.Full>候选人槽位已满</DreamsOutposts.Tavern.Full>
+  <!-- EN: Population tendency {0} · Common {1} · Excellent {2} · Elite {3} · Epic {4} -->
   <DreamsOutposts.Tavern.Odds>人口倾向 {0} · 普通 {1} · 优秀 {2} · 精英 {3} · 史诗 {4}</DreamsOutposts.Tavern.Odds>
+  <!-- EN: No adventurers are currently available. -->
   <DreamsOutposts.Tavern.Empty>目前没有可招募的冒险者。</DreamsOutposts.Tavern.Empty>
+  <!-- EN: Rating: {0} · strength {1} · {2} ×{3} -->
   <DreamsOutposts.Tavern.Rarity>综合评级：{0}</DreamsOutposts.Tavern.Rarity>
+  <!-- EN: Common -->
   <DreamsOutposts.Tavern.Rarity.Common>普通</DreamsOutposts.Tavern.Rarity.Common>
+  <!-- EN: Excellent -->
   <DreamsOutposts.Tavern.Rarity.Excellent>优秀</DreamsOutposts.Tavern.Rarity.Excellent>
+  <!-- EN: Elite -->
   <DreamsOutposts.Tavern.Rarity.Elite>精英</DreamsOutposts.Tavern.Rarity.Elite>
+  <!-- EN: Epic -->
   <DreamsOutposts.Tavern.Rarity.Epic>史诗</DreamsOutposts.Tavern.Rarity.Epic>
+  <!-- EN: inferior -->
+  <DreamsOutposts.Tavern.Specimen.Inferior>下品</DreamsOutposts.Tavern.Specimen.Inferior>
+  <!-- EN: ordinary -->
+  <DreamsOutposts.Tavern.Specimen.Ordinary>普通</DreamsOutposts.Tavern.Specimen.Ordinary>
+  <!-- EN: superior -->
+  <DreamsOutposts.Tavern.Specimen.Superior>上品</DreamsOutposts.Tavern.Specimen.Superior>
+  <!-- EN: Leaves in {0} -->
   <DreamsOutposts.Tavern.Expires>{0}后离开</DreamsOutposts.Tavern.Expires>
+  <!-- EN: Recruit -->
   <DreamsOutposts.Tavern.Recruit>招募</DreamsOutposts.Tavern.Recruit>
+  <!-- EN: Dismiss -->
   <DreamsOutposts.Tavern.Dismiss>删除</DreamsOutposts.Tavern.Dismiss>
+  <!-- EN: Dismiss {0}? This adventurer will leave immediately. -->
   <DreamsOutposts.Tavern.DismissConfirm>确定删除{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
 </LanguageData>

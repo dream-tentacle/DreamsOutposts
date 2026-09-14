@@ -201,7 +201,9 @@ namespace DreamsOutposts
 	/// <summary>安装设施弹窗正文（候选卡片栅格）。</summary>
 	public sealed class UiInstallModalBody : IUiModalBody
 	{
-		private const float TagTabsHeight = 38f;
+		private const int TagTabsPerRow = 5;
+		private const float TagTabRowHeight = 38f;
+		private const float TagTabGap = 3f;
 
 		private readonly Window_OutpostManage shell;
 
@@ -217,7 +219,8 @@ namespace DreamsOutposts
 		/// <summary>正文高度（只影响滚动范围，面板大小由 UseMaxHeight 固定）。</summary>
 		public float Height(float width)
 		{
-			return TagTabsHeight + UiMetrics.InstallGridGap + MeasureGrid(width, FilteredCards());
+			float tagTabsHeight = GetTagTabsHeight();
+			return tagTabsHeight + UiMetrics.InstallGridGap + MeasureGrid(width, FilteredCards());
 		}
 
 		private List<UiInstallCardView> FilteredCards()
@@ -255,9 +258,10 @@ namespace DreamsOutposts
 
 		public void Draw(Rect rect)
 		{
-			DrawTagTabs(new Rect(rect.x, rect.y, rect.width, TagTabsHeight));
-			Rect gridRect = new Rect(rect.x, rect.y + TagTabsHeight + UiMetrics.InstallGridGap, rect.width,
-				Mathf.Max(rect.height - TagTabsHeight - UiMetrics.InstallGridGap, 0f));
+			float tagTabsHeight = GetTagTabsHeight();
+			DrawTagTabs(new Rect(rect.x, rect.y, rect.width, tagTabsHeight));
+			Rect gridRect = new Rect(rect.x, rect.y + tagTabsHeight + UiMetrics.InstallGridGap, rect.width,
+				Mathf.Max(rect.height - tagTabsHeight - UiMetrics.InstallGridGap, 0f));
 			List<UiInstallCardView> cards = FilteredCards();
 			if (cards.Count == 0)
 			{
@@ -308,14 +312,26 @@ namespace DreamsOutposts
 			IReadOnlyList<string> tags = OutpostFacilityTagRegistry.Tags;
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
 			Rect inner = rect.ContractedBy(4f);
-			float gap = 3f;
-			float width = (inner.width - gap * (tags.Count - 1)) / tags.Count;
-			for (int i = 0; i < tags.Count; i++)
+			int rowCount = Mathf.CeilToInt((float)tags.Count / TagTabsPerRow);
+			float rowHeight = (inner.height - TagTabGap * (rowCount - 1)) / rowCount;
+			for (int row = 0; row < rowCount; row++)
 			{
-				string tag = tags[i];
-				Rect button = new Rect(inner.x + i * (width + gap), inner.y, width, inner.height);
-				if (UiWidgets.SegmentTab(button, OutpostFacilityTagRegistry.LabelKey(tag).Translate(), tag == selectedTag)) selectedTag = tag;
+				int firstIndex = row * TagTabsPerRow;
+				int columns = Mathf.Min(TagTabsPerRow, tags.Count - firstIndex);
+				float width = (inner.width - TagTabGap * (columns - 1)) / columns;
+				for (int column = 0; column < columns; column++)
+				{
+					string tag = tags[firstIndex + column];
+					Rect button = new Rect(inner.x + column * (width + TagTabGap), inner.y + row * (rowHeight + TagTabGap), width, rowHeight);
+					if (UiWidgets.SegmentTab(button, OutpostFacilityTagRegistry.LabelKey(tag).Translate(), tag == selectedTag)) selectedTag = tag;
+				}
 			}
+		}
+
+		private static float GetTagTabsHeight()
+		{
+			int rowCount = Mathf.CeilToInt((float)OutpostFacilityTagRegistry.Tags.Count / TagTabsPerRow);
+			return Mathf.Max(rowCount, 1) * TagTabRowHeight;
 		}
 	}
 
@@ -455,7 +471,9 @@ namespace DreamsOutposts
 					}
 				}
 			}
-			float total = y - rect.y + footerHeight + FooterBottomPadding - UiMetrics.InstallCardGap;
+			// 分隔线是从底边反推出来的（footerY - 8f），所以这里把正文与线之间的留白算进总高，
+			// 否则最高的那张卡正文底边会正好压在线上面（空隙为 0）
+			float total = y - rect.y + UiMetrics.InstallCardFootGap + footerHeight + FooterBottomPadding - UiMetrics.InstallCardGap;
 			return total;
 		}
 	}

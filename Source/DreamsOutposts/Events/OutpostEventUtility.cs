@@ -137,7 +137,7 @@ namespace DreamsOutposts
 					AddDetail(details, def.LabelCap, 3f);
 				}
 				else if (def.FacilityTag == OutpostFacilityTagRegistry.Processing) { weight += 4f; AddDetail(details, def.LabelCap, 4f); }
-				else if (def.FacilityTag == OutpostFacilityTagRegistry.AutomaticProduction) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
+				else if (def.FacilityTag == OutpostFacilityTagRegistry.AutomaticProduction || def.FacilityTag == OutpostFacilityTagRegistry.PowerGeneration) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
 				else if (def.FacilityTag == OutpostFacilityTagRegistry.ProductionBoost) { weight += 2f; AddDetail(details, def.LabelCap, 2f); }
 				else if (def.IsProducer) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
 			}

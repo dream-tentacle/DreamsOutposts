@@ -12,6 +12,9 @@ namespace DreamsOutposts
 		/// <summary>由自动空投机读取；true 时该设施新完成的生产会直接投送到主殖民地。</summary>
 		public bool autoAirdropEnabled;
 
+		/// <summary>智能空投时该设施产物希望保留在仓库中的数量。</summary>
+		public int intelligentAirdropStockTarget;
+
 		public OutpostFacility()
 		{
 			comps = new List<OutpostFacilityComp>();
@@ -84,6 +87,7 @@ namespace DreamsOutposts
 		{
 			Scribe_Defs.Look(ref def, "def");
 			Scribe_Values.Look(ref autoAirdropEnabled, "autoAirdropEnabled", defaultValue: false);
+			Scribe_Values.Look(ref intelligentAirdropStockTarget, "intelligentAirdropStockTarget", defaultValue: 0);
 			Scribe_Collections.Look(ref comps, "comps", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{

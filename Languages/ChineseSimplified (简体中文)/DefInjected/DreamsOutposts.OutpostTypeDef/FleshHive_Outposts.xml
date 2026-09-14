@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: flesh cultivation outpost -->
+  <DreamsOutposts_FleshCultivation.label>血肉培育据点</DreamsOutposts_FleshCultivation.label>
+  <!-- EN: A remote flesh cultivation site that produces 50 twisted meat per day. -->
+  <DreamsOutposts_FleshCultivation.description>用于培育活性血肉的远程据点，每天产出50单位扭曲肉。</DreamsOutposts_FleshCultivation.description>
+  
+  <!-- EN: hive neural relay station -->
+  <DreamsOutposts_FleshHiveRelay.label>巢群神经中继站</DreamsOutposts_FleshHiveRelay.label>
+  <!-- EN: A remote neural station linked to the colony's flesh hive network. Its core increases fleshbeast capacity, and can host dedicated expansion slots. -->
+  <DreamsOutposts_FleshHiveRelay.description>接入殖民地血肉巢群网络的远程神经站。核心设施可提高血肉兽规模上限，并可安装专用神经扩展槽。</DreamsOutposts_FleshHiveRelay.description>
+  
+</LanguageData>

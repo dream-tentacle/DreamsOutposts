@@ -14,6 +14,14 @@ namespace DreamsOutposts
 		Epic
 	}
 
+	/// <summary>How good this particular pawn is as a specimen of its own kind.</summary>
+	public enum AdventurerSpecimen
+	{
+		Inferior,
+		Ordinary,
+		Superior
+	}
+
 	public struct AdventurerRarityProbabilities
 	{
 		public float Common;
@@ -29,18 +37,31 @@ namespace DreamsOutposts
 		public const int MaxOffers = 3;
 		public const string FacilityDefName = "DreamsOutposts_AdventurerCamp";
 
-		private const int GenerationAttempts = 12;
 		private const float PopulationBaseline = 2f;
 		private const float LeftFactor = 0.01f;
 		private const float RightFactor = 0.127f;
 
-		private sealed class GeneratedCandidate
-		{
-			public Pawn Pawn;
-			public float Quality;
-			public float Preference;
-			public AdventurerRarity Rarity;
-		}
+		// Rating uses PawnKindDef.combatPower, the same per-kind number vanilla uses as its raid-point
+		// cost. Scanned from all vanilla humanlike PawnKindDefs (Core + every DLC: 125 kinds,
+		// combatPower 30..150) and from the pool this mod can actually build (441 kind x faction
+		// entries, 58 kinds). The boundaries sit in the gaps of the real value set, so no kind sits
+		// near a boundary:
+		//   Common    cp <= 45   : 83 entries  (18.8%), 12 kinds (Drifter 35, Villager 45, Tribal_Archer 45)
+		//   Excellent cp  50..60 : 119 entries (27.0%), 12 kinds (Scavenger 50, Town_Guard 60)
+		//   Elite     cp  65..85 : 150 entries (34.0%), 15 kinds (Pirate 65, Mercenary_Gunner 85)
+		//   Epic      cp >= 100  : 89 entries  (20.2%), 19 kinds (Mercenary_Elite 130, Mercenary_Heavy 140)
+		private const float ExcellentCombatPower = 50f;
+		private const float EliteCombatPower = 65f;
+		private const float EpicCombatPower = 100f;
+
+		// Specimen grade is measured on the same number vanilla shows as "character quality" on a pawn's
+		// info card: market value relative to the race's base value (1750 for humans). Vanilla's own
+		// AverageSkillCurve puts a healthy adult whose skills average 5.5 at exactly x1.00, so 1.0 means
+		// "an experienced, fully healthy person of this race".
+		private const float SuperiorSpecimenRatio = 0.85f;
+		private const float InferiorSpecimenRatio = 0.50f;
+
+		private const int PreferenceAttempts = 3;
 
 		public static bool IsAvailable(Outpost outpost)
 		{
@@ -92,48 +113,49 @@ namespace DreamsOutposts
 				Log.Warning("DreamsOutposts: no eligible humanlike faction pawn kinds were available for the adventurer camp.");
 				return false;
 			}
+
+			// The rolled rarity selects which kind of adventurer turns up, and the rating of the offer is
+			// simply that kind's rating. Individual quality is reported separately, as specimen grade.
 			AdventurerRarity wanted = RollRarity(outpost);
-			List<GeneratedCandidate> generated = new List<GeneratedCandidate>();
-			Pawn retained = null;
-			try
+			List<Pair<PawnKindDef, Faction>> candidates = pool.Where(p => RarityForKind(p.First) == wanted).ToList();
+			if (candidates.Count == 0)
 			{
-			for (int i = 0; i < GenerationAttempts; i++)
+				// No kind of the wanted tier exists in this save (for instance the factions that field
+				// them are all defeated), so fall back to the closest tier that does have kinds.
+				int best = pool.Min(p => Math.Abs((int)RarityForKind(p.First) - (int)wanted));
+				candidates = pool.Where(p => Math.Abs((int)RarityForKind(p.First) - (int)wanted) == best).ToList();
+			}
+
+			SkillDef preferred = outpost.adventurerRecruitment.preferredSkill;
+			Pawn chosen = null;
+			for (int attempt = 0; attempt < PreferenceAttempts && chosen == null; attempt++)
 			{
-				Pair<PawnKindDef, Faction> entry = pool.RandomElement();
+				Pair<PawnKindDef, Faction> entry = candidates.RandomElement();
 				Pawn pawn = Generate(entry.First, entry.Second, outpost);
 				if (pawn == null) continue;
-				GeneratedCandidate candidate = new GeneratedCandidate { Pawn = pawn };
-				generated.Add(candidate);
-				candidate.Quality = QualityScore(pawn);
-				candidate.Preference = PreferenceScore(pawn, outpost.adventurerRecruitment.preferredSkill);
-				candidate.Rarity = RarityFor(candidate.Quality);
+				if (IsPreferenceBlocked(pawn, preferred))
+				{
+					OutpostUtility.DiscardCandidate(pawn);
+					continue;
+				}
+				chosen = pawn;
 			}
-			if (generated.Count == 0) return false;
-			GeneratedCandidate chosen = generated
-				.OrderBy(c => Math.Abs((int)c.Rarity - (int)wanted))
-				.ThenByDescending(c => c.Rarity == wanted ? c.Preference : 0f)
-				.ThenByDescending(c => c.Quality)
-				.First();
-			if (!outpost.adventurerCandidates.TryAdd(chosen.Pawn))
+			if (chosen == null) return false;
+
+			if (!outpost.adventurerCandidates.TryAdd(chosen))
 			{
+				OutpostUtility.DiscardCandidate(chosen);
 				return false;
 			}
-			OutpostUtility.TakeOutOfWorld(chosen.Pawn);
+			OutpostUtility.TakeOutOfWorld(chosen);
 			int now = Find.TickManager.TicksGame;
 			outpost.adventurerRecruitment.offers.Add(new AdventurerOffer
 			{
-				pawn = chosen.Pawn,
+				pawn = chosen,
 				createdTick = now,
 				expireTick = now + OfferLifetimeTicks
 			});
-			retained = chosen.Pawn;
 			return true;
-			}
-			finally
-			{
-				foreach (GeneratedCandidate candidate in generated)
-					if (candidate.Pawn != retained) OutpostUtility.DiscardCandidate(candidate.Pawn);
-			}
 		}
 
 		private static Pawn Generate(PawnKindDef kind, Faction faction, Outpost outpost)
@@ -177,55 +199,68 @@ namespace DreamsOutposts
 
 		private static bool Eligible(PawnKindDef kind)
 		{
-			return kind?.race != null && kind.RaceProps.Humanlike && kind.combatPower > 0f
-				&& !kind.factionLeader && !kind.trader && !kind.isBoss;
+			if (kind?.race == null || !kind.RaceProps.Humanlike || kind.combatPower <= 0f) return false;
+			if (kind.factionLeader || kind.trader || kind.isBoss) return false;
+			// Child kinds (Villager_Child, Tribal_Child and friends) only ever show up as children in
+			// pawn groups, and we generate adults, so they must never be drafted as adventurers.
+			if (kind.pawnGroupDevelopmentStage == DevelopmentalStage.Child) return false;
+			return true;
 		}
 
-		public static float QualityScore(Pawn pawn)
+		/// <summary>Rating of a kind, from combatPower - the same number vanilla uses as its raid-point cost.</summary>
+		public static AdventurerRarity RarityForKind(PawnKindDef kind)
 		{
-			if (pawn == null) return 0f;
-			float score = 0f;
-			if (pawn.skills != null)
-			{
-				float[] weights = { 0.7f, 0.55f, 0.4f, 0.3f, 0.2f };
-				List<SkillRecord> skills = pawn.skills.skills.OrderByDescending(s => s.Level).Take(weights.Length).ToList();
-				for (int i = 0; i < skills.Count; i++) score += skills[i].Level * weights[i];
-				float passion = pawn.skills.skills.Sum(s => s.passion == Passion.Major ? 2.5f : s.passion == Passion.Minor ? 1.25f : 0f);
-				score += Math.Min(passion, 10f);
-			}
-			float health = pawn.health?.summaryHealth?.SummaryHealthPercent ?? 1f;
-			score += health * 10f;
-			if (pawn.health?.capacities != null)
-			{
-				PawnCapacityDef[] important = { PawnCapacityDefOf.Consciousness, PawnCapacityDefOf.Moving, PawnCapacityDefOf.Manipulation, PawnCapacityDefOf.Sight };
-				float total = 0f;
-				for (int i = 0; i < important.Length; i++) total += Math.Min(pawn.health.capacities.GetLevel(important[i]), 1.2f);
-				score += total * 1.5f;
-			}
-			if (pawn.story?.traits != null)
-			{
-				float traits = pawn.story.traits.allTraits.Where(t => !t.Suppressed).Sum(t => t.CurrentData.marketValueFactorOffset * 5f);
-				score += Math.Max(-6f, Math.Min(traits, 6f));
-			}
-			return Math.Max(score, 0f);
-		}
-
-		public static AdventurerRarity RarityFor(float score)
-		{
-			if (score >= 60f) return AdventurerRarity.Epic;
-			if (score >= 48f) return AdventurerRarity.Elite;
-			if (score >= 35f) return AdventurerRarity.Excellent;
+			float combatPower = kind?.combatPower ?? 0f;
+			if (combatPower >= EpicCombatPower) return AdventurerRarity.Epic;
+			if (combatPower >= EliteCombatPower) return AdventurerRarity.Elite;
+			if (combatPower >= ExcellentCombatPower) return AdventurerRarity.Excellent;
 			return AdventurerRarity.Common;
 		}
 
-		public static AdventurerRarity RarityFor(Pawn pawn) => RarityFor(QualityScore(pawn));
+		public static AdventurerRarity RarityFor(Pawn pawn) => RarityForKind(pawn?.kindDef);
 
-		private static float PreferenceScore(Pawn pawn, SkillDef skill)
+		/// <summary>
+		/// Picks an eligible kind rated at <paramref name="rarity"/> from the same pool the tavern draws
+		/// from. Returns false when no faction currently fields such a kind.
+		/// </summary>
+		public static bool TryGetEntryFor(AdventurerRarity rarity, out PawnKindDef kind, out Faction faction)
 		{
-			if (pawn?.skills == null || skill == null) return 0f;
+			kind = null;
+			faction = null;
+			List<Pair<PawnKindDef, Faction>> matching = BuildPawnKindPool().Where(p => RarityForKind(p.First) == rarity).ToList();
+			if (matching.Count == 0) return false;
+			Pair<PawnKindDef, Faction> entry = matching.RandomElement();
+			kind = entry.First;
+			faction = entry.Second;
+			return true;
+		}
+
+		/// <summary>
+		/// The same measure as the "character quality" line on a pawn's info card: market value relative
+		/// to the race's base value. 1.0 is a healthy adult with average (5.5) skills. It covers health,
+		/// every capacity, every skill, life stage, traits and beauty; gear is valued separately by vanilla.
+		/// </summary>
+		public static float SpecimenRatio(Pawn pawn)
+		{
+			if (pawn?.def == null) return 1f;
+			float baseValue = pawn.def.GetStatValueAbstract(StatDefOf.MarketValue);
+			if (baseValue <= 0f) return 1f;
+			return pawn.GetStatValue(StatDefOf.MarketValue) / baseValue;
+		}
+
+		public static AdventurerSpecimen SpecimenFor(Pawn pawn)
+		{
+			float ratio = SpecimenRatio(pawn);
+			if (ratio >= SuperiorSpecimenRatio) return AdventurerSpecimen.Superior;
+			if (ratio <= InferiorSpecimenRatio) return AdventurerSpecimen.Inferior;
+			return AdventurerSpecimen.Ordinary;
+		}
+
+		private static bool IsPreferenceBlocked(Pawn pawn, SkillDef skill)
+		{
+			if (pawn?.skills == null || skill == null) return false;
 			SkillRecord record = pawn.skills.GetSkill(skill);
-			if (record == null || record.TotallyDisabled) return -100f;
-			return record.Level + (record.passion == Passion.Major ? 8f : record.passion == Passion.Minor ? 4f : 0f);
+			return record != null && record.TotallyDisabled;
 		}
 
 		public static float PopulationTendency(Outpost outpost)

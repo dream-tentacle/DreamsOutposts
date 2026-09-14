@@ -8,6 +8,8 @@ namespace DreamsOutposts
 		public const string Processing = "Processing";
 		public const string Defense = "Defense";
 		public const string AutomaticProduction = "AutomaticProduction";
+		public const string PowerGeneration = "PowerGeneration";
+		public const string Recruitment = "Recruitment";
 		public const string Training = "Training";
 		public const string Other = "Other";
 
@@ -35,6 +37,8 @@ namespace DreamsOutposts
 			tags.Add(Processing);
 			tags.Add(Defense);
 			tags.Add(AutomaticProduction);
+			tags.Add(PowerGeneration);
+			tags.Add(Recruitment);
 			tags.Add(Training);
 			tags.Add(Other);
 		}
@@ -47,6 +51,8 @@ namespace DreamsOutposts
 				case Processing:
 				case Defense:
 				case AutomaticProduction:
+				case PowerGeneration:
+				case Recruitment:
 				case Training:
 				case Other:
 					return tag;

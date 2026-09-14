@@ -62,7 +62,6 @@
     <facilityTag>Defense</facilityTag>
     <label>ammunition dump</label>
     <description>A protected shell store that adds three rounds to every bombardment fired by this outpost.</description>
-    <maxPerOutpost>1</maxPerOutpost>
     <researchPrerequisites>
       <li>Mortars</li>
     </researchPrerequisites>

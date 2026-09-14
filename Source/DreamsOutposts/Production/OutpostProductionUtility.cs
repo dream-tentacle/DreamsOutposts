@@ -132,7 +132,8 @@ namespace DreamsOutposts
 		public static float ApplyModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, float baseOutput)
 		{
 			GetModifierTotals(outpost, producingFacility, production, out var offsetSum, out var factorProduct);
-			return Mathf.Max((baseOutput + offsetSum) * factorProduct, 0f);
+			float globalMultiplier = DreamsOutpostsMod.Settings?.productionMultiplier ?? DreamsOutpostsSettings.DefaultProductionMultiplier;
+			return Mathf.Max((baseOutput + offsetSum) * factorProduct * globalMultiplier, 0f);
 		}
 
 		public static bool TryCalculateExpectedOutput(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production, out float expectedOutput)

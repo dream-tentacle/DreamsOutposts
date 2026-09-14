@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: flesh cultivation bed -->
+  <DreamsOutposts_FleshCultivationCore.label>血肉培育床</DreamsOutposts_FleshCultivationCore.label>
+  <!-- EN: A sprawling bed of cultivated flesh that produces twisted meat at a steady rate. -->
+  <DreamsOutposts_FleshCultivationCore.description>大片相互连接的培育血肉，可持续产出扭曲肉。</DreamsOutposts_FleshCultivationCore.description>
+  
+  <!-- EN: hive neural relay -->
+  <DreamsOutposts_FleshHiveRelayCore.label>巢群神经中继器</DreamsOutposts_FleshHiveRelayCore.label>
+  <!-- EN: A remote neural relay woven into the flesh hive network. It increases fleshbeast capacity by 3, plus 2 for each outpost upgrade. -->
+  <DreamsOutposts_FleshHiveRelayCore.description>编入血肉巢群网络的远程神经中继器。初始提供3点血肉兽规模上限，每次据点升级再增加2点。</DreamsOutposts_FleshHiveRelayCore.description>
+  
+</LanguageData>

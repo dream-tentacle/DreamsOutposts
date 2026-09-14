@@ -49,6 +49,16 @@ namespace DreamsOutposts
 			{
 				return new AcceptanceReport("DreamsOutposts.InstallFail.LimitReached".Translate(def.maxPerOutpost));
 			}
+			if (!string.IsNullOrEmpty(def.exclusiveGroup))
+			{
+				foreach (OutpostFacility installed in outpost.Facilities)
+				{
+					if (installed?.def != null && installed.def != def && installed.def.exclusiveGroup == def.exclusiveGroup)
+					{
+						return new AcceptanceReport("DreamsOutposts.InstallFail.MutuallyExclusive".Translate(installed.def.LabelCap));
+					}
+				}
+			}
 			List<ThingDefCountClass> missing = new List<ThingDefCountClass>();
 			if (!OutpostBuildUtility.CanAfford(outpost, def, missing))
 			{

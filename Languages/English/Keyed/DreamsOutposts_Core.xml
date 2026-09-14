@@ -43,5 +43,7 @@
   <DreamsOutposts.LimitPerOutpost>Limit: {0} per outpost.</DreamsOutposts.LimitPerOutpost>
   <DreamsOutposts.RequiresResearch>Requires research: {0}</DreamsOutposts.RequiresResearch>
   <DreamsOutposts.Unknown>unknown</DreamsOutposts.Unknown>
+  <DreamsOutposts.Settings.ProductionMultiplier>Production multiplier: {0}</DreamsOutposts.Settings.ProductionMultiplier>
+  <DreamsOutposts.Settings.ProductionMultiplierDescription>Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected.</DreamsOutposts.Settings.ProductionMultiplierDescription>
 </LanguageData>
 

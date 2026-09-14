@@ -20,7 +20,7 @@
 	</DreamsOutposts.OutpostFacilityDef>
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_AdventurerCamp</defName>
-		<facilityTag>Other</facilityTag>
+		<facilityTag>Recruitment</facilityTag>
 		<uiIcon>Person</uiIcon>
 		<label>adventurer camp</label>
 		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people.</description>
@@ -28,7 +28,7 @@
 	</DreamsOutposts.OutpostFacilityDef>
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_Inn</defName>
-		<facilityTag>Other</facilityTag>
+		<facilityTag>Recruitment</facilityTag>
 		<uiIcon>Store</uiIcon>
 		<label>inn</label>
 		<description>A comfortable roadside inn that draws travellers and prospective settlers to the outpost.</description>
@@ -39,7 +39,7 @@
 	</DreamsOutposts.OutpostFacilityDef>
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_LuxuryHotel</defName>
-		<facilityTag>Other</facilityTag>
+		<facilityTag>Recruitment</facilityTag>
 		<uiIcon>Store</uiIcon>
 		<label>luxury hotel</label>
 		<description>An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.</description>

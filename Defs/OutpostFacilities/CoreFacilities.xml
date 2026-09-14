@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_RangerCamp</defName>
+    <label>ranger camp</label>
+    <description>A field camp where handlers track and tame animals native to the surrounding region.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li>
+            <id>capturedAnimals</id>
+            <outputLabelKey>DreamsOutposts.Taming.CapturedAnimals</outputLabelKey>
+            <capacityStat>TameAnimalChance</capacityStat>
+            <intervalTicks>300000</intervalTicks>
+            <outputPerCapacity>1</outputPerCapacity>
+            <workerClass>DreamsOutposts.OutpostProductionWorker_Taming</workerClass>
+            <tags>
+              <li>AnimalTaming</li>
+            </tags>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_MechanitorRelay</defName>
+    <label>mechanitor relay</label>
+    <description>A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>
+    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>2</bandwidth></li></comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MiningPlant</defName>
     <label>mining plant</label>
     <description>A permanent mining operation that extracts and processes steel-bearing ore.</description>

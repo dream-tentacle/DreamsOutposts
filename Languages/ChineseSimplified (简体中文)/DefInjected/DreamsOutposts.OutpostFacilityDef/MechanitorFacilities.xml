@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: expanded band node -->
+  <DreamsOutposts_ExpandedBandNode.label>扩展频带节点</DreamsOutposts_ExpandedBandNode.label>
+  <!-- EN: A dedicated mechanoid-band amplifier. Once tuned to a mechanitor, it provides 1 bandwidth while an intellectual operator maintains the signal. -->
+  <DreamsOutposts_ExpandedBandNode.description>专用机械体频带信号放大设施。调谐至一名机械师后，只要有具备足够智识的操作员维持信号，便提供1点带宽。</DreamsOutposts_ExpandedBandNode.description>
+  
+</LanguageData>

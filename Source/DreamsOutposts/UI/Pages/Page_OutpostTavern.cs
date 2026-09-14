@@ -94,7 +94,7 @@ namespace DreamsOutposts
 			float actionWidth = 104f;
 			float textWidth = Mathf.Max(rect.xMax - 16f - actionWidth - 14f - textX, 100f);
 			UiText.Draw(new Rect(textX, rect.y + 14f, textWidth, 28f), pawn.LabelCap, UiFont.Heading, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
-			UiText.Draw(new Rect(textX, rect.y + 44f, textWidth, 24f), "DreamsOutposts.Tavern.Rarity".Translate(RarityLabel(rarity)), UiFont.Body, rarityColor, TextAnchor.MiddleLeft, true);
+			UiText.Draw(new Rect(textX, rect.y + 44f, textWidth, 24f), RatingText(pawn, rarity), UiFont.Body, rarityColor, TextAnchor.MiddleLeft, true);
 			List<SkillRecord> top = pawn.skills?.skills.Where(s => !s.TotallyDisabled).OrderByDescending(s => s.Level).Take(3).ToList() ?? new List<SkillRecord>();
 			string skills = string.Join(" · ", top.Select(s => s.def.LabelCap + " " + s.Level + PassionText(s.passion)).ToArray());
 			UiText.Draw(new Rect(textX, rect.y + 72f, textWidth, 42f), skills, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, true, true);
@@ -113,7 +113,23 @@ namespace DreamsOutposts
 		}
 
 		private static string PassionText(Passion passion) => passion == Passion.Major ? " ♥♥" : passion == Passion.Minor ? " ♥" : string.Empty;
+
+		/// <summary>
+		/// Rating line: the kind's rating and combat power, plus this individual's specimen grade and the
+		/// vanilla "character quality" ratio it comes from.
+		/// </summary>
+		private static string RatingText(Pawn pawn, AdventurerRarity rarity)
+		{
+			float power = pawn.kindDef?.combatPower ?? 0f;
+			return "DreamsOutposts.Tavern.Rarity".Translate(
+				RarityLabel(rarity),
+				power.ToString("0"),
+				SpecimenLabel(AdventurerRecruitUtility.SpecimenFor(pawn)),
+				AdventurerRecruitUtility.SpecimenRatio(pawn).ToStringPercent("F0"));
+		}
+
 		private static string RarityLabel(AdventurerRarity rarity) => ("DreamsOutposts.Tavern.Rarity." + rarity).Translate();
+		private static string SpecimenLabel(AdventurerSpecimen specimen) => ("DreamsOutposts.Tavern.Specimen." + specimen).Translate();
 		private static Color RarityColor(AdventurerRarity rarity)
 		{
 			switch (rarity)

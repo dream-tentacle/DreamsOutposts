@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: ammunition dump -->
+  <DreamsOutposts_AmmunitionDump.label>弹药库</DreamsOutposts_AmmunitionDump.label>
+  <!-- EN: A protected shell store that adds three rounds to every bombardment fired by this outpost.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
+  <DreamsOutposts_AmmunitionDump.description>受保护的炮弹储存设施，使此据点每次炮击额外发射三枚炮弹。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AmmunitionDump.description>
+  
+  <!-- EN: fortifications -->
+  <DreamsOutposts_Fortifications.label>防御工事</DreamsOutposts_Fortifications.label>
+  <!-- EN: Hardened firing positions and prepared strongpoints provide reliable protection against attack.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
+  <DreamsOutposts_Fortifications.description>加固的射击阵地与预筑的据点，为抵御攻击提供可靠防护。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Fortifications.description>
+  
+  <!-- EN: mortar emplacement -->
+  <DreamsOutposts_MortarEmplacement.label>迫击炮阵地</DreamsOutposts_MortarEmplacement.label>
+  <!-- EN: A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver high-explosive fire on nearby targets.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
+  <DreamsOutposts_MortarEmplacement.description>构筑在据点外围的常设迫击炮阵地。凭借射表、预置弹药与加固射击位，熟练的驻员可对附近目标实施高爆火力打击。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MortarEmplacement.description>
+  
+  <!-- EN: temporary defenses -->
+  <DreamsOutposts_TemporaryDefenses.label>临时防御工事</DreamsOutposts_TemporaryDefenses.label>
+  <!-- EN: Earthworks, firing steps and improvised barricades provide a modest defensive position.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
+  <DreamsOutposts_TemporaryDefenses.description>以土垒、射击踏台与临时路障构成的一道简易防线。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_TemporaryDefenses.description>
+  
+</LanguageData>

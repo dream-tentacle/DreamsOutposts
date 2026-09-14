@@ -30,34 +30,45 @@ namespace DreamsOutposts
 
 	public class OutpostEventEffect_GeneratePawnByRarity : OutpostEventEffect
 	{
+		/// <summary>
+		/// Optional. When set, exactly this kind is generated. When left empty, a kind rated at
+		/// <see cref="rarity"/> is drawn from the factions' adventurer pool instead.
+		/// </summary>
 		public PawnKindDef pawnKindDef;
 		public AdventurerRarity rarity = AdventurerRarity.Common;
 		public int count = 1;
 
 		public override void Apply(OutpostEventContext context)
 		{
-			if (context?.outpost == null || pawnKindDef == null || count <= 0) return;
+			if (context?.outpost == null || count <= 0) return;
 			for (int n = 0; n < count; n++)
 			{
-				Pawn best = null;
-				float bestDistance = float.MaxValue;
-				for (int i = 0; i < 80; i++)
-				{
-					Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKindDef, null, PawnGenerationContext.NonPlayer, context.outpost.Tile, forceGenerateNewPawn: true));
-					float distance = Math.Abs((int)AdventurerRecruitUtility.RarityFor(pawn) - (int)rarity);
-					if (distance < bestDistance)
-					{
-						best?.Destroy();
-						best = pawn;
-						bestDistance = distance;
-						if (distance == 0f) break;
-					}
-					else pawn.Destroy();
-				}
-				if (best == null) continue;
-				best.SetFaction(Faction.OfPlayer);
-				if (!OutpostUtility.MovePawnIntoOutpost(context.outpost, best)) best.Destroy();
+				Pawn pawn = Generate(context);
+				if (pawn == null) continue;
+				pawn.SetFaction(Faction.OfPlayer);
+				if (!OutpostUtility.MovePawnIntoOutpost(context.outpost, pawn)) pawn.Destroy();
 			}
+		}
+
+		private Pawn Generate(OutpostEventContext context)
+		{
+			PawnKindDef kind = pawnKindDef;
+			Faction faction = null;
+			if (kind == null)
+			{
+				if (!AdventurerRecruitUtility.TryGetEntryFor(rarity, out kind, out faction))
+				{
+					Log.WarningOnce("DreamsOutposts: no pawn kind rated " + rarity + " is fielded by any faction, so GeneratePawnByRarity produced nothing.", Gen.HashCombineInt((int)rarity, 7391));
+					return null;
+				}
+			}
+			else if (AdventurerRecruitUtility.RarityForKind(kind) != rarity)
+			{
+				Log.WarningOnce("DreamsOutposts: OutpostEventEffect_GeneratePawnByRarity declares kind " + kind.defName
+					+ " (combatPower " + kind.combatPower + ", rated " + AdventurerRecruitUtility.RarityForKind(kind)
+					+ ") but asks for rarity " + rarity + ". Rating comes from combatPower, so the kind's own rating is used.", Gen.HashCombineInt(kind.shortHash, (int)rarity));
+			}
+			return PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, context.outpost.Tile, forceGenerateNewPawn: true));
 		}
 
 		public override string GetPreview(OutpostEventContext context) => "DreamsOutposts.EventEffect.GeneratePawnRarity".Translate(count, rarity.ToString());

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshCultivationCore</defName>
+    <label>flesh cultivation bed</label>
+    <description>A sprawling bed of cultivated flesh that produces twisted meat at a steady rate.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li>
+            <id>twistedMeat</id>
+            <product>Meat_Twisted</product>
+            <intervalTicks>60000</intervalTicks>
+            <outputPerCapacity>50</outputPerCapacity>
+            <tags><li>FleshCultivation</li></tags>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshHiveRelayCore</defName>
+    <label>hive neural relay</label>
+    <description>A remote neural relay woven into the flesh hive network. It increases fleshbeast capacity by 3, plus 2 for each outpost upgrade.</description>
+    <installableAsExtension>false</installableAsExtension>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshCultivation</defName>
+    <label>flesh cultivation outpost</label>
+    <description>A remote flesh cultivation site that produces 50 twisted meat per day.</description>
+    <coreFacility>DreamsOutposts_FleshCultivationCore</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshHiveRelay</defName>
+    <label>hive neural relay station</label>
+    <description>A remote neural station linked to the colony's flesh hive network. Its core increases fleshbeast capacity, and can host dedicated expansion slots.</description>
+    <coreFacility>DreamsOutposts_FleshHiveRelayCore</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+</Defs>

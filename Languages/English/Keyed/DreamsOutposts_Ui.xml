@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts.BandTuning.Gizmo>Band tuning</DreamsOutposts.BandTuning.Gizmo>
+  <DreamsOutposts.BandTuning.GizmoDesc>Tune this outpost's band relays to specific mechanitors.</DreamsOutposts.BandTuning.GizmoDesc>
+  <DreamsOutposts.BandTuning.Title>Band tuning</DreamsOutposts.BandTuning.Title>
+  <DreamsOutposts.BandTuning.OperatorReady>Signal operator ready (Intellectual 8+).</DreamsOutposts.BandTuning.OperatorReady>
+  <DreamsOutposts.BandTuning.OperatorMissing>Inactive: this outpost needs a colonist with Intellectual 8 or higher.</DreamsOutposts.BandTuning.OperatorMissing>
+  <DreamsOutposts.BandTuning.Bonus>+{0} bandwidth</DreamsOutposts.BandTuning.Bonus>
+  <DreamsOutposts.BandTuning.Tuned>Tuned to {0}</DreamsOutposts.BandTuning.Tuned>
+  <DreamsOutposts.BandTuning.Untuned>Untuned</DreamsOutposts.BandTuning.Untuned>
+  <DreamsOutposts.BandTuning.Retuning>Retuning to {0} · {1} remaining</DreamsOutposts.BandTuning.Retuning>
+  <DreamsOutposts.BandTuning.Choose>Choose mechanitor</DreamsOutposts.BandTuning.Choose>
+  <DreamsOutposts.BandTuning.NoMechanitors>No player mechanitors available</DreamsOutposts.BandTuning.NoMechanitors>
+  <DreamsOutposts.BandTuning.ChooseTitle>Choose mechanitor</DreamsOutposts.BandTuning.ChooseTitle>
+  <DreamsOutposts.BandTuning.MechanitorBandwidth>Total bandwidth: {0}</DreamsOutposts.BandTuning.MechanitorBandwidth>
+  <DreamsOutposts.BandTuning.Select>Select</DreamsOutposts.BandTuning.Select>
+  <DreamsOutposts.BandTuning.Restart>Restart tuning</DreamsOutposts.BandTuning.Restart>
   <!-- New UI shell and facilities page -->
   <DreamsOutposts.Ui.Tile>Tile {0}</DreamsOutposts.Ui.Tile>
   <DreamsOutposts.Ui.DaysSinceEstablished>{0} days since founding</DreamsOutposts.Ui.DaysSinceEstablished>
@@ -110,11 +125,14 @@
   <DreamsOutposts.Tavern.Full>All candidate slots are occupied</DreamsOutposts.Tavern.Full>
   <DreamsOutposts.Tavern.Odds>Population tendency {0} · Common {1} · Excellent {2} · Elite {3} · Epic {4}</DreamsOutposts.Tavern.Odds>
   <DreamsOutposts.Tavern.Empty>No adventurers are currently available.</DreamsOutposts.Tavern.Empty>
-  <DreamsOutposts.Tavern.Rarity>Overall rating: {0}</DreamsOutposts.Tavern.Rarity>
+  <DreamsOutposts.Tavern.Rarity>Rating: {0} · strength {1} · {2} ×{3}</DreamsOutposts.Tavern.Rarity>
   <DreamsOutposts.Tavern.Rarity.Common>Common</DreamsOutposts.Tavern.Rarity.Common>
   <DreamsOutposts.Tavern.Rarity.Excellent>Excellent</DreamsOutposts.Tavern.Rarity.Excellent>
   <DreamsOutposts.Tavern.Rarity.Elite>Elite</DreamsOutposts.Tavern.Rarity.Elite>
   <DreamsOutposts.Tavern.Rarity.Epic>Epic</DreamsOutposts.Tavern.Rarity.Epic>
+  <DreamsOutposts.Tavern.Specimen.Inferior>inferior</DreamsOutposts.Tavern.Specimen.Inferior>
+  <DreamsOutposts.Tavern.Specimen.Ordinary>ordinary</DreamsOutposts.Tavern.Specimen.Ordinary>
+  <DreamsOutposts.Tavern.Specimen.Superior>superior</DreamsOutposts.Tavern.Specimen.Superior>
   <DreamsOutposts.Tavern.Expires>Leaves in {0}</DreamsOutposts.Tavern.Expires>
   <DreamsOutposts.Tavern.Recruit>Recruit</DreamsOutposts.Tavern.Recruit>
   <DreamsOutposts.Tavern.Dismiss>Dismiss</DreamsOutposts.Tavern.Dismiss>

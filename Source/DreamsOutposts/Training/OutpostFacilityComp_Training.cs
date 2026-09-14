@@ -1,27 +1,14 @@
-using System.Collections.Generic;
-using RimWorld;
-using Verse;
-
 namespace DreamsOutposts
 {
+	/// <summary>
+	/// 训练型设施不提供 UI 区块：技能与每小时经验已经由卡片底部的「训练 …/时」chip
+	/// 和它的 tooltip 表达，卡片中间再重复一次只会挤占版面。
+	/// </summary>
 	public class OutpostFacilityComp_Training : OutpostFacilityComp
 	{
 		public override void Tick(Outpost outpost, int delta)
 		{
 			OutpostTrainingUtility.TickFacility(outpost, (OutpostTrainingProperties)props, delta);
-		}
-
-		public override void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output)
-		{
-			OutpostTrainingProperties training = (OutpostTrainingProperties)props;
-			output.Add(new UiFacilitySectionView
-			{
-				Title = training.skill.LabelCap.ToString(),
-				MainText = training.xpPerHour.ToString("0.#") + " XP/h",
-				LeftText = "DreamsOutposts.Ui.Chip.TrainingTip".Translate(training.skill.LabelCap, OutpostTrainingUtility.CountTrainees(outpost, parent.def)).ToString(),
-				ShowProgress = false,
-				ProgressKind = UiChipKind.Info
-			});
 		}
 	}
 }

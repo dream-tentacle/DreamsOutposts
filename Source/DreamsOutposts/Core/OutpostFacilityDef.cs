@@ -26,6 +26,9 @@ namespace DreamsOutposts
 
 		public int maxPerOutpost;
 
+		/// <summary>非空且相同的设施不能安装在同一个据点。</summary>
+		public string exclusiveGroup;
+
 		/// <summary>Whether this facility can only be installed on a surface tile with a river.</summary>
 		public bool requiresRiver;
 
@@ -50,6 +53,9 @@ namespace DreamsOutposts
 
 		/// <summary>此扩建设施是否提供生产设施的自动空投配置与投送能力。</summary>
 		public bool automaticAirdropController;
+
+		/// <summary>启用按仓库保留数量拆分产物的智能空投模式。</summary>
+		public bool intelligentAirdropController;
 
 		/// <summary>
 		/// 训练属性：安装后据点内的殖民者会持续获得经验。留空表示这个设施不训练任何人。
