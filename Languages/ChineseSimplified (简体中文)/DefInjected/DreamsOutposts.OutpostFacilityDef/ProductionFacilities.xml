@@ -8,144 +8,144 @@
   
   <!-- EN: advanced booster pump -->
   <DreamsOutposts_AdvancedBoosterPump.label>高级增压泵组</DreamsOutposts_AdvancedBoosterPump.label>
-  <!-- EN: A high-pressure pumping system doubles chemfuel output.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedBoosterPump.description>高压泵送系统使化合燃料产量翻倍。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedBoosterPump.description>
-  
+  <!-- EN: A high-pressure pumping system doubles chemfuel output. -->
+  <DreamsOutposts_AdvancedBoosterPump.description>高压泵送系统使化合燃料产量翻倍。</DreamsOutposts_AdvancedBoosterPump.description>
+
   <!-- EN: advanced chemical purification equipment -->
   <DreamsOutposts_AdvancedChemicalPurifier.label>高级化学提纯设备</DreamsOutposts_AdvancedChemicalPurifier.label>
-  <!-- EN: Industrial chemical separation doubles neutroamine output.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedChemicalPurifier.description>工业级化学分离设备使中性胺产量翻倍。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedChemicalPurifier.description>
-  
+  <!-- EN: Industrial chemical separation doubles neutroamine output. -->
+  <DreamsOutposts_AdvancedChemicalPurifier.description>工业级化学分离设备使中性胺产量翻倍。</DreamsOutposts_AdvancedChemicalPurifier.description>
+
   <!-- EN: advanced component workshop -->
   <DreamsOutposts_AdvancedComponentsWorkshop.label>高级零部件加工间</DreamsOutposts_AdvancedComponentsWorkshop.label>
-  <!-- EN: A precision workshop that produces advanced components from their standard materials.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedComponentsWorkshop.description>一间精密工坊，用标准材料制造高级零部件。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedComponentsWorkshop.description>
-  
+  <!-- EN: A precision workshop that produces advanced components from their standard materials. -->
+  <DreamsOutposts_AdvancedComponentsWorkshop.description>一间精密工坊，用标准材料制造高级零部件。</DreamsOutposts_AdvancedComponentsWorkshop.description>
+
   <!-- EN: advanced irrigation system -->
   <DreamsOutposts_AdvancedIrrigationSystem.label>高级灌溉系统</DreamsOutposts_AdvancedIrrigationSystem.label>
-  <!-- EN: Automated irrigation and field controls double crop output.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedIrrigationSystem.description>自动灌溉与田间调控系统使作物产量翻倍。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedIrrigationSystem.description>
-  
+  <!-- EN: Automated irrigation and field controls double crop output. -->
+  <DreamsOutposts_AdvancedIrrigationSystem.description>自动灌溉与田间调控系统使作物产量翻倍。</DreamsOutposts_AdvancedIrrigationSystem.description>
+
   <!-- EN: advanced mechanized logging station -->
   <DreamsOutposts_AdvancedLoggingStation.label>高级机械伐木站</DreamsOutposts_AdvancedLoggingStation.label>
-  <!-- EN: Heavy forestry machinery doubles timber output.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedLoggingStation.description>重型林业机械使木材产量翻倍。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedLoggingStation.description>
-  
+  <!-- EN: Heavy forestry machinery doubles timber output. -->
+  <DreamsOutposts_AdvancedLoggingStation.description>重型林业机械使木材产量翻倍。</DreamsOutposts_AdvancedLoggingStation.description>
+
   <!-- EN: advanced ore sorting station -->
   <DreamsOutposts_AdvancedOreSortingStation.label>高级矿石分选站</DreamsOutposts_AdvancedOreSortingStation.label>
-  <!-- EN: Automated separation equipment doubles steel output.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AdvancedOreSortingStation.description>自动分选设备使钢铁产量翻倍。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AdvancedOreSortingStation.description>
-  
+  <!-- EN: Automated separation equipment doubles steel output. -->
+  <DreamsOutposts_AdvancedOreSortingStation.description>自动分选设备使钢铁产量翻倍。</DreamsOutposts_AdvancedOreSortingStation.description>
+
   <!-- EN: automatic airdropper -->
   <DreamsOutposts_AutomaticAirdropper.label>自动空投机</DreamsOutposts_AutomaticAirdropper.label>
   <!-- EN: Routes selected facility outputs directly to the primary colony by drop pod. -->
   <DreamsOutposts_AutomaticAirdropper.description>将选定设施的产出通过空投舱直接送往主殖民地。</DreamsOutposts_AutomaticAirdropper.description>
-  
+
   <!-- EN: automatic reaction vessel -->
   <DreamsOutposts_AutomaticReactor.label>自动反应釜</DreamsOutposts_AutomaticReactor.label>
-  <!-- EN: An automated chemical reactor that continuously produces chemfuel.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AutomaticReactor.description>一座持续产出化合燃料的自动化化学反应釜。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AutomaticReactor.description>
-  
+  <!-- EN: An automated chemical reactor that continuously produces chemfuel. -->
+  <DreamsOutposts_AutomaticReactor.description>一座持续产出化合燃料的自动化化学反应釜。</DreamsOutposts_AutomaticReactor.description>
+
   <!-- EN: bioferrite outpost generator -->
   <DreamsOutposts_BioferritePowerGenerator.label>活铁发电设施</DreamsOutposts_BioferritePowerGenerator.label>
   <!-- EN: A generator that burns bioferrite and transmits the resulting power to a linked receiver. -->
   <DreamsOutposts_BioferritePowerGenerator.description>燃烧活铁产生电力，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_BioferritePowerGenerator.description>
-  
+
   <!-- EN: booster pump -->
   <DreamsOutposts_BoosterPump.label>增压泵组</DreamsOutposts_BoosterPump.label>
-  <!-- EN: Additional pumps increase chemfuel output by 50%.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_BoosterPump.description>增设的泵组使化合燃料产量提高50%。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_BoosterPump.description>
-  
+  <!-- EN: Additional pumps increase chemfuel output by 50%. -->
+  <DreamsOutposts_BoosterPump.description>增设的泵组使化合燃料产量提高50%。</DreamsOutposts_BoosterPump.description>
+
   <!-- EN: chemfuel outpost generator -->
   <DreamsOutposts_ChemfuelPowerGenerator.label>化合燃料发电设施</DreamsOutposts_ChemfuelPowerGenerator.label>
   <!-- EN: A remote generator that consumes nine chemfuel before transmitting power for two days. -->
   <DreamsOutposts_ChemfuelPowerGenerator.description>预先消耗9单位化合燃料，随后持续发电两天，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_ChemfuelPowerGenerator.description>
-  
+
   <!-- EN: chemical collection device -->
   <DreamsOutposts_ChemicalCollectionDevice.label>化学采集装置</DreamsOutposts_ChemicalCollectionDevice.label>
-  <!-- EN: An automated chemical collector that refines trace precursors into neutroamine.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ChemicalCollectionDevice.description>一台自动化化学采集装置，从微量前体中提炼中性胺。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ChemicalCollectionDevice.description>
-  
+  <!-- EN: An automated chemical collector that refines trace precursors into neutroamine. -->
+  <DreamsOutposts_ChemicalCollectionDevice.description>一台自动化化学采集装置，从微量前体中提炼中性胺。</DreamsOutposts_ChemicalCollectionDevice.description>
+
   <!-- EN: chemical purification equipment -->
   <DreamsOutposts_ChemicalPurifier.label>化学提纯设备</DreamsOutposts_ChemicalPurifier.label>
-  <!-- EN: Improved separation equipment increases neutroamine output by 50%.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ChemicalPurifier.description>改进的分离设备使中性胺产量提高50%。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ChemicalPurifier.description>
-  
+  <!-- EN: Improved separation equipment increases neutroamine output by 50%. -->
+  <DreamsOutposts_ChemicalPurifier.description>改进的分离设备使中性胺产量提高50%。</DreamsOutposts_ChemicalPurifier.description>
+
   <!-- EN: compact mining machine -->
   <DreamsOutposts_CompactMiningMachine.label>小型采矿机</DreamsOutposts_CompactMiningMachine.label>
-  <!-- EN: A compact automated miner that steadily extracts steel without requiring a resident operator.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_CompactMiningMachine.description>一台小型自动采矿机，无需驻员操作即可持续开采钢铁。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_CompactMiningMachine.description>
-  
+  <!-- EN: A compact automated miner that steadily extracts steel without requiring a resident operator. -->
+  <DreamsOutposts_CompactMiningMachine.description>一台小型自动采矿机，无需驻员操作即可持续开采钢铁。</DreamsOutposts_CompactMiningMachine.description>
+
   <!-- EN: component workshop -->
   <DreamsOutposts_ComponentsWorkshop.label>零部件加工间</DreamsOutposts_ComponentsWorkshop.label>
-  <!-- EN: A workshop that machines steel stock into components.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ComponentsWorkshop.description>一间将钢铁原料加工成零部件的工坊。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ComponentsWorkshop.description>
-  
+  <!-- EN: A workshop that machines steel stock into components. -->
+  <DreamsOutposts_ComponentsWorkshop.description>一间将钢铁原料加工成零部件的工坊。</DreamsOutposts_ComponentsWorkshop.description>
+
   <!-- EN: cotton greenhouse -->
   <DreamsOutposts_CottonGreenhouse.label>棉花温室</DreamsOutposts_CottonGreenhouse.label>
   <!-- EN: A mechanized greenhouse that continuously cultivates and processes cotton into cloth. -->
   <DreamsOutposts_CottonGreenhouse.description>利用机械化设备持续种植棉花，并将其加工成布的温室。</DreamsOutposts_CottonGreenhouse.description>
-  
+
   <!-- EN: deep plasteel drill -->
   <DreamsOutposts_DeepPlasteelDrill.label>深层玻璃钢钻机</DreamsOutposts_DeepPlasteelDrill.label>
-  <!-- EN: A specialized deep drill that slowly extracts plasteel deposits.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_DeepPlasteelDrill.description>一台专用深层钻机，缓慢开采玻璃钢矿藏。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_DeepPlasteelDrill.description>
-  
+  <!-- EN: A specialized deep drill that slowly extracts plasteel deposits. -->
+  <DreamsOutposts_DeepPlasteelDrill.description>一台专用深层钻机，缓慢开采玻璃钢矿藏。</DreamsOutposts_DeepPlasteelDrill.description>
+
   <!-- EN: geothermal outpost generator -->
   <DreamsOutposts_GeothermalPowerGenerator.label>地热发电设施</DreamsOutposts_GeothermalPowerGenerator.label>
   <!-- EN: A geothermal installation that continuously produces power and transmits it to a linked receiver. -->
   <DreamsOutposts_GeothermalPowerGenerator.description>利用地热能持续发电，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_GeothermalPowerGenerator.description>
-  
+
   <!-- EN: intelligent airdropper -->
   <DreamsOutposts_IntelligentAirdropper.label>智能空投机</DreamsOutposts_IntelligentAirdropper.label>
   <!-- EN: Maintains configured reserves of selected facility outputs in the outpost store and delivers only the excess to the primary colony. -->
   <DreamsOutposts_IntelligentAirdropper.description>让选定设施的产物在据点仓库中维持指定数量，并将生产时多出的部分空投至主殖民地。</DreamsOutposts_IntelligentAirdropper.description>
-  
+
   <!-- EN: irrigation system -->
   <DreamsOutposts_IrrigationSystem.label>灌溉系统</DreamsOutposts_IrrigationSystem.label>
-  <!-- EN: Ditches and pumps increase crop output by 50%.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_IrrigationSystem.description>沟渠与水泵使作物产量提高50%。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_IrrigationSystem.description>
-  
+  <!-- EN: Ditches and pumps increase crop output by 50%. -->
+  <DreamsOutposts_IrrigationSystem.description>沟渠与水泵使作物产量提高50%。</DreamsOutposts_IrrigationSystem.description>
+
   <!-- EN: mechanized logging station -->
   <DreamsOutposts_MechanizedLoggingStation.label>机械伐木站</DreamsOutposts_MechanizedLoggingStation.label>
-  <!-- EN: Powered saws and winches increase timber output by 50%.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MechanizedLoggingStation.description>动力锯与绞盘使木材产量提高50%。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MechanizedLoggingStation.description>
-  
+  <!-- EN: Powered saws and winches increase timber output by 50%. -->
+  <DreamsOutposts_MechanizedLoggingStation.description>动力锯与绞盘使木材产量提高50%。</DreamsOutposts_MechanizedLoggingStation.description>
+
   <!-- EN: medicine workshop -->
   <DreamsOutposts_MedicineWorkshop.label>药品加工间</DreamsOutposts_MedicineWorkshop.label>
-  <!-- EN: A clean pharmaceutical workspace that processes cloth, herbal medicine and neutroamine into industrial medicine.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MedicineWorkshop.description>一处洁净的制药场地，将布、草药与中性胺加工成工业药品。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MedicineWorkshop.description>
-  
+  <!-- EN: A clean pharmaceutical workspace that processes cloth, herbal medicine and neutroamine into industrial medicine. -->
+  <DreamsOutposts_MedicineWorkshop.description>一处洁净的制药场地，将布、草药与中性胺加工成工业药品。</DreamsOutposts_MedicineWorkshop.description>
+
   <!-- EN: ore sorting station -->
   <DreamsOutposts_OreSortingStation.label>矿石分选站</DreamsOutposts_OreSortingStation.label>
-  <!-- EN: Sorts and grades incoming ore, increasing steel output by 50%.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_OreSortingStation.description>对送来的矿石进行分选与分级，使钢铁产量提高50%。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_OreSortingStation.description>
-  
+  <!-- EN: Sorts and grades incoming ore, increasing steel output by 50%. -->
+  <DreamsOutposts_OreSortingStation.description>对送来的矿石进行分选与分级，使钢铁产量提高50%。</DreamsOutposts_OreSortingStation.description>
+
   <!-- EN: precious metal separator -->
   <DreamsOutposts_PreciousMetalSeparator.label>贵金属分离器</DreamsOutposts_PreciousMetalSeparator.label>
-  <!-- EN: A precision separator that recovers small quantities of gold from low-grade material.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_PreciousMetalSeparator.description>一台精密分离器，从低品位原料中回收少量黄金。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_PreciousMetalSeparator.description>
-  
+  <!-- EN: A precision separator that recovers small quantities of gold from low-grade material. -->
+  <DreamsOutposts_PreciousMetalSeparator.description>一台精密分离器，从低品位原料中回收少量黄金。</DreamsOutposts_PreciousMetalSeparator.description>
+
   <!-- EN: rare animal tracking center -->
   <DreamsOutposts_RareAnimalTrackingCenter.label>珍兽追踪中心</DreamsOutposts_RareAnimalTrackingCenter.label>
   <!-- EN: Long-range sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome. -->
   <DreamsOutposts_RareAnimalTrackingCenter.description>远程传感器与特制收容设备使捕获效率翻倍。每个捕获周期另有5%概率捕获一只不会在任何生物群系自然出现的动物。</DreamsOutposts_RareAnimalTrackingCenter.description>
-  
+
   <!-- EN: solar outpost generator -->
   <DreamsOutposts_SolarPowerGenerator.label>太阳能发电设施</DreamsOutposts_SolarPowerGenerator.label>
   <!-- EN: A solar installation whose averaged output is transmitted continuously to a linked receiver. -->
   <DreamsOutposts_SolarPowerGenerator.description>利用太阳能发电，并以折算后的平均功率持续向已绑定的远距离电力接收器输送电力。</DreamsOutposts_SolarPowerGenerator.description>
-  
+
   <!-- EN: trapping pens -->
   <DreamsOutposts_TrappingPens.label>诱捕围场</DreamsOutposts_TrappingPens.label>
   <!-- EN: Purpose-built traps and holding pens increase animal capture efficiency by 50%. -->
   <DreamsOutposts_TrappingPens.description>专用陷阱与圈养设施使动物捕获效率提高50%。</DreamsOutposts_TrappingPens.description>
-  
+
   <!-- EN: watermill outpost generator -->
   <DreamsOutposts_WatermillPowerGenerator.label>水力发电设施</DreamsOutposts_WatermillPowerGenerator.label>
   <!-- EN: A river-driven generator that continuously transmits power to a linked receiver. -->
   <DreamsOutposts_WatermillPowerGenerator.description>利用河流持续发电，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_WatermillPowerGenerator.description>
-  
+
   <!-- EN: wood-fired outpost generator -->
   <DreamsOutposts_WoodPowerGenerator.label>木材发电设施</DreamsOutposts_WoodPowerGenerator.label>
   <!-- EN: A remote generator that prepays its fuel and transmits power to a linked receiver. -->

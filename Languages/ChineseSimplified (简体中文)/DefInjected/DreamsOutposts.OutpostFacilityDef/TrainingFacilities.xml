@@ -3,62 +3,62 @@
   
   <!-- EN: academic training room -->
   <DreamsOutposts_AcademicTrainingRoom.label>学术培训室</DreamsOutposts_AcademicTrainingRoom.label>
-  <!-- EN: A quiet classroom for disciplined intellectual study.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AcademicTrainingRoom.description>一间安静的教室，用于系统性的智识钻研。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AcademicTrainingRoom.description>
-  
+  <!-- EN: A quiet classroom for disciplined intellectual study. -->
+  <DreamsOutposts_AcademicTrainingRoom.description>一间安静的教室，用于系统性的智识钻研。</DreamsOutposts_AcademicTrainingRoom.description>
+
   <!-- EN: agricultural training plot -->
   <DreamsOutposts_AgriculturalTrainingPlot.label>农业训练场</DreamsOutposts_AgriculturalTrainingPlot.label>
-  <!-- EN: Experimental plots where residents practice cultivation and harvesting.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AgriculturalTrainingPlot.description>供驻员练习种植与收获的试验田。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AgriculturalTrainingPlot.description>
-  
+  <!-- EN: Experimental plots where residents practice cultivation and harvesting. -->
+  <DreamsOutposts_AgriculturalTrainingPlot.description>供驻员练习种植与收获的试验田。</DreamsOutposts_AgriculturalTrainingPlot.description>
+
   <!-- EN: animal training pens -->
   <DreamsOutposts_AnimalTrainingPens.label>驯兽训练场</DreamsOutposts_AnimalTrainingPens.label>
-  <!-- EN: Purpose-built pens for learning animal handling.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_AnimalTrainingPens.description>专为学习驯兽技能而建的围栏。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_AnimalTrainingPens.description>
-  
+  <!-- EN: Purpose-built pens for learning animal handling. -->
+  <DreamsOutposts_AnimalTrainingPens.description>专为学习驯兽技能而建的围栏。</DreamsOutposts_AnimalTrainingPens.description>
+
   <!-- EN: art studio -->
   <DreamsOutposts_ArtStudio.label>艺术工坊</DreamsOutposts_ArtStudio.label>
-  <!-- EN: A shared studio where residents develop their artistic technique.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ArtStudio.description>一间共用工作室，供驻员磨练艺术技艺。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ArtStudio.description>
-  
+  <!-- EN: A shared studio where residents develop their artistic technique. -->
+  <DreamsOutposts_ArtStudio.description>一间共用工作室，供驻员磨练艺术技艺。</DreamsOutposts_ArtStudio.description>
+
   <!-- EN: construction training yard -->
   <DreamsOutposts_ConstructionTrainingYard.label>建筑实训场</DreamsOutposts_ConstructionTrainingYard.label>
-  <!-- EN: A practical worksite where residents learn construction techniques.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ConstructionTrainingYard.description>一处实务工地，供驻员学习建造技术。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ConstructionTrainingYard.description>
-  
+  <!-- EN: A practical worksite where residents learn construction techniques. -->
+  <DreamsOutposts_ConstructionTrainingYard.description>一处实务工地，供驻员学习建造技术。</DreamsOutposts_ConstructionTrainingYard.description>
+
   <!-- EN: cooking school -->
   <DreamsOutposts_CookingSchool.label>炊事训练场</DreamsOutposts_CookingSchool.label>
-  <!-- EN: A communal kitchen arranged for practical culinary instruction.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_CookingSchool.description>一间公共厨房，布置成可供实务烹饪教学使用。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_CookingSchool.description>
-  
+  <!-- EN: A communal kitchen arranged for practical culinary instruction. -->
+  <DreamsOutposts_CookingSchool.description>一间公共厨房，布置成可供实务烹饪教学使用。</DreamsOutposts_CookingSchool.description>
+
   <!-- EN: crafting training workshop -->
   <DreamsOutposts_CraftingWorkshop.label>工艺训练场</DreamsOutposts_CraftingWorkshop.label>
-  <!-- EN: A teaching workshop stocked with tools and practice materials.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_CraftingWorkshop.description>一间备有工具与练习材料的教学工坊。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_CraftingWorkshop.description>
-  
+  <!-- EN: A teaching workshop stocked with tools and practice materials. -->
+  <DreamsOutposts_CraftingWorkshop.description>一间备有工具与练习材料的教学工坊。</DreamsOutposts_CraftingWorkshop.description>
+
   <!-- EN: medical training room -->
   <DreamsOutposts_MedicalTrainingRoom.label>医疗训练室</DreamsOutposts_MedicalTrainingRoom.label>
-  <!-- EN: A classroom and practice ward for medical instruction.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MedicalTrainingRoom.description>用于医疗教学的教室与实习病房。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MedicalTrainingRoom.description>
-  
+  <!-- EN: A classroom and practice ward for medical instruction. -->
+  <DreamsOutposts_MedicalTrainingRoom.description>用于医疗教学的教室与实习病房。</DreamsOutposts_MedicalTrainingRoom.description>
+
   <!-- EN: melee training ground -->
   <DreamsOutposts_MeleeTrainingGround.label>近战训练场</DreamsOutposts_MeleeTrainingGround.label>
-  <!-- EN: A drill yard for close-quarters combat practice.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MeleeTrainingGround.description>用于近身格斗操练的演武场。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MeleeTrainingGround.description>
-  
+  <!-- EN: A drill yard for close-quarters combat practice. -->
+  <DreamsOutposts_MeleeTrainingGround.description>用于近身格斗操练的演武场。</DreamsOutposts_MeleeTrainingGround.description>
+
   <!-- EN: mining training ground -->
   <DreamsOutposts_MiningTrainingGround.label>采矿训练场</DreamsOutposts_MiningTrainingGround.label>
-  <!-- EN: A practice cutting where residents learn to work rock safely and efficiently.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MiningTrainingGround.description>一处练习采掘场，供驻员学习安全高效的岩层开采。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MiningTrainingGround.description>
-  
+  <!-- EN: A practice cutting where residents learn to work rock safely and efficiently. -->
+  <DreamsOutposts_MiningTrainingGround.description>一处练习采掘场，供驻员学习安全高效的岩层开采。</DreamsOutposts_MiningTrainingGround.description>
+
   <!-- EN: shooting range -->
   <DreamsOutposts_ShootingRange.label>射击训练场</DreamsOutposts_ShootingRange.label>
-  <!-- EN: A maintained range where residents practice marksmanship.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ShootingRange.description>一处常设靶场，供驻员练习射击。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ShootingRange.description>
-  
+  <!-- EN: A maintained range where residents practice marksmanship. -->
+  <DreamsOutposts_ShootingRange.description>一处常设靶场，供驻员练习射击。</DreamsOutposts_ShootingRange.description>
+
   <!-- EN: social training hall -->
   <DreamsOutposts_SocialTrainingHall.label>社交训练室</DreamsOutposts_SocialTrainingHall.label>
-  <!-- EN: A meeting hall used to practice negotiation, leadership and public speaking.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_SocialTrainingHall.description>一座会堂，用于练习交涉、领导与公众演讲。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_SocialTrainingHall.description>
+  <!-- EN: A meeting hall used to practice negotiation, leadership and public speaking. -->
+  <DreamsOutposts_SocialTrainingHall.description>一座会堂，用于练习交涉、领导与公众演讲。</DreamsOutposts_SocialTrainingHall.description>
   
 </LanguageData>

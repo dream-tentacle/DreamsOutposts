@@ -3,27 +3,27 @@
   
   <!-- EN: defense -->
   <DreamsOutposts_ManagePage_Defense.label>防卫</DreamsOutposts_ManagePage_Defense.label>
-  <!-- EN: How well this outpost can defend itself, and where that strength comes from.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ManagePage_Defense.description>此据点的自卫能力，以及这些防卫力量的来源。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ManagePage_Defense.description>
-  
+  <!-- EN: How well this outpost can defend itself, and where that strength comes from. -->
+  <DreamsOutposts_ManagePage_Defense.description>此据点的自卫能力，以及这些防卫力量的来源。</DreamsOutposts_ManagePage_Defense.description>
+
   <!-- EN: events -->
   <DreamsOutposts_ManagePage_Events.label>事件</DreamsOutposts_ManagePage_Events.label>
-  <!-- EN: The current events affecting this outpost.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ManagePage_Events.description>当前正在影响此据点的事件。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ManagePage_Events.description>
-  
+  <!-- EN: The current events affecting this outpost. -->
+  <DreamsOutposts_ManagePage_Events.description>当前正在影响此据点的事件。</DreamsOutposts_ManagePage_Events.description>
+
   <!-- EN: facilities -->
   <DreamsOutposts_ManagePage_Facilities.label>设施</DreamsOutposts_ManagePage_Facilities.label>
-  <!-- EN: This outpost's level, core facility and extension slots.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ManagePage_Facilities.description>此据点的等级、核心设施与扩展槽位。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ManagePage_Facilities.description>
-  
+  <!-- EN: This outpost's level, core facility and extension slots. -->
+  <DreamsOutposts_ManagePage_Facilities.description>此据点的等级、核心设施与扩展槽位。</DreamsOutposts_ManagePage_Facilities.description>
+
   <!-- EN: warehouse -->
   <DreamsOutposts_ManagePage_Inventory.label>仓库</DreamsOutposts_ManagePage_Inventory.label>
-  <!-- EN: The colonists, other pawns and items kept in this outpost.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ManagePage_Inventory.description>驻留在该据点的殖民者、其他角色与物品。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ManagePage_Inventory.description>
-  
+  <!-- EN: The colonists, other pawns and items kept in this outpost. -->
+  <DreamsOutposts_ManagePage_Inventory.description>驻留在该据点的殖民者、其他角色与物品。</DreamsOutposts_ManagePage_Inventory.description>
+
   <!-- EN: tavern -->
   <DreamsOutposts_ManagePage_Tavern.label>酒馆</DreamsOutposts_ManagePage_Tavern.label>
-  <!-- EN: Adventurers currently available to recruit.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_ManagePage_Tavern.description>当前可供招募的冒险者。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_ManagePage_Tavern.description>
+  <!-- EN: Adventurers currently available to recruit. -->
+  <DreamsOutposts_ManagePage_Tavern.description>当前可供招募的冒险者。</DreamsOutposts_ManagePage_Tavern.description>
   
 </LanguageData>

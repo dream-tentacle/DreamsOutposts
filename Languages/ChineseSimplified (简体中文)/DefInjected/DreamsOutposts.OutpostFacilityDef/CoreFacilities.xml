@@ -8,42 +8,42 @@
   
   <!-- EN: farm -->
   <DreamsOutposts_Farm.label>农场</DreamsOutposts_Farm.label>
-  <!-- EN: Organized fields that grow a crop selected by the player.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Farm.description>规划整齐的田地，用于种植玩家选定的作物。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Farm.description>
-  
+  <!-- EN: Organized fields that grow a crop selected by the player. -->
+  <DreamsOutposts_Farm.description>规划整齐的田地，用于种植玩家选定的作物。</DreamsOutposts_Farm.description>
+
   <!-- EN: logging camp -->
   <DreamsOutposts_LoggingCamp.label>伐木营地</DreamsOutposts_LoggingCamp.label>
-  <!-- EN: A permanent camp that harvests and prepares timber from the surrounding region.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_LoggingCamp.description>一座常设营地，负责从周边地区采伐并加工木材。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_LoggingCamp.description>
-  
+  <!-- EN: A permanent camp that harvests and prepares timber from the surrounding region. -->
+  <DreamsOutposts_LoggingCamp.description>一座常设营地，负责从周边地区采伐并加工木材。</DreamsOutposts_LoggingCamp.description>
+
   <!-- EN: mechanitor relay -->
   <DreamsOutposts_MechanitorRelay.label>机械师中继站</DreamsOutposts_MechanitorRelay.label>
   <!-- EN: A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal. -->
   <DreamsOutposts_MechanitorRelay.description>大型机械体频带信号中继设施。调谐至一名机械师后，只要有具备足够智识的操作员维持信号，便提供2点带宽。</DreamsOutposts_MechanitorRelay.description>
-  
+
   <!-- EN: mining plant -->
   <DreamsOutposts_MiningPlant.label>采矿厂</DreamsOutposts_MiningPlant.label>
-  <!-- EN: A permanent mining operation that extracts and processes steel-bearing ore.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_MiningPlant.description>一座常设采矿设施，负责开采并处理含钢矿石。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_MiningPlant.description>
-  
+  <!-- EN: A permanent mining operation that extracts and processes steel-bearing ore. -->
+  <DreamsOutposts_MiningPlant.description>一座常设采矿设施，负责开采并处理含钢矿石。</DreamsOutposts_MiningPlant.description>
+
   <!-- EN: neutroamine collection station -->
   <DreamsOutposts_NeutroamineCollector.label>中性胺采集站</DreamsOutposts_NeutroamineCollector.label>
   <!-- EN: A chemical works that gathers and refines rare precursors into neutroamine. -->
   <DreamsOutposts_NeutroamineCollector.description>采集稀有化学前体，并将其提炼成中性胺的化工设施。</DreamsOutposts_NeutroamineCollector.description>
-  
+
   <!-- EN: oil derrick -->
   <DreamsOutposts_OilDerrick.label>油井</DreamsOutposts_OilDerrick.label>
-  <!-- EN: A drilling and refining operation that produces chemfuel.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_OilDerrick.description>一口负责钻探与精炼、产出化合燃料的油井。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_OilDerrick.description>
-  
+  <!-- EN: A drilling and refining operation that produces chemfuel. -->
+  <DreamsOutposts_OilDerrick.description>一口负责钻探与精炼、产出化合燃料的油井。</DreamsOutposts_OilDerrick.description>
+
   <!-- EN: ranger camp -->
   <DreamsOutposts_RangerCamp.label>巡猎营地</DreamsOutposts_RangerCamp.label>
   <!-- EN: A field camp where handlers track and tame animals native to the surrounding region. -->
   <DreamsOutposts_RangerCamp.description>驯兽师在此追踪并驯化周边地区的原生动物。</DreamsOutposts_RangerCamp.description>
-  
+
   <!-- EN: town center -->
   <DreamsOutposts_TownCenter.label>城镇中心</DreamsOutposts_TownCenter.label>
-  <!-- EN: The square, roads and shared buildings that hold a town together. It produces nothing by itself.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_TownCenter.description>广场、道路与公共建筑，将整座城镇联结在一起。它本身不产出任何东西。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_TownCenter.description>
+  <!-- EN: The square, roads and shared buildings that hold a town together. It produces nothing by itself. -->
+  <DreamsOutposts_TownCenter.description>广场、道路与公共建筑，将整座城镇联结在一起。它本身不产出任何东西。</DreamsOutposts_TownCenter.description>
   
 </LanguageData>

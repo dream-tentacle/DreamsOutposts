@@ -13,42 +13,42 @@
   
   <!-- EN: drilling outpost -->
   <DreamsOutposts_Drilling.label>钻井据点</DreamsOutposts_Drilling.label>
-  <!-- EN: A basic outpost for pumping and refining chemfuel.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Drilling.description>用于抽采并精炼化合燃料的基础据点。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Drilling.description>
-  
+  <!-- EN: A basic outpost for pumping and refining chemfuel. -->
+  <DreamsOutposts_Drilling.description>用于抽采并精炼化合燃料的基础据点。</DreamsOutposts_Drilling.description>
+
   <!-- EN: farming outpost -->
   <DreamsOutposts_Farming.label>农业据点</DreamsOutposts_Farming.label>
-  <!-- EN: A basic outpost for growing crops.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Farming.description>用于种植作物的基础据点。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Farming.description>
-  
+  <!-- EN: A basic outpost for growing crops. -->
+  <DreamsOutposts_Farming.description>用于种植作物的基础据点。</DreamsOutposts_Farming.description>
+
   <!-- EN: logging outpost -->
   <DreamsOutposts_Logging.label>伐木据点</DreamsOutposts_Logging.label>
-  <!-- EN: A basic outpost for cutting timber.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Logging.description>用于砍伐木材的基础据点。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Logging.description>
-  
+  <!-- EN: A basic outpost for cutting timber. -->
+  <DreamsOutposts_Logging.description>用于砍伐木材的基础据点。</DreamsOutposts_Logging.description>
+
   <!-- EN: mechanitor outpost -->
   <DreamsOutposts_Mechanitor.label>机械师据点</DreamsOutposts_Mechanitor.label>
   <!-- EN: A remote signal-control site that expands the bandwidth of tuned mechanitors. -->
   <DreamsOutposts_Mechanitor.description>用于维持机械体频带信号、拓展已调谐机械师带宽的远程据点。</DreamsOutposts_Mechanitor.description>
-  
+
   <!-- EN: mining outpost -->
   <DreamsOutposts_Mining.label>采矿据点</DreamsOutposts_Mining.label>
-  <!-- EN: A basic outpost for mining.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Mining.description>用于开采矿物的基础据点。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Mining.description>
-  
+  <!-- EN: A basic outpost for mining. -->
+  <DreamsOutposts_Mining.description>用于开采矿物的基础据点。</DreamsOutposts_Mining.description>
+
   <!-- EN: neutroamine outpost -->
   <DreamsOutposts_Neutroamine.label>中性胺据点</DreamsOutposts_Neutroamine.label>
   <!-- EN: An industrial outpost for collecting and refining neutroamine precursors. -->
   <DreamsOutposts_Neutroamine.description>用于采集并提炼中性胺前体的工业据点。</DreamsOutposts_Neutroamine.description>
-  
+
   <!-- EN: research outpost -->
   <DreamsOutposts_Research.label>科研据点</DreamsOutposts_Research.label>
   <!-- EN: A remote research station that steadily contributes knowledge to the colony's current research project. -->
   <DreamsOutposts_Research.description>持续为殖民地当前研究项目贡献科研点数的远程研究站。</DreamsOutposts_Research.description>
-  
+
   <!-- EN: town outpost -->
   <DreamsOutposts_Town.label>城镇据点</DreamsOutposts_Town.label>
-  <!-- EN: A basic outpost for workshops and storage. It produces nothing by itself, but it has far more room for facilities than any other outpost.\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt; -->
-  <DreamsOutposts_Town.description>用于设置工坊与仓库的基础据点。它本身不产出任何东西，但能容纳的设施数量远超其他任何据点。\n\n&lt;i&gt;&lt;color=#66E0E4FF>(DR) Dream's Outposts Expanded&lt;/color&gt;&lt;/i&gt;</DreamsOutposts_Town.description>
+  <!-- EN: A basic outpost for workshops and storage. It produces nothing by itself, but it has far more room for facilities than any other outpost. -->
+  <DreamsOutposts_Town.description>用于设置工坊与仓库的基础据点。它本身不产出任何东西，但能容纳的设施数量远超其他任何据点。</DreamsOutposts_Town.description>
   
 </LanguageData>
