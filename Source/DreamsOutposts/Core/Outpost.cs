@@ -29,6 +29,8 @@ namespace DreamsOutposts
 		/// </summary>
 		public List<OutpostScheduledEvent> scheduledEvents;
 
+		public List<OutpostTemporaryEffect> temporaryEffects;
+
 		public int establishedTick;
 
 		public int level = 1;
@@ -38,6 +40,10 @@ namespace DreamsOutposts
 		public int nextBombardTick;
 
 		public ThingOwner<Pawn> pendingAirdropPawns;
+
+		public ThingOwner<Pawn> adventurerCandidates;
+
+		public AdventurerRecruitState adventurerRecruitment;
 
 		private static readonly List<Pawn> EmptyPawns = new List<Pawn>();
 		private static readonly List<Thing> EmptyInventory = new List<Thing>();
@@ -79,6 +85,17 @@ namespace DreamsOutposts
 			}
 		}
 
+		public IEnumerable<OutpostFacility> OperationalFacilities
+		{
+			get
+			{
+				foreach (OutpostFacility facility in Facilities)
+				{
+					if (!OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) yield return facility;
+				}
+			}
+		}
+
 		public OutpostWorker Worker => outpostTypeDef?.Worker;
 
 		public int MaxLevel => outpostTypeDef?.MaxLevel ?? 1;
@@ -108,7 +125,13 @@ namespace DreamsOutposts
 				createdTick = createdTick,
 				expireTick = createdTick + eventDef.durationTicks
 			};
+			if (!eventDef.InitializeInstance(this, instance)) return null;
 			events.Add(instance);
+			if (eventDef.onCreatedEffects != null)
+			{
+				OutpostEventContext context = new OutpostEventContext { outpost = this, instance = instance };
+				for (int i = 0; i < eventDef.onCreatedEffects.Count; i++) eventDef.onCreatedEffects[i]?.Apply(context);
+			}
 			OutpostEventUtility.SendCreatedLetter(this, instance);
 			return instance;
 		}
@@ -169,18 +192,27 @@ namespace DreamsOutposts
 			pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
 			inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
 			pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+			adventurerCandidates = new ThingOwner<Pawn>(this, oneStackOnly: false);
+			adventurerRecruitment = new AdventurerRecruitState();
 			extensionSlots = new List<OutpostSlot>();
 			events = new List<OutpostEventInstance>();
 			scheduledEvents = new List<OutpostScheduledEvent>();
+			temporaryEffects = new List<OutpostTemporaryEffect>();
 		}
 
 		protected override void TickInterval(int delta)
 		{
 			base.TickInterval(delta);
+			OutpostTemporaryEffectUtility.RemoveExpired(this, Find.TickManager.TicksGame);
 			OutpostEventUtility.TickEvents(this);
-			foreach (OutpostFacility facility in Facilities) facility.TickComps(this, delta);
+			foreach (OutpostFacility facility in Facilities)
+			{
+				if (OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) facility.TickDisabledComps(this, delta);
+				else facility.TickComps(this, delta);
+			}
 			AgePawns(delta);
 			OutpostAirdropUtility.CheckStalePending(this);
+			AdventurerRecruitUtility.Tick(this);
 		}
 
 		private void AgePawns(int delta)
@@ -212,9 +244,12 @@ namespace DreamsOutposts
 			Scribe_Collections.Look(ref extensionSlots, "extensionSlots", LookMode.Deep);
 			Scribe_Collections.Look(ref events, "events", LookMode.Deep);
 			Scribe_Collections.Look(ref scheduledEvents, "scheduledEvents", LookMode.Deep);
+			Scribe_Collections.Look(ref temporaryEffects, "temporaryEffects", LookMode.Deep);
 			Scribe_Deep.Look(ref pawns, "pawns", this);
 			Scribe_Deep.Look(ref inventory, "inventory", this);
 			Scribe_Deep.Look(ref pendingAirdropPawns, "pendingAirdropPawns", this);
+			Scribe_Deep.Look(ref adventurerCandidates, "adventurerCandidates", this);
+			Scribe_Deep.Look(ref adventurerRecruitment, "adventurerRecruitment");
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
 				if (pawns == null)
@@ -236,6 +271,19 @@ namespace DreamsOutposts
 				if (scheduledEvents == null)
 				{
 					scheduledEvents = new List<OutpostScheduledEvent>();
+				}
+				if (adventurerCandidates == null)
+				{
+					adventurerCandidates = new ThingOwner<Pawn>(this, oneStackOnly: false);
+				}
+				if (adventurerRecruitment == null)
+				{
+					adventurerRecruitment = new AdventurerRecruitState();
+				}
+				AdventurerRecruitUtility.Reconcile(this);
+				if (temporaryEffects == null)
+				{
+					temporaryEffects = new List<OutpostTemporaryEffect>();
 				}
 				if (pendingAirdropPawns.Count > 0)
 				{
@@ -311,6 +359,7 @@ namespace DreamsOutposts
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pawns);
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, inventory);
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pendingAirdropPawns);
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, adventurerCandidates);
 		}
 
 		public override string GetInspectString()
@@ -347,10 +396,9 @@ namespace DreamsOutposts
 			{
 				yield break;
 			}
-			if (Prefs.DevMode)
+			if (Prefs.DevMode && DebugSettings.godMode)
 			{
-				yield return OutpostEventUtility.AddTestEventCommand(this);
-				yield return OutpostEventUtility.RollRandomEventCommand(this);
+				yield return OutpostEventUtility.AddAllWeightedEventsCommand(this);
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);
@@ -411,6 +459,9 @@ namespace DreamsOutposts
 			Worker?.OnRemoved(this);
 			base.PostRemove();
 			pawns?.ClearAndDestroyContentsOrPassToWorld();
+			if (adventurerCandidates != null)
+				foreach (Pawn candidate in adventurerCandidates.InnerListForReading.ToList())
+					OutpostUtility.DiscardCandidate(candidate);
 		}
 
 		public static Outpost Create(Caravan caravan, OutpostTypeDef def)

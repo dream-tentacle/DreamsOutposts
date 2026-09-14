@@ -55,7 +55,8 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
-			if (production.intervalTicks <= 0)
+			int intervalTicks = production.Worker.GetProductionIntervalTicks(production, facility.GetProductionState(production.id));
+			if (intervalTicks <= 0)
 			{
 				return false;
 			}
@@ -65,7 +66,7 @@ namespace DreamsOutposts
 				return false;
 			}
 			ticksRemaining = Mathf.Max(state.nextProductionTick - Find.TickManager.TicksGame, 0);
-			progress = Mathf.Clamp01(1f - (float)ticksRemaining / (float)production.intervalTicks);
+			progress = Mathf.Clamp01(1f - (float)ticksRemaining / (float)intervalTicks);
 			return true;
 		}
 
@@ -93,7 +94,7 @@ namespace DreamsOutposts
 			{
 				yield break;
 			}
-			foreach (OutpostFacility sourceFacility in outpost.Facilities)
+			foreach (OutpostFacility sourceFacility in outpost.OperationalFacilities)
 			{
 				List<OutpostProductionModifier> modifiers = sourceFacility?.def?.productionModifiers;
 				for (int i = 0; i < (modifiers?.Count ?? 0); i++)
@@ -125,6 +126,7 @@ namespace DreamsOutposts
 				offsetSum += source.Modifier.offset;
 				factorProduct *= source.Modifier.factor;
 			}
+			factorProduct *= OutpostTemporaryEffectUtility.ProductionFactor(outpost, producingFacility, production);
 		}
 
 		public static float ApplyModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, float baseOutput)
@@ -171,9 +173,10 @@ namespace DreamsOutposts
 				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(facility, production) + " has no production state. Run SynchronizeProductionStates or check the save.", FailureKey(facility, production));
 				return;
 			}
-			if (production.intervalTicks <= 0)
+			int intervalTicks = production.Worker.GetProductionIntervalTicks(production, state);
+			if (intervalTicks <= 0)
 			{
-				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(facility, production) + " has intervalTicks=" + production.intervalTicks + "; it must be positive. ConfigErrors should have reported this.", FailureKey(facility, production));
+				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(facility, production) + " has an effective production interval of " + intervalTicks + "; it must be positive. ConfigErrors should have reported this.", FailureKey(facility, production));
 				return;
 			}
 			int cycles = 0;
@@ -281,6 +284,7 @@ namespace DreamsOutposts
 			}
 			worker.DeliverProducts(context);
 			context.Outcome = OutpostProductionOutcome.Completed;
+			OutpostTemporaryEffectUtility.ConsumeProductionEffects(context.Outpost, context.Facility, production);
 		}
 
 		private static void InvokeAfterHook(OutpostProductionContext context)

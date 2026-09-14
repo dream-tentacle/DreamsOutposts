@@ -106,6 +106,12 @@ namespace DreamsOutposts
 
 		private static readonly Dictionary<UiIcon, Texture2D> iconCache = new Dictionary<UiIcon, Texture2D>();
 
+		private static Texture2D levelUpgradeSweepTexture;
+
+		private static Texture2D buildButtonTexture;
+
+		private static readonly Texture2D[] navCornerArcs = new Texture2D[4];
+
 		/// <summary>图标资源目录（相对 Textures/）。所有图标都是静态 PNG，不在运行时绘制。</summary>
 		public const string IconFolder = "DreamsOutposts/Ui/";
 
@@ -132,6 +138,50 @@ namespace DreamsOutposts
 			}
 			iconCache[icon] = texture;
 			return texture;
+		}
+
+		/// <summary>选中侧栏页签的静态白色角弧。corner：0=左上 1=右上 2=左下 3=右下。</summary>
+		public static Texture2D NavCornerArc(int corner)
+		{
+			int index = Mathf.Clamp(corner, 0, 3);
+			Texture2D texture = navCornerArcs[index];
+			if (texture == null)
+			{
+				string[] names = { "TL", "TR", "BL", "BR" };
+				texture = ContentFinder<Texture2D>.Get(IconFolder + "NavCornerArc" + names[index], false);
+				navCornerArcs[index] = texture;
+			}
+			return texture;
+		}
+
+		/// <summary>设施页据点升级时，从等级卡底部向上扫过的柔边白光。</summary>
+		public static Texture2D LevelUpgradeSweepTexture()
+		{
+			if (levelUpgradeSweepTexture == null)
+			{
+				levelUpgradeSweepTexture = ContentFinder<Texture2D>.Get(IconFolder + "UpgradeSweep", false);
+				if (levelUpgradeSweepTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: upgrade sweep texture missing: Textures/" + IconFolder
+						+ "UpgradeSweep.png.", GenText.StableStringHash("ui-upgrade-sweep"));
+				}
+			}
+			return levelUpgradeSweepTexture;
+		}
+
+		/// <summary>扩建设施建造按钮的白色透明底图，绘制时按主题色染色。</summary>
+		public static Texture2D BuildButtonTexture()
+		{
+			if (buildButtonTexture == null)
+			{
+				buildButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "BuildButton", false);
+				if (buildButtonTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: build button texture missing: Textures/" + IconFolder
+						+ "BuildButton.png.", GenText.StableStringHash("ui-build-button"));
+				}
+			}
+			return buildButtonTexture;
 		}
 
 		public static Texture2D NewTexture(int width, int height)

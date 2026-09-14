@@ -48,7 +48,7 @@ namespace DreamsOutposts
 			Production = production;
 			State = state;
 			Now = now;
-			NextProductionInterval = production?.intervalTicks ?? 0;
+			NextProductionInterval = production?.Worker.GetProductionIntervalTicks(production, state) ?? 0;
 		}
 	}
 }

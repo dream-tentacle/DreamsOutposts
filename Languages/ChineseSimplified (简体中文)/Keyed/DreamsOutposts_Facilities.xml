@@ -4,6 +4,7 @@
   <DreamsOutposts.InstallFail.NotInstallable>这种设施不能作为扩建设施安装。</DreamsOutposts.InstallFail.NotInstallable>
   <DreamsOutposts.InstallFail.WrongOutpostType>这种设施不能安装在{0}里。</DreamsOutposts.InstallFail.WrongOutpostType>
   <DreamsOutposts.InstallFail.ResearchMissing>需要先完成研究：{0}</DreamsOutposts.InstallFail.ResearchMissing>
+  <DreamsOutposts.InstallFail.RequiresRiver>这种设施只能安装在河流地块上的据点中。</DreamsOutposts.InstallFail.RequiresRiver>
   <DreamsOutposts.InstallFail.LimitReached>每个据点最多{0}个，已经装满了。</DreamsOutposts.InstallFail.LimitReached>
   <DreamsOutposts.InstallFail.CannotAfford>资源不足，还差{0}。</DreamsOutposts.InstallFail.CannotAfford>
   <DreamsOutposts.InstallFail.LevelTooLow>此据点当前等级为{0}，这种设施需要据点达到{1}级。</DreamsOutposts.InstallFail.LevelTooLow>
@@ -48,5 +49,6 @@
   <DreamsOutposts.AutomaticAirdropNoProducers>当前据点没有可选择的生产设施。</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>自动空投机已空投物品：{0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
 	<DreamsOutposts.WaystationMovementFactor>驿站：{0}</DreamsOutposts.WaystationMovementFactor>
+	<DreamsOutposts.TemporaryMovementFactor>据点临时效果：{0}</DreamsOutposts.TemporaryMovementFactor>
 </LanguageData>
 

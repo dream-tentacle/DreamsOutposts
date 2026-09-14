@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostEventDef Class="DreamsOutposts.OutpostAttackEventDef">
+    <defName>DO_OutpostAttack</defName>
+    <label>outpost under attack</label>
+    <description>Hostile forces are approaching the outpost. Its residents are preparing to defend their positions. The battle will be resolved in eight hours.</description>
+    <category>DreamsOutposts_Frontier</category>
+    <weight>0</weight>
+    <durationTicks>20000</durationTicks>
+    <strengthFactor>0.8~1.2</strengthFactor>
+    <strengthByRaidPoints>
+      <points>
+        <li>(100, 12)</li>
+        <li>(500, 20)</li>
+        <li>(1000, 27)</li>
+        <li>(2000, 35)</li>
+        <li>(4000, 43)</li>
+        <li>(6000, 49)</li>
+        <li>(8000, 54)</li>
+        <li>(10000, 58)</li>
+      </points>
+    </strengthByRaidPoints>
+    <defaultOptionId>resolve</defaultOptionId>
+    <options>
+      <li>
+        <id>resolve</id>
+        <label>Wait for the battle to end</label>
+        <description>The outpost's residents will defend themselves. The result will be reported when the battle ends.</description>
+        <playerSelectable>false</playerSelectable>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_ResolveAttack">
+            <pointsPerSilver>4</pointsPerSilver>
+            <victoryLootFactor>0.7</victoryLootFactor>
+            <incursionLootFactor>0.25</incursionLootFactor>
+          </li>
+        </effects>
+      </li>
+    </options>
+  </DreamsOutposts.OutpostEventDef>
+</Defs>

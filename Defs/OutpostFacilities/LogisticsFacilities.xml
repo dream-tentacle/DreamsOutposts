@@ -13,13 +13,39 @@
 		</buildCost>
 		<eventCategoryModifiers>
 			<li>
-				<category>DreamsOutposts_Trade</category>
-				<offset>2</offset>
-			</li>
-			<li>
 				<category>DreamsOutposts_Population</category>
-				<offset>1</offset>
+				<offset>3</offset>
 			</li>
 		</eventCategoryModifiers>
+	</DreamsOutposts.OutpostFacilityDef>
+	<DreamsOutposts.OutpostFacilityDef>
+		<defName>DreamsOutposts_AdventurerCamp</defName>
+		<facilityTag>Other</facilityTag>
+		<uiIcon>Person</uiIcon>
+		<label>adventurer camp</label>
+		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people.</description>
+		<maxPerOutpost>1</maxPerOutpost>
+	</DreamsOutposts.OutpostFacilityDef>
+	<DreamsOutposts.OutpostFacilityDef>
+		<defName>DreamsOutposts_Inn</defName>
+		<facilityTag>Other</facilityTag>
+		<uiIcon>Store</uiIcon>
+		<label>inn</label>
+		<description>A comfortable roadside inn that draws travellers and prospective settlers to the outpost.</description>
+		<maxPerOutpost>1</maxPerOutpost>
+		<minOutpostLevel>2</minOutpostLevel>
+		<buildCost><Steel>100</Steel><WoodLog>100</WoodLog><MealSimple>20</MealSimple></buildCost>
+		<eventCategoryModifiers><li><category>DreamsOutposts_Population</category><offset>3</offset></li></eventCategoryModifiers>
+	</DreamsOutposts.OutpostFacilityDef>
+	<DreamsOutposts.OutpostFacilityDef>
+		<defName>DreamsOutposts_LuxuryHotel</defName>
+		<facilityTag>Other</facilityTag>
+		<uiIcon>Store</uiIcon>
+		<label>luxury hotel</label>
+		<description>An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.</description>
+		<maxPerOutpost>1</maxPerOutpost>
+		<minOutpostLevel>3</minOutpostLevel>
+		<buildCost><Steel>300</Steel><WoodLog>150</WoodLog><MealLavish>30</MealLavish></buildCost>
+		<eventCategoryModifiers><li><category>DreamsOutposts_Population</category><offset>5</offset></li></eventCategoryModifiers>
 	</DreamsOutposts.OutpostFacilityDef>
 </Defs>

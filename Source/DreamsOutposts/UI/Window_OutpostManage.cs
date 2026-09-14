@@ -484,13 +484,6 @@ namespace DreamsOutposts
 		{
 			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Normal);
 			float y = rect.y + (rect.height - buttonHeight) * 0.5f;
-			string closeLabel = "DreamsOutposts.Ui.Close".Translate();
-			float closeWidth = UiWidgets.ButtonWidth(closeLabel);
-			Rect closeRect = new Rect(rect.xMax - closeWidth, y, closeWidth, buttonHeight);
-			if (UiWidgets.Button(closeRect, closeLabel))
-			{
-				CloseModal();
-			}
 			if (details.Source?.Facility?.def?.automaticAirdropController == true)
 			{
 				string settingsLabel = "DreamsOutposts.AutomaticAirdropSettings".Translate();
@@ -508,7 +501,7 @@ namespace DreamsOutposts
 			}
 			string demolishLabel = "DreamsOutposts.Demolish".Translate();
 			float demolishWidth = UiWidgets.ButtonWidth(demolishLabel);
-			Rect demolishRect = new Rect(closeRect.x - UiMetrics.ModalFootGap - demolishWidth, y, demolishWidth, buttonHeight);
+			Rect demolishRect = new Rect(rect.xMax - demolishWidth, y, demolishWidth, buttonHeight);
 			if (UiWidgets.Button(demolishRect, demolishLabel, UiButtonKind.Danger, true, null, UiButtonSize.Normal, details.DemolishTooltip))
 			{
 				if (details.Source != null)
@@ -528,13 +521,6 @@ namespace DreamsOutposts
 			if (UiWidgets.Checkbox(new Rect(rect.x, y, checkboxWidth, buttonHeight), ref value, onlyLabel))
 			{
 				installOnlyAvailable = value;
-			}
-			string closeLabel = "DreamsOutposts.Ui.Close".Translate();
-			float closeWidth = UiWidgets.ButtonWidth(closeLabel);
-			Rect closeRect = new Rect(rect.xMax - closeWidth, y, closeWidth, buttonHeight);
-			if (UiWidgets.Button(closeRect, closeLabel))
-			{
-				CloseModal();
 			}
 		}
 

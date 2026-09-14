@@ -15,12 +15,29 @@ namespace DreamsOutposts
 			{
 				return;
 			}
-			OutpostStockUtility.AddToStock(context.outpost, thingDef, count);
+			OutpostItemRewardUtility.Add(context, thingDef, count);
 		}
 
 		public override string GetPreview(OutpostEventContext context)
 		{
 			return "+" + count + " " + (thingDef?.LabelCap ?? "unknown item");
+		}
+	}
+
+	public class OutpostEventEffect_AddRandomItemCount : OutpostEventEffect
+	{
+		public ThingDef thingDef;
+		public IntRange countRange;
+
+		public override void Apply(OutpostEventContext context)
+		{
+			if (context?.outpost == null || thingDef == null || countRange.TrueMax <= 0) return;
+			OutpostItemRewardUtility.Add(context, thingDef, countRange.RandomInRange);
+		}
+
+		public override string GetPreview(OutpostEventContext context)
+		{
+			return "+" + countRange + " " + (thingDef?.LabelCap ?? "unknown item");
 		}
 	}
 }

@@ -132,6 +132,26 @@ namespace DreamsOutposts
 			DrawDashesVertical(new Rect(rect.xMax - 1f, rect.y + r, 1f, Mathf.Max(rect.height - r * 2f, 0f)), border, dash, gap);
 		}
 
+		/// <summary>在矩形四角外侧绘制四个装饰性 1/4 圆弧。</summary>
+		public static void CornerAccents(Rect rect, int radius, float gap)
+		{
+			if (rect.width <= 0f || rect.height <= 0f || radius < 2)
+			{
+				return;
+			}
+			float r = radius;
+			Rect outer = rect.ExpandedBy(Mathf.Max(gap, 0f));
+			const float breathPeriod = 2f;
+			float breath = 0.65f + 0.35f * Mathf.Sin(Time.realtimeSinceStartup * Mathf.PI * 2f / breathPeriod);
+			Color previous = GUI.color;
+			GUI.color = new Color(previous.r, previous.g, previous.b, previous.a * breath);
+			GUI.DrawTexture(new Rect(outer.x, outer.y, r, r), UiTex.NavCornerArc(0));
+			GUI.DrawTexture(new Rect(outer.xMax - r, outer.y, r, r), UiTex.NavCornerArc(1));
+			GUI.DrawTexture(new Rect(outer.x, outer.yMax - r, r, r), UiTex.NavCornerArc(2));
+			GUI.DrawTexture(new Rect(outer.xMax - r, outer.yMax - r, r, r), UiTex.NavCornerArc(3));
+			GUI.color = previous;
+		}
+
 		private static void DrawDashes(Rect line, Color color, float dash, float gap)
 		{
 			float step = Mathf.Max(dash + gap, 1f);

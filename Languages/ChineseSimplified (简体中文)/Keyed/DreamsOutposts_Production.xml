@@ -28,7 +28,9 @@
   <DreamsOutposts.RemotePower.StatusUnbound>未绑定接收器</DreamsOutposts.RemotePower.StatusUnbound>
   <DreamsOutposts.RemotePower.StatusWaitingFuel>等待{1}{0}</DreamsOutposts.RemotePower.StatusWaitingFuel>
   <DreamsOutposts.RemotePower.StatusActive>{0} W · 剩余{1}</DreamsOutposts.RemotePower.StatusActive>
+  <DreamsOutposts.RemotePower.StatusContinuous>{0} W · 持续发电</DreamsOutposts.RemotePower.StatusContinuous>
   <DreamsOutposts.RemotePower.FuelCycle>每{2}消耗{1}{0}</DreamsOutposts.RemotePower.FuelCycle>
+  <DreamsOutposts.RemotePower.Continuous>持续发电：{0} W</DreamsOutposts.RemotePower.Continuous>
   <DreamsOutposts.RemotePower.SectionTitle>远距离发电</DreamsOutposts.RemotePower.SectionTitle>
   <DreamsOutposts.RemotePower.DistanceEfficiency>距离{0} · 效率{1}</DreamsOutposts.RemotePower.DistanceEfficiency>
   <DreamsOutposts.ResearchPoints>科研点数</DreamsOutposts.ResearchPoints>

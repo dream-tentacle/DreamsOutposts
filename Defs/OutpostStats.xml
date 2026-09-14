@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-<StatDef>
+  <StatDef>
     <defName>DreamsOutposts_SmithingSpeed</defName>
     <label>smithing speed</label>
     <description>How fast this person carries out smithing, machining and assembly work at an outpost.</description>
@@ -8,11 +8,11 @@
     <defaultBaseValue>1</defaultBaseValue>
     <minValue>0.1</minValue>
     <toStringStyle>PercentZero</toStringStyle>
-<supressDisabledError>true</supressDisabledError>
+    <supressDisabledError>true</supressDisabledError>
     <statFactors>
       <li>WorkSpeedGlobal</li>
     </statFactors>
-<skillNeedFactors>
+    <skillNeedFactors>
       <li Class="SkillNeed_BaseBonus">
         <skill>Crafting</skill>
         <baseValue>0.04</baseValue>

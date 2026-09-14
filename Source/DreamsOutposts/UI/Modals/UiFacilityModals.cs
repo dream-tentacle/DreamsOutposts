@@ -322,6 +322,8 @@ namespace DreamsOutposts
 	/// <summary>安装候选卡的测量与绘制（同一套布局代码）。</summary>
 	internal static class UiInstallCardRenderer
 	{
+		private const float FooterBottomPadding = 5f;
+
 		public static float Measure(UiInstallCardView card, float width)
 		{
 			return Layout(new Rect(0f, 0f, width, 0f), card, true, null);
@@ -415,21 +417,32 @@ namespace DreamsOutposts
 				}
 				y += lineHeight * card.ModLines.Count + UiMetrics.InstallCardGap;
 			}
-			// 底部：建造按钮（无法建造的原因保留在按钮 tooltip 中）
-			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Small);
+			// 底部：只有可建造时才显示建造按钮。
+			float buttonHeight = (UiWidgets.ButtonHeight(UiButtonSize.Small) + 4f) * 1.2f;
 			float footerHeight = buttonHeight + 8f;
 			if (!measure)
 			{
-				float footerY = rect.yMax - UiMetrics.InstallCardPadding - buttonHeight;
+				float footerY = rect.yMax - FooterBottomPadding - buttonHeight;
 				UiDraw.Divider(new Rect(rect.x + UiMetrics.InstallCardPadding, footerY - 8f, innerWidth, 1f), UiPalette.Line);
 				string buildLabel = "DreamsOutposts.Build".Translate();
-				float buildWidth = Mathf.Max(UiWidgets.ButtonWidth(buildLabel, UiButtonSize.Small), 64f);
+				Texture2D buildTexture = UiTex.BuildButtonTexture();
+				float buildWidth = (buildTexture != null && buildTexture.height > 0)
+					? buttonHeight * buildTexture.width / buildTexture.height
+					: Mathf.Max(UiWidgets.ButtonWidth(buildLabel, UiButtonSize.Small), 64f) * 3f;
 				Rect buildRect = new Rect(rect.xMax - UiMetrics.InstallCardPadding - buildWidth, footerY, buildWidth, buttonHeight);
-				string tip = card.Allowed ? "DreamsOutposts.Ui.Install.PayFromStock".Translate().ToString() : card.Reason;
-				if (UiWidgets.Button(buildRect, buildLabel, UiButtonKind.Primary, card.Allowed,
-					card.Allowed ? null : card.Reason, UiButtonSize.Small, tip) && onBuild != null)
+				if (card.Allowed && UiWidgets.TexturedPrimaryButton(buildRect, buildLabel, buildTexture,
+					420f, 300f, UiButtonSize.Normal,
+					"DreamsOutposts.Ui.Install.PayFromStock".Translate().ToString()) && onBuild != null)
 				{
 					onBuild(card);
+				}
+				if (!card.Allowed)
+				{
+					Rect reasonRect = new Rect(innerX, footerY, innerWidth, buttonHeight);
+					UiText.Draw(reasonRect, card.Reason, UiFont.Caption, UiPalette.Bad,
+						TextAnchor.MiddleRight, false, false, true);
+					UiWidgets.Tip(reasonRect, card.Reason,
+						GenText.StableStringHash("install-disabled-reason-" + (card.Def?.defName ?? "null")));
 				}
 				if (DebugSettings.godMode)
 				{
@@ -442,7 +455,7 @@ namespace DreamsOutposts
 					}
 				}
 			}
-			float total = y - rect.y + footerHeight + UiMetrics.InstallCardPadding - UiMetrics.InstallCardGap;
+			float total = y - rect.y + footerHeight + FooterBottomPadding - UiMetrics.InstallCardGap;
 			return total;
 		}
 	}

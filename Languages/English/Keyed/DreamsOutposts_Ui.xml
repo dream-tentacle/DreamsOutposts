@@ -74,6 +74,8 @@
   <DreamsOutposts.Ui.Rule.Progress>Progress {0}%, {1} left</DreamsOutposts.Ui.Rule.Progress>
   <DreamsOutposts.Ui.Rule.Output>Output {0} x {1}</DreamsOutposts.Ui.Rule.Output>
   <DreamsOutposts.Ui.Rule.Expected>Expected {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
+  <DreamsOutposts.Ui.Rule.TemporaryProduction>Event output ×{0}, {1} left</DreamsOutposts.Ui.Rule.TemporaryProduction>
+  <DreamsOutposts.Ui.Rule.TemporaryProductionNext>Event output ×{0} for the next production</DreamsOutposts.Ui.Rule.TemporaryProductionNext>
   <DreamsOutposts.Ui.Rule.Capacity>{0} total {1}</DreamsOutposts.Ui.Rule.Capacity>
   <DreamsOutposts.Ui.Rule.SkillFilter>{0} >= {1} only</DreamsOutposts.Ui.Rule.SkillFilter>
   <DreamsOutposts.Ui.Rule.Tags>Tags {0}</DreamsOutposts.Ui.Rule.Tags>
@@ -98,4 +100,23 @@
   <DreamsOutposts.Ui.Option.RequirementsFailed>Requirements not met</DreamsOutposts.Ui.Option.RequirementsFailed>
   <DreamsOutposts.Ui.Option.Confirm>Confirm</DreamsOutposts.Ui.Option.Confirm>
   <DreamsOutposts.Ui.Option.Later>Later</DreamsOutposts.Ui.Option.Later>
+  <DreamsOutposts.Tavern.Title>Tavern</DreamsOutposts.Tavern.Title>
+  <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
+  <DreamsOutposts.Tavern.Description>Review visiting adventurers and invite them to join this outpost for free.</DreamsOutposts.Tavern.Description>
+  <DreamsOutposts.Tavern.Hint>One candidate arrives every 2 days. Each remains available for 10 days.</DreamsOutposts.Tavern.Hint>
+  <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
+  <DreamsOutposts.Tavern.AnySkill>No preference</DreamsOutposts.Tavern.AnySkill>
+  <DreamsOutposts.Tavern.Next>Next candidate in {0}</DreamsOutposts.Tavern.Next>
+  <DreamsOutposts.Tavern.Full>All candidate slots are occupied</DreamsOutposts.Tavern.Full>
+  <DreamsOutposts.Tavern.Odds>Population tendency {0} · Common {1} · Excellent {2} · Elite {3} · Epic {4}</DreamsOutposts.Tavern.Odds>
+  <DreamsOutposts.Tavern.Empty>No adventurers are currently available.</DreamsOutposts.Tavern.Empty>
+  <DreamsOutposts.Tavern.Rarity>Overall rating: {0}</DreamsOutposts.Tavern.Rarity>
+  <DreamsOutposts.Tavern.Rarity.Common>Common</DreamsOutposts.Tavern.Rarity.Common>
+  <DreamsOutposts.Tavern.Rarity.Excellent>Excellent</DreamsOutposts.Tavern.Rarity.Excellent>
+  <DreamsOutposts.Tavern.Rarity.Elite>Elite</DreamsOutposts.Tavern.Rarity.Elite>
+  <DreamsOutposts.Tavern.Rarity.Epic>Epic</DreamsOutposts.Tavern.Rarity.Epic>
+  <DreamsOutposts.Tavern.Expires>Leaves in {0}</DreamsOutposts.Tavern.Expires>
+  <DreamsOutposts.Tavern.Recruit>Recruit</DreamsOutposts.Tavern.Recruit>
+  <DreamsOutposts.Tavern.Dismiss>Dismiss</DreamsOutposts.Tavern.Dismiss>
+  <DreamsOutposts.Tavern.DismissConfirm>Dismiss {0}? This adventurer will leave immediately.</DreamsOutposts.Tavern.DismissConfirm>
 </LanguageData>

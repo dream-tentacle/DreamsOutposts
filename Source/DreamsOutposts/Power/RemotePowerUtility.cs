@@ -30,7 +30,7 @@ namespace DreamsOutposts
 			{
 				if (outpost.Destroyed || outpost.Faction != Faction.OfPlayer)
 					continue;
-				foreach (OutpostFacility facility in outpost.Facilities)
+				foreach (OutpostFacility facility in outpost.OperationalFacilities)
 				{
 					OutpostFacilityComp_PowerGenerator comp = facility.GetComp<OutpostFacilityComp_PowerGenerator>();
 					if (comp != null) yield return new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = comp };

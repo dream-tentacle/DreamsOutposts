@@ -54,6 +54,11 @@ namespace DreamsOutposts
 			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.Tick(outpost, delta);
 		}
 
+		public void TickDisabledComps(Outpost outpost, int delta)
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.TickDisabled(outpost, delta);
+		}
+
 		public void PreRemove(Outpost outpost)
 		{
 			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.PreRemove(outpost);

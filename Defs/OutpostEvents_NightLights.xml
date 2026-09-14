@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_NightLights</defName>
+    <label>lights in the night</label>
+    <description>Unknown lights have appeared among the distant ridges for several nights in succession.</description>
+    <category>DreamsOutposts_Frontier</category><weight>2</weight>
+    <options>
+      <li><id>investigate</id><label>Send an investigation party</label><description>Send a well-armed group to locate the source.</description>
+        <requirements><li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>40</minDefense></li></requirements>
+        <effects><li Class="DreamsOutposts.OutpostEventEffect_ScheduleRandomEvent"><delayTicksRange>60000~180000</delayTicksRange><options>
+          <li><eventDef>DO_Frontier_ForestShrine</eventDef><weight>3</weight></li><li><eventDef>DO_Frontier_GraveLights</eventDef><weight>3</weight></li>
+          <li><eventDef>DO_Frontier_CrashedTransport</eventDef><weight>3</weight></li><li><eventDef>DO_Frontier_HiddenHuntingGround</eventDef><weight>2</weight></li>
+        </options></li></effects>
+      </li>
+      <li><id>signal</id><label>Light a signal in response</label><description>Divert core operations to keep a bright answering signal active.</description>
+        <effects><li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor"><factor>0.9</factor><durationTicks>60000</durationTicks><targetCore>true</targetCore></li>
+          <li Class="DreamsOutposts.OutpostEventEffect_ScheduleRandomEvent"><delayTicksRange>60000~180000</delayTicksRange><options>
+            <li><eventDef>DO_Frontier_MistakenMiracle</eventDef><weight>3</weight></li><li><eventDef>DO_Frontier_SilentSignal</eventDef><weight>2</weight></li>
+            <li><eventDef>DO_Frontier_TravelersAnswer</eventDef><weight>3</weight></li><li><eventDef>DO_Frontier_DistressSignal</eventDef><weight>2</weight></li>
+          </options></li>
+        </effects>
+      </li>
+      <li><id>blackout</id><label>Black out and stand guard</label><description>Extinguish every light and divert workers to security.</description>
+        <effects><li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor"><factor>0.8</factor><durationTicks>300000</durationTicks><targetCore>true</targetCore></li>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryDefenseOffset"><offset>15</offset><durationTicks>300000</durationTicks></li></effects>
+      </li>
+    </options><defaultOptionId>blackout</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_ForestShrine</defName><label>shrine in the woods</label>
+    <description>The lights came from a ritual held by nearby tribespeople. Offerings surround a totem, and the few guards present remain watchful.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>attack</id><label>Attack them</label><description>Overrun the lightly guarded ritual and seize its offerings.</description>
+        <requirements><li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>55</minDefense></li></requirements><effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>WoodLog</thingDef><count>100</count></li><li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>Steel</thingDef><count>50</count></li>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>Pemmican</thingDef><count>100</count></li><li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>400~400</marketValue></li>
+        </effects></li>
+      <li><id>talk</id><label>Approach peacefully</label><description>Make peaceful contact with those attending the ritual.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Population</category><offset>3</offset><durationTicks>900000</durationTicks></li></effects></li>
+      <li><id>ignore</id><label>Ignore them</label><description>Leave the ritual undisturbed.</description></li>
+    </options><defaultOptionId>ignore</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_GraveLights</defName><label>graveyard lights</label>
+    <description>The strange glow comes from a forgotten burial ground, where marsh gas burns between broken headstones like wandering spirits.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>investigate</id><label>Investigate</label><description>Search the burial ground despite the danger.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>45</minDefense></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>900~900</marketValue></li></effects></li>
+      <li><id>restore</id><label>Repair the graves</label><description>Set the markers upright and restore some dignity to the site.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Frontier</category><offset>-5</offset><durationTicks>1200000</durationTicks></li></effects></li>
+      <li><id>ignore</id><label>Ignore it</label><description>Leave the dead and their lights alone.</description></li>
+    </options><defaultOptionId>ignore</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_CrashedTransport</defName><label>crashed transport</label>
+    <description>The investigation party found an old transport overturned in a ravine. Its crew is long gone and some holds remain intact, but large animal tracks surround the wreck.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>search</id><label>Drive off the beasts and search thoroughly</label><description>Secure the wreck and empty every intact hold.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>50</minDefense></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>1500~1500</marketValue></li></effects></li>
+      <li><id>salvage</id><label>Quickly dismantle the wreck</label><description>Take the easiest metal and machinery, then withdraw.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>Steel</thingDef><count>80</count></li><li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>ComponentIndustrial</thingDef><count>5</count></li></effects></li>
+      <li><id>clear</id><label>Mark the route and clear the site</label><description>Turn the discovery into a safer, faster route.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryMovementCostFactor"><factor>0.75</factor><durationTicks>1200000</durationTicks></li></effects></li>
+      <li><id>avoid</id><label>Do not risk it</label><description>Withdraw without approaching the wreck.</description></li>
+    </options><defaultOptionId>avoid</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_HiddenHuntingGround</defName><label>hidden hunting ground</label>
+    <description>The strange traces belong to migrating animals resting in a sheltered valley, creating a brief and abundant hunting ground.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>hunt</id><label>Organize a driven hunt</label><description>Surround the herd and harvest as much as possible.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>35</minDefense></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddRandomAnimalProducts"><minBodySize>1.2</minBodySize><animalCount>12</animalCount></li></effects></li>
+      <li><id>record</id><label>Record the migration route</label><description>Study the herd and document its route.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill"><skillDefs><li>Intellectual</li></skillDefs><minLevel>8</minLevel></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints"><points>500</points></li><li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Research</category><offset>2</offset><durationTicks>600000</durationTicks></li></effects></li>
+      <li><id>avoid</id><label>Avoid disturbing the herd</label><description>Let the animals continue their migration undisturbed.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Frontier</category><offset>2</offset><durationTicks>720000</durationTicks></li></effects></li>
+    </options><defaultOptionId>avoid</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_MistakenMiracle</defName><label>mistaken miracle</label>
+    <description>Nearby tribespeople saw the restored signal and took it for a divine manifestation. They gather around the equipment and leave offerings.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>intimidate</id><label>Intimidate them</label><description>Use the signal equipment to produce a display of light and sound, frightening them into leaving their offerings behind.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill"><skillDefs><li>Intellectual</li></skillDefs><minLevel>12</minLevel></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>WoodLog</thingDef><count>150</count></li><li Class="DreamsOutposts.OutpostEventEffect_AddItem"><thingDef>Steel</thingDef><count>70</count></li>
+        <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>800~800</marketValue></li></effects></li>
+      <li><id>truth</id><label>Tell them the truth</label><description>Explain the machinery. They conclude that they have been deceived.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_RaidPlayerHome"><factionDef>DreamsOutposts_WildernessTribe</factionDef><pointsFactor>0.5</pointsFactor></li></effects></li>
+      <li><id>contact</id><label>Use the opportunity to make contact</label><description>Welcome the gathering and establish new ties.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Population</category><offset>5</offset><durationTicks>900000</durationTicks></li></effects></li>
+      <li><id>ignore</id><label>Ignore them</label><description>Take no part in the gathering.</description></li>
+    </options><defaultOptionId>ignore</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_SilentSignal</defName><label>silence</label>
+    <description>The signal flashes regularly for a long while, but nothing answers on the horizon. Perhaps no one is watching, or perhaps they chose to remain silent.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>continue</id><label>Keep the signal going</label><description>Maintain the signal a little longer.</description></li>
+    </options><defaultOptionId>continue</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_TravelersAnswer</defName><label>the travelers' answer</label>
+    <description>Several days later, a traveling party follows the signal to the outpost. They do not know who restored the equipment, but are willing to trade.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>market</id><label>Open a temporary market</label><description>Invite the travelers to trade at the outpost.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Population</category><offset>4</offset><durationTicks>900000</durationTicks></li></effects></li>
+      <li><id>trade</id><label>Exchange supplies</label><description>Trade a load of steel for assorted supplies.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount"><thingDef>Steel</thingDef><count>150</count></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_RemoveItem"><thingDef>Steel</thingDef><count>150</count></li><li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>700~700</marketValue></li></effects></li>
+      <li><id>spreadWord</id><label>Ask them to spread the word</label><description>Ask the travelers to tell others about the outpost.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Population</category><offset>3</offset><durationTicks>1200000</durationTicks></li></effects></li>
+      <li><id>farewell</id><label>Bid them a polite farewell</label><description>Part on courteous terms without making a deal.</description></li>
+    </options><defaultOptionId>farewell</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Frontier_DistressSignal</defName><label>distress signal</label>
+    <description>Soon after the signal is lit, the equipment receives a broken reply. Someone nearby has suffered an accident and is trying to locate the outpost.</description>
+    <category>DreamsOutposts_Frontier</category><weight>0</weight><options>
+      <li><id>rescue</id><label>Send a rescue team</label><description>Dispatch an armed team to bring the survivor back.</description><requirements>
+        <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense"><minDefense>40</minDefense></li></requirements><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawn"><pawnKindDef>Mercenary_Elite</pawnKindDef><count>1</count></li></effects></li>
+      <li><id>directions</id><label>Provide directions only</label><description>Guide the stranded survivor toward safer territory.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_AdjustFactionGoodwill"><amount>20</amount></li></effects></li>
+      <li><id>payment</id><label>Demand payment</label><description>Offer help only in return for valuables.</description><effects>
+        <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems"><marketValue>900~900</marketValue></li><li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset"><category>DreamsOutposts_Population</category><offset>-2</offset><durationTicks>720000</durationTicks></li></effects></li>
+      <li><id>silent</id><label>Remain silent</label><description>Do not answer the call.</description></li>
+    </options><defaultOptionId>silent</defaultOptionId><durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+</Defs>

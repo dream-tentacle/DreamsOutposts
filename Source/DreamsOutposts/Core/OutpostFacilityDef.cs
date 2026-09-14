@@ -26,6 +26,9 @@ namespace DreamsOutposts
 
 		public int maxPerOutpost;
 
+		/// <summary>Whether this facility can only be installed on a surface tile with a river.</summary>
+		public bool requiresRiver;
+
 		public List<ResearchProjectDef> researchPrerequisites = new List<ResearchProjectDef>();
 
 		public List<OutpostFacilityCompProperties> comps = new List<OutpostFacilityCompProperties>();

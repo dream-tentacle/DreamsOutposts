@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DO_Frontier_NightLights.label>夜间火光</DO_Frontier_NightLights.label>
+  <DO_Frontier_NightLights.description>远处山岭间连续数夜出现不明火光。</DO_Frontier_NightLights.description>
+  <DO_Frontier_NightLights.options.0.label>派人调查</DO_Frontier_NightLights.options.0.label><DO_Frontier_NightLights.options.0.description>派出装备精良的队伍寻找火光来源。</DO_Frontier_NightLights.options.0.description>
+  <DO_Frontier_NightLights.options.1.label>点亮信号回应</DO_Frontier_NightLights.options.1.label><DO_Frontier_NightLights.options.1.description>调拨核心设施的运作能力，持续维持醒目的回应信号。</DO_Frontier_NightLights.options.1.description>
+  <DO_Frontier_NightLights.options.2.label>熄灯戒备</DO_Frontier_NightLights.options.2.label><DO_Frontier_NightLights.options.2.description>熄灭所有灯火，并调派人员加强戒备。</DO_Frontier_NightLights.options.2.description>
+
+  <DO_Frontier_ForestShrine.label>林间祭场</DO_Frontier_ForestShrine.label><DO_Frontier_ForestShrine.description>原来是附近的部落居民在举行祭祀。贡品堆在图腾周围，守卫数量不多，但所有人都保持着警惕。</DO_Frontier_ForestShrine.description>
+  <DO_Frontier_ForestShrine.options.0.label>进攻他们</DO_Frontier_ForestShrine.options.0.label><DO_Frontier_ForestShrine.options.0.description>击溃为数不多的守卫，夺走祭祀贡品。</DO_Frontier_ForestShrine.options.0.description>
+  <DO_Frontier_ForestShrine.options.1.label>友好交流</DO_Frontier_ForestShrine.options.1.label><DO_Frontier_ForestShrine.options.1.description>以和平方式接触参加祭祀的人群。</DO_Frontier_ForestShrine.options.1.description>
+  <DO_Frontier_ForestShrine.options.2.label>无视他们</DO_Frontier_ForestShrine.options.2.label><DO_Frontier_ForestShrine.options.2.description>不去打扰这场祭祀。</DO_Frontier_ForestShrine.options.2.description>
+
+  <DO_Frontier_GraveLights.label>荒冢鬼火</DO_Frontier_GraveLights.label><DO_Frontier_GraveLights.description>所谓的异常亮光来自一片被遗忘的乱葬岗。夜间逸散的沼气在残破墓碑之间燃烧，看起来像徘徊不去的鬼火。</DO_Frontier_GraveLights.description>
+  <DO_Frontier_GraveLights.options.0.label>派人调查</DO_Frontier_GraveLights.options.0.label><DO_Frontier_GraveLights.options.0.description>冒险搜索这片乱葬岗。</DO_Frontier_GraveLights.options.0.description>
+  <DO_Frontier_GraveLights.options.1.label>派人修缮</DO_Frontier_GraveLights.options.1.label><DO_Frontier_GraveLights.options.1.description>扶正墓碑，让这里恢复些许庄严。</DO_Frontier_GraveLights.options.1.description>
+  <DO_Frontier_GraveLights.options.2.label>无视</DO_Frontier_GraveLights.options.2.label><DO_Frontier_GraveLights.options.2.description>不要打扰死者与那些火光。</DO_Frontier_GraveLights.options.2.description>
+
+  <DO_Frontier_CrashedTransport.label>失事运输车</DO_Frontier_CrashedTransport.label><DO_Frontier_CrashedTransport.description>调查队找到了一辆侧翻在沟壑中的旧运输车。车组成员早已不知所踪，部分货舱仍然完好，但车体周围留下了大型野兽的活动痕迹。</DO_Frontier_CrashedTransport.description>
+  <DO_Frontier_CrashedTransport.options.0.label>驱散野兽并仔细搜刮</DO_Frontier_CrashedTransport.options.0.label><DO_Frontier_CrashedTransport.options.0.description>控制失事地点，搜空所有完好的货舱。</DO_Frontier_CrashedTransport.options.0.description>
+  <DO_Frontier_CrashedTransport.options.1.label>快速拆解残骸</DO_Frontier_CrashedTransport.options.1.label><DO_Frontier_CrashedTransport.options.1.description>拆走容易取得的金属和机械部件，然后迅速撤离。</DO_Frontier_CrashedTransport.options.1.description>
+  <DO_Frontier_CrashedTransport.options.2.label>标记道路并清理现场</DO_Frontier_CrashedTransport.options.2.label><DO_Frontier_CrashedTransport.options.2.description>利用这次发现整理出一条更安全、更快捷的路线。</DO_Frontier_CrashedTransport.options.2.description>
+  <DO_Frontier_CrashedTransport.options.3.label>不去冒险</DO_Frontier_CrashedTransport.options.3.label><DO_Frontier_CrashedTransport.options.3.description>不要接近残骸，直接撤回。</DO_Frontier_CrashedTransport.options.3.description>
+
+  <DO_Frontier_HiddenHuntingGround.label>隐蔽的猎场</DO_Frontier_HiddenHuntingGround.label><DO_Frontier_HiddenHuntingGround.description>异常痕迹属于一群迁徙中的动物。它们在山坳中停留，形成了一个短暂而丰富的猎场。</DO_Frontier_HiddenHuntingGround.description>
+  <DO_Frontier_HiddenHuntingGround.options.0.label>组织围猎</DO_Frontier_HiddenHuntingGround.options.0.label><DO_Frontier_HiddenHuntingGround.options.0.description>包围兽群，尽可能多地获取猎物。</DO_Frontier_HiddenHuntingGround.options.0.description>
+  <DO_Frontier_HiddenHuntingGround.options.1.label>记录迁徙路线</DO_Frontier_HiddenHuntingGround.options.1.label><DO_Frontier_HiddenHuntingGround.options.1.description>观察兽群并记录它们的迁徙路线。</DO_Frontier_HiddenHuntingGround.options.1.description>
+  <DO_Frontier_HiddenHuntingGround.options.2.label>避免惊扰兽群</DO_Frontier_HiddenHuntingGround.options.2.label><DO_Frontier_HiddenHuntingGround.options.2.description>让动物不受打扰地继续迁徙。</DO_Frontier_HiddenHuntingGround.options.2.description>
+
+  <DO_Frontier_MistakenMiracle.label>被误认的神迹</DO_Frontier_MistakenMiracle.label><DO_Frontier_MistakenMiracle.description>附近的部落居民看见重新亮起的信号，将其当成了神明显灵。他们开始在设施附近聚集并献上贡品。</DO_Frontier_MistakenMiracle.description>
+  <DO_Frontier_MistakenMiracle.options.0.label>威慑他们</DO_Frontier_MistakenMiracle.options.0.label><DO_Frontier_MistakenMiracle.options.0.description>利用信号设备制造声光异象，使他们留下贡品后离开。</DO_Frontier_MistakenMiracle.options.0.description>
+  <DO_Frontier_MistakenMiracle.options.1.label>道出实情</DO_Frontier_MistakenMiracle.options.1.label><DO_Frontier_MistakenMiracle.options.1.description>解释设备的原理。他们认定自己遭到了欺骗。</DO_Frontier_MistakenMiracle.options.1.description>
+  <DO_Frontier_MistakenMiracle.options.2.label>顺势接触</DO_Frontier_MistakenMiracle.options.2.label><DO_Frontier_MistakenMiracle.options.2.description>接纳聚集的人群，并借机建立联系。</DO_Frontier_MistakenMiracle.options.2.description>
+  <DO_Frontier_MistakenMiracle.options.3.label>无视他们</DO_Frontier_MistakenMiracle.options.3.label><DO_Frontier_MistakenMiracle.options.3.description>不参与这场聚集。</DO_Frontier_MistakenMiracle.options.3.description>
+
+  <DO_Frontier_SilentSignal.label>寂静无声</DO_Frontier_SilentSignal.label><DO_Frontier_SilentSignal.description>信号规律地闪烁了许久，但地平线上没有出现任何回应。也许附近根本没有观察者，也许他们选择了保持沉默。</DO_Frontier_SilentSignal.description>
+  <DO_Frontier_SilentSignal.options.0.label>继续维持信号</DO_Frontier_SilentSignal.options.0.label><DO_Frontier_SilentSignal.options.0.description>让信号再维持一段时间。</DO_Frontier_SilentSignal.options.0.description>
+
+  <DO_Frontier_TravelersAnswer.label>远行队的回应</DO_Frontier_TravelersAnswer.label><DO_Frontier_TravelersAnswer.description>数日后，一支远行队循着信号找到了据点。他们并不清楚是谁修复了设备，但愿意趁此机会进行一笔交易。</DO_Frontier_TravelersAnswer.description>
+  <DO_Frontier_TravelersAnswer.options.0.label>开放临时集市</DO_Frontier_TravelersAnswer.options.0.label><DO_Frontier_TravelersAnswer.options.0.description>邀请远行队在据点展开贸易。</DO_Frontier_TravelersAnswer.options.0.description>
+  <DO_Frontier_TravelersAnswer.options.1.label>交换补给</DO_Frontier_TravelersAnswer.options.1.label><DO_Frontier_TravelersAnswer.options.1.description>用一批钢铁交换各种补给。</DO_Frontier_TravelersAnswer.options.1.description>
+  <DO_Frontier_TravelersAnswer.options.2.label>请求他们传播消息</DO_Frontier_TravelersAnswer.options.2.label><DO_Frontier_TravelersAnswer.options.2.description>请远行队向其他人宣传这座据点。</DO_Frontier_TravelersAnswer.options.2.description>
+  <DO_Frontier_TravelersAnswer.options.3.label>礼貌送别</DO_Frontier_TravelersAnswer.options.3.label><DO_Frontier_TravelersAnswer.options.3.description>不进行交易，礼貌地与他们道别。</DO_Frontier_TravelersAnswer.options.3.description>
+
+  <DO_Frontier_DistressSignal.label>求救信号</DO_Frontier_DistressSignal.label><DO_Frontier_DistressSignal.description>信号亮起后不久，设备收到了一段断断续续的回应。附近有人遭遇了事故，正在尝试确定据点的位置。</DO_Frontier_DistressSignal.description>
+  <DO_Frontier_DistressSignal.options.0.label>派出救援队</DO_Frontier_DistressSignal.options.0.label><DO_Frontier_DistressSignal.options.0.description>派出武装队伍，把幸存者带回据点。</DO_Frontier_DistressSignal.options.0.description>
+  <DO_Frontier_DistressSignal.options.1.label>只提供方向</DO_Frontier_DistressSignal.options.1.label><DO_Frontier_DistressSignal.options.1.description>引导受困者前往更安全的地区。</DO_Frontier_DistressSignal.options.1.description>
+  <DO_Frontier_DistressSignal.options.2.label>索要报酬</DO_Frontier_DistressSignal.options.2.label><DO_Frontier_DistressSignal.options.2.description>要求对方用贵重物资换取帮助。</DO_Frontier_DistressSignal.options.2.description>
+  <DO_Frontier_DistressSignal.options.3.label>保持沉默</DO_Frontier_DistressSignal.options.3.label><DO_Frontier_DistressSignal.options.3.description>不要回应这段求救。</DO_Frontier_DistressSignal.options.3.description>
+</LanguageData>

@@ -28,12 +28,18 @@ namespace DreamsOutposts
 			{
 				return 0f;
 			}
-			return personnelCapacity * production.outputPerCapacity * plantProperties.harvestYield / plantProperties.growDays;
+			return personnelCapacity * production.outputPerCapacity * plantProperties.harvestYield;
 		}
 
 		public override ThingDef GetProduct(OutpostProductionProperties production, OutpostProductionState state)
 		{
 			return FarmingState(state)?.selectedPlant?.plant?.harvestedThingDef;
+		}
+
+		public override int GetProductionIntervalTicks(OutpostProductionProperties production, OutpostProductionState state)
+		{
+			float growDays = FarmingState(state)?.selectedPlant?.plant?.growDays ?? 0f;
+			return growDays > 0f ? Mathf.Max(Mathf.RoundToInt(growDays * GenDate.TicksPerDay), 1) : base.GetProductionIntervalTicks(production, state);
 		}
 
 		private static OutpostProductionState_Farming FarmingState(OutpostProductionState state)
@@ -55,6 +61,7 @@ namespace DreamsOutposts
 				if (candidates.Count != 0)
 				{
 					farmingState.selectedPlant = candidates[0];
+					ResetProductionTimer(production, farmingState);
 				}
 			}
 		}
@@ -130,10 +137,16 @@ namespace DreamsOutposts
 			{
 				Log.Error("Tried to set plant " + (plant?.defName ?? "null") + " on production " + farming.id + ", but it is not sowable here.");
 			}
-			else
+			else if (farmingState.selectedPlant != plant)
 			{
 				farmingState.selectedPlant = plant;
+				ResetProductionTimer(farming, farmingState);
 			}
+		}
+
+		private static void ResetProductionTimer(OutpostProductionProperties production, OutpostProductionState_Farming state)
+		{
+			state.nextProductionTick = Find.TickManager.TicksGame + production.Worker.GetProductionIntervalTicks(production, state);
 		}
 
 		private static string PlantTooltip(ThingDef plant)

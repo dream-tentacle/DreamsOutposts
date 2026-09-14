@@ -33,6 +33,8 @@ namespace DreamsOutposts
 		public const float NavLabelPaddingBottom = 8f;
 		public const float NavBadgeMinWidth = 20f;
 		public const float NavBadgePaddingH = 6f;
+		public const float NavActiveArcRadius = 7f;
+		public const float NavActiveArcGap = 2f;
 
 		// ---------- 内容区 ----------
 		public const float ContentPaddingTop = 18f;
@@ -89,6 +91,12 @@ namespace DreamsOutposts
 		public const float PipMarginBottom = 10f;
 		public const float LevelFactsGap = 8f;
 		public const float LevelFactsMarginTop = 12f;
+		public const float LevelUpgradeSweepDuration = 0.35f;
+		public const float LevelUpgradeFlashDuration = 0.9f;
+		public const float LevelUpgradeFlashFillAlpha = 0.14f;
+		public const float LevelUpgradeFlashBorderAlpha = 0.75f;
+		public const float LevelUpgradeSweepHeight = 64f;
+		public const float LevelUpgradeSweepAlpha = 0.1375f;
 		public const float ReqListGap = 7f;
 		public const float ReqTickSize = 16f;
 		public const float ReqListMarginBottom = 12f;

@@ -72,6 +72,10 @@ namespace DreamsOutposts
 			{
 				return UiIcon.Bell;
 			}
+			if (pageClass == typeof(Page_OutpostTavern))
+			{
+				return UiIcon.Person;
+			}
 			return UiIcon.Dot;
 		}
 

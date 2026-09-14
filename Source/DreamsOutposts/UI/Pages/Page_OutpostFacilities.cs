@@ -16,6 +16,10 @@ namespace DreamsOutposts
 
 		private OutpostUiCache fallbackCache;
 
+		private int observedLevel = -1;
+
+		private float upgradeFlashStartedAt = float.NegativeInfinity;
+
 		private Window_OutpostManage Shell => hostWindow as Window_OutpostManage;
 
 		private OutpostUiCache Cache
@@ -70,6 +74,10 @@ namespace DreamsOutposts
 		private float Layout(Rect rect, bool draw)
 		{
 			OutpostUiCache cache = Cache;
+			if (draw)
+			{
+				ObserveLevelChange();
+			}
 			float width = rect.width;
 			if (width < 80f)
 			{
@@ -247,6 +255,7 @@ namespace DreamsOutposts
 		{
 			UiDebug.Scope("level.card", rect);
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
+			DrawLevelUpgradeFlash(rect);
 			bool stacked = LevelCardStacked(rect.width);
 			float innerX = rect.x + UiMetrics.LevelCardPaddingH;
 			float innerWidth = rect.width - UiMetrics.LevelCardPaddingH * 2f;
@@ -266,6 +275,61 @@ namespace DreamsOutposts
 				UiDraw.Divider(new Rect(rightX - UiMetrics.LevelCardGap * 0.5f, innerY, 1f, rect.height - UiMetrics.LevelCardPaddingV * 2f), UiPalette.Line);
 				DrawLevelRight(new Rect(rightX + UiMetrics.LevelCardGap * 0.5f, innerY, innerWidth - leftWidth - UiMetrics.LevelCardGap * 1.5f, 0f), cache);
 			}
+		}
+
+		private void ObserveLevelChange()
+		{
+			int currentLevel = outpost?.level ?? 1;
+			if (observedLevel >= 0 && currentLevel > observedLevel)
+			{
+				upgradeFlashStartedAt = Time.realtimeSinceStartup;
+			}
+			observedLevel = currentLevel;
+		}
+
+		private void DrawLevelUpgradeFlash(Rect rect)
+		{
+			float elapsed = Time.realtimeSinceStartup - upgradeFlashStartedAt;
+			float totalDuration = UiMetrics.LevelUpgradeSweepDuration + UiMetrics.LevelUpgradeFlashDuration;
+			if (elapsed < 0f || elapsed >= totalDuration)
+			{
+				return;
+			}
+			float fadeElapsed = Mathf.Max(elapsed - UiMetrics.LevelUpgradeSweepDuration, 0f);
+			float remaining = 1f - fadeElapsed / UiMetrics.LevelUpgradeFlashDuration;
+			float strength = remaining * remaining;
+			Color previous = GUI.color;
+			GUI.color = new Color(previous.r, previous.g, previous.b,
+				previous.a * UiMetrics.LevelUpgradeFlashFillAlpha * strength);
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.OnAccent, UiPalette.Clear);
+			if (elapsed < UiMetrics.LevelUpgradeSweepDuration)
+			{
+				DrawLevelUpgradeSweep(rect, elapsed / UiMetrics.LevelUpgradeSweepDuration, previous);
+			}
+			GUI.color = new Color(previous.r, previous.g, previous.b,
+				previous.a * UiMetrics.LevelUpgradeFlashBorderAlpha * strength);
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Clear, UiPalette.OnAccent);
+			GUI.color = previous;
+		}
+
+		private static void DrawLevelUpgradeSweep(Rect rect, float progress, Color previous)
+		{
+			Texture2D texture = UiTex.LevelUpgradeSweepTexture();
+			if (texture == null)
+			{
+				return;
+			}
+			float t = Mathf.Clamp01(progress);
+			float eased = t * t * (3f - 2f * t);
+			float bandHeight = Mathf.Min(UiMetrics.LevelUpgradeSweepHeight, rect.height);
+			float localY = rect.height + bandHeight * 0.5f - eased * (rect.height + bandHeight * 2f);
+			float envelope = Mathf.Sin(t * Mathf.PI);
+			GUI.BeginGroup(rect);
+			GUI.color = new Color(previous.r, previous.g, previous.b,
+				previous.a * UiMetrics.LevelUpgradeSweepAlpha * envelope);
+			GUI.DrawTexture(new Rect(0f, localY, rect.width, bandHeight), texture, ScaleMode.StretchToFill, true);
+			GUI.EndGroup();
+			GUI.color = previous;
 		}
 
 		private static void DrawLevelLeft(Rect rect, OutpostUiCache cache, int level)

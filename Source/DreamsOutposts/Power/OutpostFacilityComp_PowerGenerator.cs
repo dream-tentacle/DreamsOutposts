@@ -11,6 +11,7 @@ namespace DreamsOutposts
 		public int fuelPerCycle;
 		public int cycleTicks = 60000;
 		public float basePowerOutput = 1000f;
+		public bool requiresFuel = true;
 
 		public OutpostFacilityCompProperties_PowerGenerator()
 		{
@@ -20,9 +21,9 @@ namespace DreamsOutposts
 		public override IEnumerable<string> ConfigErrors()
 		{
 			foreach (string error in base.ConfigErrors()) yield return error;
-			if (fuel == null) yield return "fuel is required.";
-			if (fuelPerCycle <= 0) yield return "fuelPerCycle must be positive.";
-			if (cycleTicks <= 0) yield return "cycleTicks must be positive.";
+			if (requiresFuel && fuel == null) yield return "fuel is required when requiresFuel is true.";
+			if (requiresFuel && fuelPerCycle <= 0) yield return "fuelPerCycle must be positive when requiresFuel is true.";
+			if (requiresFuel && cycleTicks <= 0) yield return "cycleTicks must be positive when requiresFuel is true.";
 			if (basePowerOutput <= 0f || float.IsNaN(basePowerOutput) || float.IsInfinity(basePowerOutput)) yield return "basePowerOutput must be finite and positive.";
 		}
 	}
@@ -34,7 +35,7 @@ namespace DreamsOutposts
 		public Building linkedReceiver;
 
 		public OutpostFacilityCompProperties_PowerGenerator Props => (OutpostFacilityCompProperties_PowerGenerator)props;
-		public bool IsPoweredNow => poweredUntilTick > Find.TickManager.TicksGame;
+		public bool IsPoweredNow => !Props.requiresFuel || poweredUntilTick > Find.TickManager.TicksGame;
 
 		public override void Tick(Outpost outpost, int delta)
 		{
@@ -44,6 +45,12 @@ namespace DreamsOutposts
 			{
 				linkedReceiver = null;
 				nextFuelCheckTick = now + 1250;
+				return;
+			}
+			if (!Props.requiresFuel)
+			{
+				nextFuelCheckTick = now + 1250;
+				RemotePowerUtility.NotifyReceiver(linkedReceiver);
 				return;
 			}
 			if (poweredUntilTick > now)
@@ -77,13 +84,15 @@ namespace DreamsOutposts
 			int now = Find.TickManager.TicksGame;
 			bool active = IsPoweredNow && RemotePowerUtility.IsValidReceiver(linkedReceiver);
 			int remaining = active ? poweredUntilTick - now : 0;
-			float progress = active ? Mathf.Clamp01((float)remaining / Props.cycleTicks) : 0f;
+			float progress = active && Props.requiresFuel ? Mathf.Clamp01((float)remaining / Props.cycleTicks) : 0f;
 			int distance = linkedReceiver == null ? int.MaxValue : Find.WorldGrid.TraversalDistanceBetween(outpost.Tile, linkedReceiver.Map.Tile, true);
 			float efficiency = RemotePowerUtility.Efficiency(distance);
 			float watts = active ? Props.basePowerOutput * efficiency : 0f;
 			string status = linkedReceiver == null
 				? "DreamsOutposts.RemotePower.StatusUnbound".Translate().ToString()
-				: (active ? "DreamsOutposts.RemotePower.StatusActive".Translate(watts.ToString("0"), remaining.ToStringTicksToPeriod()).ToString()
+				: (active ? (Props.requiresFuel
+					? "DreamsOutposts.RemotePower.StatusActive".Translate(watts.ToString("0"), remaining.ToStringTicksToPeriod()).ToString()
+					: "DreamsOutposts.RemotePower.StatusContinuous".Translate(watts.ToString("0")).ToString())
 					: "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(Props.fuel.LabelCap, Props.fuelPerCycle).ToString());
 			UiFacilitySectionView section = new UiFacilitySectionView
 			{
@@ -92,10 +101,12 @@ namespace DreamsOutposts
 				MainText = active ? watts.ToString("0") + " W" : string.Empty,
 				LeftText = status,
 				RightText = linkedReceiver == null ? string.Empty : "DreamsOutposts.RemotePower.DistanceEfficiency".Translate(distance, efficiency.ToStringPercent()).ToString(),
-				ShowProgress = true,
+				ShowProgress = Props.requiresFuel,
 				Progress = progress,
 				ProgressKind = active ? UiChipKind.Good : UiChipKind.Warn,
-				Tooltip = "DreamsOutposts.RemotePower.FuelCycle".Translate(Props.fuel.LabelCap, Props.fuelPerCycle, Props.cycleTicks.ToStringTicksToPeriod()).ToString()
+				Tooltip = Props.requiresFuel
+					? "DreamsOutposts.RemotePower.FuelCycle".Translate(Props.fuel.LabelCap, Props.fuelPerCycle, Props.cycleTicks.ToStringTicksToPeriod()).ToString()
+					: "DreamsOutposts.RemotePower.Continuous".Translate(Props.basePowerOutput.ToString("0")).ToString()
 			};
 			output.Add(section);
 		}

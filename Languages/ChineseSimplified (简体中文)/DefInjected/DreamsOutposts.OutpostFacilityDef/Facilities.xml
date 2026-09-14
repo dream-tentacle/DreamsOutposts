@@ -50,6 +50,14 @@
   <DreamsOutposts_WoodPowerGenerator.description>预先消耗木材，并将产生的电力输送至已绑定的远距离电力接收器。</DreamsOutposts_WoodPowerGenerator.description>
   <DreamsOutposts_ChemfuelPowerGenerator.label>化合燃料发电设施</DreamsOutposts_ChemfuelPowerGenerator.label>
   <DreamsOutposts_ChemfuelPowerGenerator.description>预先消耗9单位化合燃料，随后持续发电两天，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_ChemfuelPowerGenerator.description>
+  <DreamsOutposts_GeothermalPowerGenerator.label>地热发电设施</DreamsOutposts_GeothermalPowerGenerator.label>
+  <DreamsOutposts_GeothermalPowerGenerator.description>利用地热能持续发电，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_GeothermalPowerGenerator.description>
+  <DreamsOutposts_WatermillPowerGenerator.label>水力发电设施</DreamsOutposts_WatermillPowerGenerator.label>
+  <DreamsOutposts_WatermillPowerGenerator.description>利用河流持续发电，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_WatermillPowerGenerator.description>
+  <DreamsOutposts_SolarPowerGenerator.label>太阳能发电设施</DreamsOutposts_SolarPowerGenerator.label>
+  <DreamsOutposts_SolarPowerGenerator.description>利用太阳能发电，并以折算后的平均功率持续向已绑定的远距离电力接收器输送电力。</DreamsOutposts_SolarPowerGenerator.description>
+  <DreamsOutposts_BioferritePowerGenerator.label MayRequire="Ludeon.RimWorld.Anomaly">活铁发电设施</DreamsOutposts_BioferritePowerGenerator.label>
+  <DreamsOutposts_BioferritePowerGenerator.description MayRequire="Ludeon.RimWorld.Anomaly">燃烧活铁产生电力，并将电力输送至已绑定的远距离电力接收器。</DreamsOutposts_BioferritePowerGenerator.description>
   <DreamsOutposts_ResearchStation.label>科研站</DreamsOutposts_ResearchStation.label>
   <DreamsOutposts_ResearchStation.description>每半天为殖民地当前研究项目贡献61.875点科研点数的常设研究设施。</DreamsOutposts_ResearchStation.description>
   <DreamsOutposts_AdvancedResearchApparatus.label>高级研究装置</DreamsOutposts_AdvancedResearchApparatus.label>
@@ -58,4 +66,10 @@
   <DreamsOutposts_SterileAnalysisApparatus.description>无菌分析设施，使科研产出乘以1.3。</DreamsOutposts_SterileAnalysisApparatus.description>
 	<DreamsOutposts_Waystation.label>驿站</DreamsOutposts_Waystation.label>
 	<DreamsOutposts_Waystation.description>为过往人员和远行队提供食宿、补给与换乘服务的路边设施。驿站促进人口往来和商品流通，并大幅降低远行队进入此地块所需的时间。</DreamsOutposts_Waystation.description>
+	<DreamsOutposts_AdventurerCamp.label>冒险者营地</DreamsOutposts_AdventurerCamp.label>
+	<DreamsOutposts_AdventurerCamp.description>旅人和冒险者聚集的热闹营地。每2天介绍一名新的候选人；更高的人口倾向会提高遇到优秀人才的概率。</DreamsOutposts_AdventurerCamp.description>
+	<DreamsOutposts_Inn.label>旅馆</DreamsOutposts_Inn.label>
+	<DreamsOutposts_Inn.description>为旅人提供舒适食宿的路边旅馆，吸引旅客和潜在居民来到据点。</DreamsOutposts_Inn.description>
+	<DreamsOutposts_LuxuryHotel.label>豪华饭店</DreamsOutposts_LuxuryHotel.label>
+	<DreamsOutposts_LuxuryHotel.description>以奢华食宿款待远方名流的高级饭店，吸引声名显赫的访客慕名而来。</DreamsOutposts_LuxuryHotel.description>
 </LanguageData>

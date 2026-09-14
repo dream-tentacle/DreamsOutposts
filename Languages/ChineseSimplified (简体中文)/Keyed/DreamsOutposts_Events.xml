@@ -12,6 +12,50 @@
 	<DreamsOutposts.EventWeight.Colonists>殖民者（{0}人）</DreamsOutposts.EventWeight.Colonists>
 	<DreamsOutposts.EventWeight.ResearchOutpost>科研据点</DreamsOutposts.EventWeight.ResearchOutpost>
 	<DreamsOutposts.EventWeight.Intellectual>最高智识（{0}）</DreamsOutposts.EventWeight.Intellectual>
+	<DreamsOutposts.EventWeight.Temporary>临时效果</DreamsOutposts.EventWeight.Temporary>
+	<DreamsOutposts.AllProduction>全部生产</DreamsOutposts.AllProduction>
+	<DreamsOutposts.CoreFacility>核心设施</DreamsOutposts.CoreFacility>
+	<DreamsOutposts.EventRequirement.AnyColonistSkill>需要至少一名殖民者的{0}达到{1}级</DreamsOutposts.EventRequirement.AnyColonistSkill>
+	<DreamsOutposts.EventEffect.GainSkillXp>所有殖民者获得{1}点{0}经验</DreamsOutposts.EventEffect.GainSkillXp>
+	<DreamsOutposts.EventEffect.TemporaryProductionFactor>{0}产量 ×{1}，持续{2}</DreamsOutposts.EventEffect.TemporaryProductionFactor>
+	<DreamsOutposts.EventEffect.RandomFacilityProductionFactor>随机生产设施产量 ×{0}，持续{1}</DreamsOutposts.EventEffect.RandomFacilityProductionFactor>
+	<DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>随机生产设施下一次产出 ×{0}</DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>
+	<DreamsOutposts.EventEffect.TemporaryCategoryOffset>{0}倾向 {1}，持续{2}</DreamsOutposts.EventEffect.TemporaryCategoryOffset>
+	<DreamsOutposts.EventEffect.TemporaryMovementFactor>地块移动成本 ×{0}，持续{1}</DreamsOutposts.EventEffect.TemporaryMovementFactor>
+	<DreamsOutposts.EventEffect.DisableRandomFacility>随机一座设施暂停运作{0}</DreamsOutposts.EventEffect.DisableRandomFacility>
+	<DreamsOutposts.EventEffect.AddResearchPoints>获得{0}点研究点数</DreamsOutposts.EventEffect.AddResearchPoints>
+	<DreamsOutposts.EventEffect.GeneratePawn>获得{0}名{1}</DreamsOutposts.EventEffect.GeneratePawn>
+	<DreamsOutposts.EventEffect.RandomFaction>随机阵营</DreamsOutposts.EventEffect.RandomFaction>
+	<DreamsOutposts.EventEffect.AdjustFactionGoodwill>{0}好感度 {1}</DreamsOutposts.EventEffect.AdjustFactionGoodwill>
+	<DreamsOutposts.EventEffect.GenerateRandomItems>获得市值为{0}的随机物资</DreamsOutposts.EventEffect.GenerateRandomItems>
+	<DreamsOutposts.EventEffect.RandomItemsReceivedTitle>获得物资</DreamsOutposts.EventEffect.RandomItemsReceivedTitle>
+	<DreamsOutposts.EventEffect.RandomItemsReceivedText>{0}获得了以下物资：\n\n{1}</DreamsOutposts.EventEffect.RandomItemsReceivedText>
+	<DreamsOutposts.EventEffect.NoRandomItemsReceived>没有获得任何物资。</DreamsOutposts.EventEffect.NoRandomItemsReceived>
+	<DreamsOutposts.EventEffect.ItemsStoredText>以下物品已存入据点仓库。</DreamsOutposts.EventEffect.ItemsStoredText>
+	<DreamsOutposts.EventEffect.RandomFollowUp>将在1至3天后发现随机后续事件</DreamsOutposts.EventEffect.RandomFollowUp>
+	<DreamsOutposts.EventEffect.ScheduledEvent>{0}后：{1}</DreamsOutposts.EventEffect.ScheduledEvent>
+	<DreamsOutposts.EventEffect.DelayDaysRange>{0}至{1}天</DreamsOutposts.EventEffect.DelayDaysRange>
+	<DreamsOutposts.EventEffect.DelayDays>{0}天</DreamsOutposts.EventEffect.DelayDays>
+	<DreamsOutposts.EventEffect.DelayDaysHours>{0}天{1}小时</DreamsOutposts.EventEffect.DelayDaysHours>
+	<DreamsOutposts.EventEffect.DelayHours>{0}小时</DreamsOutposts.EventEffect.DelayHours>
+	<DreamsOutposts.EventEffect.DelayMoments>片刻</DreamsOutposts.EventEffect.DelayMoments>
+	<DreamsOutposts.ProductionTag.Research>科研</DreamsOutposts.ProductionTag.Research>
+	<DreamsOutposts.EventEffect.TemporaryDefenseOffset>防卫 {0}，持续{1}</DreamsOutposts.EventEffect.TemporaryDefenseOffset>
+	<DreamsOutposts.EventEffect.RaidPlayerHome>主殖民地遭遇威胁点数为通常{0}的袭击</DreamsOutposts.EventEffect.RaidPlayerHome>
+	<DreamsOutposts.EventEffect.AddRandomAnimalProducts>获得大量肉和皮革</DreamsOutposts.EventEffect.AddRandomAnimalProducts>
+	<DreamsOutposts.EventRequirement.TechprintDlc>需要启用皇权DLC</DreamsOutposts.EventRequirement.TechprintDlc>
+	<DreamsOutposts.EventRequirement.NoTechprint>当前没有可用的科技蓝图</DreamsOutposts.EventRequirement.NoTechprint>
+	<DreamsOutposts.EventEffect.RandomTechprint>获得一张随机可用科技蓝图</DreamsOutposts.EventEffect.RandomTechprint>
+	<DreamsOutposts.EventEffect.GeneratePawnRarity>获得{0}名{1}级殖民者</DreamsOutposts.EventEffect.GeneratePawnRarity>
+	<DreamsOutposts.EventEffect.InventoryStolen>约{0}的普通库存物资被盗</DreamsOutposts.EventEffect.InventoryStolen>
+	<DreamsOutposts.EventEffect.RestoreStolen>找回被盗物资</DreamsOutposts.EventEffect.RestoreStolen>
+	<DreamsOutposts.EventEffect.TradeRequest>生成一个原版贸易请求任务</DreamsOutposts.EventEffect.TradeRequest>
+	<DreamsOutposts.EventEffect.TemporaryMarket>最多交换{0}市值的物资，获得价值×{1}的随机商品</DreamsOutposts.EventEffect.TemporaryMarket>
+	<DreamsOutposts.EventEffect.DisableResearchFacility>随机一座科研设施停用{0}</DreamsOutposts.EventEffect.DisableResearchFacility>
+	<DreamsOutposts.TemporaryMarket.Title>临时集市</DreamsOutposts.TemporaryMarket.Title>
+	<DreamsOutposts.TemporaryMarket.Value>已提供：{0} / {1}　　预计获得：{2}</DreamsOutposts.TemporaryMarket.Value>
+	<DreamsOutposts.TemporaryMarket.All>全部</DreamsOutposts.TemporaryMarket.All>
+	<DreamsOutposts.TemporaryMarket.Exchange>交换物资</DreamsOutposts.TemporaryMarket.Exchange>
   <DreamsOutposts.Events>事件</DreamsOutposts.Events>
   <DreamsOutposts.NoCurrentEvents>当前没有事件</DreamsOutposts.NoCurrentEvents>
   <DreamsOutposts.Remaining>剩余：{0}</DreamsOutposts.Remaining>

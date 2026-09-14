@@ -77,11 +77,22 @@
     <Compile Include="Training\OutpostFacilityComp_Training.cs" />
     <Compile Include="Defense\OutpostDefenseUtility.cs" />
     <Compile Include="Events\OutpostEventDef.cs" />
+    <Compile Include="Events\OutpostAttackEventDef.cs" />
+    <Compile Include="Events\OutpostAttackState.cs" />
+    <Compile Include="Events\OutpostAttackLootUtility.cs" />
+    <Compile Include="Events\OutpostEventEffect_ResolveAttack.cs" />
+    <Compile Include="Events\GameComponent_OutpostAttacks.cs" />
     <Compile Include="Events\OutpostEventCategoryDef.cs" />
     <Compile Include="Events\OutpostEventCategoryModifier.cs" />
     <Compile Include="Events\OutpostEventOption.cs" />
     <Compile Include="Events\OutpostEventInstance.cs" />
     <Compile Include="Events\OutpostScheduledEvent.cs" />
+	<Compile Include="Events\OutpostTemporaryEffect.cs" />
+	<Compile Include="Events\OutpostTemporaryEffectUtility.cs" />
+	<Compile Include="Events\OutpostTemporaryEventEffects.cs" />
+	<Compile Include="Events\OutpostEventRewardEffects.cs" />
+	<Compile Include="Events\OutpostItemRewardCollector.cs" />
+	<Compile Include="Events\OutpostExpandedEventEffects.cs" />
     <Compile Include="Events\OutpostEventUtility.cs" />
     <Compile Include="Events\OutpostRandomEventScheduler.cs" />
     <Compile Include="Events\GameComponent_OutpostRandomEvents.cs" />
@@ -94,6 +105,7 @@
     <Compile Include="Events\OutpostEventEffect_ScheduleEvent.cs" />
     <Compile Include="Events\OutpostEventRequirement.cs" />
     <Compile Include="Events\OutpostEventRequirement_ItemCount.cs" />
+	<Compile Include="Events\OutpostEventRequirement_AnyColonistSkill.cs" />
     <Compile Include="Events\OutpostEventRequirement_StatValue.cs" />
     <Compile Include="Events\OutpostEventRequirement_MinDefense.cs" />
     <Compile Include="Events\OutpostStatUtility.cs" />
@@ -112,6 +124,9 @@
     <Compile Include="Production\OutpostProductionOutcome.cs" />
     <Compile Include="Production\OutpostFacilityComp_Production.cs" />
     <Compile Include="Research\OutpostFacilityComp_Research.cs" />
+	<Compile Include="Recruitment\AdventurerOffer.cs" />
+	<Compile Include="Recruitment\AdventurerRecruitState.cs" />
+	<Compile Include="Recruitment\AdventurerRecruitUtility.cs" />
     <Compile Include="Power\OutpostFacilityComp_PowerGenerator.cs" />
     <Compile Include="Power\RemotePowerUtility.cs" />
     <Compile Include="Power\CompRemotePowerReceiver.cs" />
@@ -143,6 +158,7 @@
     <Compile Include="UI\OutpostUiCache.cs" />
     <Compile Include="UI\UiFacilitySectionView.cs" />
     <Compile Include="UI\Window_OutpostModal.cs" />
+	<Compile Include="UI\Modals\UiItemRewardModal.cs" />
     <Compile Include="UI\DebugActions_OutpostUi.cs" />
     <Compile Include="UI\Kit\UiPalette.cs" />
     <Compile Include="UI\Kit\UiMetrics.cs" />
@@ -156,6 +172,7 @@
     <Compile Include="UI\Pages\Page_OutpostDefense.cs" />
     <Compile Include="UI\Pages\Page_OutpostInventory.cs" />
     <Compile Include="UI\Pages\Page_OutpostEvents.cs" />
+	<Compile Include="UI\Pages\Page_OutpostTavern.cs" />
     <Compile Include="UI\Modals\UiFacilityModals.cs" />
 	<Compile Include="UI\Modals\UiAutomaticAirdropModal.cs" />
     <Compile Include="UI\Modals\UiEventModal.cs" />

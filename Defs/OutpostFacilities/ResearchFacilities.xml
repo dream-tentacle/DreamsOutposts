@@ -7,12 +7,14 @@
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_Research">
-		<capacityStat>ResearchSpeed</capacityStat>
-		<intervalTicks>30000</intervalTicks>
-		<outputPerCapacity>61.875</outputPerCapacity>
-		<tags><li>Research</li></tags>
-	  </li>
-	</comps>
+        <capacityStat>ResearchSpeed</capacityStat>
+        <intervalTicks>30000</intervalTicks>
+        <outputPerCapacity>6.1875</outputPerCapacity>
+        <tags>
+          <li>Research</li>
+        </tags>
+      </li>
+    </comps>
   </DreamsOutposts.OutpostFacilityDef>
 
   <DreamsOutposts.OutpostFacilityDef>
@@ -20,7 +22,9 @@
     <facilityTag>ProductionBoost</facilityTag>
     <label>advanced research apparatus</label>
     <description>A high-tech research installation that multiplies research output by 1.33.</description>
-    <allowedOutpostTypes><li>DreamsOutposts_Research</li></allowedOutpostTypes>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_Research</li>
+    </allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <maxPerOutpost>1</maxPerOutpost>
     <minOutpostLevel>2</minOutpostLevel>
@@ -29,7 +33,10 @@
       <ComponentIndustrial>10</ComponentIndustrial>
     </buildCost>
     <productionModifiers>
-      <li><productionTag>Research</productionTag><factor>1.33</factor></li>
+      <li>
+        <productionTag>Research</productionTag>
+        <factor>1.33</factor>
+      </li>
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>
 
@@ -38,7 +45,9 @@
     <facilityTag>ProductionBoost</facilityTag>
     <label>sterile analysis apparatus</label>
     <description>A sterile analytical suite that multiplies research output by 1.3.</description>
-    <allowedOutpostTypes><li>DreamsOutposts_Research</li></allowedOutpostTypes>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_Research</li>
+    </allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <maxPerOutpost>1</maxPerOutpost>
     <minOutpostLevel>3</minOutpostLevel>
@@ -50,7 +59,10 @@
       <ComponentIndustrial>8</ComponentIndustrial>
     </buildCost>
     <productionModifiers>
-      <li><productionTag>Research</productionTag><factor>1.3</factor></li>
+      <li>
+        <productionTag>Research</productionTag>
+        <factor>1.3</factor>
+      </li>
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

@@ -17,7 +17,7 @@ namespace DreamsOutposts
 				return null;
 			}
 			OutpostFacility source = null;
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				if (facility?.def?.bombardment != null)
 				{
@@ -45,7 +45,7 @@ namespace DreamsOutposts
 				return 0;
 			}
 			int shells = props.shellsPerStrike;
-			foreach (OutpostFacility facility2 in outpost.Facilities)
+			foreach (OutpostFacility facility2 in outpost.OperationalFacilities)
 			{
 				int bonus = (facility2?.def?.bombardmentShellBonus).GetValueOrDefault();
 				if (bonus > 0)

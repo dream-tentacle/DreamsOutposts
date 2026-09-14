@@ -796,7 +796,7 @@ namespace DreamsOutposts
 					UiEventView view = new UiEventView();
 					view.Instance = instance;
 					view.Label = def.LabelCap.ToString();
-					view.Description = def.description;
+					view.Description = def.DescriptionFor(instance);
 					view.Category = def.category;
 					view.CategoryLabel = (def.category != null) ? def.category.LabelCap.ToString() : null;
 					view.DurationText = def.durationTicks.ToStringTicksToPeriod().ToString();
@@ -1095,7 +1095,8 @@ namespace DreamsOutposts
 					: (!string.IsNullOrEmpty(production.Props.outputLabelKey)
 						? production.Props.outputLabelKey.Translate().ToString()
 						: (production.UsesDynamicProduct ? "DreamsOutposts.NoCrop".Translate().ToString() : production.Props.id));
-				production.IntervalText = production.Props.intervalTicks.ToStringTicksToPeriod().ToString();
+				OutpostProductionState state = view.Facility.GetProductionState(production.Props.id);
+				production.IntervalText = production.Props.Worker.GetProductionIntervalTicks(production.Props, state).ToStringTicksToPeriod().ToString();
 				float capacity = 0f;
 				// 没写 capacityStat 的设施走固定产能：不再读 pawn 属性，所以也不调用产能计算
 				bool hasCapacityStat = production.Props.capacityStat != null;
@@ -1214,7 +1215,7 @@ namespace DreamsOutposts
 							(trainees > 0) ? UiChipKind.Good : UiChipKind.Bad));
 					}
 					OutpostFacilityCompProperties_PowerGenerator powerProps = def.GetCompProperties<OutpostFacilityCompProperties_PowerGenerator>();
-					if (powerProps != null)
+					if (powerProps != null && powerProps.requiresFuel && powerProps.fuel != null)
 						card.Chips.Add(new UiChipView("DreamsOutposts.RemotePower.FuelCycle".Translate(powerProps.fuel.LabelCap, powerProps.fuelPerCycle, powerProps.cycleTicks.ToStringTicksToPeriod()).ToString(), UiChipKind.Info));
 					if (!def.researchPrerequisites.NullOrEmpty())
 					{
@@ -1375,6 +1376,7 @@ namespace DreamsOutposts
 				}
 				rule.Facts.Add("DreamsOutposts.Ui.Rule.Expected".Translate(production.Output.ToString("0.#"), production.IntervalText).ToString());
 				rule.FactKinds.Add("good");
+				AddTemporaryProductionEffectFacts(rule, view.Facility, props);
 				if (props.capacityStat != null)
 				{
 					float capacity;
@@ -1448,6 +1450,26 @@ namespace DreamsOutposts
 					OutpostBuildUtility.CostLabel(bombardment.CostForShells(shells))));
 			}
 			return details;
+		}
+
+		private void AddTemporaryProductionEffectFacts(UiRuleView rule, OutpostFacility facility, OutpostProductionProperties production)
+		{
+			int now = Find.TickManager.TicksGame;
+			List<OutpostTemporaryEffect> effects = outpost?.temporaryEffects;
+			for (int i = 0; i < (effects?.Count ?? 0); i++)
+			{
+				OutpostTemporaryEffect effect = effects[i];
+				if (effect == null || effect.kind != OutpostTemporaryEffectKind.ProductionFactor || !effect.IsActive(now) || !effect.MatchesProduction(outpost, facility, production))
+				{
+					continue;
+				}
+				string factor = effect.value.ToString("0.##");
+				string text = effect.consumeAfterProduction
+					? "DreamsOutposts.Ui.Rule.TemporaryProductionNext".Translate(factor).ToString()
+					: "DreamsOutposts.Ui.Rule.TemporaryProduction".Translate(factor, (effect.expireTick - now).ToStringTicksToPeriod()).ToString();
+				rule.Facts.Add(text);
+				rule.FactKinds.Add(effect.value > 1f ? "good" : (effect.value < 1f ? "warn" : "neutral"));
+			}
 		}
 	}
 }

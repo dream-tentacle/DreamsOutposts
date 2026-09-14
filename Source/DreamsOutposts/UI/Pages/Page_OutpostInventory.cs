@@ -7,7 +7,7 @@ namespace DreamsOutposts
 	/// <summary>
 	/// 「仓库」页（新样式）：殖民者 / 其他人员 / 物品三栏。
 	/// 按需求去掉：页头描述、搜索框、物品/堆数汇总 chip、人员行下的「防卫 x」。
-	/// 保留：物品行尾的原版「i」信息卡按钮（人员行同样给一个，与防卫页一致）。
+	/// 人员和物品行整行可点击打开信息卡。
 	/// 页头描述位置改放「生产出的产物会自动进入这里」。
 	/// </summary>
 	public class Page_OutpostInventory : OutpostManagePage, IUiShellPage
@@ -31,8 +31,6 @@ namespace DreamsOutposts
 		private const float RowRadius = 6f;
 
 		private const float IconSize = 30f;
-
-		private const float InfoButtonSize = 24f;
 
 		private const float BadgePaddingH = 7f;
 
@@ -250,7 +248,7 @@ namespace DreamsOutposts
 			return rowCount * (RowHeight() + RowGap) - RowGap;
 		}
 
-		/// <summary>人员行：头像 + 名字 +「i」。没有防卫值那一行灰字。</summary>
+		/// <summary>人员行：头像 + 名字，整行可打开信息卡。</summary>
 		private void DrawPawnRows(Rect rect, List<UiPawnView> rows)
 		{
 			if (rows.Count == 0)
@@ -271,14 +269,16 @@ namespace DreamsOutposts
 				// 原版人物小像（PortraitsCache 渲染，和原版列表一致）
 				Widgets.ThingIcon(new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize), view.Pawn);
 				x += IconSize + RowGap;
-				Rect infoRect = new Rect(row.xMax - RowPaddingH - InfoButtonSize, row.y + (row.height - InfoButtonSize) * 0.5f, InfoButtonSize, InfoButtonSize);
-				float nameWidth = Mathf.Max(infoRect.x - 6f - x, 30f);
+				float nameWidth = Mathf.Max(row.xMax - RowPaddingH - x, 30f);
 				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), view.Name, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
-				Widgets.InfoCardButton(infoRect.x, infoRect.y, view.Pawn);
+				if (view.Pawn != null && Widgets.ButtonInvisible(row))
+				{
+					Find.WindowStack.Add(new Dialog_InfoCard(view.Pawn));
+				}
 			}
 		}
 
-		/// <summary>物品行：原版物品图标 + 名字 + 堆数/DefName + 总数徽标 +「i」。</summary>
+		/// <summary>物品行：原版物品图标 + 名字 + DefName + 总数徽标，整行可打开信息卡。</summary>
 		private void DrawItemRows(Rect rect, List<UiItemStackView> rows)
 		{
 			if (rows.Count == 0)
@@ -298,28 +298,29 @@ namespace DreamsOutposts
 				float x = row.x + RowPaddingH;
 				Rect iconRect = new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize);
 				x += IconSize + RowGap;
-				Rect infoRect = new Rect(row.xMax - RowPaddingH - InfoButtonSize, row.y + (row.height - InfoButtonSize) * 0.5f, InfoButtonSize, InfoButtonSize);
 				// 总数徽标
 				string countText = view.Count.ToString();
 				float badgeWidth = Mathf.Max(UiText.Width(countText, UiFont.Caption, true) + BadgePaddingH * 2f, BadgeMinWidth);
 				float badgeHeight = UiText.LineHeight(UiFont.Caption) + 4f;
-				Rect badgeRect = new Rect(infoRect.x - 6f - badgeWidth, row.y + (row.height - badgeHeight) * 0.5f, badgeWidth, badgeHeight);
+				Rect badgeRect = new Rect(row.xMax - RowPaddingH - badgeWidth, row.y + (row.height - badgeHeight) * 0.5f, badgeWidth, badgeHeight);
 				UiDraw.Box(badgeRect, (int)UiMetrics.RadiusXs, UiPalette.Raised, UiPalette.Line);
 				UiText.Draw(badgeRect, countText, UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleCenter, true);
-				// 名字 + 副行（多堆显示堆数，单堆显示 DefName）
+				// 名字 + DefName 副行
 				float nameHeight = UiText.LineHeight(UiFont.Body);
 				float subHeight = UiText.LineHeight(UiFont.Caption);
 				float textY = row.y + (row.height - (nameHeight + subHeight)) * 0.5f;
 				float textWidth = Mathf.Max(badgeRect.x - 6f - x, 30f);
 				Rect nameRect = new Rect(x, textY, textWidth, nameHeight);
-				UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
-					view.Def, (view.Def != null) ? view.Def.LabelCap.ToString() : "-", UiFont.Body, UiPalette.Ink);
-				string sub = (view.Stacks > 1)
-					? "DreamsOutposts.Ui.Stacks".Translate(view.Stacks).ToString()
-					: ((view.Def != null) ? view.Def.defName : null);
+				Widgets.ThingIcon(iconRect, view.Def);
+				UiText.Draw(nameRect, (view.Def != null) ? view.Def.LabelCap.ToString() : "-", UiFont.Body, UiPalette.Ink,
+					TextAnchor.MiddleLeft, false, false, true);
+				string sub = (view.Def != null) ? view.Def.defName : null;
 				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), sub, UiFont.Caption, UiPalette.Ink2,
 					TextAnchor.MiddleLeft, false, false, true);
-				Widgets.InfoCardButton(infoRect.x, infoRect.y, view.Def);
+				if (view.Def != null && Widgets.ButtonInvisible(row))
+				{
+					Find.WindowStack.Add(new Dialog_InfoCard(view.Def));
+				}
 			}
 		}
 

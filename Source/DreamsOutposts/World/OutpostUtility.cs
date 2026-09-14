@@ -137,6 +137,15 @@ namespace DreamsOutposts
 			return false;
 		}
 
+		/// <summary>For disposable generated candidates only, never recruited colonists.</summary>
+		public static void DiscardCandidate(Pawn pawn)
+		{
+			if (pawn == null || pawn.Discarded) return;
+			pawn.holdingOwner?.Remove(pawn);
+			if (Find.WorldPawns.Contains(pawn)) Find.WorldPawns.RemovePawn(pawn);
+			Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.Discard);
+		}
+
 		public static void TakeOutOfWorld(Pawn pawn)
 		{
 			if (pawn != null && pawn.IsWorldPawn())

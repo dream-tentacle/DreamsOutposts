@@ -38,7 +38,7 @@ namespace DreamsOutposts
 			}
 			weight += SituationWeight(outpost, category, details);
 			float factor = 1f;
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				List<OutpostEventCategoryModifier> modifiers = facility?.def?.eventCategoryModifiers;
 				if (modifiers == null)
@@ -63,6 +63,9 @@ namespace DreamsOutposts
 					}
 				}
 			}
+			float temporaryOffset = OutpostTemporaryEffectUtility.CategoryOffset(outpost, category);
+			weight += temporaryOffset;
+			if (temporaryOffset != 0f) AddDetail(details, "DreamsOutposts.EventWeight.Temporary".Translate(), temporaryOffset);
 			return Mathf.Max(weight * factor, 0f);
 		}
 
@@ -74,8 +77,6 @@ namespace DreamsOutposts
 					return FrontierWeight(outpost, details);
 				case "DreamsOutposts_Industrial":
 					return IndustrialWeight(outpost, details);
-				case "DreamsOutposts_Trade":
-					return TradeWeight(outpost, details);
 				case "DreamsOutposts_Population":
 					return PopulationWeight(outpost, details);
 				case "DreamsOutposts_Research":
@@ -126,7 +127,7 @@ namespace DreamsOutposts
 		private static float IndustrialWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
 		{
 			float weight = 0f;
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				OutpostFacilityDef def = facility?.def;
 				if (def == null || IsResearchFacility(outpost, def)) continue;
@@ -141,20 +142,6 @@ namespace DreamsOutposts
 				else if (def.IsProducer) { weight += 3f; AddDetail(details, def.LabelCap, 3f); }
 			}
 			return weight;
-		}
-
-		private static float TradeWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
-		{
-			float marketValue = 0f;
-			List<Thing> items = outpost.InventoryItems;
-			for (int i = 0; i < items.Count; i++)
-			{
-				Thing thing = items[i];
-				if (thing != null && !thing.Destroyed) marketValue += thing.MarketValue * thing.stackCount;
-			}
-			float result = Mathf.Min(10f, 2f * Mathf.Log(1f + marketValue / 1000f, 2f));
-			AddDetail(details, "DreamsOutposts.EventWeight.StockValue".Translate(marketValue.ToStringMoney()), result);
-			return result;
 		}
 
 		private static float PopulationWeight(Outpost outpost, List<OutpostEventWeightContribution> details)
@@ -172,7 +159,7 @@ namespace DreamsOutposts
 			OutpostTypeDef researchType = DefDatabase<OutpostTypeDef>.GetNamedSilentFail("DreamsOutposts_Research");
 			float weight = outpost.outpostTypeDef == researchType ? 6f : 0f;
 			if (weight > 0f) AddDetail(details, "DreamsOutposts.EventWeight.ResearchOutpost".Translate(), weight);
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				OutpostFacilityDef def = facility?.def;
 				if (!IsResearchFacility(outpost, def)) continue;
@@ -316,53 +303,29 @@ namespace DreamsOutposts
 			return weights.Count - 1;
 		}
 
-		public static Command AddTestEventCommand(Outpost outpost)
+		public static Command AddAllWeightedEventsCommand(Outpost outpost)
 		{
 			Command_Action command = new Command_Action
 			{
-				defaultLabel = "DEV: Add test event",
-				defaultDesc = "Create the fixed test event instance on this outpost.",
+				defaultLabel = "DEV: Add all weighted events",
+				defaultDesc = "Create one instance of every outpost event whose weight is greater than zero.",
 				icon = TexCommand.DesirePower
 			};
 			command.action = delegate
 			{
-				AddTestEvent(outpost);
+				int added = 0;
+				List<OutpostEventDef> eventDefs = DefDatabase<OutpostEventDef>.AllDefsListForReading;
+				for (int i = 0; i < eventDefs.Count; i++)
+				{
+					OutpostEventDef eventDef = eventDefs[i];
+					if (eventDef != null && eventDef.weight > 0f && outpost.AddEvent(eventDef) != null)
+					{
+						added++;
+					}
+				}
+				Log.Message("DreamsOutposts: added " + added + " weighted events to " + outpost.Label + ".");
 			};
 			return command;
-		}
-
-		public static Command RollRandomEventCommand(Outpost outpost)
-		{
-			Command_Action command = new Command_Action
-			{
-				defaultLabel = "DEV: Roll random event",
-				defaultDesc = "Choose and create a random valid outpost event.",
-				icon = TexCommand.DesirePower
-			};
-			command.action = delegate
-			{
-				if (TryChooseRandomEvent(outpost, out OutpostEventDef eventDef)) outpost.AddEvent(eventDef);
-				else Log.Message("No valid outpost event found.");
-			};
-			return command;
-		}
-
-		/// <summary>
-		/// 开发者用的固定测试事件：延迟事件链的事件 A，用来验证「选项 → 3 天后事件 B」。
-		/// </summary>
-		public static void AddTestEvent(Outpost outpost)
-		{
-			if (outpost == null)
-			{
-				return;
-			}
-			OutpostEventDef def = DefDatabase<OutpostEventDef>.GetNamedSilentFail("DO_DelayedEventA");
-			if (def == null)
-			{
-				Log.Error("Could not create test outpost event: DO_DelayedEventA was not found.");
-				return;
-			}
-			outpost.AddEvent(def);
 		}
 
 		public static void TickEvents(Outpost outpost)
@@ -461,6 +424,7 @@ namespace DreamsOutposts
 
 		private static void ApplyEffectsAndRemove(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option, OutpostEventContext context, bool sendExpiredLetter = false)
 		{
+			context.itemRewards = new OutpostItemRewardCollector(outpost);
 			if (option.effects != null)
 			{
 				for (int i = 0; i < option.effects.Count; i++)
@@ -468,6 +432,7 @@ namespace DreamsOutposts
 					option.effects[i]?.Apply(context);
 				}
 			}
+			context.itemRewards.Commit();
 			int index = outpost.events?.IndexOf(instance) ?? -1;
 			if (index >= 0)
 			{
@@ -485,11 +450,12 @@ namespace DreamsOutposts
 			{
 				return;
 			}
-			Find.LetterStack.ReceiveLetter(instance.def.LabelCap, "DreamsOutposts.EventLetter".Translate(instance.def.description ?? string.Empty, RemainingTimeLabel(instance)), LetterDefOf.NeutralEvent, new LookTargets(outpost));
+			Find.LetterStack.ReceiveLetter(instance.def.LabelCap, "DreamsOutposts.EventLetter".Translate(instance.def.DescriptionFor(instance), RemainingTimeLabel(instance)), LetterDefOf.NeutralEvent, new LookTargets(outpost));
 		}
 
 		private static void SendExpiredLetter(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option)
 		{
+			if (instance.attack != null && instance.attack.resolved) return;
 			string result = EffectPreview(option);
 			string optionLabel = option.label ?? option.id ?? "Unknown option";
 			string text = instance.def.LabelCap + "\n\n" + (instance.def.description ?? string.Empty);

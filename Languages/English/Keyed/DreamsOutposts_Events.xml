@@ -12,6 +12,50 @@
 	<DreamsOutposts.EventWeight.Colonists>Colonists ({0})</DreamsOutposts.EventWeight.Colonists>
 	<DreamsOutposts.EventWeight.ResearchOutpost>Research outpost</DreamsOutposts.EventWeight.ResearchOutpost>
 	<DreamsOutposts.EventWeight.Intellectual>Highest Intellectual ({0})</DreamsOutposts.EventWeight.Intellectual>
+	<DreamsOutposts.EventWeight.Temporary>Temporary effect</DreamsOutposts.EventWeight.Temporary>
+	<DreamsOutposts.AllProduction>all production</DreamsOutposts.AllProduction>
+	<DreamsOutposts.CoreFacility>core facility</DreamsOutposts.CoreFacility>
+	<DreamsOutposts.EventRequirement.AnyColonistSkill>Requires a colonist with {0} at level {1}</DreamsOutposts.EventRequirement.AnyColonistSkill>
+	<DreamsOutposts.EventEffect.GainSkillXp>All colonists gain {1} {0} XP</DreamsOutposts.EventEffect.GainSkillXp>
+	<DreamsOutposts.EventEffect.TemporaryProductionFactor>{0} output ×{1} for {2}</DreamsOutposts.EventEffect.TemporaryProductionFactor>
+	<DreamsOutposts.EventEffect.RandomFacilityProductionFactor>Random production facility output ×{0} for {1}</DreamsOutposts.EventEffect.RandomFacilityProductionFactor>
+	<DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>Random production facility's next output ×{0}</DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>
+	<DreamsOutposts.EventEffect.TemporaryCategoryOffset>{0} tendency {1} for {2}</DreamsOutposts.EventEffect.TemporaryCategoryOffset>
+	<DreamsOutposts.EventEffect.TemporaryMovementFactor>Tile movement cost ×{0} for {1}</DreamsOutposts.EventEffect.TemporaryMovementFactor>
+	<DreamsOutposts.EventEffect.DisableRandomFacility>Disable one random facility for {0}</DreamsOutposts.EventEffect.DisableRandomFacility>
+	<DreamsOutposts.EventEffect.AddResearchPoints>+{0} research points</DreamsOutposts.EventEffect.AddResearchPoints>
+	<DreamsOutposts.EventEffect.GeneratePawn>Gain {0} {1}</DreamsOutposts.EventEffect.GeneratePawn>
+	<DreamsOutposts.EventEffect.RandomFaction>a random faction</DreamsOutposts.EventEffect.RandomFaction>
+	<DreamsOutposts.EventEffect.AdjustFactionGoodwill>{0} goodwill {1}</DreamsOutposts.EventEffect.AdjustFactionGoodwill>
+	<DreamsOutposts.EventEffect.GenerateRandomItems>Gain random items worth {0}</DreamsOutposts.EventEffect.GenerateRandomItems>
+	<DreamsOutposts.EventEffect.RandomItemsReceivedTitle>Supplies received</DreamsOutposts.EventEffect.RandomItemsReceivedTitle>
+	<DreamsOutposts.EventEffect.RandomItemsReceivedText>{0} received the following supplies:\n\n{1}</DreamsOutposts.EventEffect.RandomItemsReceivedText>
+	<DreamsOutposts.EventEffect.NoRandomItemsReceived>No supplies were received.</DreamsOutposts.EventEffect.NoRandomItemsReceived>
+	<DreamsOutposts.EventEffect.ItemsStoredText>The following items have been added to the outpost inventory.</DreamsOutposts.EventEffect.ItemsStoredText>
+	<DreamsOutposts.EventEffect.RandomFollowUp>Discover a random follow-up event in 1–3 days</DreamsOutposts.EventEffect.RandomFollowUp>
+	<DreamsOutposts.EventEffect.ScheduledEvent>In {0}: {1}</DreamsOutposts.EventEffect.ScheduledEvent>
+	<DreamsOutposts.EventEffect.DelayDaysRange>{0}–{1} days</DreamsOutposts.EventEffect.DelayDaysRange>
+	<DreamsOutposts.EventEffect.DelayDays>{0} day(s)</DreamsOutposts.EventEffect.DelayDays>
+	<DreamsOutposts.EventEffect.DelayDaysHours>{0}d {1}h</DreamsOutposts.EventEffect.DelayDaysHours>
+	<DreamsOutposts.EventEffect.DelayHours>{0} hour(s)</DreamsOutposts.EventEffect.DelayHours>
+	<DreamsOutposts.EventEffect.DelayMoments>moments</DreamsOutposts.EventEffect.DelayMoments>
+	<DreamsOutposts.ProductionTag.Research>Research</DreamsOutposts.ProductionTag.Research>
+	<DreamsOutposts.EventEffect.TemporaryDefenseOffset>Defense {0} for {1}</DreamsOutposts.EventEffect.TemporaryDefenseOffset>
+	<DreamsOutposts.EventEffect.RaidPlayerHome>The main colony faces a raid at {0} of normal threat points</DreamsOutposts.EventEffect.RaidPlayerHome>
+	<DreamsOutposts.EventEffect.AddRandomAnimalProducts>Gain a large amount of meat and leather</DreamsOutposts.EventEffect.AddRandomAnimalProducts>
+	<DreamsOutposts.EventRequirement.TechprintDlc>Requires the Royalty expansion</DreamsOutposts.EventRequirement.TechprintDlc>
+	<DreamsOutposts.EventRequirement.NoTechprint>No useful techprint is currently available</DreamsOutposts.EventRequirement.NoTechprint>
+	<DreamsOutposts.EventEffect.RandomTechprint>Gain a random useful techprint</DreamsOutposts.EventEffect.RandomTechprint>
+	<DreamsOutposts.EventEffect.GeneratePawnRarity>Gain {0} {1} colonist(s)</DreamsOutposts.EventEffect.GeneratePawnRarity>
+	<DreamsOutposts.EventEffect.InventoryStolen>About {0} of eligible stored goods are stolen</DreamsOutposts.EventEffect.InventoryStolen>
+	<DreamsOutposts.EventEffect.RestoreStolen>Recover the stolen goods</DreamsOutposts.EventEffect.RestoreStolen>
+	<DreamsOutposts.EventEffect.TradeRequest>Generate a standard trade request quest</DreamsOutposts.EventEffect.TradeRequest>
+	<DreamsOutposts.EventEffect.TemporaryMarket>Exchange up to {0}; receive random goods worth ×{1}</DreamsOutposts.EventEffect.TemporaryMarket>
+	<DreamsOutposts.EventEffect.DisableResearchFacility>Disable one random research facility for {0}</DreamsOutposts.EventEffect.DisableResearchFacility>
+	<DreamsOutposts.TemporaryMarket.Title>Temporary market</DreamsOutposts.TemporaryMarket.Title>
+	<DreamsOutposts.TemporaryMarket.Value>Offered: {0} / {1}    Expected goods: {2}</DreamsOutposts.TemporaryMarket.Value>
+	<DreamsOutposts.TemporaryMarket.All>All</DreamsOutposts.TemporaryMarket.All>
+	<DreamsOutposts.TemporaryMarket.Exchange>Exchange goods</DreamsOutposts.TemporaryMarket.Exchange>
   <DreamsOutposts.Events>Events</DreamsOutposts.Events>
   <DreamsOutposts.NoCurrentEvents>No current events</DreamsOutposts.NoCurrentEvents>
   <DreamsOutposts.Remaining>Remaining: {0}</DreamsOutposts.Remaining>

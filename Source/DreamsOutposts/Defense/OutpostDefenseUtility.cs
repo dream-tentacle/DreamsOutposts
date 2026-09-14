@@ -76,11 +76,11 @@ namespace DreamsOutposts
 				return 0f;
 			}
 			float total = 0f;
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				total += facility?.def?.defense ?? 0f;
 			}
-			return total;
+			return total + OutpostTemporaryEffectUtility.DefenseOffset(outpost);
 		}
 
 		/// <summary>据点总防卫：Σ Pawn + Σ 设施。</summary>

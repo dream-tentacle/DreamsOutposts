@@ -1,16 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_TrainingFacilityBase" Abstract="True"><installableAsExtension>true</installableAsExtension><facilityTag>Training</facilityTag><maxPerOutpost>1</maxPerOutpost><buildCost><Steel>50</Steel></buildCost></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_ShootingRange</defName><label>shooting range</label><description>A maintained range where residents practice marksmanship.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Shooting</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_MeleeTrainingGround</defName><label>melee training ground</label><description>A drill yard for close-quarters combat practice.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Melee</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_ConstructionTrainingYard</defName><label>construction training yard</label><description>A practical worksite where residents learn construction techniques.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Construction</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_MiningTrainingGround</defName><label>mining training ground</label><description>A practice cutting where residents learn to work rock safely and efficiently.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Mining</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_CookingSchool</defName><label>cooking school</label><description>A communal kitchen arranged for practical culinary instruction.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Cooking</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_AgriculturalTrainingPlot</defName><label>agricultural training plot</label><description>Experimental plots where residents practice cultivation and harvesting.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Plants</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_AnimalTrainingPens</defName><label>animal training pens</label><description>Purpose-built pens for learning animal handling.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Animals</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_CraftingWorkshop</defName><label>crafting training workshop</label><description>A teaching workshop stocked with tools and practice materials.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Crafting</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_ArtStudio</defName><label>art studio</label><description>A shared studio where residents develop their artistic technique.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Artistic</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_MedicalTrainingRoom</defName><label>medical training room</label><description>A classroom and practice ward for medical instruction.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Medicine</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_SocialTrainingHall</defName><label>social training hall</label><description>A meeting hall used to practice negotiation, leadership and public speaking.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Social</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase"><defName>DreamsOutposts_AcademicTrainingRoom</defName><label>academic training room</label><description>A quiet classroom for disciplined intellectual study.</description><comps><li Class="DreamsOutposts.OutpostTrainingProperties"><skill>Intellectual</skill><xpPerHour>60</xpPerHour></li></comps></DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_TrainingFacilityBase" Abstract="True">
+    <installableAsExtension>true</installableAsExtension>
+    <facilityTag>Training</facilityTag>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost>
+      <Steel>50</Steel>
+    </buildCost>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_ShootingRange</defName>
+    <label>shooting range</label>
+    <description>A maintained range where residents practice marksmanship.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Shooting</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_MeleeTrainingGround</defName>
+    <label>melee training ground</label>
+    <description>A drill yard for close-quarters combat practice.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Melee</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_ConstructionTrainingYard</defName>
+    <label>construction training yard</label>
+    <description>A practical worksite where residents learn construction techniques.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Construction</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_MiningTrainingGround</defName>
+    <label>mining training ground</label>
+    <description>A practice cutting where residents learn to work rock safely and efficiently.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Mining</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_CookingSchool</defName>
+    <label>cooking school</label>
+    <description>A communal kitchen arranged for practical culinary instruction.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Cooking</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_AgriculturalTrainingPlot</defName>
+    <label>agricultural training plot</label>
+    <description>Experimental plots where residents practice cultivation and harvesting.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Plants</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_AnimalTrainingPens</defName>
+    <label>animal training pens</label>
+    <description>Purpose-built pens for learning animal handling.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Animals</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_CraftingWorkshop</defName>
+    <label>crafting training workshop</label>
+    <description>A teaching workshop stocked with tools and practice materials.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Crafting</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_ArtStudio</defName>
+    <label>art studio</label>
+    <description>A shared studio where residents develop their artistic technique.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Artistic</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_MedicalTrainingRoom</defName>
+    <label>medical training room</label>
+    <description>A classroom and practice ward for medical instruction.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Medicine</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_SocialTrainingHall</defName>
+    <label>social training hall</label>
+    <description>A meeting hall used to practice negotiation, leadership and public speaking.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Social</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_TrainingFacilityBase">
+    <defName>DreamsOutposts_AcademicTrainingRoom</defName>
+    <label>academic training room</label>
+    <description>A quiet classroom for disciplined intellectual study.</description>
+    <comps>
+      <li Class="DreamsOutposts.OutpostTrainingProperties">
+        <skill>Intellectual</skill>
+        <xpPerHour>100</xpPerHour>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
 </Defs>

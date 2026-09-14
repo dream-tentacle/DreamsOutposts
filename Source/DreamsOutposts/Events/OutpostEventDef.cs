@@ -11,11 +11,17 @@ namespace DreamsOutposts
 
 		public List<OutpostEventRequirement> requirements = new List<OutpostEventRequirement>();
 
+		public List<OutpostEventEffect> onCreatedEffects = new List<OutpostEventEffect>();
+
 		public List<OutpostEventOption> options = new List<OutpostEventOption>();
 
 		public string defaultOptionId;
 
 		public int durationTicks;
+
+		public virtual bool InitializeInstance(Outpost outpost, OutpostEventInstance instance) => true;
+
+		public virtual string DescriptionFor(OutpostEventInstance instance) => description ?? string.Empty;
 
 		public override IEnumerable<string> ConfigErrors()
 		{

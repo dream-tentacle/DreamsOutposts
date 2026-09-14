@@ -10,7 +10,7 @@ namespace DreamsOutposts
 	/// 数值全部来自 OutpostUiCache（本质是 OutpostDefenseUtility），本页不做计算、不改状态。
 	/// 按需求去掉的东西：页头描述与公式行、面板标题后的（人数）、「按防卫值排序」提示、
 	/// 人员行下的「殖民者 / 其他人员」灰字、跟随鼠标的悬浮提示框。
-	/// 保留：人员行尾的原版「i」信息卡按钮。
+	/// 人员行整行可点击打开信息卡。
 	/// </summary>
 	public class Page_OutpostDefense : OutpostManagePage, IUiShellPage
 	{
@@ -53,8 +53,6 @@ namespace DreamsOutposts
 		private const float AvatarSize = 30f;
 
 		private const float ValueWidth = 46f;
-
-		private const float InfoButtonSize = 24f;
 
 		private Vector2 pawnsScroll;
 
@@ -338,13 +336,10 @@ namespace DreamsOutposts
 				Rect avatar = new Rect(x, row.y + (row.height - AvatarSize) * 0.5f, AvatarSize, AvatarSize);
 				Widgets.ThingIcon(avatar, view.Pawn);
 				x += AvatarSize + RowGap;
-				// 原版信息卡按钮
-				float infoWidth = InfoButtonSize;
-				Rect infoRect = new Rect(row.xMax - RowPaddingH - infoWidth, row.y + (row.height - infoWidth) * 0.5f, infoWidth, infoWidth);
 				// 防卫值
 				string valueText = view.Defense.ToString();
 				float valueWidth = Mathf.Max(UiText.Width(valueText, UiFont.Body, true), ValueWidth);
-				Rect valueRect = new Rect(infoRect.x - 6f - valueWidth, row.y, valueWidth, row.height);
+				Rect valueRect = new Rect(row.xMax - RowPaddingH - valueWidth, row.y, valueWidth, row.height);
 				UiText.Draw(valueRect, valueText, UiFont.Body, (view.Defense == 0) ? UiPalette.Ink2 : UiPalette.Ink,
 					TextAnchor.MiddleRight, view.Defense != 0);
 				// 技能徽标
@@ -359,8 +354,10 @@ namespace DreamsOutposts
 				// 名字
 				float nameWidth = Mathf.Max(badgesX - 5f - x, 30f);
 				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), view.Name, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
-				// 原版「i」按钮（按需求保留）
-				Widgets.InfoCardButton(infoRect.x, infoRect.y, view.Pawn);
+				if (view.Pawn != null && Widgets.ButtonInvisible(row))
+				{
+					Find.WindowStack.Add(new Dialog_InfoCard(view.Pawn));
+				}
 			}
 		}
 

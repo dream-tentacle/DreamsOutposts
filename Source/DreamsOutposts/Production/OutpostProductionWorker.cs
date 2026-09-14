@@ -62,6 +62,11 @@ namespace DreamsOutposts
 			return production?.product;
 		}
 
+		public virtual int GetProductionIntervalTicks(OutpostProductionProperties production, OutpostProductionState state)
+		{
+			return production?.intervalTicks ?? 0;
+		}
+
 		public float CalculateProduction(IEnumerable<Pawn> pawns, OutpostTypeDef outpostTypeDef, OutpostProductionProperties production)
 		{
 			return CalculateProduction(pawns, outpostTypeDef, production, null);

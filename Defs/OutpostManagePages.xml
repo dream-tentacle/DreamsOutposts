@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-<DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Facilities</defName>
     <label>facilities</label>
     <description>This outpost's level, core facility and extension slots.</description>
     <pageClass>DreamsOutposts.Page_OutpostFacilities</pageClass>
     <order>0</order>
   </DreamsOutposts.OutpostManagePageDef>
-<DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Defense</defName>
     <label>defense</label>
     <description>How well this outpost can defend itself, and where that strength comes from.</description>
     <pageClass>DreamsOutposts.Page_OutpostDefense</pageClass>
     <order>5</order>
   </DreamsOutposts.OutpostManagePageDef>
-<DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Inventory</defName>
     <label>warehouse</label>
     <description>The colonists, other pawns and items kept in this outpost.</description>
     <pageClass>DreamsOutposts.Page_OutpostInventory</pageClass>
     <order>10</order>
+  </DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef>
+    <defName>DreamsOutposts_ManagePage_Tavern</defName>
+    <label>tavern</label>
+    <description>Adventurers currently available to recruit.</description>
+    <pageClass>DreamsOutposts.Page_OutpostTavern</pageClass>
+    <uiIcon>Person</uiIcon>
+    <order>15</order>
   </DreamsOutposts.OutpostManagePageDef>
   <DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Events</defName>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DO_Industrial_EquipmentJam.label>设备卡滞</DO_Industrial_EquipmentJam.label><DO_Industrial_EquipmentJam.description>一套生产设备因磨损停止运行。</DO_Industrial_EquipmentJam.description>
+  <DO_Industrial_EquipmentJam.options.0.label>更换部件</DO_Industrial_EquipmentJam.options.0.label><DO_Industrial_EquipmentJam.options.0.description>消耗3个零部件，立即恢复运行。</DO_Industrial_EquipmentJam.options.0.description>
+  <DO_Industrial_EquipmentJam.options.1.label>临时修补</DO_Industrial_EquipmentJam.options.1.label><DO_Industrial_EquipmentJam.options.1.description>由熟练建造者修补设备，该设施产量降低5天。</DO_Industrial_EquipmentJam.options.1.description>
+  <DO_Industrial_EquipmentJam.options.2.label>停机检修</DO_Industrial_EquipmentJam.options.2.label><DO_Industrial_EquipmentJam.options.2.description>随机一座生产设施停用3天。</DO_Industrial_EquipmentJam.options.2.description>
+  <DO_Industrial_EnrichedMaterials.label>富集原料</DO_Industrial_EnrichedMaterials.label><DO_Industrial_EnrichedMaterials.description>工人发现最近一批原料品质异常优秀。</DO_Industrial_EnrichedMaterials.description>
+  <DO_Industrial_EnrichedMaterials.options.0.label>提高产量</DO_Industrial_EnrichedMaterials.options.0.label><DO_Industrial_EnrichedMaterials.options.0.description>随机生产设施的下一次产出翻倍。</DO_Industrial_EnrichedMaterials.options.0.description>
+  <DO_Industrial_EnrichedMaterials.options.1.label>留作精加工</DO_Industrial_EnrichedMaterials.options.1.label><DO_Industrial_EnrichedMaterials.options.1.description>将这批原料留作高价值产品的精加工。</DO_Industrial_EnrichedMaterials.options.1.description>
+  <DO_Industrial_RefinedGoodsSale.label>获得一批高价值产品并卖出</DO_Industrial_RefinedGoodsSale.label><DO_Industrial_RefinedGoodsSale.description>优质原料正在被加工成一批高价值产品。</DO_Industrial_RefinedGoodsSale.description><DO_Industrial_RefinedGoodsSale.options.0.label>加工后卖出</DO_Industrial_RefinedGoodsSale.options.0.label><DO_Industrial_RefinedGoodsSale.options.0.description>获得1000白银。</DO_Industrial_RefinedGoodsSale.options.0.description>
+  <DO_Industrial_WorkAccident.label>工伤事故</DO_Industrial_WorkAccident.label><DO_Industrial_WorkAccident.description>繁忙的作业现场发生了事故。</DO_Industrial_WorkAccident.description>
+  <DO_Industrial_WorkAccident.options.0.label>全面停工检查</DO_Industrial_WorkAccident.options.0.label><DO_Industrial_WorkAccident.options.0.description>生产降至一半，持续3天。</DO_Industrial_WorkAccident.options.0.description>
+  <DO_Industrial_WorkAccident.options.1.label>简单改进安全规程</DO_Industrial_WorkAccident.options.1.label><DO_Industrial_WorkAccident.options.1.description>生产×0.7持续3天，之后×1.25持续8天。</DO_Industrial_WorkAccident.options.1.description>
+  <DO_Industrial_WorkAccident.options.2.label>大力改进安全规程</DO_Industrial_WorkAccident.options.2.label><DO_Industrial_WorkAccident.options.2.description>消耗100钢铁；生产×0.5持续3天，之后×1.5持续10天。</DO_Industrial_WorkAccident.options.2.description>
+  <DO_Industrial_ToolShortage.label>工具短缺</DO_Industrial_ToolShortage.label><DO_Industrial_ToolShortage.description>大量工具已经无法继续使用。</DO_Industrial_ToolShortage.description>
+  <DO_Industrial_ToolShortage.options.0.label>补充工具</DO_Industrial_ToolShortage.options.0.label><DO_Industrial_ToolShortage.options.0.description>消耗50钢铁补充工具。</DO_Industrial_ToolShortage.options.0.description>
+  <DO_Industrial_ToolShortage.options.1.label>就地修复</DO_Industrial_ToolShortage.options.1.label><DO_Industrial_ToolShortage.options.1.description>所有殖民者获2000制作经验，生产×0.9持续5天。</DO_Industrial_ToolShortage.options.1.description>
+  <DO_Industrial_ToolShortage.options.2.label>凑合使用</DO_Industrial_ToolShortage.options.2.label><DO_Industrial_ToolShortage.options.2.description>生产×0.7持续5天。</DO_Industrial_ToolShortage.options.2.description>
+  <DO_Industrial_ScrapBuildup.label>废料堆积</DO_Industrial_ScrapBuildup.label><DO_Industrial_ScrapBuildup.description>生产废料占据了越来越多的工作空间。</DO_Industrial_ScrapBuildup.description>
+  <DO_Industrial_ScrapBuildup.options.0.label>回收利用</DO_Industrial_ScrapBuildup.options.0.label><DO_Industrial_ScrapBuildup.options.0.description>需要制作至少6；获得80钢铁。</DO_Industrial_ScrapBuildup.options.0.description>
+  <DO_Industrial_ScrapBuildup.options.1.label>运到荒地倾倒</DO_Industrial_ScrapBuildup.options.1.label><DO_Industrial_ScrapBuildup.options.1.description>工业倾向−3、荒野倾向+3，持续8天。</DO_Industrial_ScrapBuildup.options.1.description>
+  <DO_Industrial_ScrapBuildup.options.2.label>暂时堆放</DO_Industrial_ScrapBuildup.options.2.label><DO_Industrial_ScrapBuildup.options.2.description>生产×0.9，持续5天。</DO_Industrial_ScrapBuildup.options.2.description>
+  <DO_Industrial_ProcessImprovement.label>工艺改进</DO_Industrial_ProcessImprovement.label><DO_Industrial_ProcessImprovement.description>一名工人提出了改进生产流程的方法。</DO_Industrial_ProcessImprovement.description>
+  <DO_Industrial_ProcessImprovement.options.0.label>试行方案</DO_Industrial_ProcessImprovement.options.0.label><DO_Industrial_ProcessImprovement.options.0.description>随机生产设施产量×1.2，持续10天。</DO_Industrial_ProcessImprovement.options.0.description>
+  <DO_Industrial_ProcessImprovement.options.1.label>奖励提案者</DO_Industrial_ProcessImprovement.options.1.label><DO_Industrial_ProcessImprovement.options.1.description>支付300白银，将效果提高为×1.4。</DO_Industrial_ProcessImprovement.options.1.description>
+  <DO_Industrial_ProcessImprovement.options.2.label>沿用旧流程</DO_Industrial_ProcessImprovement.options.2.label><DO_Industrial_ProcessImprovement.options.2.description>不做任何改变。</DO_Industrial_ProcessImprovement.options.2.description>
+  <DO_Industrial_PrototypeTest.label>样机测试</DO_Industrial_PrototypeTest.label><DO_Industrial_PrototypeTest.description>工人拼装出一套未经验证的新设备。</DO_Industrial_PrototypeTest.description>
+  <DO_Industrial_PrototypeTest.options.0.label>投入生产</DO_Industrial_PrototypeTest.options.0.label><DO_Industrial_PrototypeTest.options.0.description>随机设施产量×1.5，持续6天。</DO_Industrial_PrototypeTest.options.0.description>
+  <DO_Industrial_PrototypeTest.options.1.label>拆解研究</DO_Industrial_PrototypeTest.options.1.label><DO_Industrial_PrototypeTest.options.1.description>获得200研究点，所有殖民者获2000制作经验。</DO_Industrial_PrototypeTest.options.1.description>
+  <DO_Industrial_PrototypeTest.options.2.label>拆成零件</DO_Industrial_PrototypeTest.options.2.label><DO_Industrial_PrototypeTest.options.2.description>获得2—4个零部件。</DO_Industrial_PrototypeTest.options.2.description>
+  <DO_Frontier_HerdTracks.label>兽群踪迹</DO_Frontier_HerdTracks.label>
+  <DO_Frontier_HerdTracks.description>附近发现大型野生动物迁徙留下的踪迹。</DO_Frontier_HerdTracks.description>
+  <DO_Frontier_HerdTracks.options.0.label>组织狩猎</DO_Frontier_HerdTracks.options.0.label>
+  <DO_Frontier_HerdTracks.options.0.description>追踪兽群，并将猎物就地屠宰。</DO_Frontier_HerdTracks.options.0.description>
+  <DO_Frontier_HerdTracks.options.1.label>保持距离</DO_Frontier_HerdTracks.options.1.label>
+  <DO_Frontier_HerdTracks.options.1.description>不要惊扰兽群。</DO_Frontier_HerdTracks.options.1.description>
+  <DO_Frontier_HerdTracks.options.2.label>引导兽群远离道路</DO_Frontier_HerdTracks.options.2.label>
+  <DO_Frontier_HerdTracks.options.2.description>调派人手把兽群引离常用道路。</DO_Frontier_HerdTracks.options.2.description>
+
+  <DO_Frontier_WashedOutRoad.label>暴雨冲毁道路</DO_Frontier_WashedOutRoad.label>
+  <DO_Frontier_WashedOutRoad.description>雨水冲坏了连接据点的土路。</DO_Frontier_WashedOutRoad.description>
+  <DO_Frontier_WashedOutRoad.options.0.label>立即抢修</DO_Frontier_WashedOutRoad.options.0.label>
+  <DO_Frontier_WashedOutRoad.options.0.description>立即投入大量人力抢通道路。</DO_Frontier_WashedOutRoad.options.0.description>
+  <DO_Frontier_WashedOutRoad.options.1.label>等待道路自然恢复</DO_Frontier_WashedOutRoad.options.1.label>
+  <DO_Frontier_WashedOutRoad.options.1.description>节省物资，但暂时忍受通行不便。</DO_Frontier_WashedOutRoad.options.1.description>
+  <DO_Frontier_WashedOutRoad.options.2.label>趁机修建排水沟</DO_Frontier_WashedOutRoad.options.2.label>
+  <DO_Frontier_WashedOutRoad.options.2.description>重修道路，并增设排水设施以防再次冲毁。</DO_Frontier_WashedOutRoad.options.2.description>
+
+  <DO_Frontier_AbandonedCamp.label>废弃营地</DO_Frontier_AbandonedCamp.label>
+  <DO_Frontier_AbandonedCamp.description>侦察员发现一个匆忙废弃的小型营地。</DO_Frontier_AbandonedCamp.description>
+  <DO_Frontier_AbandonedCamp.options.0.label>搜索物资</DO_Frontier_AbandonedCamp.options.0.label>
+  <DO_Frontier_AbandonedCamp.options.0.description>搜寻营地里还能利用的东西。</DO_Frontier_AbandonedCamp.options.0.description>
+  <DO_Frontier_AbandonedCamp.options.1.label>仔细调查</DO_Frontier_AbandonedCamp.options.1.label>
+  <DO_Frontier_AbandonedCamp.options.1.description>让经验丰富的思考者还原现场，并进行细致搜索。</DO_Frontier_AbandonedCamp.options.1.description>
+  <DO_Frontier_AbandonedCamp.options.2.label>不要靠近</DO_Frontier_AbandonedCamp.options.2.label>
+  <DO_Frontier_AbandonedCamp.options.2.description>不要触碰这座营地。</DO_Frontier_AbandonedCamp.options.2.description>
+
+  <DO_Frontier_LostTraveler.label>迷路的远行者</DO_Frontier_LostTraveler.label>
+  <DO_Frontier_LostTraveler.description>一名筋疲力尽的远行者来到据点求助。</DO_Frontier_LostTraveler.description>
+  <DO_Frontier_LostTraveler.options.0.label>提供补给和方向</DO_Frontier_LostTraveler.options.0.label>
+  <DO_Frontier_LostTraveler.options.0.description>调拨部分产出为远行者提供补给，并指出安全的前路。</DO_Frontier_LostTraveler.options.0.description>
+  <DO_Frontier_LostTraveler.options.1.label>邀请留下</DO_Frontier_LostTraveler.options.1.label>
+  <DO_Frontier_LostTraveler.options.1.description>邀请远行者成为据点的一员。</DO_Frontier_LostTraveler.options.1.description>
+  <DO_Frontier_LostTraveler.options.2.label>拒绝接待</DO_Frontier_LostTraveler.options.2.label>
+  <DO_Frontier_LostTraveler.options.2.description>让远行者离开。</DO_Frontier_LostTraveler.options.2.description>
+
+  <DO_Frontier_ContaminatedWater.label>水源污染</DO_Frontier_ContaminatedWater.label>
+  <DO_Frontier_ContaminatedWater.description>据点附近的水源出现异常气味。</DO_Frontier_ContaminatedWater.description>
+  <DO_Frontier_ContaminatedWater.options.0.label>煮沸储水</DO_Frontier_ContaminatedWater.options.0.label>
+  <DO_Frontier_ContaminatedWater.options.0.description>煮沸并限量供应储水，使核心设施效率降低两天。</DO_Frontier_ContaminatedWater.options.0.description>
+  <DO_Frontier_ContaminatedWater.options.1.label>寻找新水源</DO_Frontier_ContaminatedWater.options.1.label>
+  <DO_Frontier_ContaminatedWater.options.1.description>勘察周边，寻找干净的水源。</DO_Frontier_ContaminatedWater.options.1.description>
+  <DO_Frontier_ContaminatedWater.options.2.label>继续使用</DO_Frontier_ContaminatedWater.options.2.label>
+  <DO_Frontier_ContaminatedWater.options.2.description>继续使用受污染的水源，并承受核心设施效率降低的后果。</DO_Frontier_ContaminatedWater.options.2.description>
+</LanguageData>

@@ -6,7 +6,7 @@ namespace DreamsOutposts
 	/// <summary>
 	/// 开发者菜单（Debug actions）里的据点事件指令。
 	/// 这里用的是全局随机事件调度器的逻辑：所有据点 → CanReceiveRandomEvent() → 至少一个合法事件 → 等概率抽一个，
-	/// 与据点上那个「DEV: Roll random event」gizmo（在指定据点上直接抽取）不是同一条路径。
+	/// 与据点上那个生成全部正权重事件的 gizmo 不是同一条路径。
 	/// 指令本身不修改 nextRandomEventTick，全局排期不受影响。
 	/// </summary>
 	public static class DebugActions_OutpostEvents

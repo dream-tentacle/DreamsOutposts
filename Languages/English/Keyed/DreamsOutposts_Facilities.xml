@@ -4,6 +4,7 @@
   <DreamsOutposts.InstallFail.NotInstallable>This facility cannot be installed as an extension.</DreamsOutposts.InstallFail.NotInstallable>
   <DreamsOutposts.InstallFail.WrongOutpostType>This facility cannot be installed in {0}.</DreamsOutposts.InstallFail.WrongOutpostType>
   <DreamsOutposts.InstallFail.ResearchMissing>Requires research: {0}</DreamsOutposts.InstallFail.ResearchMissing>
+  <DreamsOutposts.InstallFail.RequiresRiver>This facility requires an outpost on a river.</DreamsOutposts.InstallFail.RequiresRiver>
   <DreamsOutposts.InstallFail.LimitReached>This outpost already has the maximum of {0}.</DreamsOutposts.InstallFail.LimitReached>
   <DreamsOutposts.InstallFail.CannotAfford>Not enough resources: missing {0}.</DreamsOutposts.InstallFail.CannotAfford>
   <DreamsOutposts.InstallFail.LevelTooLow>This outpost is level {0}; the facility requires level {1}.</DreamsOutposts.InstallFail.LevelTooLow>
@@ -48,5 +49,6 @@
   <DreamsOutposts.AutomaticAirdropNoProducers>This outpost has no production facilities to select.</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>Automatic airdropper delivered: {0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
 	<DreamsOutposts.WaystationMovementFactor>Waystation: {0}</DreamsOutposts.WaystationMovementFactor>
+	<DreamsOutposts.TemporaryMovementFactor>Temporary outpost effect: {0}</DreamsOutposts.TemporaryMovementFactor>
 </LanguageData>
 

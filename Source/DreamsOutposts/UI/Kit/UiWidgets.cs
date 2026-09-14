@@ -108,6 +108,41 @@ namespace DreamsOutposts
 			return UiText.LineHeight((size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body) + padding * 2f;
 		}
 
+		/// <summary>使用白色透明底图染色的主按钮；文字位置使用底图原始像素坐标。</summary>
+		public static bool TexturedPrimaryButton(Rect rect, string label, Texture2D texture,
+			float sourceLabelX, float sourceLabelWidth,
+			UiButtonSize size = UiButtonSize.Normal, string tooltip = null)
+		{
+			if (rect.width <= 0f || rect.height <= 0f)
+			{
+				return false;
+			}
+			bool hovered = Mouse.IsOver(rect);
+			bool pressed = hovered && (Event.current.type == EventType.MouseDown || Event.current.type == EventType.MouseDrag);
+			Rect drawRect = rect;
+			if (pressed)
+			{
+				float shrinkX = Mathf.Max(rect.width * 0.025f, 1f);
+				float shrinkY = Mathf.Max(rect.height * 0.05f, 1f);
+				drawRect = new Rect(rect.x + shrinkX, rect.y + shrinkY,
+					Mathf.Max(rect.width - shrinkX * 2f, 1f), Mathf.Max(rect.height - shrinkY * 2f, 1f));
+			}
+			if (texture != null)
+			{
+				Color previous = GUI.color;
+				GUI.color = hovered ? UiPalette.BrandHover : UiPalette.Brand;
+				GUI.DrawTexture(drawRect, texture, ScaleMode.StretchToFill, true);
+				GUI.color = previous;
+			}
+			float sourceWidth = (texture != null) ? texture.width : Mathf.Max(sourceLabelX + sourceLabelWidth, 1f);
+			Rect drawnLabelRect = new Rect(drawRect.x + drawRect.width * sourceLabelX / sourceWidth,
+				drawRect.y, drawRect.width * sourceLabelWidth / sourceWidth, drawRect.height);
+			UiText.Draw(drawnLabelRect, label, (size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body,
+				UiPalette.OnAccent, TextAnchor.MiddleCenter, false, false, true);
+			Tip(rect, tooltip);
+			return Widgets.ButtonInvisible(rect);
+		}
+
 		public static bool IconButton(Rect rect, UiIcon icon, string tooltip = null, bool enabled = true)
 		{
 			if (rect.width <= 0f || rect.height <= 0f)
@@ -196,6 +231,10 @@ namespace DreamsOutposts
 				inkColor = UiPalette.Ink2;
 			}
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, fill, border);
+			if (active)
+			{
+				UiDraw.CornerAccents(rect, (int)UiMetrics.NavActiveArcRadius, UiMetrics.NavActiveArcGap);
+			}
 			float x = rect.x + UiMetrics.NavItemPaddingH;
 			float contentTop = rect.y + UiMetrics.NavItemPaddingV;
 			Rect iconRect = new Rect(x, contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f, UiMetrics.NavIconSize, UiMetrics.NavIconSize);

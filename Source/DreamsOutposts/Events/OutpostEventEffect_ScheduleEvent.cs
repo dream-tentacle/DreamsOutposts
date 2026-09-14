@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -45,7 +46,7 @@ namespace DreamsOutposts
 			{
 				return null;
 			}
-			return "In " + DelayLabel(delayTicksRange) + ": " + (string)eventDef.LabelCap;
+			return "DreamsOutposts.EventEffect.ScheduledEvent".Translate(DelayLabel(delayTicksRange), eventDef.LabelCap).ToString();
 		}
 
 		private static string DelayLabel(IntRange range)
@@ -59,7 +60,7 @@ namespace DreamsOutposts
 			// 整数天区间合并成「3~5 days」，其余情况逐项写出来。
 			if (min > 0 && max > 0 && min % 60000 == 0 && max % 60000 == 0)
 			{
-				return (min / 60000) + "~" + (max / 60000) + " days";
+				return "DreamsOutposts.EventEffect.DelayDaysRange".Translate(min / 60000, max / 60000).ToString();
 			}
 			return TicksLabel(min) + " to " + TicksLabel(max);
 		}
@@ -72,15 +73,62 @@ namespace DreamsOutposts
 			{
 				if (hours == 0)
 				{
-					return (days == 1) ? "1 day" : (days + " days");
+					return "DreamsOutposts.EventEffect.DelayDays".Translate(days).ToString();
 				}
-				return days + "d " + hours + "h";
+				return "DreamsOutposts.EventEffect.DelayDaysHours".Translate(days, hours).ToString();
 			}
 			if (hours > 0)
 			{
-				return (hours == 1) ? "1 hour" : (hours + " hours");
+				return "DreamsOutposts.EventEffect.DelayHours".Translate(hours).ToString();
 			}
-			return "moments";
+			return "DreamsOutposts.EventEffect.DelayMoments".Translate().ToString();
+		}
+	}
+
+	public class OutpostEventWeightedOption
+	{
+		public OutpostEventDef eventDef;
+		public float weight = 1f;
+	}
+
+	public class OutpostEventEffect_ScheduleRandomEvent : OutpostEventEffect
+	{
+		public List<OutpostEventWeightedOption> options = new List<OutpostEventWeightedOption>();
+		public IntRange delayTicksRange;
+
+		public override void Apply(OutpostEventContext context)
+		{
+			if (context?.outpost == null || options.NullOrEmpty() || delayTicksRange.TrueMin < 0) return;
+			float total = 0f;
+			for (int i = 0; i < options.Count; i++)
+			{
+				if (options[i]?.eventDef != null) total += Mathf.Max(options[i].weight, 0f);
+			}
+			if (total <= 0f)
+			{
+				Log.Error("OutpostEventEffect_ScheduleRandomEvent has no positively weighted event options.");
+				return;
+			}
+			float roll = Rand.Range(0f, total);
+			OutpostEventDef selected = null;
+			for (int i = 0; i < options.Count; i++)
+			{
+				OutpostEventWeightedOption option = options[i];
+				if (option?.eventDef == null || option.weight <= 0f) continue;
+				roll -= option.weight;
+				if (roll < 0f)
+				{
+					selected = option.eventDef;
+					break;
+				}
+			}
+			if (selected == null) selected = options.FindLast(option => option?.eventDef != null && option.weight > 0f).eventDef;
+			context.outpost.AddScheduledEvent(selected, Rand.RangeInclusive(delayTicksRange.TrueMin, delayTicksRange.TrueMax));
+		}
+
+		public override string GetPreview(OutpostEventContext context)
+		{
+			return "DreamsOutposts.EventEffect.RandomFollowUp".Translate().ToString();
 		}
 	}
 }

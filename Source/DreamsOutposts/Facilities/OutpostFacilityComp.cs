@@ -27,6 +27,7 @@ namespace DreamsOutposts
 		}
 
 		public virtual void Tick(Outpost outpost, int delta) { }
+		public virtual void TickDisabled(Outpost outpost, int delta) { }
 		public virtual void PreRemove(Outpost outpost) { }
 		public virtual void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output) { }
 		public virtual void ExposeData() { }

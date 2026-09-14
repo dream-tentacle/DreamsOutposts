@@ -13,7 +13,7 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				if (facility?.def != null && facility.def.automaticAirdropController)
 				{

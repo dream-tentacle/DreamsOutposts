@@ -1,0 +1,276 @@
+﻿枚举 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Data ...
+候选文件：总数 1578 / 含 PawnKindDef 54 / 含 FactionDef 12 / 含 race 的 ThingDef 31
+
+============================================================
+ 原版人类 PawnKindDef combatPower 统计
+============================================================
+PawnKindDef(有defName)     : 285
+非人类                       : 157
+人类                         : 125
+  其中 combatPower > 0       : 125
+  其中 combatPower <= 0/缺失 : 0
+
+--- 分位数（仅 combatPower > 0）---
+  min         30
+  p10         30
+  p25         45
+  median      70
+  p75        125
+  p90        140
+  p95        140
+  max        150
+  mean      78.8
+
+--- 每个 combatPower 值（每种类的 defName）---
+     30 | ##############################  13   Colonist, CrewMember, Empire_Common_Laborer, Empire_Common_Lodger, Resea
+rcher, Slave, Slave_Empire, SpaceRefugee, SpaceRefugee_Clothed, Tribal_Child, Tribal_Child_Fire, Tribesperson, WildMan
+     35 | #####################            9   Beggar, Drifter, Drifter_Yttakin, Farmer, Logger, PovertyPilgrim, Refuge
+e, Tribal_Farmer, Tribal_Miner
+     40 | ###################              8   Empire_Common_Trader, Empire_Royal_NobleWimp, Miner, ShamblerSwarmer, To
+wn_Councilman, Town_Councilman_Pig, Tribal_Logger, Tribal_Penitent
+     45 | ########################        10   ShamblerSoldier, Town_Trader, Town_Trader_Pig, TradersGuild_Child, Trade
+rsGuild_Citizen, Tribal_Archer, Villager, Villager_Child, Villager_Child_Pig, Villager_Pig
+     50 | ##############                   6   Empire_Royal_Bestower, Scavenger, Scavenger_Yttakin, Thrasher, Thrasher_
+Yttakin, Tribal_Warrior
+     52 | ###                              1   Hunter
+     55 | ##############                   6   Grenadier_EMP, Grenadier_Smoke, Grenadier_Tox, Horaxian_Underthrall, Str
+angerInBlack, Tribal_Breacher
+     60 | ##########                       4   Town_Guard, Town_Guard_Pig, Tribal_Hunter, Tribal_Trader
+     65 | ##########                       4   Empire_Fighter_Trooper, Pirate, Pirate_Yttakin, Tribal_Berserker
+     70 | #######                          3   Grenadier_Destructive, Tribal_Penitent_Fire, WellEquippedTraveler
+     75 | #######                          3   Tribal_Archer_Fire, Tribal_HeavyArcher, Tribal_Warrior_Fire
+     80 | #####                            2   Horaxian_Gunner, Tribal_Hunter_Fire
+     85 | ############################    12   AncientSoldier, Mechanitor, Mechanitor_Basic, Mercenary_Gunner, Mercenar
+y_Gunner_Acidifier, Mercenary_Gunner_Pig, Mercenary_Gunner_Yttakin, Mercenary_GunnerTox, Salvager_Pirate, TradersGuild_
+Gunner, Tribal_ChiefMelee, Tribal_ChiefRanged
+     90 | #####                            2   Ghoul, Horaxian_Highthrall
+    100 | ##############                   6   Empire_Fighter_Champion, Empire_Fighter_Grenadier, Empire_Fighter_Janiss
+ary, Sanguophage, Sanguophage_Player, SanguophageThrall
+    110 | #######                          3   Mercenary_Sniper, Mercenary_Sniper_Acidifier, Mercenary_Sniper_Yttakin
+    120 | ###                              1   Empire_Royal_Yeoman
+    125 | ###                              1   Empire_Royal_Acolyte
+    130 | ############################    12   AncientSoldier_Leader, Empire_Royal_Knight, Mercenary_Elite, Mercenary_E
+lite_Acidifier, Mercenary_Elite_Pig, Mercenary_Elite_Yttakin, Mercenary_EliteTox, PirateBoss, PirateBossTox, Salvager_E
+lite, TradersGuild_Elite, TradersGuild_Magister
+    135 | ##############                   6   Empire_Royal_Baron, Empire_Royal_Consul, Empire_Royal_Count, Empire_Roya
+l_Duke, Empire_Royal_Praetor, Empire_Royal_Stellarch
+    140 | ########################        10   Mercenary_Heavy, Mercenary_Heavy_Yttakin, Mercenary_HeavyTox, Mercenary_
+Slasher, Mercenary_Slasher_Acidifier, Mercenary_Slasher_Yttakin, Mercenary_SlasherTox, Salvager_Scrapper, TradersGuild_
+Heavy, TradersGuild_Slasher
+    150 | #######                          3   Empire_Fighter_Cataphract, Empire_Fighter_StellicGuardMelee, Empire_Figh
+ter_StellicGuardRanged
+
+--- 区间分布 ---
+    30 -  49 | #############                             40 ( 32.0%)
+    50 -  69 | #######                                   21 ( 16.8%)
+    70 -  89 | #######                                   20 ( 16.0%)
+    90 - 109 | ###                                        8 (  6.4%)
+   110 - 129 | ##                                         5 (  4.0%)
+   130 - 149 | #########                                 28 ( 22.4%)
+   150 - 199 | #                                          3 (  2.4%)
+
+--- 按来源模块 ---
+  Anomaly   n=  7  min=  30  median=   55  max=  90  mean=  61.4
+  Biotech   n= 34  min=  30  median=   80  max= 140  mean=  82.6
+  Core      n= 39  min=  30  median=   60  max= 140  mean=  69.5
+  Ideology  n= 10  min=  35  median=   35  max=  70  mean=  41.2
+  Odyssey   n= 12  min=  30  median=  130  max= 140  mean= 102.5
+  Royalty   n= 23  min=  30  median=  120  max= 150  mean=  98.0
+
+--- 是否出现在 Combat 组池 ---
+  不在 Combat 组    n= 61  min=  30  median=   45  max= 150
+  在 Combat 组     n= 64  min=  35  median=   85  max= 150
+
+--- 排除 leader/trader/boss 后（本 mod 可用池的近似）---
+  n=113  min=30  p25=45  median=70  p75=120  p90=140  max=150  mean=78.6
+
+============================================================
+ 本 mod 候选池（复刻 BuildPawnKindPool 过滤条件）
+============================================================
+池条目数（种类 x 派系）  : 441
+去重后的种类数           : 58
+参与派系数               : 16
+
+--- 池内 combatPower 分位数（按条目加权）---
+  min         30
+  p10         45
+  p25         50
+  median      65
+  p75         85
+  p90        130
+  max        150
+  mean      73.5
+
+--- 池内每个 combatPower 值的条目数 ---
+     30 | #####                            8  (2 种: Tribal_Child, Tribal_Child_Fire)
+     35 | #####                            8  (2 种: Drifter_Yttakin, Drifter)
+     40 | ############                    18  (1 种: Tribal_Penitent)
+     45 | ##############################  49  (7 种: Tribal_Archer, Villager_Pig, Villager_Child_Pig, Villager, Villager
+_Child, TradersGuild_Citizen, TradersGuild_Child)
+     50 | ##############################  49  (5 种: Tribal_Warrior, Thrasher_Yttakin, Scavenger_Yttakin, Thrasher, Scav
+enger)
+     55 | #################               27  (4 种: Tribal_Breacher, Grenadier_EMP, Grenadier_Smoke, Grenadier_Tox)
+     60 | ###########################     43  (3 种: Tribal_Hunter, Town_Guard_Pig, Town_Guard)
+     65 | ##############################  49  (4 种: Tribal_Berserker, Pirate_Yttakin, Pirate, Empire_Fighter_Trooper)
+     70 | ###############                 24  (2 种: Grenadier_Destructive, Tribal_Penitent_Fire)
+     75 | ###########################     44  (3 种: Tribal_HeavyArcher, Tribal_Warrior_Fire, Tribal_Archer_Fire)
+     80 | ####                             5  (1 种: Tribal_Hunter_Fire)
+     85 | ##################              28  (5 种: Mercenary_Gunner_Yttakin, Mercenary_Gunner_Pig, Mercenary_GunnerTox
+, Mercenary_Gunner, TradersGuild_Gunner)
+    100 | #####                            7  (3 种: Empire_Fighter_Janissary, Empire_Fighter_Champion, Empire_Fighter_G
+renadier)
+    110 | #########                       14  (2 种: Mercenary_Sniper_Yttakin, Mercenary_Sniper)
+    130 | #################               27  (5 种: Mercenary_Elite_Yttakin, Mercenary_Elite_Pig, Mercenary_EliteTox, M
+ercenary_Elite, TradersGuild_Elite)
+    140 | ########################        38  (8 种: Mercenary_Heavy_Yttakin, Mercenary_Slasher_Yttakin, Mercenary_Slash
+er, Mercenary_HeavyTox, Mercenary_Heavy, Mercenary_SlasherTox, TradersGuild_Slasher, TradersGuild_Heavy)
+    150 | ##                               3  (1 种: Empire_Fighter_Cataphract)
+
+--- 参与池的派系 ---
+  CannibalPirate               n= 38  min=  35  median=   70  max= 140
+  Empire                       n= 13  min=  65  median=  100  max= 150
+  NudistTribe                  n= 30  min=  30  median=   55  max=  75
+  OutlanderCivil               n= 15  min=  45  median=   70  max= 140
+  OutlanderRough               n= 15  min=  45  median=   70  max= 140
+  OutlanderRoughPig            n= 15  min=  45  median=   70  max= 140
+  Pirate                       n= 38  min=  35  median=   70  max= 140
+  PirateWaster                 n= 50  min=  35  median=   85  max= 140
+  PirateYttakin                n= 28  min=  35  median=   70  max= 140
+  TradersGuild                 n= 11  min=  45  median=   85  max= 140
+  TribeCannibal                n= 30  min=  30  median=   55  max=  75
+  TribeCivil                   n= 30  min=  30  median=   55  max=  75
+  TribeRough                   n= 30  min=  30  median=   55  max=  75
+  TribeRoughNeanderthal        n= 27  min=  30  median=   55  max=  75
+  TribeSavage                  n= 30  min=  30  median=   55  max=  75
+  TribeSavageImpid             n= 41  min=  30  median=   70  max=  80
+
+--- 全部人类 PawnKindDef（按 combatPower 升序）---
+   CP  defName                    module    斗?   抵抗       武器钱              tier 注释 / 标记
+   30  Colonist                   Core      n    13~21                     
+   30  CrewMember                 Odyssey   n    13~21                     
+   30  Empire_Common_Laborer      Royalty   n    6~10                      
+   30  Empire_Common_Lodger       Royalty   n    10~17                     
+   30  Researcher                 Anomaly   n    13~21                     
+   30  Slave                      Core      n    10~17                     
+   30  Slave_Empire               Royalty   n    10~17                     
+   30  SpaceRefugee               Core      n    12~19                     
+   30  SpaceRefugee_Clothed       Core      n    0~0                       
+   30  Tribal_Child               Biotech   Y    17~27    0                
+   30  Tribal_Child_Fire          Biotech   Y    17~27    0                
+   30  Tribesperson               Core      n    9~15                      
+   30  WildMan                    Core      Y    28~44                     
+   35  Beggar                     Ideology  Y    4~8      60~200           Beggar
+   35  Drifter                    Core      Y    7~12     60~200           Poverty tier - drifter
+   35  Drifter_Yttakin            Biotech   Y    7~12     60~200           
+   35  Farmer                     Ideology  n    10~17    65~125           
+   35  Logger                     Ideology  n    10~17    65~125           
+   35  PovertyPilgrim             Ideology  Y    4~8      80~250           Pilgrim
+   35  Refugee                    Royalty   Y    8~14     60~200           Refugee
+   35  Tribal_Farmer              Ideology  n    17~27    80~80            Farmer
+   35  Tribal_Miner               Ideology  n    17~27    80~80            Miners
+   40  Empire_Common_Trader       Royalty   n    16~25    1100~3500        [trader]
+   40  Empire_Royal_NobleWimp     Royalty   Y    26~40    2600~3100        
+   40  Miner                      Ideology  n    10~17    65~125           
+   40  ShamblerSwarmer            Anomaly   Y    7~12                      
+   40  Town_Councilman            Core      n    7~11     200~200          [leader]
+   40  Town_Councilman_Pig        Biotech   n    7~11     200~200          [leader]
+   40  Tribal_Logger              Ideology  n    17~27    80~80            Loggers
+   40  Tribal_Penitent            Core      Y    10~17    90~150           Poverty tier - penitent
+   45  ShamblerSoldier            Anomaly   Y    7~12                      
+   45  Town_Trader                Core      n    12~20    200~200          [trader]
+   45  Town_Trader_Pig            Biotech   n    12~20    200~200          [trader]
+   45  TradersGuild_Child         Odyssey   n    10~17    0                
+   45  TradersGuild_Citizen       Odyssey   n    10~17    150~250          
+   45  Tribal_Archer              Core      Y    17~27    80~80            Low tier - archer
+   45  Villager                   Core      n    10~17    65~250           
+   45  Villager_Child             Biotech   n    10~17    0                
+   45  Villager_Child_Pig         Biotech   n    10~17    0                
+   45  Villager_Pig               Biotech   n    10~17    65~250           
+   50  Empire_Royal_Bestower      Royalty   Y    30~46    99999            
+   50  Scavenger                  Core      Y    17~26    200~300          
+   50  Scavenger_Yttakin          Biotech   Y    17~26    200~300          
+   50  Thrasher                   Core      Y    14~23    100~160          
+   50  Thrasher_Yttakin           Biotech   Y    14~23    100~160          
+   50  Tribal_Warrior             Core      Y    5~9      150~150          Mid tier - warrior, breacher, hunter, trader
+   52  Hunter                     Ideology  n    10~17    140~250          Hunters
+   55  Grenadier_EMP              Core      Y    15~24    500~500          
+   55  Grenadier_Smoke            Core      Y    18~28    400~400          
+   55  Grenadier_Tox              Biotech   Y    15~24    500~500          
+   55  Horaxian_Underthrall       Anomaly   Y    55~65    100~160          
+   55  StrangerInBlack            Core      Y    0~2      500~500          
+   55  Tribal_Breacher            Core      Y    12~19    150~150          
+   60  Town_Guard                 Core      Y    15~24    250~400          
+   60  Town_Guard_Pig             Biotech   Y    15~24    250~400          
+   60  Tribal_Hunter              Core      Y    10~16    100~100          
+   60  Tribal_Trader              Core      Y    9~15     100~100          [trader]
+   65  Empire_Fighter_Trooper     Royalty   Y    15~24    1100~2500        
+   65  Pirate                     Core      Y    7~12     250~345          Mid tier - pirate
+   65  Pirate_Yttakin             Biotech   Y    7~12     250~345          
+   65  Tribal_Berserker           Core      Y    13~20    300~300          High tier - berserker, heavy archer, chief m
+elee, chief ranged
+   70  Grenadier_Destructive      Core      Y    10~16    500~500          
+   70  Tribal_Penitent_Fire       Biotech   Y    10~17    90~150           
+   70  WellEquippedTraveler       Ideology  Y    30~40    400~600          Traveler
+   75  Tribal_Archer_Fire         Biotech   Y    17~27    80~80            
+   75  Tribal_HeavyArcher         Core      Y    14~22    250~250          
+   75  Tribal_Warrior_Fire        Biotech   Y    5~9      150~150          
+   80  Horaxian_Gunner            Anomaly   Y    55~65    400~700          
+   80  Tribal_Hunter_Fire         Biotech   Y    10~16    100~100          
+   85  AncientSoldier             Core      Y    1~3      300~900          
+   85  Mechanitor                 Biotech   Y    0~1      300~900          
+   85  Mechanitor_Basic           Biotech   Y    0~1      300~900          
+   85  Mercenary_Gunner           Core      Y    6~10     330~650          
+   85  Mercenary_Gunner_Acidifier Core      Y    10~16    330~650          
+   85  Mercenary_Gunner_Pig       Biotech   Y    6~10     330~650          
+   85  Mercenary_Gunner_Yttakin   Biotech   Y    6~10     330~650          
+   85  Mercenary_GunnerTox        Biotech   Y    6~10     330~650          
+   85  Salvager_Pirate            Odyssey   Y    4~8      330~650          
+   85  TradersGuild_Gunner        Odyssey   Y    6~10     330~650          
+   85  Tribal_ChiefMelee          Core      Y    38~58    500~1000         [leader]
+   85  Tribal_ChiefRanged         Core      Y    16~26    500~1000         [leader]
+   90  Ghoul                      Anomaly   Y    7~12                      
+   90  Horaxian_Highthrall        Anomaly   Y    55~65    300~500          
+  100  Empire_Fighter_Champion    Royalty   Y    12~20    1100~2500        Champion
+  100  Empire_Fighter_Grenadier   Royalty   Y    13~21    1100~2500        Imperial Grenadier
+  100  Empire_Fighter_Janissary   Royalty   Y    13~21    1550~2700        
+  100  Sanguophage                Biotech   Y    10~80    600~800          
+  100  Sanguophage_Player         Biotech   Y    10~80    0                
+  100  SanguophageThrall          Biotech   Y    0~1      600~1000         
+  110  Mercenary_Sniper           Core      Y    13~20    600~600          
+  110  Mercenary_Sniper_Acidifier Core      Y    14~23    600~600          
+  110  Mercenary_Sniper_Yttakin   Biotech   Y    13~20    600~600          
+  120  Empire_Royal_Yeoman        Royalty   Y    38~58    2600~3100        
+  125  Empire_Royal_Acolyte       Royalty   Y    37~56    2600~3100        
+  130  AncientSoldier_Leader      Odyssey   Y    1~3      500~1400         
+  130  Empire_Royal_Knight        Royalty   Y    38~58    2600~3100        
+  130  Mercenary_Elite            Core      Y    15~23    500~1400         
+  130  Mercenary_Elite_Acidifier  Core      Y    12~20    500~1400         
+  130  Mercenary_Elite_Pig        Biotech   Y    15~23    500~1400         
+  130  Mercenary_Elite_Yttakin    Biotech   Y    15~23    500~1400         
+  130  Mercenary_EliteTox         Biotech   Y    15~23    500~1400         
+  130  PirateBoss                 Core      Y    17~27    500~1400         [leader]
+  130  PirateBossTox              Biotech   Y    17~27    500~1400         [leader]
+  130  Salvager_Elite             Odyssey   Y    10~15    500~1400         
+  130  TradersGuild_Elite         Odyssey   Y    15~23    500~1400         
+  130  TradersGuild_Magister      Odyssey   Y    17~27    500~1400         [leader]
+  135  Empire_Royal_Baron         Royalty   Y    25~39    2600~3100        
+  135  Empire_Royal_Consul        Royalty   Y    19~30    2600~3100        
+  135  Empire_Royal_Count         Royalty   Y    38~58    2600~3100        
+  135  Empire_Royal_Duke          Royalty   Y    38~58    2600~3100        
+  135  Empire_Royal_Praetor       Royalty   Y    38~58    2600~3100        
+  135  Empire_Royal_Stellarch     Royalty   Y    38~58    2600~3100        [leader]
+  140  Mercenary_Heavy            Core      Y    14~23    1200~1200        
+  140  Mercenary_Heavy_Yttakin    Biotech   Y    14~23    1200~1200        
+  140  Mercenary_HeavyTox         Biotech   Y    14~23    1200~1200        
+  140  Mercenary_Slasher          Core      Y    10~16    200~500          
+  140  Mercenary_Slasher_Acidifier Core      Y    9~15     200~500          
+  140  Mercenary_Slasher_Yttakin  Biotech   Y    19~29    200~500          
+  140  Mercenary_SlasherTox       Biotech   Y    10~16    200~500          
+  140  Salvager_Scrapper          Odyssey   Y    6~10     200~500          
+  140  TradersGuild_Heavy         Odyssey   Y    14~23    1200~1200        
+  140  TradersGuild_Slasher       Odyssey   Y    10~16    200~500          
+  150  Empire_Fighter_Cataphract  Royalty   Y    17~26    1100~2500        
+  150  Empire_Fighter_StellicGuardMelee Royalty   Y    19~30    3000~3500        
+  150  Empire_Fighter_StellicGuardRanged Royalty   Y    14~22    3000~3500        
+
+明细 JSON 已写入: D:\project\Dream的据点拓展\Tools\combatpower_humanlike.json

@@ -74,6 +74,8 @@
   <DreamsOutposts.Ui.Rule.Progress>进度 {0}%，还需 {1}</DreamsOutposts.Ui.Rule.Progress>
   <DreamsOutposts.Ui.Rule.Output>产量 {0} × {1}</DreamsOutposts.Ui.Rule.Output>
   <DreamsOutposts.Ui.Rule.Expected>预期 {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
+  <DreamsOutposts.Ui.Rule.TemporaryProduction>事件产量 ×{0}，剩余 {1}</DreamsOutposts.Ui.Rule.TemporaryProduction>
+  <DreamsOutposts.Ui.Rule.TemporaryProductionNext>事件产量 ×{0}，仅下次生产</DreamsOutposts.Ui.Rule.TemporaryProductionNext>
   <DreamsOutposts.Ui.Rule.Capacity>{0} 合计 {1}</DreamsOutposts.Ui.Rule.Capacity>
   <DreamsOutposts.Ui.Rule.SkillFilter>{0} ≥ {1} 才计入</DreamsOutposts.Ui.Rule.SkillFilter>
   <DreamsOutposts.Ui.Rule.Tags>标签 {0}</DreamsOutposts.Ui.Rule.Tags>
@@ -98,4 +100,23 @@
   <DreamsOutposts.Ui.Option.RequirementsFailed>条件不满足</DreamsOutposts.Ui.Option.RequirementsFailed>
   <DreamsOutposts.Ui.Option.Confirm>确认</DreamsOutposts.Ui.Option.Confirm>
   <DreamsOutposts.Ui.Option.Later>稍后再说</DreamsOutposts.Ui.Option.Later>
+  <DreamsOutposts.Tavern.Title>酒馆</DreamsOutposts.Tavern.Title>
+  <DreamsOutposts.Tavern.Nav>{0}/{1} 名候选人</DreamsOutposts.Tavern.Nav>
+  <DreamsOutposts.Tavern.Description>查看来访的冒险者，并免费邀请他们加入这个据点。</DreamsOutposts.Tavern.Description>
+  <DreamsOutposts.Tavern.Hint>每2天出现1名候选人，每人会停留10天。</DreamsOutposts.Tavern.Hint>
+  <DreamsOutposts.Tavern.Preference>技能倾向</DreamsOutposts.Tavern.Preference>
+  <DreamsOutposts.Tavern.AnySkill>无倾向</DreamsOutposts.Tavern.AnySkill>
+  <DreamsOutposts.Tavern.Next>下一名候选人：{0}</DreamsOutposts.Tavern.Next>
+  <DreamsOutposts.Tavern.Full>候选人槽位已满</DreamsOutposts.Tavern.Full>
+  <DreamsOutposts.Tavern.Odds>人口倾向 {0} · 普通 {1} · 优秀 {2} · 精英 {3} · 史诗 {4}</DreamsOutposts.Tavern.Odds>
+  <DreamsOutposts.Tavern.Empty>目前没有可招募的冒险者。</DreamsOutposts.Tavern.Empty>
+  <DreamsOutposts.Tavern.Rarity>综合评级：{0}</DreamsOutposts.Tavern.Rarity>
+  <DreamsOutposts.Tavern.Rarity.Common>普通</DreamsOutposts.Tavern.Rarity.Common>
+  <DreamsOutposts.Tavern.Rarity.Excellent>优秀</DreamsOutposts.Tavern.Rarity.Excellent>
+  <DreamsOutposts.Tavern.Rarity.Elite>精英</DreamsOutposts.Tavern.Rarity.Elite>
+  <DreamsOutposts.Tavern.Rarity.Epic>史诗</DreamsOutposts.Tavern.Rarity.Epic>
+  <DreamsOutposts.Tavern.Expires>{0}后离开</DreamsOutposts.Tavern.Expires>
+  <DreamsOutposts.Tavern.Recruit>招募</DreamsOutposts.Tavern.Recruit>
+  <DreamsOutposts.Tavern.Dismiss>删除</DreamsOutposts.Tavern.Dismiss>
+  <DreamsOutposts.Tavern.DismissConfirm>确定删除{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
 </LanguageData>

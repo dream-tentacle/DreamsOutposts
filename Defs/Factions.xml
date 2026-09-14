@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <FactionDef ParentName="TribeSavageBase">
+    <defName>DreamsOutposts_WildernessTribe</defName>
+    <label>wilderness tribe</label>
+    <description>A hidden tribe dwelling beyond the reach of settled society. They recognize no peace with outsiders, but do not leave the wilderness to launch attacks of their own.</description>
+    <fixedName>Wilderness Tribe</fixedName>
+
+    <!-- Always create one background faction, but keep it out of normal world generation and UI. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>
+    <startingCountAtWorldCreation>0</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>0</maxConfigurableAtWorldCreation>
+    <displayInFactionSelection>false</displayInFactionSelection>
+    <hidden>true</hidden>
+    <settlementGenerationWeight>0</settlementGenerationWeight>
+
+    <!-- Hostile whenever encountered, while excluded from vanilla raid faction selection. -->
+    <permanentEnemy>true</permanentEnemy>
+    <raidsForbidden>true</raidsForbidden>
+  </FactionDef>
+</Defs>

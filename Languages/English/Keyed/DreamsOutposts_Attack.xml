@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Attack.Enemy>Invaders: {0}\nEnemy strength: {1}\nRaid points: {2}</DreamsOutposts.Attack.Enemy>
+  <DreamsOutposts.Attack.Wait>The battle will resolve automatically after eight hours. Its outcome is not yet known.</DreamsOutposts.Attack.Wait>
+  <DreamsOutposts.Attack.Outcome0>Flawless victory</DreamsOutposts.Attack.Outcome0>
+  <DreamsOutposts.Attack.Outcome1>Victory</DreamsOutposts.Attack.Outcome1>
+  <DreamsOutposts.Attack.Outcome2>Incursion</DreamsOutposts.Attack.Outcome2>
+  <DreamsOutposts.Attack.Outcome3>Withdrawal</DreamsOutposts.Attack.Outcome3>
+  <DreamsOutposts.Attack.Outcome4>Crushing defeat</DreamsOutposts.Attack.Outcome4>
+  <DreamsOutposts.Attack.Result0>Your residents wiped out the attackers without losses.</DreamsOutposts.Attack.Result0>
+  <DreamsOutposts.Attack.Result1>Your residents defeated most of the attackers without losses. The survivors were drawn toward your colony.</DreamsOutposts.Attack.Result1>
+  <DreamsOutposts.Attack.Result2>Your residents were outmatched. They defeated some attackers, then drew the remainder toward your colony.</DreamsOutposts.Attack.Result2>
+  <DreamsOutposts.Attack.Result3>Your residents were unprepared. They hastily pulled back their lines and drew the attackers toward your colony.</DreamsOutposts.Attack.Result3>
+  <DreamsOutposts.Attack.Result4>Your residents were plundered! The attackers are moving toward your colony.</DreamsOutposts.Attack.Result4>
+  <DreamsOutposts.Attack.Comparison>Defense: {0}\nEnemy strength: {1}\nDefense-to-strength ratio: {2}</DreamsOutposts.Attack.Comparison>
+  <DreamsOutposts.Attack.Loot>Recovered equipment: {0} silver market value (target: {1}).</DreamsOutposts.Attack.Loot>
+  <DreamsOutposts.Attack.ProductionLoss>All facility production ×{0} for 3 days.</DreamsOutposts.Attack.ProductionLoss>
+  <DreamsOutposts.Attack.Casualties>Killed: {0}</DreamsOutposts.Attack.Casualties>
+  <DreamsOutposts.Attack.Raid>The survivors have attacked your colony: ×{0} raid strength ({1} points).</DreamsOutposts.Attack.Raid>
+  <DreamsOutposts.Attack.RaidFailed>The survivors did not reach your colony: no valid target or invading force could be generated.</DreamsOutposts.Attack.RaidFailed>
+  <DreamsOutposts.Attack.ResultTitle>{0}: {1}</DreamsOutposts.Attack.ResultTitle>
+</LanguageData>

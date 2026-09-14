@@ -23,7 +23,7 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
-			foreach (OutpostFacility facility in outpost.Facilities)
+			foreach (OutpostFacility facility in outpost.OperationalFacilities)
 			{
 				if (facility?.def?.defName == WaystationDefName)
 				{
@@ -31,6 +31,13 @@ namespace DreamsOutposts
 				}
 			}
 			return false;
+		}
+
+		public static float TemporaryMovementFactorAt(PlanetTile tile)
+		{
+			if (!tile.Valid || Find.WorldObjects == null) return 1f;
+			Outpost outpost = Find.WorldObjects.WorldObjectAt<Outpost>(tile);
+			return outpost == null ? 1f : OutpostTemporaryEffectUtility.MovementCostFactor(outpost);
 		}
 	}
 
@@ -40,18 +47,23 @@ namespace DreamsOutposts
 		public static void Postfix(PlanetTile fromTile, PlanetTile toTile, StringBuilder explanation, ref float __result)
 		{
 			PlanetTile destination = toTile.Valid ? toTile : fromTile;
-			if (!OutpostWaystationUtility.HasWaystationAt(destination))
-			{
-				return;
-			}
-			__result *= OutpostWaystationUtility.MovementCostFactor;
+			bool hasWaystation = OutpostWaystationUtility.HasWaystationAt(destination);
+			float temporaryFactor = OutpostWaystationUtility.TemporaryMovementFactorAt(destination);
+			if (!hasWaystation && temporaryFactor == 1f) return;
+			if (hasWaystation) __result *= OutpostWaystationUtility.MovementCostFactor;
+			__result *= temporaryFactor;
 			if (explanation != null)
 			{
 				if (explanation.Length > 0)
 				{
 					explanation.AppendLine();
 				}
-				explanation.Append("DreamsOutposts.WaystationMovementFactor".Translate(OutpostWaystationUtility.MovementCostFactor.ToStringPercent()));
+				if (hasWaystation) explanation.Append("DreamsOutposts.WaystationMovementFactor".Translate(OutpostWaystationUtility.MovementCostFactor.ToStringPercent()));
+				if (temporaryFactor != 1f)
+				{
+					if (hasWaystation) explanation.AppendLine();
+					explanation.Append("DreamsOutposts.TemporaryMovementFactor".Translate(temporaryFactor.ToStringPercent()));
+				}
 			}
 		}
 	}

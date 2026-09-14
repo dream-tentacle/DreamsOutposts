@@ -44,7 +44,6 @@ namespace DreamsOutposts
 		{
 			"DreamsOutposts_Frontier",
 			"DreamsOutposts_Industrial",
-			"DreamsOutposts_Trade",
 			"DreamsOutposts_Population",
 			"DreamsOutposts_Research"
 		};

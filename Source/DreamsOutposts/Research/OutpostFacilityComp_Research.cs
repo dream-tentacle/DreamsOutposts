@@ -59,6 +59,11 @@ namespace DreamsOutposts
 			}
 		}
 
+		public override void TickDisabled(Outpost outpost, int delta)
+		{
+			if (delta > 0) nextResearchTick += delta;
+		}
+
 		public override void ExposeData()
 		{
 			Scribe_Values.Look(ref nextResearchTick, "nextResearchTick", 0);

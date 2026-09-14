@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DO_OutpostAttack.label>据点遭袭</DO_OutpostAttack.label>
+  <DO_OutpostAttack.description>敌人正在逼近据点，居民们已经开始准备防守阵地。战斗将在8小时后结算。</DO_OutpostAttack.description>
+  <DO_OutpostAttack.options.0.label>等待战斗结束</DO_OutpostAttack.options.0.label>
+  <DO_OutpostAttack.options.0.description>据点居民将自行组织防守，战斗结束后会报告结果。</DO_OutpostAttack.options.0.description>
+</LanguageData>

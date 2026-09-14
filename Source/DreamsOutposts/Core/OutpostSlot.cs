@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RimWorld.Planet;
 using Verse;
 
 namespace DreamsOutposts
@@ -35,6 +36,10 @@ namespace DreamsOutposts
 			{
 				return new AcceptanceReport("DreamsOutposts.InstallFail.ResearchMissing".Translate(def.FirstMissingResearch?.LabelCap ?? ((TaggedString)"null")));
 			}
+			if (def.requiresRiver && !HasRiver(outpost))
+			{
+				return new AcceptanceReport("DreamsOutposts.InstallFail.RequiresRiver".Translate());
+			}
 			AcceptanceReport levelReport = def.MeetsLevelRequirement(outpost);
 			if (!levelReport.Accepted)
 			{
@@ -50,6 +55,16 @@ namespace DreamsOutposts
 				return new AcceptanceReport("DreamsOutposts.InstallFail.CannotAfford".Translate(OutpostBuildUtility.CostLabel(missing)));
 			}
 			return AcceptanceReport.WasAccepted;
+		}
+
+		private static bool HasRiver(Outpost outpost)
+		{
+			if (outpost == null || !outpost.Tile.Valid)
+			{
+				return false;
+			}
+			SurfaceTile surfaceTile = outpost.Tile.Tile as SurfaceTile;
+			return surfaceTile != null && !surfaceTile.Rivers.NullOrEmpty();
 		}
 
 		public bool TryInstall(OutpostFacilityDef def, Outpost outpost, out AcceptanceReport report)

@@ -58,6 +58,15 @@ namespace DreamsOutposts
 			OutpostProductionUtility.TickFacility(outpost, parent);
 		}
 
+		public override void TickDisabled(Outpost outpost, int delta)
+		{
+			if (delta <= 0) return;
+			for (int i = 0; i < (states?.Count ?? 0); i++)
+			{
+				if (states[i] != null) states[i].nextProductionTick += delta;
+			}
+		}
+
 		public override void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output)
 		{
 			foreach (OutpostProductionProperties production in Props.productions)
@@ -69,13 +78,14 @@ namespace DreamsOutposts
 				OutpostProductionUtility.TryCalculateExpectedOutput(outpost, parent, production, out amount);
 				bool hasProgress = OutpostProductionUtility.TryGetCycleProgress(parent, production, out float progress, out int remaining);
 				string label = product != null ? product.LabelCap.ToString() : (!string.IsNullOrEmpty(production.outputLabelKey) ? production.outputLabelKey.Translate().ToString() : production.id);
+				int intervalTicks = production.Worker.GetProductionIntervalTicks(production, state);
 				UiFacilitySectionView section = new UiFacilitySectionView
 				{
 					Title = label,
 					IconThing = product,
 					MainText = amount > 0f ? "×" + amount.ToString("0.#") : string.Empty,
 					LeftText = hasProgress ? "DreamsOutposts.ProductionRemaining".Translate(label, remaining.ToStringTicksToPeriod()).ToString() : label,
-					RightText = "DreamsOutposts.Ui.ProductionEvery".Translate(production.intervalTicks.ToStringTicksToPeriod()).ToString(),
+					RightText = "DreamsOutposts.Ui.ProductionEvery".Translate(intervalTicks.ToStringTicksToPeriod()).ToString(),
 					ShowProgress = true,
 					Progress = hasProgress ? Mathf.Clamp01(progress) : 0f,
 					ProgressKind = UiChipKind.Info
