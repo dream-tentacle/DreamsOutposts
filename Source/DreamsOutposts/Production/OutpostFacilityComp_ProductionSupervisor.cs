@@ -11,8 +11,7 @@ namespace DreamsOutposts
 	/// 受监管的等级倍率才生效。任一条件不满足时 OutpostProductionUtility.MatchingModifiers 会跳过这些倍率，
 	/// 产出回到没有等级倍率时的原始值。
 	///
-	/// 状态按 <see cref="StateCheckIntervalTicks"/> 缓存在组件里，不在每 tick 的取值路径上重复判定，
-	/// 节奏与远程供电等据点设施的检查一致。
+	/// 状态由据点统一更新入口刷新；取值路径只读取缓存。
 	/// </summary>
 	public class OutpostFacilityCompProperties_ProductionSupervisor : OutpostFacilityCompProperties
 	{
@@ -52,10 +51,6 @@ namespace DreamsOutposts
 
 	public class OutpostFacilityComp_ProductionSupervisor : OutpostFacilityComp
 	{
-		/// <summary>管理者与禁用状态的重算间隔，和远程供电等据点设施的检查同频（1250 tick）。</summary>
-		public const int StateCheckIntervalTicks = 1250;
-
-		private int nextStateCheckTick;
 		private bool hasSupervisor;
 		private bool hubDisabled;
 		private int stateVersion;
@@ -80,37 +75,18 @@ namespace DreamsOutposts
 		/// <summary>据点里是否有合格管理者（缓存）。</summary>
 		public bool HasSupervisor => hasSupervisor;
 
-		public override void Initialize(OutpostFacility parent, OutpostFacilityCompProperties props)
+		public override void Update(Outpost outpost, int delta)
 		{
-			base.Initialize(parent, props);
-			// 状态要等第一次 Tick 才能算（那时才拿得到 Outpost），所以这里只是把检查点推到一个立即到期的值
-			nextStateCheckTick = 0;
+			RefreshState(outpost);
 		}
 
-		public override void Tick(Outpost outpost, int delta)
+		public override void UpdateDisabled(Outpost outpost, int delta)
 		{
-			int now = Find.TickManager.TicksGame;
-			// 被禁用期间 Tick 不会走，恢复后的第一次 Tick 立刻重算，禁用状态不会多残留一个周期
-			if (!hubDisabled && now < nextStateCheckTick)
-			{
-				return;
-			}
-			RefreshState(outpost, now);
+			RefreshState(outpost);
 		}
 
-		public override void TickDisabled(Outpost outpost, int delta)
+		private void RefreshState(Outpost outpost)
 		{
-			int now = Find.TickManager.TicksGame;
-			if (hubDisabled && now < nextStateCheckTick)
-			{
-				return;
-			}
-			RefreshState(outpost, now);
-		}
-
-		private void RefreshState(Outpost outpost, int now)
-		{
-			nextStateCheckTick = now + StateCheckIntervalTicks;
 			bool supervisor = HasQualifiedSupervisor(outpost);
 			bool disabled = parent != null && OutpostTemporaryEffectUtility.IsFacilityDisabled(outpost, parent);
 			if (supervisor == hasSupervisor && disabled == hubDisabled)

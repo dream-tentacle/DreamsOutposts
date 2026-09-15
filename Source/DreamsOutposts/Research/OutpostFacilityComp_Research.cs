@@ -42,7 +42,7 @@ namespace DreamsOutposts
 			if (nextResearchTick <= 0) nextResearchTick = Find.TickManager.TicksGame + Props.intervalTicks;
 		}
 
-		public override void Tick(Outpost outpost, int delta)
+		public override void Update(Outpost outpost, int delta)
 		{
 			int now = Find.TickManager.TicksGame;
 			while (now >= nextResearchTick)
@@ -59,7 +59,7 @@ namespace DreamsOutposts
 			}
 		}
 
-		public override void TickDisabled(Outpost outpost, int delta)
+		public override void UpdateDisabled(Outpost outpost, int delta)
 		{
 			if (delta > 0) nextResearchTick += delta;
 		}

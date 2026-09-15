@@ -53,12 +53,12 @@ namespace DreamsOutposts
 			return null;
 		}
 
-		public override void Tick(Outpost outpost, int delta)
+		public override void Update(Outpost outpost, int delta)
 		{
 			OutpostProductionUtility.TickFacility(outpost, parent);
 		}
 
-		public override void TickDisabled(Outpost outpost, int delta)
+		public override void UpdateDisabled(Outpost outpost, int delta)
 		{
 			if (delta <= 0) return;
 			for (int i = 0; i < (states?.Count ?? 0); i++)

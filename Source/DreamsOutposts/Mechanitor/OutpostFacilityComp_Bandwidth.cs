@@ -39,7 +39,7 @@ namespace DreamsOutposts
 			NotifyBandwidthChanged(tunedTo, null);
 		}
 
-		public override void Tick(Outpost outpost, int delta)
+		public override void Update(Outpost outpost, int delta)
 		{
 			if (!IsTuning || !OutpostBandwidthUtility.HasOperator(outpost)) return;
 			retuneTicksLeft -= delta;

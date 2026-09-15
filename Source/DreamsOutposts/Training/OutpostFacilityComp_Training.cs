@@ -6,7 +6,7 @@ namespace DreamsOutposts
 	/// </summary>
 	public class OutpostFacilityComp_Training : OutpostFacilityComp
 	{
-		public override void Tick(Outpost outpost, int delta)
+		public override void Update(Outpost outpost, int delta)
 		{
 			OutpostTrainingUtility.TickFacility(outpost, (OutpostTrainingProperties)props, delta);
 		}

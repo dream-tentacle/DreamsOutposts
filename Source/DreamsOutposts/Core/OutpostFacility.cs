@@ -52,14 +52,14 @@ namespace DreamsOutposts
 			return null;
 		}
 
-		public void TickComps(Outpost outpost, int delta)
+		public void UpdateComps(Outpost outpost, int delta)
 		{
-			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.Tick(outpost, delta);
+			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.Update(outpost, delta);
 		}
 
-		public void TickDisabledComps(Outpost outpost, int delta)
+		public void UpdateDisabledComps(Outpost outpost, int delta)
 		{
-			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.TickDisabled(outpost, delta);
+			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.UpdateDisabled(outpost, delta);
 		}
 
 		public void PreRemove(Outpost outpost)

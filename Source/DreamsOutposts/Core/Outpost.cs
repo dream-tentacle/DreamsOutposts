@@ -203,12 +203,17 @@ namespace DreamsOutposts
 		protected override void TickInterval(int delta)
 		{
 			base.TickInterval(delta);
+			Update(delta);
+		}
+
+		public void Update(int delta)
+		{
 			OutpostTemporaryEffectUtility.RemoveExpired(this, Find.TickManager.TicksGame);
 			OutpostEventUtility.TickEvents(this);
 			foreach (OutpostFacility facility in Facilities)
 			{
-				if (OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) facility.TickDisabledComps(this, delta);
-				else facility.TickComps(this, delta);
+				if (OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) facility.UpdateDisabledComps(this, delta);
+				else facility.UpdateComps(this, delta);
 			}
 			AgePawns(delta);
 			OutpostAirdropUtility.CheckStalePending(this);

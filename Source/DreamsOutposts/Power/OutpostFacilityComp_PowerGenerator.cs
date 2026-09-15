@@ -31,31 +31,26 @@ namespace DreamsOutposts
 	public class OutpostFacilityComp_PowerGenerator : OutpostFacilityComp
 	{
 		public int poweredUntilTick;
-		public int nextFuelCheckTick;
 		public Building linkedReceiver;
 
 		public OutpostFacilityCompProperties_PowerGenerator Props => (OutpostFacilityCompProperties_PowerGenerator)props;
 		public bool IsPoweredNow => !Props.requiresFuel || poweredUntilTick > Find.TickManager.TicksGame;
 
-		public override void Tick(Outpost outpost, int delta)
+		public override void Update(Outpost outpost, int delta)
 		{
 			int now = Find.TickManager.TicksGame;
-			if (now < nextFuelCheckTick) return;
 			if (!RemotePowerUtility.IsValidReceiver(linkedReceiver))
 			{
 				linkedReceiver = null;
-				nextFuelCheckTick = now + 1250;
 				return;
 			}
 			if (!Props.requiresFuel)
 			{
-				nextFuelCheckTick = now + 1250;
 				RemotePowerUtility.NotifyReceiver(linkedReceiver);
 				return;
 			}
 			if (poweredUntilTick > now)
 			{
-				nextFuelCheckTick = poweredUntilTick;
 				return;
 			}
 
@@ -63,11 +58,6 @@ namespace DreamsOutposts
 				OutpostStockUtility.TakeFromStock(outpost, Props.fuel, Props.fuelPerCycle) == Props.fuelPerCycle)
 			{
 				poweredUntilTick = now + Props.cycleTicks;
-				nextFuelCheckTick = poweredUntilTick;
-			}
-			else
-			{
-				nextFuelCheckTick = now + 1250;
 			}
 			RemotePowerUtility.NotifyReceiver(linkedReceiver);
 		}
@@ -114,7 +104,6 @@ namespace DreamsOutposts
 		public override void ExposeData()
 		{
 			Scribe_Values.Look(ref poweredUntilTick, "poweredUntilTick", 0);
-			Scribe_Values.Look(ref nextFuelCheckTick, "nextFuelCheckTick", 0);
 			Scribe_References.Look(ref linkedReceiver, "linkedReceiver");
 		}
 	}
