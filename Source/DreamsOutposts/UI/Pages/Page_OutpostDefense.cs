@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -6,7 +6,7 @@ using Verse;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 「防卫」页（新样式）：顶部总防卫 + 人员/设施分解条，下面两栏明细。
+	/// 「防卫」页（新样式）：顶部总防卫 + 人员/设施分解条（满值 100），下面两栏明细。
 	/// 数值全部来自 OutpostUiCache（本质是 OutpostDefenseUtility），本页不做计算、不改状态。
 	/// 按需求去掉的东西：页头描述与公式行、面板标题后的（人数）、「按防卫值排序」提示、
 	/// 人员行下的「殖民者 / 其他人员」灰字、跟随鼠标的悬浮提示框。
@@ -19,6 +19,9 @@ namespace DreamsOutposts
 		private const float HeroPaddingV = 18f;
 
 		private const float HeroGap = 26f;
+
+		/// <summary>顶部堆叠条的满值：防卫 100 铺满整条，超过 100 也不画出条外。</summary>
+		private const float DefenseBarMax = 100f;
 
 		private const float StackBarHeight = 12f;
 
@@ -181,30 +184,45 @@ namespace DreamsOutposts
 			float unitX = innerX + totalWidth + 8f;
 			UiText.Draw(new Rect(unitX, innerY, Mathf.Max(innerWidth - (unitX - innerX), 20f), innerHeight), "DreamsOutposts.Defense".Translate(),
 				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-			// 右侧：分解条 + 图例
+			// 右侧：分解条 + 图例。整条以 DefenseBarMax 为满值，不再按总防卫占比铺满。
 			float barX = unitX + UiText.Width("DreamsOutposts.Defense".Translate(), UiFont.Body) + HeroGap;
 			float barWidth = Mathf.Max(rect.xMax - HeroPaddingH - barX, 60f);
-			float pawnFraction = (cache.Defense > 0f) ? Mathf.Clamp01(cache.DefenseFromPawns / cache.Defense) : 0f;
+			float pawnFraction = Mathf.Clamp01(cache.DefenseFromPawns / DefenseBarMax);
+			float totalFraction = Mathf.Clamp01(cache.Defense / DefenseBarMax);
 			float barY = innerY + (innerHeight - (StackBarHeight + StackBarGap + UiText.LineHeight(UiFont.Body))) * 0.5f;
-			DrawStackBar(new Rect(barX, barY, barWidth, StackBarHeight), pawnFraction);
+			DrawStackBar(new Rect(barX, barY, barWidth, StackBarHeight), pawnFraction, totalFraction);
 			Rect legendRect = new Rect(barX, barY + StackBarHeight + StackBarGap, barWidth, UiText.LineHeight(UiFont.Body));
 			DrawLegend(legendRect, cache);
 		}
 
-		private static void DrawStackBar(Rect rect, float pawnFraction)
+		/// <summary>
+		/// 分解条：轨道满值 = DefenseBarMax。人员段从左侧起，设施段紧随其后，
+		/// 两段合计到 min(总防卫, 100)；没到 100 时右侧留空槽，超过 100 也只在条内画满。
+		/// </summary>
+		private static void DrawStackBar(Rect rect, float pawnFraction, float totalFraction)
 		{
 			UiDraw.Box(rect, (int)UiMetrics.BarRadius, UiPalette.Track);
-			float pawnWidth = Mathf.Round(rect.width * Mathf.Clamp01(pawnFraction));
+			float width = Mathf.Max(rect.width, 1f);
+			float filled = Mathf.Min(Mathf.Round(width * Mathf.Clamp01(totalFraction)), width);
+			float pawnWidth = Mathf.Min(Mathf.Round(width * Mathf.Clamp01(pawnFraction)), filled);
+			float facilityWidth = filled - pawnWidth;
+			// 已填部分顶到条尾时才收右圆角，否则右端是条内的直边。
+			bool reachesEnd = filled >= width - 0.5f;
 			if (pawnWidth > 1f)
 			{
+				UiCorners corners = UiCorners.TopLeft | UiCorners.BottomLeft;
+				if (reachesEnd && facilityWidth <= 1f)
+				{
+					corners = UiCorners.All;
+				}
 				UiDraw.Box(new Rect(rect.x, rect.y, pawnWidth, rect.height), (int)UiMetrics.BarRadius, UiPalette.Accent,
-					UiPalette.Clear, UiCorners.TopLeft | UiCorners.BottomLeft);
+					UiPalette.Clear, corners);
 			}
-			float facilityWidth = rect.width - pawnWidth;
 			if (facilityWidth > 1f)
 			{
+				UiCorners corners = reachesEnd ? (UiCorners.TopRight | UiCorners.BottomRight) : UiCorners.None;
 				UiDraw.Box(new Rect(rect.x + pawnWidth, rect.y, facilityWidth, rect.height), (int)UiMetrics.BarRadius, UiPalette.Ink,
-					UiPalette.Clear, UiCorners.TopRight | UiCorners.BottomRight);
+					UiPalette.Clear, corners);
 			}
 		}
 
@@ -332,9 +350,9 @@ namespace DreamsOutposts
 					UiDraw.Box(row, (int)RowRadius, UiPalette.Hover);
 				}
 				float x = row.x + RowPaddingH;
-				// 原版人物小像（PortraitsCache 渲染，和原版列表一致），不再自绘图标
+				// 原版人物小像（PortraitsCache 渲染，取景参数见 UiDraw.PawnPortrait），不再自绘图标
 				Rect avatar = new Rect(x, row.y + (row.height - AvatarSize) * 0.5f, AvatarSize, AvatarSize);
-				Widgets.ThingIcon(avatar, view.Pawn);
+				UiDraw.PawnPortrait(avatar, view.Pawn);
 				x += AvatarSize + RowGap;
 				// 防卫值
 				string valueText = view.Defense.ToString();

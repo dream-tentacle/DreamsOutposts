@@ -48,6 +48,14 @@
   <DreamsOutposts.FacilityTag.Recruitment>Recruitment</DreamsOutposts.FacilityTag.Recruitment>
   <DreamsOutposts.FacilityTag.Training>Training</DreamsOutposts.FacilityTag.Training>
   <DreamsOutposts.FacilityTag.Other>Other</DreamsOutposts.FacilityTag.Other>
+  <DreamsOutposts.ProductionSupervisor.Present>Manager present ({1} {0})</DreamsOutposts.ProductionSupervisor.Present>
+  <DreamsOutposts.ProductionSupervisor.Missing>Missing manager ({1} {0})</DreamsOutposts.ProductionSupervisor.Missing>
+  <DreamsOutposts.ProductionSupervisor.Disabled>Hub disabled</DreamsOutposts.ProductionSupervisor.Disabled>
+  <DreamsOutposts.ProductionSupervisor.AllFacilities>all facilities</DreamsOutposts.ProductionSupervisor.AllFacilities>
+  <DreamsOutposts.ProductionSupervisor.Tip>A colonist with {1} {0} or better has to be stationed at this outpost as its manager, and the hub itself must not be disabled by an event. Only then do facilities tagged for {2} get the outpost level multipliers.</DreamsOutposts.ProductionSupervisor.Tip>
+  <DreamsOutposts.ProductionSupervisor.ReasonNoManager>No colonist with {1} {0} is stationed here, so the outpost level multipliers are inactive.</DreamsOutposts.ProductionSupervisor.ReasonNoManager>
+  <DreamsOutposts.ProductionSupervisor.ReasonDisabled>The hub is disabled by an event, so the outpost level multipliers are inactive.</DreamsOutposts.ProductionSupervisor.ReasonDisabled>
+  <DreamsOutposts.Ui.Chip.LevelFactorSuppressed>Level multiplier inactive</DreamsOutposts.Ui.Chip.LevelFactorSuppressed>
   <DreamsOutposts.AutomaticAirdropSettings>Airdrop settings</DreamsOutposts.AutomaticAirdropSettings>
   <DreamsOutposts.AutomaticAirdropNoProducers>This outpost has no production facilities to select.</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>Automatic airdropper delivered: {0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>

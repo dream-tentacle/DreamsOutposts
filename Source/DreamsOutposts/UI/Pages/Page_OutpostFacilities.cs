@@ -483,6 +483,7 @@ namespace DreamsOutposts
 			}
 			y += headHeight + UiMetrics.CardGap;
 			// 设施组件声明的功能区块；没有区块时中间直接留空，不再放「没有生产」占位文案
+			float sectionsTop = y;
 			for (int i = 0; i < view.Sections.Count; i++)
 			{
 				if (i > 0)
@@ -491,6 +492,8 @@ namespace DreamsOutposts
 				}
 				y += LayoutFacilitySection(innerX, y, innerWidth, view.Sections[i], draw) + UiMetrics.CardGap;
 			}
+			// 中间区域至少占 FacilityBodyMinHeight（这是头部间隔之外的额外空白），一个区块都没有时卡片也不会贴在一起
+			y = Mathf.Max(y, sectionsTop + UiMetrics.FacilityBodyMinHeight);
 			// footer
 			float footerHeight = LayoutFacilityFooter(rect, view, y, draw);
 			float natural = y + footerHeight - rect.y + UiMetrics.CardPaddingBottom;
@@ -590,7 +593,7 @@ namespace DreamsOutposts
 			if (draw)
 			{
 				float fraction = production.HasProgress ? production.Progress : 0f;
-				Color fill = (production.HasProgress && production.Progress > 0f) ? UiPalette.Accent : UiPalette.ScrollThumb;
+				Color fill = (production.HasProgress && production.Progress > 0f) ? UiPalette.Bad : UiPalette.ScrollThumb;
 				UiDraw.Bar(new Rect(innerX, cursor, innerWidth, UiMetrics.BarHeight), fraction, fill, UiPalette.Track);
 			}
 			cursor += UiMetrics.BarHeight + UiMetrics.ProdGap;

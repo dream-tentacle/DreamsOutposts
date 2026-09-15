@@ -43,6 +43,15 @@ namespace DreamsOutposts
 
 		private const float RadioInnerInset = 3f;
 
+		/// <summary>单选圆点与选项标题之间的距离。</summary>
+		private const float RadioLabelGap = 9f;
+
+		/// <summary>表头右侧提示 chip 之间的距离。</summary>
+		private const float ChipGap = 5f;
+
+		/// <summary>标题后面至少要留出这么宽才显示描述；留不下就只显示标题。</summary>
+		private const float MinDescriptionWidth = 120f;
+
 		private const float FailPaddingH = 9f;
 
 		private const float FailPaddingV = 7f;
@@ -214,6 +223,91 @@ namespace DreamsOutposts
 			return y + rowCount * cellHeight + (rowCount - 1) * KvGap;
 		}
 
+		/// <summary>选项卡表头的排版结果：单选圆点之后的标题行，以及标题后面那段灰色描述。</summary>
+		private struct OptionHeader
+		{
+			public float LabelX;
+
+			public float LabelWidth;
+
+			/// <summary>标题行右侧可用边界（已经扣掉右侧的提示 chip）。</summary>
+			public float TextRight;
+
+			public float HeadHeight;
+
+			/// <summary>描述可用宽度；0 表示这次不显示描述。</summary>
+			public float DescriptionWidth;
+
+			/// <summary>描述换行后的高度；不显示描述时为 0。</summary>
+			public float DescriptionHeight;
+		}
+
+		/// <summary>
+		/// 表头几何的唯一来源：测量（OptionHeight）与绘制（OptionBlock）都走这里。
+		/// 描述会换行，两边各算一套的话卡片高度就会和实际文字对不上。
+		/// </summary>
+		private static OptionHeader HeaderLayout(UiEventOptionView option, float x, float width)
+		{
+			OptionHeader header = default(OptionHeader);
+			float innerX = x + BlockPaddingH;
+			float innerWidth = Mathf.Max(width - BlockPaddingH * 2f, 30f);
+			header.HeadHeight = Mathf.Max(RadioSize, UiText.LineHeight(UiFont.Body));
+			header.LabelX = innerX + RadioSize + RadioLabelGap;
+			header.TextRight = innerX + innerWidth - HeaderChipsWidth(option);
+			header.LabelWidth = UiText.Width(option.Label, UiFont.Body, true);
+			if (!string.IsNullOrEmpty(option.Description))
+			{
+				float available = header.TextRight - (header.LabelX + header.LabelWidth + SpaceGapWidth());
+				if (available >= MinDescriptionWidth)
+				{
+					header.DescriptionWidth = available;
+					header.DescriptionHeight = UiText.Height(option.Description, UiFont.Body, available);
+				}
+			}
+			return header;
+		}
+
+		/// <summary>描述比一行多出来的高度（第一行与标题同行，不算额外高度）。</summary>
+		private static float DescriptionExtraHeight(OptionHeader header)
+		{
+			return Mathf.Max(header.DescriptionHeight - UiText.LineHeight(UiFont.Body), 0f);
+		}
+
+		private static float HeaderChipsWidth(UiEventOptionView option)
+		{
+			float width = 0f;
+			if (!option.PlayerSelectable)
+			{
+				width += UiDraw.ChipWidth(NotSelectableChip()) + ChipGap;
+			}
+			if (!option.RequirementsMet)
+			{
+				width += UiDraw.ChipWidth(FailedChip()) + ChipGap;
+			}
+			return width;
+		}
+
+		private static UiChipView NotSelectableChip()
+		{
+			UiChipView chip = new UiChipView("DreamsOutposts.Ui.Option.NotPlayerSelectable".Translate().ToString());
+			chip.Small = true;
+			return chip;
+		}
+
+		private static UiChipView FailedChip()
+		{
+			UiChipView chip = new UiChipView("DreamsOutposts.Ui.Option.RequirementsFailed".Translate().ToString(), UiChipKind.Bad);
+			chip.Small = true;
+			return chip;
+		}
+
+		/// <summary>两个空格的实际渲染宽度。直接 Width("  ") 不可靠（测量会吞掉行尾空格），所以取差值。</summary>
+		private static float SpaceGapWidth()
+		{
+			float space = UiText.Width("a a", UiFont.Body) - UiText.Width("aa", UiFont.Body);
+			return Mathf.Max(space, 1f) * 2f;
+		}
+
 		/// <summary>画一张选项卡。返回值是这张卡的高度（调用方需要自己累加到 y 上）。</summary>
 		private float OptionBlock(float x, float y, float width, UiEventOptionView option, int index, bool measure)
 		{
@@ -235,8 +329,10 @@ namespace DreamsOutposts
 				UiDraw.Shadow(new Rect(x, y, width, height), (int)UiMetrics.RadiusSm, 0.5f);
 			}
 			UiDraw.Box(new Rect(x, y, width, height), (int)UiMetrics.RadiusSm, fill, line);
+			OptionHeader header = HeaderLayout(option, x, width);
 			float cursor = y + BlockPaddingV;
-			float headHeight = Mathf.Max(RadioSize, UiText.LineHeight(UiFont.Body));
+			float headHeight = header.HeadHeight;
+			float labelX = header.LabelX;
 			// 单选指示
 			Rect radio = new Rect(innerX, cursor + (headHeight - RadioSize) * 0.5f, RadioSize, RadioSize);
 			UiDraw.Box(radio, (int)UiMetrics.RadiusSm2, selected ? UiPalette.BrandTint : UiPalette.Raised, selected ? UiPalette.Brand : UiPalette.LineStrong);
@@ -245,29 +341,34 @@ namespace DreamsOutposts
 				UiDraw.Box(new Rect(radio.x + RadioInnerInset, radio.y + RadioInnerInset, RadioSize - RadioInnerInset * 2f, RadioSize - RadioInnerInset * 2f),
 					(int)UiMetrics.RadiusXs2, UiPalette.Brand);
 			}
-			float labelX = radio.xMax + 9f;
 			float chipHeight = UiDraw.ChipHeight(true);
 			float chipY = cursor + (headHeight - chipHeight) * 0.5f;
 			float rightX = innerX + innerWidth;
 			if (!option.PlayerSelectable)
 			{
-				UiChipView chip = new UiChipView("DreamsOutposts.Ui.Option.NotPlayerSelectable".Translate().ToString());
-				chip.Small = true;
+				UiChipView chip = NotSelectableChip();
 				float chipWidth = UiDraw.ChipWidth(chip);
 				UiDraw.Chip(new Rect(rightX - chipWidth, chipY, chipWidth, chipHeight), chip);
-				rightX -= chipWidth + 5f;
+				rightX -= chipWidth + ChipGap;
 			}
 			if (!option.RequirementsMet)
 			{
-				UiChipView chip = new UiChipView("DreamsOutposts.Ui.Option.RequirementsFailed".Translate().ToString(), UiChipKind.Bad);
-				chip.Small = true;
+				UiChipView chip = FailedChip();
 				float chipWidth = UiDraw.ChipWidth(chip);
 				UiDraw.Chip(new Rect(rightX - chipWidth, chipY, chipWidth, chipHeight), chip);
-				rightX -= chipWidth + 5f;
+				rightX -= chipWidth + ChipGap;
 			}
-			UiText.Draw(new Rect(labelX, cursor, Mathf.Max(rightX - labelX, 30f), headHeight), option.Label,
-				UiFont.Body, selected ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
-			cursor += headHeight;
+			// 标题；后面要跟描述时标题矩形只占它自己的文字宽度，描述紧贴其后
+			float labelRight = (header.DescriptionWidth > 0f) ? (labelX + header.LabelWidth) : rightX;
+			UiText.Draw(new Rect(labelX, cursor, Mathf.Max(labelRight - labelX, 30f), headHeight), option.Label,
+				UiFont.Body, selected ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+			if (header.DescriptionWidth > 0f)
+			{
+				// 描述：标题后面隔两个空格，灰色字，过长时在剩余宽度内换行（卡片会随之变高）
+				UiText.Draw(new Rect(labelX + header.LabelWidth + SpaceGapWidth(), cursor, header.DescriptionWidth, header.DescriptionHeight),
+					option.Description, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
+			}
+			cursor += headHeight + DescriptionExtraHeight(header);
 			// 效果预览
 			if (option.EffectLines.Count > 0)
 			{
@@ -302,7 +403,9 @@ namespace DreamsOutposts
 		private float OptionHeight(UiEventOptionView option, float width)
 		{
 			float innerWidth = Mathf.Max(width - BlockPaddingH * 2f, 30f);
-			float height = BlockPaddingV * 2f + Mathf.Max(RadioSize, UiText.LineHeight(UiFont.Body));
+			// x 传 0：这里只用宽度相关的量，绝对坐标会一起平移，不影响高度
+			OptionHeader header = HeaderLayout(option, 0f, width);
+			float height = BlockPaddingV * 2f + header.HeadHeight + DescriptionExtraHeight(header);
 			if (option.EffectLines.Count > 0)
 			{
 				height += BlockGap + UiText.LineHeight(UiFont.Caption) * option.EffectLines.Count;

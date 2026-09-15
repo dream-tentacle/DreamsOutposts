@@ -3,8 +3,8 @@
   
   <!-- EN: automation hub -->
   <DreamsOutposts_AutomationHub.label>自动化中枢</DreamsOutposts_AutomationHub.label>
-  <!-- EN: A centralized control facility that coordinates the camp's automated machinery. -->
-  <DreamsOutposts_AutomationHub.description>用于协调营地内自动机械的集中控制设施。</DreamsOutposts_AutomationHub.description>
+  <!-- EN: A centralized control facility that coordinates the camp's automated machinery. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise facilities tagged for automatic production run at their base output.\n\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x -->
+  <DreamsOutposts_AutomationHub.description>用于协调营地内自动机械的集中控制设施。需要至少1名留驻本据点、智识达到5的殖民者担任管理者，且中枢本身未被事件禁用，带有「自动生产」标签的设施才享有等级倍率；否则按原始产能产出。\n\n1级: 2倍\n2级: 3倍\n3级: 4倍\n4级: 5倍</DreamsOutposts_AutomationHub.description>
   
   <!-- EN: farm -->
   <DreamsOutposts_Farm.label>农场</DreamsOutposts_Farm.label>

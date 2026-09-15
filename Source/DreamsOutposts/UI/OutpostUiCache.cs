@@ -445,6 +445,9 @@ namespace DreamsOutposts
 			}
 			stamp = stamp * 31 + itemCount;
 			stamp = stamp * 31 + stackTotal;
+			// 管理者/中枢禁用状态翻转时重建视图，等级倍率芯片与状态芯片才会跟着变；读的是组件的缓存，不重复判定
+			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
+			stamp = stamp * 31 + ((supervisor != null) ? supervisor.StateVersion : 0);
 			stamp = stamp * 31 + EventSignature();
 			return stamp;
 		}
@@ -603,6 +606,11 @@ namespace DreamsOutposts
 					view.PowerChipIndex = view.Chips.Count;
 					view.Chips.Add(new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn));
 				}
+				OutpostFacilityComp_ProductionSupervisor supervisor = facility?.GetComp<OutpostFacilityComp_ProductionSupervisor>();
+				if (supervisor != null)
+				{
+					view.Chips.Add(supervisor.BuildStatusChip());
+				}
 				if (!def.productionModifiers.NullOrEmpty())
 				{
 					for (int i = 0; i < def.productionModifiers.Count; i++)
@@ -615,6 +623,34 @@ namespace DreamsOutposts
 						view.Chips.Add(new UiChipView(
 							"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
 							UiChipKind.Good));
+					}
+				}
+				// 设施对事件分类倾向（倾向）的修正：静态 def 数据，和产能 chip 一样只建一次
+				if (!def.eventCategoryModifiers.NullOrEmpty())
+				{
+					for (int i = 0; i < def.eventCategoryModifiers.Count; i++)
+					{
+						OutpostEventCategoryModifier categoryModifier = def.eventCategoryModifiers[i];
+						if (categoryModifier?.category == null)
+						{
+							continue;
+						}
+						string categoryTip = "DreamsOutposts.Ui.Chip.EventCategoryTip".Translate(categoryModifier.category.LabelCap).ToString();
+						if (!Mathf.Approximately(categoryModifier.offset, 0f))
+						{
+							string sign = categoryModifier.offset >= 0f ? "+" : string.Empty;
+							view.Chips.Add(new UiChipView(
+								"DreamsOutposts.Ui.Chip.EventCategoryOffset".Translate(categoryModifier.category.LabelCap, sign + categoryModifier.offset.ToString("0.##")).ToString(),
+								categoryModifier.offset > 0f ? UiChipKind.Good : UiChipKind.Bad,
+								categoryTip));
+						}
+						if (!Mathf.Approximately(categoryModifier.factor, 1f))
+						{
+							view.Chips.Add(new UiChipView(
+								"DreamsOutposts.Ui.Chip.EventCategoryFactor".Translate(categoryModifier.category.LabelCap, categoryModifier.factor.ToString("0.##")).ToString(),
+								categoryModifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
+								categoryTip));
+						}
 					}
 				}
 			}
@@ -662,6 +698,15 @@ namespace DreamsOutposts
 						UiChipKind.Neutral,
 						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
 				}
+			}
+			// 等级倍率没生效时补一颗警示芯片，免得玩家以为设施突然减产了
+			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
+			if (supervisor != null && supervisor.SuppressesLevelFactorFor(outpost, producingFacility, production))
+			{
+				productionView.ModifierChips.Add(new UiChipView(
+					"DreamsOutposts.Ui.Chip.LevelFactorSuppressed".Translate().ToString(),
+					UiChipKind.Warn,
+					supervisor.InactiveReasons()));
 			}
 		}
 

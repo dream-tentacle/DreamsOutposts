@@ -7,7 +7,7 @@ namespace DreamsOutposts
 	{
 		public const float DefaultProductionMultiplier = 1f;
 		public const float MinProductionMultiplier = 0f;
-		public const float MaxProductionMultiplier = 5f;
+		public const float MaxProductionMultiplier = 10f;
 
 		public float productionMultiplier = DefaultProductionMultiplier;
 

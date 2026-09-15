@@ -2,15 +2,15 @@
 <LanguageData>
   
   <!-- EN: ranger taming outpost -->
-  <DreamsOutposts_AnimalTaming.label>巡猎驯养站</DreamsOutposts_AnimalTaming.label>
+  <DreamsOutposts_AnimalTaming.label>驯兽据点</DreamsOutposts_AnimalTaming.label>
   <!-- EN: A wilderness station whose handlers track, capture and tame animals native to the surrounding region. -->
   <DreamsOutposts_AnimalTaming.description>一座由驯兽师追踪、捕获并驯化周边原生动物的荒野据点。</DreamsOutposts_AnimalTaming.description>
-  
+
   <!-- EN: automation camp -->
   <DreamsOutposts_AutomationCamp.label>自动化营地</DreamsOutposts_AutomationCamp.label>
   <!-- EN: A specialized camp organized around centralized automated production. -->
   <DreamsOutposts_AutomationCamp.description>围绕集中式自动生产体系建立的专业营地。</DreamsOutposts_AutomationCamp.description>
-  
+
   <!-- EN: drilling outpost -->
   <DreamsOutposts_Drilling.label>钻井据点</DreamsOutposts_Drilling.label>
   <!-- EN: A basic outpost for pumping and refining chemfuel. -->

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace DreamsOutposts
 {
@@ -23,6 +25,9 @@ namespace DreamsOutposts
 		private Window_OutpostModal modal;
 
 		private bool installOnlyAvailable;
+
+		/// <summary>暂停键的边沿锁：同一帧的 Layout / Repaint 几趟只结算一次。</summary>
+		private bool pauseKeyLatched;
 
 		/// <summary>当前打开的管理窗口（DevMode 测试数据指令会用它取据点）。</summary>
 		public static Window_OutpostManage Current { get; private set; }
@@ -104,6 +109,63 @@ namespace DreamsOutposts
 			DrawPage(contentRect, pages[index]);
 			UiDebug.DrawOverlay();
 			UiDebug.PopSpace();
+		}
+
+		/// <summary>
+		/// 本窗口设了 absorbInputAroundWindow，于是 WindowStack.GetsInput(null) 为 false，
+		/// 原版 UIRoot.UIRootOnGUI() → WindowStack.HandleEventsHighPriority() 会把每一个 KeyDown
+		/// 事件在这个阶段就 Use() 掉；而暂停键的处理在后面的 MainButtonsRoot → TimeControls.DoTimeControlsGUI
+		/// 里（那里开头就 `if (Event.current.type != EventType.KeyDown) return;`），所以永远收不到。
+		/// 结果就是页面开着时空格完全没反应，2/3/4 加速键也一样。
+		/// 这里在窗口自己这一层把暂停键补回来：只补这一个键，其余输入照旧被窗口挡住。
+		/// </summary>
+		public override void ExtraOnGUI()
+		{
+			base.ExtraOnGUI();
+			// KeyBindingDef.IsDown 走 Input.GetKey，不受 Event.current.Use() 影响；顺带跳过搜索框聚焦的情况
+			if (!KeyBindingDefOf.TogglePause.IsDown)
+			{
+				pauseKeyLatched = false;
+				return;
+			}
+			if (pauseKeyLatched)
+			{
+				return;
+			}
+			// 先上锁再判断：这一下就算被弹窗吃掉，也不能等弹窗关掉后再补发一次
+			pauseKeyLatched = true;
+			// 自己的弹窗（安装 / 事件 / 拆除）压在上面时保持模态，不抢键
+			if (!Find.WindowStack.GetsInput(this))
+			{
+				return;
+			}
+			Find.TickManager.TogglePaused();
+			PlayPauseSound(Find.TickManager.CurTimeSpeed);
+			PlayerKnowledgeDatabase.KnowledgeDemonstrated(ConceptDefOf.Pause, KnowledgeAmount.SpecificInteraction);
+		}
+
+		/// <summary>TimeControls.PlaySoundOf 是 private，这里照抄一份，让空格的手感和原版时间按钮一致。</summary>
+		private static void PlayPauseSound(TimeSpeed speed)
+		{
+			SoundDef sound = null;
+			switch (speed)
+			{
+			case TimeSpeed.Paused:
+				sound = SoundDefOf.Clock_Stop;
+				break;
+			case TimeSpeed.Normal:
+				sound = SoundDefOf.Clock_Normal;
+				break;
+			case TimeSpeed.Fast:
+				sound = SoundDefOf.Clock_Fast;
+				break;
+			case TimeSpeed.Superfast:
+			case TimeSpeed.Ultrafast:
+				sound = SoundDefOf.Clock_Superfast;
+				break;
+			}
+			sound?.PlayOneShotOnCamera();
+			Verse.Steam.SteamDeck.Vibrate();
 		}
 
 		public override void PostClose()

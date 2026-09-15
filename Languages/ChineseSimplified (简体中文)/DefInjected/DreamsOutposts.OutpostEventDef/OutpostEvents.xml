@@ -1,667 +1,622 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
-  
-  <!-- EN: abandoned camp -->
+ 
   <DO_Frontier_AbandonedCamp.label>废弃营地</DO_Frontier_AbandonedCamp.label>
-  <!-- EN: A scout has found a small camp abandoned in haste. -->
-  <DO_Frontier_AbandonedCamp.description>侦察员发现一个匆忙废弃的小型营地。</DO_Frontier_AbandonedCamp.description>
-  <!-- EN: Search for supplies -->
+
+  <DO_Frontier_AbandonedCamp.description>侦察员在荒地边缘发现了一座被匆忙遗弃的营地。火堆早已熄灭，散落的行李却像是主人随时会回来。</DO_Frontier_AbandonedCamp.description>
+ 
   <DO_Frontier_AbandonedCamp.options.0.label>搜索物资</DO_Frontier_AbandonedCamp.options.0.label>
-  <!-- EN: Search the camp for anything useful. -->
-  <DO_Frontier_AbandonedCamp.options.0.description>搜寻营地里还能利用的东西。</DO_Frontier_AbandonedCamp.options.0.description>
-  <!-- EN: Investigate carefully -->
+
+  <DO_Frontier_AbandonedCamp.options.0.description>翻找帐篷、箱柜和灰烬，把任何还能派上用场的东西带回据点。</DO_Frontier_AbandonedCamp.options.0.description>
+ 
   <DO_Frontier_AbandonedCamp.options.1.label>仔细调查</DO_Frontier_AbandonedCamp.options.1.label>
-  <!-- EN: Have an experienced thinker reconstruct what happened and search methodically. -->
-  <DO_Frontier_AbandonedCamp.options.1.description>让经验丰富的思考者还原现场，并进行细致搜索。</DO_Frontier_AbandonedCamp.options.1.description>
-  <!-- EN: Do not approach -->
+
+  <DO_Frontier_AbandonedCamp.options.1.description>让经验丰富的思考者先还原现场，再有条不紊地搜查。废墟往往会告诉耐心的人更多。</DO_Frontier_AbandonedCamp.options.1.description>
+
   <DO_Frontier_AbandonedCamp.options.2.label>不要靠近</DO_Frontier_AbandonedCamp.options.2.label>
-  <!-- EN: Leave the camp untouched. -->
-  <DO_Frontier_AbandonedCamp.options.2.description>不要触碰这座营地。</DO_Frontier_AbandonedCamp.options.2.description>
-  
-  <!-- EN: contaminated water source -->
+
+  <DO_Frontier_AbandonedCamp.options.2.description>这里被遗弃得太突然了。保持距离，不碰任何东西。</DO_Frontier_AbandonedCamp.options.2.description>
+ 
   <DO_Frontier_ContaminatedWater.label>水源污染</DO_Frontier_ContaminatedWater.label>
-  <!-- EN: The water source near the outpost has developed an unusual smell. -->
-  <DO_Frontier_ContaminatedWater.description>据点附近的水源出现异常气味。</DO_Frontier_ContaminatedWater.description>
-  <!-- EN: Boil the stored water -->
+
+  <DO_Frontier_ContaminatedWater.description>据点附近的水源开始散发异常气味。没人愿意承认，但储水桶里的味道也变了。</DO_Frontier_ContaminatedWater.description>
+ 
   <DO_Frontier_ContaminatedWater.options.0.label>煮沸储水</DO_Frontier_ContaminatedWater.options.0.label>
-  <!-- EN: Boil and ration the existing water, reducing core output for two days. -->
-  <DO_Frontier_ContaminatedWater.options.0.description>煮沸并限量供应储水，使核心设施效率降低两天。</DO_Frontier_ContaminatedWater.options.0.description>
-  <!-- EN: Find a new water source -->
+
+  <DO_Frontier_ContaminatedWater.options.0.description>把现有储水全部煮沸并实行配给。能撑过去，但核心设施效率降低两天。</DO_Frontier_ContaminatedWater.options.0.description>
+ 
   <DO_Frontier_ContaminatedWater.options.1.label>寻找新水源</DO_Frontier_ContaminatedWater.options.1.label>
-  <!-- EN: Survey the surroundings for clean water. -->
-  <DO_Frontier_ContaminatedWater.options.1.description>勘察周边，寻找干净的水源。</DO_Frontier_ContaminatedWater.options.1.description>
-  <!-- EN: Continue using it -->
+
+  <DO_Frontier_ContaminatedWater.options.1.description>派人勘察周边，直到找到一处还能放心入口的干净水源。</DO_Frontier_ContaminatedWater.options.1.description>
+
   <DO_Frontier_ContaminatedWater.options.2.label>继续使用</DO_Frontier_ContaminatedWater.options.2.label>
-  <!-- EN: Keep using the contaminated source and accept reduced core facility output. -->
-  <DO_Frontier_ContaminatedWater.options.2.description>继续使用受污染的水源，并承受核心设施效率降低的后果。</DO_Frontier_ContaminatedWater.options.2.description>
-  
-  <!-- EN: signal lost -->
+
+  <DO_Frontier_ContaminatedWater.options.2.description>继续使用受污染的水源。工作不能停，但核心设施效率会因此降低。</DO_Frontier_ContaminatedWater.options.2.description>
+ 
   <DO_Frontier_DistressLost.label>信号中断</DO_Frontier_DistressLost.label>
-  <!-- EN: The distress transmission faded and never returned. Whoever sent it did not reach the outpost. -->
-  <DO_Frontier_DistressLost.description>求救信号逐渐消失，此后再也没有恢复。发信人没能抵达据点。</DO_Frontier_DistressLost.description>
-  <!-- EN: Acknowledge -->
+
+  <DO_Frontier_DistressLost.description>求救信号越来越微弱，最终只剩下静电噪声。此后再没有回应——发信人没能抵达据点。</DO_Frontier_DistressLost.description>
+
   <DO_Frontier_DistressLost.options.0.label>知悉</DO_Frontier_DistressLost.options.0.label>
-  <!-- EN: There is nothing more to be done. -->
-  <DO_Frontier_DistressLost.options.0.description>已经无能为力。</DO_Frontier_DistressLost.options.0.description>
-  
-  <!-- EN: extreme cold snap or heat wave -->
+
+  <DO_Frontier_DistressLost.options.0.description>关闭频道。荒原不会为迟到的人留下第二次机会。</DO_Frontier_DistressLost.options.0.description>
+ 
   <DO_Frontier_ExtremeWeather.label>极端寒潮或热浪</DO_Frontier_ExtremeWeather.label>
-  <!-- EN: Extreme weather is approaching the poorly sheltered outpost. -->
-  <DO_Frontier_ExtremeWeather.description>异常天气正在逼近缺乏庇护的据点。</DO_Frontier_ExtremeWeather.description>
-  <!-- EN: Reinforce the shelters -->
+
+  <DO_Frontier_ExtremeWeather.description>气象观测显示，一股足以压垮简陋住所的极端寒潮或热浪正在逼近。据点现有的庇护远远不够。</DO_Frontier_ExtremeWeather.description>
+ 
   <DO_Frontier_ExtremeWeather.options.0.label>紧急加固住所</DO_Frontier_ExtremeWeather.options.0.label>
-  <!-- EN: Use 100 steel and 50 wood to protect the outpost while construction briefly slows work. -->
-  <DO_Frontier_ExtremeWeather.options.0.description>消耗100钢铁和50木材保护据点，施工使生产短暂下降。</DO_Frontier_ExtremeWeather.options.0.description>
-  <!-- EN: Suspend operations -->
+
+  <DO_Frontier_ExtremeWeather.options.0.description>消耗100钢铁和50木材，赶在天气抵达前加固住所。施工期间生产会短暂下降。</DO_Frontier_ExtremeWeather.options.0.description>
+
   <DO_Frontier_ExtremeWeather.options.1.label>暂停作业</DO_Frontier_ExtremeWeather.options.1.label>
-  <!-- EN: Keep everyone safe by halting most work for three days. -->
-  <DO_Frontier_ExtremeWeather.options.1.description>暂停大部分工作三天，让所有人安全度过异常天气。</DO_Frontier_ExtremeWeather.options.1.description>
-  
-  <!-- EN: herd tracks -->
+
+  <DO_Frontier_ExtremeWeather.options.1.description>停下大部分工作，把人都撤进能遮风挡雨的地方。暂停作业三天，以换取所有人的安全。</DO_Frontier_ExtremeWeather.options.1.description>
+ 
   <DO_Frontier_HerdTracks.label>兽群踪迹</DO_Frontier_HerdTracks.label>
-  <!-- EN: Tracks left by a migration of large wild animals have been found nearby. -->
-  <DO_Frontier_HerdTracks.description>附近发现大型野生动物迁徙留下的踪迹。</DO_Frontier_HerdTracks.description>
-  <!-- EN: Organize a hunt -->
+
+  <DO_Frontier_HerdTracks.description>侦察员在附近发现了成片的新鲜蹄印和折断的灌木。大群野生动物刚从这里经过，而且还没走远。</DO_Frontier_HerdTracks.description>
+ 
   <DO_Frontier_HerdTracks.options.0.label>组织狩猎</DO_Frontier_HerdTracks.options.0.label>
-  <!-- EN: Track down the herd and butcher the catch. -->
-  <DO_Frontier_HerdTracks.options.0.description>追踪兽群，并将猎物就地屠宰。</DO_Frontier_HerdTracks.options.0.description>
-  <!-- EN: Keep your distance -->
+
+  <DO_Frontier_HerdTracks.options.0.description>组织猎手追上兽群，就地放倒、屠宰，再把能带走的肉和皮全部运回来。</DO_Frontier_HerdTracks.options.0.description>
+ 
   <DO_Frontier_HerdTracks.options.1.label>保持距离</DO_Frontier_HerdTracks.options.1.label>
-  <!-- EN: Leave the herd alone. -->
-  <DO_Frontier_HerdTracks.options.1.description>不要惊扰兽群。</DO_Frontier_HerdTracks.options.1.description>
-  <!-- EN: Guide the herd away from the roads -->
+
+  <DO_Frontier_HerdTracks.options.1.description>让它们过去。荒野里的每一顿肉，都可能带着獠牙和蹄子。</DO_Frontier_HerdTracks.options.1.description>
+
   <DO_Frontier_HerdTracks.options.2.label>引导兽群远离道路</DO_Frontier_HerdTracks.options.2.label>
-  <!-- EN: Divert workers to guide the animals away from local routes. -->
-  <DO_Frontier_HerdTracks.options.2.description>调派人手把兽群引离常用道路。</DO_Frontier_HerdTracks.options.2.description>
-  
-  <!-- EN: hidden cave -->
+
+  <DO_Frontier_HerdTracks.options.2.description>抽调人手，把兽群从常用道路上慢慢赶开，免得下一支运输队迎面撞上它们。</DO_Frontier_HerdTracks.options.2.description>
+ 
   <DO_Frontier_HiddenCave.label>隐蔽洞穴</DO_Frontier_HiddenCave.label>
-  <!-- EN: A collapsed hillside has exposed a previously unknown cave entrance. -->
-  <DO_Frontier_HiddenCave.description>营地附近一处山丘发生了塌方，暴露出此前未被发现的洞穴入口。</DO_Frontier_HiddenCave.description>
-  <!-- EN: Mine the exposed vein -->
+
+  <DO_Frontier_HiddenCave.description>附近一处山坡突然塌陷，露出了一个从未记录过的洞口。新鲜断面里还能看见矿物的反光。</DO_Frontier_HiddenCave.description>
+ 
   <DO_Frontier_HiddenCave.options.0.label>开采矿脉</DO_Frontier_HiddenCave.options.0.label>
-  <!-- EN: Have an experienced miner exploit the deposit. -->
-  <DO_Frontier_HiddenCave.options.0.description>让经验丰富的矿工开采裸露矿脉。</DO_Frontier_HiddenCave.options.0.description>
-  <!-- EN: Seal the entrance -->
+
+  <DO_Frontier_HiddenCave.options.0.description>让经验丰富的矿工进去勘探，并开采暴露出来的矿脉。</DO_Frontier_HiddenCave.options.0.description>
+
   <DO_Frontier_HiddenCave.options.1.label>封闭入口</DO_Frontier_HiddenCave.options.1.label>
-  <!-- EN: Avoid the risk and close the cave. -->
-  <DO_Frontier_HiddenCave.options.1.description>避开风险，封闭洞穴。</DO_Frontier_HiddenCave.options.1.description>
-  
-  <!-- EN: lost traveler -->
+
+  <DO_Frontier_HiddenCave.options.1.description>未知洞穴从来不缺惊喜，也不缺尸体。封死入口，别拿据点的人手去赌。</DO_Frontier_HiddenCave.options.1.description>
+ 
   <DO_Frontier_LostTraveler.label>迷路的远行者</DO_Frontier_LostTraveler.label>
-  <!-- EN: An exhausted traveler has arrived at the outpost asking for help. -->
-  <DO_Frontier_LostTraveler.description>一名筋疲力尽的远行者来到据点求助。</DO_Frontier_LostTraveler.description>
-  <!-- EN: Provide supplies and directions -->
+
+  <DO_Frontier_LostTraveler.description>一名远行者踉跄着来到据点。他又冷又饿，身上的补给几乎见底，只求一条能活着走下去的路。</DO_Frontier_LostTraveler.description>
+ 
   <DO_Frontier_LostTraveler.options.0.label>提供补给和方向</DO_Frontier_LostTraveler.options.0.label>
-  <!-- EN: Divert some output to provision the traveler and show them a safe route onward. -->
-  <DO_Frontier_LostTraveler.options.0.description>调拨部分产出为远行者提供补给，并指出安全的前路。</DO_Frontier_LostTraveler.options.0.description>
-  <!-- EN: Invite them to stay -->
+
+  <DO_Frontier_LostTraveler.options.0.description>从据点产出中拨出一部分补给，再告诉他一条相对安全的路线。</DO_Frontier_LostTraveler.options.0.description>
+ 
   <DO_Frontier_LostTraveler.options.1.label>邀请留下</DO_Frontier_LostTraveler.options.1.label>
-  <!-- EN: Offer the traveler a place among the outpost's colonists. -->
-  <DO_Frontier_LostTraveler.options.1.description>邀请远行者成为据点的一员。</DO_Frontier_LostTraveler.options.1.description>
-  <!-- EN: Refuse them -->
+
+  <DO_Frontier_LostTraveler.options.1.description>这里缺人，也缺能干活的手。给他一张床，让他成为据点的一员。</DO_Frontier_LostTraveler.options.1.description>
+
   <DO_Frontier_LostTraveler.options.2.label>拒绝接待</DO_Frontier_LostTraveler.options.2.label>
-  <!-- EN: Send the traveler away. -->
-  <DO_Frontier_LostTraveler.options.2.description>让远行者离开。</DO_Frontier_LostTraveler.options.2.description>
-  
-  <!-- EN: road washed out by heavy rain -->
+
+  <DO_Frontier_LostTraveler.options.2.description>我们的储备养不起每一个敲门的人。让他离开。</DO_Frontier_LostTraveler.options.2.description>
+ 
   <DO_Frontier_WashedOutRoad.label>暴雨冲毁道路</DO_Frontier_WashedOutRoad.label>
-  <!-- EN: Rainwater has washed out the dirt road connecting the outpost. -->
-  <DO_Frontier_WashedOutRoad.description>雨水冲坏了连接据点的土路。</DO_Frontier_WashedOutRoad.description>
-  <!-- EN: Repair it immediately -->
+
+  <DO_Frontier_WashedOutRoad.description>连日暴雨把通往据点的土路冲成了泥沟。车轮会陷进去，驮兽也很难通过。</DO_Frontier_WashedOutRoad.description>
+ 
   <DO_Frontier_WashedOutRoad.options.0.label>立即抢修</DO_Frontier_WashedOutRoad.options.0.label>
-  <!-- EN: Commit most of the workforce to reopen the road at once. -->
-  <DO_Frontier_WashedOutRoad.options.0.description>立即投入大量人力抢通道路。</DO_Frontier_WashedOutRoad.options.0.description>
-  <!-- EN: Wait for the road to recover naturally -->
+
+  <DO_Frontier_WashedOutRoad.options.0.description>把大部分可用人手拉去抢修，尽快恢复这条生命线。</DO_Frontier_WashedOutRoad.options.0.description>
+ 
   <DO_Frontier_WashedOutRoad.options.1.label>等待道路自然恢复</DO_Frontier_WashedOutRoad.options.1.label>
-  <!-- EN: Avoid spending resources, but accept slower travel for a time. -->
-  <DO_Frontier_WashedOutRoad.options.1.description>节省物资，但暂时忍受通行不便。</DO_Frontier_WashedOutRoad.options.1.description>
-  <!-- EN: Build drainage ditches -->
+
+  <DO_Frontier_WashedOutRoad.options.1.description>暂时不花资源修路。道路终会变干，但在那之前，所有通行都会更慢、更难。</DO_Frontier_WashedOutRoad.options.1.description>
+
   <DO_Frontier_WashedOutRoad.options.2.label>趁机修建排水沟</DO_Frontier_WashedOutRoad.options.2.label>
-  <!-- EN: Rebuild the road with drainage intended to prevent another washout. -->
-  <DO_Frontier_WashedOutRoad.options.2.description>重修道路，并增设排水设施以防再次冲毁。</DO_Frontier_WashedOutRoad.options.2.description>
-  
-  <!-- EN: wilderness distress signal -->
+
+  <DO_Frontier_WashedOutRoad.options.2.description>趁重修时一并挖设排水沟。多做一些活，换以后少一次同样的灾祸。</DO_Frontier_WashedOutRoad.options.2.description>
+ 
   <DO_Frontier_WildernessDistress.label>荒原求救信号</DO_Frontier_WildernessDistress.label>
-  <!-- EN: The radio has picked up a broken distress call. -->
-  <DO_Frontier_WildernessDistress.description>无线电捕捉到断断续续的求救信号。</DO_Frontier_WildernessDistress.description>
-  <!-- EN: Rescue them immediately -->
+
+  <DO_Frontier_WildernessDistress.description>无线电里挤进了一段断断续续的求救声。坐标残缺，背景全是风噪，但那确实是人的声音。</DO_Frontier_WildernessDistress.description>
+ 
   <DO_Frontier_WildernessDistress.options.0.label>立即救援</DO_Frontier_WildernessDistress.options.0.label>
-  <!-- EN: Send a defended rescue team and bring back a survivor and supplies. -->
-  <DO_Frontier_WildernessDistress.options.0.description>派出具有足够防卫的救援队，带回一名幸存者和物资。</DO_Frontier_WildernessDistress.options.0.description>
-  <!-- EN: Tell them to come to the outpost -->
+
+  <DO_Frontier_WildernessDistress.options.0.description>派出有足够防卫力量的救援队。把幸存者带回来，能抢救的物资也一并带走。</DO_Frontier_WildernessDistress.options.0.description>
+ 
   <DO_Frontier_WildernessDistress.options.1.label>要求对方自行前来</DO_Frontier_WildernessDistress.options.1.label>
-  <!-- EN: Give directions and wait three to five days for an answer. -->
-  <DO_Frontier_WildernessDistress.options.1.description>提供方向，等待三至五天后的结果。</DO_Frontier_WildernessDistress.options.1.description>
-  <!-- EN: Assume it is a trap -->
+
+  <DO_Frontier_WildernessDistress.options.1.description>通过无线电给出据点方位，让对方自己赶来。三至五天后，我们就会知道他们是否做到了。</DO_Frontier_WildernessDistress.options.1.description>
+
   <DO_Frontier_WildernessDistress.options.2.label>判定为陷阱</DO_Frontier_WildernessDistress.options.2.label>
-  <!-- EN: Ignore the signal. -->
-  <DO_Frontier_WildernessDistress.options.2.description>忽略这段信号。</DO_Frontier_WildernessDistress.options.2.description>
-  
-  <!-- EN: cache coordinates -->
+
+  <DO_Frontier_WildernessDistress.options.2.description>荒原上的求救声也可能是诱饵。熄掉频道，当作什么都没听见。</DO_Frontier_WildernessDistress.options.2.description>
+ 
   <DO_Industrial_CacheCoordinates.label>档案中的储藏坐标</DO_Industrial_CacheCoordinates.label>
-  <!-- EN: A concealed page records the coordinates of an old industrial cache. The record is dated, but the location remains clear. -->
-  <DO_Industrial_CacheCoordinates.description>档案夹层中记录了一处旧工业物资储藏点。记录年代久远，但坐标仍然清晰。</DO_Industrial_CacheCoordinates.description>
-  <!-- EN: Organize a recovery team -->
+
+  <DO_Industrial_CacheCoordinates.description>一份旧档案的夹层里藏着一组工业储藏点坐标。记录已经泛黄，但定位信息仍然清晰——有人曾把好东西埋在那里，等着一个也许永远不会到来的明天。</DO_Industrial_CacheCoordinates.description>
+ 
   <DO_Industrial_CacheCoordinates.options.0.label>组织回收</DO_Industrial_CacheCoordinates.options.0.label>
-  <!-- EN: Secure the cache and recover industrial supplies. -->
-  <DO_Industrial_CacheCoordinates.options.0.description>控制储藏点并回收工业物资。</DO_Industrial_CacheCoordinates.options.0.description>
-  <!-- EN: Dismantle the dangerous structure carefully -->
+
+  <DO_Industrial_CacheCoordinates.options.0.description>组织回收队控制储藏点，把还能使用的工业物资运回据点。</DO_Industrial_CacheCoordinates.options.0.description>
+ 
   <DO_Industrial_CacheCoordinates.options.1.label>谨慎拆除危险结构</DO_Industrial_CacheCoordinates.options.1.label>
-  <!-- EN: Commit skilled builders for two days and recover more industrial material. -->
-  <DO_Industrial_CacheCoordinates.options.1.description>调派熟练建造者工作两天，回收更多工业材料。</DO_Industrial_CacheCoordinates.options.1.description>
-  <!-- EN: It is not worth the risk -->
+
+  <DO_Industrial_CacheCoordinates.options.1.description>派熟练建造者花两天拆解危险结构。慢一点，但能从废墟里回收更多工业材料。</DO_Industrial_CacheCoordinates.options.1.description>
+
   <DO_Industrial_CacheCoordinates.options.2.label>不值得冒险</DO_Industrial_CacheCoordinates.options.2.label>
-  <!-- EN: Leave the cache alone. -->
-  <DO_Industrial_CacheCoordinates.options.2.description>放弃这处储藏点。</DO_Industrial_CacheCoordinates.options.2.description>
-  
-  <!-- EN: dangerous design flaw -->
+
+  <DO_Industrial_CacheCoordinates.options.2.description>旧时代留下的仓库也可能留下旧时代的死法。放弃这处储藏点。</DO_Industrial_CacheCoordinates.options.2.description>
+ 
   <DO_Industrial_DesignFlaw.label>危险的设计缺陷</DO_Industrial_DesignFlaw.label>
-  <!-- EN: Testing shows that the device can raise output, but its critical components overheat rapidly. -->
-  <DO_Industrial_DesignFlaw.description>测试表明，这套设备能够提高产量，但会令关键部件迅速过热。</DO_Industrial_DesignFlaw.description>
-  <!-- EN: Install heat-resistant parts -->
+
+  <DO_Industrial_DesignFlaw.description>试运行证明，这套设备确实能榨出更高产量——代价是关键部件会迅速过热。机器能忍多久，没人说得准。</DO_Industrial_DesignFlaw.description>
+ 
   <DO_Industrial_DesignFlaw.options.0.label>更换耐热部件</DO_Industrial_DesignFlaw.options.0.label>
-  <!-- EN: Use 80 steel and two components to improve a random production facility for eight days. -->
-  <DO_Industrial_DesignFlaw.options.0.description>消耗80钢铁和两个零部件，使随机生产设施增产八天。</DO_Industrial_DesignFlaw.options.0.description>
-  <!-- EN: Run it at reduced power -->
+
+  <DO_Industrial_DesignFlaw.options.0.description>消耗80钢铁和两个零部件更换耐热部件，使一座随机生产设施增产八天。</DO_Industrial_DesignFlaw.options.0.description>
+
   <DO_Industrial_DesignFlaw.options.1.label>降低功率运行</DO_Industrial_DesignFlaw.options.1.label>
-  <!-- EN: Increase a random production facility's output by 15% for ten days. -->
-  <DO_Industrial_DesignFlaw.options.1.description>随机生产设施产量提高15%，持续十天。</DO_Industrial_DesignFlaw.options.1.description>
-  
-  <!-- EN: efficient transmission system -->
+
+  <DO_Industrial_DesignFlaw.options.1.description>压低功率，让机器在安全边缘运转。一座随机生产设施产量提高15%，持续十天。</DO_Industrial_DesignFlaw.options.1.description>
+ 
   <DO_Industrial_EfficientTransmission.label>高效传动结构</DO_Industrial_EfficientTransmission.label>
-  <!-- EN: The restored plans reveal an elegant transmission system. It should be straightforward to build, but its use must be decided. -->
-  <DO_Industrial_EfficientTransmission.description>复原后的图纸展示了一套结构精巧的传动装置。它不难制造，但需要决定如何利用。</DO_Industrial_EfficientTransmission.description>
-  <!-- EN: Install it fully -->
+
+  <DO_Industrial_EfficientTransmission.description>复原后的图纸展示出一套出奇精巧的传动结构。它不需要奇迹，只需要钢、工时，以及一个决定：把它装在哪里。</DO_Industrial_EfficientTransmission.description>
+ 
   <DO_Industrial_EfficientTransmission.options.0.label>全面试装</DO_Industrial_EfficientTransmission.options.0.label>
-  <!-- EN: Increase a random production facility's output by 40% for eight days. -->
-  <DO_Industrial_EfficientTransmission.options.0.description>随机生产设施产量提高40%，持续八天。</DO_Industrial_EfficientTransmission.options.0.description>
-  <!-- EN: Run a conservative test -->
+
+  <DO_Industrial_EfficientTransmission.options.0.description>按完整设计全面试装，使一座随机生产设施产量提高40%，持续八天。</DO_Industrial_EfficientTransmission.options.0.description>
+ 
   <DO_Industrial_EfficientTransmission.options.1.label>进行保守测试</DO_Industrial_EfficientTransmission.options.1.label>
-  <!-- EN: Increase a random production facility's output by 20% for ten days and train the workers. -->
-  <DO_Industrial_EfficientTransmission.options.1.description>随机生产设施产量提高20%，持续十天，并训练工人。</DO_Industrial_EfficientTransmission.options.1.description>
-  <!-- EN: Compile research notes -->
+
+  <DO_Industrial_EfficientTransmission.options.1.description>进行保守测试并让工人熟悉新结构。一座随机生产设施产量提高20%，持续十天，同时促进工人训练。</DO_Industrial_EfficientTransmission.options.1.description>
+
   <DO_Industrial_EfficientTransmission.options.2.label>整理成研究资料</DO_Industrial_EfficientTransmission.options.2.label>
-  <!-- EN: Gain 1,000 research points. -->
-  <DO_Industrial_EfficientTransmission.options.2.description>获得1000研究点。</DO_Industrial_EfficientTransmission.options.2.description>
-  
-  <!-- EN: exceptional materials -->
+
+  <DO_Industrial_EfficientTransmission.options.2.description>没必要急着把图纸变成机器。</DO_Industrial_EfficientTransmission.options.2.description>
+ 
   <DO_Industrial_EnrichedMaterials.label>富集原料</DO_Industrial_EnrichedMaterials.label>
-  <!-- EN: Workers have found the latest batch of raw materials to be unusually fine. -->
-  <DO_Industrial_EnrichedMaterials.description>工人发现最近一批原料品质异常优秀。</DO_Industrial_EnrichedMaterials.description>
-  <!-- EN: Increase output -->
+
+  <DO_Industrial_EnrichedMaterials.description>工人发现最近送进车间的一批原料异常纯净。</DO_Industrial_EnrichedMaterials.description>
+ 
   <DO_Industrial_EnrichedMaterials.options.0.label>提高产量</DO_Industrial_EnrichedMaterials.options.0.label>
-  <!-- EN: Double the next output of a random production facility. -->
-  <DO_Industrial_EnrichedMaterials.options.0.description>随机生产设施的下一次产出翻倍。</DO_Industrial_EnrichedMaterials.options.0.description>
-  <!-- EN: Reserve for fine processing -->
+
+  <DO_Industrial_EnrichedMaterials.options.0.description>把好料直接送进生产线。一座随机生产设施的下一次产出翻倍。</DO_Industrial_EnrichedMaterials.options.0.description>
+
   <DO_Industrial_EnrichedMaterials.options.1.label>留作精加工</DO_Industrial_EnrichedMaterials.options.1.label>
-  <!-- EN: Set the materials aside for a valuable finished batch. -->
-  <DO_Industrial_EnrichedMaterials.options.1.description>将这批原料留作高价值产品的精加工。</DO_Industrial_EnrichedMaterials.options.1.description>
-  
-  <!-- EN: equipment jam -->
+
+  <DO_Industrial_EnrichedMaterials.options.1.description>把这批原料单独封存，留给更精细、更值钱的加工。</DO_Industrial_EnrichedMaterials.options.1.description>
+ 
   <DO_Industrial_EquipmentJam.label>设备卡滞</DO_Industrial_EquipmentJam.label>
-  <!-- EN: A set of production equipment has stopped due to wear. -->
-  <DO_Industrial_EquipmentJam.description>一套生产设备因磨损停止运行。</DO_Industrial_EquipmentJam.description>
-  <!-- EN: Replace the parts -->
+
+  <DO_Industrial_EquipmentJam.description>一套生产设备在刺耳的摩擦声中停了下来。轴承发热，齿轮咬死——长期凑合使用终于到了要还账的时候。</DO_Industrial_EquipmentJam.description>
+ 
   <DO_Industrial_EquipmentJam.options.0.label>更换部件</DO_Industrial_EquipmentJam.options.0.label>
-  <!-- EN: Use three components and restore operation immediately. -->
-  <DO_Industrial_EquipmentJam.options.0.description>消耗3个零部件，立即恢复运行。</DO_Industrial_EquipmentJam.options.0.description>
-  <!-- EN: Make a temporary repair -->
+
+  <DO_Industrial_EquipmentJam.options.0.description>消耗3个零部件更换损坏部件，让设备立即恢复运行。</DO_Industrial_EquipmentJam.options.0.description>
+ 
   <DO_Industrial_EquipmentJam.options.1.label>临时修补</DO_Industrial_EquipmentJam.options.1.label>
-  <!-- EN: Have a skilled builder patch the equipment, reducing its output for five days. -->
-  <DO_Industrial_EquipmentJam.options.1.description>由熟练建造者修补设备，该设施产量降低5天。</DO_Industrial_EquipmentJam.options.1.description>
-  <!-- EN: Shut down for maintenance -->
+
+  <DO_Industrial_EquipmentJam.options.1.description>让熟练建造者做一次临时修补。设备还能继续工作，但产量降低5天。</DO_Industrial_EquipmentJam.options.1.description>
+
   <DO_Industrial_EquipmentJam.options.2.label>停机检修</DO_Industrial_EquipmentJam.options.2.label>
-  <!-- EN: Disable a random production facility for three days. -->
-  <DO_Industrial_EquipmentJam.options.2.description>随机一座生产设施停用3天。</DO_Industrial_EquipmentJam.options.2.description>
-  
-  <!-- EN: process improvement -->
+
+  <DO_Industrial_EquipmentJam.options.2.description>关掉机器，彻底检修。随机一座生产设施停用3天。</DO_Industrial_EquipmentJam.options.2.description>
+ 
   <DO_Industrial_ProcessImprovement.label>工艺改进</DO_Industrial_ProcessImprovement.label>
-  <!-- EN: A worker has proposed a way to improve the production process. -->
-  <DO_Industrial_ProcessImprovement.description>一名工人提出了改进生产流程的方法。</DO_Industrial_ProcessImprovement.description>
-  <!-- EN: Trial the proposal -->
+
+  <DO_Industrial_ProcessImprovement.description>一名长期守在生产线旁的工人提出了新的流程方案。纸面上不漂亮，但每一步都来一线经验。</DO_Industrial_ProcessImprovement.description>
+ 
   <DO_Industrial_ProcessImprovement.options.0.label>试行方案</DO_Industrial_ProcessImprovement.options.0.label>
-  <!-- EN: Increase a random production facility's output for ten days. -->
-  <DO_Industrial_ProcessImprovement.options.0.description>随机生产设施产量×1.2，持续10天。</DO_Industrial_ProcessImprovement.options.0.description>
-  <!-- EN: Reward the proposer -->
+
+  <DO_Industrial_ProcessImprovement.options.0.description>先在一座随机生产设施试行。产量×1.2，持续10天。</DO_Industrial_ProcessImprovement.options.0.description>
+ 
   <DO_Industrial_ProcessImprovement.options.1.label>奖励提案者</DO_Industrial_ProcessImprovement.options.1.label>
-  <!-- EN: Pay 300 silver and improve the effect. -->
-  <DO_Industrial_ProcessImprovement.options.1.description>支付300白银，将效果提高为×1.4。</DO_Industrial_ProcessImprovement.options.1.description>
-  <!-- EN: Keep the old process -->
+
+  <DO_Industrial_ProcessImprovement.options.1.description>支付300白银奖励并完善方案，将增产效果提高为×1.4。</DO_Industrial_ProcessImprovement.options.1.description>
+
   <DO_Industrial_ProcessImprovement.options.2.label>沿用旧流程</DO_Industrial_ProcessImprovement.options.2.label>
-  <!-- EN: Make no changes. -->
-  <DO_Industrial_ProcessImprovement.options.2.description>不做任何改变。</DO_Industrial_ProcessImprovement.options.2.description>
-  
-  <!-- EN: prototype test -->
+
+  <DO_Industrial_ProcessImprovement.options.2.description>现有流程至少不会突然炸掉。维持原样，不做任何改变。</DO_Industrial_ProcessImprovement.options.2.description>
+ 
   <DO_Industrial_PrototypeTest.label>样机测试</DO_Industrial_PrototypeTest.label>
-  <!-- EN: Workers have assembled an untested piece of equipment. -->
-  <DO_Industrial_PrototypeTest.description>工人拼装出一套未经验证的新设备。</DO_Industrial_PrototypeTest.description>
-  <!-- EN: Put it into production -->
+
+  <DO_Industrial_PrototypeTest.description>工人利用现有零件拼出了一套从未真正验证过的新设备。它已经接上动力，只等下令启动。</DO_Industrial_PrototypeTest.description>
+ 
   <DO_Industrial_PrototypeTest.options.0.label>投入生产</DO_Industrial_PrototypeTest.options.0.label>
-  <!-- EN: Increase a random facility's output for six days. -->
-  <DO_Industrial_PrototypeTest.options.0.description>随机设施产量×1.5，持续6天。</DO_Industrial_PrototypeTest.options.0.description>
-  <!-- EN: Dismantle it for research -->
+
+  <DO_Industrial_PrototypeTest.options.0.description>直接投入生产。随机设施产量×1.5，持续6天。</DO_Industrial_PrototypeTest.options.0.description>
+ 
   <DO_Industrial_PrototypeTest.options.1.label>拆解研究</DO_Industrial_PrototypeTest.options.1.label>
-  <!-- EN: Gain 200 research points and give every colonist Crafting experience. -->
-  <DO_Industrial_PrototypeTest.options.1.description>获得200研究点，所有殖民者获2000制作经验。</DO_Industrial_PrototypeTest.options.1.description>
-  <!-- EN: Break it down for parts -->
+
+  <DO_Industrial_PrototypeTest.options.1.description>趁它还没出事故前拆开研究。</DO_Industrial_PrototypeTest.options.1.description>
+
   <DO_Industrial_PrototypeTest.options.2.label>拆成零件</DO_Industrial_PrototypeTest.options.2.label>
-  <!-- EN: Recover two to four components. -->
-  <DO_Industrial_PrototypeTest.options.2.description>获得2—4个零部件。</DO_Industrial_PrototypeTest.options.2.description>
-  
-  <!-- EN: sell a batch of valuable products -->
+
+  <DO_Industrial_PrototypeTest.options.2.description>不赌它能不能工作，直接拆成可用零件。</DO_Industrial_PrototypeTest.options.2.description>
+ 
   <DO_Industrial_RefinedGoodsSale.label>获得一批高价值产品并卖出</DO_Industrial_RefinedGoodsSale.label>
-  <!-- EN: The exceptional materials are being worked into a valuable batch for sale. -->
-  <DO_Industrial_RefinedGoodsSale.description>优质原料正在被加工成一批高价值产品。</DO_Industrial_RefinedGoodsSale.description>
-  <!-- EN: Process and sell -->
+
+  <DO_Industrial_RefinedGoodsSale.description>那批优质原料终于被加工成了成品。做工整齐、品质上乘，商人会愿意为它们掏不少银子。</DO_Industrial_RefinedGoodsSale.description>
+
   <DO_Industrial_RefinedGoodsSale.options.0.label>加工后卖出</DO_Industrial_RefinedGoodsSale.options.0.label>
-  <!-- EN: Complete the batch and receive 1,000 silver. -->
-  <DO_Industrial_RefinedGoodsSale.options.0.description>获得1000白银。</DO_Industrial_RefinedGoodsSale.options.0.description>
-  
-  <!-- EN: scrap buildup -->
+
+  <DO_Industrial_RefinedGoodsSale.options.0.description>完成最后一道工序并出售整批货物。</DO_Industrial_RefinedGoodsSale.options.0.description>
+ 
   <DO_Industrial_ScrapBuildup.label>废料堆积</DO_Industrial_ScrapBuildup.label>
-  <!-- EN: Production waste is taking up more and more workspace. -->
-  <DO_Industrial_ScrapBuildup.description>生产废料占据了越来越多的工作空间。</DO_Industrial_ScrapBuildup.description>
-  <!-- EN: Recycle it -->
+
+  <DO_Industrial_ScrapBuildup.description>金属屑、废件和破损外壳越堆越高，已经开始侵占工作区。再不处理，车间会先被自己的产量埋掉。</DO_Industrial_ScrapBuildup.description>
+ 
   <DO_Industrial_ScrapBuildup.options.0.label>回收利用</DO_Industrial_ScrapBuildup.options.0.label>
-  <!-- EN: Have a skilled crafter recover 80 steel. -->
-  <DO_Industrial_ScrapBuildup.options.0.description>需要制作至少6；获得80钢铁。</DO_Industrial_ScrapBuildup.options.0.description>
-  <!-- EN: Dump it in the wasteland -->
+
+  <DO_Industrial_ScrapBuildup.options.0.description>让制作至少6的工匠从废料里挑出还能熔回去的部分。</DO_Industrial_ScrapBuildup.options.0.description>
+ 
   <DO_Industrial_ScrapBuildup.options.1.label>运到荒地倾倒</DO_Industrial_ScrapBuildup.options.1.label>
-  <!-- EN: Reduce industrial tendency and increase frontier tendency for eight days. -->
-  <DO_Industrial_ScrapBuildup.options.1.description>工业倾向−3、荒野倾向+3，持续8天。</DO_Industrial_ScrapBuildup.options.1.description>
-  <!-- EN: Store it temporarily -->
+
+  <DO_Industrial_ScrapBuildup.options.1.description>把废料运到荒地倾倒。工业倾向−3、荒野倾向+3，持续8天。</DO_Industrial_ScrapBuildup.options.1.description>
+
   <DO_Industrial_ScrapBuildup.options.2.label>暂时堆放</DO_Industrial_ScrapBuildup.options.2.label>
-  <!-- EN: Accept reduced production for five days. -->
-  <DO_Industrial_ScrapBuildup.options.2.description>生产×0.9，持续5天。</DO_Industrial_ScrapBuildup.options.2.description>
-  
-  <!-- EN: sealed engineering archive -->
+
+  <DO_Industrial_ScrapBuildup.options.2.description>先堆着，等以后再说。工作空间进一步受挤压，生产×0.9，持续5天。</DO_Industrial_ScrapBuildup.options.2.description>
+ 
   <DO_Industrial_SealedEngineeringArchive.label>封存的工程档案</DO_Industrial_SealedEngineeringArchive.label>
-  <!-- EN: Workers clearing old equipment have found a sealed set of engineering records. The plans describe an unfamiliar production device, but key parameters are damaged. -->
-  <DO_Industrial_SealedEngineeringArchive.description>工人在清理旧设备时发现了一组密封完好的工程档案。图纸描述了一套陌生的生产装置，但部分关键参数已经损坏。</DO_Industrial_SealedEngineeringArchive.description>
-  <!-- EN: Reconstruct the design -->
+
+  <DO_Industrial_SealedEngineeringArchive.description>清理旧设备时，工人找到了一组密封工程档案。里面的图纸描述着一种陌生生产装置，但关键参数已经被时间啃掉了一部分。</DO_Industrial_SealedEngineeringArchive.description>
+ 
   <DO_Industrial_SealedEngineeringArchive.options.0.label>尝试复原设计</DO_Industrial_SealedEngineeringArchive.options.0.label>
-  <!-- EN: Assign skilled workers to restore the plans, reducing production for two days. -->
-  <DO_Industrial_SealedEngineeringArchive.options.0.description>调派熟练人员复原图纸，使生产降低两天。</DO_Industrial_SealedEngineeringArchive.options.0.description>
-  <!-- EN: Dismantle the archived samples -->
+
+  <DO_Industrial_SealedEngineeringArchive.options.0.description>抽调熟练人员尝试补全图纸。复原工作会拖慢生产两天。</DO_Industrial_SealedEngineeringArchive.options.0.description>
+ 
   <DO_Industrial_SealedEngineeringArchive.options.1.label>拆解档案中的样品</DO_Industrial_SealedEngineeringArchive.options.1.label>
-  <!-- EN: Recover three components and extract useful research notes. -->
-  <DO_Industrial_SealedEngineeringArchive.options.1.description>获得三个零部件和有用的研究资料。</DO_Industrial_SealedEngineeringArchive.options.1.description>
-  <!-- EN: Seal it again -->
+
+  <DO_Industrial_SealedEngineeringArchive.options.1.description>放弃完整复原，直接拆解随档案保存的样品。获得零部件和可用的研究资料。</DO_Industrial_SealedEngineeringArchive.options.1.description>
+
   <DO_Industrial_SealedEngineeringArchive.options.2.label>重新封存</DO_Industrial_SealedEngineeringArchive.options.2.label>
-  <!-- EN: Leave the archive undisturbed. -->
-  <DO_Industrial_SealedEngineeringArchive.options.2.description>不要动这些档案。</DO_Industrial_SealedEngineeringArchive.options.2.description>
-  
-  <!-- EN: tool shortage -->
+
+  <DO_Industrial_SealedEngineeringArchive.options.2.description>重新封好。不是每一份旧图纸都值得拿现在的人命和工时去验证。</DO_Industrial_SealedEngineeringArchive.options.2.description>
+ 
   <DO_Industrial_ToolShortage.label>工具短缺</DO_Industrial_ToolShortage.label>
-  <!-- EN: Many tools can no longer be used. -->
-  <DO_Industrial_ToolShortage.description>大量工具已经无法继续使用。</DO_Industrial_ToolShortage.description>
-  <!-- EN: Replace the tools -->
+
+  <DO_Industrial_ToolShortage.description>锤头松动、刀刃卷口、测量器具失准。大量工具已经撑过了它们本该报废的日子，现在终于一起罢工。</DO_Industrial_ToolShortage.description>
+ 
   <DO_Industrial_ToolShortage.options.0.label>补充工具</DO_Industrial_ToolShortage.options.0.label>
-  <!-- EN: Use 50 steel to replenish the tools. -->
-  <DO_Industrial_ToolShortage.options.0.description>消耗50钢铁补充工具。</DO_Industrial_ToolShortage.options.0.description>
-  <!-- EN: Repair them locally -->
+
+  <DO_Industrial_ToolShortage.options.0.description>消耗50钢铁，补齐最急需的工具，让工人重新拿到像样的家伙。</DO_Industrial_ToolShortage.options.0.description>
+ 
   <DO_Industrial_ToolShortage.options.1.label>就地修复</DO_Industrial_ToolShortage.options.1.label>
-  <!-- EN: Have a skilled crafter repair the tools. Everyone gains Crafting experience, but production is slightly reduced for five days. -->
-  <DO_Industrial_ToolShortage.options.1.description>所有殖民者获2000制作经验，生产×0.9持续5天。</DO_Industrial_ToolShortage.options.1.description>
-  <!-- EN: Make do -->
+
+  <DO_Industrial_ToolShortage.options.1.description>让大家就地修复旧工具。</DO_Industrial_ToolShortage.options.1.description>
+
   <DO_Industrial_ToolShortage.options.2.label>凑合使用</DO_Industrial_ToolShortage.options.2.label>
-  <!-- EN: Continue with inadequate tools, reducing production for five days. -->
-  <DO_Industrial_ToolShortage.options.2.description>生产×0.7持续5天。</DO_Industrial_ToolShortage.options.2.description>
-  
-  <!-- EN: unrecoverable draft -->
+
+  <DO_Industrial_ToolShortage.options.2.description>还能挥动就继续用。生产×0.7，持续5天。</DO_Industrial_ToolShortage.options.2.description>
+ 
   <DO_Industrial_UnrecoverableDraft.label>无法复原的残稿</DO_Industrial_UnrecoverableDraft.label>
-  <!-- EN: Too much of the archive is missing. The supposed device may never have existed outside the drawings. -->
-  <DO_Industrial_UnrecoverableDraft.description>剩余内容缺失得太多，所谓的新设备可能从未真正制造出来。</DO_Industrial_UnrecoverableDraft.description>
-  <!-- EN: Document the failed reconstruction -->
+
+  <DO_Industrial_UnrecoverableDraft.description>缺失的内容实在太多。没人能确定这套所谓的新设备究竟曾被造出来，还是只存在于某个工程师过于乐观的草稿里。</DO_Industrial_UnrecoverableDraft.description>
+ 
   <DO_Industrial_UnrecoverableDraft.options.0.label>整理失败记录</DO_Industrial_UnrecoverableDraft.options.0.label>
-  <!-- EN: Gain 500 research points. -->
-  <DO_Industrial_UnrecoverableDraft.options.0.description>获得500研究点。</DO_Industrial_UnrecoverableDraft.options.0.description>
-  <!-- EN: Stop here -->
+
+  <DO_Industrial_UnrecoverableDraft.options.0.description>把失败本身记录下来，至少后来者不用再走一遍弯路。</DO_Industrial_UnrecoverableDraft.options.0.description>
+
   <DO_Industrial_UnrecoverableDraft.options.1.label>到此为止</DO_Industrial_UnrecoverableDraft.options.1.label>
-  <!-- EN: Abandon the reconstruction. -->
-  <DO_Industrial_UnrecoverableDraft.options.1.description>放弃复原工作。</DO_Industrial_UnrecoverableDraft.options.1.description>
-  
-  <!-- EN: work accident -->
+
+  <DO_Industrial_UnrecoverableDraft.options.1.description>到此为止。把剩下的纸收起来，停止复原。</DO_Industrial_UnrecoverableDraft.options.1.description>
+ 
   <DO_Industrial_WorkAccident.label>工伤事故</DO_Industrial_WorkAccident.label>
-  <!-- EN: An accident has occurred at the busy worksite. -->
-  <DO_Industrial_WorkAccident.description>繁忙的作业现场发生了事故。</DO_Industrial_WorkAccident.description>
-  <!-- EN: Conduct a full shutdown inspection -->
+
+  <DO_Industrial_WorkAccident.description>繁忙的作业现场终于出了事故。机器停了，人群围了上去，地上散着还没来得及清理的工具和碎片。</DO_Industrial_WorkAccident.description>
+ 
   <DO_Industrial_WorkAccident.options.0.label>全面停工检查</DO_Industrial_WorkAccident.options.0.label>
-  <!-- EN: Halve production for three days. -->
-  <DO_Industrial_WorkAccident.options.0.description>生产降至一半，持续3天。</DO_Industrial_WorkAccident.options.0.description>
-  <!-- EN: Improve safety procedures -->
+
+  <DO_Industrial_WorkAccident.options.0.description>全面停工检查，先把所有隐患找出来。生产降至一半，持续3天。</DO_Industrial_WorkAccident.options.0.description>
+ 
   <DO_Industrial_WorkAccident.options.1.label>简单改进安全规程</DO_Industrial_WorkAccident.options.1.label>
-  <!-- EN: Reduce production for three days, then increase it for eight days. -->
-  <DO_Industrial_WorkAccident.options.1.description>生产×0.7持续3天，之后×1.25持续8天。</DO_Industrial_WorkAccident.options.1.description>
-  <!-- EN: Overhaul safety procedures -->
+
+  <DO_Industrial_WorkAccident.options.1.description>边生产边改进安全规程。生产×0.7持续3天，之后×1.25持续8天。</DO_Industrial_WorkAccident.options.1.description>
+ 
   <DO_Industrial_WorkAccident.options.2.label>大力改进安全规程</DO_Industrial_WorkAccident.options.2.label>
-  <!-- EN: Use 100 steel; halve production for three days, then increase it for ten days. -->
-  <DO_Industrial_WorkAccident.options.2.description>消耗100钢铁；生产×0.5持续3天，之后×1.5持续10天。</DO_Industrial_WorkAccident.options.2.description>
-  
-  <!-- EN: bulk order -->
+
+  <DO_Industrial_WorkAccident.options.2.description>趁这次事故彻底重做安全体系。消耗100钢铁；生产×0.5持续3天，之后×1.5持续10天。</DO_Industrial_WorkAccident.options.2.description>
+ 
   <DO_Population_BulkOrder.label>批量订单</DO_Population_BulkOrder.label>
-  <!-- EN: A nearby merchant wants to purchase a large quantity of goods. -->
-  <DO_Population_BulkOrder.description>一名附近据点的商人希望采购大量物资。</DO_Population_BulkOrder.description>
-  <!-- EN: Accept the order -->
+
+  <DO_Population_BulkOrder.description>附近聚落的一名商人发来大额订单。他要的不是几箱货，而是一批足以让仓库和工棚连续忙上好几天的物资。</DO_Population_BulkOrder.description>
+ 
   <DO_Population_BulkOrder.options.0.label>接受订单</DO_Population_BulkOrder.options.0.label>
-  <!-- EN: Generate a standard trade request quest. -->
-  <DO_Population_BulkOrder.options.0.description>生成原版贸易请求任务。</DO_Population_BulkOrder.options.0.description>
-  <!-- EN: Demand an advance -->
+
+  <DO_Population_BulkOrder.options.0.description>接下订单，生成一个原版贸易请求任务。</DO_Population_BulkOrder.options.0.description>
+ 
   <DO_Population_BulkOrder.options.1.label>要求额外付款</DO_Population_BulkOrder.options.1.label>
-  <!-- EN: Use a skilled negotiator to receive 500 silver before accepting the order. -->
-  <DO_Population_BulkOrder.options.1.description>由熟练交涉者预收500白银，并接受订单。</DO_Population_BulkOrder.options.1.description>
-  <!-- EN: Refuse -->
+
+  <DO_Population_BulkOrder.options.1.description>让熟练交涉者先把风险算进价格里。预收500白银，并接受订单。</DO_Population_BulkOrder.options.1.description>
+ 
   <DO_Population_BulkOrder.options.2.label>拒绝</DO_Population_BulkOrder.options.2.label>
-  <!-- EN: Decline the order. -->
-  <DO_Population_BulkOrder.options.2.description>拒绝订单。</DO_Population_BulkOrder.options.2.description>
-  
-  <!-- EN: group migration -->
+
+  <DO_Population_BulkOrder.options.2.description>我们的生产线已经够忙了。拒绝订单。</DO_Population_BulkOrder.options.2.description>
+ 
   <DO_Population_GroupMigration.label>集体迁居</DO_Population_GroupMigration.label>
-  <!-- EN: A small group of homeless people asks to settle together at the outpost. -->
-  <DO_Population_GroupMigration.description>一小群无家可归者请求整体迁入据点。</DO_Population_GroupMigration.description>
-  <!-- EN: Accept everyone -->
+
+  <DO_Population_GroupMigration.description>一小群无家可归者来到据点外。他们不想再继续流浪，希望所有人一起留下——连同他们的饥饿、疲惫和能干活的双手。</DO_Population_GroupMigration.description>
+ 
   <DO_Population_GroupMigration.options.0.label>全部接纳</DO_Population_GroupMigration.options.0.label>
-  <!-- EN: Gain three common colonists; production falls for five days. -->
-  <DO_Population_GroupMigration.options.0.description>获得三名普通殖民者，生产降低五天。</DO_Population_GroupMigration.options.0.description>
-  <!-- EN: Accept only a skilled applicant -->
+
+  <DO_Population_GroupMigration.options.0.description>全部接纳。获得三名普通殖民者，但安置和磨合会使生产降低五天。</DO_Population_GroupMigration.options.0.description>
+ 
   <DO_Population_GroupMigration.options.1.label>只接纳熟练者</DO_Population_GroupMigration.options.1.label>
-  <!-- EN: Gain one excellent colonist; production falls slightly for three days. -->
-  <DO_Population_GroupMigration.options.1.description>获得一名优秀殖民者，生产略微降低三天。</DO_Population_GroupMigration.options.1.description>
-  <!-- EN: Provision them and send them on -->
+
+  <DO_Population_GroupMigration.options.1.description>只留下最有用的人。获得一名优秀殖民者，生产略微降低三天。</DO_Population_GroupMigration.options.1.description>
+ 
   <DO_Population_GroupMigration.options.2.label>提供补给后送走</DO_Population_GroupMigration.options.2.label>
-  <!-- EN: Lose one day of output and gain 30 goodwill. -->
-  <DO_Population_GroupMigration.options.2.description>损失一天少量产出并获得30阵营好感。</DO_Population_GroupMigration.options.2.description>
-  <!-- EN: Refuse -->
+
+  <DO_Population_GroupMigration.options.2.description>给他们足够上路的物资，然后送走。损失一天少量产出，并获得阵营好感。</DO_Population_GroupMigration.options.2.description>
+ 
   <DO_Population_GroupMigration.options.3.label>拒绝</DO_Population_GroupMigration.options.3.label>
-  <!-- EN: Turn the group away. -->
-  <DO_Population_GroupMigration.options.3.description>拒绝这群人。</DO_Population_GroupMigration.options.3.description>
-  
-  <!-- EN: letter from afar -->
+
+  <DO_Population_GroupMigration.options.3.description>据点没有多余的床，也没有多余的口粮。拒绝这群人。</DO_Population_GroupMigration.options.3.description>
+ 
   <DO_Population_LetterFromAfar.label>远方来信</DO_Population_LetterFromAfar.label>
-  <!-- EN: An outpost resident has received a letter passed from traveler to traveler. Their relatives and several companions are seeking a new home nearby. -->
-  <DO_Population_LetterFromAfar.description>一名据点居民收到了一封辗转送来的信。写信者说，他们的亲友和几名同行者正在附近寻找新的居所。</DO_Population_LetterFromAfar.description>
-  <!-- EN: Invite them to come -->
+
+  <DO_Population_LetterFromAfar.description>一名据点居民收到了一封辗转许久才送到的信。纸角已经磨破：他的亲友和几名同行者正在附近寻找一处能长期活下去的地方。</DO_Population_LetterFromAfar.description>
+ 
   <DO_Population_LetterFromAfar.options.0.label>邀请他们前来</DO_Population_LetterFromAfar.options.0.label>
-  <!-- EN: Encourage settlement and wait one to three days for one of four possible outcomes. -->
-  <DO_Population_LetterFromAfar.options.0.description>鼓励他们迁居，并等待一至三天后的结果。</DO_Population_LetterFromAfar.options.0.description>
-  <!-- EN: Send an escort -->
+
+  <DO_Population_LetterFromAfar.options.0.description>回信邀请他们前来，并等待一至三天后的结果。</DO_Population_LetterFromAfar.options.0.description>
+ 
   <DO_Population_LetterFromAfar.options.1.label>派人沿途接应</DO_Population_LetterFromAfar.options.1.label>
-  <!-- EN: Divert workers for one day and wait for an outcome that excludes the possibility of the group becoming lost. -->
-  <DO_Population_LetterFromAfar.options.1.description>调派人手接应一天，确保来访者不会在途中失散。</DO_Population_LetterFromAfar.options.1.description>
-  <!-- EN: Decline politely -->
+
+  <DO_Population_LetterFromAfar.options.1.description>抽调人手沿途接应一天。少做一天活，换他们不会在荒野里失散。</DO_Population_LetterFromAfar.options.1.description>
+ 
   <DO_Population_LetterFromAfar.options.2.label>回信婉拒</DO_Population_LetterFromAfar.options.2.label>
-  <!-- EN: Do not invite the group. -->
-  <DO_Population_LetterFromAfar.options.2.description>不邀请这群人。</DO_Population_LetterFromAfar.options.2.description>
-  
-  <!-- EN: lost on the road -->
+
+  <DO_Population_LetterFromAfar.options.2.description>写一封尽量体面的回信，告诉他们这里也没有足够的位置。</DO_Population_LetterFromAfar.options.2.description>
+ 
   <DO_Population_LostOnRoad.label>途中失散</DO_Population_LostOnRoad.label>
-  <!-- EN: The appointed day has passed, but the travelers never appeared. Their last message suggests they lost their way in the wilderness. -->
-  <DO_Population_LostOnRoad.description>约定日期已经过去，但远行者始终没有出现。最后收到的消息表明，他们在荒野中失去了方向。</DO_Population_LostOnRoad.description>
-  <!-- EN: Send a search party -->
+
+  <DO_Population_LostOnRoad.description>约定日期已经过去，远行者始终没有出现。最后一条消息断断续续，只能确认一件事：他们在荒野里迷路了。</DO_Population_LostOnRoad.description>
+ 
   <DO_Population_LostOnRoad.options.0.label>派出搜索队</DO_Population_LostOnRoad.options.0.label>
-  <!-- EN: Use the outpost's defenses to rescue one traveler and recover supplies. -->
-  <DO_Population_LostOnRoad.options.0.description>依靠据点防卫救回一名旅者，并找到一些物资。</DO_Population_LostOnRoad.options.0.description>
-  <!-- EN: Keep broadcasting directions -->
+
+  <DO_Population_LostOnRoad.options.0.description>派出搜索队，并利用据点的防卫力量把一名旅者救回来，同时回收找到的物资。</DO_Population_LostOnRoad.options.0.description>
+ 
   <DO_Population_LostOnRoad.options.1.label>持续发送引导信号</DO_Population_LostOnRoad.options.1.label>
-  <!-- EN: Slightly reduce production for one day, then learn whether anyone found the signal. -->
-  <DO_Population_LostOnRoad.options.1.description>生产略微降低一天，随后确认是否有人找到了信号。</DO_Population_LostOnRoad.options.1.description>
-  <!-- EN: End the search -->
+
+  <DO_Population_LostOnRoad.options.1.description>继续发送引导信号。生产略微降低一天，随后确认是否有人循着信号找到据点。</DO_Population_LostOnRoad.options.1.description>
+ 
   <DO_Population_LostOnRoad.options.2.label>停止搜索</DO_Population_LostOnRoad.options.2.label>
-  <!-- EN: Do nothing further. -->
-  <DO_Population_LostOnRoad.options.2.description>不再采取行动。</DO_Population_LostOnRoad.options.2.description>
-  
-  <!-- EN: misdirected cargo -->
+
+  <DO_Population_LostOnRoad.options.2.description>荒野太大，而我们的人手太少。停止搜索。</DO_Population_LostOnRoad.options.2.description>
+ 
   <DO_Population_MisdirectedCargo.label>货物错送</DO_Population_MisdirectedCargo.label>
-  <!-- EN: A shipment belonging to someone else has arrived in the outpost warehouse. -->
-  <DO_Population_MisdirectedCargo.description>一批不属于据点的货物被送进仓库。</DO_Population_MisdirectedCargo.description>
-  <!-- EN: Return it -->
+
+  <DO_Population_MisdirectedCargo.description>一批本不属于这里的货物被送进了据点仓库。清单上的收货人是别人，而箱子已经整整齐齐码在我们面前。</DO_Population_MisdirectedCargo.description>
+ 
   <DO_Population_MisdirectedCargo.options.0.label>主动归还</DO_Population_MisdirectedCargo.options.0.label>
-  <!-- EN: Return the cargo and gain goodwill. -->
-  <DO_Population_MisdirectedCargo.options.0.description>归还货物并获得阵营好感。</DO_Population_MisdirectedCargo.options.0.description>
-  <!-- EN: Keep it -->
+
+  <DO_Population_MisdirectedCargo.options.0.description>主动联系失主并归还货物，获得阵营好感。</DO_Population_MisdirectedCargo.options.0.description>
+ 
   <DO_Population_MisdirectedCargo.options.1.label>据为己有</DO_Population_MisdirectedCargo.options.1.label>
-  <!-- EN: Keep goods worth 1,000, but lose goodwill. -->
-  <DO_Population_MisdirectedCargo.options.1.description>获得价值1000的货物，但损失阵营好感。</DO_Population_MisdirectedCargo.options.1.description>
-  
-  <!-- EN: new resident application -->
+
+  <DO_Population_MisdirectedCargo.options.1.description>撕掉标签，把货留下。获得一批货物，但损失阵营好感。</DO_Population_MisdirectedCargo.options.1.description>
+ 
   <DO_Population_NewResident.label>新居民申请</DO_Population_NewResident.label>
-  <!-- EN: A traveler wants to settle permanently at the outpost. -->
-  <DO_Population_NewResident.description>一名旅行者希望长期留在据点。</DO_Population_NewResident.description>
-  <!-- EN: Accept -->
+
+  <DO_Population_NewResident.description>一名旅行者表示不想再继续赶路。他愿意留下长期工作，只求据点给他一张床和一个位置。</DO_Population_NewResident.description>
+ 
   <DO_Population_NewResident.options.0.label>接纳</DO_Population_NewResident.options.0.label>
-  <!-- EN: Gain an excellent colonist while integration slows production for three days. -->
-  <DO_Population_NewResident.options.0.description>获得一名优秀殖民者，磨合使生产降低三天。</DO_Population_NewResident.options.0.description>
-  <!-- EN: Refuse -->
+
+  <DO_Population_NewResident.options.0.description>接纳他。获得一名优秀殖民者，但磨合会使生产降低三天。</DO_Population_NewResident.options.0.description>
+ 
   <DO_Population_NewResident.options.1.label>拒绝</DO_Population_NewResident.options.1.label>
-  <!-- EN: Turn the applicant away. -->
-  <DO_Population_NewResident.options.1.description>拒绝申请。</DO_Population_NewResident.options.1.description>
-  
-  <!-- EN: safe arrival -->
+
+  <DO_Population_NewResident.options.1.description>这里不是收容所。拒绝申请，让他继续上路。</DO_Population_NewResident.options.1.description>
+ 
   <DO_Population_SafeArrival.label>平安抵达</DO_Population_SafeArrival.label>
-  <!-- EN: The people mentioned in the letter have reached the outpost safely. They are exhausted, but ready to make a permanent home. -->
-  <DO_Population_SafeArrival.description>来信中提到的人顺利抵达了据点。他们疲惫不堪，但已经做好长期居住的准备。</DO_Population_SafeArrival.description>
-  <!-- EN: Accept everyone -->
+
+  <DO_Population_SafeArrival.description>来信中提到的人终于出现在据点外。他们冻得发抖、疲惫不堪，但带着全部家当——这一次，他们是真的准备留下了。</DO_Population_SafeArrival.description>
+ 
   <DO_Population_SafeArrival.options.0.label>全部接纳</DO_Population_SafeArrival.options.0.label>
-  <!-- EN: Gain two common colonists while production falls for four days. -->
-  <DO_Population_SafeArrival.options.0.description>获得两名普通殖民者，生产降低四天。</DO_Population_SafeArrival.options.0.description>
-  <!-- EN: Select a skilled settler -->
+
+  <DO_Population_SafeArrival.options.0.description>全部接纳。获得两名普通殖民者，安置工作使生产略微降低。</DO_Population_SafeArrival.options.0.description>
+ 
   <DO_Population_SafeArrival.options.1.label>挑选熟练者</DO_Population_SafeArrival.options.1.label>
-  <!-- EN: Gain one excellent colonist while production falls slightly for three days. -->
-  <DO_Population_SafeArrival.options.1.description>获得一名优秀殖民者，生产略微降低三天。</DO_Population_SafeArrival.options.1.description>
-  <!-- EN: Offer temporary shelter -->
+
+  <DO_Population_SafeArrival.options.1.description>只挑选最熟练的人留下。获得一名优秀殖民者，生产略微降低。</DO_Population_SafeArrival.options.1.description>
+ 
   <DO_Population_SafeArrival.options.2.label>提供短暂休整</DO_Population_SafeArrival.options.2.label>
-  <!-- EN: Increase population tendency for fifteen days. -->
-  <DO_Population_SafeArrival.options.2.description>人口倾向提高十五天。</DO_Population_SafeArrival.options.2.description>
-  <!-- EN: Ask them to continue onward -->
+
+  <DO_Population_SafeArrival.options.2.description>给他们屋檐、热食和短暂休整，但不承诺永久位置。人口倾向提高十五天。</DO_Population_SafeArrival.options.2.description>
+ 
   <DO_Population_SafeArrival.options.3.label>请他们继续上路</DO_Population_SafeArrival.options.3.label>
-  <!-- EN: Send the travelers on their way. -->
-  <DO_Population_SafeArrival.options.3.description>让远行者继续前进。</DO_Population_SafeArrival.options.3.description>
-  
-  <!-- EN: security problem -->
+
+  <DO_Population_SafeArrival.options.3.description>补充方向和最基本的建议，然后请他们继续上路。</DO_Population_SafeArrival.options.3.description>
+ 
   <DO_Population_SecurityProblem.label>治安问题</DO_Population_SecurityProblem.label>
-  <!-- EN: The warehouse shows signs of theft and vandalism. About 20% of ordinary stored goods have disappeared. -->
-  <DO_Population_SecurityProblem.description>仓库出现失窃和破坏迹象，约20%的普通库存物资已经丢失。</DO_Population_SecurityProblem.description>
-  <!-- EN: Organize patrols -->
+
+  <DO_Population_SecurityProblem.description>仓库门锁被撬过，货架也有翻动痕迹。清点后确认，约20%的普通库存物资已经不见了。</DO_Population_SecurityProblem.description>
+ 
   <DO_Population_SecurityProblem.options.0.label>组织巡逻</DO_Population_SecurityProblem.options.0.label>
-  <!-- EN: Use the outpost's defenses to recover the stolen goods. -->
-  <DO_Population_SecurityProblem.options.0.description>凭借据点防卫找回失窃物资。</DO_Population_SecurityProblem.options.0.description>
-  <!-- EN: Investigate publicly -->
+
+  <DO_Population_SecurityProblem.options.0.description>组织武装巡逻，依靠据点防卫找回失窃物资。</DO_Population_SecurityProblem.options.0.description>
+ 
   <DO_Population_SecurityProblem.options.1.label>公开调查</DO_Population_SecurityProblem.options.1.label>
-  <!-- EN: Have a skilled speaker expose the thieves and recover the goods. -->
-  <DO_Population_SecurityProblem.options.1.description>让擅长社交的殖民者找出窃贼并追回物资。</DO_Population_SecurityProblem.options.1.description>
-  <!-- EN: Accept the loss -->
+
+  <DO_Population_SecurityProblem.options.1.description>让擅长社交的殖民者公开调查，从人群和口供里找出窃贼并追回物资。</DO_Population_SecurityProblem.options.1.description>
+ 
   <DO_Population_SecurityProblem.options.2.label>承担损失</DO_Population_SecurityProblem.options.2.label>
-  <!-- EN: Do not pursue the missing goods. -->
-  <DO_Population_SecurityProblem.options.2.description>不再追查。</DO_Population_SecurityProblem.options.2.description>
-  
-  <!-- EN: no answer to the signal -->
+
+  <DO_Population_SecurityProblem.options.2.description>再追下去只会耗掉更多工时。承担损失，不再追查。</DO_Population_SecurityProblem.options.2.description>
+ 
   <DO_Population_SignalFailure.label>信号无人回应</DO_Population_SignalFailure.label>
-  <!-- EN: The directions were broadcast repeatedly, but none of the missing travelers arrived. -->
-  <DO_Population_SignalFailure.description>引导信号持续播送了很久，但失散的远行者始终没有出现。</DO_Population_SignalFailure.description>
-  <!-- EN: Acknowledge -->
+
+  <DO_Population_SignalFailure.description>引导信号一遍又一遍地播送，电台里的回声始终没有变成敲门声。失散的远行者没有出现。</DO_Population_SignalFailure.description>
+ 
   <DO_Population_SignalFailure.options.0.label>知悉</DO_Population_SignalFailure.options.0.label>
-  <!-- EN: There is nothing more to be done. -->
-  <DO_Population_SignalFailure.options.0.description>已经无能为力。</DO_Population_SignalFailure.options.0.description>
-  
-  <!-- EN: signal-guided survivor -->
+
+  <DO_Population_SignalFailure.options.0.description>停止广播。电力、人手和希望都不能无限消耗。</DO_Population_SignalFailure.options.0.description>
+ 
   <DO_Population_SignalRescue.label>循信号而来的幸存者</DO_Population_SignalRescue.label>
-  <!-- EN: One of the missing travelers followed the signal and reached the outpost. -->
-  <DO_Population_SignalRescue.description>一名失散的远行者循着信号抵达了据点。</DO_Population_SignalRescue.description>
-  <!-- EN: Welcome them -->
+
+  <DO_Population_SignalRescue.description>守夜的人终于在据点外看见了一个踉跄的人影。一名失散的远行者循着无线电信号，独自走到了这里。</DO_Population_SignalRescue.description>
+ 
   <DO_Population_SignalRescue.options.0.label>欢迎加入</DO_Population_SignalRescue.options.0.label>
-  <!-- EN: Gain one common colonist. -->
-  <DO_Population_SignalRescue.options.0.description>获得一名普通殖民者。</DO_Population_SignalRescue.options.0.description>
-  
-  <!-- EN: temporary market -->
+
+  <DO_Population_SignalRescue.options.0.description>给他热食和床位。获得一名普通殖民者。</DO_Population_SignalRescue.options.0.description>
+ 
   <DO_Population_TemporaryMarket.label>临时集市</DO_Population_TemporaryMarket.label>
-  <!-- EN: Several traveling groups want to exchange goods beside the outpost. -->
-  <DO_Population_TemporaryMarket.description>几支小型远行队希望在据点旁交换货物。</DO_Population_TemporaryMarket.description>
-  <!-- EN: Open the market -->
+
+  <DO_Population_TemporaryMarket.description>几支小型远行队在据点附近扎营。他们带来的东西五花八门，并提出就在这里做几天买卖。</DO_Population_TemporaryMarket.description>
+ 
   <DO_Population_TemporaryMarket.options.0.label>开放集市</DO_Population_TemporaryMarket.options.0.label>
-  <!-- EN: Offer up to 5,000 market value from storage and receive random goods worth 1.5 times as much. -->
-  <DO_Population_TemporaryMarket.options.0.description>最多提供5000市值的库存，获得价值1.5倍的随机商品。</DO_Population_TemporaryMarket.options.0.description>
-  <!-- EN: Charge stall fees -->
+
+  <DO_Population_TemporaryMarket.options.0.description>开放仓储参与交换。最多提供5000市值的库存，获得价值1.5倍的随机商品。</DO_Population_TemporaryMarket.options.0.description>
+ 
   <DO_Population_TemporaryMarket.options.1.label>收取摊位费</DO_Population_TemporaryMarket.options.1.label>
-  <!-- EN: Gain 500 silver and improve population tendency. -->
-  <DO_Population_TemporaryMarket.options.1.description>获得500白银，人口倾向+2持续15天。</DO_Population_TemporaryMarket.options.1.description>
-  <!-- EN: Refuse them -->
+
+  <DO_Population_TemporaryMarket.options.1.description>允许他们摆摊，但先收钱。</DO_Population_TemporaryMarket.options.1.description>
+ 
   <DO_Population_TemporaryMarket.options.2.label>不予接待</DO_Population_TemporaryMarket.options.2.label>
-  <!-- EN: Do not host the market. -->
-  <DO_Population_TemporaryMarket.options.2.description>不开放集市。</DO_Population_TemporaryMarket.options.2.description>
-  
-  <!-- EN: dispute among the travelers -->
+
+  <DO_Population_TemporaryMarket.options.2.description>人越多，麻烦也越多。不开放集市。</DO_Population_TemporaryMarket.options.2.description>
+ 
   <DO_Population_TravelersDispute.label>同行者之间的争执</DO_Population_TravelersDispute.label>
-  <!-- EN: The arrivals disagree bitterly over whether to remain, and ask the outpost's leaders to settle the matter. -->
-  <DO_Population_TravelersDispute.description>抵达者对是否留在据点产生了激烈分歧，并要求据点管理者作出裁决。</DO_Population_TravelersDispute.description>
-  <!-- EN: Mediate publicly -->
+
+  <DO_Population_TravelersDispute.description>新来的旅者很快吵成了两派：有人想留下，有人坚持继续赶路。争执越来越激烈，最后所有人都把目光投向据点管理者。</DO_Population_TravelersDispute.description>
+ 
   <DO_Population_TravelersDispute.options.0.label>公开调解</DO_Population_TravelersDispute.options.0.label>
-  <!-- EN: Use a skilled speaker to settle the dispute, gain one common colonist, and improve population tendency. -->
-  <DO_Population_TravelersDispute.options.0.description>由擅长社交的殖民者调解，获得一名普通殖民者并提高人口倾向。</DO_Population_TravelersDispute.options.0.description>
-  <!-- EN: House them separately -->
+
+  <DO_Population_TravelersDispute.options.0.description>让擅长社交的殖民者公开调解。获得一名普通殖民者，并提高人口倾向。</DO_Population_TravelersDispute.options.0.description>
+ 
   <DO_Population_TravelersDispute.options.1.label>分别安置</DO_Population_TravelersDispute.options.1.label>
-  <!-- EN: Gain two common colonists while production falls for four days. -->
-  <DO_Population_TravelersDispute.options.1.description>获得两名普通殖民者，生产降低四天。</DO_Population_TravelersDispute.options.1.description>
-  <!-- EN: Do not intervene -->
+
+  <DO_Population_TravelersDispute.options.1.description>把两派分开安置，让愿意留下的人留下。获得两名普通殖民者，生产降低四天。</DO_Population_TravelersDispute.options.1.description>
+ 
   <DO_Population_TravelersDispute.options.2.label>不介入争执</DO_Population_TravelersDispute.options.2.label>
-  <!-- EN: Population tendency falls for ten days. -->
-  <DO_Population_TravelersDispute.options.2.description>人口倾向降低十天。</DO_Population_TravelersDispute.options.2.description>
-  
-  <!-- EN: skills brought from afar -->
+
+  <DO_Population_TravelersDispute.options.2.description>他们的争执不是我们的责任。不介入，人口倾向降低十天。</DO_Population_TravelersDispute.options.2.description>
+ 
   <DO_Population_UsefulCrafts.label>带来的手艺</DO_Population_UsefulCrafts.label>
-  <!-- EN: Several visitors are experienced craftspeople. They are willing to exchange their labor for the outpost's help. -->
-  <DO_Population_UsefulCrafts.description>来访者中有几名经验丰富的工匠。他们愿意用劳动换取据点的帮助。</DO_Population_UsefulCrafts.description>
-  <!-- EN: Keep the finest craftsperson -->
+
+  <DO_Population_UsefulCrafts.description>来访者中有几名靠手艺吃饭的人。木工、金属工、修理匠——他们愿意用自己的工时，换取据点的一点帮助。</DO_Population_UsefulCrafts.description>
+ 
   <DO_Population_UsefulCrafts.options.0.label>留下最出色的工匠</DO_Population_UsefulCrafts.options.0.label>
-  <!-- EN: Gain one excellent colonist. -->
-  <DO_Population_UsefulCrafts.options.0.description>获得一名优秀殖民者。</DO_Population_UsefulCrafts.options.0.description>
-  <!-- EN: Ask them to train the residents -->
+
+  <DO_Population_UsefulCrafts.options.0.description>让他们比比看谁最优秀，我们只要最出色的人。</DO_Population_UsefulCrafts.options.0.description>
+ 
   <DO_Population_UsefulCrafts.options.1.label>请他们培训居民</DO_Population_UsefulCrafts.options.1.label>
-  <!-- EN: All colonists gain Crafting and Construction experience, and population tendency improves. -->
-  <DO_Population_UsefulCrafts.options.1.description>所有殖民者获得制作和建设经验，并提高人口倾向。</DO_Population_UsefulCrafts.options.1.description>
-  <!-- EN: Commission a batch of products -->
+
+  <DO_Population_UsefulCrafts.options.1.description>请他们把手艺教给据点居民。</DO_Population_UsefulCrafts.options.1.description>
+ 
   <DO_Population_UsefulCrafts.options.2.label>委托他们完成一批产品</DO_Population_UsefulCrafts.options.2.label>
-  <!-- EN: Double the next output of a random production facility. -->
-  <DO_Population_UsefulCrafts.options.2.description>随机生产设施下一次产出翻倍。</DO_Population_UsefulCrafts.options.2.description>
-  <!-- EN: Provision them and say farewell -->
+
+  <DO_Population_UsefulCrafts.options.2.description>委托他们完成一批产品，使随机生产设施下一次产出翻倍。</DO_Population_UsefulCrafts.options.2.description>
+ 
   <DO_Population_UsefulCrafts.options.3.label>提供补给后送别</DO_Population_UsefulCrafts.options.3.label>
-  <!-- EN: Slightly reduce production for one day and improve population tendency. -->
-  <DO_Population_UsefulCrafts.options.3.description>生产略微降低一天，人口倾向提高十五天。</DO_Population_UsefulCrafts.options.3.description>
-  
-  <!-- EN: field sample -->
+
+  <DO_Population_UsefulCrafts.options.3.description>给足补给，体面送别。生产略微降低一天，人口倾向提高十五天。</DO_Population_UsefulCrafts.options.3.description>
+ 
   <DO_Research_FieldSample.label>实地样本</DO_Research_FieldSample.label>
-  <!-- EN: Workers have returned with locally collected samples of scientific interest. -->
-  <DO_Research_FieldSample.description>工作人员带回一批具有研究价值的当地样本。</DO_Research_FieldSample.description>
-  <!-- EN: Analyze thoroughly -->
+
+  <DO_Research_FieldSample.description>外勤人员从附近带回一批值得研究的样本。它们装在临时容器里，上面还沾着荒野的泥和霜。</DO_Research_FieldSample.description>
+ 
   <DO_Research_FieldSample.options.0.label>全面分析</DO_Research_FieldSample.options.0.label>
-  <!-- EN: Have an expert researcher gain 2,000 research points. -->
-  <DO_Research_FieldSample.options.0.description>由专家研究并获得2000研究点。</DO_Research_FieldSample.options.0.description>
-  <!-- EN: Preserve the sample -->
+
+  <DO_Research_FieldSample.options.0.description>交给专家彻底分析。</DO_Research_FieldSample.options.0.description>
+ 
   <DO_Research_FieldSample.options.1.label>保存样本</DO_Research_FieldSample.options.1.label>
-  <!-- EN: Wait for a random follow-up result. -->
-  <DO_Research_FieldSample.options.1.description>等待随机后续结果。</DO_Research_FieldSample.options.1.description>
-  <!-- EN: Treat it as ordinary material -->
+
+  <DO_Research_FieldSample.options.1.description>按规范保存样本，暂不下结论。等待一次随机后续结果。</DO_Research_FieldSample.options.1.description>
+ 
   <DO_Research_FieldSample.options.2.label>当作普通材料处理</DO_Research_FieldSample.options.2.label>
-  <!-- EN: Gain random resources worth 500. -->
-  <DO_Research_FieldSample.options.2.description>获得价值500的随机资源。</DO_Research_FieldSample.options.2.description>
-  
-  <!-- EN: instrument calibration -->
+
+  <DO_Research_FieldSample.options.2.description>研究资源比样本更稀缺。把它当作普通材料处理。</DO_Research_FieldSample.options.2.description>
+ 
   <DO_Research_InstrumentCalibration.label>仪器校准</DO_Research_InstrumentCalibration.label>
-  <!-- EN: Long-term measurement errors can no longer be ignored. -->
-  <DO_Research_InstrumentCalibration.description>测量仪器的长期误差已经不可忽视。</DO_Research_InstrumentCalibration.description>
-  <!-- EN: Calibrate precisely -->
+
+  <DO_Research_InstrumentCalibration.description>连续几批测量结果出现了相同偏差。误差已经大到无法再靠“差不多”糊弄过去。</DO_Research_InstrumentCalibration.description>
+ 
   <DO_Research_InstrumentCalibration.options.0.label>精密校准</DO_Research_InstrumentCalibration.options.0.label>
-  <!-- EN: Use an experienced researcher to improve research output for ten days. -->
-  <DO_Research_InstrumentCalibration.options.0.description>由资深研究员校准，科研生产提高十天。</DO_Research_InstrumentCalibration.options.0.description>
-  <!-- EN: Replace components -->
+
+  <DO_Research_InstrumentCalibration.options.0.description>让资深研究员逐项精密校准。科研生产提高十天。</DO_Research_InstrumentCalibration.options.0.description>
+ 
   <DO_Research_InstrumentCalibration.options.1.label>更换部件</DO_Research_InstrumentCalibration.options.1.label>
-  <!-- EN: Use two components for the same improvement. -->
-  <DO_Research_InstrumentCalibration.options.1.description>消耗两个零部件获得相同效果。</DO_Research_InstrumentCalibration.options.1.description>
-  <!-- EN: Correct the data temporarily -->
+
+  <DO_Research_InstrumentCalibration.options.1.description>据点没人有能力处理，干脆直接更换关键部件。</DO_Research_InstrumentCalibration.options.1.description>
+ 
   <DO_Research_InstrumentCalibration.options.2.label>暂时修正数据</DO_Research_InstrumentCalibration.options.2.label>
-  <!-- EN: Research output falls for five days. -->
-  <DO_Research_InstrumentCalibration.options.2.description>科研生产降低五天。</DO_Research_InstrumentCalibration.options.2.description>
-  
-  <!-- EN: laboratory accident -->
+
+  <DO_Research_InstrumentCalibration.options.2.description>先用修正表凑合处理旧数据。科研生产降低五天。</DO_Research_InstrumentCalibration.options.2.description>
+ 
   <DO_Research_LabAccident.label>实验事故</DO_Research_LabAccident.label>
-  <!-- EN: An error has caused a flash fire and hazardous leak. -->
-  <DO_Research_LabAccident.description>一次操作失误造成爆燃和有害物质泄漏。</DO_Research_LabAccident.description>
-  <!-- EN: Respond immediately -->
+
+  <DO_Research_LabAccident.description>一次操作失误引发了爆燃，随后又检测到有害物质泄漏。警报响个不停，实验区里没人愿意第一个摘下面罩。</DO_Research_LabAccident.description>
+ 
   <DO_Research_LabAccident.options.0.label>紧急处置</DO_Research_LabAccident.options.0.label>
-  <!-- EN: Use medical expertise; research output falls for two days. -->
-  <DO_Research_LabAccident.options.0.description>依靠医疗经验处置，科研生产降低两天。</DO_Research_LabAccident.options.0.description>
-  <!-- EN: Seal the laboratory -->
+
+  <DO_Research_LabAccident.options.0.description>依靠医疗经验立即处置伤员和污染。科研生产降低两天。</DO_Research_LabAccident.options.0.description>
+ 
   <DO_Research_LabAccident.options.1.label>封锁实验区</DO_Research_LabAccident.options.1.label>
-  <!-- EN: Disable a random research facility for four days. -->
-  <DO_Research_LabAccident.options.1.description>随机科研设施停用四天。</DO_Research_LabAccident.options.1.description>
-  <!-- EN: Recover the data -->
+
+  <DO_Research_LabAccident.options.1.description>封死实验区，等危险自行消退。随机科研设施停用四天。</DO_Research_LabAccident.options.1.description>
+ 
   <DO_Research_LabAccident.options.2.label>抢救实验数据</DO_Research_LabAccident.options.2.label>
-  <!-- EN: Use medical and intellectual experts; disable a research facility for three days and gain 1,000 research points. -->
-  <DO_Research_LabAccident.options.2.description>由医疗和智识专家抢救数据；科研设施停用三天并获得1000研究点。</DO_Research_LabAccident.options.2.description>
-  
-  <!-- EN: ordinary sample -->
+
+  <DO_Research_LabAccident.options.2.description>派医疗和智识专家冒险抢救实验数据。</DO_Research_LabAccident.options.2.description>
+ 
   <DO_Research_SampleOrdinary.label>普通样本</DO_Research_SampleOrdinary.label>
-  <!-- EN: The preserved sample proves to have no unusual properties. -->
-  <DO_Research_SampleOrdinary.description>样本并没有什么特殊性质。</DO_Research_SampleOrdinary.description>
-  <!-- EN: Record the result -->
+
+  <DO_Research_SampleOrdinary.description>经过反复检测，保存下来的样本没有表现出任何异常性质。它只是……很普通。</DO_Research_SampleOrdinary.description>
+ 
   <DO_Research_SampleOrdinary.options.0.label>记录结果</DO_Research_SampleOrdinary.options.0.label>
-  <!-- EN: Gain 500 research points. -->
-  <DO_Research_SampleOrdinary.options.0.description>获得500研究点。</DO_Research_SampleOrdinary.options.0.description>
-  
-  <!-- EN: sample preservation failure -->
+
+  <DO_Research_SampleOrdinary.options.0.description>把阴性结果也写进记录，“没有发现”也算是发现。</DO_Research_SampleOrdinary.options.0.description>
+ 
   <DO_Research_SampleSpoiled.label>样本保存失误</DO_Research_SampleSpoiled.label>
-  <!-- EN: The sample was spoiled during storage. -->
-  <DO_Research_SampleSpoiled.description>样本在保存过程中损坏了。</DO_Research_SampleSpoiled.description>
-  <!-- EN: Accept it -->
+
+  <DO_Research_SampleSpoiled.description>保存容器失效时没人及时发现。等研究员打开它，样本已经彻底变质。</DO_Research_SampleSpoiled.description>
+ 
   <DO_Research_SampleSpoiled.options.0.label>只好如此</DO_Research_SampleSpoiled.options.0.label>
-  <!-- EN: Nothing can be recovered. -->
-  <DO_Research_SampleSpoiled.options.0.description>没有任何东西能够挽回。</DO_Research_SampleSpoiled.options.0.description>
-  
-  <!-- EN: exceptional sample -->
+
+  <DO_Research_SampleSpoiled.options.0.description>记录事故，然后丢掉残余物。没有任何东西能够挽回。</DO_Research_SampleSpoiled.options.0.description>
+ 
   <DO_Research_SampleValuable.label>高价值样本</DO_Research_SampleValuable.label>
-  <!-- EN: Further study shows that the preserved sample is exceptionally valuable. -->
-  <DO_Research_SampleValuable.description>进一步研究发现，保存的样本价值极高。</DO_Research_SampleValuable.description>
-  <!-- EN: Exploit the discovery -->
+
+  <DO_Research_SampleValuable.description>进一步研究推翻了最初的保守判断：这份样本异常珍贵，足以让任何研究站或商队认真开价。</DO_Research_SampleValuable.description>
+ 
   <DO_Research_SampleValuable.options.0.label>大力利用</DO_Research_SampleValuable.options.0.label>
-  <!-- EN: Generate a random useful techprint. -->
-  <DO_Research_SampleValuable.options.0.description>获得一张随机可用科技蓝图。</DO_Research_SampleValuable.options.0.description>
-  <!-- EN: Sell the sample -->
+
+  <DO_Research_SampleValuable.options.0.description>把发现榨到最后一滴价值，获得一张随机可用科技蓝图。</DO_Research_SampleValuable.options.0.description>
+ 
   <DO_Research_SampleValuable.options.1.label>卖出样本</DO_Research_SampleValuable.options.1.label>
-  <!-- EN: Sell it for 4,000 silver. -->
-  <DO_Research_SampleValuable.options.1.description>获得4000白银。</DO_Research_SampleValuable.options.1.description>
-  
-  <!-- EN: theoretical breakthrough -->
+
+  <DO_Research_SampleValuable.options.1.description>知识也可以换成燃料和钢铁。出售样本，获得大量白银。</DO_Research_SampleValuable.options.1.description>
+ 
   <DO_Research_TheoreticalBreakthrough.label>理论突破</DO_Research_TheoreticalBreakthrough.label>
-  <!-- EN: Researchers have proposed a theory that may greatly advance the current project. -->
-  <DO_Research_TheoreticalBreakthrough.description>研究人员提出一种可能大幅推进当前项目的新理论。</DO_Research_TheoreticalBreakthrough.description>
-  <!-- EN: Concentrate on verification -->
+
+  <DO_Research_TheoreticalBreakthrough.description>研究人员提出了一套足以改变当前项目进度的新理论。黑板已经写满，争论持续到天黑，现在只差验证。</DO_Research_TheoreticalBreakthrough.description>
+ 
   <DO_Research_TheoreticalBreakthrough.options.0.label>集中验证</DO_Research_TheoreticalBreakthrough.options.0.label>
-  <!-- EN: Increase research output for six days while other production falls. -->
-  <DO_Research_TheoreticalBreakthrough.options.0.description>科研生产提高六天，其他生产降低六天。</DO_Research_TheoreticalBreakthrough.options.0.description>
-  <!-- EN: Verify steadily -->
+
+  <DO_Research_TheoreticalBreakthrough.options.0.description>把人手和算力集中到验证工作上。科研生产提高六天，其他生产降低六天。</DO_Research_TheoreticalBreakthrough.options.0.description>
+ 
   <DO_Research_TheoreticalBreakthrough.options.1.label>稳步验证</DO_Research_TheoreticalBreakthrough.options.1.label>
-  <!-- EN: Increase research output for ten days. -->
-  <DO_Research_TheoreticalBreakthrough.options.1.description>科研生产提高十天。</DO_Research_TheoreticalBreakthrough.options.1.description>
-  <!-- EN: Keep the original plan -->
+
+  <DO_Research_TheoreticalBreakthrough.options.1.description>不打乱据点节奏，稳步验证。科研生产提高十天。</DO_Research_TheoreticalBreakthrough.options.1.description>
+ 
   <DO_Research_TheoreticalBreakthrough.options.2.label>保持原计划</DO_Research_TheoreticalBreakthrough.options.2.label>
-  <!-- EN: Gain 500 research points. -->
-  <DO_Research_TheoreticalBreakthrough.options.2.description>获得500研究点。</DO_Research_TheoreticalBreakthrough.options.2.description>
-  
-  <!-- EN: unexpected observation -->
+
+  <DO_Research_TheoreticalBreakthrough.options.2.description>先把理论记下来，继续原计划。</DO_Research_TheoreticalBreakthrough.options.2.description>
+ 
   <DO_Research_UnexpectedObservation.label>意外观察</DO_Research_UnexpectedObservation.label>
-  <!-- EN: Researchers have noticed an unusual pattern in routine records. -->
-  <DO_Research_UnexpectedObservation.description>研究人员在日常记录中发现了异常规律。</DO_Research_UnexpectedObservation.description>
-  <!-- EN: Analyze it deeply -->
+
+  <DO_Research_UnexpectedObservation.description>研究人员在一堆本该乏味的日常记录里发现了重复出现的异常模式。没人曾注意到它，但它显然一直都在那里。</DO_Research_UnexpectedObservation.description>
+ 
   <DO_Research_UnexpectedObservation.options.0.label>深入分析</DO_Research_UnexpectedObservation.options.0.label>
-  <!-- EN: Gain 2,000 research points while research output is slightly reduced for two days. -->
-  <DO_Research_UnexpectedObservation.options.0.description>获得2000研究点，科研生产略微降低两天。</DO_Research_UnexpectedObservation.options.0.description>
-  <!-- EN: Apply it immediately -->
+
+  <DO_Research_UnexpectedObservation.options.0.description>暂停部分常规工作，沿着这条线索深挖。</DO_Research_UnexpectedObservation.options.0.description>
+ 
   <DO_Research_UnexpectedObservation.options.1.label>立即应用</DO_Research_UnexpectedObservation.options.1.label>
-  <!-- EN: Increase a random production facility's output for eight days. -->
-  <DO_Research_UnexpectedObservation.options.1.description>随机生产设施产量提高八天。</DO_Research_UnexpectedObservation.options.1.description>
-  <!-- EN: Archive it -->
+
+  <DO_Research_UnexpectedObservation.options.1.description>不等论文写完，先把规律用到生产上。随机生产设施产量提高八天。</DO_Research_UnexpectedObservation.options.1.description>
+
   <DO_Research_UnexpectedObservation.options.2.label>归档</DO_Research_UnexpectedObservation.options.2.label>
-  <!-- EN: Gain 1,000 research points. -->
-  <DO_Research_UnexpectedObservation.options.2.description>获得1000研究点。</DO_Research_UnexpectedObservation.options.2.description>
-  
+
+  <DO_Research_UnexpectedObservation.options.2.description>把资料整理归档，留待以后处理。</DO_Research_UnexpectedObservation.options.2.description>
 </LanguageData>

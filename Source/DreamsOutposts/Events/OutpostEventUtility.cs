@@ -457,14 +457,14 @@ namespace DreamsOutposts
 		{
 			if (instance.attack != null && instance.attack.resolved) return;
 			string result = EffectPreview(option);
-			string optionLabel = option.label ?? option.id ?? "Unknown option";
+			string optionLabel = option.label ?? option.id ?? "DreamsOutposts.UnknownOption".Translate();
 			string text = instance.def.LabelCap + "\n\n" + (instance.def.description ?? string.Empty);
-			text += "\n\nBecause the event was not handled in time, the outpost automatically chose:\n\n\"" + optionLabel + "\"";
+			text += "\n\n" + "DreamsOutposts.EventExpiredChoice".Translate(optionLabel);
 			if (!string.IsNullOrEmpty(result))
 			{
-				text += "\n\nFinal result:\n" + result;
+				text += "\n\n" + "DreamsOutposts.EventExpiredResult".Translate(result);
 			}
-			Find.LetterStack.ReceiveLetter(instance.def.LabelCap + " - timeout result", text, LetterDefOf.NeutralEvent, new LookTargets(outpost));
+			Find.LetterStack.ReceiveLetter("DreamsOutposts.EventExpiredTitle".Translate(instance.def.LabelCap), text, LetterDefOf.NeutralEvent, new LookTargets(outpost));
 		}
 
 		private static string EffectPreview(OutpostEventOption option)
@@ -521,13 +521,7 @@ namespace DreamsOutposts
 		public static string RemainingTimeLabel(OutpostEventInstance instance)
 		{
 			int remainingTicks = (instance?.expireTick ?? 0) - Find.TickManager.TicksGame;
-			if (remainingTicks < 0)
-			{
-				remainingTicks = 0;
-			}
-			int days = remainingTicks / 60000;
-			int hours = remainingTicks % 60000 / 2500;
-			return days + " days / " + hours + " hours";
+			return Mathf.Max(remainingTicks, 0).ToStringTicksToPeriod();
 		}
 	}
 }

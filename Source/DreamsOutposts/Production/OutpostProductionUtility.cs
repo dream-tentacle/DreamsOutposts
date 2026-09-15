@@ -107,13 +107,21 @@ namespace DreamsOutposts
 				}
 			}
 			List<OutpostProductionModifier> levelModifiers = outpost.CurrentLevelProperties?.productionModifiers;
+			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
 			for (int i = 0; i < (levelModifiers?.Count ?? 0); i++)
 			{
 				OutpostProductionModifier modifier = levelModifiers[i];
-				if (modifier != null && modifier.Matches(production, producingFacility?.def))
+				if (modifier == null || !modifier.Matches(production, producingFacility?.def))
 				{
-					yield return new OutpostProductionModifierSource { Modifier = modifier, IsLevelModifier = true };
+					continue;
 				}
+				// 营地的等级倍率需要中枢正常运转且有人在管：任一条件不满足，这一档倍率就不生效，产出回到原始值。
+				// 组件每 1250 tick 刷新一次这个状态，这里只读缓存。
+				if (supervisor != null && supervisor.Gates(modifier) && !supervisor.AllowsLevelFactor)
+				{
+					continue;
+				}
+				yield return new OutpostProductionModifierSource { Modifier = modifier, IsLevelModifier = true };
 			}
 		}
 

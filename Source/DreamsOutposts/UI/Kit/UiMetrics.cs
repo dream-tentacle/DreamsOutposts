@@ -111,6 +111,9 @@ namespace DreamsOutposts
 		public const float CardPaddingTop = 13f;
 		public const float CardPaddingBottom = 12f;
 		public const float CardGap = 10f;
+
+		/// <summary>设施卡正文（区块区）的最小高度：头部间隔之外，没有任何区块时也留出这段空白。</summary>
+		public const float FacilityBodyMinHeight = 30f;
 		public const float CardIconSize = 34f;
 		public const float CardIconGlyph = 18f;
 		public const float CardDescMaxLines = 2f;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 	<!-- EN: Current tendencies -->
   <DreamsOutposts.EventWeight.Current>当前倾向</DreamsOutposts.EventWeight.Current>
@@ -109,7 +109,15 @@
 	<!-- EN: Offered: {0} / {1}    Expected goods: {2} -->
   <DreamsOutposts.TemporaryMarket.Value>已提供：{0} / {1}　　预计获得：{2}</DreamsOutposts.TemporaryMarket.Value>
 	<!-- EN: All -->
-  <DreamsOutposts.TemporaryMarket.All>全部</DreamsOutposts.TemporaryMarket.All>
+  <DreamsOutposts.TemporaryMarket.CountTip>在这里调整要提供的数量</DreamsOutposts.TemporaryMarket.CountTip>
+	<!-- EN: Anything above {0} earns nothing extra; the goods you receive are capped at {1}. -->
+  <DreamsOutposts.TemporaryMarket.OverCap>超出{0}的部分不会换来更多回报，获得的商品最多价值{1}。</DreamsOutposts.TemporaryMarket.OverCap>
+	<!-- EN: You are offering goods worth {0}, but the market only pays for up to {1}. Everything above that is given away for nothing: you will receive goods worth at most {2}.\n\nOffer this much anyway? -->
+  <DreamsOutposts.TemporaryMarket.OverCapConfirm>你提供的物资市值为{0}，但集市只为{1}以内的部分付账。超出的部分等于白送：最多只能换到价值{2}的商品。\n\n仍然提供这么多吗？</DreamsOutposts.TemporaryMarket.OverCapConfirm>
+	<!-- EN: Select at least one kind of goods to offer. -->
+  <DreamsOutposts.TemporaryMarket.NothingSelected>至少要选择一种要提供的物资</DreamsOutposts.TemporaryMarket.NothingSelected>
+	<!-- EN: Market exchange complete: goods worth {0} were handed over and goods worth {1} were received. -->
+  <DreamsOutposts.TemporaryMarket.Done>集市交易完成：提供市值{0}的物资，换得价值{1}的商品。</DreamsOutposts.TemporaryMarket.Done>
 	<!-- EN: Exchange goods -->
   <DreamsOutposts.TemporaryMarket.Exchange>交换物资</DreamsOutposts.TemporaryMarket.Exchange>
   <!-- EN: Events -->
@@ -124,6 +132,12 @@
   <DreamsOutposts.EventLetter>{0}\n\n剩余：{1}</DreamsOutposts.EventLetter>
   <!-- EN: On timeout: {0} -->
   <DreamsOutposts.OnTimeout>超时自动选择：{0}</DreamsOutposts.OnTimeout>
+  <!-- EN: {0} - timeout result -->
+  <DreamsOutposts.EventExpiredTitle>{0} - 超时结果</DreamsOutposts.EventExpiredTitle>
+  <!-- EN: Because the event was not handled in time, the outpost automatically chose:\n\n"{0}" -->
+  <DreamsOutposts.EventExpiredChoice>由于事件未能及时处理，据点自动选择了：\n\n“{0}”</DreamsOutposts.EventExpiredChoice>
+  <!-- EN: Final result:\n{0} -->
+  <DreamsOutposts.EventExpiredResult>最终结果：\n{0}</DreamsOutposts.EventExpiredResult>
   <!-- EN: Unknown option -->
   <DreamsOutposts.UnknownOption>未知选项</DreamsOutposts.UnknownOption>
   <!-- EN: Result: -->

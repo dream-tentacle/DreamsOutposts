@@ -35,7 +35,7 @@ namespace DreamsOutposts
 			float value = listing.Slider(Settings.productionMultiplier,
 				DreamsOutpostsSettings.MinProductionMultiplier,
 				DreamsOutpostsSettings.MaxProductionMultiplier);
-			Settings.productionMultiplier = Mathf.Round(value * 20f) / 20f;
+			Settings.productionMultiplier = Mathf.Round(value * 40f) / 40f;
 			listing.GapLine();
 			listing.Label("DreamsOutposts.Settings.ProductionMultiplierDescription".Translate());
 			listing.End();

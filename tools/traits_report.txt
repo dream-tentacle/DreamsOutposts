@@ -1,0 +1,52 @@
+﻿枚举 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Data ...
+含 TraitDef 的文件: 4
+TraitDef 51 个，degree 73 条
+
+============================================================
+ 原版特性：带「偏负面」信号的 degree
+============================================================
+共 14 条（涉及 12 个 TraitDef）
+
+  Abrasive  [Core]
+      - marketValueFactorOffset=-0.15
+  AnnoyingVoice  [Core]
+      - marketValueFactorOffset=-0.2
+  Bloodlust  [Core]
+      - 社交打架率 x4
+  BodyMastery  [Anomaly]
+      - 禁用需求: Food,Rest,Comfort
+  CreepyBreathing  [Core]
+      - marketValueFactorOffset=-0.1
+  DrugDesire (degree 2)  [Core]
+      - marketValueFactorOffset=-0.15
+  DrugDesire (degree 1)  [Core]
+      - marketValueFactorOffset=-0.1
+  DrugDesire (degree -1)  [Core]
+      - 禁止精神状态: Binging_DrugExtreme,Binging_DrugMajor
+  Gourmand  [Core]
+      - 饥饿率 x1.5
+      - 随机精神状态: Binging_Food
+  Immunity (degree -1)  [Core]
+      - 患病MTB=30
+  Pyromaniac  [Core]
+      - marketValueFactorOffset=-0.2
+      - 随机精神状态: FireStartingSpree
+  Undergrounder  [Core]
+      - 禁用需求: Outdoors
+  VoidFascination  [Anomaly]
+      - 随机精神状态: EntityLiberator
+  Wimp  [Core]
+      - marketValueFactorOffset=-0.15
+
+============================================================
+ 建议的「负面特性」defName 清单（上面涉及的 TraitDef 去重）
+============================================================
+共 12 个：
+Abrasive, AnnoyingVoice, Bloodlust, BodyMastery, CreepyBreathing, DrugDesire, Gourmand, Immunity, Pyromaniac, Undergrou
+nder, VoidFascination, Wimp
+
+============================================================
+ 属性方向不明（可能有正面效果，我未计入上面清单）
+============================================================
+
+明细 JSON 已写入: D:\project\Dream的据点拓展\Tools\traits_report.json

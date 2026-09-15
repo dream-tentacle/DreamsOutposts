@@ -98,6 +98,7 @@
 	<Compile Include="Events\OutpostEventRewardEffects.cs" />
 	<Compile Include="Events\OutpostItemRewardCollector.cs" />
 	<Compile Include="Events\OutpostExpandedEventEffects.cs" />
+	<Compile Include="Events\Window_OutpostTemporaryMarket.cs" />
     <Compile Include="Events\OutpostEventUtility.cs" />
     <Compile Include="Events\OutpostRandomEventScheduler.cs" />
     <Compile Include="Events\GameComponent_OutpostRandomEvents.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Production\OutpostProductionUtility.cs" />
     <Compile Include="Production\OutpostProductionOutcome.cs" />
     <Compile Include="Production\OutpostFacilityComp_Production.cs" />
+    <Compile Include="Production\OutpostFacilityComp_ProductionSupervisor.cs" />
     <Compile Include="Research\OutpostFacilityComp_Research.cs" />
 	<Compile Include="Mechanitor\OutpostFacilityComp_Bandwidth.cs" />
 	<Compile Include="Mechanitor\MechanitorBandwidthPatch.cs" />
@@ -136,6 +138,7 @@
 	<Compile Include="Recruitment\AdventurerOffer.cs" />
 	<Compile Include="Recruitment\AdventurerRecruitState.cs" />
 	<Compile Include="Recruitment\AdventurerRecruitUtility.cs" />
+	<Compile Include="Recruitment\AdventurerDevGizmo.cs" />
     <Compile Include="Power\OutpostFacilityComp_PowerGenerator.cs" />
     <Compile Include="Power\RemotePowerUtility.cs" />
     <Compile Include="Power\CompRemotePowerReceiver.cs" />

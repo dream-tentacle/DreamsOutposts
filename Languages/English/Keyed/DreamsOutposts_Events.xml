@@ -54,7 +54,11 @@
 	<DreamsOutposts.EventEffect.DisableResearchFacility>Disable one random research facility for {0}</DreamsOutposts.EventEffect.DisableResearchFacility>
 	<DreamsOutposts.TemporaryMarket.Title>Temporary market</DreamsOutposts.TemporaryMarket.Title>
 	<DreamsOutposts.TemporaryMarket.Value>Offered: {0} / {1}    Expected goods: {2}</DreamsOutposts.TemporaryMarket.Value>
-	<DreamsOutposts.TemporaryMarket.All>All</DreamsOutposts.TemporaryMarket.All>
+	<DreamsOutposts.TemporaryMarket.CountTip>How much of this to offer</DreamsOutposts.TemporaryMarket.CountTip>
+	<DreamsOutposts.TemporaryMarket.OverCap>Anything above {0} earns nothing extra; the goods you receive are capped at {1}.</DreamsOutposts.TemporaryMarket.OverCap>
+	<DreamsOutposts.TemporaryMarket.OverCapConfirm>You are offering goods worth {0}, but the market only pays for up to {1}. Everything above that is given away for nothing: you will receive goods worth at most {2}.\n\nOffer this much anyway?</DreamsOutposts.TemporaryMarket.OverCapConfirm>
+	<DreamsOutposts.TemporaryMarket.NothingSelected>Select at least one kind of goods to offer.</DreamsOutposts.TemporaryMarket.NothingSelected>
+	<DreamsOutposts.TemporaryMarket.Done>Market exchange complete: goods worth {0} were handed over and goods worth {1} were received.</DreamsOutposts.TemporaryMarket.Done>
 	<DreamsOutposts.TemporaryMarket.Exchange>Exchange goods</DreamsOutposts.TemporaryMarket.Exchange>
   <DreamsOutposts.Events>Events</DreamsOutposts.Events>
   <DreamsOutposts.NoCurrentEvents>No current events</DreamsOutposts.NoCurrentEvents>
@@ -62,6 +66,9 @@
   <DreamsOutposts.UnknownEvent>Unknown event</DreamsOutposts.UnknownEvent>
   <DreamsOutposts.EventLetter>{0}\n\nRemaining: {1}</DreamsOutposts.EventLetter>
   <DreamsOutposts.OnTimeout>On timeout: {0}</DreamsOutposts.OnTimeout>
+  <DreamsOutposts.EventExpiredTitle>{0} - timeout result</DreamsOutposts.EventExpiredTitle>
+  <DreamsOutposts.EventExpiredChoice>Because the event was not handled in time, the outpost automatically chose:\n\n"{0}"</DreamsOutposts.EventExpiredChoice>
+  <DreamsOutposts.EventExpiredResult>Final result:\n{0}</DreamsOutposts.EventExpiredResult>
   <DreamsOutposts.UnknownOption>Unknown option</DreamsOutposts.UnknownOption>
   <DreamsOutposts.Result>Result:</DreamsOutposts.Result>
   <DreamsOutposts.Options>Options</DreamsOutposts.Options>

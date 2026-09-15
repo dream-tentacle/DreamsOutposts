@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -392,6 +393,33 @@ namespace DreamsOutposts
 				x += width + gap;
 			}
 			return y + rowHeight;
+		}
+
+		/// <summary>
+		/// 人物小像的取景参数。不能直接用 Widgets.ThingIcon：它对 humanlike 固定以 cameraZoom 1.8 取景，
+		/// 可见范围只有上下各约 0.56 格，戴帽子时帽顶会落到画面外被裁掉。这里改成原版人物对话框的
+		/// 1.5 倍取景，并把镜头抬高 0.18 格给帽顶留位置。
+		/// </summary>
+		private const float PortraitsZoom = 1.5f;
+		private static readonly Vector3 PortraitsCameraOffset = new Vector3(0f, 0f, 0.18f);
+
+		/// <summary>原版人物小像（PortraitsCache 渲染）。帽子不会被裁，参数见 PortraitsZoom。</summary>
+		public static void PawnPortrait(Rect rect, Pawn pawn)
+		{
+			if (pawn == null)
+			{
+				return;
+			}
+			RenderTexture texture = PortraitsCache.Get(pawn, new Vector2(rect.width, rect.height), Rot4.South,
+				PortraitsCameraOffset, PortraitsZoom);
+			if (texture == null)
+			{
+				return;
+			}
+			Color previous = GUI.color;
+			GUI.color = Color.white;
+			GUI.DrawTexture(rect, texture);
+			GUI.color = previous;
 		}
 
 		/// <summary>原版物品图标（材料、产物）。</summary>

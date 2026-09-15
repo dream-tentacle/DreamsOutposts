@@ -399,6 +399,7 @@ namespace DreamsOutposts
 			if (Prefs.DevMode && DebugSettings.godMode)
 			{
 				yield return OutpostEventUtility.AddAllWeightedEventsCommand(this);
+				yield return AdventurerDevGizmo.GetCommand(this);
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);

@@ -37,6 +37,9 @@
   <DreamsOutposts.Ui.Chip.ProductionDelta>{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionDelta>
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} output · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
   <DreamsOutposts.Ui.Chip.ProductionModifierTip>Production modifier from {0}.</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.EventCategoryOffset>{0} tendency {1}</DreamsOutposts.Ui.Chip.EventCategoryOffset>
+  <DreamsOutposts.Ui.Chip.EventCategoryFactor>{0} tendency ×{1}</DreamsOutposts.Ui.Chip.EventCategoryFactor>
+  <DreamsOutposts.Ui.Chip.EventCategoryTip>This facility shifts how often {0} events happen.</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>Production modifier from outpost level {0}.</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
   <DreamsOutposts.Ui.LevelSource>outpost level {0}</DreamsOutposts.Ui.LevelSource>
   <DreamsOutposts.Ui.Chip.Limit>Limit {0} (built {1})</DreamsOutposts.Ui.Chip.Limit>
@@ -118,14 +121,19 @@
   <DreamsOutposts.Tavern.Title>Tavern</DreamsOutposts.Tavern.Title>
   <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
   <DreamsOutposts.Tavern.Description>Review visiting adventurers and invite them to join this outpost for free.</DreamsOutposts.Tavern.Description>
-  <DreamsOutposts.Tavern.Hint>One candidate arrives every 2 days. Each remains available for 10 days.</DreamsOutposts.Tavern.Hint>
+  <DreamsOutposts.Tavern.Hint>An attempt is made every 3 days: the chance of a candidate turning up is the colonists' total Social skill divided by 50, and a failed attempt brings nobody. Each candidate remains available for 10 days.</DreamsOutposts.Tavern.Hint>
   <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
   <DreamsOutposts.Tavern.AnySkill>No preference</DreamsOutposts.Tavern.AnySkill>
   <DreamsOutposts.Tavern.Next>Next candidate in {0}</DreamsOutposts.Tavern.Next>
+  <DreamsOutposts.Tavern.Chance>Success chance {0}</DreamsOutposts.Tavern.Chance>
+  <DreamsOutposts.Tavern.ChanceTip>The colonists here have {0} total Social skill of the {1} needed for a certain success.</DreamsOutposts.Tavern.ChanceTip>
+  <DreamsOutposts.Tavern.Recruited>An adventurer has turned up at the tavern in {0}.</DreamsOutposts.Tavern.Recruited>
+  <DreamsOutposts.Tavern.RecruitFailed>Tavern recruitment failed for an unknown program reason.</DreamsOutposts.Tavern.RecruitFailed>
   <DreamsOutposts.Tavern.Full>All candidate slots are occupied</DreamsOutposts.Tavern.Full>
-  <DreamsOutposts.Tavern.Odds>Population tendency {0} · Common {1} · Excellent {2} · Elite {3} · Epic {4}</DreamsOutposts.Tavern.Odds>
+  <DreamsOutposts.Tavern.Odds.Population>Population tendency {0}</DreamsOutposts.Tavern.Odds.Population>
+  <DreamsOutposts.Tavern.Odds.Entry>{0} {1}</DreamsOutposts.Tavern.Odds.Entry>
   <DreamsOutposts.Tavern.Empty>No adventurers are currently available.</DreamsOutposts.Tavern.Empty>
-  <DreamsOutposts.Tavern.Rarity>Rating: {0} · strength {1} · {2} ×{3}</DreamsOutposts.Tavern.Rarity>
+  <DreamsOutposts.Tavern.Rarity>Overall rating: {0} · strength {1} · {2}</DreamsOutposts.Tavern.Rarity>
   <DreamsOutposts.Tavern.Rarity.Common>Common</DreamsOutposts.Tavern.Rarity.Common>
   <DreamsOutposts.Tavern.Rarity.Excellent>Excellent</DreamsOutposts.Tavern.Rarity.Excellent>
   <DreamsOutposts.Tavern.Rarity.Elite>Elite</DreamsOutposts.Tavern.Rarity.Elite>

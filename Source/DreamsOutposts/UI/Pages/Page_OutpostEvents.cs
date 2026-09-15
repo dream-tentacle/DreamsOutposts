@@ -268,7 +268,7 @@ namespace DreamsOutposts
 			float timeWidth = Mathf.Min(UiText.Width(timeText, UiFont.Caption) + 6f, innerWidth * 0.5f);
 			float barWidth = Mathf.Max(innerWidth - timeWidth - TimeRowGap, 40f);
 			UiDraw.Bar(new Rect(innerX, y + (timeHeight - TimeBarHeight) * 0.5f, barWidth, TimeBarHeight),
-				view.HasProgress ? view.Progress : 0f, UiPalette.Accent, UiPalette.Track);
+				view.HasProgress ? view.Progress : 0f, UiPalette.Bad, UiPalette.Track);
 			UiText.Draw(new Rect(innerX + barWidth + TimeRowGap, y, timeWidth, timeHeight), timeText,
 				UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 			if (Widgets.ButtonInvisible(rect))

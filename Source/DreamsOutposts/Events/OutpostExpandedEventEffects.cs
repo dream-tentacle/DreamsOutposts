@@ -68,10 +68,12 @@ namespace DreamsOutposts
 					+ " (combatPower " + kind.combatPower + ", rated " + AdventurerRecruitUtility.RarityForKind(kind)
 					+ ") but asks for rarity " + rarity + ". Rating comes from combatPower, so the kind's own rating is used.", Gen.HashCombineInt(kind.shortHash, (int)rarity));
 			}
-			return PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, context.outpost.Tile, forceGenerateNewPawn: true));
+			Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, context.outpost.Tile, forceGenerateNewPawn: true));
+			if (pawn != null) AdventurerRecruitUtility.SanitizeAdventurer(pawn);
+			return pawn;
 		}
 
-		public override string GetPreview(OutpostEventContext context) => "DreamsOutposts.EventEffect.GeneratePawnRarity".Translate(count, rarity.ToString());
+		public override string GetPreview(OutpostEventContext context) => "DreamsOutposts.EventEffect.GeneratePawnRarity".Translate(count, AdventurerRecruitUtility.RarityLabel(rarity));
 	}
 
 	public class OutpostEventEffect_StealInventoryFraction : OutpostEventEffect
@@ -159,61 +161,5 @@ namespace DreamsOutposts
 			if (context?.outpost != null) Find.WindowStack.Add(new Window_OutpostTemporaryMarket(context.outpost, maxMarketValue, returnFactor));
 		}
 		public override string GetPreview(OutpostEventContext context) => "DreamsOutposts.EventEffect.TemporaryMarket".Translate(maxMarketValue.ToStringMoney(), returnFactor.ToString("0.##"));
-	}
-
-	public class Window_OutpostTemporaryMarket : Window
-	{
-		private readonly Outpost outpost;
-		private readonly float cap;
-		private readonly float factor;
-		private readonly Dictionary<Thing, int> selected = new Dictionary<Thing, int>();
-		private Vector2 scroll;
-		public override Vector2 InitialSize => new Vector2(720f, 650f);
-		public Window_OutpostTemporaryMarket(Outpost outpost, float cap, float factor) { this.outpost = outpost; this.cap = cap; this.factor = factor; doCloseX = true; absorbInputAroundWindow = true; }
-
-		public override void DoWindowContents(Rect inRect)
-		{
-			Text.Font = GameFont.Medium; Widgets.Label(new Rect(inRect.x, inRect.y, inRect.width, 35f), "DreamsOutposts.TemporaryMarket.Title".Translate()); Text.Font = GameFont.Small;
-			float total = SelectedValue();
-			Widgets.Label(new Rect(inRect.x, inRect.y + 40f, inRect.width, 28f), "DreamsOutposts.TemporaryMarket.Value".Translate(total.ToStringMoney(), cap.ToStringMoney(), (total * factor).ToStringMoney()));
-			List<Thing> items = outpost.InventoryItems.Where(Eligible).ToList();
-			Rect viewRect = new Rect(0f, 0f, inRect.width - 20f, items.Count * 34f);
-			Rect scrollRect = new Rect(inRect.x, inRect.y + 75f, inRect.width, inRect.height - 125f);
-			Widgets.BeginScrollView(scrollRect, ref scroll, viewRect);
-			for (int i = 0; i < items.Count; i++)
-			{
-				Thing thing = items[i]; Rect row = new Rect(0f, i * 34f, viewRect.width, 32f);
-				Widgets.Label(new Rect(row.x, row.y, row.width - 250f, row.height), thing.LabelCap + " ×" + thing.stackCount + "  (" + thing.MarketValue.ToStringMoney() + ")");
-				int value = selected.TryGetValue(thing, out int current) ? current : 0;
-				if (Widgets.ButtonText(new Rect(row.xMax - 235f, row.y, 32f, 30f), "-")) value--;
-				Widgets.Label(new Rect(row.xMax - 195f, row.y, 65f, 30f), value.ToString());
-				if (Widgets.ButtonText(new Rect(row.xMax - 130f, row.y, 32f, 30f), "+")) value++;
-				if (Widgets.ButtonText(new Rect(row.xMax - 90f, row.y, 90f, 30f), "DreamsOutposts.TemporaryMarket.All".Translate())) value = thing.stackCount;
-				value = Mathf.Clamp(value, 0, thing.stackCount);
-				float without = total - current * thing.MarketValue;
-				value = Mathf.Min(value, Mathf.FloorToInt((cap - without) / Mathf.Max(thing.MarketValue, 0.01f)));
-				if (value > 0) selected[thing] = value; else selected.Remove(thing);
-				total = SelectedValue();
-			}
-			Widgets.EndScrollView();
-			if (Widgets.ButtonText(new Rect(inRect.xMax - 170f, inRect.yMax - 42f, 170f, 42f), "DreamsOutposts.TemporaryMarket.Exchange".Translate())) Exchange();
-		}
-
-		private void Exchange()
-		{
-			float value = SelectedValue();
-			if (value <= 0f) return;
-			foreach (KeyValuePair<Thing, int> pair in selected.ToList())
-			{
-				if (pair.Key == null || pair.Key.Destroyed || !outpost.inventory.Contains(pair.Key)) continue;
-				Thing taken = outpost.inventory.Take(pair.Key, Mathf.Min(pair.Value, pair.Key.stackCount)); taken?.Destroy();
-			}
-			OutpostEventContext context = new OutpostEventContext { outpost = outpost, itemRewards = new OutpostItemRewardCollector(outpost) };
-			new OutpostEventEffect_GenerateRandomItems { marketValue = new FloatRange(value * factor, value * factor) }.Apply(context);
-			context.itemRewards.Commit();
-			Close();
-		}
-		private float SelectedValue() => selected.Where(p => p.Key != null && !p.Key.Destroyed).Sum(p => p.Key.MarketValue * p.Value);
-		private static bool Eligible(Thing t) => t != null && !t.Destroyed && t.def.category == ThingCategory.Item && t.def.stackLimit > 1 && t.MarketValue > 0f && t.questTags.NullOrEmpty();
 	}
 }

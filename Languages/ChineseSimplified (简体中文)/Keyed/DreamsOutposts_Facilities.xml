@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   <!-- EN: This slot already holds {0}. -->
   <DreamsOutposts.InstallFail.SlotOccupied>这个槽位已经装了{0}。</DreamsOutposts.InstallFail.SlotOccupied>
@@ -96,6 +96,22 @@
   <DreamsOutposts.FacilityTag.Training>训练</DreamsOutposts.FacilityTag.Training>
   <!-- EN: Other -->
   <DreamsOutposts.FacilityTag.Other>其他</DreamsOutposts.FacilityTag.Other>
+  <!-- EN: Manager present ({1} {0}) -->
+  <DreamsOutposts.ProductionSupervisor.Present>已有{0}{1}管理者</DreamsOutposts.ProductionSupervisor.Present>
+  <!-- EN: Missing manager ({1} {0}) -->
+  <DreamsOutposts.ProductionSupervisor.Missing>缺少{0}{1}管理者</DreamsOutposts.ProductionSupervisor.Missing>
+  <!-- EN: Hub disabled -->
+  <DreamsOutposts.ProductionSupervisor.Disabled>中枢已被禁用</DreamsOutposts.ProductionSupervisor.Disabled>
+  <!-- EN: all facilities -->
+  <DreamsOutposts.ProductionSupervisor.AllFacilities>全部设施</DreamsOutposts.ProductionSupervisor.AllFacilities>
+  <!-- EN: A colonist with {1} {0} or better has to be stationed at this outpost as its manager, and the hub itself must not be disabled by an event. Only then do facilities tagged for {2} get the outpost level multipliers. -->
+  <DreamsOutposts.ProductionSupervisor.Tip>需要一名留驻本据点、{1}达到{0}的殖民者担任管理者，且中枢没有被事件禁用，带有「{2}」标签的设施才享有营地等级倍率。</DreamsOutposts.ProductionSupervisor.Tip>
+  <!-- EN: No colonist with {1} {0} is stationed here, so the outpost level multipliers are inactive. -->
+  <DreamsOutposts.ProductionSupervisor.ReasonNoManager>据点内没有留驻的{1}达到{0}的殖民者，营地等级倍率暂停。</DreamsOutposts.ProductionSupervisor.ReasonNoManager>
+  <!-- EN: The hub is disabled by an event, so the outpost level multipliers are inactive. -->
+  <DreamsOutposts.ProductionSupervisor.ReasonDisabled>中枢当前被事件禁用，营地等级倍率暂停。</DreamsOutposts.ProductionSupervisor.ReasonDisabled>
+  <!-- EN: Level multiplier inactive -->
+  <DreamsOutposts.Ui.Chip.LevelFactorSuppressed>等级倍率未生效</DreamsOutposts.Ui.Chip.LevelFactorSuppressed>
   <!-- EN: Airdrop settings -->
   <DreamsOutposts.AutomaticAirdropSettings>空投设置</DreamsOutposts.AutomaticAirdropSettings>
   <!-- EN: This outpost has no production facilities to select. -->

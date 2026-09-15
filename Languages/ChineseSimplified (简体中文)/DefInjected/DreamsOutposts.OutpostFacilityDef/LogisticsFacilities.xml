@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   
   <!-- EN: adventurer camp -->
   <DreamsOutposts_AdventurerCamp.label>冒险者营地</DreamsOutposts_AdventurerCamp.label>
-  <!-- EN: A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. -->
-  <DreamsOutposts_AdventurerCamp.description>旅人和冒险者聚集的热闹营地。每2天介绍一名新的候选人；更高的人口倾向会提高遇到优秀人才的概率。</DreamsOutposts_AdventurerCamp.description>
+  <!-- EN: A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. The management window must be reopened after it is built for its new page to appear. -->
+  <DreamsOutposts_AdventurerCamp.description>旅人和冒险者聚集的热闹营地。每2天介绍一名新的候选人；更高的人口倾向会提高遇到优秀人才的概率。建成后需要重新打开管理页面，新页面才会出现。</DreamsOutposts_AdventurerCamp.description>
   
   <!-- EN: inn -->
   <DreamsOutposts_Inn.label>旅馆</DreamsOutposts_Inn.label>

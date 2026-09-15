@@ -73,6 +73,12 @@
   <DreamsOutposts.Ui.Chip.ProductionOffset>+{0} 产量 · {1}</DreamsOutposts.Ui.Chip.ProductionOffset>
   <!-- EN: Production modifier from {0}. -->
   <DreamsOutposts.Ui.Chip.ProductionModifierTip>来自 {0} 的产能修正。</DreamsOutposts.Ui.Chip.ProductionModifierTip>
+  <!-- EN: {0} tendency {1} -->
+  <DreamsOutposts.Ui.Chip.EventCategoryOffset>{0}倾向 {1}</DreamsOutposts.Ui.Chip.EventCategoryOffset>
+  <!-- EN: {0} tendency ×{1} -->
+  <DreamsOutposts.Ui.Chip.EventCategoryFactor>{0}倾向 ×{1}</DreamsOutposts.Ui.Chip.EventCategoryFactor>
+  <!-- EN: This facility shifts how often {0} events happen. -->
+  <DreamsOutposts.Ui.Chip.EventCategoryTip>此设施会改变{0}类事件的发生倾向。</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <!-- EN: Production modifier from outpost level {0}. -->
   <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自据点等级 {0} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
   <!-- EN: outpost level {0} -->
@@ -235,22 +241,32 @@
   <DreamsOutposts.Tavern.Nav>{0}/{1} 名候选人</DreamsOutposts.Tavern.Nav>
   <!-- EN: Review visiting adventurers and invite them to join this outpost for free. -->
   <DreamsOutposts.Tavern.Description>查看来访的冒险者，并免费邀请他们加入这个据点。</DreamsOutposts.Tavern.Description>
-  <!-- EN: One candidate arrives every 2 days. Each remains available for 10 days. -->
-  <DreamsOutposts.Tavern.Hint>每2天出现1名候选人，每人会停留10天。</DreamsOutposts.Tavern.Hint>
+  <!-- EN: An attempt is made every 3 days: the chance of a candidate turning up is the colonists' total Social skill divided by 50, and a failed attempt brings nobody. Each candidate remains available for 10 days. -->
+  <DreamsOutposts.Tavern.Hint>每3天尝试招募一次：成功率为据点殖民者的社交等级总和÷50，失败则无人出现。每名候选人停留10天。</DreamsOutposts.Tavern.Hint>
   <!-- EN: Skill preference -->
   <DreamsOutposts.Tavern.Preference>技能倾向</DreamsOutposts.Tavern.Preference>
   <!-- EN: No preference -->
   <DreamsOutposts.Tavern.AnySkill>无倾向</DreamsOutposts.Tavern.AnySkill>
   <!-- EN: Next candidate in {0} -->
   <DreamsOutposts.Tavern.Next>下一名候选人：{0}</DreamsOutposts.Tavern.Next>
+  <!-- EN: Success chance {0} -->
+  <DreamsOutposts.Tavern.Chance>成功率 {0}</DreamsOutposts.Tavern.Chance>
+  <!-- EN: The colonists here have {0} total Social skill of the {1} needed for a certain success. -->
+  <DreamsOutposts.Tavern.ChanceTip>这里殖民者的社交等级总和为 {0}，达到 {1} 时必定成功。</DreamsOutposts.Tavern.ChanceTip>
+  <!-- EN: An adventurer has turned up at the tavern in {0}. -->
+  <DreamsOutposts.Tavern.Recruited>{0}的酒馆招揽到了一名冒险者。</DreamsOutposts.Tavern.Recruited>
+  <!-- EN: Tavern recruitment failed for an unknown program reason. -->
+  <DreamsOutposts.Tavern.RecruitFailed>酒馆招募因程序原因发生未知失败</DreamsOutposts.Tavern.RecruitFailed>
   <!-- EN: All candidate slots are occupied -->
   <DreamsOutposts.Tavern.Full>候选人槽位已满</DreamsOutposts.Tavern.Full>
-  <!-- EN: Population tendency {0} · Common {1} · Excellent {2} · Elite {3} · Epic {4} -->
-  <DreamsOutposts.Tavern.Odds>人口倾向 {0} · 普通 {1} · 优秀 {2} · 精英 {3} · 史诗 {4}</DreamsOutposts.Tavern.Odds>
+  <!-- EN: Population tendency {0} -->
+  <DreamsOutposts.Tavern.Odds.Population>人口倾向 {0}</DreamsOutposts.Tavern.Odds.Population>
+  <!-- EN: {0} {1} -->
+  <DreamsOutposts.Tavern.Odds.Entry>{0} {1}</DreamsOutposts.Tavern.Odds.Entry>
   <!-- EN: No adventurers are currently available. -->
   <DreamsOutposts.Tavern.Empty>目前没有可招募的冒险者。</DreamsOutposts.Tavern.Empty>
-  <!-- EN: Rating: {0} · strength {1} · {2} ×{3} -->
-  <DreamsOutposts.Tavern.Rarity>综合评级：{0}</DreamsOutposts.Tavern.Rarity>
+  <!-- EN: Overall rating: {0} · strength {1} · {2} -->
+  <DreamsOutposts.Tavern.Rarity>综合评级：{0} · 强度 {1} · {2}</DreamsOutposts.Tavern.Rarity>
   <!-- EN: Common -->
   <DreamsOutposts.Tavern.Rarity.Common>普通</DreamsOutposts.Tavern.Rarity.Common>
   <!-- EN: Excellent -->
@@ -262,7 +278,7 @@
   <!-- EN: inferior -->
   <DreamsOutposts.Tavern.Specimen.Inferior>下品</DreamsOutposts.Tavern.Specimen.Inferior>
   <!-- EN: ordinary -->
-  <DreamsOutposts.Tavern.Specimen.Ordinary>普通</DreamsOutposts.Tavern.Specimen.Ordinary>
+  <DreamsOutposts.Tavern.Specimen.Ordinary>中品</DreamsOutposts.Tavern.Specimen.Ordinary>
   <!-- EN: superior -->
   <DreamsOutposts.Tavern.Specimen.Superior>上品</DreamsOutposts.Tavern.Specimen.Superior>
   <!-- EN: Leaves in {0} -->

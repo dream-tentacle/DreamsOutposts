@@ -20,17 +20,19 @@
     <label>research</label>
     <baseWeight>2</baseWeight>
   </DreamsOutposts.OutpostEventCategoryDef>
+
+
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_EquipmentJam</defName>
     <label>equipment jam</label>
-    <description>A set of production equipment has stopped due to wear.</description>
+    <description>A set of production equipment has ground to a halt with a shriek of metal. Bearings run hot and gears have seized - years of making do have finally come due.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>3</weight>
     <options>
       <li>
         <id>replace</id>
         <label>Replace the parts</label>
-        <description>Use three components and restore operation immediately.</description>
+        <description>Spend three components to replace the damaged parts and get the equipment running again at once.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>ComponentIndustrial</thingDef>
@@ -47,7 +49,7 @@
       <li>
         <id>patch</id>
         <label>Make a temporary repair</label>
-        <description>Have a skilled builder patch the equipment, reducing its output for five days.</description>
+        <description>Have a skilled builder patch the equipment up for now. It keeps working, but output drops for five days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -66,7 +68,7 @@
       <li>
         <id>overhaul</id>
         <label>Shut down for maintenance</label>
-        <description>Disable a random production facility for three days.</description>
+        <description>Shut the machine off and overhaul it thoroughly. One random production facility is disabled for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_DisableRandomFacility">
             <durationTicks>180000</durationTicks>
@@ -80,15 +82,15 @@
   </DreamsOutposts.OutpostEventDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_EnrichedMaterials</defName>
-    <label>exceptional materials</label>
-    <description>Workers have found the latest batch of raw materials to be unusually fine.</description>
+    <label>enriched materials</label>
+    <description>Workers have found that the latest batch of raw materials sent into the workshop is unusually pure.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>3</weight>
     <options>
       <li>
         <id>increase</id>
         <label>Increase output</label>
-        <description>Double the next output of a random production facility.</description>
+        <description>Feed the good stock straight into the production line. One random production facility's next output is doubled.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>2</factor>
@@ -98,8 +100,8 @@
       </li>
       <li>
         <id>refine</id>
-        <label>Reserve for fine processing</label>
-        <description>Set the materials aside for a valuable finished batch.</description>
+        <label>Reserve it for fine processing</label>
+        <description>Seal this batch of materials away on its own, keeping it for finer and more valuable processing.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_ScheduleEvent">
             <eventDef>DO_Industrial_RefinedGoodsSale</eventDef>
@@ -113,15 +115,15 @@
   </DreamsOutposts.OutpostEventDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_RefinedGoodsSale</defName>
-    <label>sell a batch of valuable products</label>
-    <description>The exceptional materials are being worked into a valuable batch for sale.</description>
+    <label>obtain a batch of valuable products and sell them</label>
+    <description>That batch of fine materials has finally been worked into finished goods. Neatly made and of superior quality, they will draw plenty of silver out of any trader.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>0</weight>
     <options>
       <li>
         <id>sell</id>
         <label>Process and sell</label>
-        <description>Complete the batch and receive 1,000 silver.</description>
+        <description>Finish the last step of the work and sell the whole batch.</description>
         <playerSelectable>false</playerSelectable>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
@@ -137,14 +139,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_WorkAccident</defName>
     <label>work accident</label>
-    <description>An accident has occurred at the busy worksite.</description>
+    <description>The busy worksite has finally had an accident. The machines have stopped, a crowd has gathered around, and tools and debris still lie scattered on the ground.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>3</weight>
     <options>
       <li>
         <id>inspection</id>
         <label>Conduct a full shutdown inspection</label>
-        <description>Halve production for three days.</description>
+        <description>Shut everything down for a full inspection and root out every hidden hazard first. Production drops to half for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.5</factor>
@@ -154,8 +156,8 @@
       </li>
       <li>
         <id>simple</id>
-        <label>Improve safety procedures</label>
-        <description>Reduce production for three days, then increase it for eight days.</description>
+        <label>Make modest safety improvements</label>
+        <description>Improve safety procedures while production continues. Production x0.7 for three days, then x1.25 for eight days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.7</factor>
@@ -171,7 +173,7 @@
       <li>
         <id>major</id>
         <label>Overhaul safety procedures</label>
-        <description>Use 100 steel; halve production for three days, then increase it for ten days.</description>
+        <description>Use this accident to rebuild the whole safety system. Costs 100 steel; production x0.5 for three days, then x1.5 for ten days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>Steel</thingDef>
@@ -201,14 +203,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_ToolShortage</defName>
     <label>tool shortage</label>
-    <description>Many tools can no longer be used.</description>
+    <description>Hammer heads work loose, blades are rolled and measuring tools read wrong. A great many tools have outlived the day they should have been scrapped, and now they have all quit at once.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>3</weight>
     <options>
       <li>
         <id>replace</id>
         <label>Replace the tools</label>
-        <description>Use 50 steel to replenish the tools.</description>
+        <description>Spend 50 steel to fill the most urgent gaps, putting decent tools back in the workers' hands.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>Steel</thingDef>
@@ -225,7 +227,7 @@
       <li>
         <id>repair</id>
         <label>Repair them locally</label>
-        <description>Have a skilled crafter repair the tools. Everyone gains Crafting experience, but production is slightly reduced for five days.</description>
+        <description>Have everyone repair the old tools on the spot.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -248,7 +250,7 @@
       <li>
         <id>makeDo</id>
         <label>Make do</label>
-        <description>Continue with inadequate tools, reducing production for five days.</description>
+        <description>Keep using them as long as they can still be swung. Production x0.7 for five days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.7</factor>
@@ -263,14 +265,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_ScrapBuildup</defName>
     <label>scrap buildup</label>
-    <description>Production waste is taking up more and more workspace.</description>
+    <description>Metal shavings, discarded parts and broken casings are piling higher and higher, already eating into the workspace. Left alone, the workshop will be buried by its own output.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>3</weight>
     <options>
       <li>
         <id>recycle</id>
         <label>Recycle it</label>
-        <description>Have a skilled crafter recover 80 steel.</description>
+        <description>Have a crafter with at least 6 Crafting pick the pieces out of the scrap that can still be melted back down.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -289,7 +291,7 @@
       <li>
         <id>dump</id>
         <label>Dump it in the wasteland</label>
-        <description>Reduce industrial tendency and increase frontier tendency for eight days.</description>
+        <description>Haul the scrap out to the wasteland and dump it. Industrial tendency -3, frontier tendency +3, for eight days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset">
             <category>DreamsOutposts_Industrial</category>
@@ -306,7 +308,7 @@
       <li>
         <id>store</id>
         <label>Store it temporarily</label>
-        <description>Accept reduced production for five days.</description>
+        <description>Pile it up for now and deal with it later. The workspace is squeezed further; production x0.9 for five days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -321,14 +323,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_ProcessImprovement</defName>
     <label>process improvement</label>
-    <description>A worker has proposed a way to improve the production process.</description>
+    <description>A worker who has spent years beside the production line has proposed a new procedure. It looks ugly on paper, but every step comes from firsthand experience.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>2</weight>
     <options>
       <li>
         <id>trial</id>
         <label>Trial the proposal</label>
-        <description>Increase a random production facility's output for ten days.</description>
+        <description>Trial it at one random production facility first. Output x1.2 for ten days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.2</factor>
@@ -339,7 +341,7 @@
       <li>
         <id>reward</id>
         <label>Reward the proposer</label>
-        <description>Pay 300 silver and improve the effect.</description>
+        <description>Pay 300 silver as a reward and polish the proposal, raising the output bonus to x1.4.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>Silver</thingDef>
@@ -360,7 +362,7 @@
       <li>
         <id>old</id>
         <label>Keep the old process</label>
-        <description>Make no changes.</description>
+        <description>The current process at least will not suddenly blow up. Leave it as it is and change nothing.</description>
       </li>
     </options>
     <defaultOptionId>old</defaultOptionId>
@@ -369,14 +371,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_PrototypeTest</defName>
     <label>prototype test</label>
-    <description>Workers have assembled an untested piece of equipment.</description>
+    <description>Workers have cobbled together a new piece of equipment from spare parts that has never actually been tested. It is already hooked up to power, waiting only for the order to start.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>1</weight>
     <options>
       <li>
         <id>deploy</id>
         <label>Put it into production</label>
-        <description>Increase a random facility's output for six days.</description>
+        <description>Send it straight into production. A random facility's output x1.5 for six days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.5</factor>
@@ -387,7 +389,7 @@
       <li>
         <id>research</id>
         <label>Dismantle it for research</label>
-        <description>Gain 200 research points and give every colonist Crafting experience.</description>
+        <description>Take it apart for study before it has an accident.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>200</points>
@@ -401,7 +403,7 @@
       <li>
         <id>parts</id>
         <label>Break it down for parts</label>
-        <description>Recover two to four components.</description>
+        <description>Do not gamble on whether it works - break it down into usable parts.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomItemCount">
             <thingDef>ComponentIndustrial</thingDef>
@@ -416,14 +418,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_HerdTracks</defName>
     <label>herd tracks</label>
-    <description>Tracks left by a migration of large wild animals have been found nearby.</description>
+    <description>Scouts have found fresh hoofprints and snapped brush nearby. A large herd of wild animals passed through here recently, and it has not gone far.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>3</weight>
     <options>
       <li>
         <id>hunt</id>
         <label>Organize a hunt</label>
-        <description>Track down the herd and butcher the catch.</description>
+        <description>Send hunters after the herd, drop and butcher the animals on the spot, then haul back every scrap of meat and hide they can carry.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>25</minDefense>
@@ -439,12 +441,12 @@
       <li>
         <id>keepDistance</id>
         <label>Keep your distance</label>
-        <description>Leave the herd alone.</description>
+        <description>Let them pass. Every meal the wilderness offers can come with tusks and hooves attached.</description>
       </li>
       <li>
         <id>divert</id>
         <label>Guide the herd away from the roads</label>
-        <description>Divert workers to guide the animals away from local routes.</description>
+        <description>Divert workers to slowly drive the herd off the usual routes, so the next supply column does not run head-on into it.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -464,14 +466,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_WashedOutRoad</defName>
     <label>road washed out by heavy rain</label>
-    <description>Rainwater has washed out the dirt road connecting the outpost.</description>
+    <description>Days of heavy rain have cut the dirt road to the outpost into a muddy trench. Wheels sink into it and pack animals can barely get through.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>3</weight>
     <options>
       <li>
         <id>repair</id>
         <label>Repair it immediately</label>
-        <description>Commit most of the workforce to reopen the road at once.</description>
+        <description>Pull most of the available workforce onto emergency repairs and reopen this lifeline as fast as possible.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.6</factor>
@@ -487,7 +489,7 @@
       <li>
         <id>wait</id>
         <label>Wait for the road to recover naturally</label>
-        <description>Avoid spending resources, but accept slower travel for a time.</description>
+        <description>Spend nothing on repairs for now. The road will dry out eventually, but until then every journey is slower and harder.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryMovementCostFactor">
             <factor>2</factor>
@@ -497,8 +499,8 @@
       </li>
       <li>
         <id>drainage</id>
-        <label>Build drainage ditches</label>
-        <description>Rebuild the road with drainage intended to prevent another washout.</description>
+        <label>Build drainage ditches while rebuilding</label>
+        <description>Dig drainage ditches alongside the rebuild. A little more work now buys one less washout later.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -530,24 +532,24 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_AbandonedCamp</defName>
     <label>abandoned camp</label>
-    <description>A scout has found a small camp abandoned in haste.</description>
+    <description>A scout has found a camp abandoned in haste at the edge of the wasteland. The fire pit went cold long ago, but the scattered baggage makes it look as though the owners might return at any moment.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>3</weight>
     <options>
       <li>
         <id>search</id>
         <label>Search for supplies</label>
-        <description>Search the camp for anything useful.</description>
+        <description>Rummage through the tents, crates and ashes, and carry anything still useful back to the outpost.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>600~600</marketValue>
+            <marketValue>500~700</marketValue>
           </li>
         </effects>
       </li>
       <li>
         <id>investigate</id>
         <label>Investigate carefully</label>
-        <description>Have an experienced thinker reconstruct what happened and search methodically.</description>
+        <description>Let an experienced thinker reconstruct the scene first, then search methodically. Ruins tend to tell patient people more.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -558,14 +560,14 @@
         </requirements>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>1000~1000</marketValue>
+            <marketValue>800~1200</marketValue>
           </li>
         </effects>
       </li>
       <li>
         <id>avoid</id>
         <label>Do not approach</label>
-        <description>Leave the camp untouched.</description>
+        <description>This place was abandoned far too suddenly. Keep your distance and touch nothing.</description>
       </li>
     </options>
     <defaultOptionId>avoid</defaultOptionId>
@@ -574,14 +576,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_LostTraveler</defName>
     <label>lost traveler</label>
-    <description>An exhausted traveler has arrived at the outpost asking for help.</description>
+    <description>A traveler has stumbled into the outpost. Cold, hungry and nearly out of supplies, he asks only for a route he can survive.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>3</weight>
     <options>
       <li>
         <id>help</id>
         <label>Provide supplies and directions</label>
-        <description>Divert some output to provision the traveler and show them a safe route onward.</description>
+        <description>Set aside part of the outpost's output to provision him, then point him toward a reasonably safe route.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -596,8 +598,8 @@
       </li>
       <li>
         <id>invite</id>
-        <label>Invite them to stay</label>
-        <description>Offer the traveler a place among the outpost's colonists.</description>
+        <label>Invite him to stay</label>
+        <description>People are short here, and so are working hands. Give him a bed and make him one of the outpost's own.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawn">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -607,8 +609,8 @@
       </li>
       <li>
         <id>refuse</id>
-        <label>Refuse them</label>
-        <description>Send the traveler away.</description>
+        <label>Refuse him</label>
+        <description>Our stores cannot feed everyone who knocks. Send him on his way.</description>
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
@@ -617,14 +619,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_ContaminatedWater</defName>
     <label>contaminated water source</label>
-    <description>The water source near the outpost has developed an unusual smell.</description>
+    <description>The water source near the outpost has begun to give off an unusual smell. Nobody wants to admit it, but the water in the storage barrels tastes different too.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>2</weight>
     <options>
       <li>
         <id>boil</id>
         <label>Boil the stored water</label>
-        <description>Boil and ration the existing water, reducing core output for two days.</description>
+        <description>Boil all the stored water and put it on ration. You will get through it, but core facilities run at reduced efficiency for two days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.8</factor>
@@ -636,7 +638,7 @@
       <li>
         <id>newSource</id>
         <label>Find a new water source</label>
-        <description>Survey the surroundings for clean water.</description>
+        <description>Send people to survey the surroundings until they find clean water that is still safe to drink.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -665,7 +667,7 @@
       <li>
         <id>continue</id>
         <label>Continue using it</label>
-        <description>Keep using the contaminated source and accept reduced core facility output.</description>
+        <description>Keep drawing on the contaminated source. The work cannot stop, but core facilities lose efficiency because of it.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.5</factor>
@@ -682,14 +684,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_HiddenCave</defName>
     <label>hidden cave</label>
-    <description>A collapsed hillside has exposed a previously unknown cave entrance.</description>
+    <description>A hillside nearby has suddenly collapsed, exposing a cave mouth that was never recorded. Mineral glints still catch the light along the fresh break.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>2</weight>
     <options>
       <li>
         <id>mine</id>
         <label>Mine the exposed vein</label>
-        <description>Have an experienced miner exploit the deposit.</description>
+        <description>Send experienced miners in to survey the cave and work the exposed vein.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -716,7 +718,7 @@
       <li>
         <id>seal</id>
         <label>Seal the entrance</label>
-        <description>Avoid the risk and close the cave.</description>
+        <description>Unknown caves are never short of surprises, or of bodies. Seal the entrance - do not gamble the outpost's people on it.</description>
       </li>
     </options>
     <defaultOptionId>seal</defaultOptionId>
@@ -726,14 +728,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_ExtremeWeather</defName>
     <label>extreme cold snap or heat wave</label>
-    <description>Extreme weather is approaching the poorly sheltered outpost.</description>
+    <description>Weather readings show an extreme cold snap or heat wave closing in, strong enough to crush flimsy shelters. The outpost's current protection is nowhere near enough.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>2</weight>
     <options>
       <li>
         <id>reinforce</id>
-        <label>Reinforce the shelters</label>
-        <description>Use 100 steel and 50 wood to protect the outpost while construction briefly slows work.</description>
+        <label>Reinforce the shelters urgently</label>
+        <description>Spend 100 steel and 50 wood to reinforce the shelters before the weather arrives. Production dips briefly while the work is done.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -768,7 +770,7 @@
       <li>
         <id>halt</id>
         <label>Suspend operations</label>
-        <description>Keep everyone safe by halting most work for three days.</description>
+        <description>Stop most of the work and pull everyone into whatever can keep out the wind and rain. Three days of suspended operations in exchange for everyone's safety.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.5</factor>
@@ -784,14 +786,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_WildernessDistress</defName>
     <label>wilderness distress signal</label>
-    <description>The radio has picked up a broken distress call.</description>
+    <description>A broken distress call has pushed its way onto the radio. The coordinates are incomplete and wind noise fills the background, but it is unmistakably a human voice.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>1</weight>
     <options>
       <li>
         <id>rescue</id>
         <label>Rescue them immediately</label>
-        <description>Send a defended rescue team and bring back a survivor and supplies.</description>
+        <description>Send a rescue team with enough protection. Bring the survivor back, and carry out whatever supplies can still be salvaged.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>30</minDefense>
@@ -803,14 +805,14 @@
             <rarity>Common</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>500~500</marketValue>
+            <marketValue>400~600</marketValue>
           </li>
         </effects>
       </li>
       <li>
         <id>come</id>
-        <label>Tell them to come to the outpost</label>
-        <description>Give directions and wait three to five days for an answer.</description>
+        <label>Ask them to come on their own</label>
+        <description>Radio them the outpost's position and let them make their own way here. In three to five days we will know whether they managed it.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_ScheduleRandomEvent">
             <delayTicksRange>180000~300000</delayTicksRange>
@@ -830,7 +832,7 @@
       <li>
         <id>trap</id>
         <label>Assume it is a trap</label>
-        <description>Ignore the signal.</description>
+        <description>A cry for help in the wasteland can just as easily be bait. Kill the channel and act as though you heard nothing.</description>
       </li>
     </options>
     <defaultOptionId>trap</defaultOptionId>
@@ -839,14 +841,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_DistressLost</defName>
     <label>signal lost</label>
-    <description>The distress transmission faded and never returned. Whoever sent it did not reach the outpost.</description>
+    <description>The distress signal grew weaker and weaker until only static was left. Nothing answered after that - whoever sent it never reached the outpost.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>0</weight>
     <options>
       <li>
         <id>continue</id>
         <label>Acknowledge</label>
-        <description>There is nothing more to be done.</description>
+        <description>Close the channel. The wasteland does not leave a second chance for those who arrive late.</description>
         <playerSelectable>false</playerSelectable>
       </li>
     </options>
@@ -858,14 +860,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_MisdirectedCargo</defName>
     <label>misdirected cargo</label>
-    <description>A shipment belonging to someone else has arrived in the outpost warehouse.</description>
+    <description>A shipment that was never meant for here has been delivered to the outpost warehouse. The name on the manifest belongs to someone else, and the crates are already stacked neatly right in front of us.</description>
     <category>DreamsOutposts_Population</category>
     <weight>3</weight>
     <options>
       <li>
         <id>return</id>
-        <label>Return it</label>
-        <description>Return the cargo and gain goodwill.</description>
+        <label>Return it voluntarily</label>
+        <description>Contact the owner and return the cargo of your own accord, gaining faction goodwill.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AdjustFactionGoodwill">
             <amount>25</amount>
@@ -874,11 +876,11 @@
       </li>
       <li>
         <id>keep</id>
-        <label>Keep it</label>
-        <description>Keep goods worth 1,000, but lose goodwill.</description>
+        <label>Keep it for ourselves</label>
+        <description>Tear off the labels and keep the goods. Gain a shipment of cargo, but lose faction goodwill.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>1000~1000</marketValue>
+            <marketValue>800~1200</marketValue>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_AdjustFactionGoodwill">
             <amount>-15</amount>
@@ -893,14 +895,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_TemporaryMarket</defName>
     <label>temporary market</label>
-    <description>Several traveling groups want to exchange goods beside the outpost.</description>
+    <description>Several small traveling groups have camped near the outpost. What they carry is a mixed bag, and they propose to trade right here for a few days.</description>
     <category>DreamsOutposts_Population</category>
     <weight>3</weight>
     <options>
       <li>
         <id>open</id>
         <label>Open the market</label>
-        <description>Offer up to 5,000 market value from storage and receive random goods worth 1.5 times as much.</description>
+        <description>Open the warehouse to trade. Offer up to 5,000 market value of stock and receive random goods worth 1.5 times as much.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_OpenTemporaryMarket">
             <maxMarketValue>5000</maxMarketValue>
@@ -911,7 +913,7 @@
       <li>
         <id>fee</id>
         <label>Charge stall fees</label>
-        <description>Gain 500 silver and improve population tendency.</description>
+        <description>Let them set up their stalls, but collect the money first.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
             <thingDef>Silver</thingDef>
@@ -927,7 +929,7 @@
       <li>
         <id>refuse</id>
         <label>Refuse them</label>
-        <description>Do not host the market.</description>
+        <description>More people means more trouble. Do not open the market.</description>
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
@@ -937,22 +939,22 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_BulkOrder</defName>
     <label>bulk order</label>
-    <description>A nearby merchant wants to purchase a large quantity of goods.</description>
+    <description>A merchant from a nearby settlement has sent a large order. He does not want a few crates of goods - he wants a batch big enough to keep the warehouse and the workshops busy for days on end.</description>
     <category>DreamsOutposts_Population</category>
     <weight>3</weight>
     <options>
       <li>
         <id>accept</id>
         <label>Accept the order</label>
-        <description>Generate a standard trade request quest.</description>
+        <description>Take the order and generate a standard trade request quest.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateTradeRequestQuest" />
         </effects>
       </li>
       <li>
         <id>extra</id>
-        <label>Demand an advance</label>
-        <description>Use a skilled negotiator to receive 500 silver before accepting the order.</description>
+        <label>Demand extra payment</label>
+        <description>Have a skilled negotiator price the risk in first. Collect 500 silver up front, then accept the order.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -972,7 +974,7 @@
       <li>
         <id>refuse</id>
         <label>Refuse</label>
-        <description>Decline the order.</description>
+        <description>Our production line is busy enough already. Decline the order.</description>
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
@@ -982,14 +984,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_NewResident</defName>
     <label>new resident application</label>
-    <description>A traveler wants to settle permanently at the outpost.</description>
+    <description>A traveler says he does not want to keep moving on. He is willing to stay and work long-term, asking only for a bed and a place at the outpost.</description>
     <category>DreamsOutposts_Population</category>
     <weight>3</weight>
     <options>
       <li>
         <id>accept</id>
         <label>Accept</label>
-        <description>Gain an excellent colonist while integration slows production for three days.</description>
+        <description>Take him in. Gain one excellent colonist, but settling him in reduces production for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1004,7 +1006,7 @@
       <li>
         <id>refuse</id>
         <label>Refuse</label>
-        <description>Turn the applicant away.</description>
+        <description>This is not a shelter. Reject the application and send him on his way.</description>
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
@@ -1014,7 +1016,7 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_SecurityProblem</defName>
     <label>security problem</label>
-    <description>The warehouse shows signs of theft and vandalism. About 20% of ordinary stored goods have disappeared.</description>
+    <description>The warehouse locks have been forced and the shelves show signs of being rifled through. A count confirms it: about 20% of ordinary stored goods are gone.</description>
     <category>DreamsOutposts_Population</category>
     <weight>2</weight>
     <onCreatedEffects>
@@ -1026,7 +1028,7 @@
       <li>
         <id>patrol</id>
         <label>Organize patrols</label>
-        <description>Use the outpost's defenses to recover the stolen goods.</description>
+        <description>Organize armed patrols and lean on the outpost's defenses to recover the stolen goods.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>35</minDefense>
@@ -1039,7 +1041,7 @@
       <li>
         <id>investigate</id>
         <label>Investigate publicly</label>
-        <description>Have a skilled speaker expose the thieves and recover the goods.</description>
+        <description>Have a socially skilled colonist investigate openly, finding the thieves among the crowd and the testimony, and recovering the goods.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1055,7 +1057,7 @@
       <li>
         <id>loss</id>
         <label>Accept the loss</label>
-        <description>Do not pursue the missing goods.</description>
+        <description>Chasing it further only burns more work hours. Accept the loss and drop the matter.</description>
       </li>
     </options>
     <defaultOptionId>loss</defaultOptionId>
@@ -1065,14 +1067,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_GroupMigration</defName>
     <label>group migration</label>
-    <description>A small group of homeless people asks to settle together at the outpost.</description>
+    <description>A small group of homeless people has arrived outside the outpost. They do not want to keep wandering; they want to stay together, all of them - along with their hunger, their exhaustion and their willing hands.</description>
     <category>DreamsOutposts_Population</category>
     <weight>1</weight>
     <options>
       <li>
         <id>all</id>
         <label>Accept everyone</label>
-        <description>Gain three common colonists; production falls for five days.</description>
+        <description>Take them all in. Gain three common colonists, but housing and settling them in reduces production for five days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1087,8 +1089,8 @@
       </li>
       <li>
         <id>skilled</id>
-        <label>Accept only a skilled applicant</label>
-        <description>Gain one excellent colonist; production falls slightly for three days.</description>
+        <label>Accept only the skilled ones</label>
+        <description>Keep only the most useful of them. Gain one excellent colonist; production falls slightly for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1103,7 +1105,7 @@
       <li>
         <id>supplies</id>
         <label>Provision them and send them on</label>
-        <description>Lose one day of output and gain 30 goodwill.</description>
+        <description>Give them enough supplies for the road, then send them away. Lose a little output for one day and gain faction goodwill.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -1117,7 +1119,7 @@
       <li>
         <id>refuse</id>
         <label>Refuse</label>
-        <description>Turn the group away.</description>
+        <description>The outpost has no spare beds and no spare rations. Turn the group away.</description>
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
@@ -1128,14 +1130,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_UnexpectedObservation</defName>
     <label>unexpected observation</label>
-    <description>Researchers have noticed an unusual pattern in routine records.</description>
+    <description>In a pile of supposedly dull routine records, researchers have found an anomalous pattern that keeps recurring. Nobody had ever noticed it, but it has clearly been there all along.</description>
     <category>DreamsOutposts_Research</category>
     <weight>3</weight>
     <options>
       <li>
         <id>analyze</id>
         <label>Analyze it deeply</label>
-        <description>Gain 2,000 research points while research output is slightly reduced for two days.</description>
+        <description>Pause part of the routine work and dig deep along this lead.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>2000</points>
@@ -1150,7 +1152,7 @@
       <li>
         <id>apply</id>
         <label>Apply it immediately</label>
-        <description>Increase a random production facility's output for eight days.</description>
+        <description>Do not wait for the paper to be finished - put the pattern to work in production first. A random production facility's output rises for eight days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.5</factor>
@@ -1161,7 +1163,7 @@
       <li>
         <id>archive</id>
         <label>Archive it</label>
-        <description>Gain 1,000 research points.</description>
+        <description>Sort and file the material away, to be dealt with later.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>1000</points>
@@ -1176,14 +1178,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_InstrumentCalibration</defName>
     <label>instrument calibration</label>
-    <description>Long-term measurement errors can no longer be ignored.</description>
+    <description>Several batches of measurements in a row show the same deviation. The error has grown too large to fob off with "close enough" any longer.</description>
     <category>DreamsOutposts_Research</category>
     <weight>3</weight>
     <options>
       <li>
         <id>precise</id>
         <label>Calibrate precisely</label>
-        <description>Use an experienced researcher to improve research output for ten days.</description>
+        <description>Have a senior researcher calibrate it item by item. Research output rises for ten days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1203,7 +1205,7 @@
       <li>
         <id>parts</id>
         <label>Replace components</label>
-        <description>Use two components for the same improvement.</description>
+        <description>Nobody at the outpost is able to handle it, so the key components are simply replaced.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>ComponentIndustrial</thingDef>
@@ -1225,7 +1227,7 @@
       <li>
         <id>correct</id>
         <label>Correct the data temporarily</label>
-        <description>Research output falls for five days.</description>
+        <description>Make do with a correction table for the old data for now. Research output falls for five days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <productionTag>Research</productionTag>
@@ -1242,14 +1244,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_FieldSample</defName>
     <label>field sample</label>
-    <description>Workers have returned with locally collected samples of scientific interest.</description>
+    <description>Field workers have brought back samples from nearby that are worth studying. They sit in makeshift containers, still carrying mud and frost from the wilderness.</description>
     <category>DreamsOutposts_Research</category>
     <weight>3</weight>
     <options>
       <li>
         <id>analyze</id>
         <label>Analyze thoroughly</label>
-        <description>Have an expert researcher gain 2,000 research points.</description>
+        <description>Hand them to an expert for a thorough analysis.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1267,7 +1269,7 @@
       <li>
         <id>preserve</id>
         <label>Preserve the sample</label>
-        <description>Wait for a random follow-up result.</description>
+        <description>Store the samples properly and draw no conclusions yet. Wait for a random follow-up result.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_ScheduleRandomEvent">
             <delayTicksRange>60000~180000</delayTicksRange>
@@ -1291,10 +1293,10 @@
       <li>
         <id>materials</id>
         <label>Treat it as ordinary material</label>
-        <description>Gain random resources worth 500.</description>
+        <description>Research resources are scarcer than samples. Treat it as ordinary material.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>500~500</marketValue>
+            <marketValue>400~600</marketValue>
           </li>
         </effects>
       </li>
@@ -1304,15 +1306,15 @@
   </DreamsOutposts.OutpostEventDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_SampleValuable</defName>
-    <label>exceptional sample</label>
-    <description>Further study shows that the preserved sample is exceptionally valuable.</description>
+    <label>high-value sample</label>
+    <description>Further study overturns the initial cautious assessment: this sample is exceptionally valuable, enough to make any research station or caravan name a serious price.</description>
     <category>DreamsOutposts_Research</category>
     <weight>0</weight>
     <options>
       <li>
         <id>techprint</id>
-        <label>Exploit the discovery</label>
-        <description>Generate a random useful techprint.</description>
+        <label>Exploit it fully</label>
+        <description>Squeeze every last drop of value from the discovery and gain a random usable techprint.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AvailableTechprint" />
         </requirements>
@@ -1323,7 +1325,7 @@
       <li>
         <id>sell</id>
         <label>Sell the sample</label>
-        <description>Sell it for 4,000 silver.</description>
+        <description>Knowledge can be traded for fuel and steel too. Sell the sample and gain a great deal of silver.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
             <thingDef>Silver</thingDef>
@@ -1338,14 +1340,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_SampleOrdinary</defName>
     <label>ordinary sample</label>
-    <description>The preserved sample proves to have no unusual properties.</description>
+    <description>After repeated testing, the preserved sample shows no unusual properties at all. It is simply... ordinary.</description>
     <category>DreamsOutposts_Research</category>
     <weight>0</weight>
     <options>
       <li>
         <id>continue</id>
         <label>Record the result</label>
-        <description>Gain 500 research points.</description>
+        <description>Write the negative result into the record too; "nothing found" is still a finding.</description>
         <playerSelectable>false</playerSelectable>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
@@ -1360,14 +1362,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_SampleSpoiled</defName>
     <label>sample preservation failure</label>
-    <description>The sample was spoiled during storage.</description>
+    <description>Nobody noticed in time when the storage container failed. By the time a researcher opened it, the sample had completely spoiled.</description>
     <category>DreamsOutposts_Research</category>
     <weight>0</weight>
     <options>
       <li>
         <id>continue</id>
-        <label>Accept it</label>
-        <description>Nothing can be recovered.</description>
+        <label>Nothing else to be done</label>
+        <description>Record the incident, then throw out what remains. Nothing can be salvaged.</description>
         <playerSelectable>false</playerSelectable>
       </li>
     </options>
@@ -1378,14 +1380,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_LabAccident</defName>
     <label>laboratory accident</label>
-    <description>An error has caused a flash fire and hazardous leak.</description>
+    <description>A handling error set off a deflagration, and a hazardous leak was detected soon after. The alarm will not stop, and nobody in the lab area wants to be the first to take off their mask.</description>
     <category>DreamsOutposts_Research</category>
     <weight>2</weight>
     <options>
       <li>
         <id>emergency</id>
         <label>Respond immediately</label>
-        <description>Use medical expertise; research output falls for two days.</description>
+        <description>Rely on medical experience to deal with the injured and the contamination at once. Research output falls for two days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1405,7 +1407,7 @@
       <li>
         <id>seal</id>
         <label>Seal the laboratory</label>
-        <description>Disable a random research facility for four days.</description>
+        <description>Seal the lab area off and wait for the danger to fade on its own. One random research facility is disabled for four days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_DisableRandomResearchFacility">
             <durationTicks>240000</durationTicks>
@@ -1414,8 +1416,8 @@
       </li>
       <li>
         <id>data</id>
-        <label>Recover the data</label>
-        <description>Use medical and intellectual experts; disable a research facility for three days and gain 1,000 research points.</description>
+        <label>Recover the experimental data</label>
+        <description>Send medical and intellectual experts to risk recovering the experimental data.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1447,14 +1449,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Research_TheoreticalBreakthrough</defName>
     <label>theoretical breakthrough</label>
-    <description>Researchers have proposed a theory that may greatly advance the current project.</description>
+    <description>The researchers have proposed a new theory capable of changing the current project's pace. The blackboard is already full, the argument ran on until dark, and now only verification is left.</description>
     <category>DreamsOutposts_Research</category>
     <weight>2</weight>
     <options>
       <li>
         <id>focused</id>
         <label>Concentrate on verification</label>
-        <description>Increase research output for six days while other production falls.</description>
+        <description>Concentrate people and computing power on the verification work. Research output rises for six days, and other production falls for six days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <productionTag>Research</productionTag>
@@ -1472,7 +1474,7 @@
       <li>
         <id>steady</id>
         <label>Verify steadily</label>
-        <description>Increase research output for ten days.</description>
+        <description>Verify steadily without disrupting the outpost's rhythm. Research output rises for ten days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <productionTag>Research</productionTag>
@@ -1484,7 +1486,7 @@
       <li>
         <id>plan</id>
         <label>Keep the original plan</label>
-        <description>Gain 500 research points.</description>
+        <description>Write the theory down for now and carry on with the original plan.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>500</points>
@@ -1499,14 +1501,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_SealedEngineeringArchive</defName>
     <label>sealed engineering archive</label>
-    <description>Workers clearing old equipment have found a sealed set of engineering records. The plans describe an unfamiliar production device, but key parameters are damaged.</description>
+    <description>While clearing out old equipment, workers found a sealed set of engineering records. The plans inside describe an unfamiliar production device, but time has eaten away part of the key parameters.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>2</weight>
     <options>
       <li>
         <id>restore</id>
-        <label>Reconstruct the design</label>
-        <description>Assign skilled workers to restore the plans, reducing production for two days.</description>
+        <label>Try to reconstruct the design</label>
+        <description>Assign skilled people to fill in the missing plans. The reconstruction work slows production for two days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1547,7 +1549,7 @@
       <li>
         <id>samples</id>
         <label>Dismantle the archived samples</label>
-        <description>Recover three components and extract useful research notes.</description>
+        <description>Give up on a full reconstruction and take apart the samples kept with the archive instead. Gain components and usable research notes.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
             <thingDef>ComponentIndustrial</thingDef>
@@ -1561,7 +1563,7 @@
       <li>
         <id>seal</id>
         <label>Seal it again</label>
-        <description>Leave the archive undisturbed.</description>
+        <description>Seal it back up. Not every old set of plans is worth testing with today's lives and work hours.</description>
       </li>
     </options>
     <defaultOptionId>seal</defaultOptionId>
@@ -1571,14 +1573,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_EfficientTransmission</defName>
     <label>efficient transmission system</label>
-    <description>The restored plans reveal an elegant transmission system. It should be straightforward to build, but its use must be decided.</description>
+    <description>The restored plans reveal a surprisingly elegant transmission system. It needs no miracle - only steel, work hours, and one decision: where to install it.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>0</weight>
     <options>
       <li>
         <id>install</id>
         <label>Install it fully</label>
-        <description>Increase a random production facility's output by 40% for eight days.</description>
+        <description>Build it to the complete design, raising one random production facility's output by 40% for eight days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.4</factor>
@@ -1589,7 +1591,7 @@
       <li>
         <id>test</id>
         <label>Run a conservative test</label>
-        <description>Increase a random production facility's output by 20% for ten days and train the workers.</description>
+        <description>Run a conservative test and let the workers get familiar with the new design. One random production facility's output rises by 20% for ten days, and the workers get training out of it.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.2</factor>
@@ -1603,8 +1605,8 @@
       </li>
       <li>
         <id>research</id>
-        <label>Compile research notes</label>
-        <description>Gain 1,000 research points.</description>
+        <label>Compile it into research notes</label>
+        <description>There is no need to rush the plans into a machine.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>1000</points>
@@ -1619,14 +1621,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_DesignFlaw</defName>
     <label>dangerous design flaw</label>
-    <description>Testing shows that the device can raise output, but its critical components overheat rapidly.</description>
+    <description>Test runs prove that the device really can squeeze out higher output - at the cost of its critical components overheating fast. How long the machine can take it, nobody can say.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>0</weight>
     <options>
       <li>
         <id>replace</id>
         <label>Install heat-resistant parts</label>
-        <description>Use 80 steel and two components to improve a random production facility for eight days.</description>
+        <description>Spend 80 steel and two components on heat-resistant parts, raising one random production facility's output for eight days.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_ItemCount">
             <thingDef>Steel</thingDef>
@@ -1655,7 +1657,7 @@
       <li>
         <id>lowPower</id>
         <label>Run it at reduced power</label>
-        <description>Increase a random production facility's output by 15% for ten days.</description>
+        <description>Throttle it back and let the machine run right at the safe edge. One random production facility's output rises by 15% for ten days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>1.15</factor>
@@ -1670,15 +1672,15 @@
 
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_CacheCoordinates</defName>
-    <label>cache coordinates</label>
-    <description>A concealed page records the coordinates of an old industrial cache. The record is dated, but the location remains clear.</description>
+    <label>cache coordinates in the archive</label>
+    <description>A set of industrial cache coordinates was hidden in the lining of an old archive. The record has yellowed, but the location is still clear - someone buried good things there, waiting for a tomorrow that may never come.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>0</weight>
     <options>
       <li>
         <id>recover</id>
         <label>Organize a recovery team</label>
-        <description>Secure the cache and recover industrial supplies.</description>
+        <description>Send a recovery team to secure the cache and haul the usable industrial supplies back to the outpost.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>35</minDefense>
@@ -1694,14 +1696,14 @@
             <count>8</count>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>500~500</marketValue>
+            <marketValue>400~600</marketValue>
           </li>
         </effects>
       </li>
       <li>
         <id>careful</id>
         <label>Dismantle the dangerous structure carefully</label>
-        <description>Commit skilled builders for two days and recover more industrial material.</description>
+        <description>Assign skilled builders for two days to take apart the dangerous structure. Slower, but more industrial material comes out of the ruins.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -1728,7 +1730,7 @@
       <li>
         <id>ignore</id>
         <label>It is not worth the risk</label>
-        <description>Leave the cache alone.</description>
+        <description>A warehouse left by the old era can leave old-era ways to die with it. Abandon the cache.</description>
       </li>
     </options>
     <defaultOptionId>ignore</defaultOptionId>
@@ -1738,14 +1740,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Industrial_UnrecoverableDraft</defName>
     <label>unrecoverable draft</label>
-    <description>Too much of the archive is missing. The supposed device may never have existed outside the drawings.</description>
+    <description>Too much of it is missing. Nobody can say whether this so-called new device was ever built, or whether it existed only in some engineer's over-optimistic draft.</description>
     <category>DreamsOutposts_Industrial</category>
     <weight>0</weight>
     <options>
       <li>
         <id>record</id>
-        <label>Document the failed reconstruction</label>
-        <description>Gain 500 research points.</description>
+        <label>Document the failure</label>
+        <description>Write the failure itself down, so at least whoever comes next does not have to walk the same detour.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddResearchPoints">
             <points>500</points>
@@ -1755,7 +1757,7 @@
       <li>
         <id>stop</id>
         <label>Stop here</label>
-        <description>Abandon the reconstruction.</description>
+        <description>Stop here. Put the remaining papers away and end the reconstruction.</description>
       </li>
     </options>
     <defaultOptionId>stop</defaultOptionId>
@@ -1766,14 +1768,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_LetterFromAfar</defName>
     <label>letter from afar</label>
-    <description>An outpost resident has received a letter passed from traveler to traveler. Their relatives and several companions are seeking a new home nearby.</description>
+    <description>One of the outpost's residents has received a letter that took a long, roundabout road to arrive. Its corners are worn through: his relatives and several companions are searching nearby for a place they can live in for the long term.</description>
     <category>DreamsOutposts_Population</category>
     <weight>2</weight>
     <options>
       <li>
         <id>invite</id>
         <label>Invite them to come</label>
-        <description>Encourage settlement and wait one to three days for one of four possible outcomes.</description>
+        <description>Write back and invite them, then wait one to three days for the result.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset">
             <category>DreamsOutposts_Population</category>
@@ -1805,8 +1807,8 @@
       </li>
       <li>
         <id>escort</id>
-        <label>Send an escort</label>
-        <description>Divert workers for one day and wait for an outcome that excludes the possibility of the group becoming lost.</description>
+        <label>Send an escort to meet them</label>
+        <description>Divert people for one day to escort them along the way. One day less of work in exchange for them not getting lost in the wilderness.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>30</minDefense>
@@ -1839,7 +1841,7 @@
       <li>
         <id>decline</id>
         <label>Decline politely</label>
-        <description>Do not invite the group.</description>
+        <description>Write as gracious a reply as you can, telling them there is not enough room here either.</description>
       </li>
     </options>
     <defaultOptionId>decline</defaultOptionId>
@@ -1849,14 +1851,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_SafeArrival</defName>
     <label>safe arrival</label>
-    <description>The people mentioned in the letter have reached the outpost safely. They are exhausted, but ready to make a permanent home.</description>
+    <description>The people mentioned in the letter have finally appeared outside the outpost. They are shivering with cold and worn out, but they have brought everything they own - this time they truly mean to stay.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>all</id>
         <label>Accept everyone</label>
-        <description>Gain two common colonists while production falls for four days.</description>
+        <description>Take them all in. Gain two common colonists; housing them reduces production slightly.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1871,8 +1873,8 @@
       </li>
       <li>
         <id>skilled</id>
-        <label>Select a skilled settler</label>
-        <description>Gain one excellent colonist while production falls slightly for three days.</description>
+        <label>Select the skilled ones</label>
+        <description>Keep only the most skilled among them. Gain one excellent colonist; production falls slightly.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1886,8 +1888,8 @@
       </li>
       <li>
         <id>rest</id>
-        <label>Offer temporary shelter</label>
-        <description>Increase population tendency for fifteen days.</description>
+        <label>Offer a short rest</label>
+        <description>Give them a roof, hot food and a short rest, without promising a permanent place. Population tendency rises for fifteen days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset">
             <category>DreamsOutposts_Population</category>
@@ -1899,7 +1901,7 @@
       <li>
         <id>continue</id>
         <label>Ask them to continue onward</label>
-        <description>Send the travelers on their way.</description>
+        <description>Supply directions and the most basic advice, then ask them to continue on their way.</description>
       </li>
     </options>
     <defaultOptionId>continue</defaultOptionId>
@@ -1908,15 +1910,15 @@
 
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_UsefulCrafts</defName>
-    <label>skills brought from afar</label>
-    <description>Several visitors are experienced craftspeople. They are willing to exchange their labor for the outpost's help.</description>
+    <label>the crafts they bring</label>
+    <description>Several of the visitors live by their hands. Carpenters, metalworkers, repairers - they are willing to trade their work hours for a little help from the outpost.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>recruit</id>
         <label>Keep the finest craftsperson</label>
-        <description>Gain one excellent colonist.</description>
+        <description>Let them compete to see who is best; we will take only the finest.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -1927,7 +1929,7 @@
       <li>
         <id>train</id>
         <label>Ask them to train the residents</label>
-        <description>All colonists gain Crafting and Construction experience, and population tendency improves.</description>
+        <description>Ask them to teach their crafts to the outpost's residents.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GainSkillXp">
             <skillDef>Crafting</skillDef>
@@ -1947,7 +1949,7 @@
       <li>
         <id>products</id>
         <label>Commission a batch of products</label>
-        <description>Double the next output of a random production facility.</description>
+        <description>Commission them to finish a batch of products, doubling a random production facility's next output.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddRandomFacilityProductionFactor">
             <factor>2</factor>
@@ -1957,8 +1959,8 @@
       </li>
       <li>
         <id>farewell</id>
-        <label>Provision them and say farewell</label>
-        <description>Slightly reduce production for one day and improve population tendency.</description>
+        <label>Provision them and see them off</label>
+        <description>Give them full supplies and a decent farewell. Production falls slightly for one day, and population tendency rises for fifteen days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -1979,14 +1981,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_TravelersDispute</defName>
     <label>dispute among the travelers</label>
-    <description>The arrivals disagree bitterly over whether to remain, and ask the outpost's leaders to settle the matter.</description>
+    <description>The new arrivals quickly split into two camps: some want to stay, others insist on moving on. The argument grows hotter and hotter, until everyone turns to look at the outpost's manager.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>mediate</id>
         <label>Mediate publicly</label>
-        <description>Use a skilled speaker to settle the dispute, gain one common colonist, and improve population tendency.</description>
+        <description>Have a socially skilled colonist mediate openly. Gain one common colonist and improve population tendency.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_AnyColonistSkill">
             <skillDefs>
@@ -2010,7 +2012,7 @@
       <li>
         <id>separate</id>
         <label>House them separately</label>
-        <description>Gain two common colonists while production falls for four days.</description>
+        <description>House the two sides apart and let whoever wants to stay, stay. Gain two common colonists; production falls for four days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
             <pawnKindDef>Refugee</pawnKindDef>
@@ -2026,7 +2028,7 @@
       <li>
         <id>ignore</id>
         <label>Do not intervene</label>
-        <description>Population tendency falls for ten days.</description>
+        <description>Their quarrel is not our responsibility. Stay out of it; population tendency falls for ten days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset">
             <category>DreamsOutposts_Population</category>
@@ -2043,14 +2045,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_LostOnRoad</defName>
     <label>lost on the road</label>
-    <description>The appointed day has passed, but the travelers never appeared. Their last message suggests they lost their way in the wilderness.</description>
+    <description>The appointed day has passed, and the travelers never appeared. The last message came through in fragments and confirms only one thing: they lost their way in the wilderness.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>search</id>
         <label>Send a search party</label>
-        <description>Use the outpost's defenses to rescue one traveler and recover supplies.</description>
+        <description>Send a search party and use the outpost's defenses to bring one traveler back, recovering whatever supplies are found along the way.</description>
         <requirements>
           <li Class="DreamsOutposts.OutpostEventRequirement_MinDefense">
             <minDefense>35</minDefense>
@@ -2062,14 +2064,14 @@
             <rarity>Common</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
-            <marketValue>500~500</marketValue>
+            <marketValue>400~600</marketValue>
           </li>
         </effects>
       </li>
       <li>
         <id>signal</id>
         <label>Keep broadcasting directions</label>
-        <description>Slightly reduce production for one day, then learn whether anyone found the signal.</description>
+        <description>Keep sending out the guiding signal. Production falls slightly for one day, then you will learn whether anyone followed it to the outpost.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
             <factor>0.9</factor>
@@ -2093,7 +2095,7 @@
       <li>
         <id>stop</id>
         <label>End the search</label>
-        <description>Do nothing further.</description>
+        <description>The wilderness is too large and our people too few. End the search.</description>
       </li>
     </options>
     <defaultOptionId>stop</defaultOptionId>
@@ -2101,15 +2103,15 @@
   </DreamsOutposts.OutpostEventDef>
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_SignalRescue</defName>
-    <label>signal-guided survivor</label>
-    <description>One of the missing travelers followed the signal and reached the outpost.</description>
+    <label>survivor guided by the signal</label>
+    <description>The night watch has finally spotted a stumbling figure outside the outpost. One of the missing travelers followed the radio signal and walked here alone.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>join</id>
-        <label>Welcome them</label>
-        <description>Gain one common colonist.</description>
+        <label>Welcome them in</label>
+        <description>Give them hot food and a bed. Gain one common colonist.</description>
         <playerSelectable>false</playerSelectable>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
@@ -2125,14 +2127,14 @@
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Population_SignalFailure</defName>
     <label>no answer to the signal</label>
-    <description>The directions were broadcast repeatedly, but none of the missing travelers arrived.</description>
+    <description>The guiding signal went out again and again, but the echo on the radio never turned into a knock at the door. The missing travelers never appeared.</description>
     <category>DreamsOutposts_Population</category>
     <weight>0</weight>
     <options>
       <li>
         <id>accept</id>
         <label>Acknowledge</label>
-        <description>There is nothing more to be done.</description>
+        <description>Stop the broadcast. Power, people and hope cannot all be spent without limit.</description>
         <playerSelectable>false</playerSelectable>
       </li>
     </options>

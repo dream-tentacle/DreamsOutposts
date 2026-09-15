@@ -1,0 +1,3152 @@
+﻿{
+    "generatedAt":  "2026-09-14T22:02:45",
+    "dataRoot":  "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Data",
+    "traitDefs":  51,
+    "degrees":  73,
+    "suspectedNegative":  [
+                              "Abrasive",
+                              "AnnoyingVoice",
+                              "Bloodlust",
+                              "BodyMastery",
+                              "CreepyBreathing",
+                              "DrugDesire",
+                              "Gourmand",
+                              "Immunity",
+                              "Pyromaniac",
+                              "Undergrounder",
+                              "VoidFascination",
+                              "Wimp"
+                          ],
+    "details":  [
+                    {
+                        "Trait":  "BodyMastery",
+                        "Degree":  null,
+                        "Label":  "body mastery",
+                        "Module":  "Anomaly",
+                        "Signals":  [
+                                        "禁用需求: Food,Rest,Comfort"
+                                    ]
+                    },
+                    {
+                        "Trait":  "VoidFascination",
+                        "Degree":  null,
+                        "Label":  "void fascination",
+                        "Module":  "Anomaly",
+                        "Signals":  [
+                                        "随机精神状态: EntityLiberator"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Bloodlust",
+                        "Degree":  null,
+                        "Label":  "bloodlust",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "社交打架率 x4"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Abrasive",
+                        "Degree":  null,
+                        "Label":  "abrasive",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.15"
+                                    ]
+                    },
+                    {
+                        "Trait":  "AnnoyingVoice",
+                        "Degree":  null,
+                        "Label":  "annoying voice",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.2"
+                                    ]
+                    },
+                    {
+                        "Trait":  "CreepyBreathing",
+                        "Degree":  null,
+                        "Label":  "creepy breathing",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.1"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Pyromaniac",
+                        "Degree":  null,
+                        "Label":  "pyromaniac",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.2",
+                                        "随机精神状态: FireStartingSpree"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Wimp",
+                        "Degree":  null,
+                        "Label":  "wimp",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.15"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Undergrounder",
+                        "Degree":  null,
+                        "Label":  "undergrounder",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "禁用需求: Outdoors"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Gourmand",
+                        "Degree":  null,
+                        "Label":  "gourmand",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "饥饿率 x1.5",
+                                        "随机精神状态: Binging_Food"
+                                    ]
+                    },
+                    {
+                        "Trait":  "DrugDesire",
+                        "Degree":  "2",
+                        "Label":  "chemical fascination",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.15"
+                                    ]
+                    },
+                    {
+                        "Trait":  "DrugDesire",
+                        "Degree":  "1",
+                        "Label":  "chemical interest",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "marketValueFactorOffset=-0.1"
+                                    ]
+                    },
+                    {
+                        "Trait":  "DrugDesire",
+                        "Degree":  "-1",
+                        "Label":  "teetotaler",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "禁止精神状态: Binging_DrugExtreme,Binging_DrugMajor"
+                                    ]
+                    },
+                    {
+                        "Trait":  "Immunity",
+                        "Degree":  "-1",
+                        "Label":  "sickly",
+                        "Module":  "Core",
+                        "Signals":  [
+                                        "患病MTB=30"
+                                    ]
+                    }
+                ],
+    "ambiguous":  [
+
+                  ],
+    "allDegrees":  [
+                       {
+                           "Trait":  "PerfectMemory",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "perfect memory",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Occultist",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "occultist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Joyous",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "joyous",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "BodyMastery",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "body mastery",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+                                                 "Food",
+                                                 "Rest",
+                                                 "Comfort"
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Disturbing",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "disturbing",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "VoidFascination",
+                           "Module":  "Anomaly",
+                           "Degree":  null,
+                           "Label":  "void fascination",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  "EntityLiberator",
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Delicate",
+                           "Module":  "Biotech",
+                           "Degree":  null,
+                           "Label":  "delicate",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Recluse",
+                           "Module":  "Biotech",
+                           "Degree":  null,
+                           "Label":  "recluse",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nudist",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "nudist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Bloodlust",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "bloodlust",
+                           "MarketOffset":  null,
+                           "SocialFight":  "4",
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Kind",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "kind",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Psychopath",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "psychopath",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Cannibal",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "cannibal",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Abrasive",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "abrasive",
+                           "MarketOffset":  "-0.15",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "TooSmart",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "too smart",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Brawler",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "brawler",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+                                              ":",
+                                              ":"
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Masochist",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "masochist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "NightOwl",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "night owl",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Greedy",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "greedy",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Jealous",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "jealous",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Ascetic",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "ascetic",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Gay",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "gay",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Bisexual",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "bisexual",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Asexual",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "asexual",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "AnnoyingVoice",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "annoying voice",
+                           "MarketOffset":  "-0.2",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "CreepyBreathing",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "creepy breathing",
+                           "MarketOffset":  "-0.1",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Pyromaniac",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "pyromaniac",
+                           "MarketOffset":  "-0.2",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  "FireStartingSpree",
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Wimp",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "wimp",
+                           "MarketOffset":  "-0.15",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nimble",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "nimble",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "FastLearner",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "fast learner",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "SlowLearner",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "slow learner",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Undergrounder",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "undergrounder",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+                                                 "Outdoors"
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Transhumanist",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "body modder",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "BodyPurist",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "body purist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "DislikesMen",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "misandrist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "DislikesWomen",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "misogynist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "GreatMemory",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "great memory",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Tough",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "tough",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "TorturedArtist",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "tortured artist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Gourmand",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "gourmand",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  "1.5",
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  "Binging_Food",
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+                                              ":"
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "QuickSleeper",
+                           "Module":  "Core",
+                           "Degree":  null,
+                           "Label":  "quick sleeper",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "SpeedOffset",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "slowpoke",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "SpeedOffset",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "fast walker",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "SpeedOffset",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "jogger",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "DrugDesire",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "chemical fascination",
+                           "MarketOffset":  "-0.15",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "DrugDesire",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "chemical interest",
+                           "MarketOffset":  "-0.10",
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "DrugDesire",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "teetotaler",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+                                                   "Binging_DrugExtreme",
+                                                   "Binging_DrugMajor"
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "NaturalMood",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "sanguine",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "NaturalMood",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "optimist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "NaturalMood",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "pessimist",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "NaturalMood",
+                           "Module":  "Core",
+                           "Degree":  "-2",
+                           "Label":  "depressive",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nerves",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "iron-willed",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nerves",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "steadfast",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nerves",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "nervous",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Nerves",
+                           "Module":  "Core",
+                           "Degree":  "-2",
+                           "Label":  "volatile",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Neurotic",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "neurotic",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Neurotic",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "very neurotic",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Industriousness",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "industrious",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Industriousness",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "hard worker",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Industriousness",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "lazy",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Industriousness",
+                           "Module":  "Core",
+                           "Degree":  "-2",
+                           "Label":  "slothful",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "PsychicSensitivity",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "psychically hypersensitive",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "PsychicSensitivity",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "psychically sensitive",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "PsychicSensitivity",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "psychically dull",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "PsychicSensitivity",
+                           "Module":  "Core",
+                           "Degree":  "-2",
+                           "Label":  "psychically deaf",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "ShootingAccuracy",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "careful shooter",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "ShootingAccuracy",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "trigger-happy",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Beauty",
+                           "Module":  "Core",
+                           "Degree":  "2",
+                           "Label":  "beautiful",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Beauty",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "pretty",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Beauty",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "ugly",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Beauty",
+                           "Module":  "Core",
+                           "Degree":  "-2",
+                           "Label":  "staggeringly ugly",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Immunity",
+                           "Module":  "Core",
+                           "Degree":  "1",
+                           "Label":  "super-immune",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  null,
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       },
+                       {
+                           "Trait":  "Immunity",
+                           "Module":  "Core",
+                           "Degree":  "-1",
+                           "Label":  "sickly",
+                           "MarketOffset":  null,
+                           "SocialFight":  null,
+                           "RandomDiseaseMtb":  "30",
+                           "HungerRate":  null,
+                           "PainOffset":  null,
+                           "PainFactor":  null,
+                           "ForcedMental":  null,
+                           "RandomMental":  null,
+                           "DisallowsMental":  [
+
+                                               ],
+                           "DisablesNeeds":  [
+
+                                             ],
+                           "StatOffsets":  [
+
+                                           ],
+                           "StatFactors":  [
+
+                                           ],
+                           "SkillGains":  [
+                                              ":"
+                                          ],
+                           "DisabledWorkTypes":  [
+
+                                                 ],
+                           "DisabledWorkTags":  [
+
+                                                ],
+                           "RequiredWorkTags":  [
+
+                                                ],
+                           "ConflictsWith":  [
+
+                                             ]
+                       }
+                   ]
+}

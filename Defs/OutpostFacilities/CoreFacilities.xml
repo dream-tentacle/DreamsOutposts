@@ -161,7 +161,14 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AutomationHub</defName>
     <label>automation hub</label>
-    <description>A centralized control facility that coordinates the camp's automated machinery.</description>
+    <description>A centralized control facility that coordinates the camp's automated machinery. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise facilities tagged for automatic production run at their base output.\n\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
     <installableAsExtension>false</installableAsExtension>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
+        <requiredSkill>Intellectual</requiredSkill>
+        <requiredSkillLevel>5</requiredSkillLevel>
+        <facilityTag>AutomaticProduction</facilityTag>
+      </li>
+    </comps>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

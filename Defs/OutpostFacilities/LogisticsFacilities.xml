@@ -23,7 +23,7 @@
 		<facilityTag>Recruitment</facilityTag>
 		<uiIcon>Person</uiIcon>
 		<label>adventurer camp</label>
-		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people.</description>
+		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. The management window must be reopened after it is built for its new page to appear.</description>
 		<maxPerOutpost>1</maxPerOutpost>
 	</DreamsOutposts.OutpostFacilityDef>
 	<DreamsOutposts.OutpostFacilityDef>

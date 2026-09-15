@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -266,8 +266,8 @@ namespace DreamsOutposts
 					UiDraw.Box(row, (int)RowRadius, UiPalette.Hover);
 				}
 				float x = row.x + RowPaddingH;
-				// 原版人物小像（PortraitsCache 渲染，和原版列表一致）
-				Widgets.ThingIcon(new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize), view.Pawn);
+				// 原版人物小像（PortraitsCache 渲染，取景参数见 UiDraw.PawnPortrait）
+				UiDraw.PawnPortrait(new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize), view.Pawn);
 				x += IconSize + RowGap;
 				float nameWidth = Mathf.Max(row.xMax - RowPaddingH - x, 30f);
 				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), view.Name, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
