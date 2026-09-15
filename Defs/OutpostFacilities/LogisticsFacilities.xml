@@ -3,6 +3,7 @@
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_Waystation</defName>
 		<facilityTag>Other</facilityTag>
+		<category>DreamsOutposts_CategoryOther</category>
 		<uiIcon>Store</uiIcon>
 		<label>waystation</label>
 		<description>A roadside facility that provides lodging, supplies and fresh transport for travellers and caravans. It encourages trade and settlement while greatly reducing the time caravans need to enter this tile.</description>
@@ -21,6 +22,7 @@
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_AdventurerCamp</defName>
 		<facilityTag>Recruitment</facilityTag>
+		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Person</uiIcon>
 		<label>adventurer camp</label>
 		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. The management window must be reopened after it is built for its new page to appear.</description>
@@ -29,6 +31,7 @@
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_Inn</defName>
 		<facilityTag>Recruitment</facilityTag>
+		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Store</uiIcon>
 		<label>inn</label>
 		<description>A comfortable roadside inn that draws travellers and prospective settlers to the outpost.</description>
@@ -40,6 +43,7 @@
 	<DreamsOutposts.OutpostFacilityDef>
 		<defName>DreamsOutposts_LuxuryHotel</defName>
 		<facilityTag>Recruitment</facilityTag>
+		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Store</uiIcon>
 		<label>luxury hotel</label>
 		<description>An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.</description>

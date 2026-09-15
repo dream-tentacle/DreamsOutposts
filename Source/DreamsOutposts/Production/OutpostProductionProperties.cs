@@ -45,6 +45,11 @@ namespace DreamsOutposts
 				{
 					worker = (OutpostProductionWorker)Activator.CreateInstance(workerClass);
 				}
+				// 开发模式提醒：worker 实例按 Def 共享，在实例字段里攒状态会串到别的据点去。
+				if (Prefs.DevMode)
+				{
+					OutpostProductionWorker.WarnIfStateful(worker.GetType());
+				}
 				return worker;
 			}
 		}

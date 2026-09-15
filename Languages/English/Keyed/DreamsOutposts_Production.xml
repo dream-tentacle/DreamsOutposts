@@ -36,5 +36,23 @@
   <DreamsOutposts.RemotePower.SectionTitle>Remote power generation</DreamsOutposts.RemotePower.SectionTitle>
   <DreamsOutposts.RemotePower.DistanceEfficiency>Distance {0} · {1} efficiency</DreamsOutposts.RemotePower.DistanceEfficiency>
   <DreamsOutposts.ResearchPoints>research points</DreamsOutposts.ResearchPoints>
+  <DreamsOutposts.XianluQi.NoProduct>no product</DreamsOutposts.XianluQi.NoProduct>
+  <DreamsOutposts.XianluQi.NoProductAvailable>No resource can be produced right now.</DreamsOutposts.XianluQi.NoProductAvailable>
+  <DreamsOutposts.XianluQi.ChooseProductTip>Click to choose which resource the altar gathers.</DreamsOutposts.XianluQi.ChooseProductTip>
+  <DreamsOutposts.XianluQi.ProductSummary>product: {0}</DreamsOutposts.XianluQi.ProductSummary>
+  <DreamsOutposts.XianluQi.CurrentSuffix> (current)</DreamsOutposts.XianluQi.CurrentSuffix>
+  <DreamsOutposts.XianluQi.ProductOptionTooltip>{0}\n\n{1} per day per point of efficiency</DreamsOutposts.XianluQi.ProductOptionTooltip>
+  <DreamsOutposts.MechMachining.NoProduct>no product</DreamsOutposts.MechMachining.NoProduct>
+  <DreamsOutposts.MechMachining.NoProductAvailable>Nothing can be machined right now.</DreamsOutposts.MechMachining.NoProductAvailable>
+  <DreamsOutposts.MechMachining.ChooseProductTip>Click to choose what the mechanoids machine here.</DreamsOutposts.MechMachining.ChooseProductTip>
+  <DreamsOutposts.MechMachining.ProductSummary>product: {0}</DreamsOutposts.MechMachining.ProductSummary>
+  <DreamsOutposts.MechMachining.CurrentSuffix> (current)</DreamsOutposts.MechMachining.CurrentSuffix>
+  <DreamsOutposts.MechMachining.ProductOptionTooltip>{0}\n\n{1} per day per point of efficiency</DreamsOutposts.MechMachining.ProductOptionTooltip>
+  <DreamsOutposts.MiliraSolar.NoProduct>no product</DreamsOutposts.MiliraSolar.NoProduct>
+  <DreamsOutposts.MiliraSolar.NoProductAvailable>Nothing can be smelted right now.</DreamsOutposts.MiliraSolar.NoProductAvailable>
+  <DreamsOutposts.MiliraSolar.ChooseProductTip>Click to choose what the smelter turns out.</DreamsOutposts.MiliraSolar.ChooseProductTip>
+  <DreamsOutposts.MiliraSolar.ProductSummary>product: {0}</DreamsOutposts.MiliraSolar.ProductSummary>
+  <DreamsOutposts.MiliraSolar.CurrentSuffix> (current)</DreamsOutposts.MiliraSolar.CurrentSuffix>
+  <DreamsOutposts.MiliraSolar.ProductOptionTooltip>{0}\n\n{1} per day per point of efficiency</DreamsOutposts.MiliraSolar.ProductOptionTooltip>
 </LanguageData>
 

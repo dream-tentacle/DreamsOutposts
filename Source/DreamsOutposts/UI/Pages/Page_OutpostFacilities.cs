@@ -653,9 +653,7 @@ namespace DreamsOutposts
 			// 槽位卡原来的「拆除」按钮已删除：拆除入口保留在详情弹窗底部。
 			float buttonHeight = (UiWidgets.ButtonHeight(UiButtonSize.Small) + 4f) * 1.2f;
 			Texture2D detailsTexture = UiTex.InfoButtonTexture();
-			float detailsWidth = ((detailsTexture != null) && detailsTexture.height > 0f)
-				? buttonHeight * detailsTexture.width / detailsTexture.height
-				: Mathf.Max(UiWidgets.ButtonWidth(detailsLabel, UiButtonSize.Small), 64f) * 3f;
+			float detailsWidth = UiWidgets.TexturedButtonWidth(buttonHeight, detailsTexture, detailsLabel, UiButtonSize.Small);
 			float chipsLimit = Mathf.Max(innerWidth - detailsWidth - UiMetrics.FootGap, 40f);
 			float singleRowChipsHeight = UiDraw.ChipsHeight(view.Chips, chipsLimit, true);
 			bool singleRow = singleRowChipsHeight <= UiDraw.ChipHeight(true) + 0.5f;

@@ -28,7 +28,6 @@ namespace DreamsOutposts
 				{
 					worker = (OutpostWorker)Activator.CreateInstance(workerClass ?? typeof(OutpostWorker));
 				}
-				worker.def = this;
 				return worker;
 			}
 		}

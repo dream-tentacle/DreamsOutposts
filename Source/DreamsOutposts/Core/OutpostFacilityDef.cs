@@ -13,6 +13,14 @@ namespace DreamsOutposts
 		public string FacilityTag => OutpostFacilityTagRegistry.Normalize(facilityTag);
 
 		/// <summary>
+		/// 安装页分类。留空时归入「其他」分类。与 facilityTag 职责分离：
+		/// category 只决定安装页的标签页与显示名，facilityTag 仍然只用于生产修正匹配、监管判定与事件筛选。
+		/// </summary>
+		public OutpostFacilityCategoryDef category;
+
+		public OutpostFacilityCategoryDef Category => OutpostFacilityCategoryUtility.Resolve(this);
+
+		/// <summary>
 		/// 新 UI 的图标名（对应 UiIcon 枚举，例如 Mine / Farm / Store / Turret）。
 		/// 留空时按 defName / label / 产物的关键字自动推断。以后有 PNG 资源时可以另外指定贴图。
 		/// </summary>

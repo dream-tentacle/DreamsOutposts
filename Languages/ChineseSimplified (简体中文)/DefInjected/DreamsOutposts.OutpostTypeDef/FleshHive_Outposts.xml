@@ -4,7 +4,7 @@
   <!-- EN: flesh cultivation outpost -->
   <DreamsOutposts_FleshCultivation.label>血肉培育据点</DreamsOutposts_FleshCultivation.label>
   <!-- EN: A remote flesh cultivation site that produces 50 twisted meat per day. -->
-  <DreamsOutposts_FleshCultivation.description>用于培育活性血肉的远程据点，每天产出50单位扭曲肉。</DreamsOutposts_FleshCultivation.description>
+  <DreamsOutposts_FleshCultivation.description>用于培育活性血肉的远程据点。驻守我方血肉兽占用的巢群容量越多，扭曲肉产量越高。</DreamsOutposts_FleshCultivation.description>
   
   <!-- EN: hive neural relay station -->
   <DreamsOutposts_FleshHiveRelay.label>巢群神经中继站</DreamsOutposts_FleshHiveRelay.label>

@@ -38,7 +38,7 @@ namespace DreamsOutposts
 				return true;
 			}
 
-			context.BaseOutput = CalculateProduction(context.Outpost.Pawns, context.Outpost.outpostTypeDef, context.Production, context.State);
+			context.BaseOutput = CalculateProduction(context.Outpost, context.Production, context.State);
 			context.ModifiedOutput = OutpostProductionUtility.ApplyModifiers(context.Outpost, context.Facility, context.Production, context.BaseOutput);
 			context.WantedAmount = GenMath.RoundRandom(context.ModifiedOutput);
 			context.ActualAmount = context.WantedAmount;
@@ -119,6 +119,7 @@ namespace DreamsOutposts
 				pawn.Destroy();
 				throw new InvalidOperationException("Outpost refused captured animal " + kind.defName + ".");
 			}
+			outpost.RequestUpdate();
 		}
 	}
 }

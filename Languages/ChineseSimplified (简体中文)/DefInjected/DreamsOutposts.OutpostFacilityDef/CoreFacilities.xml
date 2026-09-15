@@ -23,8 +23,8 @@
 
   <!-- EN: mining plant -->
   <DreamsOutposts_MiningPlant.label>采矿厂</DreamsOutposts_MiningPlant.label>
-  <!-- EN: A permanent mining operation that extracts and processes steel-bearing ore. -->
-  <DreamsOutposts_MiningPlant.description>一座常设采矿设施，负责开采并处理含钢矿石。</DreamsOutposts_MiningPlant.description>
+  <!-- EN: A permanent mining operation that extracts and processes ore. The mineral being extracted can be chosen freely, and the daily yield is always worth the same amount of silver. -->
+  <DreamsOutposts_MiningPlant.description>一座常设采矿设施，负责开采并处理矿石。开采哪种矿物由玩家自选，每天的产出始终等值于相同的白银数额。</DreamsOutposts_MiningPlant.description>
 
   <!-- EN: neutroamine collection station -->
   <DreamsOutposts_NeutroamineCollector.label>中性胺采集站</DreamsOutposts_NeutroamineCollector.label>

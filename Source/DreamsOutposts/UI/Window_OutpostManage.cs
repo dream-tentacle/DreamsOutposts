@@ -562,9 +562,13 @@ namespace DreamsOutposts
 				return;
 			}
 			string demolishLabel = "DreamsOutposts.Demolish".Translate();
-			float demolishWidth = UiWidgets.ButtonWidth(demolishLabel);
+			// 与安装弹窗的「建造」按钮同款底图 / 同款尺寸算法，只是底图换成 NegativeButton 并按破坏性语义色染成红色
+			Texture2D demolishTexture = UiTex.NegativeButtonTexture();
+			float demolishWidth = UiWidgets.TexturedButtonWidth(buttonHeight, demolishTexture, demolishLabel);
 			Rect demolishRect = new Rect(rect.xMax - demolishWidth, y, demolishWidth, buttonHeight);
-			if (UiWidgets.Button(demolishRect, demolishLabel, UiButtonKind.Danger, true, null, UiButtonSize.Normal, details.DemolishTooltip))
+			if (UiWidgets.TexturedButton(demolishRect, demolishLabel, demolishTexture, 420f, 300f,
+				UiPalette.Danger, UiPalette.DangerHover, UiPalette.OnAccent,
+				UiButtonSize.Normal, details.DemolishTooltip))
 			{
 				if (details.Source != null)
 				{

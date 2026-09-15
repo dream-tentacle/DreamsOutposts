@@ -4,18 +4,18 @@
   <!-- EN: carapace culture tank -->
   <DreamsOutposts_CarapaceCultureTank.label>甲壳培育槽</DreamsOutposts_CarapaceCultureTank.label>
   <!-- EN: A specialized flesh culture tank that produces 5 flesh carapace per day. -->
-  <DreamsOutposts_CarapaceCultureTank.description>用于培育坚韧血肉甲壳的专用培养槽，每天产出5单位血肉甲壳。</DreamsOutposts_CarapaceCultureTank.description>
-  
+  <DreamsOutposts_CarapaceCultureTank.description>用于培育坚韧血肉甲壳的专用培养槽。每日基础产出5单位血肉甲壳。\n\n基础效率为2，驻守我方血肉兽的容量总和额外增加效率。</DreamsOutposts_CarapaceCultureTank.description>
+
   <!-- EN: flesh outlet -->
   <DreamsOutposts_FleshOutlet.label>血肉产出口</DreamsOutposts_FleshOutlet.label>
   <!-- EN: A cultivated flesh outlet that produces 3 nerve chunks per day. -->
-  <DreamsOutposts_FleshOutlet.description>经过培育的血肉产出口，每天产出3单位神经块。</DreamsOutposts_FleshOutlet.description>
-  
+  <DreamsOutposts_FleshOutlet.description>经过培育的血肉产出口。每日基础产出3单位神经块，基础效率为2。\n\n驻守我方血肉兽的容量总和额外增加效率。</DreamsOutposts_FleshOutlet.description>
+
   <!-- EN: growth hormone culture tank -->
   <DreamsOutposts_GrowthHormoneCultureTank.label>生长激素培养槽</DreamsOutposts_GrowthHormoneCultureTank.label>
   <!-- EN: A vat of concentrated growth hormones that multiplies the flesh cultivation bed's twisted meat output by 1.5. -->
-  <DreamsOutposts_GrowthHormoneCultureTank.description>充满高浓度生长激素的培养槽，使血肉培育床的扭曲肉产量乘以1.5。</DreamsOutposts_GrowthHormoneCultureTank.description>
-  
+  <DreamsOutposts_GrowthHormoneCultureTank.description>充满高浓度生长激素的培养槽，使血肉培育床的扭曲肉产量翻倍。</DreamsOutposts_GrowthHormoneCultureTank.description>
+
   <!-- EN: nerve expansion slot -->
   <DreamsOutposts_NerveExpansionSlot.label>神经扩展槽</DreamsOutposts_NerveExpansionSlot.label>
   <!-- EN: A dedicated neural extension that adds 3 fleshbeast capacity to the hive network. -->

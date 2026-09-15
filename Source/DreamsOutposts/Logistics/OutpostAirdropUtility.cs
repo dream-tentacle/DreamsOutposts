@@ -288,6 +288,7 @@ namespace DreamsOutposts
 				if (!taken)
 				{
 					taken = outpost.pawns.Remove(pawn);
+					if (taken) outpost.RequestUpdate();
 				}
 				if (!taken)
 				{
@@ -302,6 +303,7 @@ namespace DreamsOutposts
 						Log.Error("Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
 						Find.WorldPawns.PassToWorld(pawn);
 					}
+					else outpost.RequestUpdate();
 				}
 				podIndex = (podIndex + 1) % needed;
 			}
@@ -383,7 +385,13 @@ namespace DreamsOutposts
 			for (int i = 0; i < tmpPawns.Count; i++)
 			{
 				Pawn pawn = tmpPawns[i];
-				if (pawn != null && pending.TryTransferToContainer(pawn, outpost.pawns, 1) <= 0)
+				if (pawn == null) continue;
+				if (pending.TryTransferToContainer(pawn, outpost.pawns, 1) > 0)
+				{
+					outpost.RequestUpdate();
+					continue;
+				}
+				else
 				{
 					Log.Error("Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + " after an airdrop was cancelled.");
 					pending.Remove(pawn);
@@ -392,6 +400,7 @@ namespace DreamsOutposts
 						Log.Error("Failed to re-add " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
 						Find.WorldPawns.PassToWorld(pawn);
 					}
+					else outpost.RequestUpdate();
 				}
 			}
 		}
@@ -407,7 +416,12 @@ namespace DreamsOutposts
 			for (int i = 0; i < pawns.Count; i++)
 			{
 				Pawn pawn = pawns[i];
-				if (pawn != null && outpost.pawns.TryTransferToContainer(pawn, pending, 1) <= 0)
+				if (pawn == null) continue;
+				if (outpost.pawns.TryTransferToContainer(pawn, pending, 1) > 0)
+				{
+					outpost.RequestUpdate();
+				}
+				else
 				{
 					Log.Error("Failed to move " + pawn?.ToString() + " out of outpost " + outpost.Label + " for an airdrop; it stays in the outpost.");
 				}

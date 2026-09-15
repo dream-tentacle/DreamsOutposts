@@ -7,11 +7,17 @@ namespace DreamsOutposts
 {
 	public class OutpostBombardmentProperties
 	{
+		/// <summary>
+		/// 默认炮弹。玩家没有用右键切换过炮弹时使用它；切换过的据点会把自己的选择记在 Outpost.selectedShellDef 上。
+		/// </summary>
 		public ThingDef shellDef;
 
-		public int shellsPerStrike = 4;
+		/// <summary>
+		/// 可选炮弹的 ThingCategoryDef 名称。原版迫击炮能装填的炮弹就是 MortarShells 这一分类。
+		/// </summary>
+		public string shellCategory = "MortarShells";
 
-		public List<ThingDefCountClass> costPerShell = new List<ThingDefCountClass>();
+		public int shellsPerStrike = 4;
 
 		public int maxRangeTiles = 12;
 
@@ -35,13 +41,25 @@ namespace DreamsOutposts
 
 		private static bool vanillaMortarGunLookedUp;
 
-		private static readonly List<ThingDefCountClass> NoCost = new List<ThingDefCountClass>();
+		private ThingCategoryDef cachedShellCategory;
 
-		public ThingDef ProjectileDef => shellDef?.projectileWhenLoaded;
+		private bool shellCategoryLookedUp;
 
 		public int CooldownTicks => Mathf.Max(0, Mathf.RoundToInt(cooldownHours * 2500f));
 
-		public List<ThingDefCountClass> CostPerShell => costPerShell.NullOrEmpty() ? NoCost : costPerShell;
+		/// <summary>可选炮弹的分类。找不到时返回 null，调用方会退化成「不按分类过滤」。</summary>
+		public ThingCategoryDef ShellCategory
+		{
+			get
+			{
+				if (!shellCategoryLookedUp)
+				{
+					cachedShellCategory = shellCategory.NullOrEmpty() ? null : DefDatabase<ThingCategoryDef>.GetNamedSilentFail(shellCategory);
+					shellCategoryLookedUp = true;
+				}
+				return cachedShellCategory;
+			}
+		}
 
 		public float EffectiveMissRadius
 		{
@@ -77,56 +95,8 @@ namespace DreamsOutposts
 			return record != null && record.Level >= requiredSkillLevel;
 		}
 
-		public List<ThingDefCountClass> CostForShells(int shells)
-		{
-			List<ThingDefCountClass> result = new List<ThingDefCountClass>();
-			if (shells <= 0 || costPerShell.NullOrEmpty())
-			{
-				return result;
-			}
-			for (int i = 0; i < costPerShell.Count; i++)
-			{
-				ThingDefCountClass entry = costPerShell[i];
-				if (entry?.thingDef == null || entry.count <= 0 || AlreadyListedIn(result, entry.thingDef))
-				{
-					continue;
-				}
-				int perShell = 0;
-				for (int j = 0; j < costPerShell.Count; j++)
-				{
-					ThingDefCountClass other = costPerShell[j];
-					if (other?.thingDef == entry.thingDef && other.count > 0)
-					{
-						perShell += other.count;
-					}
-				}
-				result.Add(new ThingDefCountClass(entry.thingDef, perShell * shells));
-			}
-			return result;
-		}
-
-		private static bool AlreadyListedIn(List<ThingDefCountClass> list, ThingDef thingDef)
-		{
-			for (int i = 0; i < list.Count; i++)
-			{
-				if (list[i]?.thingDef == thingDef)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
 		public IEnumerable<string> ConfigErrors()
 		{
-			if (shellDef == null)
-			{
-				yield return "shellDef is required: a bombardment must know which shell it fires.";
-			}
-			else if (shellDef.projectileWhenLoaded == null)
-			{
-				yield return "shellDef " + shellDef.defName + " has no projectileWhenLoaded, so it has nothing to fire.";
-			}
 			if (shellsPerStrike <= 0)
 			{
 				yield return "shellsPerStrike must be positive.";
@@ -151,28 +121,9 @@ namespace DreamsOutposts
 			{
 				yield return "ticksBetweenShells must not be negative.";
 			}
-			HashSet<ThingDef> seen = new HashSet<ThingDef>();
-			for (int i = 0; i < (costPerShell?.Count ?? 0); i++)
+			if (!shellCategory.NullOrEmpty() && DefDatabase<ThingCategoryDef>.GetNamedSilentFail(shellCategory) == null)
 			{
-				ThingDefCountClass entry = costPerShell[i];
-				if (entry == null)
-				{
-					yield return "costPerShell[" + i + "] is null.";
-					continue;
-				}
-				if (entry.thingDef == null)
-				{
-					yield return "costPerShell[" + i + "] has no thingDef.";
-					continue;
-				}
-				if (entry.count <= 0)
-				{
-					yield return "costPerShell[" + i + "] (" + entry.thingDef.defName + ") must have a positive count.";
-				}
-				if (!seen.Add(entry.thingDef))
-				{
-					yield return "Duplicate costPerShell entry for " + entry.thingDef.defName + ".";
-				}
+				yield return "shellCategory " + shellCategory + " is not a ThingCategoryDef; every shell would be selectable.";
 			}
 		}
 	}

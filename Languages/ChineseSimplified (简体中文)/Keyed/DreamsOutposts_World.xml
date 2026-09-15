@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   <!-- EN: Enter outpost -->
   <DreamsOutposts.EnterOutpost>进入据点</DreamsOutposts.EnterOutpost>
@@ -8,4 +8,20 @@
   <DreamsOutposts.CreateOutpostDesc>在此处创建据点。</DreamsOutposts.CreateOutpostDesc>
   <!-- EN: Open this outpost's management window: its facilities and everything kept in store. -->
   <DreamsOutposts.ManageOutpostDesc>打开据点管理窗口：查看设施和仓库中的所有物品。</DreamsOutposts.ManageOutpostDesc>
+  <!-- EN: {0} needs at least {1} crew member(s) at the controls; {2} assigned so far. Assign seats in the Vehicles tab first. -->
+  <DreamsOutposts.VehicleCrewMissing>载具 {0} 至少需要 {1} 名操作乘员，目前只分配了 {2} 名。请先在“载具”页分配座位。</DreamsOutposts.VehicleCrewMissing>
+  <!-- EN: Could not board {0} into {1}. The seats may have changed; open the Vehicles tab and assign seats again. -->
+  <DreamsOutposts.VehicleBoardingFailed>无法让 {0} 登上 {1}：座位可能已变化，请回到“载具”页重新分配座位。</DreamsOutposts.VehicleBoardingFailed>
+  <!-- EN: Vehicle Framework is loaded, but its caravan API could not be read, so outpost caravans cannot assign vehicle seats. -->
+  <DreamsOutposts.VehicleFrameworkUnavailable>载具框架已加载，但无法读取它的远行队接口，据点远行队无法分配载具座位。</DreamsOutposts.VehicleFrameworkUnavailable>
+  <!-- EN: Forming the caravan failed. Everyone and every vehicle was returned to the outpost. -->
+  <DreamsOutposts.CaravanFormFailedRolledBack>组建远行队失败，人员与载具已退回据点。</DreamsOutposts.CaravanFormFailedRolledBack>
+  <!-- EN: Enter outpost: {0} -->
+  <DreamsOutposts.AerialEnterOutpost>进入据点：{0}</DreamsOutposts.AerialEnterOutpost>
+  <!-- EN: Landed at and entered outpost: {0} -->
+  <DreamsOutposts.AerialEnteredOutpost>已降落并进入据点：{0}</DreamsOutposts.AerialEnteredOutpost>
+  <!-- EN: An outpost caravan can include at most {0} vehicle. Uncheck the others first. -->
+  <DreamsOutposts.OneVehiclePerCaravanHint>据点远行队最多只能编入 {0} 台载具，多选的载具请先取消勾选。</DreamsOutposts.OneVehiclePerCaravanHint>
+  <!-- EN: An outpost caravan can include at most {0} vehicle. Uncheck the others first. -->
+  <DreamsOutposts.OneVehiclePerCaravan>据点远行队最多只能编入 1 台载具，请先取消勾选多余的载具。</DreamsOutposts.OneVehiclePerCaravan>
 </LanguageData>

@@ -359,6 +359,7 @@ namespace DreamsOutposts
 
 		/// <summary>其他人员（按名字排序），仓库页用。</summary>
 		public readonly List<UiPawnView> OtherPawns = new List<UiPawnView>();
+		public readonly List<UiPawnView> Vehicles = new List<UiPawnView>();
 
 		/// <summary>仓库物品（按 ThingDef 聚合、按名字排序）。</summary>
 		public readonly List<UiItemStackView> Inventory = new List<UiItemStackView>();
@@ -432,6 +433,7 @@ namespace DreamsOutposts
 				}
 			}
 			stamp = stamp * 31 + ((outpost.pawns != null) ? outpost.pawns.Count : 0);
+			stamp = stamp * 31 + ((outpost.vehicles != null) ? outpost.vehicles.Count : 0);
 			int itemCount = 0;
 			int stackTotal = 0;
 			List<Thing> items = outpost.InventoryItems;
@@ -958,6 +960,7 @@ namespace DreamsOutposts
 			DefensePawns.Clear();
 			Colonists.Clear();
 			OtherPawns.Clear();
+			Vehicles.Clear();
 			List<Pawn> pawns = outpost.PawnsListForReading;
 			for (int i = 0; i < pawns.Count; i++)
 			{
@@ -979,6 +982,14 @@ namespace DreamsOutposts
 			DefensePawns.Sort(ComparePawnDefense);
 			Colonists.Sort(ComparePawnName);
 			OtherPawns.Sort(ComparePawnName);
+			List<Pawn> vehicles = outpost.VehiclesListForReading;
+			for (int i = 0; i < vehicles.Count; i++)
+			{
+				Pawn vehicle = vehicles[i];
+				if (vehicle == null || vehicle.Destroyed) continue;
+				Vehicles.Add(new UiPawnView { Pawn = vehicle, Name = vehicle.LabelShortCap.ToString() });
+			}
+			Vehicles.Sort(ComparePawnName);
 		}
 
 		private static int ComparePawnName(UiPawnView a, UiPawnView b)
@@ -1143,15 +1154,15 @@ namespace DreamsOutposts
 				OutpostProductionState state = view.Facility.GetProductionState(production.Props.id);
 				production.IntervalText = production.Props.Worker.GetProductionIntervalTicks(production.Props, state).ToStringTicksToPeriod().ToString();
 				float capacity = 0f;
-				// 没写 capacityStat 的设施走固定产能：不再读 pawn 属性，所以也不调用产能计算
-				bool hasCapacityStat = production.Props.capacityStat != null;
-				bool hasCapacity = hasCapacityStat && OutpostProductionUtility.TryCalculatePersonnelCapacity(outpost, production.Props, out capacity);
+				// 只有「产量随人数/产能变化」的生产才需要把产能算出来：
+				// 写了 capacityStat 的靠 StatDef，自己算效率的 worker（例如边缘仙路）靠覆盖 UsesPersonnelCapacity。
+				if (production.Props.Worker.UsesPersonnelCapacity(production.Props))
+				{
+					OutpostProductionUtility.TryCalculatePersonnelCapacity(outpost, production.Props, out capacity);
+				}
 				production.PersonnelCapacity = capacity;
-				// 数值用 StatDef 自己的格式（PercentZero → "120%"），和原版人物面板显示一致
-				production.CapacityText = hasCapacity
-					? "DreamsOutposts.Ui.Rule.Capacity".Translate(production.Props.capacityStat.LabelCap,
-						production.Props.capacityStat.ValueToString(production.PersonnelCapacity)).ToString()
-					: (hasCapacityStat ? null : "DreamsOutposts.Ui.Rule.FixedCapacity".Translate().ToString());
+				// 产能怎么显示由 worker 决定：StatDef 格式、普通数字、或「固定产能 1」。
+				production.CapacityText = production.Props.Worker.DescribeCapacity(outpost, production.Props, capacity);
 				float expected;
 				if (OutpostProductionUtility.TryCalculateExpectedOutput(outpost, view.Facility, production.Props, out expected))
 				{
@@ -1422,20 +1433,16 @@ namespace DreamsOutposts
 				rule.Facts.Add("DreamsOutposts.Ui.Rule.Expected".Translate(production.Output.ToString("0.#"), production.IntervalText).ToString());
 				rule.FactKinds.Add("good");
 				AddTemporaryProductionEffectFacts(rule, view.Facility, props);
-				if (props.capacityStat != null)
+				float capacity = 0f;
+				if (props.Worker.UsesPersonnelCapacity(props))
 				{
-					float capacity;
-					if (OutpostProductionUtility.TryCalculatePersonnelCapacity(outpost, props, out capacity))
-					{
-						rule.Facts.Add("DreamsOutposts.Ui.Rule.Capacity".Translate(props.capacityStat.LabelCap,
-							props.capacityStat.ValueToString(capacity)).ToString());
-						rule.FactKinds.Add("neutral");
-					}
+					OutpostProductionUtility.TryCalculatePersonnelCapacity(outpost, props, out capacity);
 				}
-				else
+				// 产能这一条完全交给 worker 描述：StatDef 格式、普通数字、或「固定产能 1」。
+				string capacityFact = props.Worker.DescribeCapacity(outpost, props, capacity);
+				if (!string.IsNullOrEmpty(capacityFact))
 				{
-					// 没有产能属性：产能固定为 1，产量就是 outputPerCapacity
-					rule.Facts.Add("DreamsOutposts.Ui.Rule.FixedCapacity".Translate().ToString());
+					rule.Facts.Add(capacityFact);
 					rule.FactKinds.Add("neutral");
 				}
 				if (props.HasSkillRequirement)
@@ -1477,7 +1484,8 @@ namespace DreamsOutposts
 			{
 				OutpostBombardmentProperties bombardment = def.bombardment;
 				int shells = OutpostBombardmentUtility.ShellsPerStrike(outpost);
-				string shellLabel = (bombardment.shellDef != null) ? bombardment.shellDef.LabelCap : "DreamsOutposts.Unknown".Translate();
+				ThingDef selectedShell = OutpostBombardmentUtility.SelectedShellDef(outpost) ?? bombardment.shellDef;
+				string shellLabel = (selectedShell != null) ? selectedShell.LabelCap : "DreamsOutposts.Unknown".Translate();
 				details.Bombardment.Add(new KeyValuePair<string, string>("DreamsOutposts.Ui.Kv.ShellsPerStrike".Translate().ToString(),
 					"DreamsOutposts.Ui.Kv.ShellsPerStrikeValue".Translate(shells, shellLabel).ToString()));
 				details.Bombardment.Add(new KeyValuePair<string, string>("DreamsOutposts.Ui.Kv.Range".Translate().ToString(), bombardment.maxRangeTiles.ToString()));
@@ -1488,7 +1496,7 @@ namespace DreamsOutposts
 						"DreamsOutposts.Ui.Rule.SkillFilter".Translate(bombardment.requiredSkill.LabelCap, bombardment.requiredSkillLevel).ToString()));
 				}
 				details.Bombardment.Add(new KeyValuePair<string, string>("DreamsOutposts.Ui.Kv.PerStrikeCost".Translate().ToString(),
-					OutpostBuildUtility.CostLabel(bombardment.CostForShells(shells))));
+					OutpostBuildUtility.CostLabel(OutpostBombardmentUtility.ShellStrikeCost(selectedShell, shells))));
 			}
 			return details;
 		}

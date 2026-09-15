@@ -2,6 +2,7 @@
 <Defs>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ResearchStation</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>research station</label>
     <description>A permanent research operation that contributes 61.875 research points to the colony's current project every half-day.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -20,6 +21,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AdvancedResearchApparatus</defName>
     <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
     <label>advanced research apparatus</label>
     <description>A high-tech research installation that multiplies research output by 1.33.</description>
     <allowedOutpostTypes>
@@ -43,6 +45,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_SterileAnalysisApparatus</defName>
     <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
     <label>sterile analysis apparatus</label>
     <description>A sterile analytical suite that multiplies research output by 1.3.</description>
     <allowedOutpostTypes>

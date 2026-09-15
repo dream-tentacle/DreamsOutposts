@@ -3,6 +3,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_TemporaryDefenses</defName>
     <facilityTag>Defense</facilityTag>
+    <category>DreamsOutposts_CategoryDefense</category>
     <label>temporary defenses</label>
     <description>Earthworks, firing steps and improvised barricades provide a modest defensive position.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -15,6 +16,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_Fortifications</defName>
     <facilityTag>Defense</facilityTag>
+    <category>DreamsOutposts_CategoryDefense</category>
     <label>fortifications</label>
     <description>Hardened firing positions and prepared strongpoints provide reliable protection against attack.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -31,8 +33,9 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MortarEmplacement</defName>
     <facilityTag>Defense</facilityTag>
+    <category>DreamsOutposts_CategoryDefense</category>
     <label>mortar emplacement</label>
-    <description>A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver high-explosive fire on nearby targets.</description>
+    <description>A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver mortar fire on nearby targets.</description>
     <maxPerOutpost>1</maxPerOutpost>
     <researchPrerequisites>
       <li>Mortars</li>
@@ -45,10 +48,6 @@
     <bombardment>
       <shellDef>Shell_HighExplosive</shellDef>
       <shellsPerStrike>4</shellsPerStrike>
-      <costPerShell>
-        <Steel>30</Steel>
-        <Chemfuel>18</Chemfuel>
-      </costPerShell>
       <maxRangeTiles>12</maxRangeTiles>
       <cooldownHours>18</cooldownHours>
       <researchPrerequisite>Mortars</researchPrerequisite>
@@ -60,6 +59,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AmmunitionDump</defName>
     <facilityTag>Defense</facilityTag>
+    <category>DreamsOutposts_CategoryDefense</category>
     <label>ammunition dump</label>
     <description>A protected shell store that adds three rounds to every bombardment fired by this outpost.</description>
     <researchPrerequisites>

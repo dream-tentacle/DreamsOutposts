@@ -99,6 +99,8 @@
   <DreamsOutposts.Ui.Chip.TrainingTip>{0}：驻扎在此的每个殖民者每小时获得{1}点经验。无法从事该工作的殖民者不会获得经验。</DreamsOutposts.Ui.Chip.TrainingTip>
   <!-- EN: Fixed capacity 1 -->
   <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <!-- EN: Efficiency {0} -->
+  <DreamsOutposts.Ui.Rule.Efficiency>效率 {0}</DreamsOutposts.Ui.Rule.Efficiency>
   <!-- EN: Core facility · cannot be removed -->
   <DreamsOutposts.Ui.CoreSubLabel>核心设施 · 不可拆除</DreamsOutposts.Ui.CoreSubLabel>
   <!-- EN: Slot {0} -->
@@ -209,6 +211,7 @@
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} 已禁用</DreamsOutposts.Ui.DefenseSkillDisabled>
   <!-- EN: Warehouse -->
   <DreamsOutposts.Ui.Warehouse>仓库</DreamsOutposts.Ui.Warehouse>
+  <DreamsOutposts.Ui.Vehicles>载具</DreamsOutposts.Ui.Vehicles>
   <!-- EN: Produced goods end up here automatically. -->
   <DreamsOutposts.Ui.WarehouseHint>生产出的产物会自动进入这里。</DreamsOutposts.Ui.WarehouseHint>
   <!-- EN: {0} stacks -->
@@ -286,7 +289,7 @@
   <!-- EN: Recruit -->
   <DreamsOutposts.Tavern.Recruit>招募</DreamsOutposts.Tavern.Recruit>
   <!-- EN: Dismiss -->
-  <DreamsOutposts.Tavern.Dismiss>删除</DreamsOutposts.Tavern.Dismiss>
+  <DreamsOutposts.Tavern.Dismiss>驱离</DreamsOutposts.Tavern.Dismiss>
   <!-- EN: Dismiss {0}? This adventurer will leave immediately. -->
-  <DreamsOutposts.Tavern.DismissConfirm>确定删除{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
+  <DreamsOutposts.Tavern.DismissConfirm>确定驱离{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
 </LanguageData>

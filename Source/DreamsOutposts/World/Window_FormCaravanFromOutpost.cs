@@ -12,6 +12,7 @@ namespace DreamsOutposts
 	{
 		private enum Tab
 		{
+			Vehicles,
 			Pawns,
 			Items,
 			TravelSupplies
@@ -36,6 +37,14 @@ namespace DreamsOutposts
 		private TransferableOneWayWidget itemsTransfer;
 
 		private TransferableOneWayWidget travelSuppliesTransfer;
+
+		/// <summary>载具拓展的载具卡片控件（反射创建），null 表示本窗口不提供载具页。</summary>
+		private object vehiclesTransfer;
+
+		private bool vehiclesTabEnabled;
+
+		/// <summary>窗口打开时据点里的载具，用来在关窗/重置时清掉座位分配。</summary>
+		private readonly List<Pawn> trackedVehicles = new List<Pawn>();
 
 		private Tab tab;
 
@@ -186,7 +195,28 @@ namespace DreamsOutposts
 		public override void PostOpen()
 		{
 			base.PostOpen();
+			// 载具拓展的载具卡片与座位窗口都依赖全局静态 CaravanFormation.Current，
+			// 这里临时给它装一个代理，关窗时还原。
+			vehiclesTabEnabled = VehicleCaravanCompat.TryBeginContext(Notify_TransferablesChanged);
 			CalculateAndRecacheTransferables();
+		}
+
+		public override void PostClose()
+		{
+			base.PostClose();
+			ReleaseVehicleState();
+		}
+
+		private void ReleaseVehicleState()
+		{
+			if (trackedVehicles.Count > 0)
+			{
+				VehicleCaravanCompat.ClearAssignments(trackedVehicles);
+				trackedVehicles.Clear();
+			}
+			VehicleCaravanCompat.EndContext();
+			vehiclesTabEnabled = false;
+			vehiclesTransfer = null;
 		}
 
 		public override bool CausesMessageBackground()
@@ -208,6 +238,14 @@ namespace DreamsOutposts
 			Text.Anchor = TextAnchor.UpperLeft;
 			CaravanUIUtility.DrawCaravanInfo(new CaravanUIUtility.CaravanInfo(MassUsage, MassCapacity, cachedMassCapacityExplanation, TilesPerDay, cachedTilesPerDayExplanation, DaysWorthOfFood, ForagedFoodPerDay, cachedForagedFoodPerDayExplanation, Visibility, cachedVisibilityExplanation), null, outpost.Tile, null, lastMassFlashTime, new Rect(12f, 35f, inRect.width - 24f, 40f));
 			tabsList.Clear();
+			if (vehiclesTabEnabled)
+			{
+				// 装了载具框架就无条件显示载具页，标签沿用载具拓展自己的键，与原版组建窗口一致。
+				tabsList.Add(new TabRecord("VF_Vehicles".Translate(), delegate
+				{
+					tab = Tab.Vehicles;
+				}, tab == Tab.Vehicles));
+			}
 			tabsList.Add(new TabRecord("PawnsTab".Translate(), delegate
 			{
 				tab = Tab.Pawns;
@@ -237,6 +275,9 @@ namespace DreamsOutposts
 			bool anythingChanged = false;
 			switch (tab)
 			{
+			case Tab.Vehicles:
+				DoVehiclesTab(listRect);
+				break;
 			case Tab.Pawns:
 				pawnsTransfer.OnGUI(listRect, out anythingChanged);
 				break;
@@ -252,6 +293,28 @@ namespace DreamsOutposts
 				Notify_TransferablesChanged();
 			}
 			Widgets.EndGroup();
+		}
+
+		/// <summary>载具拓展的载具卡片 + 一行编入数量提示（据点远行队一次只允许一台载具）。</summary>
+		private void DoVehiclesTab(Rect listRect)
+		{
+			const float hintHeight = 24f;
+			List<Pawn> selectedVehicles = OutpostCaravanUtility.CollectSelectedVehicles(transferables);
+			bool tooMany = selectedVehicles.Count > OutpostCaravanUtility.MaxVehiclesPerCaravan;
+			Color previous = GUI.color;
+			if (tooMany)
+			{
+				GUI.color = ColorLibrary.RedReadable;
+			}
+			else
+			{
+				GUI.color = Color.gray;
+			}
+			Widgets.Label(new Rect(listRect.x, listRect.y, listRect.width, hintHeight), "DreamsOutposts.OneVehiclePerCaravanHint".Translate(OutpostCaravanUtility.MaxVehiclesPerCaravan));
+			GUI.color = previous;
+			Rect cardsRect = listRect;
+			cardsRect.yMin += hintHeight;
+			VehicleCaravanCompat.DrawVehicleWidget(vehiclesTransfer, cardsRect);
 		}
 
 		private void DoBottomButtons(Rect rect)
@@ -274,6 +337,7 @@ namespace DreamsOutposts
 			if (Widgets.ButtonText(new Rect(acceptRect.x - 10f - BottomButtonSize.x, acceptRect.y, BottomButtonSize.x, BottomButtonSize.y), "ResetButton".Translate()))
 			{
 				SoundDefOf.Tick_Low.PlayOneShotOnCamera();
+				VehicleCaravanCompat.ClearAssignments(trackedVehicles);
 				CalculateAndRecacheTransferables();
 			}
 			if (Widgets.ButtonText(new Rect(acceptRect.xMax + 10f, acceptRect.y, BottomButtonSize.x, BottomButtonSize.y), "CancelButton".Translate()))
@@ -287,7 +351,46 @@ namespace DreamsOutposts
 			transferables = new List<TransferableOneWay>();
 			OutpostCaravanUtility.FillTransferables(outpost, transferables);
 			CaravanUIUtility.CreateCaravanTransferableWidgets(transferables, out pawnsTransfer, out itemsTransfer, out travelSuppliesTransfer, "FormCaravanColonyThingCountTip".Translate(), IgnorePawnsInventoryMode.Ignore, () => MassCapacity - MassUsage, ignoreSpawnedCorpsesGearAndInventoryMass: false, outpost.Tile);
+			RecacheVehiclesTransfer();
 			Notify_TransferablesChanged();
+		}
+
+		/// <summary>
+		/// 拆出载具/人员 transferable，交给载具拓展自己的载具卡片组件；没有载具时它也只会显示「无」，
+		/// 这样装了载具框架的据点界面与原版组建窗口保持一致。
+		/// </summary>
+		private void RecacheVehiclesTransfer()
+		{
+			vehiclesTransfer = null;
+			trackedVehicles.Clear();
+			if (!vehiclesTabEnabled)
+			{
+				return;
+			}
+			List<TransferableOneWay> vehicleTransferables = new List<TransferableOneWay>();
+			List<TransferableOneWay> pawnTransferables = new List<TransferableOneWay>();
+			for (int i = 0; i < transferables.Count; i++)
+			{
+				Thing anyThing = transferables[i].AnyThing;
+				if (VehicleCaravanCompat.IsVehicle(anyThing as Pawn))
+				{
+					vehicleTransferables.Add(transferables[i]);
+				}
+				else if (anyThing is Pawn)
+				{
+					pawnTransferables.Add(transferables[i]);
+				}
+			}
+			trackedVehicles.AddRange(outpost.VehiclesListForReading);
+			vehiclesTransfer = VehicleCaravanCompat.CreateVehicleWidget("VF_Vehicles".Translate(), vehicleTransferables, pawnTransferables, outpost.Tile);
+			if (vehiclesTransfer == null)
+			{
+				vehiclesTabEnabled = false;
+				return;
+			}
+			// 载具卡片会按据点地块的通行性给勾选框上锁（"该生物群系无法被载具通过"）；
+			// 能起飞的载具是停放状态，地势通不通与它能否出发无关，这里只对这些型号解锁。
+			VehicleCaravanCompat.AllowLaunchableVehiclesOnTile(vehiclesTransfer, vehicleTransferables);
 		}
 
 		private void Notify_TransferablesChanged()

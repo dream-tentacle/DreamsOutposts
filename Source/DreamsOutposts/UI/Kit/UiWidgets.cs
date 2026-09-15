@@ -108,16 +108,34 @@ namespace DreamsOutposts
 			return UiText.LineHeight((size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body) + padding * 2f;
 		}
 
-		/// <summary>使用白色透明底图染色的主按钮；文字位置使用底图原始像素坐标。</summary>
-		public static bool TexturedPrimaryButton(Rect rect, string label, Texture2D texture,
+		/// <summary>
+		/// 带底图按钮的宽度：高度 × 贴图长宽比，保证底图不被拉伸。贴图缺失时退回文字宽兜底。
+		/// </summary>
+		public static float TexturedButtonWidth(float height, Texture2D texture, string fallbackLabel,
+			UiButtonSize size = UiButtonSize.Normal)
+		{
+			if (texture != null && texture.height > 0)
+			{
+				return height * texture.width / texture.height;
+			}
+			return Mathf.Max(ButtonWidth(fallbackLabel, size), 64f) * 3f;
+		}
+
+		/// <summary>
+		/// 使用白色透明底图染色的按钮；文字位置使用底图原始像素坐标。
+		/// 主按钮传 Brand，破坏性按钮传 Danger。
+		/// </summary>
+		public static bool TexturedButton(Rect rect, string label, Texture2D texture,
 			float sourceLabelX, float sourceLabelWidth,
-			UiButtonSize size = UiButtonSize.Normal, string tooltip = null)
+			Color fill, Color hoverFill, Color textColor,
+			UiButtonSize size = UiButtonSize.Normal, string tooltip = null,
+			bool enabled = true, string disabledReason = null)
 		{
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
 			}
-			bool hovered = Mouse.IsOver(rect);
+			bool hovered = enabled && Mouse.IsOver(rect);
 			bool pressed = hovered && (Event.current.type == EventType.MouseDown || Event.current.type == EventType.MouseDrag);
 			Rect drawRect = rect;
 			if (pressed)
@@ -127,10 +145,14 @@ namespace DreamsOutposts
 				drawRect = new Rect(rect.x + shrinkX, rect.y + shrinkY,
 					Mathf.Max(rect.width - shrinkX * 2f, 1f), Mathf.Max(rect.height - shrinkY * 2f, 1f));
 			}
+			float alpha = enabled ? 1f : UiPalette.DisabledAlpha;
 			if (texture != null)
 			{
 				Color previous = GUI.color;
-				GUI.color = hovered ? UiPalette.BrandHover : UiPalette.Brand;
+				Color tint = hovered ? hoverFill : fill;
+				// 乘性叠加：外层若是禁用态容器（压了 alpha），底图也会跟着变淡。
+				GUI.color = new Color(previous.r * tint.r, previous.g * tint.g, previous.b * tint.b,
+					previous.a * tint.a * alpha);
 				GUI.DrawTexture(drawRect, texture, ScaleMode.StretchToFill, true);
 				GUI.color = previous;
 			}
@@ -138,9 +160,23 @@ namespace DreamsOutposts
 			Rect drawnLabelRect = new Rect(drawRect.x + drawRect.width * sourceLabelX / sourceWidth,
 				drawRect.y, drawRect.width * sourceLabelWidth / sourceWidth, drawRect.height);
 			UiText.Draw(drawnLabelRect, label, (size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body,
-				UiPalette.OnAccent, TextAnchor.MiddleCenter, false, false, true);
-			Tip(rect, tooltip);
+				UiPalette.WithAlpha(textColor, alpha), TextAnchor.MiddleCenter, false, false, true);
+			string tip = (!enabled && !string.IsNullOrEmpty(disabledReason)) ? disabledReason : tooltip;
+			Tip(rect, tip);
+			if (!enabled)
+			{
+				return false;
+			}
 			return Widgets.ButtonInvisible(rect);
+		}
+
+		/// <summary>使用白色透明底图染色的主按钮；文字位置使用底图原始像素坐标。</summary>
+		public static bool TexturedPrimaryButton(Rect rect, string label, Texture2D texture,
+			float sourceLabelX, float sourceLabelWidth,
+			UiButtonSize size = UiButtonSize.Normal, string tooltip = null)
+		{
+			return TexturedButton(rect, label, texture, sourceLabelX, sourceLabelWidth,
+				UiPalette.Brand, UiPalette.BrandHover, UiPalette.OnAccent, size, tooltip);
 		}
 
 		public static bool IconButton(Rect rect, UiIcon icon, string tooltip = null, bool enabled = true)

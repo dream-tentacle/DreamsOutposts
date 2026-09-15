@@ -8,7 +8,11 @@ namespace DreamsOutposts
 	{
 		private static readonly IOutpostCompatibility[] Modules =
 		{
-			new FleshHiveCompatibility()
+			new FleshHiveCompatibility(),
+			new VehicleFrameworkCompatibility(),
+			new XianluCompatibility(),
+			new GD5Compatibility(),
+			new MiliraCompatibility()
 		};
 
 		public static void ApplyAll(Harmony harmony)

@@ -61,7 +61,7 @@ namespace DreamsOutposts
 				{
 					Pawn pawn = colonists.RandomElement();
 					colonists.Remove(pawn);
-					context.outpost.pawns.Remove(pawn);
+					if (context.outpost.pawns.Remove(pawn)) context.outpost.RequestUpdate();
 					if (!Find.WorldPawns.Contains(pawn)) Find.WorldPawns.PassToWorld(pawn);
 					pawn.Kill(null);
 					if (pawn.Dead) casualties.Add(pawn.LabelShortCap);

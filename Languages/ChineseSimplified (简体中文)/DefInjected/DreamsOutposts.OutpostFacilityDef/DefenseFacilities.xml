@@ -13,8 +13,8 @@
 
   <!-- EN: mortar emplacement -->
   <DreamsOutposts_MortarEmplacement.label>迫击炮阵地</DreamsOutposts_MortarEmplacement.label>
-  <!-- EN: A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver high-explosive fire on nearby targets. -->
-  <DreamsOutposts_MortarEmplacement.description>构筑在据点外围的常设迫击炮阵地。凭借射表、预置弹药与加固射击位，熟练的驻员可对附近目标实施高爆火力打击。</DreamsOutposts_MortarEmplacement.description>
+  <!-- EN: A permanent mortar position built into the outpost perimeter. Range tables, prepared ammunition stores and hardened firing positions allow skilled residents to deliver mortar fire on nearby targets. -->
+  <DreamsOutposts_MortarEmplacement.description>构筑在据点外围的常设迫击炮阵地。凭借射表、预置弹药与加固射击位，熟练的驻员可对附近目标实施迫击炮火力打击。</DreamsOutposts_MortarEmplacement.description>
 
   <!-- EN: temporary defenses -->
   <DreamsOutposts_TemporaryDefenses.label>临时防御工事</DreamsOutposts_TemporaryDefenses.label>

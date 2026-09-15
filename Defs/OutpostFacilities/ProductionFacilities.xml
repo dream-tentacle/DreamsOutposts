@@ -3,6 +3,7 @@
   <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_ResourceBoostBase" Abstract="True">
     <installableAsExtension>true</installableAsExtension>
     <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
     <maxPerOutpost>1</maxPerOutpost>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_AdvancedResourceBoostBase" ParentName="DreamsOutposts_ResourceBoostBase" Abstract="True">
@@ -32,7 +33,7 @@
   <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_ResourceBoostBase">
     <defName>DreamsOutposts_OreSortingStation</defName>
     <label>ore sorting station</label>
-    <description>Sorts and grades incoming ore, increasing steel output by 50%.</description>
+    <description>Sorts and grades incoming ore, increasing mineral output by 50%.</description>
     <allowedOutpostTypes>
       <li>DreamsOutposts_Mining</li>
     </allowedOutpostTypes>
@@ -50,7 +51,7 @@
   <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_AdvancedResourceBoostBase">
     <defName>DreamsOutposts_AdvancedOreSortingStation</defName>
     <label>advanced ore sorting station</label>
-    <description>Automated separation equipment doubles steel output.</description>
+    <description>Automated separation equipment doubles mineral output.</description>
     <allowedOutpostTypes>
       <li>DreamsOutposts_Mining</li>
     </allowedOutpostTypes>
@@ -227,6 +228,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ComponentsWorkshop</defName>
     <facilityTag>Processing</facilityTag>
+    <category>DreamsOutposts_CategoryProcessing</category>
     <label>component workshop</label>
     <description>A workshop that machines steel stock into components.</description>
     <researchPrerequisites>
@@ -259,6 +261,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AdvancedComponentsWorkshop</defName>
     <facilityTag>Processing</facilityTag>
+    <category>DreamsOutposts_CategoryProcessing</category>
     <label>advanced component workshop</label>
     <description>A precision workshop that produces advanced components from their standard materials.</description>
     <researchPrerequisites>
@@ -294,6 +297,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MedicineWorkshop</defName>
     <facilityTag>Processing</facilityTag>
+    <category>DreamsOutposts_CategoryProcessing</category>
     <label>medicine workshop</label>
     <description>A clean pharmaceutical workspace that processes cloth, herbal medicine and neutroamine into industrial medicine.</description>
     <researchPrerequisites>
@@ -327,6 +331,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_CompactMiningMachine</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>compact mining machine</label>
     <description>A compact automated miner that steadily extracts steel without requiring a resident operator.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -349,6 +354,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AutomaticReactor</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>automatic reaction vessel</label>
     <description>An automated chemical reactor that continuously produces chemfuel.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -375,6 +381,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ChemicalCollectionDevice</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>chemical collection device</label>
     <description>An automated chemical collector that refines trace precursors into neutroamine.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -401,6 +408,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_DeepPlasteelDrill</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>deep plasteel drill</label>
     <description>A specialized deep drill that slowly extracts plasteel deposits.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -428,6 +436,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_PreciousMetalSeparator</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>precious metal separator</label>
     <description>A precision separator that recovers small quantities of gold from low-grade material.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -456,6 +465,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_CottonGreenhouse</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>cotton greenhouse</label>
     <description>A mechanized greenhouse that continuously cultivates and processes cotton into cloth.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -482,6 +492,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AdaptiveMiningMachine</defName>
     <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>adaptive mining machine</label>
     <description>An advanced automated miner that can be configured to extract different mineral resources.</description>
     <maxPerOutpost>1</maxPerOutpost>
@@ -508,6 +519,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AutomaticAirdropper</defName>
     <facilityTag>Other</facilityTag>
+    <category>DreamsOutposts_CategoryOther</category>
     <uiIcon>Crate</uiIcon>
     <label>automatic airdropper</label>
     <description>Routes selected facility outputs directly to the primary colony by drop pod.</description>
@@ -525,6 +537,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_IntelligentAirdropper</defName>
     <facilityTag>Other</facilityTag>
+    <category>DreamsOutposts_CategoryOther</category>
     <uiIcon>Crate</uiIcon>
     <label>intelligent airdropper</label>
     <description>Maintains configured reserves of selected facility outputs in the outpost store and delivers only the excess to the primary colony.</description>
@@ -543,6 +556,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_WoodPowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>wood-fired outpost generator</label>
     <description>A remote generator that prepays its fuel and transmits power to a linked receiver.</description>
@@ -565,6 +579,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_ChemfuelPowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>chemfuel outpost generator</label>
     <description>A remote generator that consumes nine chemfuel before transmitting power for two days.</description>
@@ -587,6 +602,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_GeothermalPowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>geothermal outpost generator</label>
     <description>A geothermal installation that continuously produces power and transmits it to a linked receiver.</description>
@@ -608,6 +624,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_WatermillPowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>watermill outpost generator</label>
     <description>A river-driven generator that continuously transmits power to a linked receiver.</description>
@@ -630,6 +647,7 @@
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_SolarPowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>solar outpost generator</label>
     <description>A solar installation whose averaged output is transmitted continuously to a linked receiver.</description>
@@ -650,6 +668,7 @@
   <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Anomaly">
     <defName>DreamsOutposts_BioferritePowerGenerator</defName>
     <facilityTag>PowerGeneration</facilityTag>
+    <category>DreamsOutposts_CategoryPowerGeneration</category>
     <uiIcon>Generator</uiIcon>
     <label>bioferrite outpost generator</label>
     <description>A generator that burns bioferrite and transmits the resulting power to a linked receiver.</description>

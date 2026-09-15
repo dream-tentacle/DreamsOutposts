@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   <!-- EN: tamed animals -->
   <DreamsOutposts.Taming.CapturedAnimals>已驯服动物</DreamsOutposts.Taming.CapturedAnimals>
@@ -72,4 +72,40 @@
   <DreamsOutposts.RemotePower.DistanceEfficiency>距离{0} · 效率{1}</DreamsOutposts.RemotePower.DistanceEfficiency>
   <!-- EN: research points -->
   <DreamsOutposts.ResearchPoints>科研点数</DreamsOutposts.ResearchPoints>
+  <!-- EN: no product -->
+  <DreamsOutposts.XianluQi.NoProduct>没有产物</DreamsOutposts.XianluQi.NoProduct>
+  <!-- EN: No resource can be produced right now. -->
+  <DreamsOutposts.XianluQi.NoProductAvailable>当前没有可以产出的资源。</DreamsOutposts.XianluQi.NoProductAvailable>
+  <!-- EN: Click to choose which resource the altar gathers. -->
+  <DreamsOutposts.XianluQi.ChooseProductTip>点击选择聚灵法坛产出的资源。</DreamsOutposts.XianluQi.ChooseProductTip>
+  <!-- EN: product: {0} -->
+  <DreamsOutposts.XianluQi.ProductSummary>产物：{0}</DreamsOutposts.XianluQi.ProductSummary>
+  <!-- EN:  (current) -->
+  <DreamsOutposts.XianluQi.CurrentSuffix>（当前）</DreamsOutposts.XianluQi.CurrentSuffix>
+  <!-- EN: {0}\n\n{1} per day per point of efficiency -->
+  <DreamsOutposts.XianluQi.ProductOptionTooltip>{0}\n\n每点效率每天产出{1}个</DreamsOutposts.XianluQi.ProductOptionTooltip>
+  <!-- EN: no product -->
+  <DreamsOutposts.MechMachining.NoProduct>没有产物</DreamsOutposts.MechMachining.NoProduct>
+  <!-- EN: Nothing can be machined right now. -->
+  <DreamsOutposts.MechMachining.NoProductAvailable>当前无法加工任何产物。</DreamsOutposts.MechMachining.NoProductAvailable>
+  <!-- EN: Click to choose what the mechanoids machine here. -->
+  <DreamsOutposts.MechMachining.ChooseProductTip>点击选择机械族在此加工出的产物。</DreamsOutposts.MechMachining.ChooseProductTip>
+  <!-- EN: product: {0} -->
+  <DreamsOutposts.MechMachining.ProductSummary>产物：{0}</DreamsOutposts.MechMachining.ProductSummary>
+  <!-- EN:  (current) -->
+  <DreamsOutposts.MechMachining.CurrentSuffix>（当前）</DreamsOutposts.MechMachining.CurrentSuffix>
+  <!-- EN: {0}\n\n{1} per day per point of efficiency -->
+  <DreamsOutposts.MechMachining.ProductOptionTooltip>{0}\n\n每点效率每天产出{1}个</DreamsOutposts.MechMachining.ProductOptionTooltip>
+  <!-- EN: no product -->
+  <DreamsOutposts.MiliraSolar.NoProduct>没有产物</DreamsOutposts.MiliraSolar.NoProduct>
+  <!-- EN: Nothing can be smelted right now. -->
+  <DreamsOutposts.MiliraSolar.NoProductAvailable>当前无法冶炼任何产物。</DreamsOutposts.MiliraSolar.NoProductAvailable>
+  <!-- EN: Click to choose what the smelter turns out. -->
+  <DreamsOutposts.MiliraSolar.ChooseProductTip>点击选择日光冶炼场产出的材料。</DreamsOutposts.MiliraSolar.ChooseProductTip>
+  <!-- EN: product: {0} -->
+  <DreamsOutposts.MiliraSolar.ProductSummary>产物：{0}</DreamsOutposts.MiliraSolar.ProductSummary>
+  <!-- EN:  (current) -->
+  <DreamsOutposts.MiliraSolar.CurrentSuffix>（当前）</DreamsOutposts.MiliraSolar.CurrentSuffix>
+  <!-- EN: {0}\n\n{1} per day per point of efficiency -->
+  <DreamsOutposts.MiliraSolar.ProductOptionTooltip>{0}\n\n每点效率每天产出{1}个</DreamsOutposts.MiliraSolar.ProductOptionTooltip>
 </LanguageData>

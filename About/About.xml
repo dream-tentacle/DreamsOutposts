@@ -18,5 +18,6 @@
 	</modDependencies>
 	<loadAfter>
 		<li>HaiLuan.FleshHive</li>
+		<li>RI.RimImmortal.Core</li>
 	</loadAfter>
 </ModMetaData>

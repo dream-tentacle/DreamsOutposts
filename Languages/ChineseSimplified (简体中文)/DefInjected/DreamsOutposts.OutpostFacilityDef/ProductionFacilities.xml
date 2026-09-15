@@ -33,8 +33,8 @@
 
   <!-- EN: advanced ore sorting station -->
   <DreamsOutposts_AdvancedOreSortingStation.label>高级矿石分选站</DreamsOutposts_AdvancedOreSortingStation.label>
-  <!-- EN: Automated separation equipment doubles steel output. -->
-  <DreamsOutposts_AdvancedOreSortingStation.description>自动分选设备使钢铁产量翻倍。</DreamsOutposts_AdvancedOreSortingStation.description>
+  <!-- EN: Automated separation equipment doubles mineral output. -->
+  <DreamsOutposts_AdvancedOreSortingStation.description>自动分选设备使矿物产量翻倍。</DreamsOutposts_AdvancedOreSortingStation.description>
 
   <!-- EN: automatic airdropper -->
   <DreamsOutposts_AutomaticAirdropper.label>自动空投机</DreamsOutposts_AutomaticAirdropper.label>
@@ -44,7 +44,7 @@
   <!-- EN: automatic reaction vessel -->
   <DreamsOutposts_AutomaticReactor.label>自动反应釜</DreamsOutposts_AutomaticReactor.label>
   <!-- EN: An automated chemical reactor that continuously produces chemfuel. -->
-  <DreamsOutposts_AutomaticReactor.description>一座持续产出化合燃料的自动化化学反应釜。</DreamsOutposts_AutomaticReactor.description>
+  <DreamsOutposts_AutomaticReactor.description>一座持续产出化合燃料的自动化学反应釜。</DreamsOutposts_AutomaticReactor.description>
 
   <!-- EN: bioferrite outpost generator -->
   <DreamsOutposts_BioferritePowerGenerator.label>活铁发电设施</DreamsOutposts_BioferritePowerGenerator.label>
@@ -118,8 +118,8 @@
 
   <!-- EN: ore sorting station -->
   <DreamsOutposts_OreSortingStation.label>矿石分选站</DreamsOutposts_OreSortingStation.label>
-  <!-- EN: Sorts and grades incoming ore, increasing steel output by 50%. -->
-  <DreamsOutposts_OreSortingStation.description>对送来的矿石进行分选与分级，使钢铁产量提高50%。</DreamsOutposts_OreSortingStation.description>
+  <!-- EN: Sorts and grades incoming ore, increasing mineral output by 50%. -->
+  <DreamsOutposts_OreSortingStation.description>对送来的矿石进行分选与分级，使矿物产量提高50%。</DreamsOutposts_OreSortingStation.description>
 
   <!-- EN: precious metal separator -->
   <DreamsOutposts_PreciousMetalSeparator.label>贵金属分离器</DreamsOutposts_PreciousMetalSeparator.label>

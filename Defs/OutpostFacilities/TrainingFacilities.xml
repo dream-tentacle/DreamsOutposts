@@ -3,6 +3,7 @@
   <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_TrainingFacilityBase" Abstract="True">
     <installableAsExtension>true</installableAsExtension>
     <facilityTag>Training</facilityTag>
+    <category>DreamsOutposts_CategoryTraining</category>
     <maxPerOutpost>1</maxPerOutpost>
     <buildCost>
       <Steel>50</Steel>

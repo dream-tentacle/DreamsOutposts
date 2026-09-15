@@ -51,7 +51,7 @@ namespace DreamsOutposts
 				if (project != null)
 				{
 					OutpostProductionProperties rule = Props.MakeRule();
-					float capacity = rule.Worker.CalculatePersonnelCapacity(outpost.Pawns, outpost.outpostTypeDef, rule);
+					float capacity = rule.Worker.CalculatePersonnelCapacity(outpost, rule);
 					float output = capacity * Props.outputPerCapacity;
 					Find.ResearchManager.AddProgress(project, OutpostProductionUtility.ApplyModifiers(outpost, parent, rule, output));
 				}
@@ -72,7 +72,7 @@ namespace DreamsOutposts
 		public override void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output)
 		{
 			OutpostProductionProperties rule = Props.MakeRule();
-			float capacity = rule.Worker.CalculatePersonnelCapacity(outpost.Pawns, outpost.outpostTypeDef, rule);
+			float capacity = rule.Worker.CalculatePersonnelCapacity(outpost, rule);
 			float amount = OutpostProductionUtility.ApplyModifiers(outpost, parent, rule, capacity * Props.outputPerCapacity);
 			int remaining = Mathf.Max(nextResearchTick - Find.TickManager.TicksGame, 0);
 			output.Add(new UiFacilitySectionView

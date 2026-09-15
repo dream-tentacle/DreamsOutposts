@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RimWorld;
 using RimWorld.Planet;
@@ -8,6 +9,9 @@ namespace DreamsOutposts
 {
 	public static class OutpostCaravanUtility
 	{
+		/// <summary>据点组建远行队时最多能编入的载具数量。多台载具混编（尤其飞机与地面车）会被载具拓展拒绝，因此硬性限制为一台。</summary>
+		public const int MaxVehiclesPerCaravan = 1;
+
 		public static Command FormCaravanCommand(Outpost outpost)
 		{
 			return new Command_Action
@@ -67,6 +71,16 @@ namespace DreamsOutposts
 			{
 				AddToTransferables(pawns[i], transferables);
 			}
+			// 载具必须一辆一个 transferable：载具拓展的卡片组件与座位窗口都只认 transferable.AnyThing，
+			// 两辆同型号载具一旦被合并进同一个 transferable，第二辆就没法分配座位。
+			List<Pawn> vehicles = outpost.VehiclesListForReading;
+			for (int i = 0; i < vehicles.Count; i++)
+			{
+				if (vehicles[i] == null) continue;
+				TransferableOneWay vehicleTransferable = new TransferableOneWay();
+				vehicleTransferable.things.Add(vehicles[i]);
+				transferables.Add(vehicleTransferable);
+			}
 			for (int j = 0; j < pawns.Count; j++)
 			{
 				Pawn_InventoryTracker inventory = pawns[j].inventory;
@@ -106,15 +120,77 @@ namespace DreamsOutposts
 				}
 				return false;
 			}
+			// 载具拓展：选中的载具必须在座位窗口里分配够操作乘员，否则拒绝，要求玩家先去载具页分配座位。
+			List<Pawn> vehiclesToSend = CollectSelectedVehicles(transferables);
+			// 一次只允许一台载具：多台载具（尤其飞机与地面车）混编会被载具拓展的合并/取回逻辑拒绝，
+			// 状态很脆，这里直接拦在提交口。
+			if (vehiclesToSend.Count > MaxVehiclesPerCaravan)
+			{
+				Messages.Message("DreamsOutposts.OneVehiclePerCaravan".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+				return false;
+			}
+			bool formingVehicleCaravan = vehiclesToSend.Count > 0 && VehicleCaravanCompat.Available;
+			if (formingVehicleCaravan && !VehicleCaravanCompat.ValidateCrew(vehiclesToSend, out string crewReason))
+			{
+				Messages.Message(crewReason, MessageTypeDefOf.RejectInput, historical: false);
+				return false;
+			}
+			// 已经坐进载具的乘员不再作为远行队成员单独加入，VehicleCaravan 会把车里的算作车内成员。
+			List<Pawn> caravanMembers = new List<Pawn>();
 			for (int i = 0; i < pawnsToSend.Count; i++)
 			{
-				OutpostUtility.MovePawnInventoryIntoOutpost(outpost, pawnsToSend[i]);
+				if (!formingVehicleCaravan || !VehicleCaravanCompat.IsAboard(pawnsToSend[i]))
+				{
+					caravanMembers.Add(pawnsToSend[i]);
+				}
 			}
-			for (int i2 = 0; i2 < pawnsToSend.Count; i2++)
+			List<Pawn> boarded = new List<Pawn>();
+			List<Pawn> detached = new List<Pawn>();
+			Caravan caravan = null;
+			try
 			{
-				outpost.pawns.Remove(pawnsToSend[i2]);
+				if (formingVehicleCaravan && !VehicleCaravanCompat.TryBoardAssignedPawns(pawnsToSend, vehiclesToSend, boarded, out string boardingReason))
+				{
+					Messages.Message(boardingReason, MessageTypeDefOf.RejectInput, historical: false);
+					ReturnToOutpost(outpost, boarded, detached);
+					return false;
+				}
+				for (int i = 0; i < pawnsToSend.Count; i++)
+				{
+					Pawn pawn = pawnsToSend[i];
+					// 载具的货舱跟着载具走；普通小人的随身物品先倒回据点，再按玩家在物品页的选择重新装车。
+					if (!VehicleCaravanCompat.IsVehicle(pawn))
+					{
+						OutpostUtility.MovePawnInventoryIntoOutpost(outpost, pawn);
+					}
+					if (outpost.pawns.Remove(pawn) || outpost.vehicles.Remove(pawn))
+					{
+						detached.Add(pawn);
+						outpost.RequestUpdate();
+					}
+				}
+				// 列表里只要含 VehiclePawn，载具拓展的前缀补丁就会把它变成 VehicleCaravan。
+				caravan = CaravanMaker.MakeCaravan(caravanMembers, Faction.OfPlayer, outpost.Tile, addToWorldPawnsIfNotAlready: true);
 			}
-			Caravan caravan = CaravanMaker.MakeCaravan(pawnsToSend, Faction.OfPlayer, outpost.Tile, addToWorldPawnsIfNotAlready: true);
+			catch (Exception ex)
+			{
+				Log.Error("[DreamsOutposts] Failed to form a caravan from outpost " + outpost.Label + ": " + ex);
+				Messages.Message("DreamsOutposts.CaravanFormFailedRolledBack".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+				ReturnToOutpost(outpost, boarded, detached);
+				return false;
+			}
+			if (caravan == null)
+			{
+				Log.Error("[DreamsOutposts] CaravanMaker returned no caravan for outpost " + outpost.Label + "; everyone was returned to the outpost.");
+				Messages.Message("DreamsOutposts.CaravanFormFailedRolledBack".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+				ReturnToOutpost(outpost, boarded, detached);
+				return false;
+			}
+			if (formingVehicleCaravan)
+			{
+				// 座位分配已经被登车消费掉，必须清掉，否则全局静态分配会污染后面的质量、可见度与界面判定。
+				VehicleCaravanCompat.ClearAssignments(vehiclesToSend);
+			}
 			transferables.RemoveAll((TransferableOneWay t) => t.AnyThing is Pawn);
 			for (int i3 = 0; i3 < transferables.Count; i3++)
 			{
@@ -144,6 +220,82 @@ namespace DreamsOutposts
 			return true;
 		}
 
+		/// <summary>收集本次被选中的载具。载具拓展会把同型号载具合进一个 transferable，所以按 CountToTransfer 逐辆取。</summary>
+		public static List<Pawn> CollectSelectedVehicles(List<TransferableOneWay> transferables)
+		{
+			List<Pawn> vehicles = new List<Pawn>();
+			if (transferables == null)
+			{
+				return vehicles;
+			}
+			for (int i = 0; i < transferables.Count; i++)
+			{
+				TransferableOneWay transferable = transferables[i];
+				if (transferable == null || transferable.CountToTransfer <= 0 || !(transferable.AnyThing is Pawn))
+				{
+					continue;
+				}
+				int remaining = transferable.CountToTransfer;
+				for (int j = 0; j < transferable.things.Count && remaining > 0; j++)
+				{
+					Pawn pawn = transferable.things[j] as Pawn;
+					if (pawn == null || !VehicleCaravanCompat.IsVehicle(pawn))
+					{
+						continue;
+					}
+					vehicles.Add(pawn);
+					remaining--;
+				}
+			}
+			return vehicles;
+		}
+
+		/// <summary>组建失败时把已经登车/已经搬出据点的小人和载具放回据点。</summary>
+		private static void ReturnToOutpost(Outpost outpost, List<Pawn> boarded, List<Pawn> detached)
+		{
+			if (outpost == null)
+			{
+				return;
+			}
+			for (int i = boarded.Count - 1; i >= 0; i--)
+			{
+				Pawn pawn = boarded[i];
+				if (pawn.GetCaravan() != null)
+				{
+					continue;
+				}
+				Pawn carrier;
+				if (!VehicleCaravanCompat.TryUnboard(pawn, out carrier) && VehicleCaravanCompat.IsAboard(pawn))
+				{
+					Log.Error("[DreamsOutposts] Failed to unboard " + pawn + " from " + (carrier?.ToString() ?? "its vehicle") + " after the caravan could not be formed.");
+					continue;
+				}
+				if (!outpost.pawns.Contains(pawn) && !outpost.pawns.TryAdd(pawn))
+				{
+					Log.Error("[DreamsOutposts] Failed to return " + pawn + " to outpost " + outpost.Label + " after the caravan could not be formed.");
+				}
+			}
+			for (int i = detached.Count - 1; i >= 0; i--)
+			{
+				Pawn pawn = detached[i];
+				if (pawn.GetCaravan() != null)
+				{
+					continue;
+				}
+				ThingOwner<Pawn> target = VehicleCaravanCompat.IsVehicle(pawn) ? outpost.vehicles : outpost.pawns;
+				if (target == null)
+				{
+					Log.Error("[DreamsOutposts] Outpost " + outpost.Label + " has no container for " + pawn + ".");
+					continue;
+				}
+				if (!target.Contains(pawn) && !target.TryAdd(pawn))
+				{
+					Log.Error("[DreamsOutposts] Failed to return " + pawn + " to outpost " + outpost.Label + " after the caravan could not be formed.");
+				}
+			}
+			outpost.RequestUpdate();
+		}
+
 		public static bool TryEnterOutpost(Caravan caravan, Outpost outpost)
 		{
 			if (caravan == null || outpost == null || outpost.Destroyed)
@@ -151,21 +303,31 @@ namespace DreamsOutposts
 				return false;
 			}
 			OutpostUtility.TransferCaravanItemsTo(caravan, outpost);
+			MoveCaravanPawnsToOutpost(caravan, outpost);
+			if (caravan.PawnsListForReading.Count == 0)
+			{
+				caravan.Destroy();
+			}
+			return true;
+		}
+
+		public static void MoveCaravanPawnsToOutpost(Caravan caravan, Outpost outpost)
+		{
+			if (VehicleFrameworkCompatibility.Enabled && caravan.GetType().FullName == "Vehicles.World.VehicleCaravan")
+			{
+				VehicleFrameworkCompatibility.MoveCaravanPawnsToOutpost(caravan, outpost);
+				return;
+			}
 			for (int i = caravan.PawnsListForReading.Count - 1; i >= 0; i--)
 			{
 				Pawn pawn = caravan.PawnsListForReading[i];
 				caravan.RemovePawn(pawn);
 				if (!OutpostUtility.MovePawnIntoOutpost(outpost, pawn))
 				{
-					Log.Error("Failed to move " + pawn?.ToString() + " from caravan " + caravan.Label + " into outpost " + outpost.Label + "; putting it back into the caravan.");
+					Log.Error("Failed to move " + pawn + " into outpost " + outpost.Label + "; returning it to caravan " + caravan.Label + ".");
 					caravan.AddPawn(pawn, addCarriedPawnToWorldPawnsIfAny: false);
 				}
 			}
-			if (caravan.PawnsListForReading.Count == 0)
-			{
-				caravan.Destroy();
-			}
-			return true;
 		}
 	}
 }

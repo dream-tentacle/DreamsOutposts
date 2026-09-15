@@ -165,13 +165,15 @@ namespace DreamsOutposts
 				Log.Error("Outpost " + (outpost?.Label ?? "null") + " has no pawn or inventory container, so " + pawn?.ToString() + " cannot be moved into it.");
 				return false;
 			}
-			if (!outpost.pawns.Contains(pawn) && !outpost.pawns.TryAdd(pawn))
+			bool alreadyPresent = outpost.pawns.Contains(pawn);
+			if (!alreadyPresent && !outpost.pawns.TryAdd(pawn))
 			{
 				Log.Error("Failed to move " + pawn?.ToString() + " into outpost " + outpost.Label + ".");
 				return false;
 			}
 			TakeOutOfWorld(pawn);
 			MovePawnInventoryIntoOutpost(outpost, pawn);
+			if (!alreadyPresent) outpost.RequestUpdate();
 			return true;
 		}
 

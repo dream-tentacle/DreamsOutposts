@@ -2,17 +2,20 @@
 <Defs>
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_FleshCultivationCore</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>flesh cultivation bed</label>
-    <description>A sprawling bed of cultivated flesh that produces twisted meat at a steady rate.</description>
+    <description>A sprawling bed of interconnected cultivated flesh. Its base daily output is 50 twisted meat, with a base efficiency of 2.\n\nThe total capacity of stationed fleshbeasts of yours adds to its efficiency.</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
         <productions>
-          <li>
+          <li Class="DreamsOutposts.OutpostProductionProperties_FleshCultivation">
             <id>twistedMeat</id>
             <product>Meat_Twisted</product>
             <intervalTicks>60000</intervalTicks>
             <outputPerCapacity>50</outputPerCapacity>
+            <baseEfficiency>2</baseEfficiency>
+            <efficiencyPerGroupCost>1</efficiencyPerGroupCost>
             <tags><li>FleshCultivation</li></tags>
           </li>
         </productions>
@@ -22,6 +25,7 @@
 
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_FleshHiveRelayCore</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>hive neural relay</label>
     <description>A remote neural relay woven into the flesh hive network. It increases fleshbeast capacity by 3, plus 2 for each outpost upgrade.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -30,7 +34,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_FleshCultivation</defName>
     <label>flesh cultivation outpost</label>
-    <description>A remote flesh cultivation site that produces 50 twisted meat per day.</description>
+    <description>A remote flesh cultivation site. Its twisted meat output increases with the hive capacity cost of stationed player fleshbeasts.</description>
     <coreFacility>DreamsOutposts_FleshCultivationCore</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 

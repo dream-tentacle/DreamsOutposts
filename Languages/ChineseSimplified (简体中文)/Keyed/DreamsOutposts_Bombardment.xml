@@ -1,9 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   <!-- EN: Bombard -->
   <DreamsOutposts.CommandBombard>炮击</DreamsOutposts.CommandBombard>
-  <!-- EN: Fire one mortar barrage from this outpost: {0} high-explosive shells for {1}, up to {2} tiles away, with a {3} cooldown.\n\nTargeting takes two steps: pick a tile that already has a map, then pick where the shells land on that map. Shells scatter around the chosen point the way vanilla mortars do, and cancelling costs nothing. -->
-  <DreamsOutposts.CommandBombardDesc>用据点的迫击炮打一次齐射：{0}发高爆弹，消耗{1}，射程{2}格，冷却{3}。\n\n选点分两步：先在世界地图上选一个已经有地图的地块，再在那张地图上选落点。炮弹会散布在落点周围（与原版迫击炮同样的精度），取消选择不会消耗任何资源。</DreamsOutposts.CommandBombardDesc>
+  <!-- EN: Fire one mortar barrage from this outpost: {0} {1} for {2}, up to {3} tiles away, with a {4} cooldown. -->
+  <DreamsOutposts.CommandBombardDesc>用据点的迫击炮打一次齐射：{0}发{1}，消耗{2}，射程{3}格，冷却{4}。</DreamsOutposts.CommandBombardDesc>
+  <!-- EN: Right-click this command to switch which mortar shell the outpost fires. -->
+  <DreamsOutposts.BombardSwitchHint>右键这个命令可以切换炮弹种类。</DreamsOutposts.BombardSwitchHint>
+  <!-- EN: {0} ({1}) -->
+  <DreamsOutposts.BombardShellOption>{0}（{1}）</DreamsOutposts.BombardShellOption>
+  <!-- EN:  (current) -->
+  <DreamsOutposts.BombardShellCurrentSuffix>（当前）</DreamsOutposts.BombardShellCurrentSuffix>
+  <!-- EN: Requires research: {0} -->
+  <DreamsOutposts.BombardShellLocked>需要研究：{0}</DreamsOutposts.BombardShellLocked>
+  <!-- EN: The mortars of {0} now fire {1}. -->
+  <DreamsOutposts.BombardShellSwitched>{0}的迫击炮已换用{1}。</DreamsOutposts.BombardShellSwitched>
+  <!-- EN: This outpost has no usable mortar shell. -->
+  <DreamsOutposts.BombardNoShells>这个据点没有可用的迫击炮弹。</DreamsOutposts.BombardNoShells>
   <!-- EN: This outpost has no facility capable of bombardment. Build a mortar emplacement first. -->
   <DreamsOutposts.BombardNoMortar>这个据点没有可以炮击的设施，请先安装迫击炮阵地。</DreamsOutposts.BombardNoMortar>
   <!-- EN: Nobody stationed here has {0} of {1} or higher, so there is no crew for the mortars. -->
@@ -20,8 +32,8 @@
   <DreamsOutposts.BombardNotEnoughResources>据点仓库不足以支撑这次炮击：{0}。</DreamsOutposts.BombardNotEnoughResources>
   <!-- EN: This outpost's bombardment is misconfigured (its shell has no usable projectile). Check the facility XML. -->
   <DreamsOutposts.BombardBrokenConfig>这个据点的炮击配置有误（炮弹没有可用的弹道），请检查设施 XML。</DreamsOutposts.BombardBrokenConfig>
-  <!-- EN: The mortars of {0} open fire on {1}: {2} high-explosive shells are on their way. -->
-  <DreamsOutposts.BombardLaunched>{0}的迫击炮开始炮击{1}：{2}发高爆弹正在落下。</DreamsOutposts.BombardLaunched>
+  <!-- EN: The mortars of {0} open fire on {1}: {2} {3} are on their way. -->
+  <DreamsOutposts.BombardLaunched>{0}的迫击炮开始炮击{1}：{2}发{3}正在落下。</DreamsOutposts.BombardLaunched>
   <!-- EN: Bombardment: {0} shells per strike, up to {1} tiles away, {2} cooldown. -->
   <DreamsOutposts.BombardmentSummary>炮击：每次{0}发炮弹，射程{1}格，冷却{2}。</DreamsOutposts.BombardmentSummary>
   <!-- EN: Adds {0} shells to every bombardment from this outpost. -->

@@ -3,8 +3,9 @@
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_GrowthHormoneCultureTank</defName>
     <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
     <label>growth hormone culture tank</label>
-    <description>A vat of concentrated growth hormones that multiplies the flesh cultivation bed's twisted meat output by 1.5.</description>
+    <description>A vat of concentrated growth hormones that doubles the flesh cultivation bed's twisted meat output.</description>
     <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <maxPerOutpost>1</maxPerOutpost>
@@ -12,15 +13,17 @@
     <productionModifiers>
       <li>
         <productionTag>FleshCultivation</productionTag>
-        <factor>1.5</factor>
+        <factor>2</factor>
       </li>
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>
 
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_FleshOutlet</defName>
+    <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>flesh outlet</label>
-    <description>A cultivated flesh outlet that produces 3 nerve chunks per day.</description>
+    <description>A cultivated flesh outlet. Its base daily output is 3 nerve chunks, with a base efficiency of 2.\n\nThe total capacity of stationed fleshbeasts of yours adds to its efficiency.</description>
     <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <researchPrerequisites><li>FH_Research_ComplexFleshHive</li></researchPrerequisites>
@@ -28,11 +31,13 @@
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
         <productions>
-          <li>
+          <li Class="DreamsOutposts.OutpostProductionProperties_FleshCultivation">
             <id>nerveFlesh</id>
             <product>FH_NerveFlesh</product>
             <intervalTicks>60000</intervalTicks>
             <outputPerCapacity>3</outputPerCapacity>
+            <baseEfficiency>2</baseEfficiency>
+            <efficiencyPerGroupCost>1</efficiencyPerGroupCost>
             <tags><li>NerveFlesh</li></tags>
           </li>
         </productions>
@@ -42,6 +47,7 @@
 
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_NerveExpansionSlot</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>nerve expansion slot</label>
     <description>A dedicated neural extension that adds 3 fleshbeast capacity to the hive network.</description>
     <allowedOutpostTypes><li>DreamsOutposts_FleshHiveRelay</li></allowedOutpostTypes>
@@ -51,8 +57,10 @@
 
   <DreamsOutposts.OutpostFacilityDef MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_CarapaceCultureTank</defName>
+    <facilityTag>AutomaticProduction</facilityTag>
+    <category>DreamsOutposts_CategoryAutomaticProduction</category>
     <label>carapace culture tank</label>
-    <description>A specialized flesh culture tank that produces 5 flesh carapace per day.</description>
+    <description>A specialized culture tank for growing tough flesh carapace. Its base daily output is 5 flesh carapace.\n\nBase efficiency is 2, and the total capacity of stationed fleshbeasts of yours adds to its efficiency.</description>
     <allowedOutpostTypes><li>DreamsOutposts_FleshCultivation</li></allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <researchPrerequisites><li>FH_Research_FleshFurniture</li></researchPrerequisites>
@@ -60,11 +68,13 @@
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
         <productions>
-          <li>
+          <li Class="DreamsOutposts.OutpostProductionProperties_FleshCultivation">
             <id>fleshCarapace</id>
             <product>FH_FleshCarapace</product>
             <intervalTicks>60000</intervalTicks>
             <outputPerCapacity>5</outputPerCapacity>
+            <baseEfficiency>2</baseEfficiency>
+            <efficiencyPerGroupCost>1</efficiencyPerGroupCost>
             <tags><li>FleshCarapace</li></tags>
           </li>
         </productions>

@@ -6,8 +6,6 @@ namespace DreamsOutposts
 {
 	public class OutpostWorker
 	{
-		public OutpostTypeDef def;
-
 		public virtual AcceptanceReport CanCreate(IEnumerable<Pawn> pawns, PlanetTile tile)
 		{
 			return AcceptanceReport.WasAccepted;

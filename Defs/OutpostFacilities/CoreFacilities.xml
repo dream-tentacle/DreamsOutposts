@@ -2,6 +2,7 @@
 <Defs>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_RangerCamp</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>ranger camp</label>
     <description>A field camp where handlers track and tame animals native to the surrounding region.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -25,6 +26,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MechanitorRelay</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>mechanitor relay</label>
     <description>A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -33,18 +35,19 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MiningPlant</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>mining plant</label>
-    <description>A permanent mining operation that extracts and processes steel-bearing ore.</description>
+    <description>A permanent mining operation that extracts and processes ore. The mineral being extracted can be chosen freely, and the daily yield is always worth the same amount of silver.</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
         <productions>
-          <li>
-            <id>steel</id>
-            <product>Steel</product>
+          <li Class="DreamsOutposts.OutpostProductionProperties_AdaptiveMining">
+            <id>mineral</id>
             <capacityStat>MiningSpeed</capacityStat>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>42.1</outputPerCapacity>
+            <dailyMarketValue>79.99</dailyMarketValue>
+            <defaultProduct>Steel</defaultProduct>
             <tags>
               <li>Mining</li>
             </tags>
@@ -55,6 +58,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_Farm</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>farm</label>
     <description>Organized fields that grow a crop selected by the player.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -76,6 +80,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_LoggingCamp</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>logging camp</label>
     <description>A permanent camp that harvests and prepares timber from the surrounding region.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -98,6 +103,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_OilDerrick</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>oil derrick</label>
     <description>A drilling and refining operation that produces chemfuel.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -123,6 +129,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_NeutroamineCollector</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>neutroamine collection station</label>
     <description>A chemical works that gathers and refines rare precursors into neutroamine.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -148,6 +155,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_TownCenter</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>town center</label>
     <description>The square, roads and shared buildings that hold a town together. It produces nothing by itself.</description>
     <installableAsExtension>false</installableAsExtension>
@@ -160,6 +168,7 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AutomationHub</defName>
+    <category>DreamsOutposts_CategoryOther</category>
     <label>automation hub</label>
     <description>A centralized control facility that coordinates the camp's automated machinery. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise facilities tagged for automatic production run at their base output.\n\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
     <installableAsExtension>false</installableAsExtension>

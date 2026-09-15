@@ -14,6 +14,7 @@ namespace DreamsOutposts
 		public OutpostTypeDef outpostTypeDef;
 
 		public ThingOwner<Pawn> pawns;
+		public ThingOwner<Pawn> vehicles;
 
 		public ThingOwner<Thing> inventory;
 
@@ -39,6 +40,9 @@ namespace DreamsOutposts
 
 		public int nextBombardTick;
 
+		/// <summary>右键炮击命令选定的迫击炮弹。为 null 时使用设施 XML 里配置的默认炮弹（高爆弹）。</summary>
+		public ThingDef selectedShellDef;
+
 		public ThingOwner<Pawn> pendingAirdropPawns;
 
 		public ThingOwner<Pawn> adventurerCandidates;
@@ -47,6 +51,7 @@ namespace DreamsOutposts
 
 		private static readonly List<Pawn> EmptyPawns = new List<Pawn>();
 		private static readonly List<Thing> EmptyInventory = new List<Thing>();
+		private bool updateRequested;
 
 		public bool HasPendingAirdropCargo => pendingAirdropPawns != null && pendingAirdropPawns.Count > 0;
 
@@ -55,6 +60,7 @@ namespace DreamsOutposts
 		public IEnumerable<Pawn> Pawns => pawns?.InnerListForReading ?? EmptyPawns;
 
 		public List<Pawn> PawnsListForReading => pawns?.InnerListForReading ?? EmptyPawns;
+		public List<Pawn> VehiclesListForReading => vehicles?.InnerListForReading ?? EmptyPawns;
 
 		public List<Thing> InventoryItems => inventory?.InnerListForReading ?? EmptyInventory;
 
@@ -185,11 +191,17 @@ namespace DreamsOutposts
 
 		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
 
-		protected override int UpdateRateTicks => Window_OutpostManage.Current?.Outpost == this ? 60 : 1250;
+		protected override int UpdateRateTicks => updateRequested ? 1 : Window_OutpostManage.Current?.Outpost == this ? 60 : 1250;
+
+		public void RequestUpdate()
+		{
+			updateRequested = true;
+		}
 
 		public Outpost()
 		{
 			pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
+			vehicles = new ThingOwner<Pawn>(this, oneStackOnly: false);
 			inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
 			pendingAirdropPawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
 			adventurerCandidates = new ThingOwner<Pawn>(this, oneStackOnly: false);
@@ -203,6 +215,7 @@ namespace DreamsOutposts
 		protected override void TickInterval(int delta)
 		{
 			base.TickInterval(delta);
+			updateRequested = false;
 			Update(delta);
 		}
 
@@ -245,12 +258,14 @@ namespace DreamsOutposts
 			Scribe_Values.Look(ref level, "level", 1);
 			Scribe_Values.Look(ref airdropPods, "airdropPods", 0);
 			Scribe_Values.Look(ref nextBombardTick, "nextBombardTick", 0);
+			Scribe_Defs.Look(ref selectedShellDef, "selectedShellDef");
 			Scribe_Deep.Look(ref coreFacility, "coreFacility");
 			Scribe_Collections.Look(ref extensionSlots, "extensionSlots", LookMode.Deep);
 			Scribe_Collections.Look(ref events, "events", LookMode.Deep);
 			Scribe_Collections.Look(ref scheduledEvents, "scheduledEvents", LookMode.Deep);
 			Scribe_Collections.Look(ref temporaryEffects, "temporaryEffects", LookMode.Deep);
 			Scribe_Deep.Look(ref pawns, "pawns", this);
+			Scribe_Deep.Look(ref vehicles, "vehicles", this);
 			Scribe_Deep.Look(ref inventory, "inventory", this);
 			Scribe_Deep.Look(ref pendingAirdropPawns, "pendingAirdropPawns", this);
 			Scribe_Deep.Look(ref adventurerCandidates, "adventurerCandidates", this);
@@ -261,6 +276,7 @@ namespace DreamsOutposts
 				{
 					pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);
 				}
+				if (vehicles == null) vehicles = new ThingOwner<Pawn>(this, oneStackOnly: false);
 				if (inventory == null)
 				{
 					inventory = new ThingOwner<Thing>(this, oneStackOnly: false);
@@ -362,6 +378,7 @@ namespace DreamsOutposts
 		public void GetChildHolders(List<IThingHolder> outChildren)
 		{
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pawns);
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, vehicles);
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, inventory);
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, pendingAirdropPawns);
 			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, adventurerCandidates);
@@ -467,6 +484,7 @@ namespace DreamsOutposts
 			Worker?.OnRemoved(this);
 			base.PostRemove();
 			pawns?.ClearAndDestroyContentsOrPassToWorld();
+			vehicles?.ClearAndDestroyContentsOrPassToWorld();
 			if (adventurerCandidates != null)
 				foreach (Pawn candidate in adventurerCandidates.InnerListForReading.ToList())
 					OutpostUtility.DiscardCandidate(candidate);
@@ -483,16 +501,7 @@ namespace DreamsOutposts
 			outpost.InitializeCoreFacility();
 			outpost.EnsureExtensionSlots();
 			OutpostUtility.TransferCaravanItemsTo(caravan, outpost);
-			for (int i = caravan.PawnsListForReading.Count - 1; i >= 0; i--)
-			{
-				Pawn pawn = caravan.PawnsListForReading[i];
-				caravan.RemovePawn(pawn);
-				if (!OutpostUtility.MovePawnIntoOutpost(outpost, pawn))
-				{
-					Log.Error("Failed to move " + pawn?.ToString() + " into outpost " + outpost.Label + "; putting it back into the caravan.");
-					caravan.AddPawn(pawn, addCarriedPawnToWorldPawnsIfAny: false);
-				}
-			}
+			OutpostCaravanUtility.MoveCaravanPawnsToOutpost(caravan, outpost);
 			Find.WorldObjects.Add(outpost);
 			def.Worker.OnCreated(outpost);
 			if (caravan.PawnsListForReading.Count == 0)

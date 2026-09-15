@@ -14,6 +14,11 @@ namespace DreamsOutposts
 		/// <summary>立绘边长。原来是 92f，缩小 20% 后给右侧姓名/评级/技能行多留出 18.4px 横向空间；后来又放大到 80 让立绘更清楚。</summary>
 		private const float PortraitSize = 80f;
 		private const float ControlsHeight = 82f;
+		/// <summary>候选人卡右侧「招募 / 驱离」两个底图按钮的高度（宽度由底图长宽比反推）。</summary>
+		private const float TavernActionButtonHeight = 34f;
+		/// <summary>底图里文字槽位的原始像素区间（三种按钮底图同规格，与安装卡的「建造」按钮一致）。</summary>
+		private const float ActionLabelSourceX = 420f;
+		private const float ActionLabelSourceWidth = 300f;
 
 		public override bool IsVisible => AdventurerRecruitUtility.IsAvailable(outpost);
 		public override string Label => "DreamsOutposts.Tavern.Title".Translate();
@@ -127,7 +132,7 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// 一张候选人卡片。整张卡片都可以点开原版信息卡，只有「招募」「遣散」两个按钮占的区域例外，
+		/// 一张候选人卡片。整张卡片都可以点开原版信息卡，只有「招募」「驱离」两个按钮占的区域例外，
 		/// 这样点按钮和点卡片不会互相抢事件。
 		/// </summary>
 		private void DrawOffer(Rect rect, AdventurerOffer offer)
@@ -140,7 +145,14 @@ namespace DreamsOutposts
 			Rect portrait = new Rect(rect.x + 16f, rect.y + 16f, PortraitSize, PortraitSize);
 			UiDraw.PawnPortrait(portrait, pawn);
 			float textX = portrait.xMax + 16f;
-			float actionWidth = 104f;
+			// 两个按钮用与「建造」同款的底图按钮：招募 = PositiveButton（绿），驱离 = NegativeButton（红）
+			string recruitLabel = "DreamsOutposts.Tavern.Recruit".Translate();
+			string driveAwayLabel = "DreamsOutposts.Tavern.Dismiss".Translate();
+			Texture2D recruitTexture = UiTex.PositiveButtonTexture();
+			Texture2D driveAwayTexture = UiTex.NegativeButtonTexture();
+			float recruitWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, recruitTexture, recruitLabel, UiButtonSize.Small);
+			float driveAwayWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, driveAwayTexture, driveAwayLabel, UiButtonSize.Small);
+			float actionWidth = Mathf.Max(recruitWidth, driveAwayWidth);
 			float textWidth = Mathf.Max(rect.xMax - 16f - actionWidth - 14f - textX, 100f);
 			UiText.Draw(new Rect(textX, rect.y + 14f, textWidth, 28f), pawn.LabelCap, UiFont.Heading, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
 			UiText.Draw(new Rect(textX, rect.y + 44f, textWidth, 24f), RatingText(pawn, rarity), UiFont.Body, rarityColor, TextAnchor.MiddleLeft, true);
@@ -150,19 +162,21 @@ namespace DreamsOutposts
 			int left = Mathf.Max(offer.expireTick - Find.TickManager.TicksGame, 0);
 			UiText.Draw(new Rect(textX, rect.y + 120f, textWidth, 24f), "DreamsOutposts.Tavern.Expires".Translate(left.ToStringTicksToPeriod()), UiFont.Caption, UiPalette.Ink3, TextAnchor.MiddleLeft);
 			float bx = rect.xMax - 16f - actionWidth;
-			Rect recruitRect = new Rect(bx, rect.y + 15f, actionWidth, 34f);
-			Rect dismissRect = new Rect(bx, rect.y + 57f, actionWidth, 34f);
-			if (UiWidgets.Button(recruitRect, "DreamsOutposts.Tavern.Recruit".Translate(), UiButtonKind.Primary, true, null, UiButtonSize.Small))
+			Rect recruitRect = new Rect(bx, rect.y + 15f, recruitWidth, TavernActionButtonHeight);
+			Rect driveAwayRect = new Rect(bx, rect.y + 57f, driveAwayWidth, TavernActionButtonHeight);
+			if (UiWidgets.TexturedButton(recruitRect, recruitLabel, recruitTexture, ActionLabelSourceX, ActionLabelSourceWidth,
+				UiPalette.Brand, UiPalette.BrandHover, UiPalette.OnAccent, UiButtonSize.Small))
 			{
 				AdventurerRecruitUtility.Recruit(outpost, offer);
 			}
-			if (UiWidgets.Button(dismissRect, "DreamsOutposts.Tavern.Dismiss".Translate(), UiButtonKind.Danger, true, null, UiButtonSize.Small))
+			if (UiWidgets.TexturedButton(driveAwayRect, driveAwayLabel, driveAwayTexture, ActionLabelSourceX, ActionLabelSourceWidth,
+				UiPalette.Danger, UiPalette.DangerHover, UiPalette.OnAccent, UiButtonSize.Small))
 			{
 				Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("DreamsOutposts.Tavern.DismissConfirm".Translate(pawn.LabelShortCap), () => AdventurerRecruitUtility.RemoveOffer(outpost, offer), destructive: true));
 			}
 			// 卡片本身也能点开信息卡。ButtonInvisible 不检查事件是否已被消费，所以必须先排除两个按钮占的
 			// 区域，否则点在按钮上会同时触发按钮和这里。
-			if (!Mouse.IsOver(recruitRect) && !Mouse.IsOver(dismissRect) && Widgets.ButtonInvisible(rect))
+			if (!Mouse.IsOver(recruitRect) && !Mouse.IsOver(driveAwayRect) && Widgets.ButtonInvisible(rect))
 			{
 				Find.WindowStack.Add(new Dialog_InfoCard(pawn));
 			}

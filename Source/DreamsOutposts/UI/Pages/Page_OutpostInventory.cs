@@ -48,6 +48,7 @@ namespace DreamsOutposts
 		private Vector2 otherPawnsScroll;
 
 		private Vector2 itemsScroll;
+		private Vector2 vehiclesScroll;
 
 		private OutpostUiCache fallbackCache;
 
@@ -104,6 +105,7 @@ namespace DreamsOutposts
 			}
 			OutpostUiCache cache = Cache;
 			bool stacked = rect.width < ThreeColumnMinWidth;
+			bool hasVehicles = cache.Vehicles.Count > 0;
 			if (stacked)
 			{
 				// 窄屏堆叠：各栏按内容高度（三栏都撑满会把页面顶出去）
@@ -113,10 +115,15 @@ namespace DreamsOutposts
 				y += Column(new Rect(rect.x, y, rect.width, 0f), cache, 1, draw);
 				y += ColumnsGap;
 				y += Column(new Rect(rect.x, y, rect.width, 0f), cache, 2, draw);
+				if (hasVehicles)
+				{
+					y += ColumnsGap;
+					y += Column(new Rect(rect.x, y, rect.width, 0f), cache, 3, draw);
+				}
 				return Mathf.Max(y - rect.y, 1f);
 			}
-			float weightTotal = 1f + 1f + ItemsColumnWeight;
-			float available = rect.width - ColumnsGap * 2f;
+			float weightTotal = 1f + 1f + ItemsColumnWeight + (hasVehicles ? 1f : 0f);
+			float available = rect.width - ColumnsGap * (hasVehicles ? 3f : 2f);
 			float firstWidth = available * (1f / weightTotal);
 			float secondWidth = available * (1f / weightTotal);
 			float thirdWidth = available * (ItemsColumnWeight / weightTotal);
@@ -126,14 +133,17 @@ namespace DreamsOutposts
 			float firstHeight = ColumnHeight(cache, 0);
 			float secondHeight = ColumnHeight(cache, 1);
 			float thirdHeight = ColumnHeight(cache, 2);
+			float fourthHeight = hasVehicles ? ColumnHeight(cache, 3) : 0f;
 			// 自动撑到可视区底部；内容更高时用内容高度（页面滚动）
-			float rowHeight = Mathf.Max(Mathf.Max(Mathf.Max(firstHeight, secondHeight), thirdHeight),
+			float rowHeight = Mathf.Max(Mathf.Max(Mathf.Max(firstHeight, secondHeight), Mathf.Max(thirdHeight, fourthHeight)),
 				Mathf.Max(availableHeight, PanelMinHeight));
 			if (draw)
 			{
 				DrawColumn(new Rect(firstRect.x, firstRect.y, firstRect.width, rowHeight), cache, 0);
 				DrawColumn(new Rect(secondRect.x, secondRect.y, secondRect.width, rowHeight), cache, 1);
 				DrawColumn(new Rect(thirdRect.x, thirdRect.y, thirdRect.width, rowHeight), cache, 2);
+				if (hasVehicles)
+					DrawColumn(new Rect(thirdRect.xMax + ColumnsGap, rect.y, firstWidth, rowHeight), cache, 3);
 			}
 			return rowHeight;
 		}
@@ -161,8 +171,10 @@ namespace DreamsOutposts
 				return cache.Colonists.Count;
 			case 1:
 				return cache.OtherPawns.Count;
-			default:
+			case 2:
 				return cache.Inventory.Count;
+			default:
+				return cache.Vehicles.Count;
 			}
 		}
 
@@ -174,8 +186,10 @@ namespace DreamsOutposts
 				return "DreamsOutposts.Colonists".Translate().ToString();
 			case 1:
 				return "DreamsOutposts.OtherPawns".Translate().ToString();
-			default:
+			case 2:
 				return "DreamsOutposts.Items".Translate().ToString();
+			default:
+				return "DreamsOutposts.Ui.Vehicles".Translate().ToString();
 			}
 		}
 
@@ -230,10 +244,16 @@ namespace DreamsOutposts
 					DrawPawnRows(contentRect, cache.OtherPawns);
 				}, scroll, id, scroll);
 				break;
-			default:
+			case 2:
 				UiWidgets.ScrollView(bodyInner, ref itemsScroll, contentHeight, delegate(Rect contentRect)
 				{
 					DrawItemRows(contentRect, cache.Inventory);
+				}, scroll, id, scroll);
+				break;
+			default:
+				UiWidgets.ScrollView(bodyInner, ref vehiclesScroll, contentHeight, delegate(Rect contentRect)
+				{
+					DrawPawnRows(contentRect, cache.Vehicles);
 				}, scroll, id, scroll);
 				break;
 			}

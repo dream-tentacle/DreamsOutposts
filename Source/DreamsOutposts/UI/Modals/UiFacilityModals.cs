@@ -208,7 +208,21 @@ namespace DreamsOutposts
 		private readonly Window_OutpostManage shell;
 
 		private readonly OutpostSlot slot;
-		private string selectedTag = OutpostFacilityTagRegistry.ProductionBoost;
+		private OutpostFacilityCategoryDef selectedCategory;
+
+		/// <summary>当前选中的分类。默认停在排序后的第一个分类（与旧版默认停在「增产」一致）。</summary>
+		private OutpostFacilityCategoryDef SelectedCategory
+		{
+			get
+			{
+				if (selectedCategory == null)
+				{
+					IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
+					selectedCategory = (categories.Count > 0) ? categories[0] : null;
+				}
+				return selectedCategory;
+			}
+		}
 
 		public UiInstallModalBody(Window_OutpostManage shell, OutpostSlot slot)
 		{
@@ -226,7 +240,8 @@ namespace DreamsOutposts
 		private List<UiInstallCardView> FilteredCards()
 		{
 			List<UiInstallCardView> source = shell.Cache.InstallCandidates(slot, shell.InstallOnlyAvailable);
-			return source.FindAll(card => card?.Def != null && card.Def.FacilityTag == selectedTag);
+			OutpostFacilityCategoryDef category = SelectedCategory;
+			return source.FindAll(card => card?.Def != null && card.Def.Category == category);
 		}
 
 		private static float MeasureGrid(float width, List<UiInstallCardView> cards)
@@ -309,28 +324,33 @@ namespace DreamsOutposts
 
 		private void DrawTagTabs(Rect rect)
 		{
-			IReadOnlyList<string> tags = OutpostFacilityTagRegistry.Tags;
+			IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
+			OutpostFacilityCategoryDef selected = SelectedCategory;
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
 			Rect inner = rect.ContractedBy(4f);
-			int rowCount = Mathf.CeilToInt((float)tags.Count / TagTabsPerRow);
+			int rowCount = Mathf.Max(Mathf.CeilToInt((float)categories.Count / TagTabsPerRow), 1);
 			float rowHeight = (inner.height - TagTabGap * (rowCount - 1)) / rowCount;
 			for (int row = 0; row < rowCount; row++)
 			{
 				int firstIndex = row * TagTabsPerRow;
-				int columns = Mathf.Min(TagTabsPerRow, tags.Count - firstIndex);
+				int columns = Mathf.Min(TagTabsPerRow, categories.Count - firstIndex);
+				if (columns <= 0)
+				{
+					break;
+				}
 				float width = (inner.width - TagTabGap * (columns - 1)) / columns;
 				for (int column = 0; column < columns; column++)
 				{
-					string tag = tags[firstIndex + column];
+					OutpostFacilityCategoryDef category = categories[firstIndex + column];
 					Rect button = new Rect(inner.x + column * (width + TagTabGap), inner.y + row * (rowHeight + TagTabGap), width, rowHeight);
-					if (UiWidgets.SegmentTab(button, OutpostFacilityTagRegistry.LabelKey(tag).Translate(), tag == selectedTag)) selectedTag = tag;
+					if (UiWidgets.SegmentTab(button, category.LabelCap.ToString(), category == selected)) selectedCategory = category;
 				}
 			}
 		}
 
 		private static float GetTagTabsHeight()
 		{
-			int rowCount = Mathf.CeilToInt((float)OutpostFacilityTagRegistry.Tags.Count / TagTabsPerRow);
+			int rowCount = Mathf.CeilToInt((float)OutpostFacilityCategoryUtility.AllInOrder.Count / TagTabsPerRow);
 			return Mathf.Max(rowCount, 1) * TagTabRowHeight;
 		}
 	}
@@ -441,10 +461,8 @@ namespace DreamsOutposts
 				float footerY = rect.yMax - FooterBottomPadding - buttonHeight;
 				UiDraw.Divider(new Rect(rect.x + UiMetrics.InstallCardPadding, footerY - 8f, innerWidth, 1f), UiPalette.Line);
 				string buildLabel = "DreamsOutposts.Build".Translate();
-				Texture2D buildTexture = UiTex.BuildButtonTexture();
-				float buildWidth = (buildTexture != null && buildTexture.height > 0)
-					? buttonHeight * buildTexture.width / buildTexture.height
-					: Mathf.Max(UiWidgets.ButtonWidth(buildLabel, UiButtonSize.Small), 64f) * 3f;
+				Texture2D buildTexture = UiTex.PositiveButtonTexture();
+				float buildWidth = UiWidgets.TexturedButtonWidth(buttonHeight, buildTexture, buildLabel, UiButtonSize.Small);
 				Rect buildRect = new Rect(rect.xMax - UiMetrics.InstallCardPadding - buildWidth, footerY, buildWidth, buttonHeight);
 				if (card.Allowed && UiWidgets.TexturedPrimaryButton(buildRect, buildLabel, buildTexture,
 					420f, 300f, UiButtonSize.Normal,

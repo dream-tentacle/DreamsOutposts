@@ -79,7 +79,7 @@ namespace DreamsOutposts
 			}
 			try
 			{
-				capacity = production.Worker.CalculatePersonnelCapacity(outpost.Pawns, outpost.outpostTypeDef, production);
+				capacity = production.Worker.CalculatePersonnelCapacity(outpost, production);
 				return true;
 			}
 			catch (Exception)
@@ -153,7 +153,7 @@ namespace DreamsOutposts
 			}
 			try
 			{
-				expectedOutput = ApplyModifiers(outpost, facility, production, production.Worker.CalculateProduction(outpost.Pawns, outpost.outpostTypeDef, production, facility?.GetProductionState(production.id)));
+				expectedOutput = ApplyModifiers(outpost, facility, production, production.Worker.CalculateProduction(outpost, production, facility?.GetProductionState(production.id)));
 				return true;
 			}
 			catch (Exception ex)
@@ -244,7 +244,7 @@ namespace DreamsOutposts
 				context.FailureReason = "declined by CanProduce";
 				return;
 			}
-			context.BaseOutput = worker.CalculateProduction(context.Outpost.Pawns, context.Outpost.outpostTypeDef, production, context.State);
+			context.BaseOutput = worker.CalculateProduction(context.Outpost, production, context.State);
 			context.ModifiedOutput = ApplyModifiers(context.Outpost, context.Facility, production, context.BaseOutput);
 			context.WantedAmount = GenMath.RoundRandom(context.ModifiedOutput);
 			worker.ModifyProduction(context);

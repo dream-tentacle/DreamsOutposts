@@ -8,7 +8,10 @@ namespace DreamsOutposts
 {
 	public static class OutpostBombardmentUtility
 	{
-		private static readonly List<ThingDefCountClass> NoCost = new List<ThingDefCountClass>();
+		private static readonly Dictionary<ThingCategoryDef, List<ThingDef>> shellCache = new Dictionary<ThingCategoryDef, List<ThingDef>>();
+
+		/// <summary>分类 def 找不到时的兜底清单（Dictionary 不接受 null 键，所以单独放一份）。</summary>
+		private static List<ThingDef> uncategorizedShells;
 
 		public static OutpostFacility GetBombardmentSource(Outpost outpost)
 		{
@@ -56,11 +59,235 @@ namespace DreamsOutposts
 			return Mathf.Max(shells, 0);
 		}
 
+		/// <summary>
+		/// 可选的迫击炮弹。原版判定「是炮弹」的依据就是 projectileWhenLoaded 非空，
+		/// 再要求它属于炮弹分类（默认 MortarShells）并且有制造成本（CostList）；
+		/// 没有制造材料的炮弹算不出「制造材料的 0.5 倍」，因此不入列。
+		/// 结果按分类缓存，只在第一次使用时扫描一遍 DefDatabase。
+		/// </summary>
+		public static List<ThingDef> AvailableShells(OutpostBombardmentProperties props)
+		{
+			if (props == null)
+			{
+				return new List<ThingDef>();
+			}
+			ThingCategoryDef category = props.ShellCategory;
+			if (category == null)
+			{
+				if (uncategorizedShells == null)
+				{
+					uncategorizedShells = BuildShellList(null);
+				}
+				return uncategorizedShells;
+			}
+			if (!shellCache.TryGetValue(category, out var shells))
+			{
+				shells = BuildShellList(category);
+				shellCache[category] = shells;
+			}
+			return shells;
+		}
+
+		public static List<ThingDef> AvailableShells(Outpost outpost)
+		{
+			return AvailableShells(GetBombardmentProperties(outpost));
+		}
+
+		private static List<ThingDef> BuildShellList(ThingCategoryDef category)
+		{
+			if (category == null)
+			{
+				Log.Warning("Outpost bombardment could not resolve its shell category; every shell that has a manufacturing cost will be selectable. Check shellCategory on the bombardment node.");
+			}
+			List<ThingDef> result = new List<ThingDef>();
+			List<ThingDef> allDefs = DefDatabase<ThingDef>.AllDefsListForReading;
+			for (int i = 0; i < allDefs.Count; i++)
+			{
+				ThingDef def = allDefs[i];
+				if (def?.projectileWhenLoaded?.projectile == null)
+				{
+					continue;
+				}
+				if (category != null && (def.thingCategories == null || !def.thingCategories.Contains(category)))
+				{
+					continue;
+				}
+				if (def.CostList.NullOrEmpty())
+				{
+					continue;
+				}
+				result.Add(def);
+			}
+			result.Sort((ThingDef a, ThingDef b) => a.LabelCap.ToString().CompareTo(b.LabelCap.ToString()));
+			return result;
+		}
+
+		/// <summary>
+		/// 当前选中的炮弹：优先用据点自己记住的选择，其次用 XML 配置的默认炮弹（默认高爆弹），最后退回清单第一项。
+		/// </summary>
+		public static ThingDef SelectedShellDef(Outpost outpost)
+		{
+			OutpostBombardmentProperties props = GetBombardmentProperties(outpost);
+			if (props == null)
+			{
+				return null;
+			}
+			List<ThingDef> shells = AvailableShells(props);
+			if (shells.Count == 0)
+			{
+				return null;
+			}
+			ThingDef selected = outpost?.selectedShellDef;
+			if (selected != null && shells.Contains(selected))
+			{
+				return selected;
+			}
+			if (props.shellDef != null && shells.Contains(props.shellDef))
+			{
+				return props.shellDef;
+			}
+			return shells[0];
+		}
+
+		/// <summary>
+		/// 整轮齐射的成本 = 对应迫击炮弹制造材料的 0.5 倍。
+		/// 先把整轮要用的材料总量算出来再减半取整，所以 4 发高爆弹正好是 15×4×0.5 = 30 钢铁 + 30 化合燃料。
+		/// </summary>
+		public static List<ThingDefCountClass> ShellStrikeCost(ThingDef shellDef, int shells)
+		{
+			List<ThingDefCountClass> result = new List<ThingDefCountClass>();
+			List<ThingDefCountClass> costList = shellDef?.CostList;
+			if (shells <= 0 || costList.NullOrEmpty())
+			{
+				return result;
+			}
+			for (int i = 0; i < costList.Count; i++)
+			{
+				ThingDefCountClass entry = costList[i];
+				if (entry?.thingDef == null || entry.count <= 0 || AlreadyListed(result, entry.thingDef))
+				{
+					continue;
+				}
+				int perShell = 0;
+				for (int j = 0; j < costList.Count; j++)
+				{
+					ThingDefCountClass other = costList[j];
+					if (other?.thingDef == entry.thingDef && other.count > 0)
+					{
+						perShell += other.count;
+					}
+				}
+				int half = Mathf.FloorToInt((float)perShell * (float)shells * 0.5f + 0.5f);
+				if (half < 1)
+				{
+					half = 1;
+				}
+				result.Add(new ThingDefCountClass(entry.thingDef, half));
+			}
+			return result;
+		}
+
+		private static bool AlreadyListed(List<ThingDefCountClass> list, ThingDef thingDef)
+		{
+			for (int i = 0; i < list.Count; i++)
+			{
+				if (list[i]?.thingDef == thingDef)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static List<ThingDefCountClass> StrikeCost(Outpost outpost, out int shells)
 		{
 			shells = ShellsPerStrike(outpost);
+			return ShellStrikeCost(SelectedShellDef(outpost), shells);
+		}
+
+		public static List<ThingDefCountClass> StrikeCost(Outpost outpost, ThingDef shellDef, out int shells)
+		{
+			shells = ShellsPerStrike(outpost);
+			return ShellStrikeCost(shellDef, shells);
+		}
+
+		/// <summary>这个炮弹有没有解锁。成本取自炮弹自己的制造材料，所以研究门槛也沿用它的制造配方。</summary>
+		public static AcceptanceReport ShellAvailability(ThingDef shellDef)
+		{
+			if (shellDef?.projectileWhenLoaded?.projectile == null)
+			{
+				return "DreamsOutposts.BombardBrokenConfig".Translate().Resolve();
+			}
+			RecipeDef recipe = DefDatabase<RecipeDef>.GetNamedSilentFail("Make_" + shellDef.defName);
+			if (recipe == null)
+			{
+				return true;
+			}
+			if (recipe.researchPrerequisite != null && !recipe.researchPrerequisite.IsFinished)
+			{
+				return "DreamsOutposts.BombardShellLocked".Translate(recipe.researchPrerequisite.LabelCap).Resolve();
+			}
+			if (!recipe.researchPrerequisites.NullOrEmpty())
+			{
+				for (int i = 0; i < recipe.researchPrerequisites.Count; i++)
+				{
+					ResearchProjectDef research = recipe.researchPrerequisites[i];
+					if (research != null && !research.IsFinished)
+					{
+						return "DreamsOutposts.BombardShellLocked".Translate(research.LabelCap).Resolve();
+					}
+				}
+			}
+			return true;
+		}
+
+		public static void SelectShell(Outpost outpost, ThingDef shellDef)
+		{
+			if (outpost == null || shellDef == null)
+			{
+				return;
+			}
+			outpost.selectedShellDef = shellDef;
+			Messages.Message("DreamsOutposts.BombardShellSwitched".Translate(outpost.LabelCap, shellDef.LabelCap), outpost, MessageTypeDefOf.SilentInput, historical: false);
+		}
+
+		/// <summary>右键「炮击」命令时弹出的弹种菜单。</summary>
+		public static IEnumerable<FloatMenuOption> ShellChoiceOptions(Outpost outpost)
+		{
 			OutpostBombardmentProperties props = GetBombardmentProperties(outpost);
-			return (props == null) ? NoCost : props.CostForShells(shells);
+			if (props == null)
+			{
+				yield return new FloatMenuOption("DreamsOutposts.BombardNoMortar".Translate(), null);
+				yield break;
+			}
+			List<ThingDef> shells = AvailableShells(props);
+			if (shells.Count == 0)
+			{
+				yield return new FloatMenuOption("DreamsOutposts.BombardNoShells".Translate(), null);
+				yield break;
+			}
+			ThingDef current = SelectedShellDef(outpost);
+			int shellsPerStrike = ShellsPerStrike(outpost);
+			for (int i = 0; i < shells.Count; i++)
+			{
+				ThingDef captured = shells[i];
+				string label = "DreamsOutposts.BombardShellOption".Translate(captured.LabelCap, OutpostBuildUtility.CostLabel(ShellStrikeCost(captured, shellsPerStrike))).ToString();
+				if (captured == current)
+				{
+					label += "DreamsOutposts.BombardShellCurrentSuffix".Translate().ToString();
+				}
+				FloatMenuOption option = new FloatMenuOption(label, delegate
+				{
+					SelectShell(outpost, captured);
+				}, captured);
+				AcceptanceReport report = ShellAvailability(captured);
+				if (!report.Accepted)
+				{
+					option.Disabled = true;
+					option.tooltip = new TipSignal("DreamsOutposts.BombardShellLocked".Translate(report.Reason));
+				}
+				yield return option;
+			}
 		}
 
 		private static bool HasQualifiedCrew(Outpost outpost, OutpostBombardmentProperties props)
@@ -90,10 +317,6 @@ namespace DreamsOutposts
 			{
 				return "DreamsOutposts.BombardNoMortar".Translate().Resolve();
 			}
-			if (props.ProjectileDef == null)
-			{
-				return "DreamsOutposts.BombardBrokenConfig".Translate().Resolve();
-			}
 			ResearchProjectDef research = props.researchPrerequisite;
 			if (research != null && !research.IsFinished)
 			{
@@ -108,13 +331,27 @@ namespace DreamsOutposts
 			{
 				return "DreamsOutposts.BombardOnCooldown".Translate((outpost.nextBombardTick - now).ToStringTicksToPeriod()).Resolve();
 			}
+			ThingDef shellDef = SelectedShellDef(outpost);
+			if (shellDef == null)
+			{
+				return "DreamsOutposts.BombardNoShells".Translate().Resolve();
+			}
+			if (shellDef.projectileWhenLoaded == null)
+			{
+				return "DreamsOutposts.BombardBrokenConfig".Translate().Resolve();
+			}
+			AcceptanceReport shellReport = ShellAvailability(shellDef);
+			if (!shellReport.Accepted)
+			{
+				return shellReport;
+			}
 			int shells = ShellsPerStrike(outpost);
 			if (shells <= 0)
 			{
 				return "DreamsOutposts.BombardBrokenConfig".Translate().Resolve();
 			}
 			List<ThingDefCountClass> missing = new List<ThingDefCountClass>();
-			if (!OutpostBuildUtility.CanAfford(outpost, props.CostForShells(shells), missing))
+			if (!OutpostBuildUtility.CanAfford(outpost, ShellStrikeCost(shellDef, shells), missing))
 			{
 				return "DreamsOutposts.BombardNotEnoughResources".Translate(OutpostBuildUtility.MissingLabel(missing)).Resolve();
 			}
@@ -129,27 +366,30 @@ namespace DreamsOutposts
 				return null;
 			}
 			int shells = ShellsPerStrike(outpost);
+			ThingDef shellDef = SelectedShellDef(outpost);
 			string crewRequirement = string.Empty;
 			if (props.HasSkillRequirement)
 			{
 				crewRequirement = "\n\n" + "DreamsOutposts.CommandBombardCrew".Translate(props.requiredSkill.LabelCap, props.requiredSkillLevel);
 			}
-			Command_Action command = new Command_Action
+			string desc = "DreamsOutposts.CommandBombardDesc".Translate(shells, shellDef?.LabelCap ?? "DreamsOutposts.Unknown".Translate(), OutpostBuildUtility.CostLabel(ShellStrikeCost(shellDef, shells)), props.maxRangeTiles, props.CooldownTicks.ToStringTicksToPeriod()) + crewRequirement + "\n\n" + "DreamsOutposts.BombardSwitchHint".Translate();
+			AcceptanceReport report = CanBombard(outpost);
+			if (!report.Accepted)
 			{
+				// 不在这里 Disable：灰色禁用的命令会被原版直接吞掉右键，玩家就没法在冷却或资源不足时换弹种了。
+				desc = desc + "\n\n" + ("DisabledCommand".Translate() + ": " + report.Reason).Colorize(ColorLibrary.RedReadable);
+			}
+			return new Command_Bombard
+			{
+				outpost = outpost,
 				defaultLabel = "DreamsOutposts.CommandBombard".Translate(),
-				defaultDesc = "DreamsOutposts.CommandBombardDesc".Translate(shells, OutpostBuildUtility.CostLabel(props.CostForShells(shells)), props.maxRangeTiles, props.CooldownTicks.ToStringTicksToPeriod()) + crewRequirement,
-				icon = props.shellDef?.uiIcon,
+				defaultDesc = desc,
+				icon = shellDef?.uiIcon,
 				action = delegate
 				{
 					BeginTargeting(outpost);
 				}
 			};
-			AcceptanceReport report = CanBombard(outpost);
-			if (!report.Accepted)
-			{
-				command.Disable(report.Reason);
-			}
-			return command;
 		}
 
 		public static void BeginTargeting(Outpost outpost)
@@ -274,7 +514,8 @@ namespace DreamsOutposts
 					return;
 				}
 				OutpostBombardmentProperties props = GetBombardmentProperties(outpost);
-				ThingDef projectileDef = props?.ProjectileDef;
+				ThingDef shellDef = SelectedShellDef(outpost);
+				ThingDef projectileDef = shellDef?.projectileWhenLoaded;
 				MapComponent_OutpostBombardment component = map.GetComponent<MapComponent_OutpostBombardment>();
 				if (projectileDef == null || component == null)
 				{
@@ -290,7 +531,7 @@ namespace DreamsOutposts
 				{
 					component.QueueShell(now + i * props.ticksBetweenShells, cell, props.EffectiveMissRadius, projectileDef);
 				}
-				Messages.Message("DreamsOutposts.BombardLaunched".Translate(outpost.LabelCap, map.Parent?.LabelCap ?? map.ToString(), shells), new GlobalTargetInfo(cell, map), MessageTypeDefOf.TaskCompletion, historical: false);
+				Messages.Message("DreamsOutposts.BombardLaunched".Translate(outpost.LabelCap, map.Parent?.LabelCap ?? map.ToString(), shells, shellDef.LabelCap), new GlobalTargetInfo(cell, map), MessageTypeDefOf.TaskCompletion, historical: false);
 			}
 		}
 	}

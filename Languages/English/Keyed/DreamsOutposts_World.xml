@@ -4,5 +4,13 @@
   <DreamsOutposts.EnterOutpostDesc>Move every pawn and everything this caravan carries into the outpost, then disband the caravan.</DreamsOutposts.EnterOutpostDesc>
   <DreamsOutposts.CreateOutpostDesc>Create an outpost here.</DreamsOutposts.CreateOutpostDesc>
   <DreamsOutposts.ManageOutpostDesc>Open this outpost's management window: its facilities and everything kept in store.</DreamsOutposts.ManageOutpostDesc>
+  <DreamsOutposts.VehicleCrewMissing>{0} needs at least {1} crew member(s) at the controls; {2} assigned so far. Assign seats in the Vehicles tab first.</DreamsOutposts.VehicleCrewMissing>
+  <DreamsOutposts.VehicleBoardingFailed>Could not board {0} into {1}. The seats may have changed; open the Vehicles tab and assign seats again.</DreamsOutposts.VehicleBoardingFailed>
+  <DreamsOutposts.VehicleFrameworkUnavailable>Vehicle Framework is loaded, but its caravan API could not be read, so outpost caravans cannot assign vehicle seats.</DreamsOutposts.VehicleFrameworkUnavailable>
+  <DreamsOutposts.CaravanFormFailedRolledBack>Forming the caravan failed. Everyone and every vehicle was returned to the outpost.</DreamsOutposts.CaravanFormFailedRolledBack>
+  <DreamsOutposts.AerialEnterOutpost>Enter outpost: {0}</DreamsOutposts.AerialEnterOutpost>
+  <DreamsOutposts.AerialEnteredOutpost>Landed at and entered outpost: {0}</DreamsOutposts.AerialEnteredOutpost>
+  <DreamsOutposts.OneVehiclePerCaravanHint>An outpost caravan can include at most {0} vehicle. Uncheck the others first.</DreamsOutposts.OneVehiclePerCaravanHint>
+  <DreamsOutposts.OneVehiclePerCaravan>An outpost caravan can include at most 1 vehicle. Uncheck the extra vehicles first.</DreamsOutposts.OneVehiclePerCaravan>
 </LanguageData>
 

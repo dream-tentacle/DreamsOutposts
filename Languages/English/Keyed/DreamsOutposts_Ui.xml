@@ -50,6 +50,7 @@
   <DreamsOutposts.Ui.Chip.Training>Trains {0} {1}/h</DreamsOutposts.Ui.Chip.Training>
   <DreamsOutposts.Ui.Chip.TrainingTip>{0}: every colonist stationed here gains {1} xp per hour. Pawns who are incapable of that work gain nothing.</DreamsOutposts.Ui.Chip.TrainingTip>
   <DreamsOutposts.Ui.Rule.FixedCapacity>Fixed capacity 1</DreamsOutposts.Ui.Rule.FixedCapacity>
+  <DreamsOutposts.Ui.Rule.Efficiency>Efficiency {0}</DreamsOutposts.Ui.Rule.Efficiency>
   <DreamsOutposts.Ui.CoreSubLabel>Core facility · cannot be removed</DreamsOutposts.Ui.CoreSubLabel>
   <DreamsOutposts.Ui.SlotLabel>Slot {0}</DreamsOutposts.Ui.SlotLabel>
   <DreamsOutposts.Ui.Nav.Slots>{0}/{1} slots</DreamsOutposts.Ui.Nav.Slots>
@@ -105,6 +106,7 @@
   <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} disabled</DreamsOutposts.Ui.DefenseSkillDisabled>
   <DreamsOutposts.Ui.Warehouse>Warehouse</DreamsOutposts.Ui.Warehouse>
+  <DreamsOutposts.Ui.Vehicles>Vehicles</DreamsOutposts.Ui.Vehicles>
   <DreamsOutposts.Ui.WarehouseHint>Produced goods end up here automatically.</DreamsOutposts.Ui.WarehouseHint>
   <DreamsOutposts.Ui.Stacks>{0} stacks</DreamsOutposts.Ui.Stacks>
   <DreamsOutposts.Ui.Kv.RemainingTime>Time left</DreamsOutposts.Ui.Kv.RemainingTime>

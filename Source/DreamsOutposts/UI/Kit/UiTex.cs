@@ -108,9 +108,11 @@ namespace DreamsOutposts
 
 		private static Texture2D levelUpgradeSweepTexture;
 
-		private static Texture2D buildButtonTexture;
+		private static Texture2D positiveButtonTexture;
 
 		private static Texture2D infoButtonTexture;
+
+		private static Texture2D negativeButtonTexture;
 
 		private static readonly Texture2D[] navCornerArcs = new Texture2D[4];
 
@@ -171,19 +173,19 @@ namespace DreamsOutposts
 			return levelUpgradeSweepTexture;
 		}
 
-		/// <summary>扩建设施建造按钮的白色透明底图，绘制时按主题色染色。</summary>
-		public static Texture2D BuildButtonTexture()
+		/// <summary>肯定性操作（建造 / 招募）按钮的白色透明底图，绘制时按主题色染色。</summary>
+		public static Texture2D PositiveButtonTexture()
 		{
-			if (buildButtonTexture == null)
+			if (positiveButtonTexture == null)
 			{
-				buildButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "BuildButton", false);
-				if (buildButtonTexture == null)
+				positiveButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "PositiveButton", false);
+				if (positiveButtonTexture == null)
 				{
-					Log.WarningOnce("DreamsOutposts UI: build button texture missing: Textures/" + IconFolder
-						+ "BuildButton.png.", GenText.StableStringHash("ui-build-button"));
+					Log.WarningOnce("DreamsOutposts UI: positive button texture missing: Textures/" + IconFolder
+						+ "PositiveButton.png.", GenText.StableStringHash("ui-positive-button"));
 				}
 			}
-			return buildButtonTexture;
+			return positiveButtonTexture;
 		}
 
 		/// <summary>设施卡「详情」按钮的白色透明底图：与建造按钮同版式，只有右侧图标换成了信息图标。</summary>
@@ -199,6 +201,21 @@ namespace DreamsOutposts
 				}
 			}
 			return infoButtonTexture;
+		}
+
+		/// <summary>拆除按钮的白色透明底图：与建造按钮完全同规格，绘制时按破坏性语义色（红）染色。</summary>
+		public static Texture2D NegativeButtonTexture()
+		{
+			if (negativeButtonTexture == null)
+			{
+				negativeButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "NegativeButton", false);
+				if (negativeButtonTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: negative button texture missing: Textures/" + IconFolder
+						+ "NegativeButton.png.", GenText.StableStringHash("ui-negative-button"));
+				}
+			}
+			return negativeButtonTexture;
 		}
 
 		public static Texture2D NewTexture(int width, int height)
