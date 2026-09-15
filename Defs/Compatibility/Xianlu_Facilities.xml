@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="RI.RimImmortal.Core">
+    <defName>DreamsOutposts_SpiritVeinLens</defName>
+    <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
+    <uiIcon>Search</uiIcon>
+    <label>spirit vein lens</label>
+    <description>Lenses ground from liquid jade that let an altar read the flow of the spirit veins far below the surface, doubling what it gathers.\n\nDoubles the output of a spirit gathering altar. Can only be built in an immortal gate outpost.</description>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_ImmortalGate</li>
+    </allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>RI_UndergroundCrystalVein</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>150</Steel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+      <RI_Resource_LiquidJade>10</RI_Resource_LiquidJade>
+      <RI_Resource_SpiritualCrystal>5</RI_Resource_SpiritualCrystal>
+    </buildCost>
+    <productionModifiers>
+      <li>
+        <productionTag>XianluQi</productionTag>
+        <factor>2</factor>
+      </li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

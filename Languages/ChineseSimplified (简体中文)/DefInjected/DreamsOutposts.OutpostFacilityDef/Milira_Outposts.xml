@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: solar smelter -->
+  <DreamsOutposts_SolarSmelter.label>日光冶炼场</DreamsOutposts_SolarSmelter.label>
+  <!-- EN: A workshop raised on the sun's country, where sun plate steel is poured in the glare of the furnace and solar crystal is cut out of the heated crust.\n\nBase efficiency is 0.5. Every Milira colonist stationed here adds 1, and so does every Milian mechanoid of yours. At 1 efficiency the smelter produces 14 sun plate steel or 10 solar crystal per day, and its output can be switched between the two at any time. -->
+  <DreamsOutposts_SolarSmelter.description>建在阳光直射之地上的工坊：在炉火的强光中浇铸日盘钢，也从灼热的地壳里切取日凌晶。每日基础产出14个日盘钢或10个日凌晶，产物可随时在两者之间切换。\n\n基础效率为0.5。据点内每一名米莉拉、米莉安机械体使效率+1。</DreamsOutposts_SolarSmelter.description>
+  
+</LanguageData>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="fxz.glitterworlddestroyer.mk5">
+    <defName>DreamsOutposts_CuttingEdgeInformationProcessor</defName>
+    <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
+    <uiIcon>Info</uiIcon>
+    <label>cutting-edge information processor</label>
+    <description>A cluster-grade computing core that plans every pass of the tool down to the picometer and keeps the whole line synchronized, so the machines never wait on each other.\n\nDoubles the output of a precision machining plant. Can only be built in a precision mechanoid outpost.</description>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_PrecisionMechOutpost</li>
+    </allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>GD3_GiantCluster_Medium</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Steel>100</Steel>
+      <PrecisionDeck>30</PrecisionDeck>
+      <ComponentIndustrial>15</ComponentIndustrial>
+    </buildCost>
+    <productionModifiers>
+      <li>
+        <productionTag>MechMachining</productionTag>
+        <factor>2</factor>
+      </li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

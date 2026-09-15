@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ancot.MiliraRace">
+    <defName>DreamsOutposts_SolarSmelter</defName>
+    <category>DreamsOutposts_CategoryOther</category>
+    <uiIcon>Refinery</uiIcon>
+    <label>solar smelter</label>
+    <description>A workshop built where sunlight falls directly: sun plate steel is cast in the furnace's intense light, and solar crystals are cut from the scorching crust. It has a base daily output of 14 sun plate steel or 10 solar crystals, and its output can be switched between the two at any time.\n\nBase efficiency is 0.5. Each Milira or Milian mechanoid stationed at the outpost adds 1 efficiency.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <researchPrerequisites>
+      <li>Milira_UniversalPrinter</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li Class="DreamsOutposts.OutpostProductionProperties_MiliraSolar">
+            <id>miliraSolar</id>
+            <intervalTicks>60000</intervalTicks>
+            <tags>
+              <li>MiliraSolar</li>
+            </tags>
+            <baseEfficiency>0.5</baseEfficiency>
+            <efficiencyPerMilira>1</efficiencyPerMilira>
+            <efficiencyPerMilian>1</efficiencyPerMilian>
+            <products>
+              <li>
+                <product>Milira_SunPlateSteel</product>
+                <outputPerCapacity>14</outputPerCapacity>
+              </li>
+              <li>
+                <product>Milira_SolarCrystal</product>
+                <outputPerCapacity>10</outputPerCapacity>
+              </li>
+            </products>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="Ancot.MiliraRace">
+    <defName>DreamsOutposts_SolarOutpost</defName>
+    <label>solar outpost</label>
+    <description>An outpost built around a solar smelter. Milira and their Milian machines work the furnaces together, pouring sun plate steel or cutting out solar crystal.</description>
+    <coreFacility>DreamsOutposts_SolarSmelter</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+</Defs>

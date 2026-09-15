@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: Output boosts -->
+  <DreamsOutposts_CategoryProductionBoost.label>增产</DreamsOutposts_CategoryProductionBoost.label>
+
+  <!-- EN: Processing -->
+  <DreamsOutposts_CategoryProcessing.label>加工</DreamsOutposts_CategoryProcessing.label>
+
+  <!-- EN: Defense -->
+  <DreamsOutposts_CategoryDefense.label>防卫</DreamsOutposts_CategoryDefense.label>
+
+  <!-- EN: Automatic production -->
+  <DreamsOutposts_CategoryAutomaticProduction.label>自动生产</DreamsOutposts_CategoryAutomaticProduction.label>
+
+  <!-- EN: Power generation -->
+  <DreamsOutposts_CategoryPowerGeneration.label>发电</DreamsOutposts_CategoryPowerGeneration.label>
+
+  <!-- EN: Recruitment -->
+  <DreamsOutposts_CategoryRecruitment.label>招募</DreamsOutposts_CategoryRecruitment.label>
+
+  <!-- EN: Training -->
+  <DreamsOutposts_CategoryTraining.label>训练</DreamsOutposts_CategoryTraining.label>
+
+  <!-- EN: Other -->
+  <DreamsOutposts_CategoryOther.label>其他</DreamsOutposts_CategoryOther.label>
+</LanguageData>

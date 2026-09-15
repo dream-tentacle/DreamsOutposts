@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: miniature sun -->
+  <DreamsOutposts_MiniatureSun.label>微型太阳</DreamsOutposts_MiniatureSun.label>
+  <!-- EN: A caged sliver of a star, held over the works on a lattice of solar crystal. Its light drives every reaction at once, so the furnaces never cool and nothing here waits for the sun to rise.\n\nDoubles the output of a solar smelter. Can only be built in a solar outpost. -->
+  <DreamsOutposts_MiniatureSun.description>以日凌晶晶格悬于工坊之上的一小片被囚禁的恒星。它的光同时驱动这里的每一道反应，炉子永不冷却，一切都无需等待日出。\n\n使日光冶炼场的产出翻倍。只能建造在太阳据点。</DreamsOutposts_MiniatureSun.description>
+  
+</LanguageData>

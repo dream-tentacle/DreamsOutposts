@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    安装页的设施分类。每个分类是一个 Def：
+    - label 决定标签页上显示的名字，翻译走 DefInjected（见 Languages 下的 DreamsOutposts.OutpostFacilityCategoryDef）。
+    - order 决定标签页顺序，越小越靠前。
+    - 设施用 <category> 指定自己属于哪个分类；没写就归入 DreamsOutposts_CategoryOther。
+    新增分类只需要在这里追加一个 Def，不需要改程序集。
+  -->
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryProductionBoost</defName>
+    <label>Output boosts</label>
+    <order>1</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryProcessing</defName>
+    <label>Processing</label>
+    <order>2</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryDefense</defName>
+    <label>Defense</label>
+    <order>3</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryAutomaticProduction</defName>
+    <label>Automatic production</label>
+    <order>4</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryPowerGeneration</defName>
+    <label>Power generation</label>
+    <order>5</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryRecruitment</defName>
+    <label>Recruitment</label>
+    <order>6</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryTraining</defName>
+    <label>Training</label>
+    <order>7</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryOther</defName>
+    <label>Other</label>
+    <order>8</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+</Defs>

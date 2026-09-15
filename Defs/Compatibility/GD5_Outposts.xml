@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="fxz.glitterworlddestroyer.mk5">
+    <defName>DreamsOutposts_PrecisionMachiningPlant</defName>
+    <category>DreamsOutposts_CategoryOther</category>
+    <uiIcon>Factory</uiIcon>
+    <label>precision machining plant</label>
+    <description>A precision machining plant run entirely by mechanoids. Their machining precision far exceeds the limits of human hands, allowing this production line to produce precision deck plating and usable components in quantity. It has a base daily output of 8 precision deck or 9 components, and its output can be switched between the two at any time.\n\nBase efficiency is 0.5: each mechanoid of yours stationed at the outpost adds 0.2 efficiency, ultra-heavy mechanoids add 0.5, diabolus, war queens and apocritons add 1.5, and cataphract centipedes add 2.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <researchPrerequisites>
+      <li>GD3_GiantCluster_Small</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li Class="DreamsOutposts.OutpostProductionProperties_MechMachining">
+            <id>mechMachining</id>
+            <intervalTicks>60000</intervalTicks>
+            <tags>
+              <li>MechMachining</li>
+            </tags>
+            <baseEfficiency>0.5</baseEfficiency>
+            <efficiencyPerMechanoid>0.2</efficiencyPerMechanoid>
+            <pawnKindBonuses>
+              <li>
+                <pawnKind>Mech_CataphractCentipede</pawnKind>
+                <efficiency>2</efficiency>
+              </li>
+              <li>
+                <pawnKind>Mech_Diabolus</pawnKind>
+                <efficiency>1.5</efficiency>
+              </li>
+              <li>
+                <pawnKind>Mech_Warqueen</pawnKind>
+                <efficiency>1.5</efficiency>
+              </li>
+              <li>
+                <pawnKind>Mech_Apocriton</pawnKind>
+                <efficiency>1.5</efficiency>
+              </li>
+              <li>
+                <pawnKind>Mech_BlackApocriton</pawnKind>
+                <efficiency>1.5</efficiency>
+              </li>
+            </pawnKindBonuses>
+            <weightClassBonuses>
+              <li>
+                <weightClass>UltraHeavy</weightClass>
+                <efficiency>0.5</efficiency>
+              </li>
+            </weightClassBonuses>
+            <products>
+              <li>
+                <product>PrecisionDeck</product>
+                <outputPerCapacity>8</outputPerCapacity>
+              </li>
+              <li>
+                <product>ComponentIndustrial</product>
+                <outputPerCapacity>9</outputPerCapacity>
+              </li>
+            </products>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="fxz.glitterworlddestroyer.mk5">
+    <defName>DreamsOutposts_PrecisionMechOutpost</defName>
+    <label>precision mechanoid outpost</label>
+    <description>An outpost built around a standing force of mechanoids. The machines stationed here do every precision step of the work, machining out precision deck plating or reusable components.</description>
+    <coreFacility>DreamsOutposts_PrecisionMachiningPlant</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+</Defs>

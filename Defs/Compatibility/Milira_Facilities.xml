@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ancot.MiliraRace">
+    <defName>DreamsOutposts_MiniatureSun</defName>
+    <facilityTag>ProductionBoost</facilityTag>
+    <category>DreamsOutposts_CategoryProductionBoost</category>
+    <uiIcon>Generator</uiIcon>
+    <label>miniature sun</label>
+    <description>A caged sliver of a star, held over the works on a lattice of solar crystal. Its light drives every reaction at once, so the furnaces never cool and nothing here waits for the sun to rise.\n\nDoubles the output of a solar smelter. Can only be built in a solar outpost.</description>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_SolarOutpost</li>
+    </allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <maxPerOutpost>1</maxPerOutpost>
+    <researchPrerequisites>
+      <li>Milira_SunBlastFurnace_Build</li>
+    </researchPrerequisites>
+    <buildCost>
+      <Milira_SunPlateSteel>150</Milira_SunPlateSteel>
+      <Milira_SolarCrystal>50</Milira_SolarCrystal>
+      <ComponentSpacer>10</ComponentSpacer>
+    </buildCost>
+    <productionModifiers>
+      <li>
+        <productionTag>MiliraSolar</productionTag>
+        <factor>2</factor>
+      </li>
+    </productionModifiers>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

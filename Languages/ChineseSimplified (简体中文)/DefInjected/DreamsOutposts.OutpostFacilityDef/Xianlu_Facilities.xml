@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: spirit gathering altar -->
+  <DreamsOutposts_SpiritGatheringAltar.label>聚灵法坛</DreamsOutposts_SpiritGatheringAltar.label>
+  <!-- EN: A stone altar raised over a node of flowing qi, where cultivators sit in meditation and condense the spirit of the land into solid form.\n\nBase efficiency is 0.5. Every colonist stationed here who has a spirit root adds 1, and every cultivation rank above Catkins adds another 1. At 1 efficiency the altar yields 5 spiritual crystal or 1.2 liquid jade per day, and its output can be switched between the two at any time. -->
+  <DreamsOutposts_SpiritGatheringAltar.description>立于灵脉节点之上的石坛，修士在此静坐，将天地灵气凝为实体。每日基础产出5个灵石或1.2个柔玉，产出可随时在两者之间切换。\n\n基础效率为0.5：据点内每一名拥有灵芽的殖民者使效率+1，其修仙境界每高于「蓬絮」一级再+1。</DreamsOutposts_SpiritGatheringAltar.description>
+  
+  <!-- EN: spirit vein lens -->
+  <DreamsOutposts_SpiritVeinLens.label>灵脉透镜</DreamsOutposts_SpiritVeinLens.label>
+  <!-- EN: Lenses ground from liquid jade that let an altar read the flow of the spirit veins far below the surface, doubling what it gathers.\n\nDoubles the output of a spirit gathering altar. Can only be built in an immortal gate outpost. -->
+  <DreamsOutposts_SpiritVeinLens.description>以柔玉打磨而成的镜片，能让法坛看清地底深处灵脉的流向，使汇聚到的灵气翻倍。\n\n使聚灵法坛的产出翻倍。只能建造在仙门据点。</DreamsOutposts_SpiritVeinLens.description>
+  
+</LanguageData>

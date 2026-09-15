@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="RI.RimImmortal.Core">
+    <defName>DreamsOutposts_SpiritGatheringAltar</defName>
+    <category>DreamsOutposts_CategoryOther</category>
+    <uiIcon>Flag</uiIcon>
+    <label>spirit gathering altar</label>
+    <description>A stone altar raised over a spirit vein node. Cultivators sit here in meditation, condensing the qi of heaven and earth into solid form. It has a base daily output of 5 spiritual crystals or 1.2 liquid jade, and its output can be switched between the two at any time.\n\nBase efficiency is 0.5: each colonist stationed at the outpost who has a spirit root adds 1 efficiency, and each cultivation rank above Catkins adds another 1.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <researchPrerequisites>
+      <li>RI_QiResearch</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
+        <productions>
+          <li Class="DreamsOutposts.OutpostProductionProperties_XianluQi">
+            <id>spiritQi</id>
+            <intervalTicks>60000</intervalTicks>
+            <tags>
+              <li>XianluQi</li>
+            </tags>
+            <products>
+              <li>
+                <product>RI_Resource_SpiritualCrystal</product>
+                <outputPerCapacity>5</outputPerCapacity>
+              </li>
+              <li>
+                <product>RI_Resource_LiquidJade</product>
+                <outputPerCapacity>1.2</outputPerCapacity>
+              </li>
+            </products>
+          </li>
+        </productions>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="RI.RimImmortal.Core">
+    <defName>DreamsOutposts_ImmortalGate</defName>
+    <label>immortal gate outpost</label>
+    <description>A gate of the immortal path built on a remote node of flowing qi. Cultivators stationed here gather spiritual crystal or liquid jade from the land itself.</description>
+    <coreFacility>DreamsOutposts_SpiritGatheringAltar</coreFacility>
+  </DreamsOutposts.OutpostTypeDef>
+</Defs>

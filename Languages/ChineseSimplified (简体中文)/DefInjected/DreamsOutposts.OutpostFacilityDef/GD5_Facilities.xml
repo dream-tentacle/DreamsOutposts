@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: precision machining plant -->
+  <DreamsOutposts_PrecisionMachiningPlant.label>精密加工车间</DreamsOutposts_PrecisionMachiningPlant.label>
+  <!-- EN: A machining plant run entirely by mechanoids. Their tolerances are finer than any human hand could ever hold, so the line turns out precision deck plating and reusable components in quantity.\n\nBase efficiency is 0.5. Every mechanoid of yours stationed here adds 0.2, except ultra-heavy mechanoids, which add 0.5, cataphract centipedes, which add 2, and diabolus, war queens, apocritons and black apocritons, which add 1.5 instead. A machine that matches more than one of these uses the value it is listed under by name. At 1 efficiency the plant produces 8 precision deck or 9 components per day, and its output can be switched between the two at any time. -->
+  <DreamsOutposts_PrecisionMachiningPlant.description>完全由机械族运转的精密加工车间。它们的加工精度远超人手所能达到的极限，因此这条生产线能批量产出精密装甲板与可用的零部件。每日基础产出8个精密装甲板或9个零部件，产物可随时在两者之间切换。\n\n基础效率为0.5：据点内每一台属于你的机械族使效率+0.2，超重型机械体+0.5，炼狱魔王、战争女皇、憎恶毒蜂+1.5，禁卫蜈蚣+2。</DreamsOutposts_PrecisionMachiningPlant.description>
+  
+  <!-- EN: cutting-edge information processor -->
+  <DreamsOutposts_CuttingEdgeInformationProcessor.label>尖端信息处理器</DreamsOutposts_CuttingEdgeInformationProcessor.label>
+  <!-- EN: A cluster-grade computing core that plans every pass of the tool down to the picometer and keeps the whole line synchronized, so the machines never wait on each other.\n\nDoubles the output of a precision machining plant. Can only be built in a precision mechanoid outpost. -->
+  <DreamsOutposts_CuttingEdgeInformationProcessor.description>集群级别的运算核心，能把刀具的每一次走位规划到皮米级精度，并让整条产线保持同步，机械之间永远不会互相等待。\n\n使精密加工车间的产出翻倍。只能建造在精密机械据点。</DreamsOutposts_CuttingEdgeInformationProcessor.description>
+  
+</LanguageData>
