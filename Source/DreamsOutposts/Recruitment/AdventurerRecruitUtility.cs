@@ -15,14 +15,6 @@ namespace DreamsOutposts
 		Epic
 	}
 
-	/// <summary>How good this particular pawn is as a specimen of its own kind.</summary>
-	public enum AdventurerSpecimen
-	{
-		Inferior,
-		Ordinary,
-		Superior
-	}
-
 	public struct AdventurerRarityProbabilities
 	{
 		public float Common;
@@ -63,13 +55,6 @@ namespace DreamsOutposts
 		private const float EliteCombatPower = 65f;
 		private const float EpicCombatPower = 100f;
 
-		// Specimen grade is measured on the same number vanilla shows as "character quality" on a pawn's
-		// info card: market value relative to the race's base value (1750 for humans). Vanilla's own
-		// AverageSkillCurve puts a healthy adult whose skills average 5.5 at exactly x1.00, so 1.0 means
-		// "an experienced, fully healthy person of this race".
-		private const float SuperiorSpecimenRatio = 0.85f;
-		private const float InferiorSpecimenRatio = 0.50f;
-
 		private const int PreferenceSamples = 5;
 
 		// Two guarantees are layered on top of whatever vanilla rolled, per tier: an age low enough to be
@@ -87,6 +72,19 @@ namespace DreamsOutposts
 		private const int EpicMinPassion = 10;
 		// Every fire taken away also costs the skill this many raw levels.
 		private const int PassionPenaltyLevels = 3;
+		// 加火后技能的原始等级下限：小火 8 级、大火 12 级，各自在该值上下 1 级内抽取。
+		private const int PassionBonusLevels = 8;
+		private const int PassionBonusLevelsMajor = 12;
+		private const int PassionBonusSpread = 1;
+
+		/// <summary>史诗额外赠送的特性池：博闻强识（异象 DLC）、敏捷、坚韧、速学者，等概率抽取。</summary>
+		private static readonly string[] EpicBonusTraitDefNames =
+		{
+			"PerfectMemory",
+			"Nimble",
+			"Tough",
+			"FastLearner"
+		};
 
 		public static bool IsAvailable(Outpost outpost)
 		{
@@ -198,7 +196,7 @@ namespace DreamsOutposts
 			}
 
 			// The rolled rarity selects which kind of adventurer turns up, and the rating of the offer is
-			// simply that kind's rating. Individual quality is reported separately, as specimen grade.
+			// simply that kind's rating.
 			AdventurerRarity wanted = forcedRarity ?? RollRarity(outpost);
 			List<Pair<PawnKindDef, Faction>> candidates = pool.Where(p => RarityForKind(p.First) == wanted).ToList();
 			if (candidates.Count == 0)
@@ -311,6 +309,60 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
+		/// 史诗额外删掉整条成瘾品特性（DrugDesire）：成瘾品痴迷、成瘾品爱好、成瘾品厌恶都是它的程度。
+		/// 前两个本来就被 IsNegativeTrait 判为负面，只有成瘾品厌恶不会被捕获，所以这里显式再删一次。
+		/// </summary>
+		private static void StripDrugDesireIfEpic(Pawn pawn)
+		{
+			if (pawn?.story?.traits == null) return;
+			if (RarityForKind(pawn.kindDef) != AdventurerRarity.Epic) return;
+			List<Trait> toRemove = pawn.story.traits.allTraits
+				.Where(t => t != null && t.sourceGene == null && t.def == TraitDefOf.DrugDesire)
+				.ToList();
+			if (toRemove.Count == 0) return;
+			for (int i = 0; i < toRemove.Count; i++) pawn.story.traits.RemoveTrait(toRemove[i]);
+			Log.Message("DreamsOutposts: stripped " + toRemove.Count + " drug trait(s) from epic adventurer "
+				+ pawn.LabelShort + ": " + string.Join(", ", toRemove.Select(t => t.Label).ToArray()));
+		}
+
+		/// <summary>
+		/// 史诗额外送一个强力特性：从博闻强识（异象 DLC，未启用时该 def 不存在，只在其余三个里抽）、敏捷、坚韧、速学者里
+		/// 等概率抽一个；抽到它已经有的那个就什么都不加。加之前先删掉与它互斥的既有特性，因为娇弱、迟钝这类减益特性
+		/// 不算负面特性，不会在前面被剥掉。
+		/// </summary>
+		private static void GrantEpicBonusTrait(Pawn pawn)
+		{
+			if (pawn?.story?.traits == null) return;
+			if (RarityForKind(pawn.kindDef) != AdventurerRarity.Epic) return;
+			List<TraitDef> pool = EpicBonusTraitDefNames
+				.Select(name => DefDatabase<TraitDef>.GetNamedSilentFail(name))
+				.Where(def => def != null)
+				.ToList();
+			if (pool.Count == 0) return;
+			TraitDef picked = pool.RandomElement();
+			if (pawn.story.traits.HasTrait(picked)) return;
+			RemoveConflictingTraits(pawn, picked);
+			Trait trait = new Trait(picked);
+			pawn.story.traits.GainTrait(trait);
+			Log.Message("DreamsOutposts: gave epic adventurer " + pawn.LabelShort + " the "
+				+ trait.LabelCap + " trait.");
+		}
+
+		/// <summary>删掉与该特性互斥的既有特性：原版 ConflictsWith 的口径（互相列在 conflictingTraits，或共享一条 exclusionTags）。</summary>
+		private static void RemoveConflictingTraits(Pawn pawn, TraitDef picked)
+		{
+			List<Trait> conflicts = pawn.story.traits.allTraits
+				.Where(t => t != null && t.sourceGene == null && picked.ConflictsWith(t.def))
+				.ToList();
+			for (int i = 0; i < conflicts.Count; i++)
+			{
+				pawn.story.traits.RemoveTrait(conflicts[i]);
+				Log.Message("DreamsOutposts: removed " + conflicts[i].Label + " from epic adventurer "
+					+ pawn.LabelShort + " because it conflicts with " + picked.defName + ".");
+			}
+		}
+
+		/// <summary>
 		/// Brings an adventurer of any tier inside its band: too many years behind them is fixed, the band's
 		/// lower end is filled in, the upper end is cut back, and - for the top tier alone - negative traits
 		/// and every hediff vanilla marks as bad are stripped. Negative traits go first so that a trait which
@@ -324,6 +376,8 @@ namespace DreamsOutposts
 			AdventurerRarity rarity = RarityForKind(pawn.kindDef);
 			CapBiologicalAge(pawn, MaxBiologicalAgeYearsFor(rarity));
 			StripNegativeTraitsIfEpic(pawn);
+			StripDrugDesireIfEpic(pawn);
+			GrantEpicBonusTrait(pawn);
 			EnsurePassions(pawn, PassionTargetFor(rarity));
 			ReducePassions(pawn, PassionCapFor(rarity));
 			StripBadHediffsIfEpic(pawn);
@@ -441,20 +495,16 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// Raises the pawn to <paramref name="target"/> fires of passion across the skills it can work; a
-		/// non-positive target means the tier guarantees nothing. Each round takes the remaining shortfall
-		/// and the skills that are not already major; when there are more of those skills than the shortfall,
-		/// that many of them are picked at random and given one fire each, and when there are fewer, every
-		/// one of them is given one fire and the round repeats. A pawn with only two workable skills
-		/// therefore tops out at four fires and stops there. Skills an active gene has stripped of all
-		/// interest are never picked.
+		/// 把可用技能上的火补到 target 点；target 不大于 0 时该档次不作保证。每轮随机挑差额那么多还未大火的技能各加一点火，
+		/// 每加一点火同时抬高该技能的原始等级下限。
 		/// </summary>
 		public static void EnsurePassions(Pawn pawn, int target)
 		{
 			if (pawn?.skills?.skills == null || target <= 0) return;
 
 			int added = 0;
-			// Every addition is worth exactly one fire, so the shortfall strictly shrinks and this ends.
+			int levels = 0;
+			// 每次只加一点火，差额必定缩小，循环必然结束。
 			for (int round = 0; round <= target; round++)
 			{
 				int shortfall = target - WorkablePassionCount(pawn);
@@ -463,7 +513,7 @@ namespace DreamsOutposts
 					.Where(s => s != null && !s.TotallyDisabled && s.passion != Passion.Major
 						&& !GeneDropsPassion(pawn, s.def))
 					.ToList();
-				// Nothing left below major passion and the target still is not met: stop.
+				// 已无低于大火的技能可加：停止。
 				if (upgradable.Count == 0) break;
 				if (upgradable.Count > shortfall)
 				{
@@ -472,17 +522,22 @@ namespace DreamsOutposts
 						SkillRecord pick = upgradable.RandomElement();
 						upgradable.Remove(pick);
 						pick.passion = pick.passion.IncrementPassion();
+						levels += UpgradeSkillLevel(pick);
 					}
 					added += shortfall;
 					break;
 				}
 				for (int i = 0; i < upgradable.Count; i++)
+				{
 					upgradable[i].passion = upgradable[i].passion.IncrementPassion();
+					levels += UpgradeSkillLevel(upgradable[i]);
+				}
 				added += upgradable.Count;
 			}
 			if (added > 0)
 				Log.Message("DreamsOutposts: gave " + RarityForKind(pawn.kindDef) + " adventurer " + pawn.LabelShort
-					+ " " + added + " passion point(s) toward " + target + ", now at " + WorkablePassionCount(pawn) + ".");
+					+ " " + added + " passion point(s) and " + levels + " raw skill level(s) toward " + target
+					+ ", now at " + WorkablePassionCount(pawn) + ".");
 		}
 
 		/// <summary>
@@ -530,6 +585,18 @@ namespace DreamsOutposts
 				Log.Message("DreamsOutposts: took " + removed + " passion point(s) and " + levels
 					+ " raw skill level(s) from " + RarityForKind(pawn.kindDef) + " adventurer " + pawn.LabelShort
 					+ ", now at " + WorkablePassionCount(pawn) + ".");
+		}
+
+		/// <summary>
+		/// 按刚加的火抬高技能的原始等级下限：小火在 7-9、大火在 11-13 内随机抽取，只抬不压，也不动基因与特性给的天赋等级。
+		/// </summary>
+		private static int UpgradeSkillLevel(SkillRecord record)
+		{
+			int baseLevel = (record.passion == Passion.Major) ? PassionBonusLevelsMajor : PassionBonusLevels;
+			int floor = baseLevel + Rand.RangeInclusive(-PassionBonusSpread, PassionBonusSpread);
+			int before = record.levelInt;
+			if (record.levelInt < floor) record.levelInt = floor;
+			return record.levelInt - before;
 		}
 
 		/// <summary>
@@ -665,14 +732,22 @@ namespace DreamsOutposts
 
 		public static AdventurerRarity RarityFor(Pawn pawn) => RarityForKind(pawn?.kindDef);
 
+		/// <summary>只影响显示的「传说」门槛：战斗力超过它的个体在酒馆里显示为传说，评级与一切机制都不变。</summary>
+		public const float LegendaryCombatPower = 200f;
+
+		public static bool IsLegendary(Pawn pawn) => (pawn?.kindDef?.combatPower ?? 0f) > LegendaryCombatPower;
+
+		/// <summary>显示用评级名：传说个体返回「传说」，其余返回正常评级名。</summary>
+		public static string RarityLabelFor(Pawn pawn, AdventurerRarity rarity)
+		{
+			return IsLegendary(pawn) ? "DreamsOutposts.Tavern.Rarity.Legendary".Translate().ToString() : RarityLabel(rarity);
+		}
+
 		/// <summary>
 		/// Translated name of a rating. Both the tavern page and the event preview use this, so a rating
 		/// never shows up as its raw enum name (which is what "Excellent" would look like in a Chinese game).
 		/// </summary>
 		public static string RarityLabel(AdventurerRarity rarity) => ("DreamsOutposts.Tavern.Rarity." + rarity).Translate();
-
-		/// <summary>Translated name of a specimen grade, shared the same way as <see cref="RarityLabel"/>.</summary>
-		public static string SpecimenLabel(AdventurerSpecimen specimen) => ("DreamsOutposts.Tavern.Specimen." + specimen).Translate();
 
 		/// <summary>
 		/// Picks an eligible kind rated at <paramref name="rarity"/> from the same pool the tavern draws
@@ -688,27 +763,6 @@ namespace DreamsOutposts
 			kind = entry.First;
 			faction = entry.Second;
 			return true;
-		}
-
-		/// <summary>
-		/// The same measure as the "character quality" line on a pawn's info card: market value relative
-		/// to the race's base value. 1.0 is a healthy adult with average (5.5) skills. It covers health,
-		/// every capacity, every skill, life stage, traits and beauty; gear is valued separately by vanilla.
-		/// </summary>
-		public static float SpecimenRatio(Pawn pawn)
-		{
-			if (pawn?.def == null) return 1f;
-			float baseValue = pawn.def.GetStatValueAbstract(StatDefOf.MarketValue);
-			if (baseValue <= 0f) return 1f;
-			return pawn.GetStatValue(StatDefOf.MarketValue) / baseValue;
-		}
-
-		public static AdventurerSpecimen SpecimenFor(Pawn pawn)
-		{
-			float ratio = SpecimenRatio(pawn);
-			if (ratio >= SuperiorSpecimenRatio) return AdventurerSpecimen.Superior;
-			if (ratio <= InferiorSpecimenRatio) return AdventurerSpecimen.Inferior;
-			return AdventurerSpecimen.Ordinary;
 		}
 
 		public static float PopulationTendency(Outpost outpost)

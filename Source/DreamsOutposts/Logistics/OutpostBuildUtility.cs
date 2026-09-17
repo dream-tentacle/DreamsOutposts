@@ -59,7 +59,7 @@ namespace DreamsOutposts
 					int removed = OutpostStockUtility.TakeFromStock(outpost, item.thingDef, required);
 					if (removed < required)
 					{
-						Log.Error("Failed to pay " + labelForLog + " in outpost " + outpost.Label + ": removed only " + removed + " of " + required + " " + item.thingDef.defName + ".");
+						Log.Error("[DreamsOutposts] Failed to pay " + labelForLog + " in outpost " + outpost.Label + ": removed only " + removed + " of " + required + " " + item.thingDef.defName + ".");
 						paid = false;
 					}
 				}

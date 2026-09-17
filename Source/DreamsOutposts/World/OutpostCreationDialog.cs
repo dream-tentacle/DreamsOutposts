@@ -33,7 +33,7 @@ namespace DreamsOutposts
 			UiDraw.Divider(new Rect(title.x, title.yMax - 1f, title.width, 1f), UiPalette.Line);
 			float x = title.x + UiMetrics.TitlebarPaddingLeft;
 			UiText.Draw(new Rect(x, title.y + 14f, title.width - 90f, UiText.LineHeight(UiFont.Heading)), "DreamsOutposts.CreateOutpost".Translate(), UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true);
-			UiText.Draw(new Rect(x, title.y + 43f, title.width - 90f, UiText.LineHeight(UiFont.Caption)), "DreamsOutposts.CreateOutpostHint".Translate(), UiFont.Caption, UiPalette.Ink2);
+			UiText.Draw(new Rect(x, title.y + 43f, title.width - 90f, UiText.LineHeight(UiFont.Body)), "DreamsOutposts.CreateOutpostHint".Translate(), UiFont.Body, UiPalette.Ink2);
 			Rect close = new Rect(title.xMax - UiMetrics.TitlebarPaddingRight - UiMetrics.CloseButtonSize, title.y + (title.height - UiMetrics.CloseButtonSize) * .5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
 			if (UiWidgets.CloseButton(close, "DreamsOutposts.Ui.Close".Translate())) Close();
 			Rect body = new Rect(panel.x + 20f, title.yMax + 18f, panel.width - 40f, panel.yMax - title.yMax - 36f);
@@ -59,8 +59,8 @@ namespace DreamsOutposts
 			float tw = Mathf.Max(details.x - tx - 14f, 40f);
 			UiText.Draw(new Rect(tx, rect.y + 14f, tw, 24f), def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
 			string coreFacility = "DreamsOutposts.CoreFacilityInfo".Translate(def.coreFacility?.LabelCap ?? "DreamsOutposts.None".Translate());
-			UiText.Draw(new Rect(tx, rect.y + 40f, tw, 24f), coreFacility, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
-			if (!report.Accepted) UiText.Draw(new Rect(tx, rect.yMax - 24f, tw, 20f), report.Reason, UiFont.Caption, UiPalette.Bad, TextAnchor.UpperLeft, false, false, true);
+			UiText.Draw(new Rect(tx, rect.y + 40f, tw, 24f), coreFacility, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+			if (!report.Accepted) UiText.Draw(new Rect(tx, rect.yMax - 24f, tw, 20f), report.Reason, UiFont.Body, UiPalette.Bad, TextAnchor.UpperLeft, false, false, true);
 			if (UiWidgets.Button(details, "Details".Translate(), UiButtonKind.Secondary, true, null, UiButtonSize.Small)) Find.WindowStack.Add(new Dialog_InfoCard(def));
 			if (UiWidgets.Button(create, "DreamsOutposts.CreateOutpost".Translate(), UiButtonKind.Primary, report.Accepted, report.Reason, UiButtonSize.Small))
 			{

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  
+  <!-- EN: the dream's gift -->
+  <DO_Dream_Gift.label>梦境的馈赠</DO_Dream_Gift.label>
+  <!-- EN: Last night, more than one of us dreamed the same dream. In it, someone left a gift behind - and not one of us can remember what that person looked like. -->
+  <DO_Dream_Gift.description>昨夜，不止一个人做了同样的梦。梦里有人留下了一份礼物，却没人记得那个人究竟长什么样。</DO_Dream_Gift.description>
+  <!-- EN: Accept the gift -->
+  <DO_Dream_Gift.options.0.label>接受馈赠</DO_Dream_Gift.options.0.label>
+  <!-- EN: The dream has already come looking for us. There is no harm in seeing what it wanted to leave behind. -->
+  <DO_Dream_Gift.options.0.description>既然梦已经找上门来，不妨看看它究竟想留下什么。</DO_Dream_Gift.options.0.description>
+  <!-- EN: Refuse -->
+  <DO_Dream_Gift.options.1.label>拒绝</DO_Dream_Gift.options.1.label>
+  <!-- EN: Treat it as an ordinary dream. When everyone wakes, nothing has changed. -->
+  <DO_Dream_Gift.options.1.description>把它当作一场普通的梦。醒来之后，一切照旧。</DO_Dream_Gift.options.1.description>
+
+  <!-- EN: warrior from afar -->
+  <DO_Dream_LegendaryVisitor.label>远道而来的勇士</DO_Dream_LegendaryVisitor.label>
+  <!-- EN: A dust-covered stranger has come to the outpost. He says nothing about his past, and asks only whether the tavern still has a place for him. -->
+  <DO_Dream_LegendaryVisitor.description>一位风尘仆仆的陌生人来到据点。他没有谈起自己的过去，只问酒馆里是否还留着一个位置。</DO_Dream_LegendaryVisitor.description>
+  <!-- EN: Invite him in -->
+  <DO_Dream_LegendaryVisitor.options.0.label>邀请加入</DO_Dream_LegendaryVisitor.options.0.label>
+  <!-- EN: Make a place for this stranger. Perhaps he will tell his story some other time. -->
+  <DO_Dream_LegendaryVisitor.options.0.description>为这位陌生的旅人腾出一个位置。也许他的故事以后会慢慢说起。</DO_Dream_LegendaryVisitor.options.0.description>
+  <!-- EN: Politely decline -->
+  <DO_Dream_LegendaryVisitor.options.1.label>婉言谢绝</DO_Dream_LegendaryVisitor.options.1.label>
+  <!-- EN: There is no spare place here for the moment. He nods, then walks back out into the wasteland. -->
+  <DO_Dream_LegendaryVisitor.options.1.description>这里暂时没有多余的位置。他点点头，随后再次踏上荒原。</DO_Dream_LegendaryVisitor.options.1.description>
+  
+</LanguageData>

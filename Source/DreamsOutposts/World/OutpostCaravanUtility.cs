@@ -56,7 +56,7 @@ namespace DreamsOutposts
 			}
 			if (transferable.things.Contains(thing))
 			{
-				Log.Error("Tried to add the same thing twice to TransferableOneWay: " + thing);
+				Log.Error("[DreamsOutposts] Tried to add the same thing twice to TransferableOneWay: " + thing);
 			}
 			else
 			{
@@ -204,10 +204,10 @@ namespace DreamsOutposts
 					Pawn pawn = CaravanInventoryUtility.FindPawnToMoveInventoryTo(piece, caravan.PawnsListForReading, null);
 					if (pawn == null)
 					{
-						Log.Error("Could not find a pawn in the new caravan to carry " + piece?.ToString() + "; returning it to outpost " + outpost.Label + ".");
+						Log.Error("[DreamsOutposts] Could not find a pawn in the new caravan to carry " + piece?.ToString() + "; returning it to outpost " + outpost.Label + ".");
 						if (!outpost.inventory.TryAdd(piece))
 						{
-							Log.Error("Failed to return " + piece?.ToString() + " to outpost " + outpost.Label + ".");
+							Log.Error("[DreamsOutposts] Failed to return " + piece?.ToString() + " to outpost " + outpost.Label + ".");
 						}
 					}
 					else
@@ -324,7 +324,7 @@ namespace DreamsOutposts
 				caravan.RemovePawn(pawn);
 				if (!OutpostUtility.MovePawnIntoOutpost(outpost, pawn))
 				{
-					Log.Error("Failed to move " + pawn + " into outpost " + outpost.Label + "; returning it to caravan " + caravan.Label + ".");
+					Log.Error("[DreamsOutposts] Failed to move " + pawn + " into outpost " + outpost.Label + "; returning it to caravan " + caravan.Label + ".");
 					caravan.AddPawn(pawn, addCarriedPawnToWorldPawnsIfAny: false);
 				}
 			}

@@ -6,8 +6,6 @@ namespace DreamsOutposts
 {
 	/// <summary>
 	/// 事件弹窗正文：描述 / 基础信息 / 超时自动选择 / 选项面板。
-	/// 按需求去掉：事件分类后面的「（当前权重 x）」、超时自动选择下面的「结果：…」、
-	/// 选项区的「点选一个选项，然后在左下角点「确认」。」提示、选中项上的「已选中」标记。
 	/// </summary>
 	public sealed class UiEventModalBody : IUiModalBody, IUiModalBodyHeader
 	{
@@ -174,8 +172,7 @@ namespace DreamsOutposts
 			{
 				for (int i = 0; i < view.Options.Count; i++)
 				{
-					// OptionBlock 返回的是「这张卡片的高度」，必须累加到 y 上。
-					// 曾经写成 y = OptionBlock(...)：y 被直接设成高度，第二张卡就叠在第一张上了。
+					// OptionBlock 返回的是「这张卡片的高度」，必须累加到 y 上；写成 y = OptionBlock(...) 会让第二张卡叠在第一张上。
 					float optionHeight = OptionBlock(rect.x, y, width, view.Options[i], i, measure);
 					y += optionHeight + BlockSpacing;
 				}
@@ -187,10 +184,10 @@ namespace DreamsOutposts
 		private float SectionTitle(float x, float y, float width, string text, bool measure, bool isFirst)
 		{
 			float top = isFirst ? 0f : SectionTop;
-			float lineHeight = UiText.LineHeight(UiFont.Caption);
+			float lineHeight = UiText.LineHeight(UiFont.Body);
 			if (!measure)
 			{
-				UiText.Draw(new Rect(x, y + top, width, lineHeight), text, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
+				UiText.Draw(new Rect(x, y + top, width, lineHeight), text, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
 			}
 			return y + top + lineHeight + SectionBottom;
 		}
@@ -203,7 +200,7 @@ namespace DreamsOutposts
 			}
 			int columns = UiMetrics.GridColumns(width, KvMinCell, KvGap);
 			float cellWidth = UiMetrics.GridCellWidth(width, columns, KvGap);
-			float keyHeight = UiText.LineHeight(UiFont.Caption);
+			float keyHeight = UiText.LineHeight(UiFont.Body);
 			float valueHeight = UiText.LineHeight(UiFont.Body);
 			float cellHeight = KvPaddingV * 2f + keyHeight + 2f + valueHeight;
 			int rowCount = Mathf.CeilToInt((float)rows.Count / columns);
@@ -215,7 +212,7 @@ namespace DreamsOutposts
 					int column = i % columns;
 					Rect cell = new Rect(x + (cellWidth + KvGap) * column, y + (cellHeight + KvGap) * row, cellWidth, cellHeight);
 					UiText.Draw(new Rect(cell.x + KvPaddingH, cell.y + KvPaddingV, cell.width - KvPaddingH * 2f, keyHeight),
-						rows[i].Key, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+						rows[i].Key, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 					UiText.Draw(new Rect(cell.x + KvPaddingH, cell.y + KvPaddingV + keyHeight + 2f, cell.width - KvPaddingH * 2f, valueHeight),
 						rows[i].Value, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, false, false, true);
 				}
@@ -373,7 +370,7 @@ namespace DreamsOutposts
 			if (option.EffectLines.Count > 0)
 			{
 				cursor += BlockGap;
-				float lineHeight = UiText.LineHeight(UiFont.Caption);
+				float lineHeight = UiText.LineHeight(UiFont.Body);
 				for (int i = 0; i < option.EffectLines.Count; i++)
 				{
 					DrawEffectLine(new Rect(innerX, cursor + lineHeight * i, innerWidth, lineHeight), option.EffectLines[i], option.EffectKinds[i]);
@@ -385,12 +382,12 @@ namespace DreamsOutposts
 			{
 				cursor += BlockGap;
 				float textWidth = innerWidth - FailPaddingH * 2f;
-				float textHeight = UiText.Height(option.FailureReason, UiFont.Caption, textWidth);
+				float textHeight = UiText.Height(option.FailureReason, UiFont.Body, textWidth);
 				Rect failRect = new Rect(innerX, cursor, innerWidth, textHeight + FailPaddingV * 2f);
 				UiDebug.Scope("modal.event.option[" + index + "].fail", failRect);
 				UiDraw.Box(failRect, (int)UiMetrics.RadiusSm, UiPalette.BadBg, UiPalette.BadLine);
 				UiText.Draw(new Rect(failRect.x + FailPaddingH, failRect.y + FailPaddingV, textWidth, textHeight),
-					option.FailureReason, UiFont.Caption, UiPalette.Bad, TextAnchor.UpperLeft, false, true);
+					option.FailureReason, UiFont.Body, UiPalette.Bad, TextAnchor.UpperLeft, false, true);
 			}
 			// 整块可点（选中项不需要再显示「已选中」标记，高亮就够了）
 			if (option.Selectable && Widgets.ButtonInvisible(new Rect(x, y, width, height)))
@@ -408,11 +405,11 @@ namespace DreamsOutposts
 			float height = BlockPaddingV * 2f + header.HeadHeight + DescriptionExtraHeight(header);
 			if (option.EffectLines.Count > 0)
 			{
-				height += BlockGap + UiText.LineHeight(UiFont.Caption) * option.EffectLines.Count;
+				height += BlockGap + UiText.LineHeight(UiFont.Body) * option.EffectLines.Count;
 			}
 			if (!option.RequirementsMet && !string.IsNullOrEmpty(option.FailureReason))
 			{
-				height += BlockGap + UiText.Height(option.FailureReason, UiFont.Caption, innerWidth - FailPaddingH * 2f) + FailPaddingV * 2f;
+				height += BlockGap + UiText.Height(option.FailureReason, UiFont.Body, innerWidth - FailPaddingH * 2f) + FailPaddingV * 2f;
 			}
 			return height;
 		}
@@ -436,7 +433,7 @@ namespace DreamsOutposts
 			{
 				color = UiPalette.Purple;
 			}
-			UiText.Draw(rect, text, UiFont.Caption, color, TextAnchor.MiddleLeft, false, false, true);
+			UiText.Draw(rect, text, UiFont.Body, color, TextAnchor.MiddleLeft, false, false, true);
 		}
 	}
 }

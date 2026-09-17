@@ -111,11 +111,11 @@ namespace DreamsOutposts
 			OutpostProductionState_AdaptiveMining miningState = MiningState(state);
 			if (miningState == null)
 			{
-				Log.Error("Tried to set mineral " + (mineral?.defName ?? "null") + " on production " + (production?.id ?? "null") + ", but its runtime state is " + (state?.GetType().Name ?? "null") + " instead of OutpostProductionState_AdaptiveMining.");
+				Log.Error("[DreamsOutposts] Tried to set mineral " + (mineral?.defName ?? "null") + " on production " + (production?.id ?? "null") + ", but its runtime state is " + (state?.GetType().Name ?? "null") + " instead of OutpostProductionState_AdaptiveMining.");
 			}
 			else if (!(production is OutpostProductionProperties_AdaptiveMining adaptive) || !adaptive.IsMineableProduct(mineral))
 			{
-				Log.Error("Tried to set mineral " + (mineral?.defName ?? "null") + " on production " + (production?.id ?? "null") + ", but it is not a mineable mineral.");
+				Log.Error("[DreamsOutposts] Tried to set mineral " + (mineral?.defName ?? "null") + " on production " + (production?.id ?? "null") + ", but it is not a mineable mineral.");
 			}
 			else if (miningState.selectedMineral != mineral)
 			{

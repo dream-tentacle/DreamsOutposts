@@ -5,7 +5,7 @@ using Verse;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 「设施」页（新样式）：等级卡 + 核心设施 + 扩建设施槽位。
+	/// 「设施」页：等级卡 + 核心设施 + 扩建设施槽位。
 	/// 只负责画，所有数据来自 OutpostUiCache。
 	/// </summary>
 	public class Page_OutpostFacilities : OutpostManagePage, IUiShellPage
@@ -19,6 +19,18 @@ namespace DreamsOutposts
 		private int observedLevel = -1;
 
 		private float upgradeFlashStartedAt = float.NegativeInfinity;
+
+		/// <summary>刚建成的扩展槽位：套用和等级卡同款的闪光；未触发过时槽位号是 -1。</summary>
+		private string[] observedSlotFacilities;
+
+		private int builtFlashSlotIndex = -1;
+
+		private float builtFlashStartedAt = float.NegativeInfinity;
+
+		/// <summary>滚动画布的可见上下边（正文坐标系），用于挡掉滚出可视区的卡片点击。</summary>
+		private float viewportTop;
+
+		private float viewportBottom;
 
 		private Window_OutpostManage Shell => hostWindow as Window_OutpostManage;
 
@@ -49,15 +61,9 @@ namespace DreamsOutposts
 			}
 		}
 
-		public string HeadDescription => def?.description;
+		public string HeadDescription => null;
 
-		public string HeadHint => "DreamsOutposts.Ui.FacilitiesHint".Translate();
-
-		/// <summary>旧入口：本页由新外壳驱动，这里直接画正文以兼容其它宿主。</summary>
-		public override void DoContents(Rect rect)
-		{
-			DrawBody(rect, rect.height);
-		}
+		public string HeadHint => null;
 
 		public float BodyHeight(float width, float availableHeight)
 		{
@@ -66,6 +72,9 @@ namespace DreamsOutposts
 
 		public void DrawBody(Rect rect, float availableHeight)
 		{
+			// 记录滚动画布的可见上下边：滚出可视区的卡片仍会收到鼠标事件，整卡点击要靠它挡住
+			viewportTop = rect.y;
+			viewportBottom = rect.y + availableHeight;
 			Layout(rect, true);
 		}
 
@@ -77,6 +86,7 @@ namespace DreamsOutposts
 			if (draw)
 			{
 				ObserveLevelChange();
+				ObserveBuiltFacility(cache);
 			}
 			float width = rect.width;
 			if (width < 80f)
@@ -156,6 +166,10 @@ namespace DreamsOutposts
 							if (view != null)
 							{
 								DrawFacilityCard(cellRect, view);
+								if (index == builtFlashSlotIndex)
+								{
+									DrawUpgradeFlash(cellRect, builtFlashStartedAt);
+								}
 							}
 							else
 							{
@@ -188,7 +202,7 @@ namespace DreamsOutposts
 				if (!string.IsNullOrEmpty(hint))
 				{
 					float hintWidth = Mathf.Max(width * 0.4f - UiMetrics.SectionHeadGap, 40f);
-					UiText.Draw(new Rect(x + width - hintWidth, y, hintWidth, lineHeight), hint, UiFont.Caption, UiPalette.Ink2,
+					UiText.Draw(new Rect(x + width - hintWidth, y, hintWidth, lineHeight), hint, UiFont.Body, UiPalette.Ink2,
 						TextAnchor.UpperRight, false, false, true);
 				}
 				UiDebug.Scope("section.head", new Rect(x, y, width, lineHeight));
@@ -239,7 +253,7 @@ namespace DreamsOutposts
 
 		private static float MeasureLevelRight(float width, OutpostUiCache cache)
 		{
-			float height = UiText.LineHeight(UiFont.Caption) + 10f;
+			float height = UiText.LineHeight(UiFont.Body) + 10f;
 			if (cache.Upgrade.IsMaxLevel)
 			{
 				return height;
@@ -255,7 +269,7 @@ namespace DreamsOutposts
 		{
 			UiDebug.Scope("level.card", rect);
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
-			DrawLevelUpgradeFlash(rect);
+			DrawUpgradeFlash(rect, upgradeFlashStartedAt);
 			bool stacked = LevelCardStacked(rect.width);
 			float innerX = rect.x + UiMetrics.LevelCardPaddingH;
 			float innerWidth = rect.width - UiMetrics.LevelCardPaddingH * 2f;
@@ -287,9 +301,40 @@ namespace DreamsOutposts
 			observedLevel = currentLevel;
 		}
 
-		private void DrawLevelUpgradeFlash(Rect rect)
+		/// <summary>槽位从空变成有设施（或换成了别的设施）时，记下时间和槽位号，让那张卡片闪一次光效。</summary>
+		private void ObserveBuiltFacility(OutpostUiCache cache)
 		{
-			float elapsed = Time.realtimeSinceStartup - upgradeFlashStartedAt;
+			int count = cache.Slots.Count;
+			if (observedSlotFacilities == null || observedSlotFacilities.Length != count)
+			{
+				// 首次观测或槽位数变化（据点升级）：只记快照，不闪光
+				observedSlotFacilities = new string[count];
+				for (int i = 0; i < count; i++)
+				{
+					observedSlotFacilities[i] = SlotFacilityKey(cache.Slots[i]);
+				}
+				return;
+			}
+			for (int i = 0; i < count; i++)
+			{
+				string key = SlotFacilityKey(cache.Slots[i]);
+				if (!string.IsNullOrEmpty(key) && key != observedSlotFacilities[i])
+				{
+					builtFlashSlotIndex = i;
+					builtFlashStartedAt = Time.realtimeSinceStartup;
+				}
+				observedSlotFacilities[i] = key;
+			}
+		}
+
+		private static string SlotFacilityKey(UiFacilityView view)
+		{
+			return view?.Facility?.def?.defName;
+		}
+
+		private void DrawUpgradeFlash(Rect rect, float startedAt)
+		{
+			float elapsed = Time.realtimeSinceStartup - startedAt;
 			float totalDuration = UiMetrics.LevelUpgradeSweepDuration + UiMetrics.LevelUpgradeFlashDuration;
 			if (elapsed < 0f || elapsed >= totalDuration)
 			{
@@ -366,23 +411,23 @@ namespace DreamsOutposts
 			float y = rect.y;
 			if (cache.Upgrade.IsMaxLevel)
 			{
-				// 满级：只留一行文字说明，不再显示绿色「最高等级」条
-				UiText.Draw(new Rect(rect.x, y, rect.width, UiText.LineHeight(UiFont.Caption)), cache.Upgrade.MaxLevelText,
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+				// 满级：只留一行文字说明
+				UiText.Draw(new Rect(rect.x, y, rect.width, UiText.LineHeight(UiFont.Body)), cache.Upgrade.MaxLevelText,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 				return;
 			}
 			if (!string.IsNullOrEmpty(cache.Upgrade.Title))
 			{
-				UiText.Draw(new Rect(rect.x, y, rect.width, UiText.LineHeight(UiFont.Caption)), cache.Upgrade.Title,
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+				UiText.Draw(new Rect(rect.x, y, rect.width, UiText.LineHeight(UiFont.Body)), cache.Upgrade.Title,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 			}
-			y += UiText.LineHeight(UiFont.Caption) + 10f;
+			y += UiText.LineHeight(UiFont.Body) + 10f;
 			float rowHeight = Mathf.Max(Mathf.Max(UiMetrics.ReqTickSize, UiMetrics.MatIconSize), UiText.LineHeight(UiFont.Body));
 			for (int i = 0; i < cache.Upgrade.Checks.Count; i++)
 			{
 				UiUpgradeCheck check = cache.Upgrade.Checks[i];
 				Rect row = new Rect(rect.x, y, rect.width, rowHeight);
-				float valueWidth = Mathf.Max(UiText.Width(check.ValueText, UiFont.Caption, true), 60f);
+				float valueWidth = Mathf.Max(UiText.Width(check.ValueText, UiFont.Body, true), 60f);
 				if (check.Thing != null)
 				{
 					Rect iconRect = new Rect(row.x, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
@@ -404,7 +449,7 @@ namespace DreamsOutposts
 						UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
 				}
 				UiText.Draw(new Rect(row.xMax - valueWidth, row.y, valueWidth, row.height), check.ValueText,
-					UiFont.Caption, check.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleRight, true);
+					UiFont.Body, check.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleRight, true);
 				y += rowHeight + UiMetrics.ReqListGap;
 			}
 			y += UiMetrics.ReqListMarginBottom - UiMetrics.ReqListGap;
@@ -446,12 +491,11 @@ namespace DreamsOutposts
 			float innerWidth = Mathf.Max(rect.width - UiMetrics.CardPaddingH * 2f, 30f);
 			float y = rect.y + UiMetrics.CardPaddingTop;
 			bool hovered = draw && Mouse.IsOver(rect);
-			float headHeight = Mathf.Max(UiMetrics.CardIconSize, UiText.LineHeight(UiFont.Body) + UiText.LineHeight(UiFont.Caption));
-			// 头部（图标 + 名称 + 副标题）：整块可点，点开原版信息面板
+			float headHeight = Mathf.Max(UiMetrics.CardIconSize, UiText.LineHeight(UiFont.Body) + UiText.LineHeight(UiFont.Body));
+			// 头部（图标 + 名称 + 副标题）
 			if (draw)
 			{
 				Rect headRect = new Rect(innerX, y, innerWidth, headHeight);
-				bool headHovered = Mouse.IsOver(headRect);
 				if (hovered)
 				{
 					UiDraw.Shadow(rect, (int)UiMetrics.RadiusSm, CardHoverShadowAlpha);
@@ -464,25 +508,20 @@ namespace DreamsOutposts
 				float nameX = iconRect.xMax + UiMetrics.CardGap;
 				float nameWidth = Mathf.Max(rect.xMax - UiMetrics.CardPaddingH - nameX, 30f);
 				UiText.Draw(new Rect(nameX, y, nameWidth, UiText.LineHeight(UiFont.Body)), view.Label, UiFont.Body,
-					headHovered ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
-				UiText.Draw(new Rect(nameX, y + UiText.LineHeight(UiFont.Body), nameWidth, UiText.LineHeight(UiFont.Caption)), view.SubLabel,
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+					UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+				UiText.Draw(new Rect(nameX, y + UiText.LineHeight(UiFont.Body), nameWidth, UiText.LineHeight(UiFont.Body)), view.SubLabel,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
 				UiWidgets.Tip(headRect, view.TooltipGetter, view.TooltipId);
 				if (!view.IsCore)
 				{
-					float tagWidth = UiText.Width(view.SlotIndex + 1 + "", UiFont.Caption);
-					UiText.Draw(new Rect(rect.xMax - UiMetrics.SlotTagRight - tagWidth, rect.y + UiMetrics.SlotTagTop, tagWidth, UiText.LineHeight(UiFont.Caption)),
-						(view.SlotIndex + 1).ToString(), UiFont.Caption, UiPalette.Ink2);
+					float tagWidth = UiText.Width(view.SlotIndex + 1 + "", UiFont.Body);
+					UiText.Draw(new Rect(rect.xMax - UiMetrics.SlotTagRight - tagWidth, rect.y + UiMetrics.SlotTagTop, tagWidth, UiText.LineHeight(UiFont.Body)),
+						(view.SlotIndex + 1).ToString(), UiFont.Body, UiPalette.Ink2);
 				}
 				UiDebug.Scope("facility.rect", rect);
-				// 点名称/图标 → 原版信息面板（设施的 Def）
-				if (view.Facility?.def != null && Widgets.ButtonInvisible(headRect))
-				{
-					Find.WindowStack.Add(new Dialog_InfoCard(view.Facility.def));
-				}
 			}
 			y += headHeight + UiMetrics.CardGap;
-			// 设施组件声明的功能区块；没有区块时中间直接留空，不再放「没有生产」占位文案
+			// 设施组件声明的功能区块；没有区块时中间留空
 			float sectionsTop = y;
 			for (int i = 0; i < view.Sections.Count; i++)
 			{
@@ -500,6 +539,15 @@ namespace DreamsOutposts
 			if (!draw)
 			{
 				return natural;
+			}
+			// 整张卡片可点：打开设施详情弹窗（卡片内的按钮先处理，会先吃掉这次点击）
+			if (Event.current.mousePosition.y >= viewportTop && Event.current.mousePosition.y <= viewportBottom && Widgets.ButtonInvisible(rect))
+			{
+				Window_OutpostManage shell = Shell;
+				if (shell != null)
+				{
+					shell.OpenDetailsModal(view);
+				}
 			}
 			return Mathf.Max(rect.height, natural);
 		}
@@ -539,12 +587,12 @@ namespace DreamsOutposts
 				cursor += UiMetrics.ProdGap;
 				if (draw)
 				{
-					float h = UiText.LineHeight(UiFont.Caption);
-					float rightWidth = string.IsNullOrEmpty(section.RightText) ? 0f : Mathf.Max(UiText.Width(section.RightText, UiFont.Caption) + 4f, 60f);
-					UiText.Draw(new Rect(innerX, cursor, Mathf.Max(innerWidth - rightWidth, 20f), h), section.LeftText ?? string.Empty, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-					if (rightWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - rightWidth, cursor, rightWidth, h), section.RightText, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+					float h = UiText.LineHeight(UiFont.Body);
+					float rightWidth = string.IsNullOrEmpty(section.RightText) ? 0f : Mathf.Max(UiText.Width(section.RightText, UiFont.Body) + 4f, 60f);
+					UiText.Draw(new Rect(innerX, cursor, Mathf.Max(innerWidth - rightWidth, 20f), h), section.LeftText ?? string.Empty, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+					if (rightWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - rightWidth, cursor, rightWidth, h), section.RightText, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 				}
-				cursor += UiText.LineHeight(UiFont.Caption);
+				cursor += UiText.LineHeight(UiFont.Body);
 			}
 			if (section.Action != null)
 			{
@@ -599,20 +647,20 @@ namespace DreamsOutposts
 			cursor += UiMetrics.BarHeight + UiMetrics.ProdGap;
 			if (draw)
 			{
-				float metaHeight = UiText.LineHeight(UiFont.Caption);
+				float metaHeight = UiText.LineHeight(UiFont.Body);
 				string every = "DreamsOutposts.Ui.ProductionEvery".Translate(production.IntervalText);
-				float everyWidth = Mathf.Max(UiText.Width(every, UiFont.Caption) + 4f, 60f);
+				float everyWidth = Mathf.Max(UiText.Width(every, UiFont.Body) + 4f, 60f);
 				UiText.Draw(new Rect(innerX, cursor, Mathf.Max(innerWidth - everyWidth, 20f), metaHeight), production.MetaText,
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
 				UiText.Draw(new Rect(innerX + innerWidth - everyWidth, cursor, everyWidth, metaHeight), every,
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 			}
-			cursor += UiText.LineHeight(UiFont.Caption);
+			cursor += UiText.LineHeight(UiFont.Body);
 			// 可配置生产规则：整行可点击，沿用生产 worker 提供的选择菜单。
 			if (production.HasConfiguration)
 			{
 				cursor += UiMetrics.ProdGap;
-				float rowHeight = Mathf.Max(UiText.LineHeight(UiFont.Caption), 16f) + 10f;
+				float rowHeight = Mathf.Max(UiText.LineHeight(UiFont.Body), 16f) + 10f;
 				if (draw)
 				{
 					Rect row = new Rect(innerX, cursor, innerWidth, rowHeight);
@@ -620,9 +668,9 @@ namespace DreamsOutposts
 					UiDraw.Box(row, (int)UiMetrics.RadiusXs, hovered ? UiPalette.Hover : UiPalette.Raised, UiPalette.Line);
 					string configuration = production.ConfigurationSummary ?? string.Empty;
 					UiText.Draw(new Rect(row.x + 8f, row.y, Mathf.Max(row.width - 16f - 40f, 20f), row.height), configuration,
-						UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+						UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
 					UiText.Draw(new Rect(row.xMax - 8f - 34f, row.y, 34f, row.height), "DreamsOutposts.Ui.Switch".Translate(),
-						UiFont.Caption, hovered ? UiPalette.Ink : UiPalette.Ink2, TextAnchor.MiddleRight);
+						UiFont.Body, hovered ? UiPalette.Ink : UiPalette.Ink2, TextAnchor.MiddleRight);
 					UiWidgets.Tip(row, production.Props.Worker.ConfigurationTip(production.Props), GenText.StableStringHash("production-config-" + view.SlotIndex + "-" + production.Props.id));
 					if (Widgets.ButtonInvisible(row))
 					{
@@ -648,43 +696,15 @@ namespace DreamsOutposts
 		{
 			float innerX = cardRect.x + UiMetrics.CardPaddingH;
 			float innerWidth = Mathf.Max(cardRect.width - UiMetrics.CardPaddingH * 2f, 30f);
-			string detailsLabel = "DreamsOutposts.Details".Translate();
-			// 「详情」用安装弹窗里那个「建造」按钮的同款底图与同款尺寸算法，只把底图换成信息图标（InfoButton）。
-			// 槽位卡原来的「拆除」按钮已删除：拆除入口保留在详情弹窗底部。
-			float buttonHeight = (UiWidgets.ButtonHeight(UiButtonSize.Small) + 4f) * 1.2f;
-			Texture2D detailsTexture = UiTex.InfoButtonTexture();
-			float detailsWidth = UiWidgets.TexturedButtonWidth(buttonHeight, detailsTexture, detailsLabel, UiButtonSize.Small);
-			float chipsLimit = Mathf.Max(innerWidth - detailsWidth - UiMetrics.FootGap, 40f);
-			float singleRowChipsHeight = UiDraw.ChipsHeight(view.Chips, chipsLimit, true);
-			bool singleRow = singleRowChipsHeight <= UiDraw.ChipHeight(true) + 0.5f;
-			float chipsHeight = singleRow ? singleRowChipsHeight : UiDraw.ChipsHeight(view.Chips, innerWidth, true);
-			float rowHeight = Mathf.Max(chipsHeight, buttonHeight);
-			if (!draw)
+			float chipsHeight = (view.Chips.Count > 0) ? UiDraw.ChipsHeight(view.Chips, innerWidth, true) : 0f;
+			if (!draw || view.Chips.Count == 0)
 			{
-				return rowHeight;
+				return chipsHeight;
 			}
 			// 从底部钉住（等价 .fc-foot 的 margin-top: auto）
-			float footerY = cardRect.yMax - UiMetrics.CardPaddingBottom - rowHeight;
-			if (footerY < y)
-			{
-				footerY = y;
-			}
-			if (view.Chips.Count > 0)
-			{
-				UiDraw.Chips(new Rect(innerX, footerY + (rowHeight - chipsHeight) * 0.5f, singleRow ? chipsLimit : innerWidth, chipsHeight), view.Chips, true);
-			}
-			float buttonY = footerY + (rowHeight - buttonHeight) * 0.5f;
-			Rect detailsRect = new Rect(innerX + innerWidth - detailsWidth, buttonY, detailsWidth, buttonHeight);
-			// 贴图里的标签区（原始像素坐标）与建造按钮一致
-			if (UiWidgets.TexturedPrimaryButton(detailsRect, detailsLabel, detailsTexture, 420f, 300f, UiButtonSize.Normal))
-			{
-				Window_OutpostManage shell = Shell;
-				if (shell != null)
-				{
-					shell.OpenDetailsModal(view);
-				}
-			}
-			return rowHeight;
+			float footerY = Mathf.Max(cardRect.yMax - UiMetrics.CardPaddingBottom - chipsHeight, y);
+			UiDraw.Chips(new Rect(innerX, footerY, innerWidth, chipsHeight), view.Chips, true);
+			return chipsHeight;
 		}
 
 		// ---------------------------------------------------------------
@@ -706,7 +726,7 @@ namespace DreamsOutposts
 			Color ink = hovered ? UiPalette.BrandText : UiPalette.Ink2;
 			float plusSize = UiMetrics.CardIconSize;
 			float labelHeight = UiText.LineHeight(UiFont.Body);
-			float hintHeight = UiText.LineHeight(UiFont.Caption);
+			float hintHeight = UiText.LineHeight(UiFont.Body);
 			float contentHeight = plusSize + UiMetrics.EmptyCardGap + labelHeight + hintHeight;
 			float contentY = rect.y + (rect.height - contentHeight) * 0.5f;
 			Rect plusRect = new Rect(rect.center.x - plusSize * 0.5f, contentY, plusSize, plusSize);
@@ -723,7 +743,7 @@ namespace DreamsOutposts
 			UiText.Draw(new Rect(rect.x, plusRect.yMax + UiMetrics.EmptyCardGap, rect.width, labelHeight), "DreamsOutposts.EmptySlot".Translate(),
 				UiFont.Body, hovered ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.MiddleCenter, true);
 			UiText.Draw(new Rect(rect.x, plusRect.yMax + UiMetrics.EmptyCardGap + labelHeight, rect.width, hintHeight),
-				"DreamsOutposts.Ui.EmptySlotHint".Translate(index + 1), UiFont.Caption, ink, TextAnchor.MiddleCenter, false, false, true);
+				"DreamsOutposts.Ui.EmptySlotHint".Translate(index + 1), UiFont.Body, ink, TextAnchor.MiddleCenter, false, false, true);
 			UiWidgets.Tip(rect, "DreamsOutposts.EmptySlotTip".Translate(), GenText.StableStringHash("empty-slot-" + index));
 			UiDebug.Scope("empty.slot[" + index + "]", rect);
 			if (Widgets.ButtonInvisible(rect))

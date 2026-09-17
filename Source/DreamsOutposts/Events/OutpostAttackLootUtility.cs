@@ -46,7 +46,7 @@ namespace DreamsOutposts
 					}
 					catch (Exception ex)
 					{
-						Log.Warning("Outpost attack loot candidate failed: " + ex.Message);
+						Log.Warning("[DreamsOutposts] Outpost attack loot candidate failed: " + ex.Message);
 					}
 					finally
 					{

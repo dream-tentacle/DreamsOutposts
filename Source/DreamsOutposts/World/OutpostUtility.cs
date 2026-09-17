@@ -108,14 +108,14 @@ namespace DreamsOutposts
 					ThingOwner holder = item.holdingOwner;
 					if (holder == null)
 					{
-						Log.Error("Cannot move " + item?.ToString() + " into outpost " + outpost.Label + ": it is not held by anything.");
+						Log.Error("[DreamsOutposts] Cannot move " + item?.ToString() + " into outpost " + outpost.Label + ": it is not held by anything.");
 						continue;
 					}
 					int stackCount = item.stackCount;
 					holder.TryTransferToContainer(item, outpost.inventory, stackCount);
 					if (holder.Contains(item) && item.stackCount > 0)
 					{
-						Log.Error("Moved only " + (stackCount - item.stackCount) + " of " + stackCount + " " + item.LabelNoCount + " into outpost " + outpost.Label + ".");
+						Log.Error("[DreamsOutposts] Moved only " + (stackCount - item.stackCount) + " of " + stackCount + " " + item.LabelNoCount + " into outpost " + outpost.Label + ".");
 					}
 				}
 			}
@@ -162,13 +162,13 @@ namespace DreamsOutposts
 			}
 			if (outpost?.pawns == null || outpost.inventory == null)
 			{
-				Log.Error("Outpost " + (outpost?.Label ?? "null") + " has no pawn or inventory container, so " + pawn?.ToString() + " cannot be moved into it.");
+				Log.Error("[DreamsOutposts] Outpost " + (outpost?.Label ?? "null") + " has no pawn or inventory container, so " + pawn?.ToString() + " cannot be moved into it.");
 				return false;
 			}
 			bool alreadyPresent = outpost.pawns.Contains(pawn);
 			if (!alreadyPresent && !outpost.pawns.TryAdd(pawn))
 			{
-				Log.Error("Failed to move " + pawn?.ToString() + " into outpost " + outpost.Label + ".");
+				Log.Error("[DreamsOutposts] Failed to move " + pawn?.ToString() + " into outpost " + outpost.Label + ".");
 				return false;
 			}
 			TakeOutOfWorld(pawn);
@@ -203,7 +203,7 @@ namespace DreamsOutposts
 					container.TryTransferToContainer(item, outpost.inventory, stackCount);
 					if (container.Contains(item) && item.stackCount > 0)
 					{
-						Log.Error("Moved only " + (stackCount - item.stackCount) + " of " + stackCount + " " + item.LabelNoCount + " from " + pawn.LabelShort + "'s inventory into outpost " + outpost.Label + ".");
+						Log.Error("[DreamsOutposts] Moved only " + (stackCount - item.stackCount) + " of " + stackCount + " " + item.LabelNoCount + " from " + pawn.LabelShort + "'s inventory into outpost " + outpost.Label + ".");
 					}
 				}
 			}
@@ -215,7 +215,7 @@ namespace DreamsOutposts
 			holder?.Remove(pawn);
 			if (!MovePawnIntoOutpost(outpost, pawn) && holder != null && !holder.TryAdd(pawn))
 			{
-				Log.Error("Failed to put " + pawn?.ToString() + " back after it could not be moved into outpost " + (outpost?.Label ?? "null") + ".");
+				Log.Error("[DreamsOutposts] Failed to put " + pawn?.ToString() + " back after it could not be moved into outpost " + (outpost?.Label ?? "null") + ".");
 			}
 		}
 

@@ -71,9 +71,6 @@ namespace DreamsOutposts
 		{
 			switch (font)
 			{
-			case UiFont.Caption:
-				// 中文等语言下 Tiny 不可用时原版会回落到 Small，这里跟随同一规则。
-				return Text.TinyFontSupported ? GameFont.Tiny : GameFont.Small;
 			case UiFont.Body:
 				return GameFont.Small;
 			default:

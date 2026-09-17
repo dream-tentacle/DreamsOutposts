@@ -121,6 +121,9 @@
 	<Compile Include="Events\OutpostEventRequirement_AnyColonistSkill.cs" />
     <Compile Include="Events\OutpostEventRequirement_StatValue.cs" />
     <Compile Include="Events\OutpostEventRequirement_MinDefense.cs" />
+    <Compile Include="Events\OutpostEventRequirement_HasFacility.cs" />
+    <Compile Include="Events\OutpostEventRequirement_FreeAdventurerSlot.cs" />
+    <Compile Include="Events\OutpostEventEffect_AddAdventurerOffer.cs" />
     <Compile Include="Events\OutpostStatUtility.cs" />
     <Compile Include="Production\OutpostProductionProperties.cs" />
     <Compile Include="Production\OutpostProductionProperties_Farming.cs" />
@@ -156,7 +159,6 @@
 	<Compile Include="Recruitment\AdventurerOffer.cs" />
 	<Compile Include="Recruitment\AdventurerRecruitState.cs" />
 	<Compile Include="Recruitment\AdventurerRecruitUtility.cs" />
-	<Compile Include="Recruitment\AdventurerDevGizmo.cs" />
     <Compile Include="Power\OutpostFacilityComp_PowerGenerator.cs" />
     <Compile Include="Power\RemotePowerUtility.cs" />
     <Compile Include="Power\CompRemotePowerReceiver.cs" />

@@ -6,8 +6,7 @@ using Verse;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 「事件」页（新样式）：带剩余时间条的卡片列表 + 已排期后续事件提示。
-	/// 按需求去掉：页头描述与「点开卡片可以查看并选择选项……」提示。
+	/// 「事件」页：带剩余时间条的卡片列表 + 已排期后续事件提示。
 	/// 点开卡片打开事件弹窗（选项面板）。
 	/// </summary>
 	public class Page_OutpostEvents : OutpostManagePage, IUiShellPage
@@ -77,11 +76,6 @@ namespace DreamsOutposts
 		public string HeadDescription => null;
 
 		public string HeadHint => null;
-
-		public override void DoContents(Rect rect)
-		{
-			DrawBody(rect, rect.height);
-		}
 
 		public float BodyHeight(float width, float availableHeight)
 		{
@@ -185,7 +179,7 @@ namespace DreamsOutposts
 		private static float TendencyHeight(float width, List<UiChipView> chips)
 		{
 			float innerWidth = Mathf.Max(width - TendencyPadding * 2f, 40f);
-			return TendencyPadding * 2f + UiText.LineHeight(UiFont.Caption) + 8f + UiDraw.ChipsHeight(chips, innerWidth, true);
+			return TendencyPadding * 2f + UiText.LineHeight(UiFont.Body) + 8f + UiDraw.ChipsHeight(chips, innerWidth, true);
 		}
 
 		private static void DrawTendencies(Rect rect, List<UiChipView> chips)
@@ -195,8 +189,8 @@ namespace DreamsOutposts
 			float x = rect.x + TendencyPadding;
 			float y = rect.y + TendencyPadding;
 			float width = Mathf.Max(rect.width - TendencyPadding * 2f, 40f);
-			float titleHeight = UiText.LineHeight(UiFont.Caption);
-			UiText.Draw(new Rect(x, y, width, titleHeight), "DreamsOutposts.EventWeight.Current".Translate(), UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
+			float titleHeight = UiText.LineHeight(UiFont.Body);
+			UiText.Draw(new Rect(x, y, width, titleHeight), "DreamsOutposts.EventWeight.Current".Translate(), UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
 			y += titleHeight + 8f;
 			UiDraw.Chips(new Rect(x, y, width, rect.yMax - y - TendencyPadding), chips, true);
 		}
@@ -216,7 +210,7 @@ namespace DreamsOutposts
 				string description = UiText.ClampLines(view.Description, UiFont.Body, innerWidth, 2, false, out truncated);
 				descriptionHeight = UiText.Height(description, UiFont.Body, innerWidth);
 			}
-			float timeHeight = Mathf.Max(TimeBarHeight, UiText.LineHeight(UiFont.Caption));
+			float timeHeight = Mathf.Max(TimeBarHeight, UiText.LineHeight(UiFont.Body));
 			return CardPaddingV * 2f + headHeight + (descriptionHeight > 0f ? CardInnerGap + descriptionHeight : 0f) + CardInnerGap + timeHeight;
 		}
 
@@ -263,14 +257,14 @@ namespace DreamsOutposts
 			}
 			y += CardInnerGap;
 			// 剩余时间：递减的进度条 + 文字
-			float timeHeight = Mathf.Max(TimeBarHeight, UiText.LineHeight(UiFont.Caption));
+			float timeHeight = Mathf.Max(TimeBarHeight, UiText.LineHeight(UiFont.Body));
 			string timeText = "DreamsOutposts.Remaining".Translate(view.RemainingText);
-			float timeWidth = Mathf.Min(UiText.Width(timeText, UiFont.Caption) + 6f, innerWidth * 0.5f);
+			float timeWidth = Mathf.Min(UiText.Width(timeText, UiFont.Body) + 6f, innerWidth * 0.5f);
 			float barWidth = Mathf.Max(innerWidth - timeWidth - TimeRowGap, 40f);
 			UiDraw.Bar(new Rect(innerX, y + (timeHeight - TimeBarHeight) * 0.5f, barWidth, TimeBarHeight),
 				view.HasProgress ? view.Progress : 0f, UiPalette.Bad, UiPalette.Track);
 			UiText.Draw(new Rect(innerX + barWidth + TimeRowGap, y, timeWidth, timeHeight), timeText,
-				UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 			if (Widgets.ButtonInvisible(rect))
 			{
 				Window_OutpostManage shell = Shell;

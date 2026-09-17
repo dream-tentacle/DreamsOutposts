@@ -6,10 +6,8 @@ using Verse;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 「防卫」页（新样式）：顶部总防卫 + 人员/设施分解条（满值 100），下面两栏明细。
+	/// 「防卫」页：顶部总防卫 + 人员/设施分解条（满值 100），下面两栏明细。
 	/// 数值全部来自 OutpostUiCache（本质是 OutpostDefenseUtility），本页不做计算、不改状态。
-	/// 按需求去掉的东西：页头描述与公式行、面板标题后的（人数）、「按防卫值排序」提示、
-	/// 人员行下的「殖民者 / 其他人员」灰字、跟随鼠标的悬浮提示框。
 	/// 人员行整行可点击打开信息卡。
 	/// </summary>
 	public class Page_OutpostDefense : OutpostManagePage, IUiShellPage
@@ -90,11 +88,6 @@ namespace DreamsOutposts
 		public string HeadDescription => null;
 
 		public string HeadHint => null;
-
-		public override void DoContents(Rect rect)
-		{
-			DrawBody(rect, rect.height);
-		}
 
 		public float BodyHeight(float width, float availableHeight)
 		{
@@ -184,7 +177,7 @@ namespace DreamsOutposts
 			float unitX = innerX + totalWidth + 8f;
 			UiText.Draw(new Rect(unitX, innerY, Mathf.Max(innerWidth - (unitX - innerX), 20f), innerHeight), "DreamsOutposts.Defense".Translate(),
 				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-			// 右侧：分解条 + 图例。整条以 DefenseBarMax 为满值，不再按总防卫占比铺满。
+			// 右侧：分解条 + 图例，整条以 DefenseBarMax 为满值。
 			float barX = unitX + UiText.Width("DreamsOutposts.Defense".Translate(), UiFont.Body) + HeroGap;
 			float barWidth = Mathf.Max(rect.xMax - HeroPaddingH - barX, 60f);
 			float pawnFraction = Mathf.Clamp01(cache.DefenseFromPawns / DefenseBarMax);
@@ -350,7 +343,7 @@ namespace DreamsOutposts
 					UiDraw.Box(row, (int)RowRadius, UiPalette.Hover);
 				}
 				float x = row.x + RowPaddingH;
-				// 原版人物小像（PortraitsCache 渲染，取景参数见 UiDraw.PawnPortrait），不再自绘图标
+				// 原版人物小像（PortraitsCache 渲染，取景参数见 UiDraw.PawnPortrait）
 				Rect avatar = new Rect(x, row.y + (row.height - AvatarSize) * 0.5f, AvatarSize, AvatarSize);
 				UiDraw.PawnPortrait(avatar, view.Pawn);
 				x += AvatarSize + RowGap;
@@ -439,11 +432,11 @@ namespace DreamsOutposts
 				UiText.Draw(valueRect, valueText, UiFont.Body, (view.Defense == 0f) ? UiPalette.Ink2 : UiPalette.Ink,
 					TextAnchor.MiddleRight, view.Defense != 0f);
 				float nameHeight = UiText.LineHeight(UiFont.Body);
-				float subHeight = UiText.LineHeight(UiFont.Caption);
+				float subHeight = UiText.LineHeight(UiFont.Body);
 				float textY = row.y + (row.height - (nameHeight + subHeight)) * 0.5f;
 				float textWidth = Mathf.Max(valueRect.x - 6f - x, 30f);
 				UiText.Draw(new Rect(x, textY, textWidth, nameHeight), view.Label, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
-				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), view.SubLabel, UiFont.Caption, UiPalette.Ink2,
+				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), view.SubLabel, UiFont.Body, UiPalette.Ink2,
 					TextAnchor.MiddleLeft, false, false, true);
 			}
 		}

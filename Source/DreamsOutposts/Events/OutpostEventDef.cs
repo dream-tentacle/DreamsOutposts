@@ -19,6 +19,13 @@ namespace DreamsOutposts
 
 		public int durationTicks;
 
+		/// <summary>
+		/// 固定刷出：本 Def 是第几次普通随机事件时强制出现的事件，0 表示不固定刷出。
+		/// 序号来自 GameComponent_OutpostRandomEvents.randomEventsGenerated + 1。
+		/// 这类事件通常 weight 为 0，因此永远不会被随机抽到，只会按序号出现一次。
+		/// </summary>
+		public int forcedAtRandomEventCount;
+
 		public virtual bool InitializeInstance(Outpost outpost, OutpostEventInstance instance) => true;
 
 		public virtual string DescriptionFor(OutpostEventInstance instance) => description ?? string.Empty;

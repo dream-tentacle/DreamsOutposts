@@ -22,8 +22,14 @@ namespace DreamsOutposts
 		// ---------- 侧栏 ----------
 		public const float SidebarWidth = 218f;
 		public const float SidebarPaddingH = 12f;
+		/// <summary>页签左侧留白。</summary>
+		public const float SidebarPaddingLeft = 14f;
 		public const float SidebarPaddingV = 14f;
-		public const float SidebarGap = 4f;
+		public const float SidebarGap = 12f;
+		/// <summary>未选中页签方块的缩小比例（宽高同缩）。</summary>
+		public const float NavInactiveShrink = 0.1f;
+		/// <summary>页签切换时方块缩放的过渡时长（秒）。</summary>
+		public const float NavTileAnimSeconds = 0.14f;
 		public const float NavItemPaddingH = 11f;
 		public const float NavItemPaddingV = 9f;
 		public const float NavItemGap = 10f;
@@ -33,7 +39,7 @@ namespace DreamsOutposts
 		public const float NavLabelPaddingBottom = 8f;
 		public const float NavBadgeMinWidth = 20f;
 		public const float NavBadgePaddingH = 6f;
-		public const float NavActiveArcRadius = 7f;
+		public const float NavActiveArcRadius = 10f;
 		public const float NavActiveArcGap = 2f;
 
 		// ---------- 内容区 ----------
@@ -42,7 +48,13 @@ namespace DreamsOutposts
 		public const float ContentPaddingBottom = 26f;
 		public const float PageHeadMarginBottom = 16f;
 		public const float PageHeadSubGap = 4f;
+		/// <summary>页头标题相对页头左边缘的缩进（给左侧装饰底图让位）。</summary>
+		public const float PageHeadTitleIndent = 50f;
 		public const float PageHeadMaxTextWidth = 560f;   // CSS max-width:68ch 的近似
+		/// <summary>切页时正文淡入的时长（秒）。</summary>
+		public const float ContentFadeSeconds = 0.42f;
+		/// <summary>切页时正文从右侧滑入的起始偏移（px），与淡入共用同一进度。</summary>
+		public const float ContentSlideDistance = 40f;
 		public const float SectionSpacing = 22f;
 		public const float SectionHeadGap = 10f;
 		public const float SectionHeadMarginBottom = 10f;
@@ -80,6 +92,13 @@ namespace DreamsOutposts
 		public const float BarHeight = 8f;
 		public const float BarRadius = 4f;
 
+		// ---------- 传说（炫彩）边框 ----------
+		/// <summary>传说卡描边厚度。比常规 1px 边框粗一号，彩虹渐变才看得出来。</summary>
+		public const float LegendaryBorderWidth = 2f;
+
+		/// <summary>炫彩描边沿轮廓绕一圈的秒数。</summary>
+		public const float LegendaryBorderSpinPeriod = 5f;
+
 		// ---------- 等级卡 ----------
 		public const float LevelCardPaddingH = 18f;
 		public const float LevelCardPaddingV = 16f;
@@ -113,7 +132,7 @@ namespace DreamsOutposts
 		public const float CardGap = 10f;
 
 		/// <summary>设施卡正文（区块区）的最小高度：头部间隔之外，没有任何区块时也留出这段空白。</summary>
-		public const float FacilityBodyMinHeight = 30f;
+		public const float FacilityBodyMinHeight = 60f;
 		public const float CardIconSize = 34f;
 		public const float CardIconGlyph = 18f;
 		public const float CardDescMaxLines = 2f;
@@ -122,7 +141,6 @@ namespace DreamsOutposts
 		public const float ProdPaddingV = 9f;
 		public const float ProdGap = 6f;
 		public const float ProdMetaGap = 8f;
-		public const float FootGap = 8f;
 		public const float EmptyCardMinHeight = 168f;
 		public const float EmptyCardGap = 4f;
 		public const float SlotTagTop = 10f;

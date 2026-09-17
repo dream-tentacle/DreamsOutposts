@@ -85,7 +85,7 @@ namespace DreamsOutposts
 				GUI.color = new Color(previous.r, previous.g, previous.b, previous.a * UiPalette.DisabledAlpha);
 			}
 			UiDraw.Box(drawRect, (int)UiMetrics.RadiusSm, fill, border);
-			UiText.Draw(drawRect, label, (size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body, textColor, TextAnchor.MiddleCenter, false, false, true);
+			UiText.Draw(drawRect, label, (size == UiButtonSize.Small) ? UiFont.Body : UiFont.Body, textColor, TextAnchor.MiddleCenter, false, false, true);
 			GUI.color = previous;
 			string tip = (!enabled && !string.IsNullOrEmpty(disabledReason)) ? disabledReason : tooltip;
 			Tip(rect, tip);
@@ -99,13 +99,13 @@ namespace DreamsOutposts
 		public static float ButtonWidth(string label, UiButtonSize size = UiButtonSize.Normal)
 		{
 			float padding = (size == UiButtonSize.Small) ? UiMetrics.ButtonSmallPaddingH : UiMetrics.ButtonPaddingH;
-			return UiText.Width(label, (size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body) + padding * 2f;
+			return UiText.Width(label, (size == UiButtonSize.Small) ? UiFont.Body : UiFont.Body) + padding * 2f;
 		}
 
 		public static float ButtonHeight(UiButtonSize size = UiButtonSize.Normal)
 		{
 			float padding = (size == UiButtonSize.Small) ? UiMetrics.ButtonSmallPaddingV : UiMetrics.ButtonPaddingV;
-			return UiText.LineHeight((size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body) + padding * 2f;
+			return UiText.LineHeight((size == UiButtonSize.Small) ? UiFont.Body : UiFont.Body) + padding * 2f;
 		}
 
 		/// <summary>
@@ -159,7 +159,7 @@ namespace DreamsOutposts
 			float sourceWidth = (texture != null) ? texture.width : Mathf.Max(sourceLabelX + sourceLabelWidth, 1f);
 			Rect drawnLabelRect = new Rect(drawRect.x + drawRect.width * sourceLabelX / sourceWidth,
 				drawRect.y, drawRect.width * sourceLabelWidth / sourceWidth, drawRect.height);
-			UiText.Draw(drawnLabelRect, label, (size == UiButtonSize.Small) ? UiFont.Caption : UiFont.Body,
+			UiText.Draw(drawnLabelRect, label, (size == UiButtonSize.Small) ? UiFont.Body : UiFont.Body,
 				UiPalette.WithAlpha(textColor, alpha), TextAnchor.MiddleCenter, false, false, true);
 			string tip = (!enabled && !string.IsNullOrEmpty(disabledReason)) ? disabledReason : tooltip;
 			Tip(rect, tip);
@@ -207,15 +207,15 @@ namespace DreamsOutposts
 				return false;
 			}
 			bool hovered = Mouse.IsOver(rect);
-			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, hovered ? UiPalette.Hover : UiPalette.Raised, UiPalette.Line);
+			UiDraw.Circle(rect, hovered ? UiPalette.LightHover : UiPalette.Light, UiPalette.Line);
 			float glyph = Mathf.Round(rect.height * 0.5f);
 			UiDraw.Icon(new Rect(rect.center.x - glyph * 0.5f, rect.center.y - glyph * 0.5f, glyph, glyph), UiIcon.Close,
-				hovered ? UiPalette.Ink : UiPalette.Ink2);
+				UiPalette.OnLight);
 			Tip(rect, tooltip);
 			return Widgets.ButtonInvisible(rect);
 		}
 
-		/// <summary>横向分页使用的分段标签。视觉语义与管理页侧栏选中项保持一致。</summary>
+		/// <summary>横向分页使用的分段标签。选中为绿底 / 绿边 / 绿字。</summary>
 		public static bool SegmentTab(Rect rect, string label, bool active)
 		{
 			if (rect.width <= 0f || rect.height <= 0f)
@@ -235,68 +235,87 @@ namespace DreamsOutposts
 
 		public static float NavItemHeight()
 		{
-			return UiText.LineHeight(UiFont.Body) + UiText.LineHeight(UiFont.Caption) + UiMetrics.NavItemPaddingV * 2f;
+			return UiText.LineHeight(UiFont.Body) + UiText.LineHeight(UiFont.Body) + UiMetrics.NavItemPaddingV * 2f;
 		}
 
-		public static bool NavItem(Rect rect, UiIcon icon, string label, string sub, bool active, int badge = 0, string tooltip = null)
+		/// <param name="scale">方块相对格位的缩放（1 = 选中态大小）；小于 0 时按 active 取默认值。</param>
+		public static bool NavItem(Rect rect, UiIcon icon, string label, string sub, bool active, int badge = 0, string tooltip = null, float scale = -1f)
 		{
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
 			}
-			bool hovered = Mouse.IsOver(rect);
+			// 未选中方块宽高同缩，左边缘对齐、垂直居中
+			float tileScale = (scale >= 0f) ? scale : (active ? 1f : 1f - UiMetrics.NavInactiveShrink);
+			Rect box = rect;
+			if (Mathf.Abs(tileScale - 1f) > 0.0001f)
+			{
+				float boxHeight = rect.height * tileScale;
+				box = new Rect(rect.x, rect.y + (rect.height - boxHeight) * 0.5f, rect.width * tileScale, boxHeight);
+			}
+			bool hovered = Mouse.IsOver(box);
 			Color fill;
 			Color border;
 			Color inkColor;
-			if (active)
+			if (hovered)
 			{
-				fill = UiPalette.BrandTint;
-				border = UiPalette.BrandLine;
-				inkColor = UiPalette.BrandText;
+				fill = UiPalette.Hover;
+				border = UiPalette.LineStrong;
+				inkColor = UiPalette.Ink;
 			}
-			else if (hovered)
+			else if (active)
 			{
+				// 页签始终是独立悬浮矩形；选中态另以四角圆弧和加粗标题标识。
 				fill = UiPalette.Raised;
 				border = UiPalette.Line;
 				inkColor = UiPalette.Ink;
 			}
 			else
 			{
-				fill = UiPalette.Clear;
-				border = UiPalette.Clear;
+				fill = UiPalette.Raised;
+				border = UiPalette.Line;
 				inkColor = UiPalette.Ink2;
 			}
-			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, fill, border);
+			UiDraw.Box(box, (int)UiMetrics.RadiusSm, fill, border);
 			if (active)
 			{
-				UiDraw.CornerAccents(rect, (int)UiMetrics.NavActiveArcRadius, UiMetrics.NavActiveArcGap);
+				// 四角标记随方块一起淡入
+				float accentAlpha = Mathf.InverseLerp(1f - UiMetrics.NavInactiveShrink, 1f, tileScale);
+				if (accentAlpha > 0.01f)
+				{
+					Color previousColor = GUI.color;
+					GUI.color = new Color(previousColor.r, previousColor.g, previousColor.b, previousColor.a * accentAlpha);
+					UiDraw.CornerAccents(box, (int)UiMetrics.NavActiveArcRadius, UiMetrics.NavActiveArcGap);
+					GUI.color = previousColor;
+				}
 			}
-			float x = rect.x + UiMetrics.NavItemPaddingH;
+			float x = box.x + UiMetrics.NavItemPaddingH;
+			// 文字按原格位排版：方块缩放不影响文字位置，切页也不跳动
 			float contentTop = rect.y + UiMetrics.NavItemPaddingV;
 			Rect iconRect = new Rect(x, contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f, UiMetrics.NavIconSize, UiMetrics.NavIconSize);
-			UiDraw.Icon(iconRect, icon, active ? UiPalette.BrandText : inkColor);
+			UiDraw.Icon(iconRect, icon, inkColor);
 			x += UiMetrics.NavIconSize + UiMetrics.NavItemGap;
 			float badgeWidth = 0f;
 			if (badge > 0)
 			{
-				badgeWidth = Mathf.Max(UiMetrics.NavBadgeMinWidth, UiText.Width(badge.ToString(), UiFont.Caption, true) + UiMetrics.NavBadgePaddingH * 2f);
+				badgeWidth = Mathf.Max(UiMetrics.NavBadgeMinWidth, UiText.Width(badge.ToString(), UiFont.Body, true) + UiMetrics.NavBadgePaddingH * 2f);
 			}
-			float textWidth = Mathf.Max(rect.xMax - UiMetrics.NavItemPaddingH - x - ((badgeWidth > 0f) ? badgeWidth + 8f : 0f), 10f);
+			float textWidth = Mathf.Max(box.xMax - UiMetrics.NavItemPaddingH - x - ((badgeWidth > 0f) ? badgeWidth + 8f : 0f), 10f);
 			UiText.Draw(new Rect(x, contentTop, textWidth, UiText.LineHeight(UiFont.Body)), label, UiFont.Body, inkColor, TextAnchor.MiddleLeft, active, false, true);
 			if (!string.IsNullOrEmpty(sub))
 			{
-				UiText.Draw(new Rect(x, contentTop + UiText.LineHeight(UiFont.Body), textWidth, UiText.LineHeight(UiFont.Caption)), sub,
-					UiFont.Caption, active ? UiPalette.BrandText : UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(x, contentTop + UiText.LineHeight(UiFont.Body), textWidth, UiText.LineHeight(UiFont.Body)), sub,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
 			}
 			if (badge > 0)
 			{
-				float height = UiText.LineHeight(UiFont.Caption) + UiMetrics.ChipSmallPaddingV * 2f;
-				Rect badgeRect = new Rect(rect.xMax - UiMetrics.NavItemPaddingH - badgeWidth, rect.y + (rect.height - height) * 0.5f, badgeWidth, height);
+				float height = UiText.LineHeight(UiFont.Body) + UiMetrics.ChipSmallPaddingV * 2f;
+				Rect badgeRect = new Rect(box.xMax - UiMetrics.NavItemPaddingH - badgeWidth, box.y + (box.height - height) * 0.5f, badgeWidth, height);
 				UiDraw.Box(badgeRect, (int)UiMetrics.RadiusXs, UiPalette.BadBg, UiPalette.BadLine);
-				UiText.Draw(badgeRect, badge.ToString(), UiFont.Caption, UiPalette.Bad, TextAnchor.MiddleCenter, true);
+				UiText.Draw(badgeRect, badge.ToString(), UiFont.Body, UiPalette.Bad, TextAnchor.MiddleCenter, true);
 			}
-			Tip(rect, tooltip);
-			return Widgets.ButtonInvisible(rect);
+			Tip(box, tooltip);
+			return Widgets.ButtonInvisible(box);
 		}
 
 		// ---------------- 复选框 ----------------
@@ -338,8 +357,9 @@ namespace DreamsOutposts
 
 		// ---------------- 滚动视图 ----------------
 
+		/// <param name="contentOffsetX">内容的水平起始偏移（只平移原点、不改宽度，超出视口的部分靠组裁掉），用于切页时从右侧滑入。</param>
 		public static bool ScrollView(Rect outRect, ref Vector2 scroll, float contentHeight, Action<Rect> drawContent,
-			bool reserveBar = true, int id = 0, bool drawBar = true)
+			bool reserveBar = true, int id = 0, bool drawBar = true, float contentOffsetX = 0f)
 		{
 			if (outRect.width <= 0f || outRect.height <= 0f)
 			{
@@ -360,7 +380,7 @@ namespace DreamsOutposts
 			{
 				// 让 UiDebug 知道这段内容画在哪个组里（组内坐标 → 屏幕坐标只是一次平移）
 				UiDebug.PushSpace("scroll", new Vector2(viewport.x, viewport.y));
-				drawContent(new Rect(0f, -scroll.y, viewport.width, viewHeight));
+				drawContent(new Rect(contentOffsetX, -scroll.y, viewport.width, viewHeight));
 				UiDebug.PopSpace();
 			}
 			GUI.EndGroup();

@@ -154,4 +154,12 @@
   <DreamsOutposts.EventCategoryBaseWeight>基础权重 {0}</DreamsOutposts.EventCategoryBaseWeight>
   <!-- EN: current {0} -->
   <DreamsOutposts.EventCategoryCurrentWeight>当前权重 {0}</DreamsOutposts.EventCategoryCurrentWeight>
+  <!-- EN: Requires a built {0} ({1} of {2}) -->
+  <DreamsOutposts.EventRequirement.HasFacility>需要建成：{0}（当前 {1}/{2}）</DreamsOutposts.EventRequirement.HasFacility>
+  <!-- EN: The tavern has no free place left ({0}/{1}) -->
+  <DreamsOutposts.EventRequirement.FreeAdventurerSlot>酒馆名额已满（{0}/{1}）</DreamsOutposts.EventRequirement.FreeAdventurerSlot>
+  <!-- EN: A {0} adventurer appears at the tavern, waiting to be recruited -->
+  <DreamsOutposts.EventEffect.AdventurerOffer>酒馆会出现一位{0}冒险者，等待招募</DreamsOutposts.EventEffect.AdventurerOffer>
+  <!-- EN: A {0} adventurer has arrived at the tavern of {1}, waiting to be recruited. -->
+  <DreamsOutposts.EventEffect.AdventurerOfferArrived>{1}的酒馆来了一位{0}冒险者，等待招募。</DreamsOutposts.EventEffect.AdventurerOfferArrived>
 </LanguageData>

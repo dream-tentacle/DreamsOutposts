@@ -75,7 +75,7 @@ namespace DreamsOutposts
 			ThingDef projectileDef = shell.projectileDef;
 			if (projectileDef?.projectile == null)
 			{
-				Log.Error("A queued outpost bombardment shell on map " + map?.ToString() + " has no usable projectile def; dropping it.");
+				Log.Error("[DreamsOutposts] A queued outpost bombardment shell on map " + map?.ToString() + " has no usable projectile def; dropping it.");
 				return;
 			}
 			IntVec3 intendedCell = shell.centerCell;
@@ -103,7 +103,7 @@ namespace DreamsOutposts
 			IntVec3 launchCell = EdgeCellInDirectionOf(impactCell);
 			if (!(GenSpawn.Spawn(projectileDef, launchCell, map) is Projectile projectile))
 			{
-				Log.Error("Failed to spawn a bombardment shell of def " + projectileDef.defName + " on map " + map?.ToString() + ".");
+				Log.Error("[DreamsOutposts] Failed to spawn a bombardment shell of def " + projectileDef.defName + " on map " + map?.ToString() + ".");
 			}
 			else
 			{

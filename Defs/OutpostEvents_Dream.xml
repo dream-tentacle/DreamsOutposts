@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    固定刷出的剧情事件：梦境的馈赠。
+    它自身的 weight 为 0，因此永远不会被随机抽到；forcedAtRandomEventCount=2 表示它固定成为
+    第 2 次普通随机事件（计数见 GameComponent_OutpostRandomEvents.randomEventsGenerated）。
+    选项「接受馈赠」排出一场 3~5 天后的后续事件，也就是下面那位远道而来的勇士。
+  -->
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Dream_Gift</defName>
+    <label>the dream's gift</label>
+    <description>Last night, more than one of us dreamed the same dream. In it, someone left a gift behind - and not one of us can remember what that person looked like.</description>
+    <category>DreamsOutposts_Frontier</category>
+    <weight>0</weight>
+    <forcedAtRandomEventCount>2</forcedAtRandomEventCount>
+    <options>
+      <li>
+        <id>accept</id>
+        <label>Accept the gift</label>
+        <description>The dream has already come looking for us. There is no harm in seeing what it wanted to leave behind.</description>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_ScheduleEvent">
+            <eventDef>DO_Dream_LegendaryVisitor</eventDef>
+            <delayTicksRange>180000~300000</delayTicksRange>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>refuse</id>
+        <label>Refuse</label>
+        <description>Treat it as an ordinary dream. When everyone wakes, nothing has changed.</description>
+      </li>
+    </options>
+    <defaultOptionId>refuse</defaultOptionId>
+    <durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <!-- 后续事件：只有「梦境的馈赠」选接受才会排期；接受需要酒馆已建成且还有待招募空位。 -->
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Dream_LegendaryVisitor</defName>
+    <label>warrior from afar</label>
+    <description>A dust-covered stranger has come to the outpost. He says nothing about his past, and asks only whether the tavern still has a place for him.</description>
+    <category>DreamsOutposts_Frontier</category>
+    <weight>0</weight>
+    <options>
+      <li>
+        <id>accept</id>
+        <label>Invite him in</label>
+        <description>Make a place for this stranger. Perhaps he will tell his story some other time.</description>
+        <requirements>
+          <li Class="DreamsOutposts.OutpostEventRequirement_HasFacility">
+            <facilityDef>DreamsOutposts_AdventurerCamp</facilityDef>
+          </li>
+          <li Class="DreamsOutposts.OutpostEventRequirement_FreeAdventurerSlot" />
+        </requirements>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddAdventurerOffer">
+            <rarity>Epic</rarity>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>refuse</id>
+        <label>Politely decline</label>
+        <description>There is no spare place here for the moment. He nods, then walks back out into the wasteland.</description>
+      </li>
+    </options>
+    <defaultOptionId>refuse</defaultOptionId>
+    <durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+</Defs>

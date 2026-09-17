@@ -58,13 +58,13 @@ namespace DreamsOutposts
 			{
 				if (!AdventurerRecruitUtility.TryGetEntryFor(rarity, out kind, out faction))
 				{
-					Log.WarningOnce("DreamsOutposts: no pawn kind rated " + rarity + " is fielded by any faction, so GeneratePawnByRarity produced nothing.", Gen.HashCombineInt((int)rarity, 7391));
+					Log.WarningOnce("[DreamsOutposts] no pawn kind rated " + rarity + " is fielded by any faction, so GeneratePawnByRarity produced nothing.", Gen.HashCombineInt((int)rarity, 7391));
 					return null;
 				}
 			}
 			else if (AdventurerRecruitUtility.RarityForKind(kind) != rarity)
 			{
-				Log.WarningOnce("DreamsOutposts: OutpostEventEffect_GeneratePawnByRarity declares kind " + kind.defName
+				Log.WarningOnce("[DreamsOutposts] OutpostEventEffect_GeneratePawnByRarity declares kind " + kind.defName
 					+ " (combatPower " + kind.combatPower + ", rated " + AdventurerRecruitUtility.RarityForKind(kind)
 					+ ") but asks for rarity " + rarity + ". Rating comes from combatPower, so the kind's own rating is used.", Gen.HashCombineInt(kind.shortHash, (int)rarity));
 			}

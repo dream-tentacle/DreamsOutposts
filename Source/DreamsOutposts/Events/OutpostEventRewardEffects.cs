@@ -25,7 +25,7 @@ namespace DreamsOutposts
 				pawn.SetFaction(Faction.OfPlayer);
 				if (!OutpostUtility.MovePawnIntoOutpost(context.outpost, pawn))
 				{
-					Log.Error("Failed to add generated pawn " + pawn.ToStringSafe() + " to outpost " + context.outpost.Label + ".");
+					Log.Error("[DreamsOutposts] Failed to add generated pawn " + pawn.ToStringSafe() + " to outpost " + context.outpost.Label + ".");
 					pawn.Destroy();
 				}
 			}
@@ -60,7 +60,7 @@ namespace DreamsOutposts
 			}
 			else
 			{
-				Log.Warning("No eligible faction found for outpost event goodwill effect" + (factionDef == null ? "." : " using " + factionDef.defName + "."));
+				Log.Warning("[DreamsOutposts] No eligible faction found for outpost event goodwill effect" + (factionDef == null ? "." : " using " + factionDef.defName + "."));
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace DreamsOutposts
 			ThingSetMakerDef maker = thingSetMaker ?? ThingSetMakerDefOf.Reward_ItemsStandard;
 			if (maker?.root == null)
 			{
-				Log.Error("Outpost random item reward has no thing set maker to generate from.");
+				Log.Error("[DreamsOutposts] Outpost random item reward has no thing set maker to generate from.");
 				return;
 			}
 			float target = marketValue.RandomInRange;
@@ -261,7 +261,7 @@ namespace DreamsOutposts
 			ThingDef race = animalKind?.race;
 			if (race?.race?.meatDef == null || race.race.leatherDef == null)
 			{
-				Log.Error("Outpost animal products effect could not find an eligible animal or the Cow fallback.");
+				Log.Error("[DreamsOutposts] Outpost animal products effect could not find an eligible animal or the Cow fallback.");
 				return;
 			}
 			int meatCount = GenMath.RoundRandom(race.GetStatValueAbstract(StatDefOf.MeatAmount) * animalCount);
@@ -302,7 +302,7 @@ namespace DreamsOutposts
 			Faction faction = factionDef == null ? null : Find.FactionManager.FirstFactionOfDef(factionDef);
 			if (map == null || faction == null || pointsFactor <= 0f)
 			{
-				Log.Warning("Outpost event could not launch a raid: no player home map, faction, or positive points factor was available.");
+				Log.Warning("[DreamsOutposts] Outpost event could not launch a raid: no player home map, faction, or positive points factor was available.");
 				return;
 			}
 			IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentDefOf.RaidEnemy.category, map);
@@ -311,7 +311,7 @@ namespace DreamsOutposts
 			parms.points *= pointsFactor;
 			if (!IncidentDefOf.RaidEnemy.Worker.CanFireNow(parms) || !IncidentDefOf.RaidEnemy.Worker.TryExecute(parms))
 			{
-				Log.Warning("Outpost event failed to launch a raid from faction " + factionDef.defName + ".");
+				Log.Warning("[DreamsOutposts] Outpost event failed to launch a raid from faction " + factionDef.defName + ".");
 			}
 		}
 

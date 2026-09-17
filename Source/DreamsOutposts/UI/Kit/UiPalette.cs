@@ -1,10 +1,11 @@
 using UnityEngine;
+using Verse;
 
 namespace DreamsOutposts
 {
 	/// <summary>
 	/// 新 UI 的色板 token（深色主题）。这里是唯一的颜色来源：不要在页面里写裸 Color。
-	/// 语义与 temp/styles.css 的 :root 一一对应，只是把「浅底 + 深字」换成了「深底 + 浅字」。
+	/// 语义与 temp/styles.css 的 :root 一一对应，但这里是深色主题（深底 + 浅字）。
 	/// </summary>
 	public static class UiPalette
 	{
@@ -87,6 +88,19 @@ namespace DreamsOutposts
 		public static readonly Color InfoBg = Hex(0x18283F);
 		public static readonly Color InfoLine = Hex(0x2B4A73);
 		public static readonly Color Purple = Hex(0xC4B5FD);
+
+		/// <summary>「传说」显示用的金色：直接用原版的 ColorLibrary.Gold（#DBB40C）。</summary>
+		public static readonly Color Legendary = ColorLibrary.Gold;
+
+		// ---------- 亮底控件（白底 + 深色内容，如关闭按钮） ----------
+		/// <summary>亮底控件的填充。</summary>
+		public static readonly Color Light = Hex(0xFFFFFF);
+
+		/// <summary>亮底控件的悬停填充。</summary>
+		public static readonly Color LightHover = Hex(0xE4E6EA);
+
+		/// <summary>亮底控件上的深色图标（浅黑）。</summary>
+		public static readonly Color OnLight = Hex(0x2B2C32);
 
 		// ---------- 破坏性按钮（拆除） ----------
 		public static readonly Color Danger = Hex(0x7F1D1D);

@@ -199,6 +199,28 @@ namespace DreamsOutposts
 			// 这里临时给它装一个代理，关窗时还原。
 			vehiclesTabEnabled = VehicleCaravanCompat.TryBeginContext(Notify_TransferablesChanged);
 			CalculateAndRecacheTransferables();
+			SelectInitialTab();
+		}
+
+		/// <summary>
+		/// 默认页与载具拓展自己的组建窗口保持一致：据点里真有载具可编入时才开在载具页，否则开在小人页。
+		/// 载具页不可用时绝不能停在载具页，否则会画出一个只剩数量提示的空页面。
+		/// </summary>
+		private void SelectInitialTab()
+		{
+			tab = Tab.Pawns;
+			if (!vehiclesTabEnabled)
+			{
+				return;
+			}
+			for (int i = 0; i < transferables.Count; i++)
+			{
+				if (transferables[i] != null && VehicleCaravanCompat.IsVehicle(transferables[i].AnyThing as Pawn))
+				{
+					tab = Tab.Vehicles;
+					return;
+				}
+			}
 		}
 
 		public override void PostClose()
@@ -238,6 +260,12 @@ namespace DreamsOutposts
 			Text.Anchor = TextAnchor.UpperLeft;
 			CaravanUIUtility.DrawCaravanInfo(new CaravanUIUtility.CaravanInfo(MassUsage, MassCapacity, cachedMassCapacityExplanation, TilesPerDay, cachedTilesPerDayExplanation, DaysWorthOfFood, ForagedFoodPerDay, cachedForagedFoodPerDayExplanation, Visibility, cachedVisibilityExplanation), null, outpost.Tile, null, lastMassFlashTime, new Rect(12f, 35f, inRect.width - 24f, 40f));
 			tabsList.Clear();
+			// 载具卡片可能在重置/重算时创建失败（RecacheVehiclesTransfer 会把 vehiclesTabEnabled 置回 false），
+			// 这时必须把当前页挪回小人页，否则载具页的标签已经消失、内容却还在画。
+			if (!vehiclesTabEnabled && tab == Tab.Vehicles)
+			{
+				tab = Tab.Pawns;
+			}
 			if (vehiclesTabEnabled)
 			{
 				// 装了载具框架就无条件显示载具页，标签沿用载具拓展自己的键，与原版组建窗口一致。

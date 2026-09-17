@@ -4,12 +4,6 @@ using Verse;
 
 namespace DreamsOutposts
 {
-	/// <summary>
-	/// 「仓库」页（新样式）：殖民者 / 其他人员 / 物品三栏。
-	/// 按需求去掉：页头描述、搜索框、物品/堆数汇总 chip、人员行下的「防卫 x」。
-	/// 人员和物品行整行可点击打开信息卡。
-	/// 页头描述位置改放「生产出的产物会自动进入这里」。
-	/// </summary>
 	public class Page_OutpostInventory : OutpostManagePage, IUiShellPage
 	{
 		private const float PanelMinHeight = 260f;
@@ -78,12 +72,7 @@ namespace DreamsOutposts
 
 		public string HeadDescription => null;
 
-		public string HeadHint => "DreamsOutposts.Ui.WarehouseHint".Translate();
-
-		public override void DoContents(Rect rect)
-		{
-			DrawBody(rect, rect.height);
-		}
+		public string HeadHint => null;
 
 		public float BodyHeight(float width, float availableHeight)
 		{
@@ -220,9 +209,9 @@ namespace DreamsOutposts
 			UiText.Draw(new Rect(head.x + PanelHeadPaddingH, head.y, titleWidth, head.height), ColumnTitle(index),
 				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
 			string countText = "(" + RowCount(cache, index) + ")";
-			float countWidth = UiText.Width(countText, UiFont.Caption) + 4f;
+			float countWidth = UiText.Width(countText, UiFont.Body) + 4f;
 			UiText.Draw(new Rect(head.xMax - PanelHeadPaddingH - countWidth, head.y, countWidth, head.height), countText,
-				UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight);
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight);
 			UiDraw.Divider(new Rect(rect.x, head.yMax - 1f, rect.width, 1f), UiPalette.Line);
 			Rect bodyOuter = new Rect(rect.x, head.yMax, rect.width, Mathf.Max(rect.height - headHeight, 0f));
 			Rect bodyInner = new Rect(bodyOuter.x + PanelBodyPadding, bodyOuter.y + PanelBodyPadding,
@@ -320,14 +309,14 @@ namespace DreamsOutposts
 				x += IconSize + RowGap;
 				// 总数徽标
 				string countText = view.Count.ToString();
-				float badgeWidth = Mathf.Max(UiText.Width(countText, UiFont.Caption, true) + BadgePaddingH * 2f, BadgeMinWidth);
-				float badgeHeight = UiText.LineHeight(UiFont.Caption) + 4f;
+				float badgeWidth = Mathf.Max(UiText.Width(countText, UiFont.Body, true) + BadgePaddingH * 2f, BadgeMinWidth);
+				float badgeHeight = UiText.LineHeight(UiFont.Body) + 4f;
 				Rect badgeRect = new Rect(row.xMax - RowPaddingH - badgeWidth, row.y + (row.height - badgeHeight) * 0.5f, badgeWidth, badgeHeight);
 				UiDraw.Box(badgeRect, (int)UiMetrics.RadiusXs, UiPalette.Raised, UiPalette.Line);
-				UiText.Draw(badgeRect, countText, UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleCenter, true);
+				UiText.Draw(badgeRect, countText, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleCenter, true);
 				// 名字 + DefName 副行
 				float nameHeight = UiText.LineHeight(UiFont.Body);
-				float subHeight = UiText.LineHeight(UiFont.Caption);
+				float subHeight = UiText.LineHeight(UiFont.Body);
 				float textY = row.y + (row.height - (nameHeight + subHeight)) * 0.5f;
 				float textWidth = Mathf.Max(badgeRect.x - 6f - x, 30f);
 				Rect nameRect = new Rect(x, textY, textWidth, nameHeight);
@@ -335,7 +324,7 @@ namespace DreamsOutposts
 				UiText.Draw(nameRect, (view.Def != null) ? view.Def.LabelCap.ToString() : "-", UiFont.Body, UiPalette.Ink,
 					TextAnchor.MiddleLeft, false, false, true);
 				string sub = (view.Def != null) ? view.Def.defName : null;
-				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), sub, UiFont.Caption, UiPalette.Ink2,
+				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), sub, UiFont.Body, UiPalette.Ink2,
 					TextAnchor.MiddleLeft, false, false, true);
 				if (view.Def != null && Widgets.ButtonInvisible(row))
 				{

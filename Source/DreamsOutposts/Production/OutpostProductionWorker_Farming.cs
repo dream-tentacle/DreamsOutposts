@@ -131,11 +131,11 @@ namespace DreamsOutposts
 			OutpostProductionState_Farming farmingState = FarmingState(state);
 			if (farmingState == null)
 			{
-				Log.Error("Tried to set plant " + (plant?.defName ?? "null") + " on production " + farming.id + ", but its runtime state is " + (state?.GetType().Name ?? "null") + " instead of OutpostProductionState_Farming.");
+				Log.Error("[DreamsOutposts] Tried to set plant " + (plant?.defName ?? "null") + " on production " + farming.id + ", but its runtime state is " + (state?.GetType().Name ?? "null") + " instead of OutpostProductionState_Farming.");
 			}
 			else if (!farming.IsSowable(plant))
 			{
-				Log.Error("Tried to set plant " + (plant?.defName ?? "null") + " on production " + farming.id + ", but it is not sowable here.");
+				Log.Error("[DreamsOutposts] Tried to set plant " + (plant?.defName ?? "null") + " on production " + farming.id + ", but it is not sowable here.");
 			}
 			else if (farmingState.selectedPlant != plant)
 			{

@@ -519,7 +519,7 @@ namespace DreamsOutposts
 				MapComponent_OutpostBombardment component = map.GetComponent<MapComponent_OutpostBombardment>();
 				if (projectileDef == null || component == null)
 				{
-					Log.Error("Failed to bombard from outpost " + outpost.Label + ": " + ((projectileDef == null) ? "its bombardment has no usable projectile def." : "the target map has no MapComponent_OutpostBombardment."));
+					Log.Error("[DreamsOutposts] Failed to bombard from outpost " + outpost.Label + ": " + ((projectileDef == null) ? "its bombardment has no usable projectile def." : "the target map has no MapComponent_OutpostBombardment."));
 					return;
 				}
 				int shells;

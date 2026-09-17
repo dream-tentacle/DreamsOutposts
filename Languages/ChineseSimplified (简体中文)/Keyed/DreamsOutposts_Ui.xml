@@ -113,8 +113,6 @@
   <DreamsOutposts.Ui.Nav.Items>{0} 种物品</DreamsOutposts.Ui.Nav.Items>
   <!-- EN: {0} active -->
   <DreamsOutposts.Ui.Nav.Events>{0} 个进行中</DreamsOutposts.Ui.Nav.Events>
-  <!-- EN: Click a facility card for details, click an empty slot to install something. -->
-  <DreamsOutposts.Ui.FacilitiesHint>点设施卡片打开详情，点空槽位安装新设施。</DreamsOutposts.Ui.FacilitiesHint>
   <!-- EN: Fixed by the outpost type -->
   <DreamsOutposts.Ui.CoreFacilityHint>由据点类型固定</DreamsOutposts.Ui.CoreFacilityHint>
   <!-- EN: Paid from the outpost stock, half refunded on removal -->
@@ -212,8 +210,6 @@
   <!-- EN: Warehouse -->
   <DreamsOutposts.Ui.Warehouse>仓库</DreamsOutposts.Ui.Warehouse>
   <DreamsOutposts.Ui.Vehicles>载具</DreamsOutposts.Ui.Vehicles>
-  <!-- EN: Produced goods end up here automatically. -->
-  <DreamsOutposts.Ui.WarehouseHint>生产出的产物会自动进入这里。</DreamsOutposts.Ui.WarehouseHint>
   <!-- EN: {0} stacks -->
   <DreamsOutposts.Ui.Stacks>{0} 堆</DreamsOutposts.Ui.Stacks>
   <!-- EN: Time left -->
@@ -242,10 +238,6 @@
   <DreamsOutposts.Tavern.Title>酒馆</DreamsOutposts.Tavern.Title>
   <!-- EN: {0}/{1} candidates -->
   <DreamsOutposts.Tavern.Nav>{0}/{1} 名候选人</DreamsOutposts.Tavern.Nav>
-  <!-- EN: Review visiting adventurers and invite them to join this outpost for free. -->
-  <DreamsOutposts.Tavern.Description>查看来访的冒险者，并免费邀请他们加入这个据点。</DreamsOutposts.Tavern.Description>
-  <!-- EN: An attempt is made every 3 days: the chance of a candidate turning up is the colonists' total Social skill divided by 50, and a failed attempt brings nobody. Each candidate remains available for 10 days. -->
-  <DreamsOutposts.Tavern.Hint>每3天尝试招募一次：成功率为据点殖民者的社交等级总和÷50，失败则无人出现。每名候选人停留10天。</DreamsOutposts.Tavern.Hint>
   <!-- EN: Skill preference -->
   <DreamsOutposts.Tavern.Preference>技能倾向</DreamsOutposts.Tavern.Preference>
   <!-- EN: No preference -->
@@ -268,8 +260,8 @@
   <DreamsOutposts.Tavern.Odds.Entry>{0} {1}</DreamsOutposts.Tavern.Odds.Entry>
   <!-- EN: No adventurers are currently available. -->
   <DreamsOutposts.Tavern.Empty>目前没有可招募的冒险者。</DreamsOutposts.Tavern.Empty>
-  <!-- EN: Overall rating: {0} · strength {1} · {2} -->
-  <DreamsOutposts.Tavern.Rarity>综合评级：{0} · 强度 {1} · {2}</DreamsOutposts.Tavern.Rarity>
+  <!-- EN: Overall rating: {0} · strength {1} -->
+  <DreamsOutposts.Tavern.Rarity>综合评级：{0} · 强度 {1}</DreamsOutposts.Tavern.Rarity>
   <!-- EN: Common -->
   <DreamsOutposts.Tavern.Rarity.Common>普通</DreamsOutposts.Tavern.Rarity.Common>
   <!-- EN: Excellent -->
@@ -278,12 +270,8 @@
   <DreamsOutposts.Tavern.Rarity.Elite>精英</DreamsOutposts.Tavern.Rarity.Elite>
   <!-- EN: Epic -->
   <DreamsOutposts.Tavern.Rarity.Epic>史诗</DreamsOutposts.Tavern.Rarity.Epic>
-  <!-- EN: inferior -->
-  <DreamsOutposts.Tavern.Specimen.Inferior>下品</DreamsOutposts.Tavern.Specimen.Inferior>
-  <!-- EN: ordinary -->
-  <DreamsOutposts.Tavern.Specimen.Ordinary>中品</DreamsOutposts.Tavern.Specimen.Ordinary>
-  <!-- EN: superior -->
-  <DreamsOutposts.Tavern.Specimen.Superior>上品</DreamsOutposts.Tavern.Specimen.Superior>
+  <!-- EN: Legendary -->
+  <DreamsOutposts.Tavern.Rarity.Legendary>传说</DreamsOutposts.Tavern.Rarity.Legendary>
   <!-- EN: Leaves in {0} -->
   <DreamsOutposts.Tavern.Expires>{0}后离开</DreamsOutposts.Tavern.Expires>
   <!-- EN: Recruit -->

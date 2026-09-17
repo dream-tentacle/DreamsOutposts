@@ -210,7 +210,7 @@ namespace DreamsOutposts
 			OutpostEventContext context = new OutpostEventContext { outpost = outpost };
 			foreach (OutpostEventDef candidate in DefDatabase<OutpostEventDef>.AllDefs)
 			{
-				if (candidate == null || candidate.category == null || candidate.weight <= 0f || !HasValidOptionConfiguration(candidate) || !CheckRequirements(candidate.requirements, context, out var _))
+				if (candidate == null || candidate.weight <= 0f || !IsEventDefAllowedFor(candidate, context))
 				{
 					continue;
 				}
@@ -222,6 +222,51 @@ namespace DreamsOutposts
 				events.Add(candidate);
 			}
 			return eventsByCategory;
+		}
+
+		/// <summary>
+		/// 这个 EventDef 对这个据点是否合法：分类已指定、选项配置完整、requirements 通过。
+		/// 刻意不含 weight 判断：weight 只决定它能否被随机抽到，而固定刷出的剧情/后续事件
+		/// （forcedAtRandomEventCount，或 weight 为 0 的排期事件）仍然必须是合法事件。
+		/// </summary>
+		public static bool IsEventDefAllowedFor(OutpostEventDef eventDef, OutpostEventContext context)
+		{
+			if (eventDef == null || eventDef.category == null || !HasValidOptionConfiguration(eventDef))
+			{
+				return false;
+			}
+			return CheckRequirements(eventDef.requirements, context, out var _);
+		}
+
+		/// <summary>
+		/// 找出声明「第 ordinal 次普通随机事件时固定出现」的 EventDef，找不到返回 null。
+		/// 约定同一个序号只声明一个事件；重复声明时取 DefDatabase 顺序里的第一个并记录一次警告。
+		/// </summary>
+		public static OutpostEventDef ForcedEventForRandomOrdinal(int ordinal)
+		{
+			if (ordinal <= 0)
+			{
+				return null;
+			}
+			OutpostEventDef result = null;
+			List<OutpostEventDef> all = DefDatabase<OutpostEventDef>.AllDefsListForReading;
+			for (int i = 0; i < all.Count; i++)
+			{
+				OutpostEventDef candidate = all[i];
+				if (candidate == null || candidate.forcedAtRandomEventCount != ordinal)
+				{
+					continue;
+				}
+				if (result == null)
+				{
+					result = candidate;
+					continue;
+				}
+				Log.WarningOnce("[DreamsOutposts] more than one OutpostEventDef declares forcedAtRandomEventCount " + ordinal
+					+ " (" + result.defName + ", " + candidate.defName + "); " + result.defName + " is used.",
+					Gen.HashCombineInt(ordinal, 8812));
+			}
+			return result;
 		}
 
 		/// <summary>
@@ -303,31 +348,6 @@ namespace DreamsOutposts
 			return weights.Count - 1;
 		}
 
-		public static Command AddAllWeightedEventsCommand(Outpost outpost)
-		{
-			Command_Action command = new Command_Action
-			{
-				defaultLabel = "DEV: Add all weighted events",
-				defaultDesc = "Create one instance of every outpost event whose weight is greater than zero.",
-				icon = TexCommand.DesirePower
-			};
-			command.action = delegate
-			{
-				int added = 0;
-				List<OutpostEventDef> eventDefs = DefDatabase<OutpostEventDef>.AllDefsListForReading;
-				for (int i = 0; i < eventDefs.Count; i++)
-				{
-					OutpostEventDef eventDef = eventDefs[i];
-					if (eventDef != null && eventDef.weight > 0f && outpost.AddEvent(eventDef) != null)
-					{
-						added++;
-					}
-				}
-				Log.Message("DreamsOutposts: added " + added + " weighted events to " + outpost.Label + ".");
-			};
-			return command;
-		}
-
 		public static void TickEvents(Outpost outpost)
 		{
 			if (outpost == null)
@@ -378,7 +398,7 @@ namespace DreamsOutposts
 				scheduled.RemoveAt(i);
 				if (entry.eventDef == null)
 				{
-					Log.Error("Outpost " + outpost.Label + " had a scheduled event with no EventDef; it was dropped without creating anything.");
+					Log.Error("[DreamsOutposts] Outpost " + outpost.Label + " had a scheduled event with no EventDef; it was dropped without creating anything.");
 					continue;
 				}
 				outpost.AddEvent(entry.eventDef);
@@ -412,7 +432,7 @@ namespace DreamsOutposts
 			OutpostEventOption option = instance.def.options?.FirstOrDefault((OutpostEventOption candidate) => candidate != null && candidate.id == instance.def.defaultOptionId);
 			if (option == null)
 			{
-				Log.Error("Outpost event " + instance.def.defName + " expired, but defaultOptionId '" + instance.def.defaultOptionId + "' did not match any option; keeping the event instance.");
+				Log.Error("[DreamsOutposts] Outpost event " + instance.def.defName + " expired, but defaultOptionId '" + instance.def.defaultOptionId + "' did not match any option; keeping the event instance.");
 				return;
 			}
 			ApplyEffectsAndRemove(outpost, instance, option, new OutpostEventContext

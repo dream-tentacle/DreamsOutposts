@@ -39,7 +39,7 @@ namespace DreamsOutposts
 				float height = UiText.Height(details.Description, UiFont.Body, width);
 				if (!measure)
 				{
-					UiText.Draw(new Rect(rect.x, y, width, height), details.Description, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
+					UiText.Draw(new Rect(rect.x, y, width, height), details.Description, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, false, true);
 				}
 				y += height + 4f;
 			}
@@ -66,10 +66,10 @@ namespace DreamsOutposts
 		private float SectionTitle(float x, float y, float width, string text, bool measure, bool isFirst)
 		{
 			float top = isFirst ? 0f : SectionTitleTop;
-			float lineHeight = UiText.LineHeight(UiFont.Caption);
+			float lineHeight = UiText.LineHeight(UiFont.Body);
 			if (!measure)
 			{
-				UiText.Draw(new Rect(x, y + top, width, lineHeight), text, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
+				UiText.Draw(new Rect(x, y + top, width, lineHeight), text, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
 			}
 			return y + top + lineHeight + SectionTitleBottom;
 		}
@@ -82,7 +82,7 @@ namespace DreamsOutposts
 			}
 			int columns = UiMetrics.GridColumns(width, UiMetrics.KvGridMinCell, UiMetrics.KvGridGap);
 			float cellWidth = UiMetrics.GridCellWidth(width, columns, UiMetrics.KvGridGap);
-			float keyHeight = UiText.LineHeight(UiFont.Caption);
+			float keyHeight = UiText.LineHeight(UiFont.Body);
 			float valueHeight = UiText.LineHeight(UiFont.Body);
 			float cellHeight = UiMetrics.KvPaddingV * 2f + keyHeight + 2f + valueHeight;
 			int rowCount = Mathf.CeilToInt((float)rows.Count / columns);
@@ -95,7 +95,7 @@ namespace DreamsOutposts
 				if (!measure)
 				{
 					UiText.Draw(new Rect(cell.x + UiMetrics.KvPaddingH, cell.y + UiMetrics.KvPaddingV, cell.width - UiMetrics.KvPaddingH * 2f, keyHeight),
-						rows[i].Key, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+						rows[i].Key, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 					UiText.Draw(new Rect(cell.x + UiMetrics.KvPaddingH, cell.y + UiMetrics.KvPaddingV + keyHeight + 2f, cell.width - UiMetrics.KvPaddingH * 2f, valueHeight),
 						rows[i].Value, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, false, false, true);
 				}
@@ -157,7 +157,7 @@ namespace DreamsOutposts
 			// 每单位消耗
 			if (rule.Inputs.Count > 0)
 			{
-				float rowHeight = Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Caption));
+				float rowHeight = Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
 				for (int i = 0; i < rule.Inputs.Count; i++)
 				{
 					UiCostLine line = rule.Inputs[i];
@@ -167,13 +167,13 @@ namespace DreamsOutposts
 						Rect iconRect = new Rect(row.x, row.y + (row.height - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
 						string name = (line.Thing != null) ? line.Thing.label : "-";
 						float nameX = iconRect.xMax + 6f;
-						float nameWidth = Mathf.Min(UiText.Width(name, UiFont.Caption) + 2f, Mathf.Max(row.width * 0.45f, 20f));
+						float nameWidth = Mathf.Min(UiText.Width(name, UiFont.Body) + 2f, Mathf.Max(row.width * 0.45f, 20f));
 						Rect nameRect = new Rect(nameX, row.y, nameWidth, row.height);
 						UiDraw.ThingInfoLink(new Rect(iconRect.x, row.y, nameRect.xMax - iconRect.x, row.height), iconRect, nameRect,
-							line.Thing, name, UiFont.Caption, line.Ok ? UiPalette.Good : UiPalette.Bad);
+							line.Thing, name, UiFont.Body, line.Ok ? UiPalette.Good : UiPalette.Bad);
 						string status = line.Have + " / " + line.Need + "  " + "DreamsOutposts.Ui.Rule.PerUnit".Translate();
 						UiText.Draw(new Rect(nameRect.xMax + 5f, row.y, Mathf.Max(row.xMax - nameRect.xMax - 5f, 10f), row.height),
-							status, UiFont.Caption, line.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleLeft, false, false, true);
+							status, UiFont.Body, line.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleLeft, false, false, true);
 					}
 					cursor += rowHeight;
 				}
@@ -181,10 +181,10 @@ namespace DreamsOutposts
 			}
 			if (!string.IsNullOrEmpty(rule.MaxCraftableText))
 			{
-				float height = UiText.LineHeight(UiFont.Caption);
+				float height = UiText.LineHeight(UiFont.Body);
 				if (!measure)
 				{
-					UiText.Draw(new Rect(innerX, cursor, innerWidth, height), rule.MaxCraftableText, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+					UiText.Draw(new Rect(innerX, cursor, innerWidth, height), rule.MaxCraftableText, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 				}
 				cursor += height;
 			}
@@ -210,7 +210,7 @@ namespace DreamsOutposts
 		private readonly OutpostSlot slot;
 		private OutpostFacilityCategoryDef selectedCategory;
 
-		/// <summary>当前选中的分类。默认停在排序后的第一个分类（与旧版默认停在「增产」一致）。</summary>
+		/// <summary>当前选中的分类。默认停在排序后的第一个分类。</summary>
 		private OutpostFacilityCategoryDef SelectedCategory
 		{
 			get
@@ -391,7 +391,7 @@ namespace DreamsOutposts
 				UiText.Draw(new Rect(head.x + iconSize + 9f, head.y, innerWidth - iconSize - 9f, head.height), card.Label,
 					UiFont.Body, headHovered ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
 				UiWidgets.Tip(head, card.Tooltip, card.TooltipId);
-				// 点名称/图标 → 原版信息面板（不再在卡里放介绍性文字）
+				// 点名称/图标 → 原版信息面板
 				if (card.Def != null && Widgets.ButtonInvisible(head))
 				{
 					Find.WindowStack.Add(new Dialog_InfoCard(card.Def));
@@ -443,18 +443,18 @@ namespace DreamsOutposts
 			// 修正行
 			if (card.ModLines.Count > 0)
 			{
-				float lineHeight = UiText.LineHeight(UiFont.Caption);
+				float lineHeight = UiText.LineHeight(UiFont.Body);
 				for (int i = 0; i < card.ModLines.Count; i++)
 				{
 					if (!measure)
 					{
-						UiText.Draw(new Rect(innerX, y + lineHeight * i, innerWidth, lineHeight), card.ModLines[i], UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+						UiText.Draw(new Rect(innerX, y + lineHeight * i, innerWidth, lineHeight), card.ModLines[i], UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 					}
 				}
 				y += lineHeight * card.ModLines.Count + UiMetrics.InstallCardGap;
 			}
-			// 底部：只有可建造时才显示建造按钮。
-			float buttonHeight = (UiWidgets.ButtonHeight(UiButtonSize.Small) + 4f) * 1.2f;
+			// 底部：只有可建造时才显示建造按钮。尺寸与详情弹窗的「拆除」按钮同一套算法
+			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Normal);
 			float footerHeight = buttonHeight + 8f;
 			if (!measure)
 			{
@@ -462,7 +462,7 @@ namespace DreamsOutposts
 				UiDraw.Divider(new Rect(rect.x + UiMetrics.InstallCardPadding, footerY - 8f, innerWidth, 1f), UiPalette.Line);
 				string buildLabel = "DreamsOutposts.Build".Translate();
 				Texture2D buildTexture = UiTex.PositiveButtonTexture();
-				float buildWidth = UiWidgets.TexturedButtonWidth(buttonHeight, buildTexture, buildLabel, UiButtonSize.Small);
+				float buildWidth = UiWidgets.TexturedButtonWidth(buttonHeight, buildTexture, buildLabel);
 				Rect buildRect = new Rect(rect.xMax - UiMetrics.InstallCardPadding - buildWidth, footerY, buildWidth, buttonHeight);
 				if (card.Allowed && UiWidgets.TexturedPrimaryButton(buildRect, buildLabel, buildTexture,
 					420f, 300f, UiButtonSize.Normal,
@@ -473,7 +473,7 @@ namespace DreamsOutposts
 				if (!card.Allowed)
 				{
 					Rect reasonRect = new Rect(innerX, footerY, innerWidth, buttonHeight);
-					UiText.Draw(reasonRect, card.Reason, UiFont.Caption, UiPalette.Bad,
+					UiText.Draw(reasonRect, card.Reason, UiFont.Body, UiPalette.Bad,
 						TextAnchor.MiddleRight, false, false, true);
 					UiWidgets.Tip(reasonRect, card.Reason,
 						GenText.StableStringHash("install-disabled-reason-" + (card.Def?.defName ?? "null")));

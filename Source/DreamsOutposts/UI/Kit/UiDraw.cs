@@ -87,6 +87,18 @@ namespace DreamsOutposts
 			UiTex.DrawNine(rect, UiTex.Box(radius, fill, border, (border.a > 0f) ? 1 : 0), 0.25f, radius, corners);
 		}
 
+		/// <summary>正圆：取正方形容器、半径取一半，四角弧线正好拼成一个圆。非方形矩形会居中取正方形。</summary>
+		public static void Circle(Rect rect, Color fill, Color border)
+		{
+			float size = Mathf.Min(rect.width, rect.height);
+			if (size <= 0f || (fill.a <= 0f && border.a <= 0f))
+			{
+				return;
+			}
+			Rect square = new Rect(rect.center.x - size * 0.5f, rect.center.y - size * 0.5f, size, size);
+			Box(square, Mathf.Max(Mathf.RoundToInt(size * 0.5f), 2), fill, border);
+		}
+
 		public static void Shadow(Rect rect, int radius, float alpha = 1f)
 		{
 			if (rect.width <= 0f || rect.height <= 0f || alpha <= 0f)
@@ -112,6 +124,48 @@ namespace DreamsOutposts
 				Shadow(rect, radius);
 			}
 			Box(rect, radius, fill, border);
+		}
+
+		/// <summary>
+		/// 传说卡的炫彩滚动边框：先画无描边的圆角底，再在外沿铺一条颜色沿轮廓流动的彩虹描边。
+		/// </summary>
+		public static void RainbowBox(Rect rect, int radius, Color fill)
+		{
+			RainbowBox(rect, radius, fill, UiMetrics.LegendaryBorderWidth);
+		}
+
+		public static void RainbowBox(Rect rect, int radius, Color fill, float thickness)
+		{
+			Box(rect, radius, fill, UiPalette.Clear);
+			RainbowBorder(rect, radius, thickness);
+		}
+
+		/// <summary>
+		/// 只画炫彩描边。四段边带互不重叠：上下两段各自连着一个圆角（角上的正方形区算在段里），
+		/// 左右两段只覆盖中间直边，所以圆角处不会被叠成两层、颜色也不会重复混合。
+		/// 颜色取「沿轮廓的弧长位置 + 时间偏移」，因此是匀速顺着边框流动；绕卡片中心的角度渐变则不行：
+		/// 很扁的卡片会把色带全挤在长边中点、角上几乎不变色。
+		/// </summary>
+		public static void RainbowBorder(Rect rect, int radius, float thickness)
+		{
+			if (rect.width < 4f || rect.height < 4f || thickness <= 0f)
+			{
+				return;
+			}
+			int hueIndex = UiTex.RainbowHueIndex(Time.realtimeSinceStartup / UiMetrics.LegendaryBorderSpinPeriod);
+			int r = UiTex.ClampRadius(radius, Mathf.CeilToInt(rect.width), Mathf.CeilToInt(rect.height));
+			GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width, r),
+				UiTex.RainbowBandTexture(RainbowBand.Top, rect, radius, thickness, hueIndex));
+			GUI.DrawTexture(new Rect(rect.x, rect.yMax - r, rect.width, r),
+				UiTex.RainbowBandTexture(RainbowBand.Bottom, rect, radius, thickness, hueIndex));
+			float sideHeight = rect.height - r * 2f;
+			if (sideHeight > 0f)
+			{
+				GUI.DrawTexture(new Rect(rect.x, rect.y + r, r, sideHeight),
+					UiTex.RainbowBandTexture(RainbowBand.Left, rect, radius, thickness, hueIndex));
+				GUI.DrawTexture(new Rect(rect.xMax - r, rect.y + r, r, sideHeight),
+					UiTex.RainbowBandTexture(RainbowBand.Right, rect, radius, thickness, hueIndex));
+			}
 		}
 
 		/// <summary>虚线圆角框（空槽位卡）。</summary>
@@ -314,16 +368,19 @@ namespace DreamsOutposts
 			return kind == UiChipKind.Good || kind == UiChipKind.Bad;
 		}
 
+		/// <summary>chip 的字号档。三处尺寸测量必须都用这个档位，否则药丸会夹住文字。</summary>
+		private const UiFont ChipFont = UiFont.Body;
+
 		public static float ChipHeight(bool small)
 		{
 			float padding = small ? UiMetrics.ChipSmallPaddingV : UiMetrics.ChipPaddingV;
-			return UiText.LineHeight(UiFont.Caption) + padding * 2f;
+			return UiText.LineHeight(ChipFont) + padding * 2f;
 		}
 
 		public static float ChipWidth(UiChipView chip)
 		{
 			float padding = chip.Small ? UiMetrics.ChipSmallPaddingH : UiMetrics.ChipPaddingH;
-			float width = padding * 2f + UiText.Width(chip.Label, UiFont.Caption);
+			float width = padding * 2f + UiText.Width(chip.Label, ChipFont);
 			if (ChipHasGlyph(chip.Kind))
 			{
 				width += UiMetrics.ChipGlyphSize + UiMetrics.ChipGap;
@@ -343,7 +400,7 @@ namespace DreamsOutposts
 				x += UiMetrics.ChipGlyphSize + UiMetrics.ChipGap;
 			}
 			Rect textRect = new Rect(x, rect.y, Mathf.Max(rect.xMax - padding - x, 0f), rect.height);
-			UiText.Draw(textRect, chip.Label, UiFont.Caption, ChipTextColor(chip.Kind), TextAnchor.MiddleLeft);
+			UiText.Draw(textRect, chip.Label, ChipFont, ChipTextColor(chip.Kind), TextAnchor.MiddleLeft);
 			if (!string.IsNullOrEmpty(chip.Tooltip))
 			{
 				TooltipHandler.TipRegion(rect, new TipSignal(chip.Tooltip, rect.GetHashCode()));
@@ -396,8 +453,8 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// 人物小像的取景参数。不能直接用 Widgets.ThingIcon：它对 humanlike 固定以 cameraZoom 1.8 取景，
-		/// 可见范围只有上下各约 0.56 格，戴帽子时帽顶会落到画面外被裁掉。这里改成原版人物对话框的
+		/// 人物小像的取景参数。Widgets.ThingIcon 对 humanlike 固定以 cameraZoom 1.8 取景，
+		/// 可见范围只有上下各约 0.56 格，戴帽子时帽顶会落到画面外被裁掉。这里用原版人物对话框的
 		/// 1.5 倍取景，并把镜头抬高 0.18 格给帽顶留位置。
 		/// </summary>
 		private const float PortraitsZoom = 1.5f;

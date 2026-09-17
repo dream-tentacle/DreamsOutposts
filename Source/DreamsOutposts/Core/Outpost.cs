@@ -117,7 +117,7 @@ namespace DreamsOutposts
 		{
 			if (eventDef == null)
 			{
-				Log.Error("Cannot add a null event Def to outpost " + Label + ".");
+				Log.Error("[DreamsOutposts] Cannot add a null event Def to outpost " + Label + ".");
 				return null;
 			}
 			if (events == null)
@@ -150,7 +150,7 @@ namespace DreamsOutposts
 		{
 			if (eventDef == null)
 			{
-				Log.Error("Cannot schedule a null event Def on outpost " + Label + ".");
+				Log.Error("[DreamsOutposts] Cannot schedule a null event Def on outpost " + Label + ".");
 				return null;
 			}
 			if (scheduledEvents == null)
@@ -312,7 +312,7 @@ namespace DreamsOutposts
 				}
 				if (outpostTypeDef != null && coreFacility == null)
 				{
-					Log.Error("Outpost " + Label + " had no core facility after loading; reinstalling it from " + outpostTypeDef.defName + ".");
+					Log.Error("[DreamsOutposts] Outpost " + Label + " had no core facility after loading; reinstalling it from " + outpostTypeDef.defName + ".");
 					InitializeCoreFacility();
 				}
 				EnsureExtensionSlots();
@@ -340,7 +340,7 @@ namespace DreamsOutposts
 				OutpostSlot removed = extensionSlots[index];
 				if (removed != null && !removed.IsEmpty)
 				{
-					Log.Error("Outpost " + Label + " level " + level + " allows only " + wanted + " extension slots, so the slot holding " + (removed.facility.def?.defName ?? "null") + " was removed and that facility is gone.");
+					Log.Error("[DreamsOutposts] Outpost " + Label + " level " + level + " allows only " + wanted + " extension slots, so the slot holding " + (removed.facility.def?.defName ?? "null") + " was removed and that facility is gone.");
 				}
 				extensionSlots.RemoveAt(index);
 			}
@@ -361,7 +361,7 @@ namespace DreamsOutposts
 			OutpostFacilityDef def = outpostTypeDef?.coreFacility;
 			if (def == null)
 			{
-				Log.Error("Outpost type " + (outpostTypeDef?.defName ?? "null") + " declares no coreFacility; this outpost will have no core facility.");
+				Log.Error("[DreamsOutposts] Outpost type " + (outpostTypeDef?.defName ?? "null") + " declares no coreFacility; this outpost will have no core facility.");
 				coreFacility = null;
 			}
 			else
@@ -417,11 +417,6 @@ namespace DreamsOutposts
 			if (base.Faction != Faction.OfPlayer)
 			{
 				yield break;
-			}
-			if (Prefs.DevMode && DebugSettings.godMode)
-			{
-				yield return OutpostEventUtility.AddAllWeightedEventsCommand(this);
-				yield return AdventurerDevGizmo.GetCommand(this);
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
 			yield return OutpostUtility.ManageCommand(this);

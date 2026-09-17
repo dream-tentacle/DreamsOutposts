@@ -28,12 +28,12 @@ namespace DreamsOutposts
 			}
 			if (eventDef == null)
 			{
-				Log.Error("OutpostEventEffect_ScheduleEvent has no eventDef; nothing was scheduled for outpost " + context.outpost.Label + ".");
+				Log.Error("[DreamsOutposts] OutpostEventEffect_ScheduleEvent has no eventDef; nothing was scheduled for outpost " + context.outpost.Label + ".");
 				return;
 			}
 			if (delayTicksRange.TrueMin < 0)
 			{
-				Log.Error("OutpostEventEffect_ScheduleEvent for " + eventDef.defName + " has a negative delayTicksRange (" + delayTicksRange + "); nothing was scheduled for outpost " + context.outpost.Label + ".");
+				Log.Error("[DreamsOutposts] OutpostEventEffect_ScheduleEvent for " + eventDef.defName + " has a negative delayTicksRange (" + delayTicksRange + "); nothing was scheduled for outpost " + context.outpost.Label + ".");
 				return;
 			}
 			int delayTicks = Rand.RangeInclusive(delayTicksRange.TrueMin, delayTicksRange.TrueMax);
@@ -106,7 +106,7 @@ namespace DreamsOutposts
 			}
 			if (total <= 0f)
 			{
-				Log.Error("OutpostEventEffect_ScheduleRandomEvent has no positively weighted event options.");
+				Log.Error("[DreamsOutposts] OutpostEventEffect_ScheduleRandomEvent has no positively weighted event options.");
 				return;
 			}
 			float roll = Rand.Range(0f, total);

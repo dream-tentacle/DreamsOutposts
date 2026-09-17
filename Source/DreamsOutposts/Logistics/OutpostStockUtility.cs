@@ -44,7 +44,7 @@ namespace DreamsOutposts
 					Thing taken = outpost.inventory.Take(thing, take);
 					if (taken == null)
 					{
-						Log.Error("Failed to take " + take + " " + thingDef.defName + " from outpost " + outpost.Label + "; stopping.");
+						Log.Error("[DreamsOutposts] Failed to take " + take + " " + thingDef.defName + " from outpost " + outpost.Label + "; stopping.");
 						break;
 					}
 					taken.Destroy();
@@ -74,7 +74,7 @@ namespace DreamsOutposts
 					added += thing.stackCount;
 					continue;
 				}
-				Log.Error("Failed to add " + thing.stackCount + " " + thingDef.defName + " to outpost " + outpost.Label + "'s inventory; the stack is destroyed.");
+				Log.Error("[DreamsOutposts] Failed to add " + thing.stackCount + " " + thingDef.defName + " to outpost " + outpost.Label + "'s inventory; the stack is destroyed.");
 				thing.Destroy();
 				break;
 			}

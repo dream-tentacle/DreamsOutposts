@@ -47,7 +47,7 @@ namespace DreamsOutposts
 		{
 			if (outpost == null || outpost.Destroyed || outpost.inventory == null || outpost.pawns == null)
 			{
-				Log.Error("Transport pods arrived at an outpost that no longer exists, so their contents are lost.");
+				Log.Error("[DreamsOutposts] Transport pods arrived at an outpost that no longer exists, so their contents are lost.");
 				return;
 			}
 			for (int i = 0; i < transporters.Count; i++)
@@ -84,7 +84,7 @@ namespace DreamsOutposts
 			container.TryTransferToContainer(pawn, outpost.pawns, pawn.stackCount);
 			if (container.Contains(pawn) && pawn.stackCount > 0)
 			{
-				Log.Error("Failed to move " + pawn?.ToString() + " from the transport pods into outpost " + outpost.Label + ".");
+				Log.Error("[DreamsOutposts] Failed to move " + pawn?.ToString() + " from the transport pods into outpost " + outpost.Label + ".");
 			}
 			else
 			{
@@ -98,7 +98,7 @@ namespace DreamsOutposts
 			container.TryTransferToContainer(thing, outpost.inventory, stackCount);
 			if (container.Contains(thing) && thing.stackCount > 0)
 			{
-				Log.Error("Moved only " + (stackCount - thing.stackCount) + " of " + stackCount + " " + thing.LabelNoCount + " from the transport pods into outpost " + outpost.Label + ".");
+				Log.Error("[DreamsOutposts] Moved only " + (stackCount - thing.stackCount) + " of " + stackCount + " " + thing.LabelNoCount + " from the transport pods into outpost " + outpost.Label + ".");
 			}
 		}
 	}

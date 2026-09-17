@@ -52,8 +52,6 @@
   <DreamsOutposts.NoExtensionSlots>（此据点类型没有扩展槽位）</DreamsOutposts.NoExtensionSlots>
   <!-- EN: Empty slot -->
   <DreamsOutposts.EmptySlot>空槽位</DreamsOutposts.EmptySlot>
-  <!-- EN: Details -->
-  <DreamsOutposts.Details>详情</DreamsOutposts.Details>
   <!-- EN: Demolish -->
   <DreamsOutposts.Demolish>拆除</DreamsOutposts.Demolish>
   <!-- EN: Demolish {0}?\n\nThe slot becomes empty. You get back: {1} -->

@@ -77,5 +77,9 @@
   <DreamsOutposts.EventCategorySummary>Event category tendencies:</DreamsOutposts.EventCategorySummary>
   <DreamsOutposts.EventCategoryBaseWeight>base {0}</DreamsOutposts.EventCategoryBaseWeight>
   <DreamsOutposts.EventCategoryCurrentWeight>current {0}</DreamsOutposts.EventCategoryCurrentWeight>
+  <DreamsOutposts.EventRequirement.HasFacility>Requires a built {0} ({1} of {2})</DreamsOutposts.EventRequirement.HasFacility>
+  <DreamsOutposts.EventRequirement.FreeAdventurerSlot>The tavern has no free place left ({0}/{1})</DreamsOutposts.EventRequirement.FreeAdventurerSlot>
+  <DreamsOutposts.EventEffect.AdventurerOffer>A {0} adventurer appears at the tavern, waiting to be recruited</DreamsOutposts.EventEffect.AdventurerOffer>
+  <DreamsOutposts.EventEffect.AdventurerOfferArrived>A {0} adventurer has arrived at the tavern of {1}, waiting to be recruited.</DreamsOutposts.EventEffect.AdventurerOfferArrived>
 </LanguageData>
 

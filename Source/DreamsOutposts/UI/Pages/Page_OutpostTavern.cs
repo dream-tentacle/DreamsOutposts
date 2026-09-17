@@ -11,22 +11,18 @@ namespace DreamsOutposts
 	{
 		private const float Gap = 14f;
 		private const float CardHeight = 174f;
-		/// <summary>立绘边长。原来是 92f，缩小 20% 后给右侧姓名/评级/技能行多留出 18.4px 横向空间；后来又放大到 80 让立绘更清楚。</summary>
 		private const float PortraitSize = 80f;
 		private const float ControlsHeight = 82f;
 		/// <summary>候选人卡右侧「招募 / 驱离」两个底图按钮的高度（宽度由底图长宽比反推）。</summary>
 		private const float TavernActionButtonHeight = 34f;
-		/// <summary>底图里文字槽位的原始像素区间（三种按钮底图同规格，与安装卡的「建造」按钮一致）。</summary>
 		private const float ActionLabelSourceX = 420f;
 		private const float ActionLabelSourceWidth = 300f;
 
 		public override bool IsVisible => AdventurerRecruitUtility.IsAvailable(outpost);
 		public override string Label => "DreamsOutposts.Tavern.Title".Translate();
 		public string NavSummary => "DreamsOutposts.Tavern.Nav".Translate(outpost?.adventurerRecruitment?.offers.Count ?? 0, AdventurerRecruitUtility.MaxOffers);
-		public string HeadDescription => "DreamsOutposts.Tavern.Description".Translate();
-		public string HeadHint => "DreamsOutposts.Tavern.Hint".Translate();
-
-		public override void DoContents(Rect rect) => DrawBody(rect, rect.height);
+		public string HeadDescription => null;
+		public string HeadHint => null;
 
 		public float BodyHeight(float width, float availableHeight)
 		{
@@ -67,7 +63,7 @@ namespace DreamsOutposts
 				: ("DreamsOutposts.Tavern.Next".Translate(Mathf.Max(outpost.adventurerRecruitment.nextRecruitTick - now, 0).ToStringTicksToPeriod())
 					+ " · " + "DreamsOutposts.Tavern.Chance".Translate(AdventurerRecruitUtility.RecruitChance(outpost).ToStringPercent("F0"))).ToString();
 			Rect timerRect = new Rect(rect.x + 164f + buttonWidth, rect.y + 2f, Mathf.Max(rect.width - 178f - buttonWidth, 30f), 54f);
-			UiText.Draw(timerRect, timer, UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+			UiText.Draw(timerRect, timer, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
 			// 这行只放百分比，总和与除数交给悬停提示，免得窄窗口下关键数字被省略号截掉。
 			UiWidgets.Tip(timerRect, "DreamsOutposts.Tavern.ChanceTip".Translate(
 				AdventurerRecruitUtility.SocialSkillTotal(outpost), AdventurerRecruitUtility.RecruitChanceDivisor.ToString("0")),
@@ -89,7 +85,7 @@ namespace DreamsOutposts
 			AppendOddsEntry(builder, AdventurerRarity.Excellent, odds.Excellent);
 			AppendOddsEntry(builder, AdventurerRarity.Elite, odds.Elite);
 			AppendOddsEntry(builder, AdventurerRarity.Epic, odds.Epic);
-			UiText.Draw(rect, builder.ToString(), UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			UiText.Draw(rect, builder.ToString(), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
 		}
 
 		private static void AppendOddsEntry(StringBuilder builder, AdventurerRarity rarity, float probability)
@@ -140,37 +136,48 @@ namespace DreamsOutposts
 			Pawn pawn = offer?.pawn;
 			if (pawn == null) return;
 			AdventurerRarity rarity = AdventurerRecruitUtility.RarityFor(pawn);
-			Color rarityColor = RarityColor(rarity);
-			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, Mouse.IsOver(rect) ? UiPalette.Hover : UiPalette.Card, rarityColor);
+			// 传说个体只换显示：边框是沿轮廓流动的炫彩描边，评级文字仍是金色。
+			bool legendary = AdventurerRecruitUtility.IsLegendary(pawn);
+			Color rarityColor = legendary ? UiPalette.Legendary : RarityColor(rarity);
+			Color fill = Mouse.IsOver(rect) ? UiPalette.Hover : UiPalette.Card;
+			if (legendary)
+			{
+				UiDraw.RainbowBox(rect, (int)UiMetrics.RadiusSm, fill);
+			}
+			else
+			{
+				UiDraw.Box(rect, (int)UiMetrics.RadiusSm, fill, rarityColor);
+			}
 			Rect portrait = new Rect(rect.x + 16f, rect.y + 16f, PortraitSize, PortraitSize);
 			UiDraw.PawnPortrait(portrait, pawn);
 			float textX = portrait.xMax + 16f;
-			// 两个按钮用与「建造」同款的底图按钮：招募 = PositiveButton（绿），驱离 = NegativeButton（红）
+			// 字号档位跟设施卡的「详情」按钮保持一致（都是 UiButtonSize.Normal → UiFont.Body），
+			// 底图里 300px 的文字槽位比「详情」那颗还宽，所以放大后同样放得下。
 			string recruitLabel = "DreamsOutposts.Tavern.Recruit".Translate();
 			string driveAwayLabel = "DreamsOutposts.Tavern.Dismiss".Translate();
 			Texture2D recruitTexture = UiTex.PositiveButtonTexture();
 			Texture2D driveAwayTexture = UiTex.NegativeButtonTexture();
-			float recruitWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, recruitTexture, recruitLabel, UiButtonSize.Small);
-			float driveAwayWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, driveAwayTexture, driveAwayLabel, UiButtonSize.Small);
+			float recruitWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, recruitTexture, recruitLabel, UiButtonSize.Normal);
+			float driveAwayWidth = UiWidgets.TexturedButtonWidth(TavernActionButtonHeight, driveAwayTexture, driveAwayLabel, UiButtonSize.Normal);
 			float actionWidth = Mathf.Max(recruitWidth, driveAwayWidth);
 			float textWidth = Mathf.Max(rect.xMax - 16f - actionWidth - 14f - textX, 100f);
 			UiText.Draw(new Rect(textX, rect.y + 14f, textWidth, 28f), pawn.LabelCap, UiFont.Heading, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
 			UiText.Draw(new Rect(textX, rect.y + 44f, textWidth, 24f), RatingText(pawn, rarity), UiFont.Body, rarityColor, TextAnchor.MiddleLeft, true);
 			List<SkillRecord> top = pawn.skills?.skills.Where(s => !s.TotallyDisabled).OrderByDescending(s => s.Level).Take(3).ToList() ?? new List<SkillRecord>();
 			string skills = string.Join(" · ", top.Select(s => s.def.LabelCap + " " + s.Level + PassionText(s.passion)).ToArray());
-			UiText.Draw(new Rect(textX, rect.y + 72f, textWidth, 42f), skills, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, true, true);
+			UiText.Draw(new Rect(textX, rect.y + 72f, textWidth, 42f), skills, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true, true);
 			int left = Mathf.Max(offer.expireTick - Find.TickManager.TicksGame, 0);
-			UiText.Draw(new Rect(textX, rect.y + 120f, textWidth, 24f), "DreamsOutposts.Tavern.Expires".Translate(left.ToStringTicksToPeriod()), UiFont.Caption, UiPalette.Ink3, TextAnchor.MiddleLeft);
+			UiText.Draw(new Rect(textX, rect.y + 120f, textWidth, 24f), "DreamsOutposts.Tavern.Expires".Translate(left.ToStringTicksToPeriod()), UiFont.Body, UiPalette.Ink3, TextAnchor.MiddleLeft);
 			float bx = rect.xMax - 16f - actionWidth;
 			Rect recruitRect = new Rect(bx, rect.y + 15f, recruitWidth, TavernActionButtonHeight);
 			Rect driveAwayRect = new Rect(bx, rect.y + 57f, driveAwayWidth, TavernActionButtonHeight);
 			if (UiWidgets.TexturedButton(recruitRect, recruitLabel, recruitTexture, ActionLabelSourceX, ActionLabelSourceWidth,
-				UiPalette.Brand, UiPalette.BrandHover, UiPalette.OnAccent, UiButtonSize.Small))
+				UiPalette.Brand, UiPalette.BrandHover, UiPalette.OnAccent, UiButtonSize.Normal))
 			{
 				AdventurerRecruitUtility.Recruit(outpost, offer);
 			}
 			if (UiWidgets.TexturedButton(driveAwayRect, driveAwayLabel, driveAwayTexture, ActionLabelSourceX, ActionLabelSourceWidth,
-				UiPalette.Danger, UiPalette.DangerHover, UiPalette.OnAccent, UiButtonSize.Small))
+				UiPalette.Danger, UiPalette.DangerHover, UiPalette.OnAccent, UiButtonSize.Normal))
 			{
 				Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("DreamsOutposts.Tavern.DismissConfirm".Translate(pawn.LabelShortCap), () => AdventurerRecruitUtility.RemoveOffer(outpost, offer), destructive: true));
 			}
@@ -185,16 +192,15 @@ namespace DreamsOutposts
 		private static string PassionText(Passion passion) => passion == Passion.Major ? " ♥♥" : passion == Passion.Minor ? " ♥" : string.Empty;
 
 		/// <summary>
-		/// Rating line: the kind's rating and combat power, then this individual's specimen grade, e.g.
-		/// "Overall rating: Elite · strength 130 · superior".
+		/// Rating line: the kind's rating and combat power, e.g. "Overall rating: Elite · strength 130".
+		/// 战斗力超过 200 的个体这一档显示为「传说」。
 		/// </summary>
 		private static string RatingText(Pawn pawn, AdventurerRarity rarity)
 		{
 			float power = pawn.kindDef?.combatPower ?? 0f;
 			return "DreamsOutposts.Tavern.Rarity".Translate(
-				AdventurerRecruitUtility.RarityLabel(rarity),
-				power.ToString("0"),
-				AdventurerRecruitUtility.SpecimenLabel(AdventurerRecruitUtility.SpecimenFor(pawn)));
+				AdventurerRecruitUtility.RarityLabelFor(pawn, rarity),
+				power.ToString("0"));
 		}
 
 		private static Color RarityColor(AdventurerRarity rarity)

@@ -36,6 +36,18 @@ namespace DreamsOutposts
 	}
 
 	/// <summary>
+	/// 炫彩边框的四条边带。上下两段各自连着一个圆角（角上的正方形区算在段里），
+	/// 左右两段只覆盖中间直边，四段互不重叠。
+	/// </summary>
+	public enum RainbowBand
+	{
+		Top,
+		Bottom,
+		Left,
+		Right
+	}
+
+	/// <summary>
 	/// 运行时生成并缓存贴图：圆角矩形 9 宫格、柔和阴影、虚线圆角、几何图标。
 	/// 全部按「半径 + 颜色」缓存，生成一次反复使用。
 	/// </summary>
@@ -110,7 +122,7 @@ namespace DreamsOutposts
 
 		private static Texture2D positiveButtonTexture;
 
-		private static Texture2D infoButtonTexture;
+		private static Texture2D pageHeadDecorTexture;
 
 		private static Texture2D negativeButtonTexture;
 
@@ -158,6 +170,21 @@ namespace DreamsOutposts
 			return texture;
 		}
 
+		/// <summary>内容页页头左侧的装饰底图，按页头高度等比缩放。</summary>
+		public static Texture2D PageHeadDecorTexture()
+		{
+			if (pageHeadDecorTexture == null)
+			{
+				pageHeadDecorTexture = ContentFinder<Texture2D>.Get(IconFolder + "Decorate1", false);
+				if (pageHeadDecorTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: page head decor texture missing: Textures/" + IconFolder
+						+ "Decorate1.png.", GenText.StableStringHash("ui-page-head-decor"));
+				}
+			}
+			return pageHeadDecorTexture;
+		}
+
 		/// <summary>设施页据点升级时，从等级卡底部向上扫过的柔边白光。</summary>
 		public static Texture2D LevelUpgradeSweepTexture()
 		{
@@ -186,21 +213,6 @@ namespace DreamsOutposts
 				}
 			}
 			return positiveButtonTexture;
-		}
-
-		/// <summary>设施卡「详情」按钮的白色透明底图：与建造按钮同版式，只有右侧图标换成了信息图标。</summary>
-		public static Texture2D InfoButtonTexture()
-		{
-			if (infoButtonTexture == null)
-			{
-				infoButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "InfoButton", false);
-				if (infoButtonTexture == null)
-				{
-					Log.WarningOnce("DreamsOutposts UI: info button texture missing: Textures/" + IconFolder
-						+ "InfoButton.png.", GenText.StableStringHash("ui-info-button"));
-				}
-			}
-			return infoButtonTexture;
 		}
 
 		/// <summary>拆除按钮的白色透明底图：与建造按钮完全同规格，绘制时按破坏性语义色（红）染色。</summary>
@@ -490,6 +502,253 @@ namespace DreamsOutposts
 			texture.Apply(false, false);
 			cornerCache[key] = texture;
 			return texture;
+		}
+
+		// ---------------------------------------------------------------
+		// 炫彩边框（传说卡）：颜色按「沿圆角矩形轮廓的弧长」渐变，随帧偏移流动
+		// ---------------------------------------------------------------
+
+		/// <summary>色相表项数（256 项 = 每项 1.4°，肉眼已看不出分段）。必须是 2 的幂。</summary>
+		public const int RainbowLutSize = 256;
+
+		/// <summary>炫彩描边的饱和度：略低于 1，免得深色主题上满屏刺眼的纯色。</summary>
+		private const float RainbowSaturation = 0.9f;
+
+		private static readonly Color[] rainbowLut = new Color[RainbowLutSize];
+
+		private static int rainbowLutIndex = int.MinValue;
+
+		private struct RainbowKey : IEquatable<RainbowKey>
+		{
+			public int Band;
+
+			public int CardWidth;
+
+			public int CardHeight;
+
+			public int Radius;
+
+			public bool Equals(RainbowKey other)
+			{
+				return Band == other.Band && CardWidth == other.CardWidth && CardHeight == other.CardHeight && Radius == other.Radius;
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is RainbowKey && Equals((RainbowKey)obj);
+			}
+
+			public override int GetHashCode()
+			{
+				return ((Band * 397 ^ CardWidth) * 397 ^ CardHeight) * 397 ^ Radius;
+			}
+		}
+
+		private class RainbowBandEntry
+		{
+			public Texture2D Texture;
+
+			public Color[] Pixels;
+		}
+
+		private static readonly Dictionary<RainbowKey, RainbowBandEntry> rainbowBandCache = new Dictionary<RainbowKey, RainbowBandEntry>();
+
+		/// <summary>缓存条目上限：只有卡片尺寸变化才会新建条目，超过就整表清掉重新来。</summary>
+		private const int RainbowCacheLimit = 16;
+
+		/// <summary>把「绕了几圈」的小数换算成色相表索引。同一帧里所有边带共用一个索引。</summary>
+		public static int RainbowHueIndex(float cycles)
+		{
+			return Mathf.FloorToInt(Mathf.Repeat(cycles, 1f) * RainbowLutSize);
+		}
+
+		/// <summary>
+		/// 当前色相偏移下的色相表，索引里已经含了偏移（取像素色时不必再加）。
+		/// 同一个索引只算一次：一帧内所有传说卡的边带共用它。
+		/// </summary>
+		private static Color[] RainbowLut(int hueIndex)
+		{
+			int index = hueIndex & (RainbowLutSize - 1);
+			if (index != rainbowLutIndex)
+			{
+				for (int i = 0; i < RainbowLutSize; i++)
+				{
+					rainbowLut[i] = HueToRgb(((i + index) & (RainbowLutSize - 1)) / (float)RainbowLutSize);
+				}
+				rainbowLutIndex = index;
+			}
+			return rainbowLut;
+		}
+
+		/// <summary>HSV(h, RainbowSaturation, 1) 转 RGB。自己写，不依赖 Unity 版本里是否带 Color.HSVToRGB。</summary>
+		private static Color HueToRgb(float hue)
+		{
+			float h = Mathf.Repeat(hue, 1f) * 6f;
+			int sector = Mathf.Min((int)h, 5);
+			float f = h - sector;
+			float low = 1f - RainbowSaturation;
+			float rise = 1f - RainbowSaturation * f;
+			float fall = 1f - RainbowSaturation * (1f - f);
+			switch (sector)
+			{
+				case 0: return new Color(1f, fall, low, 1f);
+				case 1: return new Color(rise, 1f, low, 1f);
+				case 2: return new Color(low, 1f, fall, 1f);
+				case 3: return new Color(low, rise, 1f, 1f);
+				case 4: return new Color(fall, low, 1f, 1f);
+				default: return new Color(1f, low, rise, 1f);
+			}
+		}
+
+		/// <summary>
+		/// 炫彩边框的一条边带贴图。按「边 + 卡宽 + 卡高 + 半径」缓存贴图与像素数组，
+		/// 但像素内容每帧按 hueIndex 重填：RGB 是沿轮廓弧长渐变的彩虹色，A 是描边的抗锯齿覆盖度。
+		/// </summary>
+		public static Texture2D RainbowBandTexture(RainbowBand band, Rect cardRect, int radius, float thickness, int hueIndex)
+		{
+			int cardWidth = Mathf.Max(Mathf.CeilToInt(cardRect.width), 4);
+			int cardHeight = Mathf.Max(Mathf.CeilToInt(cardRect.height), 4);
+			int r = ClampRadius(radius, cardWidth, cardHeight);
+			bool horizontal = band == RainbowBand.Top || band == RainbowBand.Bottom;
+			int width = horizontal ? cardWidth : r;
+			int height = horizontal ? r : Mathf.Max(cardHeight - r * 2, 1);
+			RainbowKey key = default(RainbowKey);
+			key.Band = (int)band;
+			key.CardWidth = cardWidth;
+			key.CardHeight = cardHeight;
+			key.Radius = r;
+			RainbowBandEntry entry;
+			if (!rainbowBandCache.TryGetValue(key, out entry))
+			{
+				if (rainbowBandCache.Count >= RainbowCacheLimit)
+				{
+					rainbowBandCache.Clear();
+				}
+				entry = new RainbowBandEntry();
+				entry.Texture = NewTexture(width, height);
+				entry.Pixels = new Color[width * height];
+				rainbowBandCache[key] = entry;
+			}
+			FillRainbowBand(entry, band, cardWidth, cardHeight, r, thickness, hueIndex);
+			entry.Texture.SetPixels(entry.Pixels);
+			entry.Texture.Apply(false, false);
+			return entry.Texture;
+		}
+
+		/// <summary>圆角半径的合法区间：至少 2，且不超过短边的一半。</summary>
+		public static int ClampRadius(int radius, int width, int height)
+		{
+			return Mathf.Clamp(radius, 2, Mathf.FloorToInt(Mathf.Min(width, height) * 0.5f));
+		}
+
+		private static void FillRainbowBand(RainbowBandEntry entry, RainbowBand band, int cardWidth, int cardHeight,
+			int r, float thickness, int hueIndex)
+		{
+			// 弧长从「上直边起点」(r, 0) 起算，顺时针绕一圈：上直边 a → 右上弧 b → 右直边 c → 右下弧 b
+			// → 下直边 a → 左下弧 b → 左直边 c → 左上弧 b，回到起点即整圈 perimeter。
+			// 四段边带必须共用这一个原点，否则圆角处色带会错位（直边长度算到 0 时还会直接裂开）。
+			float a = cardWidth - r * 2f;      // 上下两条直边长
+			float c = cardHeight - r * 2f;     // 左右两条直边长
+			float b = Mathf.PI * r * 0.5f;     // 四分之一圆弧长
+			float perimeter = 2f * a + 2f * c + 4f * b;
+			float indexScale = RainbowLutSize / perimeter;
+			float halfPi = Mathf.PI * 0.5f;
+			float bottomStart = a + b + c;     // 右下角圆弧的起点（沿轮廓的弧长）
+			Color[] lut = RainbowLut(hueIndex);
+			int width = entry.Texture.width;
+			int height = entry.Texture.height;
+			Color[] pixels = entry.Pixels;
+			// 边带在卡片局部坐标里的左上角：上=原点，下=贴着下沿，左/右=避开上下两个角。
+			float originX = (band == RainbowBand.Right) ? (cardWidth - r) : 0f;
+			float originY = 0f;
+			if (band == RainbowBand.Bottom)
+			{
+				originY = cardHeight - r;
+			}
+			else if (band == RainbowBand.Left || band == RainbowBand.Right)
+			{
+				originY = r;
+			}
+			for (int j = 0; j < height; j++)
+			{
+				float py = originY + j + 0.5f;
+				for (int i = 0; i < width; i++)
+				{
+					float px = originX + i + 0.5f;
+					float arc;    // 沿轮廓的弧长位置
+					float depth;  // 到轮廓的距离，内侧为正
+					if (band == RainbowBand.Top)
+					{
+						if (px < r)
+						{
+							// 左上角：圆弧从 (r, 0) 逆着走到 (0, r)，所以弧长要从整圈往回量。
+							float dx = px - r;
+							float dy = py - r;
+							float theta = Mathf.Atan2(dy, dx);
+							arc = perimeter - r * (-halfPi - theta);
+							depth = r - Mathf.Sqrt(dx * dx + dy * dy);
+						}
+						else if (px < cardWidth - r)
+						{
+							arc = px - r;
+							depth = py;
+						}
+						else
+						{
+							// 右上角：从 (cardWidth-r, 0) 顺时针走到 (cardWidth, r)。
+							float dx = px - (cardWidth - r);
+							float dy = py - r;
+							float theta = Mathf.Atan2(dy, dx);
+							arc = a + r * (theta + halfPi);
+							depth = r - Mathf.Sqrt(dx * dx + dy * dy);
+						}
+					}
+					else if (band == RainbowBand.Bottom)
+					{
+						if (px >= cardWidth - r)
+						{
+							float dx = px - (cardWidth - r);
+							float dy = py - (cardHeight - r);
+							float theta = Mathf.Atan2(dy, dx);
+							arc = bottomStart + r * theta;
+							depth = r - Mathf.Sqrt(dx * dx + dy * dy);
+						}
+						else if (px >= r)
+						{
+							arc = bottomStart + b + ((cardWidth - r) - px);
+							depth = cardHeight - py;
+						}
+						else
+						{
+							float dx = px - r;
+							float dy = py - (cardHeight - r);
+							float theta = Mathf.Atan2(dy, dx);
+							arc = bottomStart + b + a + r * (theta - halfPi);
+							depth = r - Mathf.Sqrt(dx * dx + dy * dy);
+						}
+					}
+					else if (band == RainbowBand.Left)
+					{
+						arc = 2f * a + 3f * b + c + ((cardHeight - r) - py);
+						depth = px;
+					}
+					else
+					{
+						arc = a + b + (py - r);
+						depth = cardWidth - px;
+					}
+					// 覆盖度 = 像素区间落在 [0, thickness] 里的比例（与 9 宫格边框同一种边界平滑度）。
+					float coverage = Mathf.Clamp01(thickness - depth + 0.5f) - Mathf.Clamp01(0.5f - depth);
+					Color color = lut[((int)(arc * indexScale)) & (RainbowLutSize - 1)];
+					// SetPixels 的第 0 行是贴图的**最下面**一行，而上面所有 py 都是「左上角为原点」的屏幕坐标，
+					// 所以写的时候要把行号翻过来（CornerArc 用的是同一招），否则每段边带都会被上下镜像：
+					// 上下两条边带会缩到卡内 6px 处、圆角变成对角的形状，左右两条边的渐变方向也会反过来。
+					// 翻行号后形状与颜色同时归位，不需要把上下两段互换。
+					int row = (height - 1 - j) * width;
+					// 全透明像素也写上 RGB，避免缩小时双线性采样把透明黑混进边缘。
+					pixels[row + i] = new Color(color.r, color.g, color.b, coverage);
+				}
+			}
 		}
 
 		// ---------------------------------------------------------------

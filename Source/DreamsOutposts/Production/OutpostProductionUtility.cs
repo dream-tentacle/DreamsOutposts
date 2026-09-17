@@ -304,7 +304,7 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Outpost production AfterProduction hook threw for " + context.RuleLabel + ": " + ex);
+				Log.Error("[DreamsOutposts] Outpost production AfterProduction hook threw for " + context.RuleLabel + ": " + ex);
 			}
 		}
 
@@ -316,7 +316,7 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex2)
 			{
-				Log.Error("Outpost production OnProductionFailed hook threw for " + context.RuleLabel + ": " + ex2);
+				Log.Error("[DreamsOutposts] Outpost production OnProductionFailed hook threw for " + context.RuleLabel + ": " + ex2);
 			}
 		}
 

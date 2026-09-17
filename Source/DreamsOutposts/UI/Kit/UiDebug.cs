@@ -198,14 +198,14 @@ namespace DreamsOutposts
 				Widgets.DrawBoxSolid(new Rect(rect.x, rect.y, 1f, rect.height), UiPalette.Brand);
 				Widgets.DrawBoxSolid(new Rect(rect.xMax - 1f, rect.y, 1f, rect.height), UiPalette.Brand);
 				string label = entry.Name + " " + Mathf.RoundToInt(rect.width) + "x" + Mathf.RoundToInt(rect.height);
-				UiText.Draw(new Rect(rect.x + 2f, rect.y + 1f, 320f, UiText.LineHeight(UiFont.Caption)), label, UiFont.Caption, UiPalette.Brand);
+				UiText.Draw(new Rect(rect.x + 2f, rect.y + 1f, 320f, UiText.LineHeight(UiFont.Body)), label, UiFont.Body, UiPalette.Brand);
 			}
 			Vector2 mouse = Event.current.mousePosition;
 			string info = "ui " + Mathf.RoundToInt(mouse.x) + "," + Mathf.RoundToInt(mouse.y) + " | boxes " + entries.Count
 				+ " | overlay: " + KeyLabel(ToggleOverlayKeyDefName) + ", dump: " + KeyLabel(DumpLayoutKeyDefName);
-			Rect infoRect = new Rect(4f, 2f, Mathf.Min(700f, UI.screenWidth - 8f), UiText.LineHeight(UiFont.Caption) + 2f);
+			Rect infoRect = new Rect(4f, 2f, Mathf.Min(700f, UI.screenWidth - 8f), UiText.LineHeight(UiFont.Body) + 2f);
 			Widgets.DrawBoxSolid(infoRect, new Color(1f, 1f, 1f, 0.85f));
-			UiText.Draw(infoRect, info, UiFont.Caption, UiPalette.Ink, TextAnchor.MiddleLeft);
+			UiText.Draw(infoRect, info, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft);
 		}
 
 		public static void Dump()

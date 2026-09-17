@@ -183,13 +183,13 @@ namespace DreamsOutposts
 			if (giftedValue <= 0f)
 			{
 				exchanging = false;
-				Log.Error("Outpost temporary market took no goods from outpost " + outpost.Label + ", so nothing was exchanged.");
+				Log.Error("[DreamsOutposts] Outpost temporary market took no goods from outpost " + outpost.Label + ", so nothing was exchanged.");
 				return;
 			}
 			float reward = Mathf.Min(giftedValue, cap) * factor;
 			if (reward <= 0f)
 			{
-				Log.Error("Outpost temporary market gave away goods worth " + giftedValue + " in outpost " + outpost.Label + " but the reward market value was not positive.");
+				Log.Error("[DreamsOutposts] Outpost temporary market gave away goods worth " + giftedValue + " in outpost " + outpost.Label + " but the reward market value was not positive.");
 			}
 			OutpostEventContext context = new OutpostEventContext
 			{
@@ -265,8 +265,8 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// 与集市原先的可交易范围保持一致：据点库存里的物品，市值大于零、可堆叠、
-		/// 且不是任务物品。原版列表会额外显示单位市值，方便估算要提供多少。
+		/// 可交易范围：据点库存里的物品，市值大于零、可堆叠，且不是任务物品。
+		/// 原版列表会额外显示单位市值，方便估算要提供多少。
 		/// </summary>
 		private static bool Eligible(Thing thing)
 		{

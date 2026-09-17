@@ -24,7 +24,7 @@ namespace DreamsOutposts
 	}
 
 	/// <summary>
-	/// 新样式的模态弹窗：全屏遮罩 + 居中圆角面板（标题栏 / 滚动正文 / 底部按钮区）。
+	/// 模态弹窗：全屏遮罩 + 居中圆角面板（标题栏 / 滚动正文 / 底部按钮区）。
 	/// 窗口本身铺满屏幕，因此遮罩能盖住包括管理窗口在内的一切，同时吞掉所有点击。
 	/// </summary>
 	public class Window_OutpostModal : Window
@@ -59,9 +59,8 @@ namespace DreamsOutposts
 			closeOnClickedOutside = false;
 			closeOnAccept = false;
 			absorbInputAroundWindow = true;
-			// 层级用原版默认的 Dialog（原来是 Super）：窗口按 layer 排序插入，Super 会排在管理窗口之后，
-			// 于是从弹窗里打开的原版信息面板（Dialog 层）会被压在弹窗下面。
-			// 保持和管理窗口同层即可：弹窗后加入，照样盖住管理窗口并独占输入，之后打开的窗口也自然叠在弹窗之上。
+			// 层级用原版默认的 Dialog：窗口按 layer 排序插入，Super 层会排在管理窗口之后，
+			// 从弹窗里打开的原版信息面板就会被压在弹窗下面。同层后加入即可正常叠放。
 		}
 
 		protected override float Margin => 0f;
@@ -76,7 +75,7 @@ namespace DreamsOutposts
 			float height = UiText.LineHeight(UiFont.Heading);
 			if (hasSubtitle)
 			{
-				height += 3f + UiText.LineHeight(UiFont.Caption);
+				height += 3f + UiText.LineHeight(UiFont.Body);
 			}
 			return height + UiMetrics.ModalHeadPaddingTop + UiMetrics.ModalHeadPaddingBottom;
 		}
@@ -165,8 +164,8 @@ namespace DreamsOutposts
 			UiText.Draw(new Rect(textX, y, textWidth, UiText.LineHeight(UiFont.Heading)), TitleText, UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
 			if (!string.IsNullOrEmpty(SubText))
 			{
-				UiText.Draw(new Rect(textX, y + UiText.LineHeight(UiFont.Heading) + 3f, textWidth, UiText.LineHeight(UiFont.Caption)),
-					SubText, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+				UiText.Draw(new Rect(textX, y + UiText.LineHeight(UiFont.Heading) + 3f, textWidth, UiText.LineHeight(UiFont.Body)),
+					SubText, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 			}
 			Rect closeRect = new Rect(head.xMax - UiMetrics.ModalHeadPaddingH - UiMetrics.CloseButtonSize,
 				head.y + (head.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);

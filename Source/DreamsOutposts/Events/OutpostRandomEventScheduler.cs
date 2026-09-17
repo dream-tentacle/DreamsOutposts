@@ -79,6 +79,8 @@ namespace DreamsOutposts
 		/// <summary>
 		/// 选中一个据点并创建一个随机事件。必须通过 Outpost.AddEvent 这个统一事件创建入口，
 		/// 以保证 createdTick、expireTick 和新事件 Letter 等现有逻辑正常执行。
+		/// 固定刷出的事件（OutpostEventDef.forcedAtRandomEventCount 等于本次序号）跳过权重抽取直接使用；
+		/// 只有真正创建成功才推进 GameComponent_OutpostRandomEvents.randomEventsGenerated。
 		/// </summary>
 		public static bool TryCreateRandomEvent(out Outpost outpost, out OutpostEventDef eventDef)
 		{
@@ -92,11 +94,28 @@ namespace DreamsOutposts
 			}
 			// 等概率选取：据点之间没有权重。
 			Outpost target = candidates[Rand.Range(0, candidates.Count)];
-			if (!OutpostEventUtility.TryChooseRandomEvent(target, out eventDef))
+			GameComponent_OutpostRandomEvents component = GameComponent_OutpostRandomEvents.Instance;
+			// 即将生成的是第几次普通随机事件。没有管理器时按第一次处理，不影响正常抽取。
+			int ordinal = (component?.randomEventsGenerated ?? 0) + 1;
+			OutpostEventDef forced = OutpostEventUtility.ForcedEventForRandomOrdinal(ordinal);
+			if (forced != null && OutpostEventUtility.IsEventDefAllowedFor(forced, new OutpostEventContext { outpost = target }))
+			{
+				eventDef = forced;
+			}
+			else if (!OutpostEventUtility.TryChooseRandomEvent(target, out eventDef))
 			{
 				return false;
 			}
-			target.AddEvent(eventDef);
+			if (target.AddEvent(eventDef) == null)
+			{
+				// 事件没有被真正创建（例如 Def 的 InitializeInstance 拒绝初始化）：
+				// 这次不算生成过一次随机事件，计数不推进，序号留给下一次。
+				return false;
+			}
+			if (component != null)
+			{
+				component.randomEventsGenerated++;
+			}
 			outpost = target;
 			return true;
 		}

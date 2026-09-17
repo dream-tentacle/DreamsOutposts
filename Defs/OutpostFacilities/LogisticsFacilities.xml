@@ -25,7 +25,7 @@
 		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Person</uiIcon>
 		<label>adventurer camp</label>
-		<description>A lively camp where travellers and aspiring adventurers gather. Every two days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. The management window must be reopened after it is built for its new page to appear.</description>
+		<description>A lively camp where travellers and aspiring adventurers gather. Every 3 days it introduces a new recruit; a stronger population tendency improves the odds of finding exceptional people. The management window must be reopened after it is built for its new page to appear.\n\nAn attempt is made every 3 days: the chance of a candidate turning up is the colonists' total Social skill divided by 50, and a failed attempt brings nobody. Each candidate remains available for 10 days.</description>
 		<maxPerOutpost>1</maxPerOutpost>
 	</DreamsOutposts.OutpostFacilityDef>
 	<DreamsOutposts.OutpostFacilityDef>

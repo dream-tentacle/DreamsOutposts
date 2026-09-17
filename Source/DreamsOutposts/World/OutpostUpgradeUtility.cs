@@ -43,13 +43,13 @@ namespace DreamsOutposts
 		{
 			if (!CanUpgrade(outpost, out var reason))
 			{
-				Log.Error("Tried to upgrade outpost " + (outpost?.Label ?? "null") + " but it cannot be upgraded: " + reason);
+				Log.Error("[DreamsOutposts] Tried to upgrade outpost " + (outpost?.Label ?? "null") + " but it cannot be upgraded: " + reason);
 				return false;
 			}
 			OutpostLevelProperties nextLevel = outpost.NextLevelProperties;
 			if (!OutpostBuildUtility.TryPay(outpost, nextLevel.cost, "the upgrade cost to level " + (outpost.level + 1)))
 			{
-				Log.Error("Outpost " + outpost.Label + " failed to pay for the upgrade to level " + (outpost.level + 1) + "; level unchanged.");
+				Log.Error("[DreamsOutposts] Outpost " + outpost.Label + " failed to pay for the upgrade to level " + (outpost.level + 1) + "; level unchanged.");
 				return false;
 			}
 			outpost.SetLevel(outpost.level + 1);

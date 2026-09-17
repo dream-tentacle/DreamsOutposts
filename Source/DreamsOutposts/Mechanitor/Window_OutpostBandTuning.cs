@@ -166,9 +166,9 @@ namespace DreamsOutposts
 				UiText.Draw(new Rect(row.x + 14f, row.y + 9f, row.width - 170f, UiText.LineHeight(UiFont.Body)),
 					pawn.LabelShortCap, UiFont.Body, current ? UiPalette.BrandText : UiPalette.Ink,
 					TextAnchor.UpperLeft, true, false, true);
-				UiText.Draw(new Rect(row.x + 14f, row.y + 33f, row.width - 170f, UiText.LineHeight(UiFont.Caption)),
+				UiText.Draw(new Rect(row.x + 14f, row.y + 33f, row.width - 170f, UiText.LineHeight(UiFont.Body)),
 					"DreamsOutposts.BandTuning.MechanitorBandwidth".Translate(pawn.mechanitor.TotalBandwidth),
-					UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
+					UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 				string label = current ? "DreamsOutposts.BandTuning.Restart".Translate() : "DreamsOutposts.BandTuning.Select".Translate();
 				float buttonWidth = Mathf.Max(UiWidgets.ButtonWidth(label, UiButtonSize.Small), 108f);
 				Rect button = new Rect(row.xMax - 14f - buttonWidth,

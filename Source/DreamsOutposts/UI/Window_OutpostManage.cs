@@ -7,8 +7,8 @@ using Verse.Sound;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 据点「管理」窗口（新样式外壳）。
-	/// 自绘圆角面板 + 阴影 + 标题栏 + 左侧导航栏 + 内容区（页头 / 细滚动条）。
+	/// 据点「管理」窗口。
+	/// 自绘圆角面板 + 阴影 + 左侧悬浮导航 + 内容区（页头 / 细滚动条）。
 	/// </summary>
 	public class Window_OutpostManage : Window
 	{
@@ -19,6 +19,15 @@ namespace DreamsOutposts
 		private readonly OutpostUiCache cache;
 
 		private int selectedIndex;
+
+		/// <summary>每个页签的方块缩放进度：1 = 选中态大小。只影响绘制，不参与布局。</summary>
+		private float[] navProgress;
+
+		/// <summary>上一帧的时间锚点：同一帧多次调用时 delta 为 0，动画不会加速。</summary>
+		private float navAnimTime;
+
+		/// <summary>正文淡入的起始时刻；负无穷表示已淡入完成。</summary>
+		private float contentFadeStart = float.NegativeInfinity;
 
 		private Vector2 contentScroll;
 
@@ -57,6 +66,12 @@ namespace DreamsOutposts
 				pages[i].hostWindow = this;
 			}
 			cache = new OutpostUiCache(outpost);
+			navProgress = new float[pages.Count];
+			if (pages.Count > 0)
+			{
+				navProgress[0] = 1f;
+			}
+			navAnimTime = Time.realtimeSinceStartup;
 			Current = this;
 			doWindowBackground = false;
 			drawShadow = false;
@@ -101,11 +116,9 @@ namespace DreamsOutposts
 				return;
 			}
 			int index = Mathf.Clamp(selectedIndex, 0, pages.Count - 1);
-			float titlebarHeight = DrawTitlebar(panel);
-			Rect bodyRect = new Rect(panel.x, panel.y + titlebarHeight, panel.width, Mathf.Max(panel.height - titlebarHeight, 0f));
-			float sidebarWidth = Mathf.Min(UiMetrics.SidebarWidth, Mathf.Max(bodyRect.width * 0.32f, 120f));
-			DrawSidebar(new Rect(bodyRect.x, bodyRect.y, sidebarWidth, bodyRect.height));
-			Rect contentRect = new Rect(bodyRect.x + sidebarWidth, bodyRect.y, Mathf.Max(bodyRect.width - sidebarWidth, 40f), bodyRect.height);
+			float sidebarWidth = Mathf.Min(UiMetrics.SidebarWidth, Mathf.Max(panel.width * 0.32f, 120f));
+			DrawSidebar(new Rect(panel.x, panel.y, sidebarWidth, panel.height));
+			Rect contentRect = new Rect(panel.x + sidebarWidth, panel.y, Mathf.Max(panel.width - sidebarWidth, 40f), panel.height);
 			DrawPage(contentRect, pages[index]);
 			UiDebug.DrawOverlay();
 			UiDebug.PopSpace();
@@ -187,68 +200,23 @@ namespace DreamsOutposts
 		}
 
 		// ---------------------------------------------------------------
-		// 标题栏
-		// ---------------------------------------------------------------
-
-		private float TitlebarHeight()
-		{
-			float textHeight = UiText.LineHeight(UiFont.Heading) + 3f + UiText.LineHeight(UiFont.Caption);
-			float content = Mathf.Max(UiMetrics.EmblemSize, textHeight);
-			return content + UiMetrics.TitlebarPaddingTop + UiMetrics.TitlebarPaddingBottom;
-		}
-
-		private float DrawTitlebar(Rect panel)
-		{
-			float height = TitlebarHeight();
-			Rect bar = new Rect(panel.x, panel.y, panel.width, height);
-			UiDebug.Scope("window.titlebar", bar);
-			Rect inner = new Rect(bar.x + 1f, bar.y + 1f, Mathf.Max(bar.width - 2f, 1f), Mathf.Max(bar.height - 1f, 1f));
-			UiDraw.Box(inner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.TopLeft | UiCorners.TopRight);
-			UiDraw.Divider(new Rect(bar.x, bar.yMax - 1f, bar.width, 1f), UiPalette.Line);
-			// 徽标
-			float emblemY = bar.y + (bar.height - UiMetrics.EmblemSize) * 0.5f;
-			Rect emblem = new Rect(bar.x + UiMetrics.TitlebarPaddingLeft, emblemY, UiMetrics.EmblemSize, UiMetrics.EmblemSize);
-			UiDraw.Box(emblem, (int)UiMetrics.RadiusSm, UiPalette.Card, UiPalette.Line);
-			float glyph = UiMetrics.EmblemIconSize;
-			UiDraw.Icon(new Rect(emblem.center.x - glyph * 0.5f, emblem.center.y - glyph * 0.5f, glyph, glyph),
-				UiIconMap.ForFacility(outpost.coreFacility?.def), UiPalette.Ink);
-			// 文字
-			float textX = emblem.xMax + 12f;
-			float textWidth = Mathf.Max(bar.xMax - UiMetrics.TitlebarPaddingRight - UiMetrics.CloseButtonSize - 12f - textX, 40f);
-			float textY = bar.y + UiMetrics.TitlebarPaddingTop;
-			UiText.Draw(new Rect(textX, textY, textWidth, UiText.LineHeight(UiFont.Heading)), outpost.LabelCap, UiFont.Heading, UiPalette.Ink,
-				TextAnchor.UpperLeft, true, false, true);
-			string sub = cache.DaysText;
-			UiText.Draw(new Rect(textX, textY + UiText.LineHeight(UiFont.Heading) + 3f, textWidth, UiText.LineHeight(UiFont.Caption)),
-				sub, UiFont.Caption, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
-			// 关闭按钮
-			Rect closeRect = new Rect(bar.xMax - UiMetrics.TitlebarPaddingRight - UiMetrics.CloseButtonSize,
-				bar.y + (bar.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
-			if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
-			{
-				Close();
-			}
-			return height;
-		}
-
-		// ---------------------------------------------------------------
 		// 侧栏
 		// ---------------------------------------------------------------
 
 		private void DrawSidebar(Rect rect)
 		{
 			UiDebug.Scope("window.sidebar", rect);
-			Rect inner = new Rect(rect.x + 1f, rect.y, Mathf.Max(rect.width - 2f, 1f), Mathf.Max(rect.height - 1f, 1f));
-			UiDraw.Box(inner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.BottomLeft);
-			UiDraw.Divider(new Rect(rect.xMax - 1f, rect.y, 1f, rect.height), UiPalette.Line);
-			float x = rect.x + UiMetrics.SidebarPaddingH;
-			float width = rect.width - UiMetrics.SidebarPaddingH * 2f;
+			EnsureNavProgress();
+			// 按真实时间推进动画，与暂停无关
+			float now = Time.realtimeSinceStartup;
+			float delta = Mathf.Max(now - navAnimTime, 0f);
+			navAnimTime = now;
+			float step = (UiMetrics.NavTileAnimSeconds > 0f) ? delta / UiMetrics.NavTileAnimSeconds : 1f;
+			float minScale = 1f - UiMetrics.NavInactiveShrink;
+			// 左栏按 SidebarWidth 隐性占位，页签只占其中一部分
+			float x = rect.x + UiMetrics.SidebarPaddingLeft;
+			float width = rect.width - UiMetrics.SidebarPaddingLeft - UiMetrics.SidebarPaddingH;
 			float y = rect.y + UiMetrics.SidebarPaddingV;
-			// 「管理」小标题
-			Rect labelRect = new Rect(x, y, width, UiText.LineHeight(UiFont.Caption) + UiMetrics.NavLabelPaddingTop + UiMetrics.NavLabelPaddingBottom);
-			UiText.Draw(new Rect(labelRect.x + UiMetrics.NavLabelPaddingH, labelRect.y + UiMetrics.NavLabelPaddingTop, width, UiText.LineHeight(UiFont.Caption)),
-				"DreamsOutposts.ManageOutpost".Translate(), UiFont.Caption, UiPalette.Ink2);
-			y = labelRect.yMax;
 			float itemHeight = UiWidgets.NavItemHeight();
 			for (int i = 0; i < pages.Count; i++)
 			{
@@ -258,7 +226,11 @@ namespace DreamsOutposts
 				int badge = UiPageSummary.BadgeFor(page, outpost);
 				Rect itemRect = new Rect(x, y, width, itemHeight);
 				UiDebug.Scope("sidebar.item[" + i + "]", itemRect);
-				if (UiWidgets.NavItem(itemRect, icon, page.Label, summary, i == selectedIndex, badge, page.Tooltip))
+				// 进度连续逼近目标，连点切换不会跳变
+				navProgress[i] = Mathf.MoveTowards(navProgress[i], (i == selectedIndex) ? 1f : 0f, step);
+				float eased = navProgress[i] * navProgress[i] * (3f - 2f * navProgress[i]);
+				float scale = Mathf.Lerp(minScale, 1f, eased);
+				if (UiWidgets.NavItem(itemRect, icon, page.Label, summary, i == selectedIndex, badge, page.Tooltip, scale))
 				{
 					SelectPage(i);
 				}
@@ -270,6 +242,20 @@ namespace DreamsOutposts
 				int direction = (Event.current.delta.y > 0f) ? 1 : -1;
 				SelectPage(Mathf.Clamp(selectedIndex + direction, 0, pages.Count - 1));
 				Event.current.Use();
+			}
+		}
+
+		/// <summary>兜底初始化：打开时选中页直接是选中态大小。</summary>
+		private void EnsureNavProgress()
+		{
+			if (navProgress != null && navProgress.Length == pages.Count)
+			{
+				return;
+			}
+			navProgress = new float[pages.Count];
+			for (int i = 0; i < navProgress.Length; i++)
+			{
+				navProgress[i] = (i == selectedIndex) ? 1f : 0f;
 			}
 		}
 
@@ -285,6 +271,10 @@ namespace DreamsOutposts
 			}
 			selectedIndex = index;
 			pages[selectedIndex].OnOpen();
+			// 与打开管理窗口时同一个出现音
+			SoundDefOf.DialogBoxAppear.PlayOneShotOnCamera();
+			// 切页时正文淡入
+			contentFadeStart = Time.realtimeSinceStartup;
 		}
 
 		// ---------------------------------------------------------------
@@ -294,43 +284,53 @@ namespace DreamsOutposts
 		private void DrawPage(Rect rect, OutpostManagePage page)
 		{
 			UiDebug.Scope("window.content", rect);
-			if (!(page is IUiShellPage shellPage))
-			{
-				// 老样式页面：给它一块干净的区域，它自己管滚动
-				GUI.BeginGroup(rect);
-				Text.Font = GameFont.Small;
-				try
-				{
-					page.DoContents(new Rect(0f, 0f, rect.width, rect.height));
-				}
-				finally
-				{
-					Text.Font = GameFont.Small;
-					GUI.EndGroup();
-				}
-				return;
-			}
+			IUiShellPage shellPage = (IUiShellPage)page;
 			float headTop = rect.y + UiMetrics.ContentPaddingTop;
 			float contentWidth = Mathf.Max(rect.width - UiMetrics.ContentPaddingH * 2f, 60f);
-			float headHeight = DrawPageHead(new Rect(rect.x + UiMetrics.ContentPaddingH, headTop, contentWidth, 0f), page, shellPage);
+			Rect closeRect = new Rect(rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize,
+				headTop, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+			UiDebug.Scope("page.close", closeRect);
+			if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+			{
+				Close();
+			}
+			float pageHeadWidth = Mathf.Max(contentWidth - UiMetrics.CloseButtonSize - UiMetrics.ButtonGap, 40f);
+			float headHeight = DrawPageHead(new Rect(rect.x + UiMetrics.ContentPaddingH, headTop, pageHeadWidth, 0f), page, shellPage);
 			float scrollTop = headTop + headHeight;
 			Rect scrollArea = new Rect(rect.x + UiMetrics.ContentPaddingH, scrollTop, contentWidth,
 				Mathf.Max(rect.yMax - UiMetrics.ContentPaddingBottom - scrollTop, 20f));
 			float bodyWidth = Mathf.Max(scrollArea.width - UiMetrics.ScrollbarGutter, 60f);
 			float bodyHeight = shellPage.BodyHeight(bodyWidth, scrollArea.height);
 			int scrollId = GetHashCode();
+			// 切页动画：正文从右侧滑入 + 淡入，两者共用同一个进度
+			float fade = ContentFade();
 			UiWidgets.ScrollView(scrollArea, ref contentScroll, bodyHeight, delegate(Rect contentRect)
 			{
 				shellPage.DrawBody(new Rect(contentRect.x, contentRect.y, bodyWidth, contentRect.height), scrollArea.height);
-			}, true, scrollId, true);
+			}, true, scrollId, true, UiMetrics.ContentSlideDistance * (1f - fade));
+			// 淡入：整页画完后用面板底色压一层，等价于给正文做 alpha 淡入，页面内部不需要为动画做任何事
+			if (fade < 1f)
+			{
+				UiDraw.Solid(scrollArea, new Color(UiPalette.Surface.r, UiPalette.Surface.g, UiPalette.Surface.b, 1f - fade));
+			}
+		}
+
+		/// <summary>正文切页动画的进度：1 = 完全到位（位移归零、不透明）。切页时从 0 开始；首次打开窗口直接是 1。</summary>
+		private float ContentFade()
+		{
+			if (UiMetrics.ContentFadeSeconds <= 0f || float.IsNegativeInfinity(contentFadeStart))
+			{
+				return 1f;
+			}
+			float t = Mathf.Clamp01((Time.realtimeSinceStartup - contentFadeStart) / UiMetrics.ContentFadeSeconds);
+			// 先快后慢，淡入结束时更干净
+			return 1f - (1f - t) * (1f - t);
 		}
 
 		private float DrawPageHead(Rect rect, OutpostManagePage page, IUiShellPage shellPage)
 		{
 			float y = rect.y;
 			float titleHeight = UiText.LineHeight(UiFont.Heading);
-			UiText.Draw(new Rect(rect.x, y, rect.width, titleHeight), page.Label, UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true);
-			y += titleHeight + UiMetrics.PageHeadSubGap;
 			string description = shellPage.HeadDescription;
 			string hint = shellPage.HeadHint;
 			string body = null;
@@ -347,15 +347,31 @@ namespace DreamsOutposts
 				body = hint;
 			}
 			float textWidth = Mathf.Min(rect.width, UiMetrics.PageHeadMaxTextWidth);
-			float descriptionHeight = 0f;
-			if (!string.IsNullOrEmpty(body))
-			{
-				descriptionHeight = UiText.Height(body, UiFont.Body, textWidth);
-				UiText.Draw(new Rect(rect.x, y, textWidth, descriptionHeight), body, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
-			}
+			float descriptionHeight = !string.IsNullOrEmpty(body) ? UiText.Height(body, UiFont.Body, textWidth) : 0f;
 			float total = titleHeight + UiMetrics.PageHeadSubGap + descriptionHeight + UiMetrics.PageHeadMarginBottom;
 			UiDebug.Scope("page.head", new Rect(rect.x, rect.y, rect.width, total));
+			// 装饰底图贴齐页头区域左边缘，按区域高度等比缩放，画在文字下层
+			DrawPageHeadDecor(new Rect(rect.x, rect.y, rect.width, total));
+			float titleX = rect.x + UiMetrics.PageHeadTitleIndent;
+			UiText.Draw(new Rect(titleX, y, Mathf.Max(rect.xMax - titleX, 40f), titleHeight), page.Label, UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true);
+			y += titleHeight + UiMetrics.PageHeadSubGap;
+			if (!string.IsNullOrEmpty(body))
+			{
+				UiText.Draw(new Rect(rect.x, y, textWidth, descriptionHeight), body, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
+			}
 			return total;
+		}
+
+		/// <summary>页头左侧的装饰底图：贴齐页头区域左边缘，按高度等比缩放。</summary>
+		private static void DrawPageHeadDecor(Rect headRect)
+		{
+			Texture2D decor = UiTex.PageHeadDecorTexture();
+			if (decor == null || decor.height <= 0 || headRect.height <= 0f)
+			{
+				return;
+			}
+			float width = headRect.height * decor.width / decor.height;
+			GUI.DrawTexture(new Rect(headRect.x, headRect.y, width, headRect.height), decor, ScaleMode.StretchToFill, true);
 		}
 
 		// ---------------------------------------------------------------
@@ -403,7 +419,7 @@ namespace DreamsOutposts
 			}
 			Window_OutpostModal window = new Window_OutpostModal();
 			window.TitleText = "DreamsOutposts.Demolish".Translate();
-			// 标题下不再重复显示设施名（正文里已经有「拆除X？」）
+			// 标题下不重复设施名（正文里已有「拆除X？」）
 			window.PanelWidth = UiMetrics.ModalNarrowWidth;
 			window.Body = new UiDemolishModalBody(view);
 			window.FooterDrawer = delegate(Rect footerRect)

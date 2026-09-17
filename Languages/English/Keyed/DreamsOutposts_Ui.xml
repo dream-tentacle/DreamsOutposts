@@ -57,7 +57,6 @@
   <DreamsOutposts.Ui.Nav.Defense>{0} defense</DreamsOutposts.Ui.Nav.Defense>
   <DreamsOutposts.Ui.Nav.Items>{0} item kinds</DreamsOutposts.Ui.Nav.Items>
   <DreamsOutposts.Ui.Nav.Events>{0} active</DreamsOutposts.Ui.Nav.Events>
-  <DreamsOutposts.Ui.FacilitiesHint>Click a facility card for details, click an empty slot to install something.</DreamsOutposts.Ui.FacilitiesHint>
   <DreamsOutposts.Ui.CoreFacilityHint>Fixed by the outpost type</DreamsOutposts.Ui.CoreFacilityHint>
   <DreamsOutposts.Ui.ExtensionHint>Paid from the outpost stock, half refunded on removal</DreamsOutposts.Ui.ExtensionHint>
   <DreamsOutposts.Ui.EmptySlotHint>Slot {0} · click to choose a facility</DreamsOutposts.Ui.EmptySlotHint>
@@ -107,7 +106,6 @@
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} disabled</DreamsOutposts.Ui.DefenseSkillDisabled>
   <DreamsOutposts.Ui.Warehouse>Warehouse</DreamsOutposts.Ui.Warehouse>
   <DreamsOutposts.Ui.Vehicles>Vehicles</DreamsOutposts.Ui.Vehicles>
-  <DreamsOutposts.Ui.WarehouseHint>Produced goods end up here automatically.</DreamsOutposts.Ui.WarehouseHint>
   <DreamsOutposts.Ui.Stacks>{0} stacks</DreamsOutposts.Ui.Stacks>
   <DreamsOutposts.Ui.Kv.RemainingTime>Time left</DreamsOutposts.Ui.Kv.RemainingTime>
   <DreamsOutposts.Ui.Kv.Category>Category</DreamsOutposts.Ui.Kv.Category>
@@ -122,8 +120,6 @@
   <DreamsOutposts.Ui.Option.Later>Later</DreamsOutposts.Ui.Option.Later>
   <DreamsOutposts.Tavern.Title>Tavern</DreamsOutposts.Tavern.Title>
   <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
-  <DreamsOutposts.Tavern.Description>Review visiting adventurers and invite them to join this outpost for free.</DreamsOutposts.Tavern.Description>
-  <DreamsOutposts.Tavern.Hint>An attempt is made every 3 days: the chance of a candidate turning up is the colonists' total Social skill divided by 50, and a failed attempt brings nobody. Each candidate remains available for 10 days.</DreamsOutposts.Tavern.Hint>
   <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
   <DreamsOutposts.Tavern.AnySkill>No preference</DreamsOutposts.Tavern.AnySkill>
   <DreamsOutposts.Tavern.Next>Next candidate in {0}</DreamsOutposts.Tavern.Next>
@@ -135,14 +131,12 @@
   <DreamsOutposts.Tavern.Odds.Population>Population tendency {0}</DreamsOutposts.Tavern.Odds.Population>
   <DreamsOutposts.Tavern.Odds.Entry>{0} {1}</DreamsOutposts.Tavern.Odds.Entry>
   <DreamsOutposts.Tavern.Empty>No adventurers are currently available.</DreamsOutposts.Tavern.Empty>
-  <DreamsOutposts.Tavern.Rarity>Overall rating: {0} · strength {1} · {2}</DreamsOutposts.Tavern.Rarity>
+  <DreamsOutposts.Tavern.Rarity>Overall rating: {0} · strength {1}</DreamsOutposts.Tavern.Rarity>
   <DreamsOutposts.Tavern.Rarity.Common>Common</DreamsOutposts.Tavern.Rarity.Common>
   <DreamsOutposts.Tavern.Rarity.Excellent>Excellent</DreamsOutposts.Tavern.Rarity.Excellent>
   <DreamsOutposts.Tavern.Rarity.Elite>Elite</DreamsOutposts.Tavern.Rarity.Elite>
   <DreamsOutposts.Tavern.Rarity.Epic>Epic</DreamsOutposts.Tavern.Rarity.Epic>
-  <DreamsOutposts.Tavern.Specimen.Inferior>inferior</DreamsOutposts.Tavern.Specimen.Inferior>
-  <DreamsOutposts.Tavern.Specimen.Ordinary>ordinary</DreamsOutposts.Tavern.Specimen.Ordinary>
-  <DreamsOutposts.Tavern.Specimen.Superior>superior</DreamsOutposts.Tavern.Specimen.Superior>
+  <DreamsOutposts.Tavern.Rarity.Legendary>Legendary</DreamsOutposts.Tavern.Rarity.Legendary>
   <DreamsOutposts.Tavern.Expires>Leaves in {0}</DreamsOutposts.Tavern.Expires>
   <DreamsOutposts.Tavern.Recruit>Recruit</DreamsOutposts.Tavern.Recruit>
   <DreamsOutposts.Tavern.Dismiss>Dismiss</DreamsOutposts.Tavern.Dismiss>

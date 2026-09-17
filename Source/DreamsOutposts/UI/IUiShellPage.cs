@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -9,14 +7,13 @@ namespace DreamsOutposts
 	/// <summary>
 	/// 新外壳页面的标准契约：由 Window_OutpostManage 负责页头、滚动条与内边距，
 	/// 页面只回答「内容多高」和「怎么画」。
-	/// 老页面（沿用旧样式）不实现该接口，依旧走 DoContents。
 	/// </summary>
 	public interface IUiShellPage
 	{
 		/// <summary>侧栏摘要文字，null 表示不显示。</summary>
 		string NavSummary { get; }
 
-		/// <summary>页头描述，null 表示不显示（默认不再自动使用 Def 的 description）。</summary>
+		/// <summary>页头描述，null 表示不显示。</summary>
 		string HeadDescription { get; }
 
 		/// <summary>页头描述后面的补充提示，null 表示不加。</summary>
@@ -169,23 +166,12 @@ namespace DreamsOutposts
 		}
 	}
 
-	/// <summary>
-	/// 侧栏摘要。新页面自己实现 IUiShellPage.NavSummary；
-	/// 老页面（防卫 / 仓库 / 事件）由这里按类型兜底，每 tick 只算一次。
-	/// </summary>
+	/// <summary>侧栏摘要与事件数量角标。</summary>
 	public static class UiPageSummary
 	{
 		private static Outpost cachedOutpost;
 
 		private static int cachedTick = -1;
-
-		private static string facilitiesText;
-
-		private static string defenseText;
-
-		private static string warehouseText;
-
-		private static string eventsText;
 
 		private static int eventsBadge;
 
@@ -195,24 +181,7 @@ namespace DreamsOutposts
 			{
 				return null;
 			}
-			if (page is IUiShellPage shellPage)
-			{
-				return shellPage.NavSummary;
-			}
-			Ensure(outpost);
-			if (page is Page_OutpostDefense)
-			{
-				return defenseText;
-			}
-			if (page is Page_OutpostInventory)
-			{
-				return warehouseText;
-			}
-			if (page is Page_OutpostEvents)
-			{
-				return eventsText;
-			}
-			return null;
+			return ((IUiShellPage)page).NavSummary;
 		}
 
 		public static int BadgeFor(OutpostManagePage page, Outpost outpost)
@@ -232,36 +201,10 @@ namespace DreamsOutposts
 			cachedTick = tick;
 			if (outpost == null)
 			{
-				facilitiesText = null;
-				defenseText = null;
-				warehouseText = null;
-				eventsText = null;
 				eventsBadge = 0;
 				return;
 			}
-			int used = 0;
-			int total = outpost.extensionSlots?.Count ?? 0;
-			for (int i = 0; i < total; i++)
-			{
-				if (outpost.extensionSlots[i] != null && !outpost.extensionSlots[i].IsEmpty)
-				{
-					used++;
-				}
-			}
-			facilitiesText = "DreamsOutposts.Ui.Nav.Slots".Translate(used, total).ToString();
-			defenseText = "DreamsOutposts.Ui.Nav.Defense".Translate(outpost.Defense.ToString("0.#")).ToString();
-			HashSet<ThingDef> kinds = new HashSet<ThingDef>();
-			List<Thing> items = outpost.InventoryItems;
-			for (int i = 0; i < items.Count; i++)
-			{
-				if (items[i] != null && !items[i].Destroyed && items[i].def != null)
-				{
-					kinds.Add(items[i].def);
-				}
-			}
-			warehouseText = "DreamsOutposts.Ui.Nav.Items".Translate(kinds.Count).ToString();
 			eventsBadge = outpost.events?.Count ?? 0;
-			eventsText = "DreamsOutposts.Ui.Nav.Events".Translate(eventsBadge).ToString();
 		}
 	}
 }

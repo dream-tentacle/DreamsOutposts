@@ -66,7 +66,7 @@ namespace DreamsOutposts
 			return outpost?.coreFacility?.GetComp<OutpostFacilityComp_ProductionSupervisor>();
 		}
 
-		/// <summary>等级倍率现在是否生效：中枢没有被事件禁用，并且据点里有合格管理者。读的是缓存，不重新判定。</summary>
+		/// <summary>等级倍率是否生效：中枢没有被事件禁用，并且据点里有合格管理者。读的是缓存，不重新判定。</summary>
 		public bool AllowsLevelFactor => !hubDisabled && hasSupervisor;
 
 		/// <summary>中枢是否被事件禁用（缓存）。</summary>

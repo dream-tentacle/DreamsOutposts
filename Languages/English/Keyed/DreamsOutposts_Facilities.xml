@@ -26,7 +26,6 @@
   <DreamsOutposts.ExtensionFacilities>Extension facilities ({0}/{1})</DreamsOutposts.ExtensionFacilities>
   <DreamsOutposts.NoExtensionSlots>(this outpost type has no extension slots)</DreamsOutposts.NoExtensionSlots>
   <DreamsOutposts.EmptySlot>Empty slot</DreamsOutposts.EmptySlot>
-  <DreamsOutposts.Details>Details</DreamsOutposts.Details>
   <DreamsOutposts.Demolish>Demolish</DreamsOutposts.Demolish>
   <DreamsOutposts.ConfirmDemolish>Demolish {0}?\n\nThe slot becomes empty. You get back: {1}</DreamsOutposts.ConfirmDemolish>
   <DreamsOutposts.UnknownFacility>Unknown facility</DreamsOutposts.UnknownFacility>

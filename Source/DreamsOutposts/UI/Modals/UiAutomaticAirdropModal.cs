@@ -53,10 +53,10 @@ namespace DreamsOutposts
 				{
 					string buffer;
 					if (!targetBuffers.TryGetValue(facility, out buffer)) buffer = facility.intelligentAirdropStockTarget.ToString();
-					float labelWidth = Mathf.Min(UiText.Width("DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Caption) + 8f, row.width * 0.62f);
+					float labelWidth = Mathf.Min(UiText.Width("DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Body) + 8f, row.width * 0.62f);
 					Rect labelRect = new Rect(row.x + 38f, row.y + 52f, labelWidth, 22f);
 					Rect fieldRect = new Rect(labelRect.xMax + 6f, labelRect.y, Mathf.Max(row.xMax - 14f - labelRect.xMax - 6f, 54f), 22f);
-					UiText.Draw(labelRect, "DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Caption, UiPalette.Ink2, TextAnchor.MiddleLeft);
+					UiText.Draw(labelRect, "DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft);
 					int target = facility.intelligentAirdropStockTarget;
 					Widgets.TextFieldNumeric(fieldRect, ref target, ref buffer, 0, int.MaxValue);
 					facility.intelligentAirdropStockTarget = Mathf.Max(target, 0);

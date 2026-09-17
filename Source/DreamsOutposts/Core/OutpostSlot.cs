@@ -82,13 +82,13 @@ namespace DreamsOutposts
 			report = CanInstall(def, outpost);
 			if (!report.Accepted)
 			{
-				Log.Error("Tried to install " + (def?.defName ?? "null") + " into outpost " + (outpost?.Label ?? "null") + ": " + report.Reason);
+				Log.Error("[DreamsOutposts] Tried to install " + (def?.defName ?? "null") + " into outpost " + (outpost?.Label ?? "null") + ": " + report.Reason);
 				return false;
 			}
 			facility = OutpostFacility.Create(def);
 			if (!OutpostBuildUtility.TryPay(outpost, def))
 			{
-				Log.Error("Installed " + def.defName + " in outpost " + outpost.Label + " but failed to pay its build cost; rolling the installation back.");
+				Log.Error("[DreamsOutposts] Installed " + def.defName + " in outpost " + outpost.Label + " but failed to pay its build cost; rolling the installation back.");
 				facility = null;
 				report = new AcceptanceReport("the build cost could not be paid");
 				return false;
@@ -131,7 +131,7 @@ namespace DreamsOutposts
 			report = CanRemove(outpost);
 			if (!report.Accepted)
 			{
-				Log.Error("Tried to remove the facility in a slot of outpost " + (outpost?.Label ?? "null") + ": " + report.Reason);
+				Log.Error("[DreamsOutposts] Tried to remove the facility in a slot of outpost " + (outpost?.Label ?? "null") + ": " + report.Reason);
 				return false;
 			}
 			OutpostFacilityDef def = facility.def;

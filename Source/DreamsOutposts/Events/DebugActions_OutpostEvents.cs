@@ -16,12 +16,19 @@ namespace DreamsOutposts
 		{
 			if (OutpostRandomEventScheduler.TryCreateRandomEvent(out Outpost outpost, out OutpostEventDef eventDef))
 			{
-				Log.Message("DreamsOutposts: generated random event " + eventDef.defName + " on " + outpost.Label + ". Next scheduled random event: " + NextScheduledLabel() + ".");
+				Log.Message("[DreamsOutposts] generated random event " + eventDef.defName + " on " + outpost.Label
+					+ " (this was random event #" + RandomEventOrdinal() + "). Next scheduled random event: " + NextScheduledLabel() + ".");
 			}
 			else
 			{
-				Log.Message("DreamsOutposts: no outpost can receive a random event right now (no outpost passed CanReceiveRandomEvent() with at least one valid event def). Next scheduled random event: " + NextScheduledLabel() + ".");
+				Log.Message("[DreamsOutposts] no outpost can receive a random event right now (no outpost passed CanReceiveRandomEvent() with at least one valid event def). Next scheduled random event: " + NextScheduledLabel() + ".");
 			}
+		}
+
+		/// <summary>刚刚生成的是第几次普通随机事件。这条日志是验证固定刷出事件用的，所以顺带报出来。</summary>
+		private static int RandomEventOrdinal()
+		{
+			return GameComponent_OutpostRandomEvents.Instance?.randomEventsGenerated ?? 0;
 		}
 
 		private static string NextScheduledLabel()

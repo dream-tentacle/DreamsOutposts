@@ -11,6 +11,14 @@ namespace DreamsOutposts
 	{
 		public int nextRandomEventTick;
 
+		/// <summary>
+		/// 迄今为止真正生成过多少次普通随机事件。对玩家隐藏，也不做任何 UI：
+		/// 它唯一的作用是让 OutpostEventDef.forcedAtRandomEventCount 按序号固定刷出剧情事件。
+		/// 只统计随机调度器创建的事件；由 OutpostEventEffect_ScheduleEvent 排出的后续事件不算，
+		/// 因为它们不是「随机生成」的，而是上一次选择的确定结果。
+		/// </summary>
+		public int randomEventsGenerated;
+
 		public GameComponent_OutpostRandomEvents(Game game)
 		{
 		}
@@ -21,6 +29,7 @@ namespace DreamsOutposts
 		{
 			base.ExposeData();
 			Scribe_Values.Look(ref nextRandomEventTick, "nextRandomEventTick", 0);
+			Scribe_Values.Look(ref randomEventsGenerated, "randomEventsGenerated", 0);
 		}
 
 		public override void FinalizeInit()

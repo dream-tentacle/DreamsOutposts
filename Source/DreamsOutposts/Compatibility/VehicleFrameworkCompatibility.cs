@@ -65,7 +65,7 @@ namespace DreamsOutposts
 				// Put the vehicle safely in the outpost before removing the caravan's last vehicle.
 				if (!source.TryTransferToContainer(pawn, target, true))
 				{
-					Log.Error("Failed to store vehicle " + pawn + " in outpost " + outpost.Label + ".");
+					Log.Error("[DreamsOutposts] Failed to store vehicle " + pawn + " in outpost " + outpost.Label + ".");
 					return;
 				}
 				caravan.Notify_PawnRemoved(pawn);
@@ -83,8 +83,8 @@ namespace DreamsOutposts
 			else if (!source.Remove(pawn)) return;
 			if (!target.TryAdd(pawn))
 			{
-				Log.Error("Failed to move " + pawn + " from caravan " + caravan.Label + " into outpost " + outpost.Label + ".");
-				if (!source.TryAdd(pawn)) Log.Error("Failed to return " + pawn + " to its original container.");
+				Log.Error("[DreamsOutposts] Failed to move " + pawn + " from caravan " + caravan.Label + " into outpost " + outpost.Label + ".");
+				if (!source.TryAdd(pawn)) Log.Error("[DreamsOutposts] Failed to return " + pawn + " to its original container.");
 				return;
 			}
 			OutpostUtility.TakeOutOfWorld(pawn);

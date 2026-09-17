@@ -156,7 +156,7 @@ namespace DreamsOutposts
 			int removed = OutpostStockUtility.TakeFromStock(outpost, ThingDefOf.Steel, 70);
 			if (removed < 70)
 			{
-				Log.Error("Outpost " + outpost.Label + " paid only " + removed + " of " + 70 + " steel for an airdrop pod, but the pod is granted anyway.");
+				Log.Error("[DreamsOutposts] Outpost " + outpost.Label + " paid only " + removed + " of " + 70 + " steel for an airdrop pod, but the pod is granted anyway.");
 			}
 			outpost.airdropPods++;
 			SoundDefOf.Tick_High.PlayOneShotOnCamera();
@@ -173,7 +173,7 @@ namespace DreamsOutposts
 			}
 			if (transferable.things.Contains(thing))
 			{
-				Log.Error("Tried to add the same thing twice to TransferableOneWay: " + thing);
+				Log.Error("[DreamsOutposts] Tried to add the same thing twice to TransferableOneWay: " + thing);
 			}
 			else
 			{
@@ -292,15 +292,15 @@ namespace DreamsOutposts
 				}
 				if (!taken)
 				{
-					Log.Error("Could not find " + pawn?.ToString() + " in outpost " + outpost.Label + " or in its pending airdrop cargo; leaving it behind.");
+					Log.Error("[DreamsOutposts] Could not find " + pawn?.ToString() + " in outpost " + outpost.Label + " or in its pending airdrop cargo; leaving it behind.");
 					continue;
 				}
 				if (!pods[podIndex].innerContainer.TryAdd(pawn))
 				{
-					Log.Error("Failed to load " + pawn?.ToString() + " into an outpost airdrop pod; returning it to outpost " + outpost.Label + ".");
+					Log.Error("[DreamsOutposts] Failed to load " + pawn?.ToString() + " into an outpost airdrop pod; returning it to outpost " + outpost.Label + ".");
 					if (!outpost.pawns.TryAdd(pawn))
 					{
-						Log.Error("Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
+						Log.Error("[DreamsOutposts] Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
 						Find.WorldPawns.PassToWorld(pawn);
 					}
 					else outpost.RequestUpdate();
@@ -320,10 +320,10 @@ namespace DreamsOutposts
 				{
 					if (!pod.innerContainer.TryAdd(piece))
 					{
-						Log.Error("Failed to load " + piece?.ToString() + " into an outpost airdrop pod; returning it to outpost " + outpost.Label + ".");
+						Log.Error("[DreamsOutposts] Failed to load " + piece?.ToString() + " into an outpost airdrop pod; returning it to outpost " + outpost.Label + ".");
 						if (!outpost.inventory.TryAdd(piece))
 						{
-							Log.Error("Failed to return " + piece?.ToString() + " to outpost " + outpost.Label + ".");
+							Log.Error("[DreamsOutposts] Failed to return " + piece?.ToString() + " to outpost " + outpost.Label + ".");
 						}
 					}
 				});
@@ -369,7 +369,7 @@ namespace DreamsOutposts
 			SoundDefOf.Tick_High.PlayOneShotOnCamera();
 			if (pawnCount == 0 && itemCount == 0)
 			{
-				Log.Error("An outpost airdrop from " + outpost.Label + " launched with empty pods.");
+				Log.Error("[DreamsOutposts] An outpost airdrop from " + outpost.Label + " launched with empty pods.");
 			}
 			Messages.Message("DreamsOutposts.AirdropLaunched".Translate(outpost.LabelCap, pods.Count, massUsage.ToString("F0"), pawnCount, itemCount), new GlobalTargetInfo(destinationTile), MessageTypeDefOf.TaskCompletion, historical: false);
 		}
@@ -393,11 +393,11 @@ namespace DreamsOutposts
 				}
 				else
 				{
-					Log.Error("Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + " after an airdrop was cancelled.");
+					Log.Error("[DreamsOutposts] Failed to return " + pawn?.ToString() + " to outpost " + outpost.Label + " after an airdrop was cancelled.");
 					pending.Remove(pawn);
 					if (!outpost.pawns.TryAdd(pawn))
 					{
-						Log.Error("Failed to re-add " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
+						Log.Error("[DreamsOutposts] Failed to re-add " + pawn?.ToString() + " to outpost " + outpost.Label + "; passing it to the world so it is not lost.");
 						Find.WorldPawns.PassToWorld(pawn);
 					}
 					else outpost.RequestUpdate();
@@ -423,7 +423,7 @@ namespace DreamsOutposts
 				}
 				else
 				{
-					Log.Error("Failed to move " + pawn?.ToString() + " out of outpost " + outpost.Label + " for an airdrop; it stays in the outpost.");
+					Log.Error("[DreamsOutposts] Failed to move " + pawn?.ToString() + " out of outpost " + outpost.Label + " for an airdrop; it stays in the outpost.");
 				}
 			}
 		}

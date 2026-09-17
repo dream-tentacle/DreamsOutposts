@@ -1,4 +1,3 @@
-using UnityEngine;
 using Verse;
 
 namespace DreamsOutposts
@@ -21,8 +20,6 @@ namespace DreamsOutposts
 		{
 			hostWindow?.Close();
 		}
-
-		public abstract void DoContents(Rect rect);
 
 		public virtual void OnOpen()
 		{

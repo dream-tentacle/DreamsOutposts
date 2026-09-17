@@ -14,7 +14,7 @@ namespace DreamsOutposts
 		{
 			if (pageClass == null || !typeof(OutpostManagePage).IsAssignableFrom(pageClass))
 			{
-				Log.Error("OutpostManagePageRegistry.RegisterPage: " + (pageClass?.FullName ?? "null") + " is not an OutpostManagePage subclass; nothing was registered.");
+				Log.Error("[DreamsOutposts] OutpostManagePageRegistry.RegisterPage: " + (pageClass?.FullName ?? "null") + " is not an OutpostManagePage subclass; nothing was registered.");
 				return;
 			}
 			OutpostManagePageDef def = new OutpostManagePageDef
@@ -32,7 +32,7 @@ namespace DreamsOutposts
 		{
 			if (def == null || def.pageClass == null)
 			{
-				Log.Error("OutpostManagePageRegistry.RegisterPage: the def or its pageClass is null; nothing was registered.");
+				Log.Error("[DreamsOutposts] OutpostManagePageRegistry.RegisterPage: the def or its pageClass is null; nothing was registered.");
 				return;
 			}
 			for (int i = 0; i < registeredDefs.Count; i++)
@@ -100,7 +100,7 @@ namespace DreamsOutposts
 			Type pageClass = def.pageClass;
 			if (pageClass == null || !typeof(OutpostManagePage).IsAssignableFrom(pageClass) || pageClass.IsAbstract)
 			{
-				Log.Error("OutpostManagePageDef " + def.defName + ": pageClass " + (pageClass?.FullName ?? "null") + " is not a concrete OutpostManagePage subclass; the page is skipped.");
+				Log.Error("[DreamsOutposts] OutpostManagePageDef " + def.defName + ": pageClass " + (pageClass?.FullName ?? "null") + " is not a concrete OutpostManagePage subclass; the page is skipped.");
 				return null;
 			}
 			try
@@ -109,7 +109,7 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex)
 			{
-				Log.Error("OutpostManagePageDef " + def.defName + ": could not create " + pageClass.FullName + " (a parameterless constructor is required); the page is skipped. " + ex);
+				Log.Error("[DreamsOutposts] OutpostManagePageDef " + def.defName + ": could not create " + pageClass.FullName + " (a parameterless constructor is required); the page is skipped. " + ex);
 				return null;
 			}
 		}
