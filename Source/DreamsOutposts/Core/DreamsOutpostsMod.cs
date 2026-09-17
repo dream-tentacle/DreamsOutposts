@@ -12,6 +12,11 @@ namespace DreamsOutposts
 
 		public static DreamsOutpostsSettings Settings;
 
+		public static bool UseVanillaUi
+		{
+			get { return Settings != null && Settings.useVanillaUi; }
+		}
+
 		public DreamsOutpostsMod(ModContentPack content)
 			: base(content)
 		{
@@ -38,6 +43,11 @@ namespace DreamsOutposts
 			Settings.productionMultiplier = Mathf.Round(value * 10f) / 10f;
 			listing.GapLine();
 			listing.Label("DreamsOutposts.Settings.ProductionMultiplierDescription".Translate());
+			listing.GapLine();
+			listing.CheckboxLabeled(
+				"DreamsOutposts.Settings.UseVanillaUi".Translate(),
+				ref Settings.useVanillaUi,
+				"DreamsOutposts.Settings.UseVanillaUi.Description".Translate());
 			listing.End();
 		}
 

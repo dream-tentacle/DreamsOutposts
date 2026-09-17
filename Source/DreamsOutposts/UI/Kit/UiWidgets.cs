@@ -39,6 +39,18 @@ namespace DreamsOutposts
 		public static bool Button(Rect rect, string label, UiButtonKind kind = UiButtonKind.Secondary,
 			bool enabled = true, string disabledReason = null, UiButtonSize size = UiButtonSize.Normal, string tooltip = null)
 		{
+			if (DreamsOutpostsMod.UseVanillaUi)
+			{
+				if (rect.width <= 0f || rect.height <= 0f)
+				{
+					return false;
+				}
+				string vanillaTip = (!enabled && !string.IsNullOrEmpty(disabledReason))
+					? disabledReason
+					: tooltip;
+				Tip(rect, vanillaTip);
+				return Widgets.ButtonText(rect, label, true, true, enabled);
+			}
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
@@ -131,6 +143,10 @@ namespace DreamsOutposts
 			UiButtonSize size = UiButtonSize.Normal, string tooltip = null,
 			bool enabled = true, string disabledReason = null)
 		{
+			if (DreamsOutpostsMod.UseVanillaUi)
+			{
+				return Button(rect, label, UiButtonKind.Secondary, enabled, disabledReason, size, tooltip);
+			}
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
@@ -207,11 +223,13 @@ namespace DreamsOutposts
 				return false;
 			}
 			bool hovered = Mouse.IsOver(rect);
-			UiDraw.Circle(rect, hovered ? UiPalette.LightHover : UiPalette.Light, UiPalette.Line);
-			float glyph = Mathf.Round(rect.height * 0.5f);
-			UiDraw.Icon(new Rect(rect.center.x - glyph * 0.5f, rect.center.y - glyph * 0.5f, glyph, glyph), UiIcon.Close,
-				UiPalette.OnLight);
-			Tip(rect, tooltip);
+			Color fill = hovered ? UiPalette.NavActive : UiPalette.PanelGlassStrong;
+			Color border = hovered ? UiPalette.NavActive : UiPalette.LineStrong;
+			Color icon = hovered ? UiPalette.NavActiveText : UiPalette.Ink;
+			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, fill, border);
+			float glyph = Mathf.Round(rect.height * 0.48f);
+			UiDraw.Icon(new Rect(rect.center.x - glyph * 0.5f, rect.center.y - glyph * 0.5f, glyph, glyph), UiIcon.Close, icon);
+			UiWidgets.Tip(rect, tooltip);
 			return Widgets.ButtonInvisible(rect);
 		}
 
@@ -241,11 +259,16 @@ namespace DreamsOutposts
 		/// <param name="scale">方块相对格位的缩放（1 = 选中态大小）；小于 0 时按 active 取默认值。</param>
 		public static bool NavItem(Rect rect, UiIcon icon, string label, string sub, bool active, int badge = 0, string tooltip = null, float scale = -1f)
 		{
+			if (DreamsOutpostsMod.UseVanillaUi)
+			{
+				return DrawVanillaNavItem(rect, icon, label, sub, active, badge, tooltip, scale);
+			}
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
 			}
-			// 未选中方块宽高同缩，左边缘对齐、垂直居中
+
+			// 保留原页签缩放：未选中缩小，选中平滑恢复到 1。
 			float tileScale = (scale >= 0f) ? scale : (active ? 1f : 1f - UiMetrics.NavInactiveShrink);
 			Rect box = rect;
 			if (Mathf.Abs(tileScale - 1f) > 0.0001f)
@@ -253,67 +276,196 @@ namespace DreamsOutposts
 				float boxHeight = rect.height * tileScale;
 				box = new Rect(rect.x, rect.y + (rect.height - boxHeight) * 0.5f, rect.width * tileScale, boxHeight);
 			}
+
 			bool hovered = Mouse.IsOver(box);
 			Color fill;
 			Color border;
 			Color inkColor;
-			if (hovered)
+			Color subColor;
+
+			if (active)
 			{
-				fill = UiPalette.Hover;
-				border = UiPalette.LineStrong;
-				inkColor = UiPalette.Ink;
+				fill = UiPalette.NavActive;
+				border = UiPalette.NavActive;
+				inkColor = UiPalette.NavActiveText;
+				subColor = UiPalette.NavActiveSub;
 			}
-			else if (active)
+			else if (hovered)
 			{
-				// 页签始终是独立悬浮矩形；选中态另以四角圆弧和加粗标题标识。
-				fill = UiPalette.Raised;
-				border = UiPalette.Line;
+				fill = UiPalette.NavHover;
+				border = UiPalette.BrandLine;
 				inkColor = UiPalette.Ink;
+				subColor = UiPalette.Ink2;
 			}
 			else
 			{
-				fill = UiPalette.Raised;
+				fill = UiPalette.NavIdle;
 				border = UiPalette.Line;
 				inkColor = UiPalette.Ink2;
+				subColor = UiPalette.Ink3;
 			}
+
 			UiDraw.Box(box, (int)UiMetrics.RadiusSm, fill, border);
+
 			if (active)
 			{
-				// 四角标记随方块一起淡入
 				float accentAlpha = Mathf.InverseLerp(1f - UiMetrics.NavInactiveShrink, 1f, tileScale);
-				if (accentAlpha > 0.01f)
-				{
-					Color previousColor = GUI.color;
-					GUI.color = new Color(previousColor.r, previousColor.g, previousColor.b, previousColor.a * accentAlpha);
-					UiDraw.CornerAccents(box, (int)UiMetrics.NavActiveArcRadius, UiMetrics.NavActiveArcGap);
-					GUI.color = previousColor;
-				}
+				Color previous = GUI.color;
+				GUI.color = new Color(previous.r, previous.g, previous.b, previous.a * accentAlpha);
+				UiDraw.Solid(new Rect(box.x, box.y, 4f, box.height), UiPalette.Brand);
+				GUI.color = previous;
 			}
+
 			float x = box.x + UiMetrics.NavItemPaddingH;
-			// 文字按原格位排版：方块缩放不影响文字位置，切页也不跳动
 			float contentTop = rect.y + UiMetrics.NavItemPaddingV;
-			Rect iconRect = new Rect(x, contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f, UiMetrics.NavIconSize, UiMetrics.NavIconSize);
+			Rect iconRect = new Rect(x, contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f,
+				UiMetrics.NavIconSize, UiMetrics.NavIconSize);
 			UiDraw.Icon(iconRect, icon, inkColor);
 			x += UiMetrics.NavIconSize + UiMetrics.NavItemGap;
+
 			float badgeWidth = 0f;
 			if (badge > 0)
 			{
-				badgeWidth = Mathf.Max(UiMetrics.NavBadgeMinWidth, UiText.Width(badge.ToString(), UiFont.Body, true) + UiMetrics.NavBadgePaddingH * 2f);
+				badgeWidth = Mathf.Max(UiMetrics.NavBadgeMinWidth,
+					UiText.Width(badge.ToString(), UiFont.Body, true) + UiMetrics.NavBadgePaddingH * 2f);
 			}
-			float textWidth = Mathf.Max(box.xMax - UiMetrics.NavItemPaddingH - x - ((badgeWidth > 0f) ? badgeWidth + 8f : 0f), 10f);
-			UiText.Draw(new Rect(x, contentTop, textWidth, UiText.LineHeight(UiFont.Body)), label, UiFont.Body, inkColor, TextAnchor.MiddleLeft, active, false, true);
+
+			float textWidth = Mathf.Max(box.xMax - UiMetrics.NavItemPaddingH - x -
+				((badgeWidth > 0f) ? badgeWidth + 8f : 0f), 10f);
+
+			UiText.Draw(new Rect(x, contentTop, textWidth, UiText.LineHeight(UiFont.Body)),
+				label, UiFont.Body, inkColor, TextAnchor.MiddleLeft, active, false, true);
+
 			if (!string.IsNullOrEmpty(sub))
 			{
-				UiText.Draw(new Rect(x, contentTop + UiText.LineHeight(UiFont.Body), textWidth, UiText.LineHeight(UiFont.Body)), sub,
-					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(x, contentTop + UiText.LineHeight(UiFont.Body), textWidth, UiText.LineHeight(UiFont.Body)),
+					sub, UiFont.Body, subColor, TextAnchor.MiddleLeft, false, false, true);
 			}
+
 			if (badge > 0)
 			{
 				float height = UiText.LineHeight(UiFont.Body) + UiMetrics.ChipSmallPaddingV * 2f;
-				Rect badgeRect = new Rect(box.xMax - UiMetrics.NavItemPaddingH - badgeWidth, box.y + (box.height - height) * 0.5f, badgeWidth, height);
+				Rect badgeRect = new Rect(box.xMax - UiMetrics.NavItemPaddingH - badgeWidth,
+					box.y + (box.height - height) * 0.5f, badgeWidth, height);
 				UiDraw.Box(badgeRect, (int)UiMetrics.RadiusXs, UiPalette.BadBg, UiPalette.BadLine);
 				UiText.Draw(badgeRect, badge.ToString(), UiFont.Body, UiPalette.Bad, TextAnchor.MiddleCenter, true);
 			}
+
+			Tip(box, tooltip);
+			return Widgets.ButtonInvisible(box);
+		}
+
+		private static bool DrawVanillaNavItem(Rect rect, UiIcon icon, string label, string sub,
+			bool active, int badge, string tooltip, float scale)
+		{
+			if (rect.width <= 0f || rect.height <= 0f)
+			{
+				return false;
+			}
+
+			float tileScale = (scale >= 0f)
+				? scale
+				: (active ? 1f : 1f - UiMetrics.NavInactiveShrink);
+
+			Rect box = rect;
+			if (Mathf.Abs(tileScale - 1f) > 0.0001f)
+			{
+				float boxHeight = rect.height * tileScale;
+				box = new Rect(
+					rect.x,
+					rect.y + (rect.height - boxHeight) * 0.5f,
+					rect.width * tileScale,
+					boxHeight);
+			}
+
+			bool hovered = Mouse.IsOver(box);
+			if (hovered)
+			{
+				UiDraw.Solid(box, new Color(1f, 1f, 1f, 0.10f));
+			}
+
+			if (active)
+			{
+				float accentAlpha = Mathf.InverseLerp(
+					1f - UiMetrics.NavInactiveShrink,
+					1f,
+					tileScale);
+				Color previous = GUI.color;
+				GUI.color = new Color(
+					previous.r,
+					previous.g,
+					previous.b,
+					previous.a * accentAlpha);
+				UiDraw.Solid(new Rect(box.x, box.y, 4f, box.height), Color.white);
+				GUI.color = previous;
+			}
+
+			Color inkColor = active ? UiPalette.Ink : UiPalette.Ink2;
+			Color subColor = active ? UiPalette.Ink2 : UiPalette.Ink3;
+
+			float x = box.x + UiMetrics.NavItemPaddingH;
+			float contentTop = rect.y + UiMetrics.NavItemPaddingV;
+
+			Rect iconRect = new Rect(
+				x,
+				contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f,
+				UiMetrics.NavIconSize,
+				UiMetrics.NavIconSize);
+			UiDraw.Icon(iconRect, icon, inkColor);
+			x += UiMetrics.NavIconSize + UiMetrics.NavItemGap;
+
+			float badgeWidth = 0f;
+			if (badge > 0)
+			{
+				badgeWidth = Mathf.Max(
+					UiMetrics.NavBadgeMinWidth,
+					UiText.Width(badge.ToString(), UiFont.Body, true) +
+					UiMetrics.NavBadgePaddingH * 2f);
+			}
+
+			float textWidth = Mathf.Max(
+				box.xMax - UiMetrics.NavItemPaddingH - x -
+				((badgeWidth > 0f) ? badgeWidth + 8f : 0f),
+				10f);
+
+			UiText.Draw(
+				new Rect(x, contentTop, textWidth, UiText.LineHeight(UiFont.Body)),
+				label, UiFont.Body, inkColor, TextAnchor.MiddleLeft, active, false, true);
+
+			if (!string.IsNullOrEmpty(sub))
+			{
+				UiText.Draw(
+					new Rect(
+						x,
+						contentTop + UiText.LineHeight(UiFont.Body),
+						textWidth,
+						UiText.LineHeight(UiFont.Body)),
+					sub, UiFont.Body, subColor, TextAnchor.MiddleLeft, false, false, true);
+			}
+
+			if (badge > 0)
+			{
+				float height = UiText.LineHeight(UiFont.Body) +
+					UiMetrics.ChipSmallPaddingV * 2f;
+				Rect badgeRect = new Rect(
+					box.xMax - UiMetrics.NavItemPaddingH - badgeWidth,
+					box.y + (box.height - height) * 0.5f,
+					badgeWidth,
+					height);
+				UiDraw.Box(
+					badgeRect,
+					(int)UiMetrics.RadiusXs,
+					UiPalette.BadBg,
+					UiPalette.BadLine);
+				UiText.Draw(
+					badgeRect,
+					badge.ToString(),
+					UiFont.Body,
+					UiPalette.Bad,
+					TextAnchor.MiddleCenter,
+					true);
+			}
+
 			Tip(box, tooltip);
 			return Widgets.ButtonInvisible(box);
 		}

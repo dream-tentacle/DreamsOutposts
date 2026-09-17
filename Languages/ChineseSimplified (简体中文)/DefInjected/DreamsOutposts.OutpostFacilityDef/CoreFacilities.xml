@@ -44,6 +44,6 @@
   <!-- EN: town center -->
   <DreamsOutposts_TownCenter.label>城镇中心</DreamsOutposts_TownCenter.label>
   <!-- EN: The square, roads and shared buildings that hold a town together. It produces nothing by itself. -->
-  <DreamsOutposts_TownCenter.description>广场、道路与公共建筑，将整座城镇联结在一起。它本身不产出任何东西。</DreamsOutposts_TownCenter.description>
+  <DreamsOutposts_TownCenter.description>广场、道路与公共建筑，将整座城镇联结在一起。它本身不产出任何东西，但设施槽位更多，人口倾向更高。</DreamsOutposts_TownCenter.description>
   
 </LanguageData>

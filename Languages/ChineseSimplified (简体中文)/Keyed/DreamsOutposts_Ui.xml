@@ -51,6 +51,7 @@
   <DreamsOutposts.Ui.Upgrade.Missing>材料不足：{0}</DreamsOutposts.Ui.Upgrade.Missing>
   <!-- EN: Upgrade this outpost now. -->
   <DreamsOutposts.Ui.Upgrade.ConfirmTip>立即升级此据点。</DreamsOutposts.Ui.Upgrade.ConfirmTip>
+  <DreamsOutposts.Ui.Upgrade.Button>升级据点</DreamsOutposts.Ui.Upgrade.Button>
   <!-- EN: {0} slots now -->
   <DreamsOutposts.Ui.Chip.CurrentSlots>当前槽位 {0}</DreamsOutposts.Ui.Chip.CurrentSlots>
   <!-- EN: Core: {0} -->
@@ -280,4 +281,7 @@
   <DreamsOutposts.Tavern.Dismiss>驱离</DreamsOutposts.Tavern.Dismiss>
   <!-- EN: Dismiss {0}? This adventurer will leave immediately. -->
   <DreamsOutposts.Tavern.DismissConfirm>确定驱离{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
+  <DreamsOutposts.Ui.ManagementSystem>据点管理系统</DreamsOutposts.Ui.ManagementSystem>
+  <DreamsOutposts.Settings.UseVanillaUi>使用 RimWorld 原版风格界面</DreamsOutposts.Settings.UseVanillaUi>
+  <DreamsOutposts.Settings.UseVanillaUi.Description>将界面强调色改为白色，普通按钮使用 RimWorld 原版样式，并以白色竖线标识当前侧栏页签。</DreamsOutposts.Settings.UseVanillaUi.Description>
 </LanguageData>

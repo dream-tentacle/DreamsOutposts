@@ -49,6 +49,6 @@
   <!-- EN: town outpost -->
   <DreamsOutposts_Town.label>城镇据点</DreamsOutposts_Town.label>
   <!-- EN: A basic outpost for workshops and storage. It produces nothing by itself, but it has far more room for facilities than any other outpost. -->
-  <DreamsOutposts_Town.description>用于设置工坊与仓库的基础据点。它本身不产出任何东西，但能容纳的设施数量远超其他任何据点。</DreamsOutposts_Town.description>
+  <DreamsOutposts_Town.description>平平无奇的基础据点。它本身不产出任何东西，但设施槽位更多，人口倾向更高。</DreamsOutposts_Town.description>
   
 </LanguageData>

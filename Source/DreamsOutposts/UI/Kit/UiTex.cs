@@ -126,6 +126,18 @@ namespace DreamsOutposts
 
 		private static Texture2D negativeButtonTexture;
 
+		private static Texture2D backgroundTexture;
+
+		private static Texture2D facilityPlaceholderTexture;
+
+		private static Texture2D sidebarSeparatorTexture;
+
+		private static Texture2D upgradeButtonTexture;
+
+		private static Texture2D chipLeftAlphaRampTexture;
+
+		private static readonly Dictionary<int, Texture2D> levelDigitTextures = new Dictionary<int, Texture2D>();
+
 		private static readonly Texture2D[] navCornerArcs = new Texture2D[4];
 
 		/// <summary>图标资源目录（相对 Textures/）。所有图标都是静态 PNG，不在运行时绘制。</summary>
@@ -230,7 +242,107 @@ namespace DreamsOutposts
 			return negativeButtonTexture;
 		}
 
-		public static Texture2D NewTexture(int width, int height)
+		/// <summary>据点管理窗口的莱茵风背景。</summary>
+		public static Texture2D BackgroundTexture()
+		{
+			if (backgroundTexture == null)
+			{
+				backgroundTexture = ContentFinder<Texture2D>.Get(IconFolder + "Background", false);
+				if (backgroundTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: background texture missing: Textures/" + IconFolder
+						+ "Background.png.", GenText.StableStringHash("ui-background"));
+				}
+			}
+			return backgroundTexture;
+		}
+
+		/// <summary>设施主视觉缺失时使用的黑方块占位图。</summary>
+		public static Texture2D FacilityPlaceholderTexture()
+		{
+			if (facilityPlaceholderTexture == null)
+			{
+				facilityPlaceholderTexture = ContentFinder<Texture2D>.Get(IconFolder + "FacilityPlaceholder", false);
+				if (facilityPlaceholderTexture == null)
+				{
+					Log.WarningOnce("DreamsOutposts UI: facility placeholder texture missing: Textures/" + IconFolder
+						+ "FacilityPlaceholder.png.", GenText.StableStringHash("ui-facility-placeholder"));
+				}
+			}
+			return facilityPlaceholderTexture;
+		}
+		/// <summary>
+		/// 等级数字图片。资源路径为 Textures/DreamsOutposts/Ui/LevelDigits/{level}.png。
+		/// 不限制最大等级：其它 Mod 若提供更高等级，只需自行补对应数字图片。
+		/// </summary>
+
+
+		public static Texture2D UpgradeButtonTexture()
+		{
+			if (upgradeButtonTexture == null)
+			{
+				upgradeButtonTexture = ContentFinder<Texture2D>.Get(IconFolder + "Upgrade", false);
+			}
+			return upgradeButtonTexture;
+		}
+		public static Texture2D SidebarSeparatorTexture()
+		{
+			if (sidebarSeparatorTexture == null)
+			{
+				sidebarSeparatorTexture = ContentFinder<Texture2D>.Get(IconFolder + "Sidebar", false);
+			}
+			return sidebarSeparatorTexture;
+		}
+		public static Texture2D LevelDigitTexture(int level)
+		{
+			if (level < 0)
+			{
+				return null;
+			}
+
+			Texture2D cached;
+			if (levelDigitTextures.TryGetValue(level, out cached))
+			{
+				return cached;
+			}
+
+			Texture2D texture = ContentFinder<Texture2D>.Get(IconFolder + "LevelDigits/" + level, false);
+			levelDigitTextures[level] = texture;
+			return texture;
+		}
+
+				/// <summary>
+		/// Chip 左侧高光：从 20% 白色叠加线性淡出到透明。
+		/// 调用方只把它绘制在 chip 左侧 25% 宽度内。
+		/// </summary>
+		public static Texture2D ChipLeftAlphaRampTexture()
+		{
+			if (chipLeftAlphaRampTexture != null)
+			{
+				return chipLeftAlphaRampTexture;
+			}
+
+			const int width = 64;
+			chipLeftAlphaRampTexture = NewTexture(width, 1);
+			Color[] pixels = new Color[width];
+
+			for (int x = 0; x < width; x++)
+			{
+				float t = (width <= 1)
+					? 1f
+					: x / (float)(width - 1);
+
+				// RGB 始终为白，绘制时再由 GUI.color 乘上 chip 的语义色。
+				// Alpha 从 0 线性升到 1。
+				pixels[x] = new Color(1f, 1f, 1f, t);
+			}
+
+			chipLeftAlphaRampTexture.SetPixels(pixels);
+			chipLeftAlphaRampTexture.Apply(false, false);
+			return chipLeftAlphaRampTexture;
+		}
+
+public static Texture2D NewTexture(int width, int height)
 		{
 			Texture2D texture = new Texture2D(Mathf.Max(1, width), Mathf.Max(1, height), TextureFormat.RGBA32, false);
 			texture.filterMode = FilterMode.Bilinear;

@@ -86,7 +86,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Town</defName>
     <label>town outpost</label>
-    <description>A basic outpost for workshops and storage. It produces nothing by itself, but it has far more room for facilities than any other outpost.</description>
+    <description>A basic outpost. It produces nothing by itself, but it has more facility slots. Its Population tendency is also higher.</description>
     <coreFacility>DreamsOutposts_TownCenter</coreFacility>
     <levels Inherit="False">
       <li>

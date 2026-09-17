@@ -11,9 +11,12 @@ namespace DreamsOutposts
 
 		public float productionMultiplier = DefaultProductionMultiplier;
 
+		public bool useVanillaUi = false;
+
 		public override void ExposeData()
 		{
 			Scribe_Values.Look(ref productionMultiplier, "productionMultiplier", DefaultProductionMultiplier);
+			Scribe_Values.Look(ref useVanillaUi, "useVanillaUi", false);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
 				ClampValues();

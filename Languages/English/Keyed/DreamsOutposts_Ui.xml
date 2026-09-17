@@ -26,6 +26,7 @@
   <DreamsOutposts.Ui.Upgrade.MaterialValue>{0} / {1}</DreamsOutposts.Ui.Upgrade.MaterialValue>
   <DreamsOutposts.Ui.Upgrade.Missing>Not enough materials: {0}</DreamsOutposts.Ui.Upgrade.Missing>
   <DreamsOutposts.Ui.Upgrade.ConfirmTip>Upgrade this outpost now.</DreamsOutposts.Ui.Upgrade.ConfirmTip>
+  <DreamsOutposts.Ui.Upgrade.Button>Upgrade Outpost</DreamsOutposts.Ui.Upgrade.Button>
   <DreamsOutposts.Ui.Chip.CurrentSlots>{0} slots now</DreamsOutposts.Ui.Chip.CurrentSlots>
   <DreamsOutposts.Ui.Chip.CoreFacility>Core: {0}</DreamsOutposts.Ui.Chip.CoreFacility>
   <DreamsOutposts.Ui.Chip.Defense>Defense +{0}</DreamsOutposts.Ui.Chip.Defense>
@@ -141,4 +142,7 @@
   <DreamsOutposts.Tavern.Recruit>Recruit</DreamsOutposts.Tavern.Recruit>
   <DreamsOutposts.Tavern.Dismiss>Dismiss</DreamsOutposts.Tavern.Dismiss>
   <DreamsOutposts.Tavern.DismissConfirm>Dismiss {0}? This adventurer will leave immediately.</DreamsOutposts.Tavern.DismissConfirm>
+  <DreamsOutposts.Ui.ManagementSystem>Outpost Management System</DreamsOutposts.Ui.ManagementSystem>
+  <DreamsOutposts.Settings.UseVanillaUi>Use RimWorld-style interface</DreamsOutposts.Settings.UseVanillaUi>
+  <DreamsOutposts.Settings.UseVanillaUi.Description>Uses white interface accents, RimWorld-style standard buttons, and a white vertical line for the active sidebar tab.</DreamsOutposts.Settings.UseVanillaUi.Description>
 </LanguageData>

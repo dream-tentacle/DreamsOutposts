@@ -30,6 +30,7 @@ namespace DreamsOutposts
 
 		private static readonly GUIStyle[] plainStyles = new GUIStyle[FontCount];
 		private static readonly GUIStyle[] boldStyles = new GUIStyle[FontCount];
+		private static GUIStyle displayStyle;
 		private static bool initialized;
 
 		private static void EnsureInit()
@@ -65,6 +66,41 @@ namespace DreamsOutposts
 				style.fontStyle = FontStyle.Bold;
 			}
 			return style;
+		}
+
+		private static GUIStyle DisplayStyle()
+		{
+			EnsureInit();
+			if (displayStyle == null)
+			{
+				displayStyle = new GUIStyle(boldStyles[(int)UiFont.Heading]);
+				displayStyle.fontSize = 42;
+				displayStyle.alignment = TextAnchor.UpperLeft;
+				displayStyle.wordWrap = false;
+				displayStyle.clipping = TextClipping.Overflow;
+			}
+			return displayStyle;
+		}
+
+		public static float DisplayLineHeight()
+		{
+			return Mathf.Max(DisplayStyle().CalcSize(new GUIContent("88 / 88")).y, 46f);
+		}
+
+		public static void DrawDisplay(Rect rect, string text, Color color, TextAnchor anchor = TextAnchor.UpperLeft)
+		{
+			if (string.IsNullOrEmpty(text) || rect.width <= 0f || rect.height <= 0f)
+			{
+				return;
+			}
+			GUIStyle style = DisplayStyle();
+			TextAnchor previousAnchor = style.alignment;
+			style.alignment = anchor;
+			Color previousColor = GUI.color;
+			GUI.color = new Color(color.r * previousColor.r, color.g * previousColor.g, color.b * previousColor.b, color.a * previousColor.a);
+			GUI.Label(rect, text, style);
+			GUI.color = previousColor;
+			style.alignment = previousAnchor;
 		}
 
 		public static GameFont GameFontOf(UiFont font)

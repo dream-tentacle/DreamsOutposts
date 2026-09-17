@@ -49,9 +49,14 @@ namespace DreamsOutposts
 		{
 			get
 			{
-				float width = Mathf.Min(UiMetrics.WindowMaxWidth + UiMetrics.WindowShadowMargin * 2f, UI.screenWidth - 20f);
-				float height = Mathf.Min(UiMetrics.WindowMaxHeight + UiMetrics.WindowShadowMargin * 2f, UI.screenHeight - 20f);
-				return new Vector2(Mathf.Max(width, 560f), Mathf.Max(height, 400f));
+				// 整体管理界面宽度使用屏幕的 80%，高度继续保持接近全屏。
+				float width = Mathf.Min(
+					Mathf.Max(UI.screenWidth * 0.8f, 560f),
+					Mathf.Max(UI.screenWidth - UiMetrics.WindowScreenMarginH * 2f, 560f));
+				float height = Mathf.Min(
+					Mathf.Max(UI.screenHeight - UiMetrics.WindowScreenMarginV * 2f, 400f),
+					UI.screenHeight);
+				return new Vector2(Mathf.Round(width), Mathf.Round(height));
 			}
 		}
 
@@ -106,8 +111,7 @@ namespace DreamsOutposts
 			// 窗口矩形比面板大出阴影留白，面板要内缩，否则阴影会被 GUI 裁剪掉
 			Rect panel = inRect.ContractedBy(UiMetrics.WindowShadowMargin);
 			UiDebug.Scope("window.panel", panel);
-			UiDraw.Shadow(panel, (int)UiMetrics.RadiusSm);
-			UiDraw.Box(panel, (int)UiMetrics.RadiusSm, UiPalette.Surface, UiPalette.Line);
+			DrawWindowBackground(panel);
 			if (pages.Count == 0)
 			{
 				UiText.Draw(new Rect(panel.x + UiMetrics.ContentPaddingH, panel.y + UiMetrics.ContentPaddingTop, panel.width - UiMetrics.ContentPaddingH * 2f, 30f),
@@ -199,6 +203,37 @@ namespace DreamsOutposts
 			}
 		}
 
+		private static void DrawWindowBackground(Rect rect)
+		{
+			// 原版风格：固定使用 #15191D，不读取也不绘制现代风背景图。
+			if (DreamsOutpostsMod.UseVanillaUi)
+			{
+				UiDraw.Solid(rect, UiPalette.Surface);
+				return;
+			}
+
+			// 现代风：无背景图时 Surface 精确为 #E6E6E6；
+			// 有背景图时仍按高度铺满，右侧溢出裁切。
+			Texture2D background = UiTex.BackgroundTexture();
+			UiDraw.Solid(rect, UiPalette.Surface);
+
+			if (background != null && background.width > 0 && background.height > 0)
+			{
+				float scale = rect.height / background.height;
+				float width = background.width * scale;
+
+				GUI.BeginGroup(rect);
+				GUI.DrawTexture(
+					new Rect(0f, 0f, width, rect.height),
+					background,
+					ScaleMode.StretchToFill,
+					true);
+				GUI.EndGroup();
+			}
+
+			UiDraw.Solid(rect, UiPalette.BackgroundVeil);
+		}
+
 		// ---------------------------------------------------------------
 		// 侧栏
 		// ---------------------------------------------------------------
@@ -206,6 +241,8 @@ namespace DreamsOutposts
 		private void DrawSidebar(Rect rect)
 		{
 			UiDebug.Scope("window.sidebar", rect);
+			UiDraw.Solid(rect, UiPalette.SidebarVeil);
+			UiDraw.Divider(new Rect(rect.xMax - 1f, rect.y, 1f, rect.height), UiPalette.Line);
 			EnsureNavProgress();
 			// 按真实时间推进动画，与暂停无关
 			float now = Time.realtimeSinceStartup;
@@ -284,20 +321,46 @@ namespace DreamsOutposts
 		private void DrawPage(Rect rect, OutpostManagePage page)
 		{
 			UiDebug.Scope("window.content", rect);
+			UiDraw.Solid(rect, UiPalette.ContentVeil);
 			IUiShellPage shellPage = (IUiShellPage)page;
-			float headTop = rect.y + UiMetrics.ContentPaddingTop;
-			float contentWidth = Mathf.Max(rect.width - UiMetrics.ContentPaddingH * 2f, 60f);
+			float systemHeadTop = rect.y + UiMetrics.ContentPaddingTop;
+			float pageHeadTop = systemHeadTop + UiMetrics.ManagementHeaderHeight;
+
+			// 全屏时不让正文无限变宽：从左侧开始排版，右侧多出的区域保留为背景呼吸空间。
+float availableContentWidth = Mathf.Max(rect.width - UiMetrics.ContentPaddingH * 2f, 60f);
+float contentWidth = Mathf.Min(availableContentWidth, UiMetrics.ContentMaxWidth);
+float contentX = rect.x + UiMetrics.ContentPaddingH;
+
+// 系统级页头：所有页面共用，占据独立高度并留出明显空白。
+			UiText.Draw(
+				new Rect(contentX, systemHeadTop, contentWidth, UiText.LineHeight(UiFont.Heading)),
+				"DreamsOutposts.Ui.ManagementSystem".Translate(),
+				UiFont.Heading,
+				UiPalette.Ink,
+				TextAnchor.UpperLeft,
+				true);
+
+			// 关闭按钮固定在系统级页头右上角。
 			Rect closeRect = new Rect(rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize,
-				headTop, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+				systemHeadTop, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
 			UiDebug.Scope("page.close", closeRect);
 			if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
 			{
 				Close();
 			}
-			float pageHeadWidth = Mathf.Max(contentWidth - UiMetrics.CloseButtonSize - UiMetrics.ButtonGap, 40f);
-			float headHeight = DrawPageHead(new Rect(rect.x + UiMetrics.ContentPaddingH, headTop, pageHeadWidth, 0f), page, shellPage);
-			float scrollTop = headTop + headHeight;
-			Rect scrollArea = new Rect(rect.x + UiMetrics.ContentPaddingH, scrollTop, contentWidth,
+
+			float pageHeadWidth = Mathf.Max(
+				Mathf.Min(contentWidth, closeRect.x - UiMetrics.ButtonGap - contentX),
+				40f);
+			float headHeight = DrawPageHead(
+				new Rect(contentX, pageHeadTop, pageHeadWidth, 0f),
+				page, shellPage);
+
+			float scrollTop = pageHeadTop + headHeight;
+			Rect scrollArea = new Rect(
+				contentX,
+				scrollTop,
+				contentWidth,
 				Mathf.Max(rect.yMax - UiMetrics.ContentPaddingBottom - scrollTop, 20f));
 			float bodyWidth = Mathf.Max(scrollArea.width - UiMetrics.ScrollbarGutter, 60f);
 			float bodyHeight = shellPage.BodyHeight(bodyWidth, scrollArea.height);
@@ -350,9 +413,10 @@ namespace DreamsOutposts
 			float descriptionHeight = !string.IsNullOrEmpty(body) ? UiText.Height(body, UiFont.Body, textWidth) : 0f;
 			float total = titleHeight + UiMetrics.PageHeadSubGap + descriptionHeight + UiMetrics.PageHeadMarginBottom;
 			UiDebug.Scope("page.head", new Rect(rect.x, rect.y, rect.width, total));
-			// 装饰底图贴齐页头区域左边缘，按区域高度等比缩放，画在文字下层
-			DrawPageHeadDecor(new Rect(rect.x, rect.y, rect.width, total));
-			float titleX = rect.x + UiMetrics.PageHeadTitleIndent;
+			// 页面标题：竖直强调条 + 标题。
+			float barHeight = Mathf.Max(titleHeight - 4f, 18f);
+			UiDraw.Solid(new Rect(rect.x, rect.y + (titleHeight - barHeight) * 0.5f, 3f, barHeight), UiPalette.Brand);
+			float titleX = rect.x + 14f + UiMetrics.PageHeadTitleIndent;
 			UiText.Draw(new Rect(titleX, y, Mathf.Max(rect.xMax - titleX, 40f), titleHeight), page.Label, UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true);
 			y += titleHeight + UiMetrics.PageHeadSubGap;
 			if (!string.IsNullOrEmpty(body))

@@ -390,20 +390,92 @@ namespace DreamsOutposts
 
 		public static void Chip(Rect rect, UiChipView chip)
 		{
-			Box(rect, (int)UiMetrics.RadiusXs, ChipFillColor(chip.Kind), ChipLineColor(chip.Kind));
-			float padding = chip.Small ? UiMetrics.ChipSmallPaddingH : UiMetrics.ChipPaddingH;
+			Color fill = ChipFillColor(chip.Kind);
+
+			// 方形、无边框。
+			// 左侧 25%：从完全透明渐变到原始 fill；
+			// 后 75%：保持原始 fill，不再变化。
+			float gradientWidth = rect.width * 0.25f;
+
+			if (gradientWidth > 0.5f)
+			{
+				Texture2D ramp = UiTex.ChipLeftAlphaRampTexture();
+				if (ramp != null)
+				{
+					Color previous = GUI.color;
+					GUI.color = new Color(
+						fill.r * previous.r,
+						fill.g * previous.g,
+						fill.b * previous.b,
+						fill.a * previous.a);
+
+					GUI.DrawTexture(
+						new Rect(
+							rect.x,
+							rect.y,
+							gradientWidth,
+							rect.height),
+						ramp,
+						ScaleMode.StretchToFill,
+						true);
+
+					GUI.color = previous;
+				}
+
+				Solid(
+					new Rect(
+						rect.x + gradientWidth,
+						rect.y,
+						Mathf.Max(rect.width - gradientWidth, 0f),
+						rect.height),
+					fill);
+			}
+			else
+			{
+				Solid(rect, fill);
+			}
+
+			float padding = chip.Small
+				? UiMetrics.ChipSmallPaddingH
+				: UiMetrics.ChipPaddingH;
 			float x = rect.x + padding;
+
 			if (ChipHasGlyph(chip.Kind))
 			{
-				Rect glyphRect = new Rect(x, rect.y + (rect.height - UiMetrics.ChipGlyphSize) * 0.5f, UiMetrics.ChipGlyphSize, UiMetrics.ChipGlyphSize);
-				Icon(glyphRect, (chip.Kind == UiChipKind.Good) ? UiIcon.Check : UiIcon.Cross, ChipTextColor(chip.Kind));
+				Rect glyphRect = new Rect(
+					x,
+					rect.y + (rect.height - UiMetrics.ChipGlyphSize) * 0.5f,
+					UiMetrics.ChipGlyphSize,
+					UiMetrics.ChipGlyphSize);
+
+				Icon(
+					glyphRect,
+					(chip.Kind == UiChipKind.Good)
+						? UiIcon.Check
+						: UiIcon.Cross,
+					ChipTextColor(chip.Kind));
+
 				x += UiMetrics.ChipGlyphSize + UiMetrics.ChipGap;
 			}
-			Rect textRect = new Rect(x, rect.y, Mathf.Max(rect.xMax - padding - x, 0f), rect.height);
-			UiText.Draw(textRect, chip.Label, ChipFont, ChipTextColor(chip.Kind), TextAnchor.MiddleLeft);
+
+			Rect textRect = new Rect(
+				x,
+				rect.y,
+				Mathf.Max(rect.xMax - padding - x, 0f),
+				rect.height);
+
+			UiText.Draw(
+				textRect,
+				chip.Label,
+				ChipFont,
+				ChipTextColor(chip.Kind),
+				TextAnchor.MiddleLeft);
+
 			if (!string.IsNullOrEmpty(chip.Tooltip))
 			{
-				TooltipHandler.TipRegion(rect, new TipSignal(chip.Tooltip, rect.GetHashCode()));
+				TooltipHandler.TipRegion(
+					rect,
+					new TipSignal(chip.Tooltip, rect.GetHashCode()));
 			}
 		}
 
