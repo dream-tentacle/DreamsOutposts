@@ -145,4 +145,10 @@
   <DreamsOutposts.Ui.ManagementSystem>Outpost Management System</DreamsOutposts.Ui.ManagementSystem>
   <DreamsOutposts.Settings.UseVanillaUi>Use RimWorld-style interface</DreamsOutposts.Settings.UseVanillaUi>
   <DreamsOutposts.Settings.UseVanillaUi.Description>Uses RimWorld-style UI.</DreamsOutposts.Settings.UseVanillaUi.Description>
+  <DreamsOutposts.Ui.OutpostIndex>Outpost | #{0}</DreamsOutposts.Ui.OutpostIndex>
+  <DreamsOutposts.Settings.UiStyle>UI style</DreamsOutposts.Settings.UiStyle>
+  <DreamsOutposts.Settings.UiStyle.Vanilla>Vanilla</DreamsOutposts.Settings.UiStyle.Vanilla>
+  <DreamsOutposts.Settings.UiStyle.Vanilla.Description>Uses a darker layout closer to RimWorld's vanilla interface.</DreamsOutposts.Settings.UiStyle.Vanilla.Description>
+  <DreamsOutposts.Settings.UiStyle.ModernTech>Modern Tech</DreamsOutposts.Settings.UiStyle.ModernTech>
+  <DreamsOutposts.Settings.UiStyle.ModernTech.Description>Uses a light modern interface with technical geometry and yellow-green accents.</DreamsOutposts.Settings.UiStyle.ModernTech.Description>
 </LanguageData>

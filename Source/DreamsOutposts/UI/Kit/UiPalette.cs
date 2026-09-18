@@ -4,7 +4,7 @@ using Verse;
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 新 UI 的颜色 token。莱茵生命方向：冷白科研界面 + 深色信息块 + 黄绿色品牌强调。
+	/// 新 UI 的颜色 token。现代科技方向：冷白科研界面 + 深色信息块 + 黄绿色品牌强调。
 	/// 页面与控件不得直接散写颜色，统一从这里取。
 	/// </summary>
 	public static class UiPalette
@@ -26,49 +26,49 @@ namespace DreamsOutposts
 		}
 
 		// ---------- 页面与玻璃层 ----------
-		public static Color Bg0 { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x15191D) : Hex(0xE6E6E6); } }
-		public static Color Surface { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x15191D) : Hex(0xE6E6E6); } }
-		public static Color Card { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
-		public static Color Raised { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x20262C) : Rgba(0xEDF1EB, 0.52f); } }
-		public static Color Hover { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x252C33) : Rgba(0xE8EEE3, 0.94f); } }
-		public static Color Track { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x384047) : Hex(0xD8DED4); } }
+		public static Color Bg0 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xE6E6E6); } }
+		public static Color Surface { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xE6E6E6); } }
+		public static Color Card { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
+		public static Color Raised { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xEDF1EB, 0.52f); } }
+		public static Color Hover { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x252C33) : Rgba(0xE8EEE3, 0.94f); } }
+		public static Color Track { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x384047) : Hex(0xD8DED4); } }
 
 		/// <summary>背景图上用于压低对比度的轻白雾层。</summary>
-		public static Color BackgroundVeil { get { return DreamsOutpostsMod.UseVanillaUi ? Clear : Rgba(0xFFFFFF, 0.03f); } }
+		public static Color BackgroundVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xFFFFFF, 0.03f); } }
 		/// <summary>左栏的磨砂白层。</summary>
-		public static Color SidebarVeil { get { return DreamsOutpostsMod.UseVanillaUi ? Clear : Rgba(0xF7F9F5, 0.10f); } }
+		public static Color SidebarVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xF7F9F5, 0.10f); } }
 		/// <summary>正文区域的轻玻璃层。</summary>
-		public static Color ContentVeil { get { return DreamsOutpostsMod.UseVanillaUi ? Clear : Rgba(0xFFFFFF, 0.04f); } }
+		public static Color ContentVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xFFFFFF, 0.04f); } }
 		/// <summary>普通科研信息板。</summary>
-		public static Color PanelGlass { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
+		public static Color PanelGlass { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
 		/// <summary>需要更稳定可读性的科研信息板。</summary>
-		public static Color PanelGlassStrong { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x20262C) : Rgba(0xFFFFFF, 0.54f); } }
+		public static Color PanelGlassStrong { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xFFFFFF, 0.54f); } }
 
 		// ---------- 边框 ----------
-		public static Color Line { get { return DreamsOutpostsMod.UseVanillaUi ? Rgba(0xFFFFFF, 0.20f) : Hex(0xCDD3C9); } }
-		public static Color LineStrong { get { return DreamsOutpostsMod.UseVanillaUi ? Rgba(0xFFFFFF, 0.38f) : Hex(0x929B90); } }
+		public static Color Line { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Rgba(0xFFFFFF, 0.20f) : Hex(0xCDD3C9); } }
+		public static Color LineStrong { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Rgba(0xFFFFFF, 0.38f) : Hex(0x929B90); } }
 
 		// ---------- 文字 ----------
-		public static Color Ink { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : Hex(0x1A1E1A); } }
-		public static Color Ink2 { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : Hex(0x5E675D); } }
-		public static Color Ink3 { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : Hex(0x90988F); } }
+		public static Color Ink { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x1A1E1A); } }
+		public static Color Ink2 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x5E675D); } }
+		public static Color Ink3 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x90988F); } }
 
 		// ---------- 品牌色 ----------
-		private static readonly Color IndustrialBrand = Hex(0xA8CF38);
-		private static readonly Color IndustrialBrandHover = Hex(0x95BA2B);
-		private static readonly Color IndustrialBrandText = Hex(0x607D08);
-		private static readonly Color IndustrialBrandTint = Rgba(0xEDF6D2, 0.94f);
-		private static readonly Color IndustrialBrandLine = Hex(0xA1C936);
-		private static readonly Color IndustrialAccent = Hex(0xB3D94A);
-		private static readonly Color IndustrialOnAccent = Hex(0x11150F);
+		private static readonly Color ModernTechBrand = Hex(0xA8CF38);
+		private static readonly Color ModernTechBrandHover = Hex(0x95BA2B);
+		private static readonly Color ModernTechBrandText = Hex(0x607D08);
+		private static readonly Color ModernTechBrandTint = Rgba(0xEDF6D2, 0.94f);
+		private static readonly Color ModernTechBrandLine = Hex(0xA1C936);
+		private static readonly Color ModernTechAccent = Hex(0xB3D94A);
+		private static readonly Color ModernTechOnAccent = Hex(0x11150F);
 
-		public static Color Brand { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : IndustrialBrand; } }
-		public static Color BrandHover { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0xD8D8D8) : IndustrialBrandHover; } }
-		public static Color BrandText { get { return DreamsOutpostsMod.UseVanillaUi ? Ink : IndustrialBrandText; } }
-		public static Color BrandTint { get { return DreamsOutpostsMod.UseVanillaUi ? new Color(1f, 1f, 1f, 0.18f) : IndustrialBrandTint; } }
-		public static Color BrandLine { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : IndustrialBrandLine; } }
-		public static Color Accent { get { return DreamsOutpostsMod.UseVanillaUi ? Color.white : IndustrialAccent; } }
-		public static Color OnAccent { get { return DreamsOutpostsMod.UseVanillaUi ? Hex(0x2B2C32) : IndustrialOnAccent; } }
+		public static Color Brand { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : ModernTechBrand; } }
+		public static Color BrandHover { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0xD8D8D8) : ModernTechBrandHover; } }
+		public static Color BrandText { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Ink : ModernTechBrandText; } }
+		public static Color BrandTint { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? new Color(1f, 1f, 1f, 0.18f) : ModernTechBrandTint; } }
+		public static Color BrandLine { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : ModernTechBrandLine; } }
+		public static Color Accent { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : ModernTechAccent; } }
+		public static Color OnAccent { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x2B2C32) : ModernTechOnAccent; } }
 
 		// ---------- 导航专用 ----------
 		public static readonly Color NavIdle = Rgba(0xFFFFFF, 0.34f);

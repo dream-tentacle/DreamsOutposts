@@ -26,6 +26,15 @@ namespace DreamsOutposts
 		/// <summary>上一帧的时间锚点：同一帧多次调用时 delta 为 0，动画不会加速。</summary>
 		private float navAnimTime;
 
+		/// <summary>现代科技风侧栏绿色游标的当前中心 Y。</summary>
+		private float navIndicatorY;
+
+		/// <summary>SmoothDamp 使用的速度状态。</summary>
+		private float navIndicatorVelocity;
+
+		/// <summary>首次绘制时直接落在当前页，之后切页才进行滑行动画。</summary>
+		private bool navIndicatorInitialized;
+
 		/// <summary>正文淡入的起始时刻；负无穷表示已淡入完成。</summary>
 		private float contentFadeStart = float.NegativeInfinity;
 
@@ -206,7 +215,7 @@ namespace DreamsOutposts
 		private static void DrawWindowBackground(Rect rect)
 		{
 			// 原版风格：固定使用 #15191D，不读取也不绘制现代风背景图。
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				UiDraw.Solid(rect, UiPalette.Surface);
 				return;
@@ -242,42 +251,192 @@ namespace DreamsOutposts
 		{
 			UiDebug.Scope("window.sidebar", rect);
 			UiDraw.Solid(rect, UiPalette.SidebarVeil);
-			UiDraw.Divider(new Rect(rect.xMax - 1f, rect.y, 1f, rect.height), UiPalette.Line);
+			UiDraw.Divider(
+				new Rect(rect.xMax - 1f, rect.y, 1f, rect.height),
+				UiPalette.Line);
+
 			EnsureNavProgress();
-			// 按真实时间推进动画，与暂停无关
+
+			// 按真实时间推进动画，与游戏暂停无关。
 			float now = Time.realtimeSinceStartup;
 			float delta = Mathf.Max(now - navAnimTime, 0f);
 			navAnimTime = now;
-			float step = (UiMetrics.NavTileAnimSeconds > 0f) ? delta / UiMetrics.NavTileAnimSeconds : 1f;
+
+			float step = (UiMetrics.NavTileAnimSeconds > 0f)
+				? delta / UiMetrics.NavTileAnimSeconds
+				: 1f;
+
 			float minScale = 1f - UiMetrics.NavInactiveShrink;
-			// 左栏按 SidebarWidth 隐性占位，页签只占其中一部分
+
 			float x = rect.x + UiMetrics.SidebarPaddingLeft;
-			float width = rect.width - UiMetrics.SidebarPaddingLeft - UiMetrics.SidebarPaddingH;
+			float width =
+				rect.width -
+				UiMetrics.SidebarPaddingLeft -
+				UiMetrics.SidebarPaddingH;
+
 			float y = rect.y + UiMetrics.SidebarPaddingV;
+			float firstItemY = y;
 			float itemHeight = UiWidgets.NavItemHeight();
-			for (int i = 0; i < pages.Count; i++)
+
+			bool modernTech =
+				DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+
+			if (!modernTech)
+			{
+				navIndicatorInitialized = false;
+				navIndicatorVelocity = 0f;
+			}
+
+for (int i = 0; i < pages.Count; i++)
 			{
 				OutpostManagePage page = pages[i];
-				UiIcon icon = UiIconMap.ForPage(page.def, page.GetType());
-				string summary = UiPageSummary.For(page, outpost);
-				int badge = UiPageSummary.BadgeFor(page, outpost);
-				Rect itemRect = new Rect(x, y, width, itemHeight);
-				UiDebug.Scope("sidebar.item[" + i + "]", itemRect);
-				// 进度连续逼近目标，连点切换不会跳变
-				navProgress[i] = Mathf.MoveTowards(navProgress[i], (i == selectedIndex) ? 1f : 0f, step);
-				float eased = navProgress[i] * navProgress[i] * (3f - 2f * navProgress[i]);
-				float scale = Mathf.Lerp(minScale, 1f, eased);
-				if (UiWidgets.NavItem(itemRect, icon, page.Label, summary, i == selectedIndex, badge, page.Tooltip, scale))
+				UiIcon icon =
+					UiIconMap.ForPage(
+						page.def,
+						page.GetType());
+
+				string summary =
+					UiPageSummary.For(page, outpost);
+
+				int badge =
+					UiPageSummary.BadgeFor(page, outpost);
+
+				Rect itemRect = new Rect(
+					x,
+					y,
+					width,
+					itemHeight);
+
+				UiDebug.Scope(
+					"sidebar.item[" + i + "]",
+					itemRect);
+
+				// 同一个 progress 同时驱动：
+				// 1) 页签原有缩放；
+				// 2) 黑色选中底从左向右推出 / 从右向左收回。
+				navProgress[i] = Mathf.MoveTowards(
+					navProgress[i],
+					(i == selectedIndex) ? 1f : 0f,
+					step);
+
+				float eased =
+					navProgress[i] *
+					navProgress[i] *
+					(3f - 2f * navProgress[i]);
+
+				float scale =
+					Mathf.Lerp(
+						minScale,
+						1f,
+						eased);
+
+				if (UiWidgets.NavItem(
+					itemRect,
+					icon,
+					page.Label,
+					summary,
+					i == selectedIndex,
+					badge,
+					page.Tooltip,
+					scale,
+					eased))
 				{
 					SelectPage(i);
 				}
+
 				y += itemHeight + UiMetrics.SidebarGap;
 			}
-			// 侧栏上滚滚轮切页
-			if (Event.current.type == EventType.ScrollWheel && Mouse.IsOver(rect) && pages.Count > 1)
+
+			// 轨道游标最后绘制，始终压在线条和页签之上。
+			if (modernTech &&
+				pages.Count > 0 &&
+				selectedIndex >= 0 &&
+				selectedIndex < pages.Count)
 			{
-				int direction = (Event.current.delta.y > 0f) ? 1 : -1;
-				SelectPage(Mathf.Clamp(selectedIndex + direction, 0, pages.Count - 1));
+				float targetY =
+					firstItemY +
+					selectedIndex *
+						(itemHeight + UiMetrics.SidebarGap) +
+					itemHeight * 0.5f;
+
+				if (!navIndicatorInitialized)
+				{
+					navIndicatorY = targetY;
+					navIndicatorVelocity = 0f;
+					navIndicatorInitialized = true;
+				}
+				else if (delta > 0f)
+				{
+					navIndicatorY = Mathf.SmoothDamp(
+						navIndicatorY,
+						targetY,
+						ref navIndicatorVelocity,
+						UiMetrics.ModernTechNavIndicatorSmoothTime,
+						Mathf.Infinity,
+						delta);
+
+					if (Mathf.Abs(navIndicatorY - targetY) < 0.01f &&
+						Mathf.Abs(navIndicatorVelocity) < 0.01f)
+					{
+						navIndicatorY = targetY;
+						navIndicatorVelocity = 0f;
+					}
+				}
+
+				float indicatorHeight =
+					UiMetrics.ModernTechNavIndicatorHeight;
+
+				Texture2D selectorTexture =
+					ContentFinder<Texture2D>.Get(
+						"DreamsOutposts/Ui/Selector",
+						false);
+
+				Rect indicatorRect = new Rect(
+					rect.x,
+					navIndicatorY - indicatorHeight * 0.5f,
+					UiMetrics.ModernTechNavIndicatorWidth,
+					UiMetrics.ModernTechNavIndicatorHeight);
+
+				if (selectorTexture != null)
+				{
+					Color previous = GUI.color;
+					Color tint = UiPalette.Brand;
+
+					GUI.color = new Color(
+						previous.r * tint.r,
+						previous.g * tint.g,
+						previous.b * tint.b,
+						previous.a * tint.a);
+
+					GUI.DrawTexture(
+						indicatorRect,
+						selectorTexture,
+						ScaleMode.ScaleToFit,
+						true);
+
+					GUI.color = previous;
+				}
+
+UiDebug.Scope(
+					"sidebar.moderntech.indicator",
+					indicatorRect);
+			}
+
+			if (Event.current.type == EventType.ScrollWheel &&
+				Mouse.IsOver(rect) &&
+				pages.Count > 1)
+			{
+				int direction =
+					(Event.current.delta.y > 0f)
+						? 1
+						: -1;
+
+				SelectPage(
+					Mathf.Clamp(
+						selectedIndex + direction,
+						0,
+						pages.Count - 1));
+
 				Event.current.Use();
 			}
 		}

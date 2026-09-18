@@ -242,7 +242,7 @@ namespace DreamsOutposts
 			return negativeButtonTexture;
 		}
 
-		/// <summary>据点管理窗口的莱茵风背景。</summary>
+		/// <summary>据点管理窗口的现代科技风背景。</summary>
 		public static Texture2D BackgroundTexture()
 		{
 			if (backgroundTexture == null)

@@ -82,6 +82,23 @@ namespace DreamsOutposts
 
 		private float Layout(Rect rect, bool draw)
 		{
+			switch (DreamsOutpostsMod.UiStyle)
+			{
+			case OutpostUiStyle.Vanilla:
+				return LayoutVanilla(rect, draw);
+
+			case OutpostUiStyle.ModernTech:
+			default:
+				return LayoutModernTech(rect, draw);
+			}
+		}
+
+		/// <summary>
+		/// 原版风设施页。
+		/// 这部分故意保留改造前的布局、间距和卡片测量，现代科技风不得复用这里的几何常量。
+		/// </summary>
+		private float LayoutVanilla(Rect rect, bool draw)
+		{
 			OutpostUiCache cache = Cache;
 			if (draw)
 			{
@@ -185,6 +202,505 @@ namespace DreamsOutposts
 		}
 
 		// ---------------------------------------------------------------
+		// 现代科技风设施页
+		// ---------------------------------------------------------------
+
+		private float LayoutModernTech(Rect rect, bool draw)
+		{
+			OutpostUiCache cache = Cache;
+			if (draw)
+			{
+				ObserveLevelChange();
+				ObserveBuiltFacility(cache);
+			}
+
+			float width = rect.width;
+			if (width < 80f)
+			{
+				return 1f;
+			}
+
+			float y = rect.y;
+
+			float levelHeight = MeasureModernTechLevelArea(width, cache);
+			if (draw)
+			{
+				DrawModernTechLevelArea(new Rect(rect.x, y, width, levelHeight), cache);
+			}
+			y += levelHeight + UiMetrics.ModernTechSectionSpacing;
+
+			y += ModernTechSectionHead(
+				rect.x,
+				y,
+				width,
+				"DreamsOutposts.CoreFacility".Translate(),
+				null,
+				draw);
+
+			UiFacilityView core = cache.Core;
+			if (core != null)
+			{
+				float cardHeight = MeasureModernTechFacilityCard(core, width);
+				if (draw)
+				{
+					DrawModernTechFacilityCard(new Rect(rect.x, y, width, cardHeight), core);
+				}
+				y += cardHeight;
+			}
+			else
+			{
+				if (draw)
+				{
+					DrawEmptyHintRow(
+						new Rect(rect.x, y, width, 0f),
+						"DreamsOutposts.FacilityNoDef".Translate());
+				}
+				y += EmptyHintRowHeight();
+			}
+
+			y += UiMetrics.ModernTechSectionSpacing;
+			y += ModernTechSectionHead(
+				rect.x,
+				y,
+				width,
+				"DreamsOutposts.ExtensionFacilities".Translate(cache.UsedSlots, cache.SlotCount),
+				"DreamsOutposts.Ui.ExtensionHint".Translate(),
+				draw);
+
+			if (cache.SlotCount == 0)
+			{
+				if (draw)
+				{
+					DrawEmptyHintRow(
+						new Rect(rect.x, y, width, 0f),
+						"DreamsOutposts.NoExtensionSlots".Translate());
+				}
+				y += EmptyHintRowHeight();
+			}
+			else
+			{
+				int columns = UiMetrics.GridColumns(
+					width,
+					UiMetrics.SlotGridMinCell,
+					UiMetrics.ModernTechSlotGridGap);
+
+				float cellWidth = UiMetrics.GridCellWidth(
+					width,
+					columns,
+					UiMetrics.ModernTechSlotGridGap);
+
+				int rowCount = Mathf.CeilToInt((float)cache.Slots.Count / columns);
+
+				for (int row = 0; row < rowCount; row++)
+				{
+					float rowHeight = 0f;
+
+					for (int column = 0; column < columns; column++)
+					{
+						int index = row * columns + column;
+						if (index >= cache.Slots.Count)
+						{
+							break;
+						}
+
+						UiFacilityView view = cache.Slots[index];
+						float height = (view != null)
+							? MeasureModernTechFacilityCard(view, cellWidth)
+							: UiMetrics.ModernTechEmptyCardMinHeight;
+
+						rowHeight = Mathf.Max(rowHeight, height);
+					}
+
+					if (draw)
+					{
+						for (int column = 0; column < columns; column++)
+						{
+							int index = row * columns + column;
+							if (index >= cache.Slots.Count)
+							{
+								break;
+							}
+
+							Rect cellRect = new Rect(
+								rect.x + (cellWidth + UiMetrics.ModernTechSlotGridGap) * column,
+								y,
+								cellWidth,
+								rowHeight);
+
+							UiFacilityView view = cache.Slots[index];
+							if (view != null)
+							{
+								DrawModernTechFacilityCard(cellRect, view);
+
+								if (index == builtFlashSlotIndex)
+								{
+									DrawUpgradeFlash(cellRect, builtFlashStartedAt);
+								}
+							}
+							else
+							{
+								DrawModernTechEmptySlotCard(cellRect, index);
+							}
+						}
+					}
+
+					y += rowHeight + UiMetrics.ModernTechSlotGridGap;
+				}
+
+				y -= UiMetrics.ModernTechSlotGridGap;
+			}
+
+			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private static float ModernTechSectionHead(
+			float x,
+			float y,
+			float width,
+			string title,
+			string hint,
+			bool draw)
+		{
+			float titleHeight = UiText.LineHeight(UiFont.Heading);
+			float hintHeight = UiText.LineHeight(UiFont.Body);
+			float lineHeight = Mathf.Max(titleHeight, hintHeight);
+
+			if (draw)
+			{
+				UiText.Draw(
+					new Rect(x, y, width * 0.60f, titleHeight),
+					title,
+					UiFont.Heading,
+					UiPalette.Ink,
+					TextAnchor.UpperLeft,
+					true,
+					false,
+					true);
+
+				if (!string.IsNullOrEmpty(hint))
+				{
+					float hintWidth = Mathf.Max(
+						width * 0.40f - UiMetrics.SectionHeadGap,
+						40f);
+
+					UiText.Draw(
+						new Rect(x + width - hintWidth, y, hintWidth, lineHeight),
+						hint,
+						UiFont.Body,
+						UiPalette.Ink2,
+						TextAnchor.UpperRight,
+						false,
+						false,
+						true);
+				}
+
+				float ruleY = y + titleHeight + 5f;
+				float brandWidth = Mathf.Min(44f, width);
+				UiDraw.Solid(
+					new Rect(x, ruleY, brandWidth, 2f),
+					UiPalette.Brand);
+
+				if (width > brandWidth + 1f)
+				{
+					UiDraw.Solid(
+						new Rect(
+							x + brandWidth,
+							ruleY,
+							width - brandWidth,
+							1f),
+						UiPalette.WithAlpha(UiPalette.Line, 0.80f));
+				}
+			}
+
+			return titleHeight + UiMetrics.ModernTechSectionHeadMarginBottom;
+		}
+
+		private static bool ModernTechLevelStacked(float width)
+		{
+			return width < UiMetrics.ModernTechLevelStackBreakpoint;
+		}
+
+		private static float MeasureModernTechLevelArea(float width, OutpostUiCache cache)
+		{
+			const float factsGap = 18f;
+			const float indexGap = 10f;
+
+			float factsHeight =
+				UiText.LineHeight(UiFont.Body) * 2f + 10f;
+
+			float indexHeight =
+				UiText.LineHeight(UiFont.Body);
+
+			bool stacked =
+				ModernTechLevelStacked(width);
+
+			if (stacked)
+			{
+				float leftHeight =
+					MeasureModernTechLevelLeft(width, cache);
+
+				float rightHeight =
+					MeasureLevelRight(
+						width -
+							UiMetrics.ModernTechLevelPanelPadding * 2f,
+						cache) +
+					UiMetrics.ModernTechLevelPanelPadding * 2f;
+
+				return leftHeight +
+					UiMetrics.ModernTechLevelGap +
+					rightHeight +
+					factsGap +
+					factsHeight +
+					indexGap +
+					indexHeight;
+			}
+
+			float rightWidth = Mathf.Clamp(
+				width * UiMetrics.ModernTechLevelRightRatio,
+				UiMetrics.ModernTechLevelRightMinWidth,
+				UiMetrics.ModernTechLevelRightMaxWidth);
+
+			float leftWidth = Mathf.Max(
+				width - rightWidth - UiMetrics.ModernTechLevelGap,
+				120f);
+
+			float left =
+				MeasureModernTechLevelLeft(leftWidth, cache);
+
+			float right =
+				MeasureLevelRight(
+					Mathf.Max(
+						rightWidth -
+							UiMetrics.ModernTechLevelPanelPadding * 2f,
+						60f),
+					cache) +
+				UiMetrics.ModernTechLevelPanelPadding * 2f;
+
+			float firstRowHeight =
+				Mathf.Max(left, right);
+
+			return firstRowHeight +
+				factsGap +
+				factsHeight +
+				indexGap +
+				indexHeight;
+		}
+
+		private void DrawModernTechLevelArea(Rect rect, OutpostUiCache cache)
+		{
+			const float factsGap = 18f;
+			const float indexGap = 10f;
+
+			float factsHeight =
+				UiText.LineHeight(UiFont.Body) * 2f + 10f;
+
+			float indexHeight =
+				UiText.LineHeight(UiFont.Body);
+
+			bool stacked =
+				ModernTechLevelStacked(rect.width);
+
+			if (stacked)
+			{
+				float stackedLeftHeight =
+					MeasureModernTechLevelLeft(
+						rect.width,
+						cache);
+
+				DrawModernTechLevelLeft(
+					new Rect(
+						rect.x,
+						rect.y,
+						rect.width,
+						stackedLeftHeight),
+					cache,
+					outpost.level);
+
+				float panelY =
+					rect.y +
+					stackedLeftHeight +
+					UiMetrics.ModernTechLevelGap;
+
+				float panelHeight =
+					MeasureLevelRight(
+						Mathf.Max(
+							rect.width -
+								UiMetrics.ModernTechLevelPanelPadding * 2f,
+							60f),
+						cache) +
+					UiMetrics.ModernTechLevelPanelPadding * 2f;
+
+				DrawModernTechUpgradePanel(
+					new Rect(
+						rect.x,
+						panelY,
+						rect.width,
+						panelHeight),
+					cache);
+
+				float stackedFactsY =
+					panelY +
+					panelHeight +
+					factsGap;
+
+				DrawModernTechLevelFacts(
+					new Rect(
+						rect.x,
+						stackedFactsY,
+						rect.width,
+						factsHeight),
+					cache);
+
+				float stackedIndexY =
+					stackedFactsY +
+					factsHeight +
+					indexGap;
+
+				DrawModernTechOutpostIndex(
+					new Rect(
+						rect.x,
+						stackedIndexY,
+						rect.width,
+						indexHeight));
+
+				return;
+			}
+
+			float rightWidth = Mathf.Clamp(
+				rect.width * UiMetrics.ModernTechLevelRightRatio,
+				UiMetrics.ModernTechLevelRightMinWidth,
+				UiMetrics.ModernTechLevelRightMaxWidth);
+
+			float leftWidth = Mathf.Max(
+				rect.width - rightWidth - UiMetrics.ModernTechLevelGap,
+				120f);
+
+			float leftHeight =
+				MeasureModernTechLevelLeft(
+					leftWidth,
+					cache);
+
+			float rightHeight =
+				MeasureLevelRight(
+					Mathf.Max(
+						rightWidth -
+							UiMetrics.ModernTechLevelPanelPadding * 2f,
+						60f),
+					cache) +
+				UiMetrics.ModernTechLevelPanelPadding * 2f;
+
+			float firstRowHeight =
+				Mathf.Max(
+					leftHeight,
+					rightHeight);
+
+			Rect leftRect = new Rect(
+				rect.x,
+				rect.y,
+				leftWidth,
+				firstRowHeight);
+
+			Rect rightRect = new Rect(
+				rect.xMax - rightWidth,
+				rect.y,
+				rightWidth,
+				rightHeight);
+
+			// 第一视觉层：等级和升级操作并列。
+			DrawModernTechLevelLeft(
+				leftRect,
+				cache,
+				outpost.level);
+
+			UiDraw.Solid(
+				new Rect(
+					rightRect.x -
+						UiMetrics.ModernTechLevelGap * 0.5f,
+					rect.y + 4f,
+					1f,
+					Mathf.Max(firstRowHeight - 8f, 1f)),
+				UiPalette.WithAlpha(
+					UiPalette.LineStrong,
+					0.42f));
+
+			DrawModernTechUpgradePanel(
+				rightRect,
+				cache);
+
+			// 第二视觉层：四项状态横跨整行，并主动弱化。
+			float factsY =
+				rect.y +
+				firstRowHeight +
+				factsGap;
+
+			DrawModernTechLevelFacts(
+				new Rect(
+					rect.x,
+					factsY,
+					rect.width,
+					factsHeight),
+				cache);
+
+			// 第三视觉层：据点编号收尾。
+			float indexY =
+				factsY +
+					factsHeight +
+					indexGap;
+
+			DrawModernTechOutpostIndex(
+				new Rect(
+					rect.x,
+					indexY,
+					rect.width,
+					indexHeight));
+		}
+
+		private void DrawModernTechUpgradePanel(Rect rect, OutpostUiCache cache)
+		{
+			UiDraw.Box(
+				rect,
+				(int)UiMetrics.RadiusSm,
+				UiPalette.PanelGlassStrong,
+				UiPalette.Line);
+
+			UiDraw.Solid(
+				new Rect(
+					rect.x,
+					rect.y,
+					Mathf.Min(72f, rect.width),
+					3f),
+				UiPalette.Brand);
+
+			Rect inner = rect.ContractedBy(UiMetrics.ModernTechLevelPanelPadding);
+			DrawLevelRight(
+				new Rect(inner.x, inner.y, inner.width, 0f),
+				cache);
+
+			DrawUpgradeFlash(rect, upgradeFlashStartedAt);
+		}
+
+		private void DrawModernTechOutpostIndex(Rect rect)
+		{
+			string tileId = Mathf.Max(outpost.Tile.tileId, 0).ToString("D4");
+			string text = "DreamsOutposts.Ui.OutpostIndex".Translate(tileId).ToString();
+
+			// 与事实行的标签同级：同一档字号、同一浅灰、不加粗，避免这行收尾文字比状态标签更重。
+			UiText.Draw(
+				new Rect(
+					rect.x,
+					rect.y,
+					Mathf.Max(rect.width, 40f),
+					rect.height),
+				text,
+				UiFont.Body,
+				UiPalette.Ink3,
+				TextAnchor.MiddleLeft,
+				false,
+				false,
+				true);
+		}
+
+		// ---------------------------------------------------------------
 		// 区块标题
 		// ---------------------------------------------------------------
 
@@ -273,7 +789,9 @@ namespace DreamsOutposts
 			float rowHeight = Mathf.Max(Mathf.Max(UiMetrics.ReqTickSize, UiMetrics.MatIconSize), UiText.LineHeight(UiFont.Body));
 			height += cache.Upgrade.Checks.Count * (rowHeight + UiMetrics.ReqListGap);
 			height += UiMetrics.ReqListMarginBottom;
-			height += UiMetrics.UpgradeButtonHeight * 1.5f;
+			height += DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla)
+				? UiWidgets.ButtonHeight(UiButtonSize.Normal)
+				: UiMetrics.UpgradeButtonHeight * 1.5f;
 			return height;
 		}
 
@@ -397,6 +915,356 @@ namespace DreamsOutposts
 			GUI.color = previous;
 		}
 
+		private static float MeasureModernTechLevelLeft(float width, OutpostUiCache cache)
+		{
+			float labelHeight = UiText.LineHeight(UiFont.Body);
+
+			return labelHeight
+				+ 4f
+				+ UiMetrics.ModernTechLevelCurrentDigitHeight
+				+ UiMetrics.LevelDigitRowGap
+				+ UiMetrics.ModernTechPipHeight;
+		}
+
+		private void DrawModernTechLevelLeft(Rect rect, OutpostUiCache cache, int level)
+		{
+			float y = rect.y;
+
+			// “等级 / Level”仍从现有本地化模板中提取。
+			const string currentMarker = "__DO_LEVEL__";
+			const string maxMarker = "__DO_MAX__";
+			string levelTemplate =
+				"DreamsOutposts.Level".Translate(currentMarker, maxMarker).ToString();
+
+			int currentMarkerIndex =
+				levelTemplate.IndexOf(
+					currentMarker,
+					System.StringComparison.Ordinal);
+
+			string levelLabel = currentMarkerIndex >= 0
+				? levelTemplate.Substring(0, currentMarkerIndex).Trim()
+				: string.Empty;
+
+			float labelHeight = UiText.LineHeight(UiFont.Body);
+
+			if (!string.IsNullOrEmpty(levelLabel))
+			{
+				UiText.Draw(
+					new Rect(rect.x, y, rect.width, labelHeight),
+					levelLabel,
+					UiFont.Body,
+					UiPalette.Ink,
+					TextAnchor.UpperLeft,
+					false,
+					false,
+					true);
+			}
+
+			y += labelHeight + 4f;
+
+			Texture2D currentDigit = UiTex.LevelDigitTexture(level);
+			Texture2D maxDigit = UiTex.LevelDigitTexture(cache.MaxLevel);
+
+			float currentHeight =
+				UiMetrics.ModernTechLevelCurrentDigitHeight;
+
+			float currentWidth =
+				DigitWidth(currentDigit, currentHeight, 68f);
+
+			float maxHeight =
+				UiMetrics.ModernTechLevelMaxDigitHeight;
+
+			float maxWidth =
+				DigitWidth(maxDigit, maxHeight, 38f);
+
+			Rect currentRect = new Rect(
+				rect.x,
+				y,
+				currentWidth,
+				currentHeight);
+
+			DrawLevelDigit(
+				currentRect,
+				currentDigit,
+				level.ToString(),
+				Color.white,
+				1f);
+
+			float slashWidth = 28f;
+			float slashX =
+				currentRect.xMax +
+				UiMetrics.ModernTechLevelDigitGap;
+
+			Rect slashRect = new Rect(
+				slashX,
+				y + currentHeight - maxHeight - 4f,
+				slashWidth,
+				maxHeight);
+
+			UiText.Draw(
+				slashRect,
+				"/",
+				UiFont.Heading,
+				UiPalette.Ink,
+				TextAnchor.MiddleCenter,
+				false,
+				false,
+				false);
+
+			float maxX =
+				slashRect.xMax +
+				UiMetrics.ModernTechLevelDigitGap;
+
+			Rect maxRect = new Rect(
+				maxX,
+				y + currentHeight - maxHeight,
+				maxWidth,
+				maxHeight);
+
+			DrawLevelDigit(
+				maxRect,
+				maxDigit,
+				cache.MaxLevel.ToString(),
+				Color.white,
+				0.72f);
+
+			y +=
+				currentHeight +
+				UiMetrics.LevelDigitRowGap;
+
+			// 第一层只保留等级进度条，不再把四项状态塞在这里。
+			int pipCount = cache.Pips.Count;
+			float totalGap =
+				Mathf.Max(pipCount - 1, 0) *
+				UiMetrics.ModernTechPipGap;
+
+			float pipWidth = pipCount > 0
+				? Mathf.Max(
+					(rect.width - totalGap) / pipCount,
+					20f)
+				: rect.width;
+
+			float x = rect.x;
+
+			for (int i = 0; i < pipCount; i++)
+			{
+				UiLevelPip pip = cache.Pips[i];
+
+				Color fill;
+				if (pip.State == UiPipState.Done)
+				{
+					fill = UiPalette.BrandLine;
+				}
+				else if (pip.State == UiPipState.Current)
+				{
+					fill = UiPalette.Brand;
+				}
+				else
+				{
+					fill = UiPalette.WithAlpha(
+						UiPalette.Ink3,
+						0.58f);
+				}
+
+				Rect pipRect = new Rect(
+					x,
+					y,
+					pipWidth,
+					UiMetrics.ModernTechPipHeight);
+
+				UiDraw.Solid(pipRect, fill);
+
+				Color outline = pip.State == UiPipState.Current
+					? UiPalette.Brand
+					: UiPalette.WithAlpha(UiPalette.Ink, 0.32f);
+
+				UiDraw.Solid(
+					new Rect(
+						pipRect.x,
+						pipRect.y,
+						pipRect.width,
+						1f),
+					outline);
+
+				UiDraw.Solid(
+					new Rect(
+						pipRect.x,
+						pipRect.yMax - 1f,
+						pipRect.width,
+						1f),
+					outline);
+
+				UiDraw.Solid(
+					new Rect(
+						pipRect.x,
+						pipRect.y,
+						1f,
+						pipRect.height),
+					outline);
+
+				UiDraw.Solid(
+					new Rect(
+						pipRect.xMax - 1f,
+						pipRect.y,
+						1f,
+						pipRect.height),
+					outline);
+
+				UiWidgets.Tip(
+					new Rect(
+						pipRect.x,
+						pipRect.y - 4f,
+						pipRect.width,
+						pipRect.height + 8f),
+					pip.Tooltip,
+					GenText.StableStringHash(
+						"moderntech-pip-" + pip.Level));
+
+				x +=
+					pipWidth +
+					UiMetrics.ModernTechPipGap;
+			}
+		}
+
+		private void DrawModernTechLevelFacts(
+			Rect rect,
+			OutpostUiCache cache)
+		{
+			string slotsLabel, slotsValue;
+			BuildFact(
+				"DreamsOutposts.Ui.Chip.CurrentSlots"
+					.Translate(FactMarker)
+					.ToString(),
+				outpost.SlotCountForLevel.ToString(),
+				out slotsLabel,
+				out slotsValue);
+
+			string coreLabel, coreValue;
+			BuildFact(
+				"DreamsOutposts.Ui.Chip.CoreFacility"
+					.Translate(FactMarker)
+					.ToString(),
+				cache.Core?.Label ??
+					"DreamsOutposts.None".Translate().ToString(),
+				out coreLabel,
+				out coreValue);
+
+			string daysLabel, daysValue;
+			BuildFact(
+				"DreamsOutposts.Ui.DaysSinceEstablished"
+					.Translate(FactMarker)
+					.ToString(),
+				outpost.DaysSinceEstablished.ToString("0.#"),
+				out daysLabel,
+				out daysValue);
+
+			string defenseLabel, defenseValue;
+			BuildFact(
+				"DreamsOutposts.Ui.Chip.DefenseValue"
+					.Translate(FactMarker)
+					.ToString(),
+				outpost.Defense.ToString("0.#"),
+				out defenseLabel,
+				out defenseValue);
+
+			DrawModernTechLevelFactRow(
+				rect,
+				slotsLabel,
+				slotsValue,
+				coreLabel,
+				coreValue,
+				daysLabel,
+				daysValue,
+				defenseLabel,
+				defenseValue);
+		}
+
+		private static void DrawModernTechLevelFactRow(
+			Rect rect,
+			string label0,
+			string value0,
+			string label1,
+			string value1,
+			string label2,
+			string value2,
+			string label3,
+			string value3)
+		{
+			string[] labels =
+				{ label0, label1, label2, label3 };
+
+			string[] values =
+				{ value0, value1, value2, value3 };
+
+			float gap = UiMetrics.LevelFactColumnGap;
+			float columnWidth = Mathf.Max(
+				(rect.width - gap * 3f) / 4f,
+				70f);
+
+			float labelHeight =
+				UiText.LineHeight(UiFont.Body);
+
+			float valueHeight =
+				UiText.LineHeight(UiFont.Body);
+
+			for (int i = 0; i < 4; i++)
+			{
+				Rect column = new Rect(
+					rect.x + i * (columnWidth + gap),
+					rect.y,
+					columnWidth,
+					rect.height);
+
+				// 第二层信息只留非常轻的品牌色标记。
+				UiDraw.Solid(
+					new Rect(
+						column.x,
+						column.y + 4f,
+						2f,
+						Mathf.Max(column.height - 8f, 1f)),
+					UiPalette.WithAlpha(
+						UiPalette.Brand,
+						0.38f));
+
+				float textX =
+					column.x +
+					UiMetrics.ModernTechLevelFactPaddingLeft;
+
+				float textWidth =
+					Mathf.Max(
+						column.xMax - textX,
+						20f);
+
+				UiText.Draw(
+					new Rect(
+						textX,
+						column.y,
+						textWidth,
+						labelHeight),
+					labels[i],
+					UiFont.Body,
+					UiPalette.Ink3,
+					TextAnchor.UpperLeft,
+					false,
+					false,
+					true);
+
+				UiText.Draw(
+					new Rect(
+						textX,
+						column.y + labelHeight + 3f,
+						textWidth,
+						valueHeight),
+					values[i],
+					UiFont.Body,
+					UiPalette.Ink2,
+					TextAnchor.UpperLeft,
+					true,
+					false,
+					true);
+			}
+		}
+
 		private void DrawLevelLeft(Rect rect, OutpostUiCache cache, int level)
 		{
 			float y = rect.y;
@@ -422,26 +1290,63 @@ namespace DreamsOutposts
 			Texture2D currentDigit = UiTex.LevelDigitTexture(level);
 			Texture2D maxDigit = UiTex.LevelDigitTexture(cache.MaxLevel);
 
-			float currentHeight = UiMetrics.LevelCurrentDigitHeight;
-			float currentWidth = DigitWidth(currentDigit, currentHeight, 48f);
-			float maxHeight = UiMetrics.LevelMaxDigitHeight;
-			float maxWidth = DigitWidth(maxDigit, maxHeight, 28f);
-
-			float currentX = rect.x;
-			Rect currentRect = new Rect(currentX, y, currentWidth, currentHeight);
-			DrawLevelDigit(currentRect, currentDigit, level.ToString(), Color.white, 1f);
-
+			// 原版风：当前等级 / 最大等级使用完全相同的文字尺寸和垂直空间，
+			// 保证视觉上就是规整的 “1 / 4”，不再让当前等级因为 Rect 更高而上浮。
+			float digitHeight = UiMetrics.LevelCurrentDigitHeight;
+			float digitWidth = 48f;
 			float slashWidth = 24f;
-			float slashX = currentRect.xMax + UiMetrics.LevelDigitGap;
-			Rect slashRect = new Rect(slashX, y + currentHeight - maxHeight - 3f, slashWidth, maxHeight);
-			UiText.Draw(slashRect, "/", UiFont.Heading, UiPalette.Ink2,
-				TextAnchor.MiddleCenter, false, false, false);
 
-			float maxX = slashRect.xMax + UiMetrics.LevelDigitGap;
-			Rect maxRect = new Rect(maxX, y + currentHeight - maxHeight, maxWidth, maxHeight);
-			DrawLevelDigit(maxRect, maxDigit, cache.MaxLevel.ToString(), Color.white, 0.58f);
+			Rect currentRect = new Rect(
+				rect.x,
+				y,
+				digitWidth,
+				digitHeight);
 
-			y += currentHeight + UiMetrics.LevelDigitRowGap;
+			DrawLevelDigit(
+				currentRect,
+				currentDigit,
+				level.ToString(),
+				Color.white,
+				1f);
+
+			float slashX =
+				currentRect.xMax +
+				UiMetrics.LevelDigitGap;
+
+			Rect slashRect = new Rect(
+				slashX,
+				y,
+				slashWidth,
+				digitHeight);
+
+			UiText.Draw(
+				slashRect,
+				"/",
+				UiFont.Heading,
+				Color.white,
+				TextAnchor.MiddleCenter,
+				false,
+				false,
+				false);
+
+			float maxX =
+				slashRect.xMax +
+				UiMetrics.LevelDigitGap;
+
+			Rect maxRect = new Rect(
+				maxX,
+				y,
+				digitWidth,
+				digitHeight);
+
+			DrawLevelDigit(
+				maxRect,
+				maxDigit,
+				cache.MaxLevel.ToString(),
+				Color.white,
+				1f);
+
+			y += digitHeight + UiMetrics.LevelDigitRowGap;
 
 			// 等级进度线继续使用细分段。
 			int pipCount = cache.Pips.Count;
@@ -511,28 +1416,20 @@ namespace DreamsOutposts
 			// 不再继承外层 GUI.color 的 RGB 乘色，否则白色 PNG 会被压暗。
 			// 同时把次级数字（原 alpha=0.58）略微提亮到约 0.70；
 			// 当前等级 alpha=1 仍保持 1。
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
-				float vanillaAlpha = Mathf.Clamp01(alpha * 1.2f);
+				float vanillaAlpha = Mathf.Clamp01(alpha);
 
-				if (texture == null)
-				{
-					UiText.Draw(
-						rect,
-						fallback,
-						UiFont.Heading,
-						new Color(1f, 1f, 1f, vanillaAlpha),
-						TextAnchor.MiddleCenter,
-						true,
-						false,
-						true);
-					return;
-				}
+				UiText.Draw(
+					rect,
+					fallback,
+					UiFont.Heading,
+					new Color(1f, 1f, 1f, vanillaAlpha),
+					TextAnchor.MiddleCenter,
+					true,
+					false,
+					true);
 
-				Color previous = GUI.color;
-				GUI.color = new Color(1f, 1f, 1f, vanillaAlpha);
-				GUI.DrawTexture(rect, texture, ScaleMode.StretchToFill, true);
-				GUI.color = previous;
 				return;
 			}
 
@@ -603,7 +1500,7 @@ namespace DreamsOutposts
 				float separatorHeight = Mathf.Max(column.height - 4f, 1f);
 				float separatorPadding = UiMetrics.LevelFactPaddingLeft;
 
-				if (DreamsOutpostsMod.UseVanillaUi)
+				if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 				{
 					// 原版风格不读取 sidebar.png：只保留干净的白色竖线。
 					UiDraw.Solid(
@@ -726,6 +1623,51 @@ namespace DreamsOutposts
 				y += rowHeight + UiMetrics.ReqListGap;
 			}
 			y += UiMetrics.ReqListMarginBottom - UiMetrics.ReqListGap;
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				string upgradeLabel =
+					"DreamsOutposts.Ui.Upgrade.Button".Translate().ToString();
+
+				string vanillaTip = cache.Upgrade.CanUpgrade
+					? "DreamsOutposts.Ui.Upgrade.ConfirmTip".Translate().ToString()
+					: cache.Upgrade.Reason;
+
+				float vanillaButtonHeight =
+					UiWidgets.ButtonHeight(UiButtonSize.Normal);
+
+				float vanillaButtonWidth = Mathf.Min(
+					UiWidgets.ButtonWidth(
+						upgradeLabel,
+						UiButtonSize.Normal),
+					rect.width);
+
+				Rect vanillaButtonRect = new Rect(
+					rect.center.x - vanillaButtonWidth * 0.5f,
+					y,
+					vanillaButtonWidth,
+					vanillaButtonHeight);
+
+				if (UiWidgets.Button(
+					vanillaButtonRect,
+					upgradeLabel,
+					UiButtonKind.Primary,
+					cache.Upgrade.CanUpgrade,
+					cache.Upgrade.Reason,
+					UiButtonSize.Normal,
+					vanillaTip))
+				{
+					if (OutpostUpgradeUtility.TryUpgrade(outpost))
+					{
+						Window_OutpostManage shell = Shell;
+						if (shell != null)
+						{
+							shell.Cache.Invalidate();
+						}
+					}
+				}
+
+				return;
+			}
 			const float upgradeButtonScale = 1.5f;
 			float buttonHeight = UiMetrics.UpgradeButtonHeight * upgradeButtonScale;
 			Texture2D upgradeTexture = UiTex.UpgradeButtonTexture();
@@ -781,7 +1723,7 @@ namespace DreamsOutposts
 				rect.width * sourceLabelWidth / sourceWidth,
 				rect.height);
 
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				// 原版风保留 RimWorld 自己的 enabled / disabled 按钮状态。
 				// 这里只接管文字排版，不再使用现代风的 DisabledAlpha。
@@ -890,6 +1832,571 @@ namespace DreamsOutposts
 
 			return Widgets.ButtonInvisible(rect);
 		}
+		// ---------------------------------------------------------------
+		// 现代科技风设施卡
+		// ---------------------------------------------------------------
+
+		/// <summary>
+		/// 把文本压成真正的一行；超出指定宽度时在末尾添加省略号。
+		/// 现代科技风窄卡片不能依赖 GUI 自己裁切，否则文字会画出卡片边界。
+		/// </summary>
+		private static string FitSingleLine(
+			string text,
+			UiFont font,
+			float maxWidth,
+			bool bold = false)
+		{
+			if (string.IsNullOrEmpty(text) || maxWidth <= 1f)
+			{
+				return string.Empty;
+			}
+
+			// Def description 里如果本身带换行，也压成一行。
+			string source = text
+				.Replace("\r", " ")
+				.Replace("\n", " ")
+				.Trim();
+
+			while (source.Contains("  "))
+			{
+				source = source.Replace("  ", " ");
+			}
+
+			if (UiText.Width(source, font, bold) <= maxWidth)
+			{
+				return source;
+			}
+
+			const string ellipsis = "…";
+			float ellipsisWidth = UiText.Width(ellipsis, font, bold);
+
+			if (ellipsisWidth >= maxWidth)
+			{
+				return ellipsis;
+			}
+
+			int low = 0;
+			int high = source.Length;
+
+			while (low < high)
+			{
+				int mid = (low + high + 1) / 2;
+				string candidate =
+					source.Substring(0, mid).TrimEnd() + ellipsis;
+
+				if (UiText.Width(candidate, font, bold) <= maxWidth)
+				{
+					low = mid;
+				}
+				else
+				{
+					high = mid - 1;
+				}
+			}
+
+			return source.Substring(0, low).TrimEnd() + ellipsis;
+		}
+		private float MeasureModernTechFacilityCard(UiFacilityView view, float width)
+		{
+			return LayoutModernTechFacilityCard(
+				new Rect(0f, 0f, width, 0f),
+				view,
+				false);
+		}
+
+		private void DrawModernTechFacilityCard(Rect rect, UiFacilityView view)
+		{
+			LayoutModernTechFacilityCard(rect, view, true);
+		}
+
+		private float LayoutModernTechFacilityCard(
+			Rect rect,
+			UiFacilityView view,
+			bool draw)
+		{
+			float innerX = rect.x + UiMetrics.ModernTechCardPaddingH;
+			float innerWidth = Mathf.Max(
+				rect.width - UiMetrics.ModernTechCardPaddingH * 2f,
+				30f);
+
+			float y = rect.y + UiMetrics.ModernTechCardPaddingTop;
+			bool hovered = draw && Mouse.IsOver(rect);
+
+			float imageSize = UiMetrics.ModernTechFacilityImageSize;
+			float lineHeight = UiText.LineHeight(UiFont.Body);
+
+			float textX = innerX + imageSize + UiMetrics.ModernTechFacilityImageGap;
+			float textWidth = Mathf.Max(
+				rect.xMax - UiMetrics.ModernTechCardPaddingH - textX,
+				30f);
+
+			string rightTag = view.IsCore
+				? view.SubLabel
+				: (view.SlotIndex + 1).ToString("D2");
+
+			float tagWidth = string.IsNullOrEmpty(rightTag)
+				? 0f
+				: Mathf.Clamp(
+					UiText.Width(rightTag, UiFont.Body, true) + 16f,
+					32f,
+					Mathf.Max(textWidth * 0.46f, 32f));
+
+			float titleWidth = Mathf.Max(
+				textWidth - tagWidth -
+				((tagWidth > 0f) ? UiMetrics.ModernTechFacilityTitleTagGap : 0f),
+				40f);
+
+			float descriptionWidth = textWidth;
+
+			string displayDescription = FitSingleLine(
+				view.Description,
+				UiFont.Body,
+				descriptionWidth);
+
+			float descriptionHeight =
+				string.IsNullOrEmpty(displayDescription)
+					? 0f
+					: lineHeight;
+
+			float textHeadHeight =
+				lineHeight +
+				UiMetrics.ModernTechDescriptionGap +
+				descriptionHeight;
+
+			float headHeight = Mathf.Max(
+				imageSize,
+				textHeadHeight);
+
+			if (draw)
+			{
+				Color fill = hovered
+					? UiPalette.PanelGlassStrong
+					: UiPalette.PanelGlass;
+
+				Color line = hovered
+					? UiPalette.BrandLine
+					: UiPalette.Line;
+
+				UiDraw.Box(
+					rect,
+					(int)UiMetrics.RadiusSm,
+					fill,
+					line);
+
+				UiDraw.Solid(
+					new Rect(
+						rect.x,
+						rect.y,
+						view.IsCore ? Mathf.Min(92f, rect.width) : Mathf.Min(54f, rect.width),
+						3f),
+					view.IsCore ? UiPalette.Brand : UiPalette.WithAlpha(UiPalette.Brand, 0.65f));
+
+				Rect imageRect = new Rect(
+					innerX,
+					y,
+					imageSize,
+					imageSize);
+
+				Texture2D image = UiTex.FacilityPlaceholderTexture();
+				if (image != null)
+				{
+					Color previous = GUI.color;
+					GUI.color = new Color(1f, 1f, 1f, previous.a);
+
+					GUI.DrawTexture(
+						imageRect,
+						image,
+						ScaleMode.ScaleAndCrop,
+						true);
+
+					GUI.color = previous;
+
+					float glyph = UiMetrics.ModernTechFacilityImageGlyph;
+					UiDraw.Icon(
+						new Rect(
+							imageRect.center.x - glyph * 0.5f,
+							imageRect.center.y - glyph * 0.5f,
+							glyph,
+							glyph),
+						view.Icon,
+						UiPalette.Light);
+				}
+				else
+				{
+					UiDraw.Box(
+						imageRect,
+						(int)UiMetrics.RadiusSm,
+						UiPalette.NavActive,
+						UiPalette.LineStrong);
+
+					float glyph = UiMetrics.ModernTechFacilityImageGlyph;
+					UiDraw.Icon(
+						new Rect(
+							imageRect.center.x - glyph * 0.5f,
+							imageRect.center.y - glyph * 0.5f,
+							glyph,
+							glyph),
+						view.Icon,
+						UiPalette.Light);
+				}
+
+				UiDraw.Box(
+					imageRect,
+					(int)UiMetrics.RadiusSm,
+					UiPalette.Clear,
+					hovered ? UiPalette.BrandLine : UiPalette.LineStrong);
+
+				UiText.Draw(
+					new Rect(
+						textX,
+						y + 2f,
+						titleWidth,
+						lineHeight),
+					view.Label,
+					UiFont.Body,
+					UiPalette.Ink,
+					TextAnchor.MiddleLeft,
+					true,
+					false,
+					true);
+
+				if (tagWidth > 0f)
+				{
+					Rect tagRect = new Rect(
+						textX + textWidth - tagWidth,
+						y,
+						tagWidth,
+						lineHeight + 4f);
+
+					if (view.IsCore)
+					{
+						// 核心设施标签使用纯平色块，避免 NineSlice 边缘造成“中浅外深”的观感。
+						UiDraw.Solid(
+							tagRect,
+							UiPalette.Brand);
+
+						UiText.Draw(
+							tagRect,
+							rightTag,
+							UiFont.Body,
+							Color.black,
+							TextAnchor.MiddleCenter,
+							true,
+							false,
+							true);
+					}
+					else
+					{
+						UiDraw.Box(
+							tagRect,
+							(int)UiMetrics.RadiusXs,
+							UiPalette.Clear,
+							UiPalette.LineStrong);
+
+						UiText.Draw(
+							tagRect,
+							rightTag,
+							UiFont.Body,
+							UiPalette.Ink2,
+							TextAnchor.MiddleCenter,
+							true,
+							false,
+							true);
+					}
+				}
+
+				if (!string.IsNullOrEmpty(displayDescription) &&
+					descriptionHeight > 0f)
+				{
+					UiText.Draw(
+						new Rect(
+							textX,
+							y + lineHeight + UiMetrics.ModernTechDescriptionGap,
+							descriptionWidth,
+							descriptionHeight),
+						displayDescription,
+						UiFont.Body,
+						UiPalette.Ink2,
+						TextAnchor.UpperLeft,
+						false,
+						false,
+						true);
+				}
+
+				Rect headRect = new Rect(
+					innerX,
+					y,
+					innerWidth,
+					headHeight);
+
+				UiWidgets.Tip(
+					headRect,
+					view.TooltipGetter,
+					view.TooltipId);
+
+				UiDebug.Scope("facility.moderntech.rect", rect);
+			}
+
+			y += headHeight + UiMetrics.ModernTechCardGap;
+
+			float sectionsTop = y;
+
+			if (view.Sections.Count > 0)
+			{
+				if (draw)
+				{
+					UiDraw.Solid(
+						new Rect(
+							innerX,
+							y,
+							innerWidth,
+							1f),
+						UiPalette.WithAlpha(UiPalette.Line, 0.82f));
+				}
+
+				y += UiMetrics.ModernTechFacilitySectionTopGap;
+			}
+
+			for (int i = 0; i < view.Sections.Count; i++)
+			{
+				if (i > 0)
+				{
+					y += UiMetrics.ProdListGap;
+				}
+
+				y += LayoutFacilitySection(
+					innerX,
+					y,
+					innerWidth,
+					view.Sections[i],
+					draw) + UiMetrics.ModernTechCardGap;
+			}
+
+			y = Mathf.Max(
+				y,
+				sectionsTop + UiMetrics.ModernTechFacilityBodyMinHeight);
+
+			float footerHeight =
+				LayoutModernTechFacilityFooter(
+					rect,
+					view,
+					y,
+					draw);
+
+			float natural =
+				y +
+				footerHeight -
+				rect.y +
+				UiMetrics.ModernTechCardPaddingBottom;
+
+			if (!draw)
+			{
+				return natural;
+			}
+
+			if (Event.current.mousePosition.y >= viewportTop &&
+				Event.current.mousePosition.y <= viewportBottom &&
+				Widgets.ButtonInvisible(rect))
+			{
+				Window_OutpostManage shell = Shell;
+				if (shell != null)
+				{
+					shell.OpenDetailsModal(view);
+				}
+			}
+
+			return Mathf.Max(rect.height, natural);
+		}
+
+		private float LayoutModernTechFacilityFooter(
+			Rect cardRect,
+			UiFacilityView view,
+			float y,
+			bool draw)
+		{
+			float innerX =
+				cardRect.x +
+				UiMetrics.ModernTechCardPaddingH;
+
+			float innerWidth = Mathf.Max(
+				cardRect.width -
+					UiMetrics.ModernTechCardPaddingH * 2f,
+				30f);
+
+			float chipsHeight = (view.Chips.Count > 0)
+				? UiDraw.ChipsHeight(
+					view.Chips,
+					innerWidth,
+					true)
+				: 0f;
+
+			if (!draw || view.Chips.Count == 0)
+			{
+				return chipsHeight;
+			}
+
+			float footerY = Mathf.Max(
+				cardRect.yMax -
+					UiMetrics.ModernTechCardPaddingBottom -
+					chipsHeight,
+				y);
+
+			UiDraw.Chips(
+				new Rect(
+					innerX,
+					footerY,
+					innerWidth,
+					chipsHeight),
+				view.Chips,
+				true);
+
+			return chipsHeight;
+		}
+
+		private void DrawModernTechEmptySlotCard(Rect rect, int index)
+		{
+			bool hovered = Mouse.IsOver(rect);
+			Color line = hovered
+				? UiPalette.BrandLine
+				: UiPalette.LineStrong;
+
+			UiDraw.Box(
+				rect,
+				(int)UiMetrics.RadiusSm,
+				hovered
+					? UiPalette.WithAlpha(UiPalette.BrandTint, 0.68f)
+					: UiPalette.WithAlpha(UiPalette.PanelGlass, 0.72f),
+				UiPalette.Clear);
+
+			UiDraw.DashedBox(
+				rect,
+				(int)UiMetrics.RadiusSm,
+				line,
+				8f,
+				6f);
+
+			string slot = (index + 1).ToString("D2");
+			float slotWidth = Mathf.Max(
+				UiText.Width(slot, UiFont.Body, true),
+				28f);
+
+			UiText.Draw(
+				new Rect(
+					rect.xMax -
+						UiMetrics.SlotTagRight -
+						slotWidth,
+					rect.y +
+						UiMetrics.SlotTagTop,
+					slotWidth,
+					UiText.LineHeight(UiFont.Body)),
+				slot,
+				UiFont.Body,
+				hovered
+					? UiPalette.BrandText
+					: UiPalette.Ink3,
+				TextAnchor.MiddleRight,
+				true);
+
+			float plusSize = UiMetrics.ModernTechEmptyPlusSize;
+			float labelHeight = UiText.LineHeight(UiFont.Body);
+			float hintHeight = UiText.LineHeight(UiFont.Body);
+
+			float contentHeight =
+				plusSize +
+				UiMetrics.ModernTechEmptyContentGap +
+				labelHeight +
+				hintHeight;
+
+			float contentY =
+				rect.y +
+				(rect.height - contentHeight) * 0.5f;
+
+			Rect plusRect = new Rect(
+				rect.center.x - plusSize * 0.5f,
+				contentY,
+				plusSize,
+				plusSize);
+
+			UiDraw.Box(
+				plusRect,
+				Mathf.RoundToInt(plusSize * 0.5f),
+				hovered
+					? UiPalette.PanelGlassStrong
+					: UiPalette.Clear,
+				line);
+
+			float glyph = Mathf.Round(
+				plusSize * 0.42f);
+
+			UiDraw.Icon(
+				new Rect(
+					plusRect.center.x - glyph * 0.5f,
+					plusRect.center.y - glyph * 0.5f,
+					glyph,
+					glyph),
+				UiIcon.Plus,
+				hovered
+					? UiPalette.Brand
+					: UiPalette.Ink2);
+
+			UiText.Draw(
+				new Rect(
+					rect.x,
+					plusRect.yMax +
+						UiMetrics.ModernTechEmptyContentGap,
+					rect.width,
+					labelHeight),
+				"DreamsOutposts.EmptySlot".Translate(),
+				UiFont.Body,
+				hovered
+					? UiPalette.BrandText
+					: UiPalette.Ink,
+				TextAnchor.MiddleCenter,
+				true);
+
+			UiText.Draw(
+				new Rect(
+					rect.x,
+					plusRect.yMax +
+						UiMetrics.ModernTechEmptyContentGap +
+						labelHeight,
+					rect.width,
+					hintHeight),
+				"DreamsOutposts.Ui.EmptySlotHint".Translate(index + 1),
+				UiFont.Body,
+				hovered
+					? UiPalette.BrandText
+					: UiPalette.Ink2,
+				TextAnchor.MiddleCenter,
+				false,
+				false,
+				true);
+
+			UiWidgets.Tip(
+				rect,
+				"DreamsOutposts.EmptySlotTip".Translate(),
+				GenText.StableStringHash(
+					"empty-slot-moderntech-" + index));
+
+			UiDebug.Scope(
+				"empty.moderntech.slot[" + index + "]",
+				rect);
+
+			if (Widgets.ButtonInvisible(rect))
+			{
+				Window_OutpostManage shell = Shell;
+				if (shell != null &&
+					outpost.extensionSlots != null &&
+					index >= 0 &&
+					index < outpost.extensionSlots.Count)
+				{
+					shell.OpenInstallModal(
+						outpost.extensionSlots[index],
+						index);
+				}
+			}
+		}
+
 		// ---------------------------------------------------------------
 		// 设施卡
 		// ---------------------------------------------------------------
@@ -1022,9 +2529,69 @@ namespace DreamsOutposts
 					Widgets.ThingIcon(icon, section.IconThing);
 					textX += UiMetrics.MatIconSize + 8f;
 				}
-				float mainWidth = string.IsNullOrEmpty(section.MainText) ? 0f : Mathf.Max(UiText.Width(section.MainText, UiFont.Number, true) + 6f, 48f);
-				UiText.Draw(new Rect(textX, cursor, Mathf.Max(innerX + innerWidth - textX - mainWidth, 20f), topHeight), section.Title ?? string.Empty, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-				if (mainWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - mainWidth, cursor, mainWidth, topHeight), section.MainText, UiFont.Number, UiPalette.Ink, TextAnchor.MiddleRight, true);
+				bool modernTech =
+					DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+
+				float mainWidth = string.IsNullOrEmpty(section.MainText)
+					? 0f
+					: Mathf.Max(
+						UiText.Width(section.MainText, UiFont.Number, true) + 6f,
+						48f);
+
+				if (modernTech)
+				{
+					mainWidth = Mathf.Min(
+						mainWidth,
+						innerWidth * 0.42f);
+				}
+
+				float titleWidth = Mathf.Max(
+					innerX + innerWidth - textX - mainWidth,
+					20f);
+
+				string sectionTitle = modernTech
+					? FitSingleLine(
+						section.Title ?? string.Empty,
+						UiFont.Body,
+						titleWidth)
+					: section.Title ?? string.Empty;
+
+				UiText.Draw(
+					new Rect(
+						textX,
+						cursor,
+						titleWidth,
+						topHeight),
+					sectionTitle,
+					UiFont.Body,
+					UiPalette.Ink2,
+					TextAnchor.MiddleLeft,
+					false,
+					false,
+					true);
+
+				if (mainWidth > 0f)
+				{
+					string mainText = modernTech
+						? FitSingleLine(
+							section.MainText,
+							UiFont.Number,
+							mainWidth,
+							true)
+						: section.MainText;
+
+					UiText.Draw(
+						new Rect(
+							innerX + innerWidth - mainWidth,
+							cursor,
+							mainWidth,
+							topHeight),
+						mainText,
+						UiFont.Number,
+						UiPalette.Ink,
+						TextAnchor.MiddleRight,
+						true);
+				}
 			}
 			cursor += topHeight;
 			if (section.ShowProgress)
@@ -1043,9 +2610,71 @@ namespace DreamsOutposts
 				if (draw)
 				{
 					float h = UiText.LineHeight(UiFont.Body);
-					float rightWidth = string.IsNullOrEmpty(section.RightText) ? 0f : Mathf.Max(UiText.Width(section.RightText, UiFont.Body) + 4f, 60f);
-					UiText.Draw(new Rect(innerX, cursor, Mathf.Max(innerWidth - rightWidth, 20f), h), section.LeftText ?? string.Empty, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-					if (rightWidth > 0f) UiText.Draw(new Rect(innerX + innerWidth - rightWidth, cursor, rightWidth, h), section.RightText, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+
+					bool modernTech =
+						DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+
+					float rightWidth =
+						string.IsNullOrEmpty(section.RightText)
+							? 0f
+							: Mathf.Max(
+								UiText.Width(section.RightText, UiFont.Body) + 4f,
+								60f);
+
+					if (modernTech)
+					{
+						rightWidth = Mathf.Min(
+							rightWidth,
+							innerWidth * 0.46f);
+					}
+
+					float leftWidth =
+						Mathf.Max(innerWidth - rightWidth, 20f);
+
+					string leftText = modernTech
+						? FitSingleLine(
+							section.LeftText ?? string.Empty,
+							UiFont.Body,
+							leftWidth)
+						: section.LeftText ?? string.Empty;
+
+					UiText.Draw(
+						new Rect(
+							innerX,
+							cursor,
+							leftWidth,
+							h),
+						leftText,
+						UiFont.Body,
+						UiPalette.Ink2,
+						TextAnchor.MiddleLeft,
+						false,
+						false,
+						true);
+
+					if (rightWidth > 0f)
+					{
+						string rightText = modernTech
+							? FitSingleLine(
+								section.RightText,
+								UiFont.Body,
+								rightWidth)
+							: section.RightText;
+
+						UiText.Draw(
+							new Rect(
+								innerX + innerWidth - rightWidth,
+								cursor,
+								rightWidth,
+								h),
+							rightText,
+							UiFont.Body,
+							UiPalette.Ink2,
+							TextAnchor.MiddleRight,
+							false,
+							false,
+							true);
+					}
 				}
 				cursor += UiText.LineHeight(UiFont.Body);
 			}

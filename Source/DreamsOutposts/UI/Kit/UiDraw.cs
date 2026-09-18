@@ -392,52 +392,60 @@ namespace DreamsOutposts
 		{
 			Color fill = ChipFillColor(chip.Kind);
 
-			// 方形 chip：
-			// 左侧 25% 从完全透明渐变到原始 fill；
-			// 后 75% 保持原始 fill。
-			float gradientWidth = rect.width * 0.25f;
-
-			if (gradientWidth > 0.5f)
-			{
-				Texture2D ramp = UiTex.ChipLeftAlphaRampTexture();
-				if (ramp != null)
-				{
-					Color previous = GUI.color;
-					GUI.color = new Color(
-						fill.r * previous.r,
-						fill.g * previous.g,
-						fill.b * previous.b,
-						fill.a * previous.a);
-
-					GUI.DrawTexture(
-						new Rect(
-							rect.x,
-							rect.y,
-							gradientWidth,
-							rect.height),
-						ramp,
-						ScaleMode.StretchToFill,
-						true);
-
-					GUI.color = previous;
-				}
-
-				Solid(
-					new Rect(
-						rect.x + gradientWidth,
-						rect.y,
-						Mathf.Max(rect.width - gradientWidth, 0f),
-						rect.height),
-					fill);
-			}
-			else
+			// 原版风：整块完全填充，左侧不做透明渐隐。
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				Solid(rect, fill);
 			}
+			else
+			{
+				// 现代科技风：方形 chip
+				// 左侧 25% 从完全透明渐变到原始 fill；
+				// 后 75% 保持原始 fill。
+				float gradientWidth = rect.width * 0.25f;
+
+				if (gradientWidth > 0.5f)
+				{
+					Texture2D ramp = UiTex.ChipLeftAlphaRampTexture();
+					if (ramp != null)
+					{
+						Color previous = GUI.color;
+						GUI.color = new Color(
+							fill.r * previous.r,
+							fill.g * previous.g,
+							fill.b * previous.b,
+							fill.a * previous.a);
+
+						GUI.DrawTexture(
+							new Rect(
+								rect.x,
+								rect.y,
+								gradientWidth,
+								rect.height),
+							ramp,
+							ScaleMode.StretchToFill,
+							true);
+
+						GUI.color = previous;
+					}
+
+					Solid(
+						new Rect(
+							rect.x + gradientWidth,
+							rect.y,
+							Mathf.Max(rect.width - gradientWidth, 0f),
+							rect.height),
+						fill);
+				}
+				else
+				{
+					Solid(rect, fill);
+				}
+			}
 
 			// 1px 描边：
-			// 原版风使用白色，现代工业风使用黑色。
-			Color border = DreamsOutpostsMod.UseVanillaUi
+			// 原版风使用白色，现代科技风使用黑色。
+			Color border = DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla)
 				? Color.white
 				: Color.black;
 

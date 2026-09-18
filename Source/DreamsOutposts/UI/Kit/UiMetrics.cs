@@ -1,7 +1,7 @@
 namespace DreamsOutposts
 {
 	/// <summary>
-	/// 新 UI 的几何度量。莱茵生命方向：更平、更细、更克制；页签缩放动画保留。
+	/// 新 UI 的几何度量。现代科技方向：更平、更细、更克制；页签缩放动画保留。
 	/// </summary>
 	public static class UiMetrics
 	{
@@ -32,6 +32,16 @@ namespace DreamsOutposts
 		/// <summary>保留原有页签缩放：未选中项缩小 10%。</summary>
 		public const float NavInactiveShrink = 0.1f;
 		public const float NavTileAnimSeconds = 0.14f;
+
+		// ---------- 现代科技风：侧栏导航轨道 ----------
+		// 细线与运动方块属于整个 sidebar，而不是某个 NavItem。
+		public const float ModernTechNavRailOffsetX = 14f;
+		public const float ModernTechNavRailWidth = 1f;
+		public const float ModernTechNavRailAlpha = 0.62f;
+		public const float ModernTechNavIndicatorWidth = 22f;
+		public const float ModernTechNavIndicatorHeight = 22f;
+		public const float ModernTechNavContentPush = 8f;
+		public const float ModernTechNavIndicatorSmoothTime = 0.16f;
 
 		public const float NavItemPaddingH = 12f;
 		public const float NavItemPaddingV = 10f;
@@ -110,8 +120,8 @@ namespace DreamsOutposts
 		public const float PipMarginBottom = 12f;
 		public const float LevelFactsGap = 0f;
 		public const float LevelFactsMarginTop = 18f;
-		public const float LevelCurrentDigitHeight = 78f;
-		public const float LevelMaxDigitHeight = 42f;
+		public const float LevelCurrentDigitHeight = 56f;
+		public const float LevelMaxDigitHeight = 32f;
 		public const float LevelDigitGap = 10f;
 		public const float LevelDigitRowGap = 10f;
 		public const float LevelDisplayGap = 8f;
@@ -159,6 +169,49 @@ namespace DreamsOutposts
 		public const float EmptyCardGap = 6f;
 		public const float SlotTagTop = 12f;
 		public const float SlotTagRight = 14f;
+
+		// ---------- 现代科技风：设施页专用 ----------
+		// 这些值只允许 Page_OutpostFacilities 的 ModernTech 分支使用；
+		// 原版风继续使用上面的既有 metrics，避免主题之间互相污染。
+		public const float ModernTechSectionSpacing = 28f;
+		public const float ModernTechSectionHeadMarginBottom = 20f;
+
+		public const float ModernTechLevelGap = 28f;
+		public const float ModernTechLevelRightRatio = 0.34f;
+		public const float ModernTechLevelRightMinWidth = 280f;
+		public const float ModernTechLevelRightMaxWidth = 360f;
+		public const float ModernTechLevelPanelPadding = 16f;
+		public const float ModernTechLevelIndexMarginTop = 16f;
+		public const float ModernTechLevelStackBreakpoint = 760f;
+
+		// 现代科技风等级区：独立于原版风，方便后续继续调视觉层级。
+		public const float ModernTechLevelCurrentDigitHeight = 112f;
+		public const float ModernTechLevelMaxDigitHeight = 56f;
+		public const float ModernTechLevelDigitGap = 12f;
+		public const float ModernTechPipHeight = 10f;
+		public const float ModernTechPipGap = 4f;
+		public const float ModernTechLevelFactsMarginTop = 18f;
+		public const float ModernTechLevelFactHeight = 72f;
+		public const float ModernTechLevelFactPaddingLeft = 12f;
+
+		public const float ModernTechSlotGridGap = 16f;
+		public const float ModernTechCardPaddingH = 18f;
+		public const float ModernTechCardPaddingTop = 16f;
+		public const float ModernTechCardPaddingBottom = 16f;
+		public const float ModernTechCardGap = 12f;
+
+		public const float ModernTechFacilityImageSize = 100f;
+		public const float ModernTechFacilityImageGlyph = 26f;
+		public const float ModernTechFacilityImageGap = 16f;
+		public const float ModernTechFacilityTitleTagGap = 12f;
+		public const float ModernTechDescriptionGap = 8f;
+		public const float ModernTechDescriptionMaxLines = 1f;
+		public const float ModernTechFacilitySectionTopGap = 10f;
+		public const float ModernTechFacilityBodyMinHeight = 26f;
+
+		public const float ModernTechEmptyCardMinHeight = 184f;
+		public const float ModernTechEmptyPlusSize = 56f;
+		public const float ModernTechEmptyContentGap = 8f;
 
 		// ---------- 弹窗 ----------
 		public const float ModalNormalWidth = 880f;

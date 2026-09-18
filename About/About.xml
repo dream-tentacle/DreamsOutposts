@@ -7,7 +7,7 @@
 		<li>1.6</li>
 	</supportedVersions>
 	<packageId>mjcg.DreamsOutposts</packageId>
-	<description>世界地图据点拓展。当前处于开发阶段。</description>
+	<description>Dream的据点拓展。</description>
 	<modDependencies>
 		<li>
 			<packageId>brrainz.harmony</packageId>
@@ -19,5 +19,8 @@
 	<loadAfter>
 		<li>HaiLuan.FleshHive</li>
 		<li>RI.RimImmortal.Core</li>
+		<li>SmashPhil.VehicleFramework</li>
+		<li>fxz.glitterworlddestroyer.mk5</li>
+		<li>Ancot.MiliraRace</li>
 	</loadAfter>
 </ModMetaData>

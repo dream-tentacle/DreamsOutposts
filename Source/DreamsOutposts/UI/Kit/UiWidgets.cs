@@ -39,7 +39,7 @@ namespace DreamsOutposts
 		public static bool Button(Rect rect, string label, UiButtonKind kind = UiButtonKind.Secondary,
 			bool enabled = true, string disabledReason = null, UiButtonSize size = UiButtonSize.Normal, string tooltip = null)
 		{
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				if (rect.width <= 0f || rect.height <= 0f)
 				{
@@ -143,7 +143,7 @@ namespace DreamsOutposts
 			UiButtonSize size = UiButtonSize.Normal, string tooltip = null,
 			bool enabled = true, string disabledReason = null)
 		{
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				return Button(rect, label, UiButtonKind.Secondary, enabled, disabledReason, size, tooltip);
 			}
@@ -257,98 +257,254 @@ namespace DreamsOutposts
 		}
 
 		/// <param name="scale">方块相对格位的缩放（1 = 选中态大小）；小于 0 时按 active 取默认值。</param>
-		public static bool NavItem(Rect rect, UiIcon icon, string label, string sub, bool active, int badge = 0, string tooltip = null, float scale = -1f)
+		public static bool NavItem(
+			Rect rect,
+			UiIcon icon,
+			string label,
+			string sub,
+			bool active,
+			int badge = 0,
+			string tooltip = null,
+			float scale = -1f,
+			float selectionProgress = -1f)
 		{
-			if (DreamsOutpostsMod.UseVanillaUi)
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
-				return DrawVanillaNavItem(rect, icon, label, sub, active, badge, tooltip, scale);
+				return DrawVanillaNavItem(
+					rect,
+					icon,
+					label,
+					sub,
+					active,
+					badge,
+					tooltip,
+					scale);
 			}
+
 			if (rect.width <= 0f || rect.height <= 0f)
 			{
 				return false;
 			}
 
-			// 保留原页签缩放：未选中缩小，选中平滑恢复到 1。
-			float tileScale = (scale >= 0f) ? scale : (active ? 1f : 1f - UiMetrics.NavInactiveShrink);
+			float tileScale = (scale >= 0f)
+				? scale
+				: (active
+					? 1f
+					: 1f - UiMetrics.NavInactiveShrink);
+
 			Rect box = rect;
 			if (Mathf.Abs(tileScale - 1f) > 0.0001f)
 			{
-				float boxHeight = rect.height * tileScale;
-				box = new Rect(rect.x, rect.y + (rect.height - boxHeight) * 0.5f, rect.width * tileScale, boxHeight);
+				float boxHeight =
+					rect.height * tileScale;
+
+				box = new Rect(
+					rect.x,
+					rect.y +
+						(rect.height - boxHeight) * 0.5f,
+					rect.width * tileScale,
+					boxHeight);
 			}
 
 			bool hovered = Mouse.IsOver(box);
-			Color fill;
-			Color border;
-			Color inkColor;
-			Color subColor;
 
-			if (active)
+			float selectT = selectionProgress >= 0f
+				? Mathf.Clamp01(selectionProgress)
+				: (active ? 1f : 0f);
+
+			// 未选中层始终留在下面。
+			// 黑色选中层用裁剪宽度覆盖它，从左往右“推出”；
+			// 取消选中时 selectT 反向下降，于是右边缘向左“拉回”。
+			Color idleFill = hovered
+				? UiPalette.NavHover
+				: UiPalette.Clear;
+
+			UiDraw.Box(
+				box,
+				(int)UiMetrics.RadiusSm,
+				idleFill,
+				UiPalette.Clear);
+
+			float revealWidth =
+				Mathf.Clamp(
+					box.width * selectT,
+					0f,
+					box.width);
+
+			if (revealWidth > 0.5f)
 			{
-				fill = UiPalette.NavActive;
-				border = UiPalette.NavActive;
-				inkColor = UiPalette.NavActiveText;
-				subColor = UiPalette.NavActiveSub;
-			}
-			else if (hovered)
-			{
-				fill = UiPalette.NavHover;
-				border = UiPalette.BrandLine;
-				inkColor = UiPalette.Ink;
-				subColor = UiPalette.Ink2;
-			}
-			else
-			{
-				fill = UiPalette.NavIdle;
-				border = UiPalette.Line;
-				inkColor = UiPalette.Ink2;
-				subColor = UiPalette.Ink3;
+				GUI.BeginGroup(
+					new Rect(
+						box.x,
+						box.y,
+						revealWidth,
+						box.height));
+
+				UiDraw.Box(
+					new Rect(
+						0f,
+						0f,
+						box.width,
+						box.height),
+					(int)UiMetrics.RadiusSm,
+					UiPalette.NavActive,
+					UiPalette.NavActive);
+
+				GUI.EndGroup();
 			}
 
-			UiDraw.Box(box, (int)UiMetrics.RadiusSm, fill, border);
+			// 底部分隔线也跟着选中层淡出 / 回来，
+			// 避免切换瞬间突然蹦出一根线。
+			float separatorAlpha =
+				1f - selectT;
 
-			if (active)
+			if (separatorAlpha > 0.001f)
 			{
-				float accentAlpha = Mathf.InverseLerp(1f - UiMetrics.NavInactiveShrink, 1f, tileScale);
-				Color previous = GUI.color;
-				GUI.color = new Color(previous.r, previous.g, previous.b, previous.a * accentAlpha);
-				UiDraw.Solid(new Rect(box.x, box.y, 4f, box.height), UiPalette.Brand);
-				GUI.color = previous;
+				UiDraw.Solid(
+					new Rect(
+						box.x + 10f,
+						box.yMax - 1f,
+						Mathf.Max(box.width - 20f, 1f),
+						1f),
+					UiPalette.WithAlpha(
+						UiPalette.Line,
+						(hovered ? 0.80f : 0.48f) *
+							separatorAlpha));
 			}
 
-			float x = box.x + UiMetrics.NavItemPaddingH;
-			float contentTop = rect.y + UiMetrics.NavItemPaddingV;
-			Rect iconRect = new Rect(x, contentTop + (UiText.LineHeight(UiFont.Body) - UiMetrics.NavIconSize) * 0.5f,
-				UiMetrics.NavIconSize, UiMetrics.NavIconSize);
-			UiDraw.Icon(iconRect, icon, inkColor);
-			x += UiMetrics.NavIconSize + UiMetrics.NavItemGap;
+			Color baseInk = hovered
+				? UiPalette.Ink
+				: UiPalette.Ink2;
+
+			Color baseSub = hovered
+				? UiPalette.Ink2
+				: UiPalette.Ink3;
+
+			Color inkColor =
+				Color.Lerp(
+					baseInk,
+					UiPalette.NavActiveText,
+					selectT);
+
+			Color subColor =
+				Color.Lerp(
+					baseSub,
+					UiPalette.NavActiveSub,
+					selectT);
+
+			// 黑色板推出时，内容也被轻轻向右推；
+			// 收回时再拉回原位，强化“推拉”感但不影响布局。
+			float contentPush =
+				UiMetrics.ModernTechNavContentPush *
+				selectT;
+
+			float x =
+				box.x +
+				UiMetrics.NavItemPaddingH +
+				contentPush;
+
+			float contentTop =
+				rect.y +
+				UiMetrics.NavItemPaddingV;
+
+			Rect iconRect = new Rect(
+				x,
+				contentTop +
+					(UiText.LineHeight(UiFont.Body) -
+						UiMetrics.NavIconSize) * 0.5f,
+				UiMetrics.NavIconSize,
+				UiMetrics.NavIconSize);
+
+			UiDraw.Icon(
+				iconRect,
+				icon,
+				inkColor);
+
+			x +=
+				UiMetrics.NavIconSize +
+				UiMetrics.NavItemGap;
 
 			float badgeWidth = 0f;
 			if (badge > 0)
 			{
-				badgeWidth = Mathf.Max(UiMetrics.NavBadgeMinWidth,
-					UiText.Width(badge.ToString(), UiFont.Body, true) + UiMetrics.NavBadgePaddingH * 2f);
+				badgeWidth = Mathf.Max(
+					UiMetrics.NavBadgeMinWidth,
+					UiText.Width(
+						badge.ToString(),
+						UiFont.Body,
+						true) +
+						UiMetrics.NavBadgePaddingH * 2f);
 			}
 
-			float textWidth = Mathf.Max(box.xMax - UiMetrics.NavItemPaddingH - x -
-				((badgeWidth > 0f) ? badgeWidth + 8f : 0f), 10f);
+			float textWidth = Mathf.Max(
+				box.xMax -
+					UiMetrics.NavItemPaddingH -
+					x -
+					((badgeWidth > 0f)
+						? badgeWidth + 8f
+						: 0f),
+				10f);
 
-			UiText.Draw(new Rect(x, contentTop, textWidth, UiText.LineHeight(UiFont.Body)),
-				label, UiFont.Body, inkColor, TextAnchor.MiddleLeft, active, false, true);
+			UiText.Draw(
+				new Rect(
+					x,
+					contentTop,
+					textWidth,
+					UiText.LineHeight(UiFont.Body)),
+				label,
+				UiFont.Body,
+				inkColor,
+				TextAnchor.MiddleLeft,
+				active,
+				false,
+				true);
 
 			if (!string.IsNullOrEmpty(sub))
 			{
-				UiText.Draw(new Rect(x, contentTop + UiText.LineHeight(UiFont.Body), textWidth, UiText.LineHeight(UiFont.Body)),
-					sub, UiFont.Body, subColor, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(
+					new Rect(
+						x,
+						contentTop +
+							UiText.LineHeight(UiFont.Body),
+						textWidth,
+						UiText.LineHeight(UiFont.Body)),
+					sub,
+					UiFont.Body,
+					subColor,
+					TextAnchor.MiddleLeft,
+					false,
+					false,
+					true);
 			}
 
 			if (badge > 0)
 			{
-				float height = UiText.LineHeight(UiFont.Body) + UiMetrics.ChipSmallPaddingV * 2f;
-				Rect badgeRect = new Rect(box.xMax - UiMetrics.NavItemPaddingH - badgeWidth,
-					box.y + (box.height - height) * 0.5f, badgeWidth, height);
-				UiDraw.Box(badgeRect, (int)UiMetrics.RadiusXs, UiPalette.BadBg, UiPalette.BadLine);
-				UiText.Draw(badgeRect, badge.ToString(), UiFont.Body, UiPalette.Bad, TextAnchor.MiddleCenter, true);
+				float height =
+					UiText.LineHeight(UiFont.Body) +
+					UiMetrics.ChipSmallPaddingV * 2f;
+
+				Rect badgeRect = new Rect(
+					box.xMax -
+						UiMetrics.NavItemPaddingH -
+						badgeWidth,
+					box.y +
+						(box.height - height) * 0.5f,
+					badgeWidth,
+					height);
+
+				UiDraw.Box(
+					badgeRect,
+					(int)UiMetrics.RadiusXs,
+					UiPalette.BadBg,
+					UiPalette.BadLine);
+
+				UiText.Draw(
+					badgeRect,
+					badge.ToString(),
+					UiFont.Body,
+					UiPalette.Bad,
+					TextAnchor.MiddleCenter,
+					true);
 			}
 
 			Tip(box, tooltip);

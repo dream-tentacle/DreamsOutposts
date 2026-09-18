@@ -22,7 +22,7 @@
   <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_AdvancedResourceBoostBase">
     <defName>DreamsOutposts_RareAnimalTrackingCenter</defName>
     <label>rare animal tracking center</label>
-    <description>Long-range sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome.</description>
+    <description>remote sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome.</description>
     <allowedOutpostTypes><li>DreamsOutposts_AnimalTaming</li></allowedOutpostTypes>
     <researchPrerequisites><li>Fabrication</li></researchPrerequisites>
     <buildCost><Steel>250</Steel><ComponentIndustrial>7</ComponentIndustrial></buildCost>

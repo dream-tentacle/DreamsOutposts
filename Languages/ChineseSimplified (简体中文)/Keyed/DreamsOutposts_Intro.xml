@@ -29,8 +29,8 @@
   <DreamsOutposts.IntroTips.Important.Multiplier.Text>在设置里可以改生产倍率。</DreamsOutposts.IntroTips.Important.Multiplier.Text>
   <!-- EN: UI style: -->
   <DreamsOutposts.IntroTips.Important.UiStyle.Label>UI风格：</DreamsOutposts.IntroTips.Important.UiStyle.Label>
-  <!-- EN: A RimWorld-style interface can be enabled in the mod settings. -->
-  <DreamsOutposts.IntroTips.Important.UiStyle.Text>在设置里可以使用原版风格。</DreamsOutposts.IntroTips.Important.UiStyle.Text>
+  <!-- EN: The interface uses the RimWorld style by default. A modern tech style can be selected in the mod settings. -->
+  <DreamsOutposts.IntroTips.Important.UiStyle.Text>界面默认为原版风格，在设置里可以换成现代科技风。</DreamsOutposts.IntroTips.Important.UiStyle.Text>
   <!-- EN: Managing outposts: -->
   <DreamsOutposts.IntroTips.Important.Manage.Label>据点管理：</DreamsOutposts.IntroTips.Important.Manage.Label>
   <!-- EN: Click an outpost, then click the manage button below. -->

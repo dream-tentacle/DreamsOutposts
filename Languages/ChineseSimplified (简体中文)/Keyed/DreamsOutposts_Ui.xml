@@ -284,4 +284,10 @@
   <DreamsOutposts.Ui.ManagementSystem>据点管理系统</DreamsOutposts.Ui.ManagementSystem>
   <DreamsOutposts.Settings.UseVanillaUi>使用 RimWorld 原版风格界面</DreamsOutposts.Settings.UseVanillaUi>
   <DreamsOutposts.Settings.UseVanillaUi.Description>将界面改为 RimWorld 原版样式。</DreamsOutposts.Settings.UseVanillaUi.Description>
+  <DreamsOutposts.Ui.OutpostIndex>据点 | #{0}</DreamsOutposts.Ui.OutpostIndex>
+  <DreamsOutposts.Settings.UiStyle>界面风格</DreamsOutposts.Settings.UiStyle>
+  <DreamsOutposts.Settings.UiStyle.Vanilla>原版风格</DreamsOutposts.Settings.UiStyle.Vanilla>
+  <DreamsOutposts.Settings.UiStyle.Vanilla.Description>使用更接近 RimWorld 原版的深色界面布局。</DreamsOutposts.Settings.UiStyle.Vanilla.Description>
+  <DreamsOutposts.Settings.UiStyle.ModernTech>现代科技风</DreamsOutposts.Settings.UiStyle.ModernTech>
+  <DreamsOutposts.Settings.UiStyle.ModernTech.Description>使用浅色信息层级、科技感几何元素与黄绿色强调色的现代界面。</DreamsOutposts.Settings.UiStyle.ModernTech.Description>
 </LanguageData>

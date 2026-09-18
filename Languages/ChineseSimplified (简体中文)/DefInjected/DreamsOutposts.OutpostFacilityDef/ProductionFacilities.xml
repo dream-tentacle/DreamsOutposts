@@ -128,7 +128,7 @@
 
   <!-- EN: rare animal tracking center -->
   <DreamsOutposts_RareAnimalTrackingCenter.label>珍兽追踪中心</DreamsOutposts_RareAnimalTrackingCenter.label>
-  <!-- EN: Long-range sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome. -->
+  <!-- EN: remote sensors and specialized containment equipment double capture efficiency. Each capture cycle also has a 5% chance to secure an additional animal that does not naturally inhabit any biome. -->
   <DreamsOutposts_RareAnimalTrackingCenter.description>远程传感器与特制收容设备使捕获效率翻倍。每个捕获周期另有5%概率捕获一只不会在任何生物群系自然出现的动物。</DreamsOutposts_RareAnimalTrackingCenter.description>
 
   <!-- EN: solar outpost generator -->
