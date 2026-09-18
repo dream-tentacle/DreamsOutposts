@@ -105,6 +105,7 @@
   <DreamsOutposts.Ui.WeightBase>(base {0})</DreamsOutposts.Ui.WeightBase>
   <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} disabled</DreamsOutposts.Ui.DefenseSkillDisabled>
+  <DreamsOutposts.Ui.DefenseBandwidth>Bandwidth {0}</DreamsOutposts.Ui.DefenseBandwidth>
   <DreamsOutposts.Ui.Warehouse>Warehouse</DreamsOutposts.Ui.Warehouse>
   <DreamsOutposts.Ui.Vehicles>Vehicles</DreamsOutposts.Ui.Vehicles>
   <DreamsOutposts.Ui.Stacks>{0} stacks</DreamsOutposts.Ui.Stacks>

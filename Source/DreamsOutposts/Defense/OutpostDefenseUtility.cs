@@ -8,22 +8,49 @@ namespace DreamsOutposts
 	/// <summary>
 	/// 据点防卫值的唯一计算入口。Defense 是独立的据点能力，不属于 EventCategory 权重系统，
 	/// 也不作为运行时值存档：每次调用都根据当前 Pawn 和已安装设施重新计算。
-	/// 第一版只看技能等级，不计算武器、护甲、武器品质、DPS、射程和健康状态修正。
+	/// 人类只看技能等级，机械族只看占用带宽，都不计算武器、护甲、武器品质、DPS、射程和健康状态修正。
 	/// </summary>
 	public static class OutpostDefenseUtility
 	{
+		/// <summary>机械族每 1 点占用带宽折算的防卫值。</summary>
+		public const int MechDefensePerBandwidth = 3;
+
 		/// <summary>
-		/// 单个 Pawn 的防卫：max(可用的 Shooting 等级, 可用的 Melee 等级)，两者都不可用则为 0。
+		/// 单个 Pawn 的防卫：机械族按占用带宽折算（带宽 × MechDefensePerBandwidth），
+		/// 其余 Pawn 取 max(可用的 Shooting 等级, 可用的 Melee 等级)。两者都不可用则为 0。
 		/// </summary>
 		public static int PawnDefense(Pawn pawn)
 		{
-			if (pawn?.skills == null)
+			if (pawn == null)
+			{
+				return 0;
+			}
+			// 机械族没有技能（原版 PawnComponentsUtility 只给 Humanlike 建 Pawn_SkillTracker），只能按带宽算。
+			if (pawn.RaceProps != null && pawn.RaceProps.IsMechanoid)
+			{
+				return MechBandwidth(pawn) * MechDefensePerBandwidth;
+			}
+			if (pawn.skills == null)
 			{
 				return 0;
 			}
 			int shooting = AvailableSkillLevel(pawn, SkillDefOf.Shooting);
 			int melee = AvailableSkillLevel(pawn, SkillDefOf.Melee);
 			return Mathf.Max(Mathf.Max(shooting, melee), 0);
+		}
+
+		/// <summary>
+		/// 机械族占用的带宽：直接取原版 BandwidthCost 属性 —— 和 MechanitorUtility、
+		/// Pawn_MechanitorTracker.UsedBandwidthFromSubjects 用的是同一个属性，不另算一套。
+		/// 原版机械族带宽都是整数，这里四舍五入成整数以便和技能等级一样显示；取不到属性时为 0。
+		/// </summary>
+		public static int MechBandwidth(Pawn pawn)
+		{
+			if (pawn == null || StatDefOf.BandwidthCost == null)
+			{
+				return 0;
+			}
+			return Mathf.RoundToInt(pawn.GetStatValue(StatDefOf.BandwidthCost));
 		}
 
 		/// <summary>

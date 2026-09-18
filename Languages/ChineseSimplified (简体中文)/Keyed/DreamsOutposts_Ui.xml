@@ -208,6 +208,8 @@
   <DreamsOutposts.Ui.DefenseSkill>{0} {1}</DreamsOutposts.Ui.DefenseSkill>
   <!-- EN: {0} disabled -->
   <DreamsOutposts.Ui.DefenseSkillDisabled>{0} 已禁用</DreamsOutposts.Ui.DefenseSkillDisabled>
+  <!-- EN: Bandwidth {0} -->
+  <DreamsOutposts.Ui.DefenseBandwidth>带宽 {0}</DreamsOutposts.Ui.DefenseBandwidth>
   <!-- EN: Warehouse -->
   <DreamsOutposts.Ui.Warehouse>仓库</DreamsOutposts.Ui.Warehouse>
   <DreamsOutposts.Ui.Vehicles>载具</DreamsOutposts.Ui.Vehicles>

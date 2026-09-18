@@ -353,15 +353,25 @@ namespace DreamsOutposts
 				Rect valueRect = new Rect(row.xMax - RowPaddingH - valueWidth, row.y, valueWidth, row.height);
 				UiText.Draw(valueRect, valueText, UiFont.Body, (view.Defense == 0) ? UiPalette.Ink2 : UiPalette.Ink,
 					TextAnchor.MiddleRight, view.Defense != 0);
-				// 技能徽标
-				float shootingWidth = SkillBadgeWidth(SkillDefOf.Shooting.LabelCap, view.Shooting);
-				float meleeWidth = SkillBadgeWidth(SkillDefOf.Melee.LabelCap, view.Melee);
-				float badgesWidth = shootingWidth + 5f + meleeWidth;
-				float badgesX = valueRect.x - 6f - badgesWidth;
+				// 技能徽标（机械族没有技能，改成显示占用的带宽，格式同样是「徽标 + 数值」）
+				float badgesX;
 				float chipHeight = UiDraw.ChipHeight(true);
 				float chipY = row.y + (row.height - chipHeight) * 0.5f;
-				DrawSkillBadge(new Rect(badgesX, chipY, shootingWidth, chipHeight), SkillDefOf.Shooting.LabelCap, view.Shooting);
-				DrawSkillBadge(new Rect(badgesX + shootingWidth + 5f, chipY, meleeWidth, chipHeight), SkillDefOf.Melee.LabelCap, view.Melee);
+				if (view.IsMechanoid)
+				{
+					UiChipView bandwidthChip = MakeBandwidthBadge(view.Bandwidth);
+					float bandwidthWidth = UiDraw.ChipWidth(bandwidthChip);
+					badgesX = valueRect.x - 6f - bandwidthWidth;
+					UiDraw.Chip(new Rect(badgesX, chipY, bandwidthWidth, chipHeight), bandwidthChip);
+				}
+				else
+				{
+					float shootingWidth = SkillBadgeWidth(SkillDefOf.Shooting.LabelCap, view.Shooting);
+					float meleeWidth = SkillBadgeWidth(SkillDefOf.Melee.LabelCap, view.Melee);
+					badgesX = valueRect.x - 6f - (shootingWidth + 5f + meleeWidth);
+					DrawSkillBadge(new Rect(badgesX, chipY, shootingWidth, chipHeight), SkillDefOf.Shooting.LabelCap, view.Shooting);
+					DrawSkillBadge(new Rect(badgesX + shootingWidth + 5f, chipY, meleeWidth, chipHeight), SkillDefOf.Melee.LabelCap, view.Melee);
+				}
 				// 名字
 				float nameWidth = Mathf.Max(badgesX - 5f - x, 30f);
 				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), view.Name, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
@@ -387,6 +397,14 @@ namespace DreamsOutposts
 			UiChipView chip = (level < 0)
 				? new UiChipView("DreamsOutposts.Ui.DefenseSkillDisabled".Translate(skillLabel).ToString(), UiChipKind.Bad)
 				: new UiChipView("DreamsOutposts.Ui.DefenseSkill".Translate(skillLabel, level).ToString());
+			chip.Small = true;
+			return chip;
+		}
+
+		/// <summary>机械族徽标：显示占用的带宽（和技能徽标同样式，见 MakeSkillBadge）。</summary>
+		private static UiChipView MakeBandwidthBadge(int bandwidth)
+		{
+			UiChipView chip = new UiChipView("DreamsOutposts.Ui.DefenseBandwidth".Translate(bandwidth).ToString());
 			chip.Small = true;
 			return chip;
 		}

@@ -206,9 +206,15 @@ namespace DreamsOutposts
 
 		public bool IsColonist;
 
+		/// <summary>机械族：行右侧不显示射击/格斗徽标，只显示占用的带宽徽标。</summary>
+		public bool IsMechanoid;
+
 		public int Shooting = -1;
 
 		public int Melee = -1;
+
+		/// <summary>机械族占用的带宽；非机械族恒为 0。</summary>
+		public int Bandwidth;
 
 		public int Defense;
 	}
@@ -973,6 +979,8 @@ namespace DreamsOutposts
 				view.Pawn = pawn;
 				view.Name = pawn.LabelShortCap.ToString();
 				view.IsColonist = pawn.IsColonist;
+				view.IsMechanoid = pawn.RaceProps != null && pawn.RaceProps.IsMechanoid;
+				view.Bandwidth = view.IsMechanoid ? OutpostDefenseUtility.MechBandwidth(pawn) : 0;
 				view.Shooting = OutpostDefenseUtility.AvailableSkillLevel(pawn, SkillDefOf.Shooting);
 				view.Melee = OutpostDefenseUtility.AvailableSkillLevel(pawn, SkillDefOf.Melee);
 				view.Defense = OutpostDefenseUtility.PawnDefense(pawn);

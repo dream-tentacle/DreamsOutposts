@@ -11,7 +11,7 @@
       <texPath>DreamsOutposts/Things/Buildings/RemotePowerReceiver</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(4,4)</drawSize>
-      <drawOffset>(0,0,0.5)</drawOffset>
+      <drawOffset>(0,0,0)</drawOffset>
     </graphicData>
     <size>(2,2)</size>
     <rotatable>false</rotatable>
