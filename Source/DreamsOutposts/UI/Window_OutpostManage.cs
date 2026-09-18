@@ -367,15 +367,22 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			int scrollId = GetHashCode();
 			// 切页动画：正文从右侧滑入 + 淡入，两者共用同一个进度
 			float fade = ContentFade();
+
+			// 真正淡入：直接让新页面正文的 GUI alpha 从 0 -> 1。
+			// 背景、系统页头、关闭按钮和左侧页签都在这个作用域之外，因此保持稳定。
+			Color previousContentColor = GUI.color;
+			GUI.color = new Color(
+				previousContentColor.r,
+				previousContentColor.g,
+				previousContentColor.b,
+				previousContentColor.a * fade);
+
 			UiWidgets.ScrollView(scrollArea, ref contentScroll, bodyHeight, delegate(Rect contentRect)
 			{
 				shellPage.DrawBody(new Rect(contentRect.x, contentRect.y, bodyWidth, contentRect.height), scrollArea.height);
 			}, true, scrollId, true, UiMetrics.ContentSlideDistance * (1f - fade));
-			// 淡入：整页画完后用面板底色压一层，等价于给正文做 alpha 淡入，页面内部不需要为动画做任何事
-			if (fade < 1f)
-			{
-				UiDraw.Solid(scrollArea, new Color(UiPalette.Surface.r, UiPalette.Surface.g, UiPalette.Surface.b, 1f - fade));
-			}
+
+			GUI.color = previousContentColor;
 		}
 
 		/// <summary>正文切页动画的进度：1 = 完全到位（位移归零、不透明）。切页时从 0 开始；首次打开窗口直接是 1。</summary>

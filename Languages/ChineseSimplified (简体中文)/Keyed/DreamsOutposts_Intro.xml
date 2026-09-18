@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: Outpost system guide -->
+  <DreamsOutposts.IntroTips.Title>据点系统指引</DreamsOutposts.IntroTips.Title>
+  <!-- EN: Read this before you start -->
+  <DreamsOutposts.IntroTips.Subtitle>开局必读</DreamsOutposts.IntroTips.Subtitle>
+  <!-- EN: Important -->
+  <DreamsOutposts.IntroTips.SectionImportant>重要</DreamsOutposts.IntroTips.SectionImportant>
+  <!-- EN: Useful knowledge -->
+  <DreamsOutposts.IntroTips.SectionKnowledge>有用的知识</DreamsOutposts.IntroTips.SectionKnowledge>
+  <!-- EN: OK -->
+  <DreamsOutposts.IntroTips.Confirm>确定</DreamsOutposts.IntroTips.Confirm>
+  <!-- EN: OK ({0}) -->
+  <DreamsOutposts.IntroTips.ConfirmCountdown>确定（{0}）</DreamsOutposts.IntroTips.ConfirmCountdown>
+  <!-- EN: Please read the guide above first. -->
+  <DreamsOutposts.IntroTips.ConfirmLocked>请先阅读上面的内容。</DreamsOutposts.IntroTips.ConfirmLocked>
+
+  <!-- EN: Founding an outpost: -->
+  <DreamsOutposts.IntroTips.Important.Build.Label>建立据点：</DreamsOutposts.IntroTips.Important.Build.Label>
+  <!-- EN: Select a caravan on the map to found an outpost. Make sure the caravan has arrived at an empty spot. -->
+  <DreamsOutposts.IntroTips.Important.Build.Text>选中远行队在地图上建立据点。请确保远行队已经到达空的地点。</DreamsOutposts.IntroTips.Important.Build.Text>
+  <!-- EN: About units: -->
+  <DreamsOutposts.IntroTips.Important.Units.Label>关于单位：</DreamsOutposts.IntroTips.Important.Units.Label>
+  <!-- EN: Anyone inside an outpost skips all calculations entirely, with no performance cost at all. -->
+  <DreamsOutposts.IntroTips.Important.Units.Text>任何在据点里的人会强制跳过计算，完全无性能消耗。</DreamsOutposts.IntroTips.Important.Units.Text>
+  <!-- EN: Production multiplier: -->
+  <DreamsOutposts.IntroTips.Important.Multiplier.Label>倍率调整：</DreamsOutposts.IntroTips.Important.Multiplier.Label>
+  <!-- EN: The production multiplier can be changed in the mod settings. -->
+  <DreamsOutposts.IntroTips.Important.Multiplier.Text>在设置里可以改生产倍率。</DreamsOutposts.IntroTips.Important.Multiplier.Text>
+  <!-- EN: UI style: -->
+  <DreamsOutposts.IntroTips.Important.UiStyle.Label>UI风格：</DreamsOutposts.IntroTips.Important.UiStyle.Label>
+  <!-- EN: A RimWorld-style interface can be enabled in the mod settings. -->
+  <DreamsOutposts.IntroTips.Important.UiStyle.Text>在设置里可以使用原版风格。</DreamsOutposts.IntroTips.Important.UiStyle.Text>
+  <!-- EN: Managing outposts: -->
+  <DreamsOutposts.IntroTips.Important.Manage.Label>据点管理：</DreamsOutposts.IntroTips.Important.Manage.Label>
+  <!-- EN: Click an outpost, then click the manage button below. -->
+  <DreamsOutposts.IntroTips.Important.Manage.Text>请点击据点后点击下方的管理按钮。</DreamsOutposts.IntroTips.Important.Manage.Text>
+  <!-- EN: Hiding this window: -->
+  <DreamsOutposts.IntroTips.Important.Disable.Label>如何不再出现：</DreamsOutposts.IntroTips.Important.Disable.Label>
+  <!-- EN: Turn this popup off in the mod settings. -->
+  <DreamsOutposts.IntroTips.Important.Disable.Text>在设置中关闭弹窗。</DreamsOutposts.IntroTips.Important.Disable.Text>
+
+  <!-- EN: Defense: -->
+  <DreamsOutposts.IntroTips.Knowledge.Defense.Label>关于防卫：</DreamsOutposts.IntroTips.Knowledge.Defense.Label>
+  <!-- EN: A colonist's melee or shooting ability raises defense. Defense facilities can also be built to raise it. -->
+  <DreamsOutposts.IntroTips.Knowledge.Defense.Text>人员近战或射击能力可以提高防卫。也可以建立防卫设施来提高。</DreamsOutposts.IntroTips.Knowledge.Defense.Text>
+  <!-- EN: Special buildings: -->
+  <DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Label>特殊建筑：</DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Label>
+  <!-- EN: Some special buildings require selecting an outpost on the map and then clicking a button. -->
+  <DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Text>一些特殊建筑需要在地图上选中据点后点击按钮。</DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Text>
+  <!-- EN: Outposts under attack: -->
+  <DreamsOutposts.IntroTips.Knowledge.Raid.Label>据点受到袭击：</DreamsOutposts.IntroTips.Knowledge.Raid.Label>
+  <!-- EN: Raids occur from time to time against a randomly chosen outpost. The result is decided by a defense roll. -->
+  <DreamsOutposts.IntroTips.Knowledge.Raid.Text>会不定期产生袭击事件，随机选择据点目标。根据防卫拼点决定结果。</DreamsOutposts.IntroTips.Knowledge.Raid.Text>
+  <!-- EN: Bombardment: -->
+  <DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>关于炮击：</DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>
+  <!-- EN: After building a mortar, select an outpost on the map and click the bombardment button. -->
+  <DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>建立迫击炮后需要在地图上选择据点并点击炮击按钮。</DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>
+
+  <!-- EN: Show the intro guide -->
+  <DreamsOutposts.Settings.ShowIntroTips>显示开局指引弹窗</DreamsOutposts.Settings.ShowIntroTips>
+  <!-- EN: Shows the outpost system guide every time you start a new game or load a save. -->
+  <DreamsOutposts.Settings.ShowIntroTips.Description>每次新开局或读取存档时显示据点系统指引。</DreamsOutposts.Settings.ShowIntroTips.Description>
+  <!-- EN: View the guide again -->
+  <DreamsOutposts.Settings.OpenIntroTips>再次查看指引</DreamsOutposts.Settings.OpenIntroTips>
+</LanguageData>

@@ -48,6 +48,9 @@ namespace DreamsOutposts
 
 		public Action ClosedCallback;
 
+		/// <summary>false = 标题栏不画关闭叉（纯阅读型弹窗只留底部按钮）。</summary>
+		public bool ShowCloseButton = true;
+
 		public override Vector2 InitialSize => new Vector2(UI.screenWidth, UI.screenHeight);
 
 		public Window_OutpostModal()
@@ -159,7 +162,8 @@ namespace DreamsOutposts
 			UiDraw.Box(headInner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.TopLeft | UiCorners.TopRight);
 			UiDraw.Divider(new Rect(head.x, head.yMax - 1f, head.width, 1f), UiPalette.Line);
 			float textX = head.x + UiMetrics.ModalHeadPaddingH;
-			float textWidth = Mathf.Max(head.width - UiMetrics.ModalHeadPaddingH * 2f - UiMetrics.CloseButtonSize - 8f, 40f);
+			float closeReserve = ShowCloseButton ? UiMetrics.CloseButtonSize + 8f : 0f;
+			float textWidth = Mathf.Max(head.width - UiMetrics.ModalHeadPaddingH * 2f - closeReserve, 40f);
 			float y = head.y + UiMetrics.ModalHeadPaddingTop;
 			UiText.Draw(new Rect(textX, y, textWidth, UiText.LineHeight(UiFont.Heading)), TitleText, UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
 			if (!string.IsNullOrEmpty(SubText))
@@ -167,11 +171,14 @@ namespace DreamsOutposts
 				UiText.Draw(new Rect(textX, y + UiText.LineHeight(UiFont.Heading) + 3f, textWidth, UiText.LineHeight(UiFont.Body)),
 					SubText, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 			}
-			Rect closeRect = new Rect(head.xMax - UiMetrics.ModalHeadPaddingH - UiMetrics.CloseButtonSize,
-				head.y + (head.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
-			if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+			if (ShowCloseButton)
 			{
-				Close();
+				Rect closeRect = new Rect(head.xMax - UiMetrics.ModalHeadPaddingH - UiMetrics.CloseButtonSize,
+					head.y + (head.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+				if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+				{
+					Close();
+				}
 			}
 		}
 

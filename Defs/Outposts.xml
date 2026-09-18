@@ -94,7 +94,7 @@
         <daysRequired>0</daysRequired>
       </li>
       <li>
-        <slotCount>3</slotCount>
+        <slotCount>4</slotCount>
         <daysRequired>10</daysRequired>
         <cost>
           <Steel>200</Steel>
@@ -102,7 +102,7 @@
         </cost>
       </li>
       <li>
-        <slotCount>5</slotCount>
+        <slotCount>6</slotCount>
         <daysRequired>20</daysRequired>
         <cost>
           <Steel>300</Steel>
@@ -111,7 +111,7 @@
         </cost>
       </li>
       <li>
-        <slotCount>7</slotCount>
+        <slotCount>8</slotCount>
         <daysRequired>40</daysRequired>
         <cost>
           <Steel>600</Steel>

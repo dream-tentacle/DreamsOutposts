@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.IntroTips.Title>Outpost system guide</DreamsOutposts.IntroTips.Title>
+  <DreamsOutposts.IntroTips.Subtitle>Read this before you start</DreamsOutposts.IntroTips.Subtitle>
+  <DreamsOutposts.IntroTips.SectionImportant>Important</DreamsOutposts.IntroTips.SectionImportant>
+  <DreamsOutposts.IntroTips.SectionKnowledge>Useful knowledge</DreamsOutposts.IntroTips.SectionKnowledge>
+  <DreamsOutposts.IntroTips.Confirm>OK</DreamsOutposts.IntroTips.Confirm>
+  <DreamsOutposts.IntroTips.ConfirmCountdown>OK ({0})</DreamsOutposts.IntroTips.ConfirmCountdown>
+  <DreamsOutposts.IntroTips.ConfirmLocked>Please read the guide above first.</DreamsOutposts.IntroTips.ConfirmLocked>
+
+  <DreamsOutposts.IntroTips.Important.Build.Label>Founding an outpost:</DreamsOutposts.IntroTips.Important.Build.Label>
+  <DreamsOutposts.IntroTips.Important.Build.Text>Select a caravan on the map to found an outpost. Make sure the caravan has arrived at an empty spot.</DreamsOutposts.IntroTips.Important.Build.Text>
+  <DreamsOutposts.IntroTips.Important.Units.Label>About units:</DreamsOutposts.IntroTips.Important.Units.Label>
+  <DreamsOutposts.IntroTips.Important.Units.Text>Anyone inside an outpost skips all calculations entirely, with no performance cost at all.</DreamsOutposts.IntroTips.Important.Units.Text>
+  <DreamsOutposts.IntroTips.Important.Multiplier.Label>Production multiplier:</DreamsOutposts.IntroTips.Important.Multiplier.Label>
+  <DreamsOutposts.IntroTips.Important.Multiplier.Text>The production multiplier can be changed in the mod settings.</DreamsOutposts.IntroTips.Important.Multiplier.Text>
+  <DreamsOutposts.IntroTips.Important.UiStyle.Label>UI style:</DreamsOutposts.IntroTips.Important.UiStyle.Label>
+  <DreamsOutposts.IntroTips.Important.UiStyle.Text>A RimWorld-style interface can be enabled in the mod settings.</DreamsOutposts.IntroTips.Important.UiStyle.Text>
+  <DreamsOutposts.IntroTips.Important.Manage.Label>Managing outposts:</DreamsOutposts.IntroTips.Important.Manage.Label>
+  <DreamsOutposts.IntroTips.Important.Manage.Text>Click an outpost, then click the manage button below.</DreamsOutposts.IntroTips.Important.Manage.Text>
+  <DreamsOutposts.IntroTips.Important.Disable.Label>Hiding this window:</DreamsOutposts.IntroTips.Important.Disable.Label>
+  <DreamsOutposts.IntroTips.Important.Disable.Text>Turn this popup off in the mod settings.</DreamsOutposts.IntroTips.Important.Disable.Text>
+
+  <DreamsOutposts.IntroTips.Knowledge.Defense.Label>Defense:</DreamsOutposts.IntroTips.Knowledge.Defense.Label>
+  <DreamsOutposts.IntroTips.Knowledge.Defense.Text>A colonist's melee or shooting ability raises defense. Defense facilities can also be built to raise it.</DreamsOutposts.IntroTips.Knowledge.Defense.Text>
+  <DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Label>Special buildings:</DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Label>
+  <DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Text>Some special buildings require selecting an outpost on the map and then clicking a button.</DreamsOutposts.IntroTips.Knowledge.SpecialBuildings.Text>
+  <DreamsOutposts.IntroTips.Knowledge.Raid.Label>Outposts under attack:</DreamsOutposts.IntroTips.Knowledge.Raid.Label>
+  <DreamsOutposts.IntroTips.Knowledge.Raid.Text>Raids occur from time to time against a randomly chosen outpost. The result is decided by a defense roll.</DreamsOutposts.IntroTips.Knowledge.Raid.Text>
+  <DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>Bombardment:</DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>
+  <DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>After building a mortar, select an outpost on the map and click the bombardment button.</DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>
+
+  <DreamsOutposts.Settings.ShowIntroTips>Show the intro guide</DreamsOutposts.Settings.ShowIntroTips>
+  <DreamsOutposts.Settings.ShowIntroTips.Description>Shows the outpost system guide every time you start a new game or load a save.</DreamsOutposts.Settings.ShowIntroTips.Description>
+  <DreamsOutposts.Settings.OpenIntroTips>View the guide again</DreamsOutposts.Settings.OpenIntroTips>
+</LanguageData>

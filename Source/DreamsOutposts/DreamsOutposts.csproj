@@ -84,6 +84,7 @@
     <Compile Include="Core\Outpost.cs" />
     <Compile Include="Core\OutpostTypeRestrictionUtility.cs" />
     <Compile Include="Core\OutpostTrainingProperties.cs" />
+    <Compile Include="Core\GameComponent_OutpostIntroTips.cs" />
     <Compile Include="Training\OutpostTrainingUtility.cs" />
     <Compile Include="Training\OutpostFacilityComp_Training.cs" />
     <Compile Include="Taming\OutpostTamingWorker.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="UI\Modals\UiFacilityModals.cs" />
 	<Compile Include="UI\Modals\UiAutomaticAirdropModal.cs" />
     <Compile Include="UI\Modals\UiEventModal.cs" />
+    <Compile Include="UI\Modals\UiIntroTipsModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

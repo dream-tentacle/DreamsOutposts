@@ -41,13 +41,21 @@ namespace DreamsOutposts
 				DreamsOutpostsSettings.MinProductionMultiplier,
 				DreamsOutpostsSettings.MaxProductionMultiplier);
 			Settings.productionMultiplier = Mathf.Round(value * 10f) / 10f;
-			listing.GapLine();
 			listing.Label("DreamsOutposts.Settings.ProductionMultiplierDescription".Translate());
 			listing.GapLine();
 			listing.CheckboxLabeled(
 				"DreamsOutposts.Settings.UseVanillaUi".Translate(),
 				ref Settings.useVanillaUi,
 				"DreamsOutposts.Settings.UseVanillaUi.Description".Translate());
+			listing.GapLine();
+			listing.CheckboxLabeled(
+				"DreamsOutposts.Settings.ShowIntroTips".Translate(),
+				ref Settings.showIntroTips,
+				"DreamsOutposts.Settings.ShowIntroTips.Description".Translate());
+			if (listing.ButtonText("DreamsOutposts.Settings.OpenIntroTips".Translate()))
+			{
+				UiIntroTipsWindow.Open();
+			}
 			listing.End();
 		}
 

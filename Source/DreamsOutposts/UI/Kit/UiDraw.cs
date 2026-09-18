@@ -392,9 +392,9 @@ namespace DreamsOutposts
 		{
 			Color fill = ChipFillColor(chip.Kind);
 
-			// 方形、无边框。
-			// 左侧 25%：从完全透明渐变到原始 fill；
-			// 后 75%：保持原始 fill，不再变化。
+			// 方形 chip：
+			// 左侧 25% 从完全透明渐变到原始 fill；
+			// 后 75% 保持原始 fill。
 			float gradientWidth = rect.width * 0.25f;
 
 			if (gradientWidth > 0.5f)
@@ -434,6 +434,26 @@ namespace DreamsOutposts
 			{
 				Solid(rect, fill);
 			}
+
+			// 1px 描边：
+			// 原版风使用白色，现代工业风使用黑色。
+			Color border = DreamsOutpostsMod.UseVanillaUi
+				? Color.white
+				: Color.black;
+
+			const float borderWidth = 1f;
+			Solid(
+				new Rect(rect.x, rect.y, rect.width, borderWidth),
+				border);
+			Solid(
+				new Rect(rect.x, rect.yMax - borderWidth, rect.width, borderWidth),
+				border);
+			Solid(
+				new Rect(rect.x, rect.y, borderWidth, rect.height),
+				border);
+			Solid(
+				new Rect(rect.xMax - borderWidth, rect.y, borderWidth, rect.height),
+				border);
 
 			float padding = chip.Small
 				? UiMetrics.ChipSmallPaddingH
@@ -546,7 +566,7 @@ namespace DreamsOutposts
 				return;
 			}
 			Color previous = GUI.color;
-			GUI.color = Color.white;
+			GUI.color = new Color(1f, 1f, 1f, previous.a);
 			GUI.DrawTexture(rect, texture);
 			GUI.color = previous;
 		}
@@ -559,7 +579,7 @@ namespace DreamsOutposts
 				return;
 			}
 			Color previous = GUI.color;
-			GUI.color = Color.white;
+			GUI.color = new Color(1f, 1f, 1f, previous.a);
 			Widgets.ThingIcon(rect, def);
 			GUI.color = previous;
 		}

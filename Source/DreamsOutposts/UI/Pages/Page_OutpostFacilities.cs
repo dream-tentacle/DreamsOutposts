@@ -927,7 +927,7 @@ namespace DreamsOutposts
 				if (image != null)
 				{
 					Color previous = GUI.color;
-					GUI.color = Color.white;
+					GUI.color = new Color(1f, 1f, 1f, previous.a);
 					GUI.DrawTexture(imageRect, image, ScaleMode.ScaleAndCrop, true);
 					GUI.color = previous;
 

@@ -283,5 +283,5 @@
   <DreamsOutposts.Tavern.DismissConfirm>确定驱离{0}吗？这名冒险者会立即离开。</DreamsOutposts.Tavern.DismissConfirm>
   <DreamsOutposts.Ui.ManagementSystem>据点管理系统</DreamsOutposts.Ui.ManagementSystem>
   <DreamsOutposts.Settings.UseVanillaUi>使用 RimWorld 原版风格界面</DreamsOutposts.Settings.UseVanillaUi>
-  <DreamsOutposts.Settings.UseVanillaUi.Description>将界面强调色改为白色，普通按钮使用 RimWorld 原版样式，并以白色竖线标识当前侧栏页签。</DreamsOutposts.Settings.UseVanillaUi.Description>
+  <DreamsOutposts.Settings.UseVanillaUi.Description>将界面改为 RimWorld 原版样式。</DreamsOutposts.Settings.UseVanillaUi.Description>
 </LanguageData>

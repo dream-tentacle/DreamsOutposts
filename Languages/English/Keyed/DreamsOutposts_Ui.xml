@@ -144,5 +144,5 @@
   <DreamsOutposts.Tavern.DismissConfirm>Dismiss {0}? This adventurer will leave immediately.</DreamsOutposts.Tavern.DismissConfirm>
   <DreamsOutposts.Ui.ManagementSystem>Outpost Management System</DreamsOutposts.Ui.ManagementSystem>
   <DreamsOutposts.Settings.UseVanillaUi>Use RimWorld-style interface</DreamsOutposts.Settings.UseVanillaUi>
-  <DreamsOutposts.Settings.UseVanillaUi.Description>Uses white interface accents, RimWorld-style standard buttons, and a white vertical line for the active sidebar tab.</DreamsOutposts.Settings.UseVanillaUi.Description>
+  <DreamsOutposts.Settings.UseVanillaUi.Description>Uses RimWorld-style UI.</DreamsOutposts.Settings.UseVanillaUi.Description>
 </LanguageData>
