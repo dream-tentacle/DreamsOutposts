@@ -17,7 +17,7 @@
   <DreamsOutposts.BandTuning.Restart>Restart tuning</DreamsOutposts.BandTuning.Restart>
   <!-- New UI shell and facilities page -->
   <DreamsOutposts.Ui.Tile>Tile {0}</DreamsOutposts.Ui.Tile>
-  <DreamsOutposts.Ui.DaysSinceEstablished>{0} days since founding</DreamsOutposts.Ui.DaysSinceEstablished>
+  <DreamsOutposts.Ui.DaysSinceEstablished>Founded: {0} days</DreamsOutposts.Ui.DaysSinceEstablished>
   <DreamsOutposts.Ui.PipTooltip>Level {0}: {1} extension slots</DreamsOutposts.Ui.PipTooltip>
   <DreamsOutposts.Ui.PipDaysRequired>needs {0} days since founding</DreamsOutposts.Ui.PipDaysRequired>
   <DreamsOutposts.Ui.UpgradeTitle>Upgrade to level {0} · slots {1} to {2}</DreamsOutposts.Ui.UpgradeTitle>
@@ -27,7 +27,7 @@
   <DreamsOutposts.Ui.Upgrade.Missing>Not enough materials: {0}</DreamsOutposts.Ui.Upgrade.Missing>
   <DreamsOutposts.Ui.Upgrade.ConfirmTip>Upgrade this outpost now.</DreamsOutposts.Ui.Upgrade.ConfirmTip>
   <DreamsOutposts.Ui.Upgrade.Button>Upgrade Outpost</DreamsOutposts.Ui.Upgrade.Button>
-  <DreamsOutposts.Ui.Chip.CurrentSlots>{0} slots now</DreamsOutposts.Ui.Chip.CurrentSlots>
+  <DreamsOutposts.Ui.Chip.CurrentSlots>Slots: {0}</DreamsOutposts.Ui.Chip.CurrentSlots>
   <DreamsOutposts.Ui.Chip.CoreFacility>Core: {0}</DreamsOutposts.Ui.Chip.CoreFacility>
   <DreamsOutposts.Ui.Chip.Defense>Defense +{0}</DreamsOutposts.Ui.Chip.Defense>
   <DreamsOutposts.Ui.Chip.DefenseValue>Defense {0}</DreamsOutposts.Ui.Chip.DefenseValue>
@@ -120,12 +120,18 @@
   <DreamsOutposts.Ui.Option.RequirementsFailed>Requirements not met</DreamsOutposts.Ui.Option.RequirementsFailed>
   <DreamsOutposts.Ui.Option.Confirm>Confirm</DreamsOutposts.Ui.Option.Confirm>
   <DreamsOutposts.Ui.Option.Later>Later</DreamsOutposts.Ui.Option.Later>
+  <DreamsOutposts.Ui.Help.Title>(?)Info</DreamsOutposts.Ui.Help.Title>
+  <DreamsOutposts.Ui.Help.Events.Head>Tendencies</DreamsOutposts.Ui.Help.Events.Head>
+  <DreamsOutposts.Ui.Help.Events>Tendencies affect how likely each outpost event is to appear. You can also turn random events off in the settings.</DreamsOutposts.Ui.Help.Events>
+  <DreamsOutposts.Ui.Help.Population.Head>Population tendency</DreamsOutposts.Ui.Help.Population.Head>
+  <DreamsOutposts.Ui.Help.Population>Population tendency affects not only event odds, but also the quality of the adventurers the tavern recruits. Population is affected by: outpost level, number of outpost personnel, and special facilities.</DreamsOutposts.Ui.Help.Population>
   <DreamsOutposts.Tavern.Title>Tavern</DreamsOutposts.Tavern.Title>
   <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
   <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
   <DreamsOutposts.Tavern.AnySkill>No preference</DreamsOutposts.Tavern.AnySkill>
   <DreamsOutposts.Tavern.Next>Next candidate in {0}</DreamsOutposts.Tavern.Next>
-  <DreamsOutposts.Tavern.Chance>Success chance {0}</DreamsOutposts.Tavern.Chance>
+  <DreamsOutposts.Tavern.Waiting>Waiting...</DreamsOutposts.Tavern.Waiting>
+  <DreamsOutposts.Tavern.Chance>Chance {0} ({1}/{2} Social)</DreamsOutposts.Tavern.Chance>
   <DreamsOutposts.Tavern.ChanceTip>The colonists here have {0} total Social skill of the {1} needed for a certain success.</DreamsOutposts.Tavern.ChanceTip>
   <DreamsOutposts.Tavern.Recruited>An adventurer has turned up at the tavern in {0}.</DreamsOutposts.Tavern.Recruited>
   <DreamsOutposts.Tavern.RecruitFailed>Tavern recruitment failed for an unknown program reason.</DreamsOutposts.Tavern.RecruitFailed>

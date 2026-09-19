@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
   <!-- EN: Store in outpost -->
   <DreamsOutposts.StoreInOutpost>存入据点仓库</DreamsOutposts.StoreInOutpost>
@@ -86,8 +86,28 @@
   <DreamsOutposts.RequiresResearch>需要研究：{0}</DreamsOutposts.RequiresResearch>
   <!-- EN: unknown -->
   <DreamsOutposts.Unknown>未知</DreamsOutposts.Unknown>
+  <!-- EN: Appearance -->
+  <DreamsOutposts.Settings.TabAppearance>外观</DreamsOutposts.Settings.TabAppearance>
+  <!-- EN: Parameters -->
+  <DreamsOutposts.Settings.TabParameters>参数</DreamsOutposts.Settings.TabParameters>
   <!-- EN: Production multiplier: {0} -->
   <DreamsOutposts.Settings.ProductionMultiplier>产出倍率：{0}</DreamsOutposts.Settings.ProductionMultiplier>
   <!-- EN: Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected. -->
   <DreamsOutposts.Settings.ProductionMultiplierDescription>影响常规物品生产、动物驯养数量和研究点。加工设施会随产出提升按比例消耗更多原料；事件奖励及其他收益不受影响。</DreamsOutposts.Settings.ProductionMultiplierDescription>
+  <!-- EN: Outpost random events -->
+  <DreamsOutposts.Settings.RandomEvents>据点随机事件</DreamsOutposts.Settings.RandomEvents>
+  <!-- EN: Enable outpost random events -->
+  <DreamsOutposts.Settings.RandomEvents.Enable>启用据点随机事件</DreamsOutposts.Settings.RandomEvents.Enable>
+  <!-- EN: Interval: {0} days -->
+  <DreamsOutposts.Settings.RandomEvents.Interval>间隔：{0} 天</DreamsOutposts.Settings.RandomEvents.Interval>
+  <!-- EN: How often random events occur at your outposts. Duration changes take effect after the next event is generated. -->
+  <DreamsOutposts.Settings.RandomEvents.Description>据点随机事件的发生间隔。时长修改需要在下一次事件生成后才能生效。</DreamsOutposts.Settings.RandomEvents.Description>
+  <!-- EN: Outpost attacks -->
+  <DreamsOutposts.Settings.Attacks>据点袭击</DreamsOutposts.Settings.Attacks>
+  <!-- EN: Enable outpost attacks -->
+  <DreamsOutposts.Settings.Attacks.Enable>启用据点袭击</DreamsOutposts.Settings.Attacks.Enable>
+  <!-- EN: Interval: {0} days -->
+  <DreamsOutposts.Settings.Attacks.Interval>间隔：{0} 天</DreamsOutposts.Settings.Attacks.Interval>
+  <!-- EN: How often hostile forces attack your outposts. Duration changes take effect after the next attack is generated. -->
+  <DreamsOutposts.Settings.Attacks.Description>敌对势力进攻据点的间隔。时长修改需要在下一次袭击生成后才能生效。</DreamsOutposts.Settings.Attacks.Description>
 </LanguageData>

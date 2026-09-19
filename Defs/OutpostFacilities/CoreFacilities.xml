@@ -157,7 +157,7 @@
     <defName>DreamsOutposts_TownCenter</defName>
     <category>DreamsOutposts_CategoryOther</category>
     <label>town center</label>
-    <description>The square, roads and shared buildings that hold a town together. It produces nothing by itself, but it has more facility slots. Its Population tendency is also higher. </description>
+    <description>The square, roads and shared buildings that hold a town together. It produces nothing by itself, but it has more facility slots. Its Population tendency is also higher.</description>
     <installableAsExtension>false</installableAsExtension>
     <eventCategoryModifiers>
       <li>

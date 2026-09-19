@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- 更新日志模块自带的词条 -->
+  <DreamsOutposts.UpdateNotice.Title>更新日志</DreamsOutposts.UpdateNotice.Title>
+  <DreamsOutposts.UpdateNotice.VersionPrefix>版本 {0}</DreamsOutposts.UpdateNotice.VersionPrefix>
+  <DreamsOutposts.UpdateNotice.Confirm>知道了</DreamsOutposts.UpdateNotice.Confirm>
+
+  <DreamsOutposts.Settings.OpenUpdateLog>查看更新日志</DreamsOutposts.Settings.OpenUpdateLog>
+  <DreamsOutposts.Settings.OpenUpdateLog.Description>查看本模组历次版本更新了哪些内容。</DreamsOutposts.Settings.OpenUpdateLog.Description>
+</LanguageData>

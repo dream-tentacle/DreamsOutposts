@@ -39,6 +39,15 @@ namespace DreamsOutposts
 
 		private const float TendencyMarginBottom = 14f;
 
+		/// <summary>倾向提示文字常态透明度：原版风格下 Ink3 也是纯白，只能靠压 alpha 体现「次要」。</summary>
+		private const float HintAlpha = 0.82f;
+
+		/// <summary>提示整行与它上面 chip 块的空隙。</summary>
+		private const float HintGap = 8f;
+
+		/// <summary>倾向提示的翻译 key：事件页和酒馆页共用同一句话、同一个说明弹窗。</summary>
+		private const string HintKey = "DreamsOutposts.EventWeight.Hint";
+
 		private static readonly string[] TendencyDefNames =
 		{
 			"DreamsOutposts_Frontier",
@@ -179,7 +188,9 @@ namespace DreamsOutposts
 		private static float TendencyHeight(float width, List<UiChipView> chips)
 		{
 			float innerWidth = Mathf.Max(width - TendencyPadding * 2f, 40f);
-			return TendencyPadding * 2f + UiText.LineHeight(UiFont.Body) + 8f + UiDraw.ChipsHeight(chips, innerWidth, true);
+			return TendencyPadding * 2f + UiText.LineHeight(UiFont.Body) + 8f
+				+ UiDraw.ChipsHeight(chips, innerWidth, true)
+				+ HintGap + UiDraw.HintHeight();
 		}
 
 		private static void DrawTendencies(Rect rect, List<UiChipView> chips)
@@ -192,7 +203,14 @@ namespace DreamsOutposts
 			float titleHeight = UiText.LineHeight(UiFont.Body);
 			UiText.Draw(new Rect(x, y, width, titleHeight), "DreamsOutposts.EventWeight.Current".Translate(), UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, true, false, true);
 			y += titleHeight + 8f;
-			UiDraw.Chips(new Rect(x, y, width, rect.yMax - y - TendencyPadding), chips, true);
+			float chipsHeight = UiDraw.Chips(new Rect(x, y, width, rect.yMax - y - TendencyPadding), chips, true);
+			y += chipsHeight + HintGap;
+			// 提示单独占 chip 块下面的一行，从左边开始画，和上面的 chip 左对齐
+			if (UiDraw.Hint(new Rect(x, y, width, UiDraw.HintHeight()), HintKey.Translate(),
+				UiPalette.WithAlpha(UiPalette.Ink3, HintAlpha), UiPalette.WithAlpha(UiPalette.Ink2, HintAlpha)))
+			{
+				UiOutpostHelpWindow.Open();
+			}
 		}
 
 		// ---------------------------------------------------------------

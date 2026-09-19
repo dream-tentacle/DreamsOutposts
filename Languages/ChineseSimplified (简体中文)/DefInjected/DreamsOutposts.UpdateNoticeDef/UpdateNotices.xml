@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_0_3.label>更新日志</DreamsOutposts_UpdateNotice_1_0_3.label>
+  <DreamsOutposts_UpdateNotice_1_0_3.entries.0>优化了游戏内提示和数据显示。</DreamsOutposts_UpdateNotice_1_0_3.entries.0>
+
+  <DreamsOutposts_UpdateNotice_1_0_2.label>更新日志</DreamsOutposts_UpdateNotice_1_0_2.label>
+  <DreamsOutposts_UpdateNotice_1_0_2.entries.0>据点随机事件与袭击的间隔现在可以调整，也可以完全关闭。</DreamsOutposts_UpdateNotice_1_0_2.entries.0>
+
+  <DreamsOutposts_UpdateNotice_1_0_1.label>更新日志</DreamsOutposts_UpdateNotice_1_0_1.label>
+  <DreamsOutposts_UpdateNotice_1_0_1.entries.0>修复了一些英文翻译错误。</DreamsOutposts_UpdateNotice_1_0_1.entries.0>
+</LanguageData>

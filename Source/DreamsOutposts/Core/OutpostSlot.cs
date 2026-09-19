@@ -62,7 +62,7 @@ namespace DreamsOutposts
 			List<ThingDefCountClass> missing = new List<ThingDefCountClass>();
 			if (!OutpostBuildUtility.CanAfford(outpost, def, missing))
 			{
-				return new AcceptanceReport("DreamsOutposts.InstallFail.CannotAfford".Translate(OutpostBuildUtility.CostLabel(missing)));
+				return new AcceptanceReport("DreamsOutposts.InstallFail.CannotAfford".Translate());
 			}
 			return AcceptanceReport.WasAccepted;
 		}

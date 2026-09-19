@@ -36,9 +36,15 @@ namespace DreamsOutposts
 		{
 			base.FinalizeInit();
 			OutpostFacilityTagRegistry.Initialize();
+			int now = Find.TickManager.TicksGame;
+			if (!OutpostRandomEventScheduler.RandomEventsEnabled)
+			{
+				// 关闭状态不排期：0 表示「当前没有排期」，重新开启后会在 Tick 里重新开始计时。
+				nextRandomEventTick = 0;
+				return;
+			}
 			// 新游戏，或旧存档里没有有效值（0）时，从当前时刻重新排期。
 			// 已经过期的值也重新排期，保证读档后不会立刻生成随机事件。
-			int now = Find.TickManager.TicksGame;
 			if (nextRandomEventTick <= 0 || nextRandomEventTick <= now)
 			{
 				nextRandomEventTick = now + OutpostRandomEventScheduler.RollIntervalTicks();
@@ -48,9 +54,16 @@ namespace DreamsOutposts
 		public override void GameComponentTick()
 		{
 			int now = Find.TickManager.TicksGame;
+			if (!OutpostRandomEventScheduler.RandomEventsEnabled)
+			{
+				// 关闭后把排期清空。保留旧值会让玩家重新开启时立刻补刷一次早就过期的事件。
+				// 开关本身立即生效；间隔区间的调整只影响下一轮，因为排期只在下面几处重新掷。
+				nextRandomEventTick = 0;
+				return;
+			}
 			if (nextRandomEventTick <= 0)
 			{
-				// FinalizeInit 没有跑过时的兜底，同样从当前时刻重新排期。
+				// FinalizeInit 没有跑过、或刚刚被玩家重新开启时的兜底，从当前时刻重新排期。
 				nextRandomEventTick = now + OutpostRandomEventScheduler.RollIntervalTicks();
 				return;
 			}

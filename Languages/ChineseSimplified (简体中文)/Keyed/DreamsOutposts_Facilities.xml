@@ -15,9 +15,9 @@
   <!-- EN: Cannot install: mutually exclusive with the installed {0}. -->
   <DreamsOutposts.InstallFail.MutuallyExclusive>不能安装：与已安装的{0}互斥。</DreamsOutposts.InstallFail.MutuallyExclusive>
   <!-- EN: Not enough resources: missing {0}. -->
-  <DreamsOutposts.InstallFail.CannotAfford>资源不足，还差{0}。</DreamsOutposts.InstallFail.CannotAfford>
+  <DreamsOutposts.InstallFail.CannotAfford>资源不足。</DreamsOutposts.InstallFail.CannotAfford>
   <!-- EN: This outpost is level {0}; the facility requires level {1}. -->
-  <DreamsOutposts.InstallFail.LevelTooLow>此据点当前等级为{0}，这种设施需要据点达到{1}级。</DreamsOutposts.InstallFail.LevelTooLow>
+  <DreamsOutposts.InstallFail.LevelTooLow>此据点当前等级为{0}，需要{1}级。</DreamsOutposts.InstallFail.LevelTooLow>
   <!-- EN: Requires outpost level: {0} -->
   <DreamsOutposts.RequiresOutpostLevel>需要据点等级：{0}</DreamsOutposts.RequiresOutpostLevel>
   <!-- EN: Trains: {0} ({1} xp per hour) -->
@@ -118,8 +118,8 @@
   <DreamsOutposts.AutomaticAirdropDelivered>自动空投机已空投物品：{0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
   <!-- EN: Store reserve -->
   <DreamsOutposts.IntelligentAirdropReserve>仓库保留数量</DreamsOutposts.IntelligentAirdropReserve>
-	<!-- EN: Waystation: {0} -->
+  <!-- EN: Waystation: {0} -->
   <DreamsOutposts.WaystationMovementFactor>驿站：{0}</DreamsOutposts.WaystationMovementFactor>
-	<!-- EN: Temporary outpost effect: {0} -->
+  <!-- EN: Temporary outpost effect: {0} -->
   <DreamsOutposts.TemporaryMovementFactor>据点临时效果：{0}</DreamsOutposts.TemporaryMovementFactor>
 </LanguageData>

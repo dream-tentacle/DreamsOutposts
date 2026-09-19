@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Strings used by the update log module. -->
+  <DreamsOutposts.UpdateNotice.Title>Update log</DreamsOutposts.UpdateNotice.Title>
+  <DreamsOutposts.UpdateNotice.VersionPrefix>Version {0}</DreamsOutposts.UpdateNotice.VersionPrefix>
+  <DreamsOutposts.UpdateNotice.Confirm>Got it</DreamsOutposts.UpdateNotice.Confirm>
+
+  <DreamsOutposts.Settings.OpenUpdateLog>View update log</DreamsOutposts.Settings.OpenUpdateLog>
+  <DreamsOutposts.Settings.OpenUpdateLog.Description>Shows what changed in each released version of this mod.</DreamsOutposts.Settings.OpenUpdateLog.Description>
+</LanguageData>

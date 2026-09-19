@@ -33,7 +33,7 @@
   <!-- New UI shell and facilities page -->
   <!-- EN: Tile {0} -->
   <DreamsOutposts.Ui.Tile>地块 {0}</DreamsOutposts.Ui.Tile>
-  <!-- EN: {0} days since founding -->
+  <!-- EN: Founded: {0} days -->
   <DreamsOutposts.Ui.DaysSinceEstablished>建立后 {0} 天</DreamsOutposts.Ui.DaysSinceEstablished>
   <!-- EN: Level {0}: {1} extension slots -->
   <DreamsOutposts.Ui.PipTooltip>等级 {0}：{1} 个扩展槽位</DreamsOutposts.Ui.PipTooltip>
@@ -52,7 +52,7 @@
   <!-- EN: Upgrade this outpost now. -->
   <DreamsOutposts.Ui.Upgrade.ConfirmTip>立即升级此据点。</DreamsOutposts.Ui.Upgrade.ConfirmTip>
   <DreamsOutposts.Ui.Upgrade.Button>升级据点</DreamsOutposts.Ui.Upgrade.Button>
-  <!-- EN: {0} slots now -->
+  <!-- EN: Slots: {0} -->
   <DreamsOutposts.Ui.Chip.CurrentSlots>当前槽位 {0}</DreamsOutposts.Ui.Chip.CurrentSlots>
   <!-- EN: Core: {0} -->
   <DreamsOutposts.Ui.Chip.CoreFacility>核心设施 {0}</DreamsOutposts.Ui.Chip.CoreFacility>
@@ -237,6 +237,16 @@
   <DreamsOutposts.Ui.Option.Confirm>确认</DreamsOutposts.Ui.Option.Confirm>
   <!-- EN: Later -->
   <DreamsOutposts.Ui.Option.Later>稍后再说</DreamsOutposts.Ui.Option.Later>
+  <!-- EN: (?)Info -->
+  <DreamsOutposts.Ui.Help.Title>(?)提示</DreamsOutposts.Ui.Help.Title>
+  <!-- EN: Tendencies -->
+  <DreamsOutposts.Ui.Help.Events.Head>倾向</DreamsOutposts.Ui.Help.Events.Head>
+  <!-- EN: Tendencies affect how likely each outpost event is to appear. You can also turn random events off in the settings. -->
+  <DreamsOutposts.Ui.Help.Events>倾向会影响事件出现概率，你也可以在设置中关闭随机事件的发生。</DreamsOutposts.Ui.Help.Events>
+  <!-- EN: Population tendency -->
+  <DreamsOutposts.Ui.Help.Population.Head>人口倾向</DreamsOutposts.Ui.Help.Population.Head>
+  <!-- EN: Population tendency affects not only event odds, but also the quality of the adventurers the tavern recruits. Population is affected by: outpost level, number of outpost personnel, and special facilities. -->
+  <DreamsOutposts.Ui.Help.Population>人口倾向不仅影响事件出现概率，也影响酒馆招募新冒险者的质量。人口受到以下内容影响：据点等级、据点人员数量、特殊设施</DreamsOutposts.Ui.Help.Population>
   <!-- EN: Tavern -->
   <DreamsOutposts.Tavern.Title>酒馆</DreamsOutposts.Tavern.Title>
   <!-- EN: {0}/{1} candidates -->
@@ -247,8 +257,10 @@
   <DreamsOutposts.Tavern.AnySkill>无倾向</DreamsOutposts.Tavern.AnySkill>
   <!-- EN: Next candidate in {0} -->
   <DreamsOutposts.Tavern.Next>下一名候选人：{0}</DreamsOutposts.Tavern.Next>
+  <!-- EN: Waiting... -->
+  <DreamsOutposts.Tavern.Waiting>等待中……</DreamsOutposts.Tavern.Waiting>
   <!-- EN: Success chance {0} -->
-  <DreamsOutposts.Tavern.Chance>成功率 {0}</DreamsOutposts.Tavern.Chance>
+  <DreamsOutposts.Tavern.Chance>成功率 {0}（社交 {1}/{2}）</DreamsOutposts.Tavern.Chance>
   <!-- EN: The colonists here have {0} total Social skill of the {1} needed for a certain success. -->
   <DreamsOutposts.Tavern.ChanceTip>这里殖民者的社交等级总和为 {0}，达到 {1} 时必定成功。</DreamsOutposts.Tavern.ChanceTip>
   <!-- EN: An adventurer has turned up at the tavern in {0}. -->

@@ -43,7 +43,17 @@
   <DreamsOutposts.LimitPerOutpost>Limit: {0} per outpost.</DreamsOutposts.LimitPerOutpost>
   <DreamsOutposts.RequiresResearch>Requires research: {0}</DreamsOutposts.RequiresResearch>
   <DreamsOutposts.Unknown>unknown</DreamsOutposts.Unknown>
+  <DreamsOutposts.Settings.TabAppearance>Appearance</DreamsOutposts.Settings.TabAppearance>
+  <DreamsOutposts.Settings.TabParameters>Parameters</DreamsOutposts.Settings.TabParameters>
   <DreamsOutposts.Settings.ProductionMultiplier>Production multiplier: {0}</DreamsOutposts.Settings.ProductionMultiplier>
   <DreamsOutposts.Settings.ProductionMultiplierDescription>Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected.</DreamsOutposts.Settings.ProductionMultiplierDescription>
+  <DreamsOutposts.Settings.RandomEvents>Outpost random events</DreamsOutposts.Settings.RandomEvents>
+  <DreamsOutposts.Settings.RandomEvents.Enable>Enable outpost random events</DreamsOutposts.Settings.RandomEvents.Enable>
+  <DreamsOutposts.Settings.RandomEvents.Interval>Interval: {0} days</DreamsOutposts.Settings.RandomEvents.Interval>
+  <DreamsOutposts.Settings.RandomEvents.Description>How often random events occur at your outposts. Duration changes take effect after the next event is generated.</DreamsOutposts.Settings.RandomEvents.Description>
+  <DreamsOutposts.Settings.Attacks>Outpost attacks</DreamsOutposts.Settings.Attacks>
+  <DreamsOutposts.Settings.Attacks.Enable>Enable outpost attacks</DreamsOutposts.Settings.Attacks.Enable>
+  <DreamsOutposts.Settings.Attacks.Interval>Interval: {0} days</DreamsOutposts.Settings.Attacks.Interval>
+  <DreamsOutposts.Settings.Attacks.Description>How often hostile forces attack your outposts. Duration changes take effect after the next attack is generated.</DreamsOutposts.Settings.Attacks.Description>
 </LanguageData>
 

@@ -12,11 +12,28 @@ namespace DreamsOutposts
 		private const float Gap = 14f;
 		private const float CardHeight = 174f;
 		private const float PortraitSize = 80f;
-		private const float ControlsHeight = 82f;
+		/// <summary>控制条里的行布局：按钮行 → 间隔 → 概率行 → 间隔 → 提示行 → 上下留白。</summary>
+		private const float ControlsPadding = 12f;
+
+		private const float ControlsActionHeight = 54f;
+		private const float ControlsOddsHeight = 20f;
+		private const float ControlsRowGap = 8f;
+
+		/// <summary>提示行的高度（与 UiDraw.HintHeight() 的结果一致，这里写死是为了能用在 const 里）。</summary>
+		private const float ControlsHintHeight = 22f;
+
+		private const float ControlsHeight = ControlsPadding * 2f + ControlsActionHeight + ControlsRowGap
+			+ ControlsOddsHeight + ControlsRowGap + ControlsHintHeight;
 		/// <summary>候选人卡右侧「招募 / 驱离」两个底图按钮的高度（宽度由底图长宽比反推）。</summary>
 		private const float TavernActionButtonHeight = 34f;
 		private const float ActionLabelSourceX = 420f;
 		private const float ActionLabelSourceWidth = 300f;
+
+		/// <summary>倾向提示的翻译 key：与事件页共用同一句话、同一个说明弹窗。</summary>
+		private const string HintKey = "DreamsOutposts.EventWeight.Hint";
+
+		/// <summary>提示文字常态透明度：原版风格下 Ink3 也是纯白，只能靠压 alpha 体现「次要」。</summary>
+		private const float HintAlpha = 0.82f;
 
 		public override bool IsVisible => AdventurerRecruitUtility.IsAvailable(outpost);
 		public override string Label => "DreamsOutposts.Tavern.Title".Translate();
@@ -58,17 +75,22 @@ namespace DreamsOutposts
 			UiText.Draw(new Rect(rect.x + 14f, rect.y + 2f, 136f, 54f), "DreamsOutposts.Tavern.Preference".Translate(), UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
 			if (UiWidgets.Button(new Rect(rect.x + 150f, rect.y + 10f, buttonWidth, 38f), value, UiButtonKind.Secondary, true, null, UiButtonSize.Normal)) OpenSkillMenu();
 			int now = Find.TickManager.TicksGame;
+			// 还没排期（刚建好营地、暂停中据点尚未 tick）时不再显示成「0秒」，而是明确的等待文案。
+			int remaining = outpost.adventurerRecruitment.nextRecruitTick - now;
+			string next = remaining > 0
+				? "DreamsOutposts.Tavern.Next".Translate(remaining.ToStringTicksToPeriod()).ToString()
+				: "DreamsOutposts.Tavern.Waiting".Translate().ToString();
 			string timer = outpost.adventurerRecruitment.offers.Count >= AdventurerRecruitUtility.MaxOffers
 				? "DreamsOutposts.Tavern.Full".Translate().ToString()
-				: ("DreamsOutposts.Tavern.Next".Translate(Mathf.Max(outpost.adventurerRecruitment.nextRecruitTick - now, 0).ToStringTicksToPeriod())
-					+ " · " + "DreamsOutposts.Tavern.Chance".Translate(AdventurerRecruitUtility.RecruitChance(outpost).ToStringPercent("F0"))).ToString();
+				: (next + " · " + "DreamsOutposts.Tavern.Chance".Translate(AdventurerRecruitUtility.RecruitChance(outpost).ToStringPercent("F0"),
+					AdventurerRecruitUtility.SocialSkillTotal(outpost), AdventurerRecruitUtility.RecruitChanceDivisor.ToString("0"))).ToString();
 			Rect timerRect = new Rect(rect.x + 164f + buttonWidth, rect.y + 2f, Mathf.Max(rect.width - 178f - buttonWidth, 30f), 54f);
 			UiText.Draw(timerRect, timer, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
-			// 这行只放百分比，总和与除数交给悬停提示，免得窄窗口下关键数字被省略号截掉。
+			// 这行放百分比和社交总和 / 除数，必定成功所需的说明交给悬停提示，免得窄窗口下关键数字被省略号截掉。
 			UiWidgets.Tip(timerRect, "DreamsOutposts.Tavern.ChanceTip".Translate(
 				AdventurerRecruitUtility.SocialSkillTotal(outpost), AdventurerRecruitUtility.RecruitChanceDivisor.ToString("0")),
 				GenText.StableStringHash("tavern-chance"));
-			DrawOdds(new Rect(rect.x + 14f, rect.y + 56f, rect.width - 28f, 22f));
+			DrawOdds(new Rect(rect.x + 14f, rect.y + ControlsPadding + ControlsActionHeight + ControlsRowGap, rect.width - 28f, ControlsOddsHeight));
 		}
 
 		/// <summary>
@@ -85,7 +107,14 @@ namespace DreamsOutposts
 			AppendOddsEntry(builder, AdventurerRarity.Excellent, odds.Excellent);
 			AppendOddsEntry(builder, AdventurerRarity.Elite, odds.Elite);
 			AppendOddsEntry(builder, AdventurerRarity.Epic, odds.Epic);
-			UiText.Draw(rect, builder.ToString(), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			string line = builder.ToString();
+			UiText.Draw(rect, line, UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			// 倾向说明入口：占概率行下面单独一行，与概率行左对齐，宽度由 Hint 自己按文字测算
+			if (UiDraw.Hint(new Rect(rect.x, rect.yMax + ControlsRowGap, rect.width, UiDraw.HintHeight()), HintKey.Translate(),
+				UiPalette.WithAlpha(UiPalette.Ink3, HintAlpha), UiPalette.WithAlpha(UiPalette.Ink2, HintAlpha)))
+			{
+				UiOutpostHelpWindow.Open();
+			}
 		}
 
 		private static void AppendOddsEntry(StringBuilder builder, AdventurerRarity rarity, float probability)

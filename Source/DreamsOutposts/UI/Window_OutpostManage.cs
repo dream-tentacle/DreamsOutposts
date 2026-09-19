@@ -65,11 +65,37 @@ namespace DreamsOutposts
 				float height = Mathf.Min(
 					Mathf.Max(UI.screenHeight - UiMetrics.WindowScreenMarginV * 2f, 400f),
 					UI.screenHeight);
-				return new Vector2(Mathf.Round(width), Mathf.Round(height));
+				// 现代风背景图只按面板高度等比铺满，窗口比图更宽时右侧会露出底色；
+				// 这里把宽度压到「面板高 × 图片宽高比」以内，保证任何分辨率下图片都能横向铺满。
+				float cappedWidth = MaxWidthForBackground(width, height);
+				return new Vector2(Mathf.Round(cappedWidth), Mathf.Round(height));
 			}
 		}
 
 		protected override float Margin => 0f;
+
+		/// <summary>
+		/// 按现代风背景图的宽高比收窄窗口宽度：面板高（contracted 后）乘以图片比例就是图片横向铺满时的宽度。
+		/// 原版风不画背景图，或图片缺失时，宽度原样返回。
+		/// </summary>
+		private static float MaxWidthForBackground(float width, float height)
+		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return width;
+			}
+			Texture2D background = UiTex.BackgroundTexture();
+			if (background == null || background.width <= 0 || background.height <= 0)
+			{
+				return width;
+			}
+			float panelHeight = height - UiMetrics.WindowShadowMargin * 2f;
+			if (panelHeight <= 0f)
+			{
+				return width;
+			}
+			return Mathf.Min(width, panelHeight * (float)background.width / background.height);
+		}
 
 		public Window_OutpostManage(Outpost outpost)
 		{

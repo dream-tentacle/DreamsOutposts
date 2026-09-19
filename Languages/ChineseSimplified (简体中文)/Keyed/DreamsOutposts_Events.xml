@@ -2,123 +2,125 @@
 <LanguageData>
 	<!-- EN: Current tendencies -->
   <DreamsOutposts.EventWeight.Current>当前倾向</DreamsOutposts.EventWeight.Current>
-	<!-- EN: Base -->
+  <!-- EN: (?)Info -->
+  <DreamsOutposts.EventWeight.Hint>(?)提示</DreamsOutposts.EventWeight.Hint>
+  <!-- EN: Base -->
   <DreamsOutposts.EventWeight.Base>基础</DreamsOutposts.EventWeight.Base>
-	<!-- EN: Outpost level ({0}) -->
+  <!-- EN: Outpost level ({0}) -->
   <DreamsOutposts.EventWeight.Level>据点等级（{0}）</DreamsOutposts.EventWeight.Level>
-	<!-- EN: Built extension facilities ({0}) -->
+  <!-- EN: Built extension facilities ({0}) -->
   <DreamsOutposts.EventWeight.BuiltFacilities>已建设扩展设施（{0}）</DreamsOutposts.EventWeight.BuiltFacilities>
-	<!-- EN: Nearest permanent outpost distance ({0}) -->
+  <!-- EN: Nearest permanent outpost distance ({0}) -->
   <DreamsOutposts.EventWeight.Isolation>距最近永久据点（{0}）</DreamsOutposts.EventWeight.Isolation>
-	<!-- EN: {0} tiles -->
+  <!-- EN: {0} tiles -->
   <DreamsOutposts.EventWeight.DistanceTiles>{0}格</DreamsOutposts.EventWeight.DistanceTiles>
-	<!-- EN: none -->
+  <!-- EN: none -->
   <DreamsOutposts.EventWeight.NoOtherOutpost>无其他据点</DreamsOutposts.EventWeight.NoOtherOutpost>
-	<!-- EN: {0} -->
+  <!-- EN: {0} -->
   <DreamsOutposts.EventWeight.Facility>{0}</DreamsOutposts.EventWeight.Facility>
-	<!-- EN: Tradable inventory value ({0}) -->
+  <!-- EN: Tradable inventory value ({0}) -->
   <DreamsOutposts.EventWeight.StockValue>可交易库存价值（{0}）</DreamsOutposts.EventWeight.StockValue>
-	<!-- EN: Colonists ({0}) -->
+  <!-- EN: Colonists ({0}) -->
   <DreamsOutposts.EventWeight.Colonists>殖民者（{0}人）</DreamsOutposts.EventWeight.Colonists>
-	<!-- EN: Research outpost -->
+  <!-- EN: Research outpost -->
   <DreamsOutposts.EventWeight.ResearchOutpost>科研据点</DreamsOutposts.EventWeight.ResearchOutpost>
-	<!-- EN: Highest Intellectual ({0}) -->
+  <!-- EN: Highest Intellectual ({0}) -->
   <DreamsOutposts.EventWeight.Intellectual>最高智识（{0}）</DreamsOutposts.EventWeight.Intellectual>
-	<!-- EN: Temporary effect -->
+  <!-- EN: Temporary effect -->
   <DreamsOutposts.EventWeight.Temporary>临时效果</DreamsOutposts.EventWeight.Temporary>
-	<!-- EN: all production -->
+  <!-- EN: all production -->
   <DreamsOutposts.AllProduction>全部生产</DreamsOutposts.AllProduction>
-	<!-- EN: core facility -->
+  <!-- EN: core facility -->
   <DreamsOutposts.CoreFacility>核心设施</DreamsOutposts.CoreFacility>
-	<!-- EN: Requires a colonist with {0} at level {1} -->
+  <!-- EN: Requires a colonist with {0} at level {1} -->
   <DreamsOutposts.EventRequirement.AnyColonistSkill>需要至少一名殖民者的{0}达到{1}级</DreamsOutposts.EventRequirement.AnyColonistSkill>
-	<!-- EN: All colonists gain {1} {0} XP -->
+  <!-- EN: All colonists gain {1} {0} XP -->
   <DreamsOutposts.EventEffect.GainSkillXp>所有殖民者获得{1}点{0}经验</DreamsOutposts.EventEffect.GainSkillXp>
-	<!-- EN: {0} output ×{1} for {2} -->
+  <!-- EN: {0} output ×{1} for {2} -->
   <DreamsOutposts.EventEffect.TemporaryProductionFactor>{0}产量 ×{1}，持续{2}</DreamsOutposts.EventEffect.TemporaryProductionFactor>
-	<!-- EN: Random production facility output ×{0} for {1} -->
+  <!-- EN: Random production facility output ×{0} for {1} -->
   <DreamsOutposts.EventEffect.RandomFacilityProductionFactor>随机生产设施产量 ×{0}，持续{1}</DreamsOutposts.EventEffect.RandomFacilityProductionFactor>
-	<!-- EN: Random production facility's next output ×{0} -->
+  <!-- EN: Random production facility's next output ×{0} -->
   <DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>随机生产设施下一次产出 ×{0}</DreamsOutposts.EventEffect.RandomFacilityNextProductionFactor>
-	<!-- EN: {0} tendency {1} for {2} -->
+  <!-- EN: {0} tendency {1} for {2} -->
   <DreamsOutposts.EventEffect.TemporaryCategoryOffset>{0}倾向 {1}，持续{2}</DreamsOutposts.EventEffect.TemporaryCategoryOffset>
-	<!-- EN: Tile movement cost ×{0} for {1} -->
+  <!-- EN: Tile movement cost ×{0} for {1} -->
   <DreamsOutposts.EventEffect.TemporaryMovementFactor>地块移动成本 ×{0}，持续{1}</DreamsOutposts.EventEffect.TemporaryMovementFactor>
-	<!-- EN: Disable one random facility for {0} -->
+  <!-- EN: Disable one random facility for {0} -->
   <DreamsOutposts.EventEffect.DisableRandomFacility>随机一座设施暂停运作{0}</DreamsOutposts.EventEffect.DisableRandomFacility>
-	<!-- EN: +{0} research points -->
+  <!-- EN: +{0} research points -->
   <DreamsOutposts.EventEffect.AddResearchPoints>获得{0}点研究点数</DreamsOutposts.EventEffect.AddResearchPoints>
-	<!-- EN: Gain {0} {1} -->
+  <!-- EN: Gain {0} {1} -->
   <DreamsOutposts.EventEffect.GeneratePawn>获得{0}名{1}</DreamsOutposts.EventEffect.GeneratePawn>
-	<!-- EN: a random faction -->
+  <!-- EN: a random faction -->
   <DreamsOutposts.EventEffect.RandomFaction>随机阵营</DreamsOutposts.EventEffect.RandomFaction>
-	<!-- EN: {0} goodwill {1} -->
+  <!-- EN: {0} goodwill {1} -->
   <DreamsOutposts.EventEffect.AdjustFactionGoodwill>{0}好感度 {1}</DreamsOutposts.EventEffect.AdjustFactionGoodwill>
-	<!-- EN: Gain random items worth {0} -->
+  <!-- EN: Gain random items worth {0} -->
   <DreamsOutposts.EventEffect.GenerateRandomItems>获得市值为{0}的随机物资</DreamsOutposts.EventEffect.GenerateRandomItems>
-	<!-- EN: Supplies received -->
+  <!-- EN: Supplies received -->
   <DreamsOutposts.EventEffect.RandomItemsReceivedTitle>获得物资</DreamsOutposts.EventEffect.RandomItemsReceivedTitle>
-	<!-- EN: {0} received the following supplies:\n\n{1} -->
+  <!-- EN: {0} received the following supplies:\n\n{1} -->
   <DreamsOutposts.EventEffect.RandomItemsReceivedText>{0}获得了以下物资：\n\n{1}</DreamsOutposts.EventEffect.RandomItemsReceivedText>
-	<!-- EN: No supplies were received. -->
+  <!-- EN: No supplies were received. -->
   <DreamsOutposts.EventEffect.NoRandomItemsReceived>没有获得任何物资。</DreamsOutposts.EventEffect.NoRandomItemsReceived>
-	<!-- EN: The following items have been added to the outpost inventory. -->
+  <!-- EN: The following items have been added to the outpost inventory. -->
   <DreamsOutposts.EventEffect.ItemsStoredText>以下物品已存入据点仓库。</DreamsOutposts.EventEffect.ItemsStoredText>
-	<!-- EN: Discover a random follow-up event in 1–3 days -->
+  <!-- EN: Discover a random follow-up event in 1–3 days -->
   <DreamsOutposts.EventEffect.RandomFollowUp>将在1至3天后发现随机后续事件</DreamsOutposts.EventEffect.RandomFollowUp>
-	<!-- EN: In {0}: {1} -->
+  <!-- EN: In {0}: {1} -->
   <DreamsOutposts.EventEffect.ScheduledEvent>{0}后：{1}</DreamsOutposts.EventEffect.ScheduledEvent>
-	<!-- EN: {0}–{1} days -->
+  <!-- EN: {0}–{1} days -->
   <DreamsOutposts.EventEffect.DelayDaysRange>{0}至{1}天</DreamsOutposts.EventEffect.DelayDaysRange>
-	<!-- EN: {0} day(s) -->
+  <!-- EN: {0} day(s) -->
   <DreamsOutposts.EventEffect.DelayDays>{0}天</DreamsOutposts.EventEffect.DelayDays>
-	<!-- EN: {0}d {1}h -->
+  <!-- EN: {0}d {1}h -->
   <DreamsOutposts.EventEffect.DelayDaysHours>{0}天{1}小时</DreamsOutposts.EventEffect.DelayDaysHours>
-	<!-- EN: {0} hour(s) -->
+  <!-- EN: {0} hour(s) -->
   <DreamsOutposts.EventEffect.DelayHours>{0}小时</DreamsOutposts.EventEffect.DelayHours>
-	<!-- EN: moments -->
+  <!-- EN: moments -->
   <DreamsOutposts.EventEffect.DelayMoments>片刻</DreamsOutposts.EventEffect.DelayMoments>
-	<!-- EN: Research -->
+  <!-- EN: Research -->
   <DreamsOutposts.ProductionTag.Research>科研</DreamsOutposts.ProductionTag.Research>
-	<!-- EN: Defense {0} for {1} -->
+  <!-- EN: Defense {0} for {1} -->
   <DreamsOutposts.EventEffect.TemporaryDefenseOffset>防卫 {0}，持续{1}</DreamsOutposts.EventEffect.TemporaryDefenseOffset>
-	<!-- EN: The main colony faces a raid at {0} of normal threat points -->
+  <!-- EN: The main colony faces a raid at {0} of normal threat points -->
   <DreamsOutposts.EventEffect.RaidPlayerHome>主殖民地遭遇威胁点数为通常{0}的袭击</DreamsOutposts.EventEffect.RaidPlayerHome>
-	<!-- EN: Gain a large amount of meat and leather -->
+  <!-- EN: Gain a large amount of meat and leather -->
   <DreamsOutposts.EventEffect.AddRandomAnimalProducts>获得大量肉和皮革</DreamsOutposts.EventEffect.AddRandomAnimalProducts>
-	<!-- EN: Requires the Royalty expansion -->
+  <!-- EN: Requires the Royalty expansion -->
   <DreamsOutposts.EventRequirement.TechprintDlc>需要启用皇权DLC</DreamsOutposts.EventRequirement.TechprintDlc>
-	<!-- EN: No useful techprint is currently available -->
+  <!-- EN: No useful techprint is currently available -->
   <DreamsOutposts.EventRequirement.NoTechprint>当前没有可用的科技蓝图</DreamsOutposts.EventRequirement.NoTechprint>
-	<!-- EN: Gain a random useful techprint -->
+  <!-- EN: Gain a random useful techprint -->
   <DreamsOutposts.EventEffect.RandomTechprint>获得一张随机可用科技蓝图</DreamsOutposts.EventEffect.RandomTechprint>
-	<!-- EN: Gain {0} {1} colonist(s) -->
+  <!-- EN: Gain {0} {1} colonist(s) -->
   <DreamsOutposts.EventEffect.GeneratePawnRarity>获得{0}名{1}级殖民者</DreamsOutposts.EventEffect.GeneratePawnRarity>
-	<!-- EN: About {0} of eligible stored goods are stolen -->
+  <!-- EN: About {0} of eligible stored goods are stolen -->
   <DreamsOutposts.EventEffect.InventoryStolen>约{0}的普通库存物资被盗</DreamsOutposts.EventEffect.InventoryStolen>
-	<!-- EN: Recover the stolen goods -->
+  <!-- EN: Recover the stolen goods -->
   <DreamsOutposts.EventEffect.RestoreStolen>找回被盗物资</DreamsOutposts.EventEffect.RestoreStolen>
-	<!-- EN: Generate a standard trade request quest -->
+  <!-- EN: Generate a standard trade request quest -->
   <DreamsOutposts.EventEffect.TradeRequest>生成一个原版贸易请求任务</DreamsOutposts.EventEffect.TradeRequest>
-	<!-- EN: Exchange up to {0}; receive random goods worth ×{1} -->
+  <!-- EN: Exchange up to {0}; receive random goods worth ×{1} -->
   <DreamsOutposts.EventEffect.TemporaryMarket>最多交换{0}市值的物资，获得价值×{1}的随机商品</DreamsOutposts.EventEffect.TemporaryMarket>
-	<!-- EN: Disable one random research facility for {0} -->
+  <!-- EN: Disable one random research facility for {0} -->
   <DreamsOutposts.EventEffect.DisableResearchFacility>随机一座科研设施停用{0}</DreamsOutposts.EventEffect.DisableResearchFacility>
-	<!-- EN: Temporary market -->
+  <!-- EN: Temporary market -->
   <DreamsOutposts.TemporaryMarket.Title>临时集市</DreamsOutposts.TemporaryMarket.Title>
-	<!-- EN: Offered: {0} / {1}    Expected goods: {2} -->
+  <!-- EN: Offered: {0} / {1}    Expected goods: {2} -->
   <DreamsOutposts.TemporaryMarket.Value>已提供：{0} / {1}　　预计获得：{2}</DreamsOutposts.TemporaryMarket.Value>
-	<!-- EN: All -->
+  <!-- EN: All -->
   <DreamsOutposts.TemporaryMarket.CountTip>在这里调整要提供的数量</DreamsOutposts.TemporaryMarket.CountTip>
-	<!-- EN: Anything above {0} earns nothing extra; the goods you receive are capped at {1}. -->
+  <!-- EN: Anything above {0} earns nothing extra; the goods you receive are capped at {1}. -->
   <DreamsOutposts.TemporaryMarket.OverCap>超出{0}的部分不会换来更多回报，获得的商品最多价值{1}。</DreamsOutposts.TemporaryMarket.OverCap>
-	<!-- EN: You are offering goods worth {0}, but the market only pays for up to {1}. Everything above that is given away for nothing: you will receive goods worth at most {2}.\n\nOffer this much anyway? -->
+  <!-- EN: You are offering goods worth {0}, but the market only pays for up to {1}. Everything above that is given away for nothing: you will receive goods worth at most {2}.\n\nOffer this much anyway? -->
   <DreamsOutposts.TemporaryMarket.OverCapConfirm>你提供的物资市值为{0}，但集市只为{1}以内的部分付账。超出的部分等于白送：最多只能换到价值{2}的商品。\n\n仍然提供这么多吗？</DreamsOutposts.TemporaryMarket.OverCapConfirm>
-	<!-- EN: Select at least one kind of goods to offer. -->
+  <!-- EN: Select at least one kind of goods to offer. -->
   <DreamsOutposts.TemporaryMarket.NothingSelected>至少要选择一种要提供的物资</DreamsOutposts.TemporaryMarket.NothingSelected>
-	<!-- EN: Market exchange complete: goods worth {0} were handed over and goods worth {1} were received. -->
+  <!-- EN: Market exchange complete: goods worth {0} were handed over and goods worth {1} were received. -->
   <DreamsOutposts.TemporaryMarket.Done>集市交易完成：提供市值{0}的物资，换得价值{1}的商品。</DreamsOutposts.TemporaryMarket.Done>
-	<!-- EN: Exchange goods -->
+  <!-- EN: Exchange goods -->
   <DreamsOutposts.TemporaryMarket.Exchange>交换物资</DreamsOutposts.TemporaryMarket.Exchange>
   <!-- EN: Events -->
   <DreamsOutposts.Events>事件</DreamsOutposts.Events>

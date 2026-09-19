@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!--
+	更新日志。一个版本一条，元素名必须是 Def 类的完整类型名（含命名空间）：
+	  DreamsOutposts.UpdateNoticeDef
+
+	  defName  任意唯一名
+	  label    日志标题词条（可用 DefInjected 翻译）
+	  version  本条日志对应的 Mod 版本号，与 About.xml 的 modVersion 比较
+	  entries  日志正文，每条一段；可用 DefInjected 翻译，见
+	           Languages/*/DefInjected/DreamsOutposts.UpdateNoticeDef/
+
+	读档时若当前 Mod 版本高于记录文件（Config\Mod_<文件夹名>_UpdateNotice.xml）里的版本，
+	则「不高于当前版本」的这些日志会一起弹出；同一个版本只弹一次。
+	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
+	-->
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_3</defName>
+		<label>Update log</label>
+		<version>1.0.3</version>
+		<entries>
+			<li>Improved the in-game tips and data readouts.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_2</defName>
+		<label>Update log</label>
+		<version>1.0.2</version>
+		<entries>
+			<li>The interval of outpost random events and attacks can now be adjusted, or disabled entirely.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_1</defName>
+		<label>Update log</label>
+		<version>1.0.1</version>
+		<entries>
+			<li>Fixed some mistakes in the English text.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+</Defs>

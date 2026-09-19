@@ -42,6 +42,9 @@ namespace DreamsOutposts
 	/// </summary>
 	public static class UiDraw
 	{
+		/// <summary>Hint 文字左右各留的内边距，同时也算进它的点击区宽度。</summary>
+		private const float HintPadH = 2f;
+
 		/// <summary>实心矩形，保留外层 GUI.color 的乘性影响。</summary>
 		public static void Solid(Rect rect, Color color)
 		{
@@ -265,9 +268,44 @@ namespace DreamsOutposts
 			GUI.color = previous;
 		}
 
+		/// <summary>
+		/// 正文里的一句可点文字提示（「(?)提示」这类）：没有底图也没有边框，靠颜色区分可点。
+		/// 宽度按文字实测算并覆盖 rect.width（调用方只需给对 x / y / 高度），返回是否被点击。
+		/// </summary>
+		public static bool Hint(Rect rect, string text, Color color, Color hoverColor)
+		{
+			if (string.IsNullOrEmpty(text))
+			{
+				return false;
+			}
+			Rect box = new Rect(rect.x, rect.y, UiText.Width(text, UiFont.Body) + HintPadH * 2f, rect.height);
+			if (box.width <= 0f || box.height <= 0f)
+			{
+				return false;
+			}
+			bool hovered = Mouse.IsOver(box);
+			if (hovered)
+			{
+				// 悬停时给一层极淡的底，让无框文字也有「按到了」的反馈
+				Color previous = GUI.color;
+				GUI.color = new Color(1f, 1f, 1f, 0.6f);
+				Box(box, (int)UiMetrics.RadiusSm, UiPalette.Hover);
+				GUI.color = previous;
+			}
+			UiText.Draw(new Rect(box.x + HintPadH, box.y, box.width - HintPadH * 2f, box.height), text,
+				UiFont.Body, hovered ? hoverColor : color, TextAnchor.MiddleLeft);
+			return Widgets.ButtonInvisible(box);
+		}
+
 		public static void Divider(Rect rect, Color color)
 		{
 			Solid(rect, color);
+		}
+
+		/// <summary>提示文字的高度（比正文行高略高，保证中文字形上下都不被切）。</summary>
+		public static float HintHeight()
+		{
+			return Mathf.Max(UiText.LineHeight(UiFont.Body) + 4f, 22f);
 		}
 
 		public static void Scrim(Rect rect)

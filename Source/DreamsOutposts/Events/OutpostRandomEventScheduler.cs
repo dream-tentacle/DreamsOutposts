@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace DreamsOutposts
@@ -12,24 +13,55 @@ namespace DreamsOutposts
 	/// </summary>
 	public static class OutpostRandomEventScheduler
 	{
-		// 普通随机事件的间隔与重试间隔集中在这里定义，以后调整只改这几行。
-		public const int MinIntervalDays = 3;
+		// 普通随机事件的间隔由玩家设置在 DreamsOutpostsSettings 里调整（默认 3~6 天），
+		// 这里的常量只是「没有设置实例」时的兜底默认值。
+		// 重试间隔是「当前没有任何合格据点」时的内部重试，不对外暴露。
+		public const int DefaultMinIntervalDays = 3;
 
-		public const int MaxIntervalDays = 6;
+		public const int DefaultMaxIntervalDays = 6;
 
 		public const int RetryDelayDays = 1;
 
 		public const int TicksPerDay = 60000;
 
-		public const int MinIntervalTicks = MinIntervalDays * TicksPerDay;
-
-		public const int MaxIntervalTicks = MaxIntervalDays * TicksPerDay;
-
 		public const int RetryDelayTicks = RetryDelayDays * TicksPerDay;
 
+		/// <summary>普通随机事件的全局开关。没有设置实例（例如设置尚未加载）时视为开启。</summary>
+		public static bool RandomEventsEnabled
+		{
+			get
+			{
+				DreamsOutpostsSettings settings = DreamsOutpostsMod.Settings;
+				return settings == null || settings.randomEventsEnabled;
+			}
+		}
+
+		/// <summary>
+		/// 下一次普通随机事件的间隔，读玩家设置的天数区间。
+		/// 只在排期时调用，所以游戏中途改设置只影响「下一轮」，已经排好的那一次不会被推迟或提前。
+		/// </summary>
 		public static int RollIntervalTicks()
 		{
-			return Rand.RangeInclusive(MinIntervalTicks, MaxIntervalTicks);
+			DreamsOutpostsSettings settings = DreamsOutpostsMod.Settings;
+
+			int minDays = settings != null
+				? Mathf.RoundToInt(settings.randomEventIntervalDays.min)
+				: DefaultMinIntervalDays;
+
+			int maxDays = settings != null
+				? Mathf.RoundToInt(settings.randomEventIntervalDays.max)
+				: DefaultMaxIntervalDays;
+
+			if (minDays < 1)
+			{
+				minDays = 1;
+			}
+			if (maxDays < minDays)
+			{
+				maxDays = minDays;
+			}
+
+			return Rand.RangeInclusive(minDays, maxDays) * TicksPerDay;
 		}
 
 		/// <summary>
