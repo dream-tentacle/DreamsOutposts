@@ -23,7 +23,7 @@ namespace DreamsOutposts
 		public const float TitleSubGap = 6f;
 
 		// ---------- 侧栏 ----------
-		public const float SidebarWidth = 300f;
+		public static float SidebarWidth => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 250f : 300f;
 		public const float SidebarPaddingH = 10f;
 		public const float SidebarPaddingLeft = 32f;
 		public const float SidebarPaddingV = 18f;
@@ -57,7 +57,7 @@ namespace DreamsOutposts
 
 		// ---------- 内容区 ----------
 		public const float ContentPaddingTop = 24f;
-		public const float ManagementHeaderHeight = 92f;
+		public static float ManagementHeaderHeight => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 58f : 92f;
 		public const float ContentPaddingH = 24f;
 		public const float ContentPaddingBottom = 28f;
 		/// <summary>全屏管理界面里正文的最大有效宽度；其余横向空间交给背景与留白。</summary>
@@ -66,8 +66,8 @@ namespace DreamsOutposts
 		public const float PageHeadSubGap = 4f;
 		public const float PageHeadTitleIndent = 0f;
 		public const float PageHeadMaxTextWidth = 560f;
-		public const float ContentFadeSeconds = 0.42f;
-		public const float ContentSlideDistance = 40f;
+		public static float ContentFadeSeconds => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 0.24f : 0.42f;
+		public static float ContentSlideDistance => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 16f : 40f;
 		public const float SectionSpacing = 24f;
 		public const float SectionHeadGap = 10f;
 		public const float SectionHeadMarginBottom = 14f;
@@ -173,8 +173,8 @@ namespace DreamsOutposts
 		// ---------- 现代科技风：设施页专用 ----------
 		// 这些值只允许 Page_OutpostFacilities 的 ModernTech 分支使用；
 		// 原版风继续使用上面的既有 metrics，避免主题之间互相污染。
-		public const float ModernTechSectionSpacing = 28f;
-		public const float ModernTechSectionHeadMarginBottom = 20f;
+		public const float ModernTechSectionSpacing = 22f;
+		public const float ModernTechSectionHeadMarginBottom = 14f;
 
 		public const float ModernTechLevelGap = 28f;
 		public const float ModernTechLevelRightRatio = 0.34f;
@@ -185,22 +185,22 @@ namespace DreamsOutposts
 		public const float ModernTechLevelStackBreakpoint = 760f;
 
 		// 现代科技风等级区：独立于原版风，方便后续继续调视觉层级。
-		public const float ModernTechLevelCurrentDigitHeight = 112f;
-		public const float ModernTechLevelMaxDigitHeight = 56f;
+		public const float ModernTechLevelCurrentDigitHeight = 92f;
+		public const float ModernTechLevelMaxDigitHeight = 40f;
 		public const float ModernTechLevelDigitGap = 12f;
-		public const float ModernTechPipHeight = 10f;
+		public const float ModernTechPipHeight = 6f;
 		public const float ModernTechPipGap = 4f;
 		public const float ModernTechLevelFactsMarginTop = 18f;
-		public const float ModernTechLevelFactHeight = 72f;
+		public const float ModernTechLevelFactHeight = 58f;
 		public const float ModernTechLevelFactPaddingLeft = 12f;
 
 		public const float ModernTechSlotGridGap = 16f;
 		public const float ModernTechCardPaddingH = 18f;
 		public const float ModernTechCardPaddingTop = 16f;
 		public const float ModernTechCardPaddingBottom = 16f;
-		public const float ModernTechCardGap = 12f;
+		public const float ModernTechCardGap = 8f;
 
-		public const float ModernTechFacilityImageSize = 100f;
+		public const float ModernTechFacilityImageSize = 72f;
 		public const float ModernTechFacilityImageGlyph = 26f;
 		public const float ModernTechFacilityImageGap = 16f;
 		public const float ModernTechFacilityTitleTagGap = 12f;
@@ -209,8 +209,8 @@ namespace DreamsOutposts
 		public const float ModernTechFacilitySectionTopGap = 10f;
 		public const float ModernTechFacilityBodyMinHeight = 26f;
 
-		public const float ModernTechEmptyCardMinHeight = 184f;
-		public const float ModernTechEmptyPlusSize = 56f;
+		public const float ModernTechEmptyCardMinHeight = 156f;
+		public const float ModernTechEmptyPlusSize = 40f;
 		public const float ModernTechEmptyContentGap = 8f;
 
 		// ---------- 弹窗 ----------
@@ -264,7 +264,7 @@ namespace DreamsOutposts
 			return (width - gap * (columns - 1)) / columns;
 		}
 
-		public const float PanelToContentWidth = SidebarWidth + ContentPaddingH * 2f + ScrollbarGutter;
+		public const float PanelToContentWidth = 300f + ContentPaddingH * 2f + ScrollbarGutter;
 		public const float StackBreakpoint = 1080f - PanelToContentWidth;
 	}
 }

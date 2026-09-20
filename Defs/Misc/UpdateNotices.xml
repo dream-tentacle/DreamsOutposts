@@ -20,7 +20,8 @@
 		<version>1.0.6</version>
 		<entries>
 			<li>Added the ability to exchange goods between caravans and outposts.</li>
-			<li>Improved the modern industrial style visuals.</li>
+			<li>Improved the Modern Tech style visuals.</li>
+			<li>Fixed faulty code that caused stuttering.</li>
 		</entries>
 	</DreamsOutposts.UpdateNoticeDef>
 

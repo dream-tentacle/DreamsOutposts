@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using HarmonyLib;
 using RimWorld;
@@ -11,33 +12,66 @@ namespace DreamsOutposts
 		public const float MovementCostFactor = 0.25f;
 
 		private const string WaystationDefName = "DreamsOutposts_Waystation";
+		private static readonly Dictionary<PlanetTile, Outpost> OutpostsByTile = new Dictionary<PlanetTile, Outpost>();
+		private static World cachedWorld;
 
-		public static bool HasWaystationAt(PlanetTile tile)
+		private static void EnsureOutpostIndex()
 		{
-			if (!tile.Valid || Find.WorldObjects == null)
+			World world = Find.World;
+			if (cachedWorld == world) return;
+			cachedWorld = world;
+			OutpostsByTile.Clear();
+			List<WorldObject> worldObjects = Find.WorldObjects?.AllWorldObjects;
+			for (int i = 0; i < (worldObjects?.Count ?? 0); i++)
 			{
-				return false;
+				if (worldObjects[i] is Outpost outpost) Register(outpost);
 			}
-			Outpost outpost = Find.WorldObjects.WorldObjectAt<Outpost>(tile);
-			if (outpost == null || outpost.Faction != Faction.OfPlayer)
-			{
-				return false;
-			}
-			foreach (OutpostFacility facility in outpost.OperationalFacilities)
-			{
-				if (facility?.def?.defName == WaystationDefName)
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 
-		public static float TemporaryMovementFactorAt(PlanetTile tile)
+		private static void Register(Outpost outpost)
 		{
-			if (!tile.Valid || Find.WorldObjects == null) return 1f;
-			Outpost outpost = Find.WorldObjects.WorldObjectAt<Outpost>(tile);
-			return outpost == null ? 1f : OutpostTemporaryEffectUtility.MovementCostFactor(outpost);
+			if (outpost?.Tile.Valid == true && !OutpostsByTile.ContainsKey(outpost.Tile))
+			{
+				OutpostsByTile.Add(outpost.Tile, outpost);
+			}
+		}
+
+		public static void NotifyOutpostAdded(Outpost outpost)
+		{
+			EnsureOutpostIndex();
+			Register(outpost);
+		}
+
+		public static void NotifyOutpostRemoved(Outpost outpost)
+		{
+			EnsureOutpostIndex();
+			if (outpost != null && OutpostsByTile.TryGetValue(outpost.Tile, out Outpost indexed) && indexed == outpost)
+			{
+				OutpostsByTile.Remove(outpost.Tile);
+			}
+		}
+
+		public static float MovementFactorAt(PlanetTile tile, out bool hasWaystation, out float temporaryFactor)
+		{
+			hasWaystation = false;
+			temporaryFactor = 1f;
+			if (!tile.Valid) return 1f;
+			EnsureOutpostIndex();
+			if (!OutpostsByTile.TryGetValue(tile, out Outpost outpost)) return 1f;
+
+			if (outpost.Faction == Faction.OfPlayer)
+			{
+				foreach (OutpostFacility facility in outpost.OperationalFacilities)
+				{
+					if (facility?.def?.defName == WaystationDefName)
+					{
+						hasWaystation = true;
+						break;
+					}
+				}
+			}
+			temporaryFactor = OutpostTemporaryEffectUtility.MovementCostFactor(outpost);
+			return (hasWaystation ? MovementCostFactor : 1f) * temporaryFactor;
 		}
 	}
 
@@ -47,11 +81,9 @@ namespace DreamsOutposts
 		public static void Postfix(PlanetTile fromTile, PlanetTile toTile, StringBuilder explanation, ref float __result)
 		{
 			PlanetTile destination = toTile.Valid ? toTile : fromTile;
-			bool hasWaystation = OutpostWaystationUtility.HasWaystationAt(destination);
-			float temporaryFactor = OutpostWaystationUtility.TemporaryMovementFactorAt(destination);
+			float movementFactor = OutpostWaystationUtility.MovementFactorAt(destination, out bool hasWaystation, out float temporaryFactor);
 			if (!hasWaystation && temporaryFactor == 1f) return;
-			if (hasWaystation) __result *= OutpostWaystationUtility.MovementCostFactor;
-			__result *= temporaryFactor;
+			__result *= movementFactor;
 			if (explanation != null)
 			{
 				if (explanation.Length > 0)

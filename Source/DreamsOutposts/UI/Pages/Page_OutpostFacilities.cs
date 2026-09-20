@@ -395,21 +395,7 @@ namespace DreamsOutposts
 				}
 
 				float ruleY = y + titleHeight + 5f;
-				float brandWidth = Mathf.Min(44f, width);
-				UiDraw.Solid(
-					new Rect(x, ruleY, brandWidth, 2f),
-					UiPalette.Brand);
-
-				if (width > brandWidth + 1f)
-				{
-					UiDraw.Solid(
-						new Rect(
-							x + brandWidth,
-							ruleY,
-							width - brandWidth,
-							1f),
-						UiPalette.WithAlpha(UiPalette.Line, 0.80f));
-				}
+				UiDraw.Solid(new Rect(x, ruleY, width, 1f), UiPalette.LineStrong);
 			}
 
 			return titleHeight + UiMetrics.ModernTechSectionHeadMarginBottom;
@@ -422,255 +408,46 @@ namespace DreamsOutposts
 
 		private static float MeasureModernTechLevelArea(float width, OutpostUiCache cache)
 		{
-			const float factsGap = 18f;
-			const float indexGap = 10f;
+			Rect level, facts, upgrade;
+			return ModernTechOverviewLayout(new Rect(0f, 0f, width, 0f), cache,
+				out level, out facts, out upgrade);
+		}
 
-			float factsHeight =
-				UiText.LineHeight(UiFont.Body) * 2f + 10f;
-
-			float indexHeight =
-				UiText.LineHeight(UiFont.Body);
-
-			bool stacked =
-				ModernTechLevelStacked(width);
-
-			if (stacked)
-			{
-				float leftHeight =
-					MeasureModernTechLevelLeft(width, cache);
-
-				float rightHeight =
-					MeasureLevelRight(
-						width -
-							UiMetrics.ModernTechLevelPanelPadding * 2f,
-						cache) +
-					UiMetrics.ModernTechLevelPanelPadding * 2f;
-
-				return leftHeight +
-					UiMetrics.ModernTechLevelGap +
-					rightHeight +
-					factsGap +
-					factsHeight +
-					indexGap +
-					indexHeight;
-			}
-
-			float rightWidth = Mathf.Clamp(
-				width * UiMetrics.ModernTechLevelRightRatio,
-				UiMetrics.ModernTechLevelRightMinWidth,
-				UiMetrics.ModernTechLevelRightMaxWidth);
-
-			float leftWidth = Mathf.Max(
-				width - rightWidth - UiMetrics.ModernTechLevelGap,
-				120f);
-
-			float left =
-				MeasureModernTechLevelLeft(leftWidth, cache);
-
-			float right =
-				MeasureLevelRight(
-					Mathf.Max(
-						rightWidth -
-							UiMetrics.ModernTechLevelPanelPadding * 2f,
-						60f),
-					cache) +
-				UiMetrics.ModernTechLevelPanelPadding * 2f;
-
-			float firstRowHeight =
-				Mathf.Max(left, right);
-
-			return firstRowHeight +
-				factsGap +
-				factsHeight +
-				indexGap +
-				indexHeight;
+		// Measurement and drawing share the same geometry, including narrow windows.
+		private static float ModernTechOverviewLayout(Rect rect, OutpostUiCache cache,
+			out Rect level, out Rect facts, out Rect upgrade)
+		{
+			bool stacked = ModernTechLevelStacked(rect.width);
+			float rightWidth = stacked ? rect.width : Mathf.Clamp(
+				rect.width * UiMetrics.ModernTechLevelRightRatio,
+				UiMetrics.ModernTechLevelRightMinWidth, UiMetrics.ModernTechLevelRightMaxWidth);
+			float leftWidth = stacked ? rect.width : rect.width - rightWidth - UiMetrics.ModernTechLevelGap;
+			float levelHeight = MeasureModernTechLevelLeft(leftWidth, cache);
+			float factsHeight = UiText.LineHeight(UiFont.Body) * 2f + 10f;
+			level = new Rect(rect.x, rect.y, leftWidth, levelHeight);
+			facts = new Rect(rect.x, level.yMax + 18f, leftWidth, factsHeight);
+			float rightHeight = MeasureLevelRight(Mathf.Max(rightWidth -
+				UiMetrics.ModernTechLevelPanelPadding * 2f, 60f), cache)
+				+ UiMetrics.ModernTechLevelPanelPadding * 2f;
+			upgrade = new Rect(stacked ? rect.x : rect.xMax - rightWidth,
+				stacked ? facts.yMax + UiMetrics.ModernTechLevelGap : rect.y,
+				rightWidth, rightHeight);
+			return Mathf.Max(facts.yMax, upgrade.yMax) - rect.y;
 		}
 
 		private void DrawModernTechLevelArea(Rect rect, OutpostUiCache cache)
 		{
-			const float factsGap = 18f;
-			const float indexGap = 10f;
-
-			float factsHeight =
-				UiText.LineHeight(UiFont.Body) * 2f + 10f;
-
-			float indexHeight =
-				UiText.LineHeight(UiFont.Body);
-
-			bool stacked =
-				ModernTechLevelStacked(rect.width);
-
-			if (stacked)
-			{
-				float stackedLeftHeight =
-					MeasureModernTechLevelLeft(
-						rect.width,
-						cache);
-
-				DrawModernTechLevelLeft(
-					new Rect(
-						rect.x,
-						rect.y,
-						rect.width,
-						stackedLeftHeight),
-					cache,
-					outpost.level);
-
-				float panelY =
-					rect.y +
-					stackedLeftHeight +
-					UiMetrics.ModernTechLevelGap;
-
-				float panelHeight =
-					MeasureLevelRight(
-						Mathf.Max(
-							rect.width -
-								UiMetrics.ModernTechLevelPanelPadding * 2f,
-							60f),
-						cache) +
-					UiMetrics.ModernTechLevelPanelPadding * 2f;
-
-				DrawModernTechUpgradePanel(
-					new Rect(
-						rect.x,
-						panelY,
-						rect.width,
-						panelHeight),
-					cache);
-
-				float stackedFactsY =
-					panelY +
-					panelHeight +
-					factsGap;
-
-				DrawModernTechLevelFacts(
-					new Rect(
-						rect.x,
-						stackedFactsY,
-						rect.width,
-						factsHeight),
-					cache);
-
-				float stackedIndexY =
-					stackedFactsY +
-					factsHeight +
-					indexGap;
-
-				DrawModernTechOutpostIndex(
-					new Rect(
-						rect.x,
-						stackedIndexY,
-						rect.width,
-						indexHeight));
-
-				return;
-			}
-
-			float rightWidth = Mathf.Clamp(
-				rect.width * UiMetrics.ModernTechLevelRightRatio,
-				UiMetrics.ModernTechLevelRightMinWidth,
-				UiMetrics.ModernTechLevelRightMaxWidth);
-
-			float leftWidth = Mathf.Max(
-				rect.width - rightWidth - UiMetrics.ModernTechLevelGap,
-				120f);
-
-			float leftHeight =
-				MeasureModernTechLevelLeft(
-					leftWidth,
-					cache);
-
-			float rightHeight =
-				MeasureLevelRight(
-					Mathf.Max(
-						rightWidth -
-							UiMetrics.ModernTechLevelPanelPadding * 2f,
-						60f),
-					cache) +
-				UiMetrics.ModernTechLevelPanelPadding * 2f;
-
-			float firstRowHeight =
-				Mathf.Max(
-					leftHeight,
-					rightHeight);
-
-			Rect leftRect = new Rect(
-				rect.x,
-				rect.y,
-				leftWidth,
-				firstRowHeight);
-
-			Rect rightRect = new Rect(
-				rect.xMax - rightWidth,
-				rect.y,
-				rightWidth,
-				rightHeight);
-
-			// 第一视觉层：等级和升级操作并列。
-			DrawModernTechLevelLeft(
-				leftRect,
-				cache,
-				outpost.level);
-
-			UiDraw.Solid(
-				new Rect(
-					rightRect.x -
-						UiMetrics.ModernTechLevelGap * 0.5f,
-					rect.y + 4f,
-					1f,
-					Mathf.Max(firstRowHeight - 8f, 1f)),
-				UiPalette.WithAlpha(
-					UiPalette.LineStrong,
-					0.42f));
-
-			DrawModernTechUpgradePanel(
-				rightRect,
-				cache);
-
-			// 第二视觉层：四项状态横跨整行，并主动弱化。
-			float factsY =
-				rect.y +
-				firstRowHeight +
-				factsGap;
-
-			DrawModernTechLevelFacts(
-				new Rect(
-					rect.x,
-					factsY,
-					rect.width,
-					factsHeight),
-				cache);
-
-			// 第三视觉层：据点编号收尾。
-			float indexY =
-				factsY +
-					factsHeight +
-					indexGap;
-
-			DrawModernTechOutpostIndex(
-				new Rect(
-					rect.x,
-					indexY,
-					rect.width,
-					indexHeight));
+			Rect level, facts, upgrade;
+			ModernTechOverviewLayout(rect, cache, out level, out facts, out upgrade);
+			DrawModernTechLevelLeft(level, cache, outpost.level);
+			DrawModernTechLevelFacts(facts, cache);
+			DrawModernTechUpgradePanel(upgrade, cache);
 		}
 
 		private void DrawModernTechUpgradePanel(Rect rect, OutpostUiCache cache)
 		{
-			UiDraw.Box(
-				rect,
-				(int)UiMetrics.RadiusSm,
-				UiPalette.PanelGlassStrong,
-				UiPalette.Line);
-
-			UiDraw.Solid(
-				new Rect(
-					rect.x,
-					rect.y,
-					Mathf.Min(72f, rect.width),
-					3f),
-				UiPalette.Brand);
-
+			UiDraw.Solid(rect, UiPalette.WithAlpha(UiPalette.PanelGlassStrong, 0.52f));
+			UiDraw.Solid(new Rect(rect.x, rect.y, rect.width, 1f), UiPalette.LineStrong);
 			Rect inner = rect.ContractedBy(UiMetrics.ModernTechLevelPanelPadding);
 			DrawLevelRight(
 				new Rect(inner.x, inner.y, inner.width, 0f),
@@ -679,26 +456,6 @@ namespace DreamsOutposts
 			DrawUpgradeFlash(rect, upgradeFlashStartedAt);
 		}
 
-		private void DrawModernTechOutpostIndex(Rect rect)
-		{
-			string tileId = Mathf.Max(outpost.Tile.tileId, 0).ToString("D4");
-			string text = "DreamsOutposts.Ui.OutpostIndex".Translate(tileId).ToString();
-
-			// 与事实行的标签同级：同一档字号、同一浅灰、不加粗，避免这行收尾文字比状态标签更重。
-			UiText.Draw(
-				new Rect(
-					rect.x,
-					rect.y,
-					Mathf.Max(rect.width, 40f),
-					rect.height),
-				text,
-				UiFont.Body,
-				UiPalette.Ink3,
-				TextAnchor.MiddleLeft,
-				false,
-				false,
-				true);
-		}
 
 		// ---------------------------------------------------------------
 		// 区块标题
@@ -1223,8 +980,8 @@ namespace DreamsOutposts
 						2f,
 						Mathf.Max(column.height - 8f, 1f)),
 					UiPalette.WithAlpha(
-						UiPalette.Brand,
-						0.38f));
+						UiPalette.LineStrong,
+						0.65f));
 
 				float textX =
 					column.x +
@@ -1923,7 +1680,7 @@ namespace DreamsOutposts
 			bool hovered = draw && Mouse.IsOver(rect);
 
 			float imageSize = UiMetrics.ModernTechFacilityImageSize;
-			float lineHeight = UiText.LineHeight(UiFont.Body);
+			float lineHeight = UiText.LineHeight(UiFont.Heading);
 
 			float textX = innerX + imageSize + UiMetrics.ModernTechFacilityImageGap;
 			float textWidth = Mathf.Max(
@@ -1932,12 +1689,12 @@ namespace DreamsOutposts
 
 			string rightTag = view.IsCore
 				? view.SubLabel
-				: (view.SlotIndex + 1).ToString("D2");
+				: null;
 
 			float tagWidth = string.IsNullOrEmpty(rightTag)
 				? 0f
 				: Mathf.Clamp(
-					UiText.Width(rightTag, UiFont.Body, true) + 16f,
+					UiText.Width(rightTag, UiFont.Body, false) + 16f,
 					32f,
 					Mathf.Max(textWidth * 0.46f, 32f));
 
@@ -1969,27 +1726,11 @@ namespace DreamsOutposts
 
 			if (draw)
 			{
-				Color fill = hovered
-					? UiPalette.PanelGlassStrong
-					: UiPalette.PanelGlass;
-
-				Color line = hovered
-					? UiPalette.BrandLine
-					: UiPalette.Line;
-
-				UiDraw.Box(
-					rect,
-					(int)UiMetrics.RadiusSm,
-					fill,
-					line);
-
-				UiDraw.Solid(
-					new Rect(
-						rect.x,
-						rect.y,
-						view.IsCore ? Mathf.Min(92f, rect.width) : Mathf.Min(54f, rect.width),
-						3f),
-					view.IsCore ? UiPalette.Brand : UiPalette.WithAlpha(UiPalette.Brand, 0.65f));
+				// 与空槽位使用相同的绿色悬停底色；常态保持透明。
+				if (hovered)
+				{
+					UiDraw.Solid(rect, UiPalette.WithAlpha(UiPalette.BrandTint, 0.68f));
+				}
 
 				Rect imageRect = new Rect(
 					innerX,
@@ -2053,7 +1794,7 @@ namespace DreamsOutposts
 						titleWidth,
 						lineHeight),
 					view.Label,
-					UiFont.Body,
+					UiFont.Heading,
 					UiPalette.Ink,
 					TextAnchor.MiddleLeft,
 					true,
@@ -2068,41 +1809,8 @@ namespace DreamsOutposts
 						tagWidth,
 						lineHeight + 4f);
 
-					if (view.IsCore)
-					{
-						// 核心设施标签使用纯平色块，避免 NineSlice 边缘造成“中浅外深”的观感。
-						UiDraw.Solid(
-							tagRect,
-							UiPalette.Brand);
-
-						UiText.Draw(
-							tagRect,
-							rightTag,
-							UiFont.Body,
-							Color.black,
-							TextAnchor.MiddleCenter,
-							true,
-							false,
-							true);
-					}
-					else
-					{
-						UiDraw.Box(
-							tagRect,
-							(int)UiMetrics.RadiusXs,
-							UiPalette.Clear,
-							UiPalette.LineStrong);
-
-						UiText.Draw(
-							tagRect,
-							rightTag,
-							UiFont.Body,
-							UiPalette.Ink2,
-							TextAnchor.MiddleCenter,
-							true,
-							false,
-							true);
-					}
+					UiText.Draw(tagRect, rightTag, UiFont.Body, UiPalette.Ink2,
+						TextAnchor.MiddleCenter, false, false, true);
 				}
 
 				if (!string.IsNullOrEmpty(displayDescription) &&
@@ -2268,12 +1976,8 @@ namespace DreamsOutposts
 					: UiPalette.WithAlpha(UiPalette.PanelGlass, 0.72f),
 				UiPalette.Clear);
 
-			UiDraw.DashedBox(
-				rect,
-				(int)UiMetrics.RadiusSm,
-				line,
-				8f,
-				6f);
+			UiDraw.InstrumentFrame(rect, line, hovered ? 24f : 14f);
+
 
 			string slot = (index + 1).ToString("D2");
 			float slotWidth = Mathf.Max(
@@ -2319,7 +2023,7 @@ namespace DreamsOutposts
 
 			UiDraw.Box(
 				plusRect,
-				Mathf.RoundToInt(plusSize * 0.5f),
+				0,
 				hovered
 					? UiPalette.PanelGlassStrong
 					: UiPalette.Clear,

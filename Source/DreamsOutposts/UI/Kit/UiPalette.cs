@@ -28,33 +28,33 @@ namespace DreamsOutposts
 		// ---------- 页面与玻璃层 ----------
 		public static Color Bg0 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xD1CFCB); } }
 		public static Color Surface { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xD1CFCB); } }
-		public static Color Card { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
+		public static Color Card { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.78f); } }
 		public static Color Raised { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xEDF1EB, 0.52f); } }
 		public static Color Hover { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x252C33) : Rgba(0xE8EEE3, 0.94f); } }
 		public static Color Track { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x384047) : Hex(0xD8DED4); } }
 
 		/// <summary>背景图上用于压低对比度的轻白雾层。</summary>
-		public static Color BackgroundVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xFFFFFF, 0.03f); } }
+		public static Color BackgroundVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xFFFFFF, 0.12f); } }
 		/// <summary>左栏的磨砂白层。</summary>
-		public static Color SidebarVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xF7F9F5, 0.10f); } }
+		public static Color SidebarVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xF3F4F0, 0.62f); } }
 		/// <summary>正文区域的轻玻璃层。</summary>
 		public static Color ContentVeil { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Clear : Rgba(0xFFFFFF, 0.04f); } }
 		/// <summary>普通科研信息板。</summary>
-		public static Color PanelGlass { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
+		public static Color PanelGlass { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.78f); } }
 		/// <summary>需要更稳定可读性的科研信息板。</summary>
-		public static Color PanelGlassStrong { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xFFFFFF, 0.54f); } }
+		public static Color PanelGlassStrong { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xFFFFFF, 0.90f); } }
 
 		// ---------- 边框 ----------
-		public static Color Line { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Rgba(0xFFFFFF, 0.20f) : Hex(0xCDD3C9); } }
+		public static Color Line { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Rgba(0xFFFFFF, 0.20f) : Hex(0xC3C8BF); } }
 		public static Color LineStrong { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Rgba(0xFFFFFF, 0.38f) : Hex(0x929B90); } }
 
 		// ---------- 文字 ----------
 		public static Color Ink { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x1A1E1A); } }
 		public static Color Ink2 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x5E675D); } }
-		public static Color Ink3 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x90988F); } }
+		public static Color Ink3 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Color.white : Hex(0x71796F); } }
 
 		// ---------- 品牌色 ----------
-		private static readonly Color ModernTechBrand = Hex(0xA8CF38);
+		private static readonly Color ModernTechBrand = Hex(0xB5D53D);
 		private static readonly Color ModernTechBrandHover = Hex(0x95BA2B);
 		private static readonly Color ModernTechBrandText = Hex(0x607D08);
 		private static readonly Color ModernTechBrandTint = Rgba(0xEDF6D2, 0.94f);

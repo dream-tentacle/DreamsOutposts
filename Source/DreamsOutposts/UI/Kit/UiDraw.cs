@@ -46,6 +46,19 @@ namespace DreamsOutposts
 		private const float HintPadH = 2f;
 
 		/// <summary>实心矩形，保留外层 GUI.color 的乘性影响。</summary>
+		public static void InstrumentFrame(Rect rect, Color color, float length = 12f)
+		{
+			float arm = Mathf.Min(length, Mathf.Min(rect.width, rect.height) * 0.25f);
+			Solid(new Rect(rect.x, rect.y, arm, 1f), color);
+			Solid(new Rect(rect.x, rect.y, 1f, arm), color);
+			Solid(new Rect(rect.xMax - arm, rect.y, arm, 1f), color);
+			Solid(new Rect(rect.xMax - 1f, rect.y, 1f, arm), color);
+			Solid(new Rect(rect.x, rect.yMax - 1f, arm, 1f), color);
+			Solid(new Rect(rect.x, rect.yMax - arm, 1f, arm), color);
+			Solid(new Rect(rect.xMax - arm, rect.yMax - 1f, arm, 1f), color);
+			Solid(new Rect(rect.xMax - 1f, rect.yMax - arm, 1f, arm), color);
+		}
+
 		public static void Solid(Rect rect, Color color)
 		{
 			if (rect.width <= 0f || rect.height <= 0f || color.a <= 0f)

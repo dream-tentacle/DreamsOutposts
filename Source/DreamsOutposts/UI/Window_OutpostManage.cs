@@ -518,12 +518,25 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 
 // 系统级页头：所有页面共用，占据独立高度并留出明显空白。
 			UiText.Draw(
-				new Rect(contentX, systemHeadTop, contentWidth, UiText.LineHeight(UiFont.Heading)),
+				new Rect(contentX, systemHeadTop, DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? contentWidth * 0.60f : contentWidth, UiText.LineHeight(UiFont.Heading)),
 				"DreamsOutposts.Ui.ManagementSystem".Translate(),
 				UiFont.Heading,
 				UiPalette.Ink,
 				TextAnchor.UpperLeft,
-				true);
+				true, false, true);
+
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech))
+			{
+				UiDraw.Solid(new Rect(contentX, systemHeadTop + 39f, contentWidth, 1f), UiPalette.LineStrong);
+				string indexLabel = "DreamsOutposts.Ui.OutpostIndex".Translate(
+					Mathf.Max(outpost.Tile.tileId, 0).ToString("D4")).ToString();
+				float indexX = contentX + contentWidth * 0.64f;
+				float indexRight = Mathf.Min(contentX + contentWidth,
+					rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize - 16f);
+				UiText.Draw(new Rect(indexX, systemHeadTop, Mathf.Max(indexRight - indexX, 1f),
+					UiText.LineHeight(UiFont.Heading)), indexLabel, UiFont.Body, UiPalette.Ink2,
+					TextAnchor.MiddleRight, false, false, true);
+			}
 
 			// 关闭按钮固定在系统级页头右上角。
 			Rect closeRect = new Rect(rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize,

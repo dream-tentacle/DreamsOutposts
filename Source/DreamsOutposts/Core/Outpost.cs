@@ -474,8 +474,15 @@ namespace DreamsOutposts
 			}
 		}
 
+		public override void PostAdd()
+		{
+			base.PostAdd();
+			OutpostWaystationUtility.NotifyOutpostAdded(this);
+		}
+
 		public override void PostRemove()
 		{
+			OutpostWaystationUtility.NotifyOutpostRemoved(this);
 			OutpostAirdropUtility.ReturnPendingCargo(this);
 			Worker?.OnRemoved(this);
 			base.PostRemove();
