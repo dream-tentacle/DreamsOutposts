@@ -11,6 +11,11 @@
   <!-- EN: A specialized camp organized around centralized automated production. -->
   <DreamsOutposts_AutomationCamp.description>围绕集中式自动生产体系建立的专业营地。</DreamsOutposts_AutomationCamp.description>
 
+  <!-- EN: power generation outpost -->
+  <DreamsOutposts_PowerGeneration.label>发电据点</DreamsOutposts_PowerGeneration.label>
+  <!-- EN: A specialized outpost that coordinates remote power generation. -->
+  <DreamsOutposts_PowerGeneration.description>围绕远程发电与输电体系建立的专业据点。</DreamsOutposts_PowerGeneration.description>
+
   <!-- EN: drilling outpost -->
   <DreamsOutposts_Drilling.label>钻井据点</DreamsOutposts_Drilling.label>
   <!-- EN: A basic outpost for pumping and refining chemfuel. -->

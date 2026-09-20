@@ -77,7 +77,8 @@ namespace DreamsOutposts
 			float progress = active && Props.requiresFuel ? Mathf.Clamp01((float)remaining / Props.cycleTicks) : 0f;
 			int distance = linkedReceiver == null ? int.MaxValue : Find.WorldGrid.TraversalDistanceBetween(outpost.Tile, linkedReceiver.Map.Tile, true);
 			float efficiency = RemotePowerUtility.Efficiency(distance);
-			float watts = active ? Props.basePowerOutput * efficiency : 0f;
+			RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = parent, Comp = this };
+			float watts = active ? RemotePowerUtility.PowerOutput(source, linkedReceiver) : 0f;
 			string status = linkedReceiver == null
 				? "DreamsOutposts.RemotePower.StatusUnbound".Translate().ToString()
 				: (active ? (Props.requiresFuel
@@ -96,7 +97,7 @@ namespace DreamsOutposts
 				ProgressKind = active ? UiChipKind.Good : UiChipKind.Warn,
 				Tooltip = Props.requiresFuel
 					? "DreamsOutposts.RemotePower.FuelCycle".Translate(Props.fuel.LabelCap, Props.fuelPerCycle, Props.cycleTicks.ToStringTicksToPeriod()).ToString()
-					: "DreamsOutposts.RemotePower.Continuous".Translate(Props.basePowerOutput.ToString("0")).ToString()
+					: "DreamsOutposts.RemotePower.Continuous".Translate((Props.basePowerOutput * RemotePowerUtility.PowerGenerationFactor(outpost)).ToString("0")).ToString()
 			};
 			output.Add(section);
 		}

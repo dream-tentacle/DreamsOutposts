@@ -26,8 +26,8 @@ namespace DreamsOutposts
 		}
 
 		// ---------- 页面与玻璃层 ----------
-		public static Color Bg0 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xE6E6E6); } }
-		public static Color Surface { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xE6E6E6); } }
+		public static Color Bg0 { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xD1CFCB); } }
+		public static Color Surface { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x15191D) : Hex(0xD1CFCB); } }
 		public static Color Card { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x1B2025) : Rgba(0xFFFFFF, 0.48f); } }
 		public static Color Raised { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x20262C) : Rgba(0xEDF1EB, 0.52f); } }
 		public static Color Hover { get { return DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla) ? Hex(0x252C33) : Rgba(0xE8EEE3, 0.94f); } }

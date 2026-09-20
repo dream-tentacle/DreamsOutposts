@@ -13,6 +13,8 @@ namespace DreamsOutposts
 
 		public List<OutpostProductionModifier> productionModifiers = new List<OutpostProductionModifier>();
 
+		public float powerGenerationFactor = 1f;
+
 		public int DaysRequiredTicks => (int)(daysRequired * 60000f);
 
 		public IEnumerable<string> ConfigErrors(int levelIndex)
@@ -69,6 +71,10 @@ namespace DreamsOutposts
 				{
 					yield return prefix + "productionModifiers[" + i + "]: " + error;
 				}
+			}
+			if (float.IsNaN(powerGenerationFactor) || float.IsInfinity(powerGenerationFactor) || powerGenerationFactor <= 0f)
+			{
+				yield return prefix + "powerGenerationFactor must be finite and positive.";
 			}
 		}
 	}

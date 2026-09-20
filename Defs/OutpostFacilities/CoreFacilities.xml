@@ -180,4 +180,18 @@
       </li>
     </comps>
   </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_PowerHub</defName>
+    <category>DreamsOutposts_CategoryOther</category>
+    <label>power generation hub</label>
+    <description>A centralized control facility that coordinates the outpost's power generators. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise power generators run at their base output.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
+    <installableAsExtension>false</installableAsExtension>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
+        <requiredSkill>Intellectual</requiredSkill>
+        <requiredSkillLevel>5</requiredSkillLevel>
+        <facilityTag>PowerGeneration</facilityTag>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
 </Defs>

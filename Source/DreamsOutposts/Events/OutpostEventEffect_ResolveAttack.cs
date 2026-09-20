@@ -52,19 +52,31 @@ namespace DreamsOutposts
 				new OutpostEventEffect_AddTemporaryProductionFactor { factor = factor, durationTicks = 180000 }.Apply(context);
 				text += "\n\n" + "DreamsOutposts.Attack.ProductionLoss".Translate(factor.ToString("0.0"));
 			}
+			List<string> casualties = new List<string>();
 			if (outcome == 4)
 			{
 				List<Pawn> colonists = context.outpost.Colonists.Where(p => !p.Dead && !p.Destroyed).ToList();
 				int count = Mathf.Min(colonists.Count, Mathf.Max(1, Mathf.CeilToInt(colonists.Count * 0.5f)));
-				List<string> casualties = new List<string>();
 				for (int i = 0; i < count; i++)
 				{
 					Pawn pawn = colonists.RandomElement();
 					colonists.Remove(pawn);
 					if (context.outpost.pawns.Remove(pawn)) context.outpost.RequestUpdate();
-					if (!Find.WorldPawns.Contains(pawn)) Find.WorldPawns.PassToWorld(pawn);
 					pawn.Kill(null);
-					if (pawn.Dead) casualties.Add(pawn.LabelShortCap);
+					if (pawn.Dead)
+					{
+						casualties.Add(pawn.LabelShortCap);
+						Corpse corpse = pawn.Corpse;
+						if (corpse != null && !corpse.Destroyed)
+						{
+							if (context.outpost.inventory.TryAdd(corpse)) context.outpost.RequestUpdate();
+							else
+							{
+								Log.Error("[DreamsOutposts] Failed to store the corpse of " + pawn.ToStringSafe() + " in outpost " + context.outpost.Label + ".");
+								corpse.Destroy();
+							}
+						}
+					}
 					else OutpostUtility.MovePawnIntoOutpost(context.outpost, pawn);
 				}
 				if (casualties.Count > 0) text += "\n\n" + "DreamsOutposts.Attack.Casualties".Translate(string.Join(", ", casualties.ToArray()));
@@ -87,6 +99,12 @@ namespace DreamsOutposts
 			}
 			Find.LetterStack.ReceiveLetter("DreamsOutposts.Attack.ResultTitle".Translate(context.outpost.LabelCap, ("DreamsOutposts.Attack.Outcome" + outcome).Translate()), text,
 				outcome <= 1 ? LetterDefOf.PositiveEvent : LetterDefOf.NegativeEvent, new LookTargets(context.outpost));
+			if (casualties.Count > 0)
+			{
+				Find.LetterStack.ReceiveLetter("DreamsOutposts.Attack.CasualtiesTitle".Translate(context.outpost.LabelCap),
+					"DreamsOutposts.Attack.CasualtiesLetter".Translate(string.Join("\n", casualties.ToArray())), LetterDefOf.NegativeEvent,
+					new LookTargets(context.outpost));
+			}
 		}
 
 		public override string GetPreview(OutpostEventContext context)

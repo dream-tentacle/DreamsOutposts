@@ -56,7 +56,18 @@ namespace DreamsOutposts
 		{
 			if (source?.Comp == null || source.Comp.linkedReceiver != receiver || !source.Comp.IsPoweredNow)
 				return 0f;
-			return source.Comp.Props.basePowerOutput * Efficiency(Distance(source, receiver));
+			return source.Comp.Props.basePowerOutput * PowerGenerationFactor(source.Outpost) * Efficiency(Distance(source, receiver));
+		}
+
+		public static float PowerGenerationFactor(Outpost outpost)
+		{
+			float factor = outpost?.CurrentLevelProperties?.powerGenerationFactor ?? 1f;
+			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
+			if (supervisor != null && supervisor.GatesFacilityTag(OutpostFacilityTagRegistry.PowerGeneration) && !supervisor.AllowsLevelFactor)
+			{
+				return 1f;
+			}
+			return factor;
 		}
 
 		public static void NotifyReceiver(Building receiver)

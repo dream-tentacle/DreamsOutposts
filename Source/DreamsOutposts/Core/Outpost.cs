@@ -392,19 +392,19 @@ namespace DreamsOutposts
 				stringBuilder.AppendLine();
 			}
 			OutpostAirdropUtility.CheckStalePending(this);
-			stringBuilder.Append("Colonists: " + Colonists.Count());
+			stringBuilder.Append("DreamsOutposts.Inspect.Colonists".Translate(Colonists.Count()));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Other pawns: " + OtherPawns.Count());
+			stringBuilder.Append("DreamsOutposts.Inspect.OtherPawns".Translate(OtherPawns.Count()));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Item stacks: " + InventoryItems.Count);
+			stringBuilder.Append("DreamsOutposts.Inspect.ItemStacks".Translate(InventoryItems.Count));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Airdrop pods: " + airdropPods);
+			stringBuilder.Append("DreamsOutposts.Inspect.AirdropPods".Translate(airdropPods));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Core facility: " + (coreFacility?.def?.LabelCap ?? ((TaggedString)"none")));
+			stringBuilder.Append("DreamsOutposts.Inspect.CoreFacility".Translate(coreFacility?.def?.LabelCap ?? "DreamsOutposts.None".Translate()));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Extension facilities: " + extensionSlots.Count((OutpostSlot s) => !s.IsEmpty) + "/" + extensionSlots.Count);
+			stringBuilder.Append("DreamsOutposts.Inspect.ExtensionFacilities".Translate(extensionSlots.Count((OutpostSlot s) => !s.IsEmpty), extensionSlots.Count));
 			stringBuilder.AppendLine();
-			stringBuilder.Append("Level: " + level + "/" + MaxLevel);
+			stringBuilder.Append("DreamsOutposts.Inspect.Level".Translate(level, MaxLevel));
 			return stringBuilder.ToString();
 		}
 
@@ -453,6 +453,7 @@ namespace DreamsOutposts
 			}
 			if (base.Faction == Faction.OfPlayer && caravan != null && caravan.IsPlayerControlled && Find.WorldSelector.SingleSelectedObject == caravan)
 			{
+				yield return OutpostCaravanUtility.ExchangeWithOutpostCommand(this, caravan);
 				yield return OutpostCaravanUtility.EnterOutpostCommand(this, caravan);
 			}
 		}

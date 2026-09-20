@@ -2,12 +2,27 @@
 <LanguageData>
   <DreamsOutposts.EnterOutpost>Enter outpost</DreamsOutposts.EnterOutpost>
   <DreamsOutposts.EnterOutpostDesc>Move every pawn and everything this caravan carries into the outpost, then disband the caravan.</DreamsOutposts.EnterOutpostDesc>
+  <DreamsOutposts.ExchangeOutpost.Command>Exchange supplies</DreamsOutposts.ExchangeOutpost.Command>
+  <DreamsOutposts.ExchangeOutpost.CommandDesc>Exchange items directly between this caravan and the storehouse of {0}.</DreamsOutposts.ExchangeOutpost.CommandDesc>
+  <DreamsOutposts.ExchangeOutpost.Title>Exchange supplies with {0}</DreamsOutposts.ExchangeOutpost.Title>
+  <DreamsOutposts.ExchangeOutpost.Item>Item</DreamsOutposts.ExchangeOutpost.Item>
+  <DreamsOutposts.ExchangeOutpost.Caravan>Caravan</DreamsOutposts.ExchangeOutpost.Caravan>
+  <DreamsOutposts.ExchangeOutpost.Direction>Positive: take / Negative: store</DreamsOutposts.ExchangeOutpost.Direction>
+  <DreamsOutposts.ExchangeOutpost.Stock>Outpost storehouse</DreamsOutposts.ExchangeOutpost.Stock>
+  <DreamsOutposts.ExchangeOutpost.Mass>Caravan mass: {0} / {1}   After exchange: {2} / {1}</DreamsOutposts.ExchangeOutpost.Mass>
+  <DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>The caravan has no more of this item.</DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>
+  <DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>The outpost storehouse has no more of this item.</DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>
+  <DreamsOutposts.ExchangeOutpost.NothingSelected>Select at least one item to transfer.</DreamsOutposts.ExchangeOutpost.NothingSelected>
+  <DreamsOutposts.ExchangeOutpost.OverMass>The caravan would be overloaded after this exchange ({0} / {1}).</DreamsOutposts.ExchangeOutpost.OverMass>
+  <DreamsOutposts.ExchangeOutpost.PartialFailure>Some items could not be transferred and were returned to where they came from. Other completed transfers were kept.</DreamsOutposts.ExchangeOutpost.PartialFailure>
+  <DreamsOutposts.ExchangeOutpost.Done>Supplies exchanged with {0}.</DreamsOutposts.ExchangeOutpost.Done>
   <DreamsOutposts.CreateOutpostDesc>Create an outpost here.</DreamsOutposts.CreateOutpostDesc>
   <DreamsOutposts.ManageOutpostDesc>Open this outpost's management window: its facilities and everything kept in store.</DreamsOutposts.ManageOutpostDesc>
   <DreamsOutposts.VehicleCrewMissing>{0} needs at least {1} crew member(s) at the controls; {2} assigned so far. Assign seats in the Vehicles tab first.</DreamsOutposts.VehicleCrewMissing>
   <DreamsOutposts.VehicleBoardingFailed>Could not board {0} into {1}. The seats may have changed; open the Vehicles tab and assign seats again.</DreamsOutposts.VehicleBoardingFailed>
   <DreamsOutposts.VehicleFrameworkUnavailable>Vehicle Framework is loaded, but its caravan API could not be read, so outpost caravans cannot assign vehicle seats.</DreamsOutposts.VehicleFrameworkUnavailable>
   <DreamsOutposts.CaravanFormFailedRolledBack>Forming the caravan failed. Everyone and every vehicle was returned to the outpost.</DreamsOutposts.CaravanFormFailedRolledBack>
+  <DreamsOutposts.CaravanWindowInitializationFailed>Could not initialize the outpost caravan window. Check the log for a compatibility error.</DreamsOutposts.CaravanWindowInitializationFailed>
   <DreamsOutposts.AerialEnterOutpost>Enter outpost: {0}</DreamsOutposts.AerialEnterOutpost>
   <DreamsOutposts.AerialEnteredOutpost>Landed at and entered outpost: {0}</DreamsOutposts.AerialEnteredOutpost>
   <DreamsOutposts.OneVehiclePerCaravanHint>An outpost caravan can include at most {0} vehicle. Uncheck the others first.</DreamsOutposts.OneVehiclePerCaravanHint>

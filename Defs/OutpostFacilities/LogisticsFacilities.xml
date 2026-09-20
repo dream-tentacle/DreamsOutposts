@@ -34,7 +34,7 @@
 		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Store</uiIcon>
 		<label>inn</label>
-		<description>A comfortable roadside inn that draws travellers and prospective settlers to the outpost.</description>
+		<description>A comfortable roadside inn that draws travellers and prospective settlers to the outpost.\n\nPopulation tendency: +3.</description>
 		<maxPerOutpost>1</maxPerOutpost>
 		<minOutpostLevel>2</minOutpostLevel>
 		<buildCost><Steel>100</Steel><WoodLog>100</WoodLog><MealSimple>20</MealSimple></buildCost>
@@ -46,7 +46,7 @@
 		<category>DreamsOutposts_CategoryRecruitment</category>
 		<uiIcon>Store</uiIcon>
 		<label>luxury hotel</label>
-		<description>An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.</description>
+		<description>An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.\n\nPopulation tendency: +5.</description>
 		<maxPerOutpost>1</maxPerOutpost>
 		<minOutpostLevel>3</minOutpostLevel>
 		<buildCost><Steel>300</Steel><WoodLog>150</WoodLog><MealLavish>30</MealLavish></buildCost>

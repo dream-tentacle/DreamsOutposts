@@ -198,7 +198,12 @@ namespace DreamsOutposts
 			// 载具拓展的载具卡片与座位窗口都依赖全局静态 CaravanFormation.Current，
 			// 这里临时给它装一个代理，关窗时还原。
 			vehiclesTabEnabled = VehicleCaravanCompat.TryBeginContext(Notify_TransferablesChanged);
-			CalculateAndRecacheTransferables();
+			if (!CalculateAndRecacheTransferables())
+			{
+				Messages.Message("DreamsOutposts.CaravanWindowInitializationFailed".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+				Close(doCloseSound: false);
+				return;
+			}
 			SelectInitialTab();
 		}
 
@@ -251,6 +256,11 @@ namespace DreamsOutposts
 			if (outpost == null || outpost.Destroyed)
 			{
 				Close();
+				return;
+			}
+			if (pawnsTransfer == null || itemsTransfer == null || travelSuppliesTransfer == null)
+			{
+				Close(doCloseSound: false);
 				return;
 			}
 			Text.Font = GameFont.Medium;
@@ -342,7 +352,11 @@ namespace DreamsOutposts
 			GUI.color = previous;
 			Rect cardsRect = listRect;
 			cardsRect.yMin += hintHeight;
-			VehicleCaravanCompat.DrawVehicleWidget(vehiclesTransfer, cardsRect);
+			// 原版 TransferableUIUtility 的排序栏固定画在当前 GUI 分组的 (0, 0)，
+			// 不使用传入矩形的 y。用子分组将它的原点移到提示下方，避免两者重叠。
+			Widgets.BeginGroup(cardsRect);
+			VehicleCaravanCompat.DrawVehicleWidget(vehiclesTransfer, cardsRect.AtZero());
+			Widgets.EndGroup();
 		}
 
 		private void DoBottomButtons(Rect rect)
@@ -366,7 +380,11 @@ namespace DreamsOutposts
 			{
 				SoundDefOf.Tick_Low.PlayOneShotOnCamera();
 				VehicleCaravanCompat.ClearAssignments(trackedVehicles);
-				CalculateAndRecacheTransferables();
+				if (!CalculateAndRecacheTransferables())
+				{
+					Messages.Message("DreamsOutposts.CaravanWindowInitializationFailed".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+					Close(doCloseSound: false);
+				}
 			}
 			if (Widgets.ButtonText(new Rect(acceptRect.xMax + 10f, acceptRect.y, BottomButtonSize.x, BottomButtonSize.y), "CancelButton".Translate()))
 			{
@@ -374,13 +392,27 @@ namespace DreamsOutposts
 			}
 		}
 
-		private void CalculateAndRecacheTransferables()
+		private bool CalculateAndRecacheTransferables()
 		{
 			transferables = new List<TransferableOneWay>();
 			OutpostCaravanUtility.FillTransferables(outpost, transferables);
-			CaravanUIUtility.CreateCaravanTransferableWidgets(transferables, out pawnsTransfer, out itemsTransfer, out travelSuppliesTransfer, "FormCaravanColonyThingCountTip".Translate(), IgnorePawnsInventoryMode.Ignore, () => MassCapacity - MassUsage, ignoreSpawnedCorpsesGearAndInventoryMass: false, outpost.Tile);
+			if (!CaravanTransferableWidgetsOriginal.TryCreate(
+				transferables,
+				out pawnsTransfer,
+				out itemsTransfer,
+				out travelSuppliesTransfer,
+				"FormCaravanColonyThingCountTip".Translate(),
+				IgnorePawnsInventoryMode.Ignore,
+				() => MassCapacity - MassUsage,
+				ignoreSpawnedCorpsesGearAndInventoryMass: false,
+				outpost.Tile))
+			{
+				vehiclesTransfer = null;
+				return false;
+			}
 			RecacheVehiclesTransfer();
 			Notify_TransferablesChanged();
+			return true;
 		}
 
 		/// <summary>

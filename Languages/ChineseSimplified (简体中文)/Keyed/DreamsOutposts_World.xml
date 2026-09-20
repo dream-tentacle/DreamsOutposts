@@ -4,6 +4,34 @@
   <DreamsOutposts.EnterOutpost>进入据点</DreamsOutposts.EnterOutpost>
   <!-- EN: Move every pawn and everything this caravan carries into the outpost, then disband the caravan. -->
   <DreamsOutposts.EnterOutpostDesc>将商队携带的所有人员和物品移入据点，然后解散商队。</DreamsOutposts.EnterOutpostDesc>
+  <!-- EN: Exchange supplies -->
+  <DreamsOutposts.ExchangeOutpost.Command>交换物资</DreamsOutposts.ExchangeOutpost.Command>
+  <!-- EN: Exchange items directly between this caravan and the storehouse of {0}. -->
+  <DreamsOutposts.ExchangeOutpost.CommandDesc>在这支远行队与{0}的仓库之间直接交换物品。</DreamsOutposts.ExchangeOutpost.CommandDesc>
+  <!-- EN: Exchange supplies with {0} -->
+  <DreamsOutposts.ExchangeOutpost.Title>与{0}交换物资</DreamsOutposts.ExchangeOutpost.Title>
+  <!-- EN: Item -->
+  <DreamsOutposts.ExchangeOutpost.Item>物品</DreamsOutposts.ExchangeOutpost.Item>
+  <!-- EN: Caravan -->
+  <DreamsOutposts.ExchangeOutpost.Caravan>远行队</DreamsOutposts.ExchangeOutpost.Caravan>
+  <!-- EN: Positive: storehouse to caravan / Negative: caravan to storehouse -->
+  <DreamsOutposts.ExchangeOutpost.Direction>正数取出 / 负数存入</DreamsOutposts.ExchangeOutpost.Direction>
+  <!-- EN: Storehouse -->
+  <DreamsOutposts.ExchangeOutpost.Stock>据点仓库</DreamsOutposts.ExchangeOutpost.Stock>
+  <!-- EN: Caravan mass: {0} / {1}   After exchange: {2} / {1} -->
+  <DreamsOutposts.ExchangeOutpost.Mass>远行队载重：{0} / {1}　交换后：{2} / {1}</DreamsOutposts.ExchangeOutpost.Mass>
+  <!-- EN: The caravan has no more of this item. -->
+  <DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>远行队没有更多这种物品。</DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>
+  <!-- EN: The outpost storehouse has no more of this item. -->
+  <DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>据点仓库没有更多这种物品。</DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>
+  <!-- EN: Select at least one item to transfer. -->
+  <DreamsOutposts.ExchangeOutpost.NothingSelected>请至少选择一种要转移的物品。</DreamsOutposts.ExchangeOutpost.NothingSelected>
+  <!-- EN: The caravan would be overloaded after this exchange ({0} / {1}). -->
+  <DreamsOutposts.ExchangeOutpost.OverMass>交换后远行队将超载（{0} / {1}）。</DreamsOutposts.ExchangeOutpost.OverMass>
+  <!-- EN: Some items could not be transferred and were returned to where they came from. Other completed transfers were kept. -->
+  <DreamsOutposts.ExchangeOutpost.PartialFailure>部分物品无法转移，已退回原处；其余已完成的转移予以保留。</DreamsOutposts.ExchangeOutpost.PartialFailure>
+  <!-- EN: Supplies exchanged with {0}. -->
+  <DreamsOutposts.ExchangeOutpost.Done>已与{0}完成物资交换。</DreamsOutposts.ExchangeOutpost.Done>
   <!-- EN: Create an outpost here. -->
   <DreamsOutposts.CreateOutpostDesc>在此处创建据点。</DreamsOutposts.CreateOutpostDesc>
   <!-- EN: Open this outpost's management window: its facilities and everything kept in store. -->
@@ -16,6 +44,8 @@
   <DreamsOutposts.VehicleFrameworkUnavailable>载具框架已加载，但无法读取它的远行队接口，据点远行队无法分配载具座位。</DreamsOutposts.VehicleFrameworkUnavailable>
   <!-- EN: Forming the caravan failed. Everyone and every vehicle was returned to the outpost. -->
   <DreamsOutposts.CaravanFormFailedRolledBack>组建远行队失败，人员与载具已退回据点。</DreamsOutposts.CaravanFormFailedRolledBack>
+  <!-- EN: Could not initialize the outpost caravan window. Check the log for a compatibility error. -->
+  <DreamsOutposts.CaravanWindowInitializationFailed>无法初始化据点远行队窗口，请查看日志中的兼容性错误。</DreamsOutposts.CaravanWindowInitializationFailed>
   <!-- EN: Enter outpost: {0} -->
   <DreamsOutposts.AerialEnterOutpost>进入据点：{0}</DreamsOutposts.AerialEnterOutpost>
   <!-- EN: Landed at and entered outpost: {0} -->

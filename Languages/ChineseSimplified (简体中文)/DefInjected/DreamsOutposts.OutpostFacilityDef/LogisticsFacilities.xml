@@ -8,13 +8,13 @@
   
   <!-- EN: inn -->
   <DreamsOutposts_Inn.label>旅馆</DreamsOutposts_Inn.label>
-  <!-- EN: A comfortable roadside inn that draws travellers and prospective settlers to the outpost. -->
-  <DreamsOutposts_Inn.description>为旅人提供舒适食宿的路边旅馆，吸引旅客和潜在居民来到据点。</DreamsOutposts_Inn.description>
+  <!-- EN: A comfortable roadside inn that draws travellers and prospective settlers to the outpost.\n\nPopulation tendency: +3. -->
+  <DreamsOutposts_Inn.description>为旅人提供舒适食宿的路边旅馆，吸引旅客和潜在居民来到据点。\n\n人口倾向：+3。</DreamsOutposts_Inn.description>
   
   <!-- EN: luxury hotel -->
   <DreamsOutposts_LuxuryHotel.label>豪华饭店</DreamsOutposts_LuxuryHotel.label>
-  <!-- EN: An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away. -->
-  <DreamsOutposts_LuxuryHotel.description>以奢华食宿款待远方名流的高级饭店，吸引声名显赫的访客慕名而来。</DreamsOutposts_LuxuryHotel.description>
+  <!-- EN: An opulent hotel and restaurant whose lavish hospitality attracts celebrated visitors from far away.\n\nPopulation tendency: +5. -->
+  <DreamsOutposts_LuxuryHotel.description>以奢华食宿款待远方名流的高级饭店，吸引声名显赫的访客慕名而来。\n\n人口倾向：+5。</DreamsOutposts_LuxuryHotel.description>
   
   <!-- EN: waystation -->
   <DreamsOutposts_Waystation.label>驿站</DreamsOutposts_Waystation.label>

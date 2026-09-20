@@ -247,7 +247,7 @@ namespace DreamsOutposts
 				return;
 			}
 
-			// 现代风：无背景图时 Surface 精确为 #E6E6E6；
+			// 现代风：无背景图时 Surface 精确为 #D1CFCB；
 			// 有背景图时仍按高度铺满，右侧溢出裁切。
 			Texture2D background = UiTex.BackgroundTexture();
 			UiDraw.Solid(rect, UiPalette.Surface);

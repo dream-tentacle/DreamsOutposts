@@ -110,4 +110,18 @@
   <DreamsOutposts.Settings.Attacks.Interval>间隔：{0} 天</DreamsOutposts.Settings.Attacks.Interval>
   <!-- EN: How often hostile forces attack your outposts. Duration changes take effect after the next attack is generated. -->
   <DreamsOutposts.Settings.Attacks.Description>敌对势力进攻据点的间隔。时长修改需要在下一次袭击生成后才能生效。</DreamsOutposts.Settings.Attacks.Description>
+  <!-- EN: Colonists: {0} -->
+  <DreamsOutposts.Inspect.Colonists>殖民者：{0}</DreamsOutposts.Inspect.Colonists>
+  <!-- EN: Other pawns: {0} -->
+  <DreamsOutposts.Inspect.OtherPawns>其他人员：{0}</DreamsOutposts.Inspect.OtherPawns>
+  <!-- EN: Item stacks: {0} -->
+  <DreamsOutposts.Inspect.ItemStacks>物品堆：{0}</DreamsOutposts.Inspect.ItemStacks>
+  <!-- EN: Airdrop pods: {0} -->
+  <DreamsOutposts.Inspect.AirdropPods>空投舱：{0}</DreamsOutposts.Inspect.AirdropPods>
+  <!-- EN: Core facility: {0} -->
+  <DreamsOutposts.Inspect.CoreFacility>核心设施：{0}</DreamsOutposts.Inspect.CoreFacility>
+  <!-- EN: Extension facilities: {0}/{1} -->
+  <DreamsOutposts.Inspect.ExtensionFacilities>扩建设施：{0}/{1}</DreamsOutposts.Inspect.ExtensionFacilities>
+  <!-- EN: Level: {0}/{1} -->
+  <DreamsOutposts.Inspect.Level>等级：{0}/{1}</DreamsOutposts.Inspect.Level>
 </LanguageData>

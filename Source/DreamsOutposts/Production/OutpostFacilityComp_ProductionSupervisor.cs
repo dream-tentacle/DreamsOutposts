@@ -141,6 +141,14 @@ namespace DreamsOutposts
 			return string.Equals(modifier.facilityTag?.Trim(), wanted, StringComparison.OrdinalIgnoreCase);
 		}
 
+		/// <summary>这个设施标签是否由本中枢监管。</summary>
+		public bool GatesFacilityTag(string facilityTag)
+		{
+			string wanted = Props.facilityTag?.Trim();
+			return string.IsNullOrEmpty(wanted) ||
+				string.Equals(facilityTag?.Trim(), wanted, StringComparison.OrdinalIgnoreCase);
+		}
+
 		/// <summary>
 		/// 本设施监管、却因为中枢被禁用或缺少管理者而没有生效的等级倍率是否命中这条生产规则。
 		/// 只给 UI 提示用：真正取值的地方是 OutpostProductionUtility.MatchingModifiers。

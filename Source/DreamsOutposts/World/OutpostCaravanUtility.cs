@@ -46,6 +46,20 @@ namespace DreamsOutposts
 			};
 		}
 
+		public static Command ExchangeWithOutpostCommand(Outpost outpost, Caravan caravan)
+		{
+			return new Command_Action
+			{
+				defaultLabel = "DreamsOutposts.ExchangeOutpost.Command".Translate(),
+				defaultDesc = "DreamsOutposts.ExchangeOutpost.CommandDesc".Translate(outpost.Label),
+				icon = UiTex.IconTexture(UiIcon.Store),
+				action = delegate
+				{
+					Find.WindowStack.Add(new Window_ExchangeCaravanWithOutpost(caravan, outpost));
+				}
+			};
+		}
+
 		public static void AddToTransferables(Thing thing, List<TransferableOneWay> transferables)
 		{
 			TransferableOneWay transferable = TransferableUtility.TransferableMatching(thing, transferables, TransferAsOneMode.Normal);

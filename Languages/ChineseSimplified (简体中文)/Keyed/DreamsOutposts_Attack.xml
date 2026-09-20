@@ -32,6 +32,10 @@
   <DreamsOutposts.Attack.ProductionLoss>所有设施生产倍率×{0}，持续3天。</DreamsOutposts.Attack.ProductionLoss>
   <!-- EN: Killed: {0} -->
   <DreamsOutposts.Attack.Casualties>阵亡居民：{0}</DreamsOutposts.Attack.Casualties>
+  <!-- EN: {0}: colonists killed -->
+  <DreamsOutposts.Attack.CasualtiesTitle>{0}：殖民者阵亡</DreamsOutposts.Attack.CasualtiesTitle>
+  <!-- EN: The following colonists were killed during the attack:\n\n{0} -->
+  <DreamsOutposts.Attack.CasualtiesLetter>以下殖民者在入侵中阵亡：\n\n{0}</DreamsOutposts.Attack.CasualtiesLetter>
   <!-- EN: The survivors have attacked your colony: ×{0} raid strength ({1} points). -->
   <DreamsOutposts.Attack.Raid>残余敌人已袭击主殖民地：袭击倍率×{0}（{1}点）。</DreamsOutposts.Attack.Raid>
   <!-- EN: The survivors did not reach your colony: no valid target or invading force could be generated. -->

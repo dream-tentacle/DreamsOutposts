@@ -55,5 +55,12 @@
   <DreamsOutposts.Settings.Attacks.Enable>Enable outpost attacks</DreamsOutposts.Settings.Attacks.Enable>
   <DreamsOutposts.Settings.Attacks.Interval>Interval: {0} days</DreamsOutposts.Settings.Attacks.Interval>
   <DreamsOutposts.Settings.Attacks.Description>How often hostile forces attack your outposts. Duration changes take effect after the next attack is generated.</DreamsOutposts.Settings.Attacks.Description>
+  <DreamsOutposts.Inspect.Colonists>Colonists: {0}</DreamsOutposts.Inspect.Colonists>
+  <DreamsOutposts.Inspect.OtherPawns>Other pawns: {0}</DreamsOutposts.Inspect.OtherPawns>
+  <DreamsOutposts.Inspect.ItemStacks>Item stacks: {0}</DreamsOutposts.Inspect.ItemStacks>
+  <DreamsOutposts.Inspect.AirdropPods>Airdrop pods: {0}</DreamsOutposts.Inspect.AirdropPods>
+  <DreamsOutposts.Inspect.CoreFacility>Core facility: {0}</DreamsOutposts.Inspect.CoreFacility>
+  <DreamsOutposts.Inspect.ExtensionFacilities>Extension facilities: {0}/{1}</DreamsOutposts.Inspect.ExtensionFacilities>
+  <DreamsOutposts.Inspect.Level>Level: {0}/{1}</DreamsOutposts.Inspect.Level>
 </LanguageData>
 

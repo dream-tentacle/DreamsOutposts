@@ -16,6 +16,8 @@
   <DreamsOutposts.Attack.Loot>Recovered equipment: {0} silver market value (target: {1}).</DreamsOutposts.Attack.Loot>
   <DreamsOutposts.Attack.ProductionLoss>All facility production ×{0} for 3 days.</DreamsOutposts.Attack.ProductionLoss>
   <DreamsOutposts.Attack.Casualties>Killed: {0}</DreamsOutposts.Attack.Casualties>
+  <DreamsOutposts.Attack.CasualtiesTitle>{0}: colonists killed</DreamsOutposts.Attack.CasualtiesTitle>
+  <DreamsOutposts.Attack.CasualtiesLetter>The following colonists were killed during the attack:\n\n{0}</DreamsOutposts.Attack.CasualtiesLetter>
   <DreamsOutposts.Attack.Raid>The survivors have attacked your colony: ×{0} raid strength ({1} points).</DreamsOutposts.Attack.Raid>
   <DreamsOutposts.Attack.RaidFailed>The survivors did not reach your colony: no valid target or invading force could be generated.</DreamsOutposts.Attack.RaidFailed>
   <DreamsOutposts.Attack.ResultTitle>{0}: {1}</DreamsOutposts.Attack.ResultTitle>

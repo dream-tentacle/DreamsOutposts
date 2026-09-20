@@ -8,29 +8,25 @@
       </li>
       <li>
         <slotCount>2</slotCount>
-        <daysRequired>10</daysRequired>
+        <daysRequired>2</daysRequired>
         <cost>
-          <Steel>200</Steel>
-          <WoodLog>100</WoodLog>
+          <Steel>30</Steel>
         </cost>
       </li>
       <li>
         <slotCount>3</slotCount>
-        <daysRequired>20</daysRequired>
+        <daysRequired>15</daysRequired>
         <cost>
-          <Steel>300</Steel>
-          <WoodLog>200</WoodLog>
-          <ComponentIndustrial>10</ComponentIndustrial>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
         </cost>
       </li>
       <li>
         <slotCount>4</slotCount>
-        <daysRequired>40</daysRequired>
+        <daysRequired>30</daysRequired>
         <cost>
-          <Steel>600</Steel>
-          <WoodLog>400</WoodLog>
-          <ComponentIndustrial>20</ComponentIndustrial>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
         </cost>
       </li>
     </levels>
@@ -95,29 +91,25 @@
       </li>
       <li>
         <slotCount>4</slotCount>
-        <daysRequired>10</daysRequired>
+        <daysRequired>2</daysRequired>
         <cost>
-          <Steel>200</Steel>
-          <WoodLog>100</WoodLog>
+          <Steel>30</Steel>
         </cost>
       </li>
       <li>
         <slotCount>6</slotCount>
-        <daysRequired>20</daysRequired>
+        <daysRequired>15</daysRequired>
         <cost>
-          <Steel>300</Steel>
-          <WoodLog>200</WoodLog>
-          <ComponentIndustrial>10</ComponentIndustrial>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
         </cost>
       </li>
       <li>
         <slotCount>8</slotCount>
-        <daysRequired>40</daysRequired>
+        <daysRequired>30</daysRequired>
         <cost>
-          <Steel>600</Steel>
-          <WoodLog>400</WoodLog>
-          <ComponentIndustrial>20</ComponentIndustrial>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
         </cost>
       </li>
     </levels>
@@ -146,10 +138,9 @@
       </li>
       <li>
         <slotCount>3</slotCount>
-        <daysRequired>10</daysRequired>
+        <daysRequired>2</daysRequired>
         <cost>
-          <Steel>200</Steel>
-          <WoodLog>100</WoodLog>
+          <Steel>30</Steel>
         </cost>
         <productionModifiers>
           <li>
@@ -160,11 +151,10 @@
       </li>
       <li>
         <slotCount>4</slotCount>
-        <daysRequired>20</daysRequired>
+        <daysRequired>15</daysRequired>
         <cost>
-          <Steel>300</Steel>
-          <WoodLog>200</WoodLog>
-          <ComponentIndustrial>10</ComponentIndustrial>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
         </cost>
         <productionModifiers>
           <li>
@@ -175,12 +165,10 @@
       </li>
       <li>
         <slotCount>5</slotCount>
-        <daysRequired>40</daysRequired>
+        <daysRequired>30</daysRequired>
         <cost>
-          <Steel>600</Steel>
-          <WoodLog>400</WoodLog>
-          <ComponentIndustrial>20</ComponentIndustrial>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
         </cost>
         <productionModifiers>
           <li>
@@ -188,6 +176,45 @@
             <factor>5</factor>
           </li>
         </productionModifiers>
+      </li>
+    </levels>
+  </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_PowerGeneration</defName>
+    <label>power generation outpost</label>
+    <description>A specialized outpost that coordinates remote power generation.</description>
+    <coreFacility>DreamsOutposts_PowerHub</coreFacility>
+    <levels Inherit="False">
+      <li>
+        <slotCount>2</slotCount>
+        <daysRequired>0</daysRequired>
+        <powerGenerationFactor>1.5</powerGenerationFactor>
+      </li>
+      <li>
+        <slotCount>3</slotCount>
+        <daysRequired>2</daysRequired>
+        <cost>
+          <Steel>30</Steel>
+        </cost>
+        <powerGenerationFactor>2</powerGenerationFactor>
+      </li>
+      <li>
+        <slotCount>4</slotCount>
+        <daysRequired>15</daysRequired>
+        <cost>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
+        </cost>
+        <powerGenerationFactor>2.5</powerGenerationFactor>
+      </li>
+      <li>
+        <slotCount>5</slotCount>
+        <daysRequired>30</daysRequired>
+        <cost>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
+        </cost>
+        <powerGenerationFactor>3</powerGenerationFactor>
       </li>
     </levels>
   </DreamsOutposts.OutpostTypeDef>

@@ -609,7 +609,7 @@ namespace DreamsOutposts
 					{
 						RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = power };
 						float watts = RemotePowerUtility.PowerOutput(source, power.linkedReceiver);
-						status = "DreamsOutposts.RemotePower.StatusActive".Translate(watts.ToString("0"), (power.poweredUntilTick - Find.TickManager.TicksGame).ToStringTicksToPeriod());
+						status = watts.ToString("0") + " W";
 					}
 					view.PowerChipIndex = view.Chips.Count;
 					view.Chips.Add(new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn));
@@ -797,7 +797,7 @@ namespace DreamsOutposts
 			else
 			{
 				RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = view.Facility, Comp = power };
-				status = "DreamsOutposts.RemotePower.StatusActive".Translate(RemotePowerUtility.PowerOutput(source, power.linkedReceiver).ToString("0"), (power.poweredUntilTick - Find.TickManager.TicksGame).ToStringTicksToPeriod());
+				status = RemotePowerUtility.PowerOutput(source, power.linkedReceiver).ToString("0") + " W";
 			}
 			view.Chips[view.PowerChipIndex] = new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn);
 		}

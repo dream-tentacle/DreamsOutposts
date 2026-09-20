@@ -15,6 +15,37 @@
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
 	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_6</defName>
+		<label>Update log</label>
+		<version>1.0.6</version>
+		<entries>
+			<li>Added the ability to exchange goods between caravans and outposts.</li>
+			<li>Improved the modern industrial style visuals.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_5</defName>
+		<label>Update log</label>
+		<version>1.0.5</version>
+		<entries>
+			<li>Added power outposts that provide an extra power generation multiplier.</li>
+			<li>Greatly reduced outpost upgrade requirements.</li>
+			<li>Improved the power generation display text.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_4</defName>
+		<label>Update log</label>
+		<version>1.0.4</version>
+		<entries>
+			<li>Fixed compatibility issues.</li>
+			<li>Improved some descriptions.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_0_3</defName>
 		<label>Update log</label>
 		<version>1.0.3</version>
