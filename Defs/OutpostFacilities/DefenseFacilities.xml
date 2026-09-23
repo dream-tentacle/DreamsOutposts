@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_Watchtower</defName>
+    <facilityTag>Defense</facilityTag>
+    <category>DreamsOutposts_CategoryDefense</category>
+    <label>watchtower</label>
+    <description>An elevated lookout overlooking the surrounding area. While enabled, each tower adds 10 defense to this outpost and friendly outposts on immediately adjacent tiles.\n\nOne qualified resident can operate all watchtowers in this outpost. Bonuses from multiple towers stack.</description>
+    <uiIcon>Turret</uiIcon>
+    <buildCost>
+      <Steel>100</Steel>
+      <WoodLog>20</WoodLog>
+    </buildCost>
+    <defense>10</defense>
+    <sharesDefenseWithNeighbors>true</sharesDefenseWithNeighbors>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Shooting</skill>
+        <minLevel>10</minLevel>
+      </li>
+    </operatingRequirements>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_TemporaryDefenses</defName>
     <facilityTag>Defense</facilityTag>
     <category>DreamsOutposts_CategoryDefense</category>
@@ -8,8 +28,7 @@
     <description>Earthworks, firing steps and improvised barricades provide a modest defensive position.</description>
     <maxPerOutpost>1</maxPerOutpost>
     <buildCost>
-      <Steel>70</Steel>
-      <WoodLog>50</WoodLog>
+      <Steel>50</Steel>
     </buildCost>
     <defense>20</defense>
   </DreamsOutposts.OutpostFacilityDef>
@@ -24,9 +43,9 @@
       <li>Machining</li>
     </researchPrerequisites>
     <buildCost>
-      <Steel>300</Steel>
+      <Steel>200</Steel>
       <WoodLog>100</WoodLog>
-      <ComponentIndustrial>8</ComponentIndustrial>
+      <ComponentIndustrial>5</ComponentIndustrial>
     </buildCost>
     <defense>40</defense>
   </DreamsOutposts.OutpostFacilityDef>
@@ -69,6 +88,7 @@
       <Steel>100</Steel>
       <ComponentIndustrial>4</ComponentIndustrial>
     </buildCost>
+    <defense>8</defense>
     <bombardmentShellBonus>3</bombardmentShellBonus>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

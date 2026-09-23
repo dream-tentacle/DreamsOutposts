@@ -43,6 +43,18 @@ namespace DreamsOutposts
 			return UiStyle == style;
 		}
 
+		/// <summary>
+		/// 当前风格是否使用现代科技风的布局、间距与动画（浅色与黑夜共用）。
+		/// 判断几何时用它；判断具体配色时请直接用 UiPalette 的 token。
+		/// </summary>
+		public static bool UsesModernTechLayout
+		{
+			get
+			{
+				return OutpostUiStyles.IsModernTechFamily(UiStyle);
+			}
+		}
+
 		public DreamsOutpostsMod(ModContentPack content)
 			: base(content)
 		{

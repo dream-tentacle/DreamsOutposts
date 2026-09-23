@@ -184,6 +184,32 @@ namespace DreamsOutposts
 			return height;
 		}
 
+		/// <summary>
+		/// 只取多行文本的第一行：Def 描述里常带空行分段，或「Level 1: …」这类后文，
+		/// 卡片上只留一行时用这个。后面还有内容时在末尾补英文三点省略号。
+		/// 与宽度无关，纯粹按换行切；单行文本原样返回。
+		/// </summary>
+		public static string FirstLine(string text)
+		{
+			if (string.IsNullOrEmpty(text))
+			{
+				return text;
+			}
+			int cut = text.IndexOf('\n');
+			string first = ((cut < 0) ? text : text.Substring(0, cut)).Trim();
+			if (cut < 0)
+			{
+				return first;
+			}
+			string rest = text.Substring(cut + 1).Trim();
+			if (rest.Length == 0 || first.Length == 0)
+			{
+				// 后面只有空行（或描述以换行开头）时没有省略号可加
+				return (first.Length > 0) ? first : rest;
+			}
+			return first + "...";
+		}
+
 		/// <summary>单行省略号（等价 CSS text-overflow: ellipsis）。带富文本标签时不截断，直接交给裁剪。</summary>
 		public static string Clamp(string text, UiFont font, float width, bool isBold = false)
 		{

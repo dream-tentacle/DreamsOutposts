@@ -15,6 +15,59 @@
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
 	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_11</defName>
+		<label>Update log</label>
+		<version>1.0.11</version>
+		<entries>
+			<li>Fixed errors when DLCs are not enabled.</li>
+			<li>Fixed a bug that could cause UI clicks to fail intermittently.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_10</defName>
+		<label>Update log</label>
+		<version>1.0.10</version>
+		<entries>
+			<li>Added watchtowers that provide stacking defense bonuses to their own outpost and friendly outposts on adjacent tiles.</li>
+			<li>Improved the calculation and display of skill requirements for enabling facilities.</li>
+			<li>Added explanations of defense and outpost attack points, and improved tip formatting and facility and outpost descriptions.</li>
+			<li>Improved how personnel work speed is calculated.</li>
+			<li>Improved the color scheme.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_9</defName>
+		<label>Update log</label>
+		<version>1.0.9</version>
+		<entries>
+			<li>Improved the caravan-outpost goods exchange feature.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_8</defName>
+		<label>Update log</label>
+		<version>1.0.8</version>
+		<entries>
+			<li>Added training base outposts, where training facilities train residents faster.</li>
+			<li>Improved the in-game information and tips.</li>
+			<li>Improved the interaction experience.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_0_7</defName>
+		<label>Update log</label>
+		<version>1.0.7</version>
+		<entries>
+			<li>Improved the in-game tips.</li>
+			<li>Added a night variant of the Modern Tech style.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_0_6</defName>
 		<label>Update log</label>
 		<version>1.0.6</version>

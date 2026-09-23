@@ -63,47 +63,35 @@ namespace DreamsOutposts
 
 		public float Height(float width)
 		{
-			int count = OutpostBandwidthUtility.Nodes(outpost).Count();
-			return StatusHeight + StatusGap + count * CardHeight + Mathf.Max(count - 1, 0) * CardGap;
+			List<OutpostFacilityComp_Bandwidth> nodes = OutpostBandwidthUtility.Nodes(outpost).ToList();
+			return StatusHeight + StatusGap + nodes.Sum(node => NodeHeight(width, node)) + Mathf.Max(nodes.Count - 1, 0) * CardGap;
 		}
 
 		public void Draw(Rect rect)
 		{
-			bool hasOperator = OutpostBandwidthUtility.HasOperator(outpost);
 			Rect status = new Rect(rect.x, rect.y, rect.width, StatusHeight);
-			UiDraw.Box(status, (int)UiMetrics.RadiusSm,
-				hasOperator ? UiPalette.GoodBg : UiPalette.BadBg,
-				hasOperator ? UiPalette.GoodLine : UiPalette.BadLine);
-			UiDraw.Icon(new Rect(status.x + 14f, status.y + 14f, 24f, 24f),
-				hasOperator ? UiIcon.Check : UiIcon.Cross,
-				hasOperator ? UiPalette.Good : UiPalette.Bad);
-			UiText.Draw(new Rect(status.x + 48f, status.y, status.width - 62f, status.height),
-				hasOperator ? "DreamsOutposts.BandTuning.OperatorReady".Translate() : "DreamsOutposts.BandTuning.OperatorMissing".Translate(),
-				UiFont.Body, hasOperator ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleLeft, true, false, true);
+			List<UiChipView> statusChips = new List<UiChipView>();
+			OutpostUiCache.AddOperationChips(statusChips, outpost, outpost.coreFacility.def, outpost.coreFacility);
+			UiDraw.Chips(status, statusChips, true);
 
 			List<OutpostFacilityComp_Bandwidth> nodes = OutpostBandwidthUtility.Nodes(outpost).ToList();
 			float y = status.yMax + StatusGap;
 			for (int i = 0; i < nodes.Count; i++)
 			{
-				DrawNode(new Rect(rect.x, y, rect.width, CardHeight), nodes[i], hasOperator);
-				y += CardHeight + CardGap;
+				float height = NodeHeight(rect.width, nodes[i]);
+				DrawNode(new Rect(rect.x, y, rect.width, height), nodes[i], nodes[i].parent.CanOperate(outpost).Accepted);
+				y += height + CardGap;
 			}
 		}
 
-		private void DrawNode(Rect card, OutpostFacilityComp_Bandwidth node, bool hasOperator)
+		private List<UiChipView> NodeChips(OutpostFacilityComp_Bandwidth node, bool hasOperator)
 		{
-			UiDraw.Box(card, (int)UiMetrics.RadiusSm, UiPalette.Card, UiPalette.Line);
-			float buttonWidth = Mathf.Max(UiWidgets.ButtonWidth("DreamsOutposts.BandTuning.Choose".Translate(), UiButtonSize.Small), 132f);
-			Rect button = new Rect(card.xMax - 14f - buttonWidth, card.y + (card.height - UiWidgets.ButtonHeight(UiButtonSize.Small)) * 0.5f,
-				buttonWidth, UiWidgets.ButtonHeight(UiButtonSize.Small));
-			float textWidth = Mathf.Max(button.x - card.x - 42f, 80f);
-			UiText.Draw(new Rect(card.x + 14f, card.y + 11f, textWidth, UiText.LineHeight(UiFont.Body)),
-				node.parent.def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
-
 			List<UiChipView> chips = new List<UiChipView>
 			{
 				new UiChipView("DreamsOutposts.BandTuning.Bonus".Translate(node.Props.bandwidth).ToString(), UiChipKind.Info)
 			};
+			chips.Add(new UiChipView((hasOperator ? "DreamsOutposts.Operation.Enabled" : "DreamsOutposts.Operation.Disabled").Translate().ToString(),
+				hasOperator ? UiChipKind.Good : UiChipKind.Bad, hasOperator ? "DreamsOutposts.Operation.EnabledTip".Translate().ToString() : node.parent.CanOperate(outpost).Reason));
 			if (node.IsTuning)
 			{
 				chips.Add(new UiChipView("DreamsOutposts.BandTuning.Retuning".Translate(
@@ -119,6 +107,27 @@ namespace DreamsOutposts
 			{
 				chips.Add(new UiChipView("DreamsOutposts.BandTuning.Untuned".Translate().ToString(), UiChipKind.Neutral));
 			}
+			return chips;
+		}
+
+		private float NodeHeight(float width, OutpostFacilityComp_Bandwidth node)
+		{
+			float buttonWidth = Mathf.Max(UiWidgets.ButtonWidth("DreamsOutposts.BandTuning.Choose".Translate(), UiButtonSize.Small), 132f);
+			float textWidth = Mathf.Max(width - 56f - buttonWidth, 80f);
+			return Mathf.Max(CardHeight, 51f + UiDraw.ChipsHeight(NodeChips(node, node.parent.CanOperate(outpost).Accepted), textWidth, true));
+		}
+
+		private void DrawNode(Rect card, OutpostFacilityComp_Bandwidth node, bool hasOperator)
+		{
+			UiDraw.Box(card, (int)UiMetrics.RadiusSm, UiPalette.Card, UiPalette.Line);
+			float buttonWidth = Mathf.Max(UiWidgets.ButtonWidth("DreamsOutposts.BandTuning.Choose".Translate(), UiButtonSize.Small), 132f);
+			Rect button = new Rect(card.xMax - 14f - buttonWidth, card.y + (card.height - UiWidgets.ButtonHeight(UiButtonSize.Small)) * 0.5f,
+				buttonWidth, UiWidgets.ButtonHeight(UiButtonSize.Small));
+			float textWidth = Mathf.Max(button.x - card.x - 42f, 80f);
+			UiText.Draw(new Rect(card.x + 14f, card.y + 11f, textWidth, UiText.LineHeight(UiFont.Body)),
+				node.parent.def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+
+			List<UiChipView> chips = NodeChips(node, hasOperator);
 			UiDraw.Chips(new Rect(card.x + 14f, card.y + 43f, textWidth, card.height - 51f), chips, true);
 			if (UiWidgets.Button(button, "DreamsOutposts.BandTuning.Choose".Translate(), UiButtonKind.Secondary,
 				true, null, UiButtonSize.Small))

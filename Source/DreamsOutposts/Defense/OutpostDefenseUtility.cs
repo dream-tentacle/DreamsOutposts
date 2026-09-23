@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
@@ -12,6 +13,35 @@ namespace DreamsOutposts
 	/// </summary>
 	public static class OutpostDefenseUtility
 	{
+		public static float FacilityDefense(Outpost outpost, OutpostFacility facility)
+		{
+			if (facility == null || !facility.CanOperate(outpost).Accepted) return 0f;
+			return facility.def.defense;
+		}
+
+		/// <summary>只读取邻近据点的有效哨塔，不递归读取据点总防卫。</summary>
+		public static float NeighborWatchtowerDefense(Outpost outpost, List<KeyValuePair<Outpost, float>> sources = null)
+		{
+			sources?.Clear();
+			if (outpost == null || !outpost.Tile.Valid || Find.WorldGrid == null) return 0f;
+			List<PlanetTile> neighbors = new List<PlanetTile>();
+			Find.WorldGrid.GetTileNeighbors(outpost.Tile, neighbors);
+			List<WorldObject> objects = Find.WorldObjects?.AllWorldObjects;
+			float total = 0f;
+			for (int i = 0; i < (objects?.Count ?? 0); i++)
+			{
+				if (!(objects[i] is Outpost source) || source == outpost || source.Destroyed
+					|| source.Faction != outpost.Faction || !neighbors.Contains(source.Tile)) continue;
+				float defense = 0f;
+				foreach (OutpostFacility facility in source.OperationalFacilities)
+					if (facility?.def?.sharesDefenseWithNeighbors == true) defense += facility.def.defense;
+				if (defense <= 0f) continue;
+				total += defense;
+				sources?.Add(new KeyValuePair<Outpost, float>(source, defense));
+			}
+			return total;
+		}
+
 		/// <summary>机械族每 1 点占用带宽折算的防卫值。</summary>
 		public const int MechDefensePerBandwidth = 3;
 
@@ -59,7 +89,7 @@ namespace DreamsOutposts
 		/// def.IsDisabled(pawn.CombinedDisabledWorkTags, pawn.GetDisabledWorkTypes()) 加 PermanentlyDisabled，
 		/// 已经涵盖背景故事、特性、基因和 WorkTags，这里不重新实现一套。
 		/// 等级取 GetLevel()，与原版技能界面显示的数字一致（含基因天赋修正）。
-		/// 公开出来只为 UI 展示来源，不参与别的计算。
+		/// 同时供 UI 展示与设施人员启用条件使用。
 		/// </summary>
 		public static int AvailableSkillLevel(Pawn pawn, SkillDef skillDef)
 		{
@@ -107,7 +137,7 @@ namespace DreamsOutposts
 			{
 				total += facility?.def?.defense ?? 0f;
 			}
-			return total + OutpostTemporaryEffectUtility.DefenseOffset(outpost);
+			return total + NeighborWatchtowerDefense(outpost) + OutpostTemporaryEffectUtility.DefenseOffset(outpost);
 		}
 
 		/// <summary>据点总防卫：Σ Pawn + Σ 设施。</summary>

@@ -40,9 +40,9 @@
 
   <DO_Frontier_DistressLost.options.0.description>关闭频道。荒原不会为迟到的人留下第二次机会。</DO_Frontier_DistressLost.options.0.description>
  
-  <DO_Frontier_ExtremeWeather.label>极端寒潮或热浪</DO_Frontier_ExtremeWeather.label>
+  <DO_Frontier_ExtremeWeather.label>台风</DO_Frontier_ExtremeWeather.label>
 
-  <DO_Frontier_ExtremeWeather.description>气象观测显示，一股足以压垮简陋住所的极端寒潮或热浪正在逼近。据点现有的庇护远远不够。</DO_Frontier_ExtremeWeather.description>
+  <DO_Frontier_ExtremeWeather.description>气象观测显示，一股足以压垮简陋住所的台风正在逼近。据点现有的庇护远远不够。</DO_Frontier_ExtremeWeather.description>
  
   <DO_Frontier_ExtremeWeather.options.0.label>紧急加固住所</DO_Frontier_ExtremeWeather.options.0.label>
 

@@ -114,8 +114,10 @@
   <DreamsOutposts.Ui.Nav.Items>{0} 种物品</DreamsOutposts.Ui.Nav.Items>
   <!-- EN: {0} active -->
   <DreamsOutposts.Ui.Nav.Events>{0} 个进行中</DreamsOutposts.Ui.Nav.Events>
-  <!-- EN: Fixed by the outpost type -->
-  <DreamsOutposts.Ui.CoreFacilityHint>由据点类型固定</DreamsOutposts.Ui.CoreFacilityHint>
+  <DreamsOutposts.Ui.Help.Facilities.Head>设施</DreamsOutposts.Ui.Help.Facilities.Head>
+  <DreamsOutposts.Ui.Help.Facilities>点击设施查看详情。</DreamsOutposts.Ui.Help.Facilities>
+  <DreamsOutposts.Ui.Help.WorkSpeed.Head>工作速度</DreamsOutposts.Ui.Help.WorkSpeed.Head>
+  <DreamsOutposts.Ui.Help.WorkSpeed>人员总能力按符合条件的成员能力值加权求和：殖民者按100%计算，奴隶按80%计算，我方关押的囚犯按40%计算。倒地人员不计入；非我方派系人员不计入，但我方关押的囚犯除外。</DreamsOutposts.Ui.Help.WorkSpeed>
   <!-- EN: Paid from the outpost stock, half refunded on removal -->
   <DreamsOutposts.Ui.ExtensionHint>材料从据点仓库支付，拆除返还一半</DreamsOutposts.Ui.ExtensionHint>
   <!-- EN: Slot {0} · click to choose a facility -->
@@ -146,6 +148,8 @@
   <DreamsOutposts.Ui.ModAllProductions>全部</DreamsOutposts.Ui.ModAllProductions>
   <!-- EN: Output {0} -->
   <DreamsOutposts.Ui.ModProductionFactor>产能 {0}</DreamsOutposts.Ui.ModProductionFactor>
+  <!-- EN: Training {0} -->
+  <DreamsOutposts.Ui.ModTrainingFactor>训练速度 {0}</DreamsOutposts.Ui.ModTrainingFactor>
   <!-- EN: Produces {0} · every {1} -->
   <DreamsOutposts.Ui.ModProduction>生产 {0} · 每 {1}</DreamsOutposts.Ui.ModProduction>
   <!-- EN: consumes {0}/unit -->
@@ -239,14 +243,32 @@
   <DreamsOutposts.Ui.Option.Later>稍后再说</DreamsOutposts.Ui.Option.Later>
   <!-- EN: (?)Info -->
   <DreamsOutposts.Ui.Help.Title>(?)提示</DreamsOutposts.Ui.Help.Title>
+  <!-- EN: (?)Info -->
+  <DreamsOutposts.Ui.Hint>(?)提示</DreamsOutposts.Ui.Hint>
+  <!-- EN: Colonists -->
+  <DreamsOutposts.Ui.Help.Warehouse.Head>查看殖民者信息</DreamsOutposts.Ui.Help.Warehouse.Head>
+  <!-- EN: Every colonist can be clicked to view their details. -->
+  <DreamsOutposts.Ui.Help.Warehouse>点击殖民者，即可查看其详细信息。</DreamsOutposts.Ui.Help.Warehouse>
+  <!-- EN: Skill: {0} -->
+  <DreamsOutposts.Warehouse.SkillFilter>技能：{0}</DreamsOutposts.Warehouse.SkillFilter>
+  <!-- EN: not shown -->
+  <DreamsOutposts.Warehouse.SkillNone>不显示</DreamsOutposts.Warehouse.SkillNone>
+  <!-- EN: Show every colonist's level in the chosen skill after their name. -->
+  <DreamsOutposts.Warehouse.SkillFilterTip>在每位殖民者的名字后面显示所选技能的等级。</DreamsOutposts.Warehouse.SkillFilterTip>
+  <!-- EN: Colonist skill levels -->
+  <DreamsOutposts.Training.JumpTitle>殖民者技能等级</DreamsOutposts.Training.JumpTitle>
+  <!-- EN: Open warehouse: {0} -->
+  <DreamsOutposts.Training.JumpButton>跳到仓库：{0}</DreamsOutposts.Training.JumpButton>
+  <!-- EN: Jump to the warehouse page and show every colonist's {0} level after their name. -->
+  <DreamsOutposts.Training.JumpTip>跳到仓库页，并把殖民者列表显示的技能等级设为{0}。</DreamsOutposts.Training.JumpTip>
   <!-- EN: Tendencies -->
   <DreamsOutposts.Ui.Help.Events.Head>倾向</DreamsOutposts.Ui.Help.Events.Head>
   <!-- EN: Tendencies affect how likely each outpost event is to appear. You can also turn random events off in the settings. -->
-  <DreamsOutposts.Ui.Help.Events>倾向会影响事件出现概率，你也可以在设置中关闭随机事件的发生。</DreamsOutposts.Ui.Help.Events>
+  <DreamsOutposts.Ui.Help.Events>倾向会影响事件出现概率。\n\n你可以在设置中关闭随机事件。</DreamsOutposts.Ui.Help.Events>
   <!-- EN: Population tendency -->
   <DreamsOutposts.Ui.Help.Population.Head>人口倾向</DreamsOutposts.Ui.Help.Population.Head>
   <!-- EN: Population tendency affects not only event odds, but also the quality of the adventurers the tavern recruits. Population is affected by: outpost level, number of outpost personnel, and special facilities. -->
-  <DreamsOutposts.Ui.Help.Population>人口倾向不仅影响事件出现概率，也影响酒馆招募新冒险者的质量。人口受到以下内容影响：据点等级、据点人员数量、特殊设施</DreamsOutposts.Ui.Help.Population>
+  <DreamsOutposts.Ui.Help.Population>人口倾向影响事件出现概率，以及酒馆招募新冒险者的质量。\n\n人口倾向受到以下因素影响：\n• 据点等级\n• 据点人员数量\n• 特殊设施</DreamsOutposts.Ui.Help.Population>
   <!-- EN: Tavern -->
   <DreamsOutposts.Tavern.Title>酒馆</DreamsOutposts.Tavern.Title>
   <!-- EN: {0}/{1} candidates -->
@@ -304,4 +326,8 @@
   <DreamsOutposts.Settings.UiStyle.Vanilla.Description>使用更接近 RimWorld 原版的深色界面布局。</DreamsOutposts.Settings.UiStyle.Vanilla.Description>
   <DreamsOutposts.Settings.UiStyle.ModernTech>现代科技风</DreamsOutposts.Settings.UiStyle.ModernTech>
   <DreamsOutposts.Settings.UiStyle.ModernTech.Description>使用浅色信息层级、科技感几何元素与黄绿色强调色的现代界面。</DreamsOutposts.Settings.UiStyle.ModernTech.Description>
+  <DreamsOutposts.Settings.UiStyle.ModernTechDark>现代科技风·黑夜</DreamsOutposts.Settings.UiStyle.ModernTechDark>
+  <DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>沿用现代科技风的布局与几何元素，底色换成近黑夜面色阶、明暗整体反转，黄绿色强调色保持不变。</DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>
+  <!-- EN: Notice -->
+  <DreamsOutposts.Ui.Notice>提示</DreamsOutposts.Ui.Notice>
 </LanguageData>

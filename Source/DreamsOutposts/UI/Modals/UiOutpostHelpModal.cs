@@ -21,18 +21,31 @@ namespace DreamsOutposts
 		private const float HeadLineGap = 5f;
 
 		/// <summary>分段标题 + 正文的键；正文为空的段落整段不画。</summary>
-		private static readonly string[] SectionKeys =
+		private static readonly string[] DefaultSectionKeys =
 		{
 			"DreamsOutposts.Ui.Help.Events",
 			"DreamsOutposts.Ui.Help.Population"
 		};
 
+		/// <summary>本弹窗要显示的段落。不传时用事件页 / 酒馆页那两段（倾向与人口倾向）。</summary>
+		private readonly string[] sectionKeys;
+
+		public UiOutpostHelpModalBody()
+			: this(null)
+		{
+		}
+
+		public UiOutpostHelpModalBody(string[] sectionKeys)
+		{
+			this.sectionKeys = (sectionKeys == null || sectionKeys.Length == 0) ? DefaultSectionKeys : sectionKeys;
+		}
+
 		public float Height(float width)
 		{
 			float height = 0f;
-			for (int i = 0; i < SectionKeys.Length; i++)
+			for (int i = 0; i < sectionKeys.Length; i++)
 			{
-				if (Text(SectionKeys[i]).NullOrEmpty())
+				if (Text(sectionKeys[i]).NullOrEmpty())
 				{
 					continue;
 				}
@@ -40,7 +53,7 @@ namespace DreamsOutposts
 				{
 					height += SectionGap;
 				}
-				height += HeadHeight() + HeadGap + UiText.Height(Text(SectionKeys[i]), UiFont.Body, width);
+				height += HeadHeight() + HeadGap + UiText.Height(Text(sectionKeys[i]), UiFont.Body, width);
 			}
 			return Mathf.Max(height, 1f);
 		}
@@ -50,9 +63,9 @@ namespace DreamsOutposts
 			float y = rect.y;
 			float width = rect.width;
 			bool first = true;
-			for (int i = 0; i < SectionKeys.Length; i++)
+			for (int i = 0; i < sectionKeys.Length; i++)
 			{
-				string text = Text(SectionKeys[i]);
+				string text = Text(sectionKeys[i]);
 				if (text.NullOrEmpty())
 				{
 					continue;
@@ -63,7 +76,7 @@ namespace DreamsOutposts
 				}
 				first = false;
 				float headHeight = HeadHeight();
-				DrawHead(new Rect(rect.x, y, width, headHeight), SectionKeys[i]);
+				DrawHead(new Rect(rect.x, y, width, headHeight), sectionKeys[i]);
 				y += headHeight + HeadGap;
 				float textHeight = UiText.Height(text, UiFont.Body, width);
 				UiText.Draw(new Rect(rect.x, y, width, textHeight), text, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
@@ -90,16 +103,23 @@ namespace DreamsOutposts
 		}
 	}
 
-	/// <summary>倾向说明弹窗的开法：事件页与酒馆页的「(?)提示」共用同一个窗口。</summary>
+	/// <summary>说明弹窗的开法：事件页 / 酒馆页的「(?)提示」与仓库页殖民者栏的「(?)提示」共用同一个窗口。</summary>
 	public static class UiOutpostHelpWindow
 	{
+		/// <summary>打开默认两段（倾向 / 人口倾向）的说明弹窗。</summary>
 		public static void Open()
+		{
+			Open(null);
+		}
+
+		/// <summary>打开只显示指定段落的说明弹窗；sectionKeys 为空时等同 Open()。</summary>
+		public static void Open(string[] sectionKeys)
 		{
 			Window_OutpostModal window = new Window_OutpostModal
 			{
 				TitleText = "DreamsOutposts.Ui.Help.Title".Translate(),
 				PanelWidth = UiMetrics.ModalNarrowWidth,
-				Body = new UiOutpostHelpModalBody()
+				Body = new UiOutpostHelpModalBody(sectionKeys)
 			};
 			// 只有「确认」一颗按钮。宽度一次算死，免得两种语言下按钮忽宽忽窄。
 			float buttonWidth = Mathf.Max(UiWidgets.ButtonWidth("DreamsOutposts.Ui.Option.Confirm".Translate()), 120f);

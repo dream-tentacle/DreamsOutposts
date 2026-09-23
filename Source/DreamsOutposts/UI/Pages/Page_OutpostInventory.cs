@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -36,6 +38,20 @@ namespace DreamsOutposts
 		private const float ThreeColumnMinWidth = UiMetrics.StackBreakpoint;
 
 		private const float ItemsColumnWeight = 1.15f;
+
+		/// <summary>殖民者栏的「(?)提示」文字常态透明度：原版风格下 Ink3 也是纯白，只能靠压 alpha 体现「次要」。</summary>
+		private const float HintAlpha = 0.82f;
+
+		/// <summary>「(?)提示」与下面人员行之间的空隙。</summary>
+		private const float HintGap = 4f;
+
+		/// <summary>殖民者栏「(?)提示」的翻译 key 与它弹出的说明段落。</summary>
+		private const string HintKey = "DreamsOutposts.Ui.Hint";
+
+		private static readonly string[] HintSectionKeys = { "DreamsOutposts.Ui.Help.Warehouse" };
+
+		/// <summary>殖民者栏的名字后面要显示哪个技能等级；null 表示不显示（默认）。</summary>
+		private SkillDef skillFilter;
 
 		private Vector2 colonistsScroll;
 
@@ -149,7 +165,7 @@ namespace DreamsOutposts
 
 		private float ColumnHeight(OutpostUiCache cache, int index)
 		{
-			return PanelHeadHeight() + PanelBodyHeight(RowCount(cache, index));
+			return PanelHeadHeight(index) + PanelBodyHeight(index, RowCount(cache, index));
 		}
 
 		private static int RowCount(OutpostUiCache cache, int index)
@@ -182,9 +198,22 @@ namespace DreamsOutposts
 			}
 		}
 
-		private static float PanelHeadHeight()
+		/// <summary>
+		/// 表头高度：殖民者栏是「标题 + (?)提示」两行加右边那颗技能按钮，比其他栏高一截。
+		/// </summary>
+		private static float PanelHeadHeight(int index)
 		{
+			if (index == 0)
+			{
+				return LeftHeadHeight() + PanelHeadPaddingV * 2f;
+			}
 			return UiText.LineHeight(UiFont.Body) + PanelHeadPaddingV * 2f;
+		}
+
+		/// <summary>殖民者栏表头左半边的高度：标题行 + 空隙 + 「(?)提示」行。</summary>
+		private static float LeftHeadHeight()
+		{
+			return UiText.LineHeight(UiFont.Body) + HintGap + UiDraw.HintHeight();
 		}
 
 		private static float RowHeight()
@@ -192,10 +221,10 @@ namespace DreamsOutposts
 			return Mathf.Max(IconSize, UiText.LineHeight(UiFont.Body)) + RowPaddingV * 2f;
 		}
 
-		private static float PanelBodyHeight(int rowCount)
+		private static float PanelBodyHeight(int index, int rowCount)
 		{
 			float needed = PanelBodyPadding * 2f + ((rowCount > 0) ? rowCount * (RowHeight() + RowGap) - RowGap : UiText.LineHeight(UiFont.Body) + 14f);
-			float minimum = PanelMinHeight - PanelHeadHeight();
+			float minimum = PanelMinHeight - PanelHeadHeight(index);
 			return Mathf.Clamp(needed, minimum, PanelBodyMaxHeight);
 		}
 
@@ -203,15 +232,22 @@ namespace DreamsOutposts
 		{
 			UiDebug.Scope("warehouse.panel[" + index + "]", rect);
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Card, UiPalette.Line);
-			float headHeight = PanelHeadHeight();
+			float headHeight = PanelHeadHeight(index);
 			Rect head = new Rect(rect.x, rect.y, rect.width, headHeight);
-			float titleWidth = Mathf.Max(rect.width - PanelHeadPaddingH * 2f - 60f, 30f);
-			UiText.Draw(new Rect(head.x + PanelHeadPaddingH, head.y, titleWidth, head.height), ColumnTitle(index),
-				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
-			string countText = "(" + RowCount(cache, index) + ")";
-			float countWidth = UiText.Width(countText, UiFont.Body) + 4f;
-			UiText.Draw(new Rect(head.xMax - PanelHeadPaddingH - countWidth, head.y, countWidth, head.height), countText,
-				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight);
+			if (index == 0)
+			{
+				DrawColonistHead(head, cache);
+			}
+			else
+			{
+				float titleWidth = Mathf.Max(rect.width - PanelHeadPaddingH * 2f - 60f, 30f);
+				UiText.Draw(new Rect(head.x + PanelHeadPaddingH, head.y, titleWidth, head.height), ColumnTitle(index),
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+				string countText = "(" + RowCount(cache, index) + ")";
+				float countWidth = UiText.Width(countText, UiFont.Body) + 4f;
+				UiText.Draw(new Rect(head.xMax - PanelHeadPaddingH - countWidth, head.y, countWidth, head.height), countText,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight);
+			}
 			UiDraw.Divider(new Rect(rect.x, head.yMax - 1f, rect.width, 1f), UiPalette.Line);
 			Rect bodyOuter = new Rect(rect.x, head.yMax, rect.width, Mathf.Max(rect.height - headHeight, 0f));
 			Rect bodyInner = new Rect(bodyOuter.x + PanelBodyPadding, bodyOuter.y + PanelBodyPadding,
@@ -224,13 +260,13 @@ namespace DreamsOutposts
 			case 0:
 				UiWidgets.ScrollView(bodyInner, ref colonistsScroll, contentHeight, delegate(Rect contentRect)
 				{
-					DrawPawnRows(contentRect, cache.Colonists);
+					DrawPawnRows(contentRect, cache.Colonists, skillFilter);
 				}, scroll, id, scroll);
 				break;
 			case 1:
 				UiWidgets.ScrollView(bodyInner, ref otherPawnsScroll, contentHeight, delegate(Rect contentRect)
 				{
-					DrawPawnRows(contentRect, cache.OtherPawns);
+					DrawPawnRows(contentRect, cache.OtherPawns, null);
 				}, scroll, id, scroll);
 				break;
 			case 2:
@@ -242,10 +278,75 @@ namespace DreamsOutposts
 			default:
 				UiWidgets.ScrollView(bodyInner, ref vehiclesScroll, contentHeight, delegate(Rect contentRect)
 				{
-					DrawPawnRows(contentRect, cache.Vehicles);
+					DrawPawnRows(contentRect, cache.Vehicles, null);
 				}, scroll, id, scroll);
 				break;
 			}
+		}
+
+		/// <summary>
+		/// 殖民者栏的表头：左半边是「殖民者 (N)」标题和它下面的「(?)提示」，右半边是技能筛选按钮。
+		/// 按钮宽度先算出来，标题行的可用宽度再让开它，窄栏下标题被截断也不会压到按钮上。
+		/// </summary>
+		private void DrawColonistHead(Rect head, OutpostUiCache cache)
+		{
+			float lineHeight = UiText.LineHeight(UiFont.Body);
+			string buttonLabel = SkillFilterLabel();
+			float buttonWidth = Mathf.Min(UiWidgets.ButtonWidth(buttonLabel, UiButtonSize.Small), Mathf.Max(head.width * 0.6f, 40f));
+			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Small);
+			Rect buttonRect = new Rect(head.xMax - PanelHeadPaddingH - buttonWidth,
+				head.y + (head.height - buttonHeight) * 0.5f, buttonWidth, buttonHeight);
+			float textX = head.x + PanelHeadPaddingH;
+			float textWidth = Mathf.Max(buttonRect.x - 6f - textX, 30f);
+			string title = ColumnTitle(0) + " (" + RowCount(cache, 0) + ")";
+			UiText.Draw(new Rect(textX, head.y + PanelHeadPaddingV, textWidth, lineHeight), title,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			Rect hintRect = new Rect(textX, head.y + PanelHeadPaddingV + lineHeight + HintGap, textWidth, UiDraw.HintHeight());
+			if (UiDraw.Hint(hintRect, HintKey.Translate(),
+				UiPalette.WithAlpha(UiPalette.Ink3, HintAlpha), UiPalette.WithAlpha(UiPalette.Ink2, HintAlpha)))
+			{
+				UiOutpostHelpWindow.Open(HintSectionKeys);
+			}
+			if (UiWidgets.Button(buttonRect, buttonLabel, UiButtonKind.Secondary, true, null, UiButtonSize.Small,
+				"DreamsOutposts.Warehouse.SkillFilterTip".Translate()))
+			{
+				OpenSkillFilterMenu();
+			}
+		}
+
+		/// <summary>技能筛选按钮的文字：当前选中的技能，或「不显示」。</summary>
+		private string SkillFilterLabel()
+		{
+			string value = (skillFilter != null) ? skillFilter.LabelCap.ToString() : "DreamsOutposts.Warehouse.SkillNone".Translate().ToString();
+			return "DreamsOutposts.Warehouse.SkillFilter".Translate(value).ToString();
+		}
+
+		/// <summary>技能筛选菜单：第一项是「不显示」，其余是原版技能表，按名称排序（与酒馆的技能偏好菜单同一套做法）。</summary>
+		private void OpenSkillFilterMenu()
+		{
+			List<FloatMenuOption> options = new List<FloatMenuOption>
+			{
+				new FloatMenuOption("DreamsOutposts.Warehouse.SkillNone".Translate(), delegate
+				{
+					skillFilter = null;
+				})
+			};
+			foreach (SkillDef skill in DefDatabase<SkillDef>.AllDefsListForReading.OrderBy(s => s.LabelCap.ToString()))
+			{
+				SkillDef captured = skill;
+				options.Add(new FloatMenuOption(skill.LabelCap, delegate
+				{
+					skillFilter = captured;
+				}));
+			}
+			Find.WindowStack.Add(new FloatMenu(options));
+		}
+
+		/// <summary>外部跳转进来时预设技能筛选（null = 不显示）；殖民者栏滚回顶部，免得还停在上一处。</summary>
+		public void SetSkillFilter(SkillDef skill)
+		{
+			skillFilter = skill;
+			colonistsScroll = Vector2.zero;
 		}
 
 		private static float RowContentHeight(int rowCount)
@@ -257,8 +358,8 @@ namespace DreamsOutposts
 			return rowCount * (RowHeight() + RowGap) - RowGap;
 		}
 
-		/// <summary>人员行：头像 + 名字，整行可打开信息卡。</summary>
-		private void DrawPawnRows(Rect rect, List<UiPawnView> rows)
+		/// <summary>人员行：头像 + 名字，整行可打开信息卡。skill 不为空时在名字后面补一个「(等级)」。</summary>
+		private void DrawPawnRows(Rect rect, List<UiPawnView> rows, SkillDef skill)
 		{
 			if (rows.Count == 0)
 			{
@@ -279,12 +380,23 @@ namespace DreamsOutposts
 				UiDraw.PawnPortrait(new Rect(x, row.y + (row.height - IconSize) * 0.5f, IconSize, IconSize), view.Pawn);
 				x += IconSize + RowGap;
 				float nameWidth = Mathf.Max(row.xMax - RowPaddingH - x, 30f);
-				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), view.Name, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(x, row.y, nameWidth, row.height), PawnRowName(view, skill), UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
 				if (view.Pawn != null && Widgets.ButtonInvisible(row))
 				{
 					Find.WindowStack.Add(new Dialog_InfoCard(view.Pawn));
 				}
 			}
+		}
+
+		/// <summary>人员行的名字：既不筛选技能、或该 pawn 没有技能表（动物、载具等）时，就只用名字。</summary>
+		private static string PawnRowName(UiPawnView view, SkillDef skill)
+		{
+			if (skill == null)
+			{
+				return view.Name;
+			}
+			SkillRecord record = view.Pawn?.skills?.GetSkill(skill);
+			return (record != null) ? (view.Name + " (" + record.Level + ")") : view.Name;
 		}
 
 		/// <summary>物品行：原版物品图标 + 名字 + DefName + 总数徽标，整行可打开信息卡。</summary>

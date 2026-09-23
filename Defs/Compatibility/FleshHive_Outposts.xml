@@ -34,7 +34,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="HaiLuan.FleshHive">
     <defName>DreamsOutposts_FleshCultivation</defName>
     <label>flesh cultivation outpost</label>
-    <description>A remote flesh cultivation site. Its twisted meat output increases with the hive capacity cost of stationed player fleshbeasts.</description>
+    <description>A remote flesh cultivation site. Its twisted meat output increases with the hive capacity cost of stationed player fleshbeasts.\n\nOutput depends on the hive capacity cost of stationed player fleshbeasts.</description>
     <coreFacility>DreamsOutposts_FleshCultivationCore</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 

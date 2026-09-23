@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
@@ -305,7 +306,7 @@ namespace DreamsOutposts
 			float itemHeight = UiWidgets.NavItemHeight();
 
 			bool modernTech =
-				DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+				DreamsOutpostsMod.UsesModernTechLayout;
 
 			if (!modernTech)
 			{
@@ -499,6 +500,67 @@ UiDebug.Scope(
 			contentFadeStart = Time.realtimeSinceStartup;
 		}
 
+		/// <summary>
+		/// 切到指定类型的页面，并先把该页配置好（训练设施卡片上的跳转按钮用它）。
+		/// 该页本来就是当前页时 SelectPage 会直接返回，但配置已经生效，下一帧就按新配置重画。
+		/// </summary>
+		public void OpenPageOfType(Type pageClass, Action<OutpostManagePage> configure)
+		{
+			if (pageClass == null || pages == null)
+			{
+				return;
+			}
+			for (int i = 0; i < pages.Count; i++)
+			{
+				if (pages[i] == null || pages[i].GetType() != pageClass)
+				{
+					continue;
+				}
+				configure?.Invoke(pages[i]);
+				SelectPage(i);
+				return;
+			}
+		}
+
+		/// <summary>
+		/// 跳到仓库页，并把殖民者栏的技能筛选设成给定技能（null 表示「不显示」）。
+		/// 管理窗口没开着（或该据点没有仓库页）时静默返回。
+		/// </summary>
+		public static void JumpToWarehouse(SkillDef skill)
+		{
+			Window_OutpostManage shell = FindManageWindow();
+			if (shell == null)
+			{
+				return;
+			}
+			shell.OpenPageOfType(typeof(Page_OutpostInventory), delegate(OutpostManagePage page)
+			{
+				Page_OutpostInventory inventory = page as Page_OutpostInventory;
+				if (inventory != null)
+				{
+					inventory.SetSkillFilter(skill);
+				}
+			});
+		}
+
+		private static Window_OutpostManage FindManageWindow()
+		{
+			IList<Window> windows = Find.WindowStack?.Windows;
+			if (windows == null)
+			{
+				return null;
+			}
+			for (int i = 0; i < windows.Count; i++)
+			{
+				Window_OutpostManage manage = windows[i] as Window_OutpostManage;
+				if (manage != null)
+				{
+					return manage;
+				}
+			}
+			return null;
+		}
+
 		// ---------------------------------------------------------------
 		// 内容区
 		// ---------------------------------------------------------------
@@ -518,14 +580,14 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 
 // 系统级页头：所有页面共用，占据独立高度并留出明显空白。
 			UiText.Draw(
-				new Rect(contentX, systemHeadTop, DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? contentWidth * 0.60f : contentWidth, UiText.LineHeight(UiFont.Heading)),
+				new Rect(contentX, systemHeadTop, DreamsOutpostsMod.UsesModernTechLayout ? contentWidth * 0.60f : contentWidth, UiText.LineHeight(UiFont.Heading)),
 				"DreamsOutposts.Ui.ManagementSystem".Translate(),
 				UiFont.Heading,
 				UiPalette.Ink,
 				TextAnchor.UpperLeft,
 				true, false, true);
 
-			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech))
+			if (DreamsOutpostsMod.UsesModernTechLayout)
 			{
 				UiDraw.Solid(new Rect(contentX, systemHeadTop + 39f, contentWidth, 1f), UiPalette.LineStrong);
 				string indexLabel = "DreamsOutposts.Ui.OutpostIndex".Translate(
@@ -774,10 +836,12 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 				return;
 			}
 			AcceptanceReport report;
+			List<Type> pageTypesBefore = PageTypes();
 			if (slot.TryInstall(card.Def, outpost, out report))
 			{
 				cache.Invalidate();
 				CloseModal();
+				NotifyIfNewPagesAppeared(pageTypesBefore);
 			}
 		}
 
@@ -787,11 +851,58 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			{
 				return;
 			}
+			List<Type> pageTypesBefore = PageTypes();
 			if (slot.TryForceInstall(card.Def))
 			{
 				cache.Invalidate();
 				CloseModal();
+				NotifyIfNewPagesAppeared(pageTypesBefore);
 			}
+		}
+
+		/// <summary>当前页签的类型列表：安装前后各取一次，用来判断有没有多出新页面。</summary>
+		private List<Type> PageTypes()
+		{
+			List<Type> types = new List<Type>();
+			for (int i = 0; i < pages.Count; i++)
+			{
+				if (pages[i] != null)
+				{
+					types.Add(pages[i].GetType());
+				}
+			}
+			return types;
+		}
+
+		/// <summary>
+		/// 有些设施建成后才会出现自己的管理页（冒险者营地建成后才出现酒馆页），
+		/// 而页签是打开管理窗口时算一次的，所以这里建完立刻重算一遍：
+		/// 真的多出新页面就弹提示，让玩家知道要关掉窗口重新打开。
+		/// 只在安装设施后调用，平时没有开销；页面没变（绝大多数设施）时什么都不做。
+		/// </summary>
+		private void NotifyIfNewPagesAppeared(List<Type> before)
+		{
+			List<OutpostManagePage> rebuilt = OutpostManagePageRegistry.BuildPages(outpost);
+			List<string> labels = new List<string>();
+			for (int i = 0; i < rebuilt.Count; i++)
+			{
+				OutpostManagePage page = rebuilt[i];
+				if (page == null || (before != null && before.Contains(page.GetType())))
+				{
+					continue;
+				}
+				string label = page.Label;
+				if (!label.NullOrEmpty() && !labels.Contains(label))
+				{
+					labels.Add(label);
+				}
+			}
+			if (labels.Count == 0)
+			{
+				return;
+			}
+			UiNoticeWindow.Open("DreamsOutposts.Ui.Notice".Translate(),
+				"DreamsOutposts.ManagePageReopen".Translate(GenText.ToCommaList(labels, true)));
 		}
 
 		public void CloseModal()

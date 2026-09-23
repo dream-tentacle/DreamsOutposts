@@ -221,6 +221,7 @@
 	<Compile Include="UI\Modals\UiAutomaticAirdropModal.cs" />
     <Compile Include="UI\Modals\UiEventModal.cs" />
     <Compile Include="UI\Modals\UiIntroTipsModal.cs" />
+    <Compile Include="UI\Modals\UiNoticeModal.cs" />
     <Compile Include="UI\Modals\UiOutpostHelpModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

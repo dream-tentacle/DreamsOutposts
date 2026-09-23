@@ -26,8 +26,8 @@
   <DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>据点仓库没有更多这种物品。</DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>
   <!-- EN: Select at least one item to transfer. -->
   <DreamsOutposts.ExchangeOutpost.NothingSelected>请至少选择一种要转移的物品。</DreamsOutposts.ExchangeOutpost.NothingSelected>
-  <!-- EN: The caravan would be overloaded after this exchange ({0} / {1}). -->
-  <DreamsOutposts.ExchangeOutpost.OverMass>交换后远行队将超载（{0} / {1}）。</DreamsOutposts.ExchangeOutpost.OverMass>
+  <!-- EN: The caravan will be overloaded after this exchange ({0} / {1}). Continue anyway? -->
+  <DreamsOutposts.ExchangeOutpost.OverMassConfirm>交换后远行队将超载（{0} / {1}）。仍要继续吗？</DreamsOutposts.ExchangeOutpost.OverMassConfirm>
   <!-- EN: Some items could not be transferred and were returned to where they came from. Other completed transfers were kept. -->
   <DreamsOutposts.ExchangeOutpost.PartialFailure>部分物品无法转移，已退回原处；其余已完成的转移予以保留。</DreamsOutposts.ExchangeOutpost.PartialFailure>
   <!-- EN: Supplies exchanged with {0}. -->

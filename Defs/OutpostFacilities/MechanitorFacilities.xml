@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Biotech">
     <defName>DreamsOutposts_ExpandedBandNode</defName>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Intellectual</skill>
+        <minLevel>8</minLevel>
+        <colonistsOnly>true</colonistsOnly>
+      </li>
+    </operatingRequirements>
     <facilityTag>Other</facilityTag>
     <category>DreamsOutposts_CategoryOther</category>
     <label>expanded band node</label>
-    <description>A dedicated mechanoid-band amplifier. Once tuned to a mechanitor, it provides 1 bandwidth while an intellectual operator maintains the signal.</description>
+    <description>A dedicated mechanoid-band amplifier. While enabled and tuned, it provides 1 bandwidth to its linked mechanitor.</description>
     <allowedOutpostTypes><li>DreamsOutposts_Mechanitor</li></allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>

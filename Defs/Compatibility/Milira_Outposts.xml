@@ -41,7 +41,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="Ancot.MiliraRace">
     <defName>DreamsOutposts_SolarOutpost</defName>
     <label>solar outpost</label>
-    <description>An outpost built around a solar smelter. Milira and their Milian machines work the furnaces together, pouring sun plate steel or cutting out solar crystal.</description>
+    <description>An outpost built around a solar smelter. Milira and their Milian machines work the furnaces together, pouring sun plate steel or cutting out solar crystal.\n\nOutput depends on the number of stationed Milira and Milian.</description>
     <coreFacility>DreamsOutposts_SolarSmelter</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 </Defs>

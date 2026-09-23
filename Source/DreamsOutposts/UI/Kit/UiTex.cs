@@ -128,6 +128,8 @@ namespace DreamsOutposts
 
 		private static Texture2D backgroundTexture;
 
+		private static Texture2D darkBackgroundTexture;
+
 		private static Texture2D facilityPlaceholderTexture;
 
 		private static Texture2D sidebarSeparatorTexture;
@@ -137,6 +139,8 @@ namespace DreamsOutposts
 		private static Texture2D chipLeftAlphaRampTexture;
 
 		private static readonly Dictionary<int, Texture2D> levelDigitTextures = new Dictionary<int, Texture2D>();
+
+		private static readonly Dictionary<int, Texture2D> darkLevelDigitTextures = new Dictionary<int, Texture2D>();
 
 		private static readonly Texture2D[] navCornerArcs = new Texture2D[4];
 
@@ -242,9 +246,24 @@ namespace DreamsOutposts
 			return negativeButtonTexture;
 		}
 
-		/// <summary>据点管理窗口的现代科技风背景。</summary>
+		/// <summary>
+		/// 据点管理窗口的现代科技风背景：浅色风用 Background，黑夜风用 Background2（两张图同尺寸同比例）。
+		/// </summary>
 		public static Texture2D BackgroundTexture()
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTechDark))
+			{
+				if (darkBackgroundTexture == null)
+				{
+					darkBackgroundTexture = ContentFinder<Texture2D>.Get(IconFolder + "Background2", false);
+					if (darkBackgroundTexture == null)
+					{
+						Log.WarningOnce("DreamsOutposts UI: dark background texture missing: Textures/" + IconFolder
+							+ "Background2.png.", GenText.StableStringHash("ui-background-dark"));
+					}
+				}
+				return darkBackgroundTexture;
+			}
 			if (backgroundTexture == null)
 			{
 				backgroundTexture = ContentFinder<Texture2D>.Get(IconFolder + "Background", false);
@@ -271,12 +290,8 @@ namespace DreamsOutposts
 			}
 			return facilityPlaceholderTexture;
 		}
-		/// <summary>
-		/// 等级数字图片。资源路径为 Textures/DreamsOutposts/Ui/LevelDigits/{level}.png。
-		/// 不限制最大等级：其它 Mod 若提供更高等级，只需自行补对应数字图片。
-		/// </summary>
 
-
+		/// <summary>据点升级按钮的成品底图（浅色底板 + 绿色竖条），三套风格共用。</summary>
 		public static Texture2D UpgradeButtonTexture()
 		{
 			if (upgradeButtonTexture == null)
@@ -285,6 +300,7 @@ namespace DreamsOutposts
 			}
 			return upgradeButtonTexture;
 		}
+
 		public static Texture2D SidebarSeparatorTexture()
 		{
 			if (sidebarSeparatorTexture == null)
@@ -293,6 +309,12 @@ namespace DreamsOutposts
 			}
 			return sidebarSeparatorTexture;
 		}
+
+		/// <summary>
+		/// 等级数字图片。浅色风资源路径为 Textures/DreamsOutposts/Ui/LevelDigits/{level}.png；
+		/// 黑夜风改用 LevelDigitsDark/{level}.png（同一批图形的反相版：原图是近黑色，压在深底上会看不见）。
+		/// 不限制最大等级：其它 Mod 若提供更高等级，只需自行补对应数字图片。
+		/// </summary>
 		public static Texture2D LevelDigitTexture(int level)
 		{
 			if (level < 0)
@@ -300,18 +322,28 @@ namespace DreamsOutposts
 				return null;
 			}
 
+			bool dark = DreamsOutpostsMod.IsUiStyle(
+				OutpostUiStyle.ModernTechDark);
+
+			Dictionary<int, Texture2D> cache = dark
+				? darkLevelDigitTextures
+				: levelDigitTextures;
+
 			Texture2D cached;
-			if (levelDigitTextures.TryGetValue(level, out cached))
+			if (cache.TryGetValue(level, out cached))
 			{
 				return cached;
 			}
 
-			Texture2D texture = ContentFinder<Texture2D>.Get(IconFolder + "LevelDigits/" + level, false);
-			levelDigitTextures[level] = texture;
+			Texture2D texture = ContentFinder<Texture2D>.Get(
+				IconFolder + (dark ? "LevelDigitsDark/" : "LevelDigits/") + level,
+				false);
+
+			cache[level] = texture;
 			return texture;
 		}
 
-				/// <summary>
+		/// <summary>
 		/// Chip 左侧高光：从 20% 白色叠加线性淡出到透明。
 		/// 调用方只把它绘制在 chip 左侧 25% 宽度内。
 		/// </summary>

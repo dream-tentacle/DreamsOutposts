@@ -15,6 +15,9 @@ namespace DreamsOutposts
 
 		public float powerGenerationFactor = 1f;
 
+		/// <summary>本据点等级的训练速度倍率：训练型设施的经验产出按此放大。1 表示没有加成。</summary>
+		public float trainingFactor = 1f;
+
 		public int DaysRequiredTicks => (int)(daysRequired * 60000f);
 
 		public IEnumerable<string> ConfigErrors(int levelIndex)
@@ -75,6 +78,10 @@ namespace DreamsOutposts
 			if (float.IsNaN(powerGenerationFactor) || float.IsInfinity(powerGenerationFactor) || powerGenerationFactor <= 0f)
 			{
 				yield return prefix + "powerGenerationFactor must be finite and positive.";
+			}
+			if (float.IsNaN(trainingFactor) || float.IsInfinity(trainingFactor) || trainingFactor <= 0f)
+			{
+				yield return prefix + "trainingFactor must be finite and positive.";
 			}
 		}
 	}

@@ -222,6 +222,12 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
+			if (DreamsOutpostsMod.UiStyle == OutpostUiStyle.Vanilla)
+			{
+				Rect closeRect = new Rect(rect.center.x - 9f, rect.center.y - 9f, 18f, 18f);
+				Tip(closeRect, tooltip);
+				return Widgets.ButtonImage(closeRect, TexButton.CloseXSmall);
+			}
 			bool hovered = Mouse.IsOver(rect);
 			Color fill = hovered ? UiPalette.NavActive : UiPalette.PanelGlassStrong;
 			Color border = hovered ? UiPalette.NavActive : UiPalette.LineStrong;

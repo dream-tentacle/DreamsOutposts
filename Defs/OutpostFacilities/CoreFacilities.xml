@@ -24,11 +24,18 @@
       </li>
     </comps>
   </DreamsOutposts.OutpostFacilityDef>
-  <DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Biotech">
     <defName>DreamsOutposts_MechanitorRelay</defName>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Intellectual</skill>
+        <minLevel>8</minLevel>
+        <colonistsOnly>true</colonistsOnly>
+      </li>
+    </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>mechanitor relay</label>
-    <description>A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal.</description>
+    <description>A large mechanoid-band signal relay. While enabled and tuned, it provides 2 bandwidth to its linked mechanitor.\n\nExpanded band nodes can be built at this outpost to provide additional bandwidth.</description>
     <installableAsExtension>false</installableAsExtension>
     <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>
     <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>2</bandwidth></li></comps>
@@ -168,30 +175,47 @@
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_AutomationHub</defName>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Intellectual</skill>
+        <minLevel>5</minLevel>
+        <colonistsOnly>true</colonistsOnly>
+      </li>
+    </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>automation hub</label>
-    <description>A centralized control facility that coordinates the camp's automated machinery. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise facilities tagged for automatic production run at their base output.\n\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
+    <description>A centralized control facility that coordinates the camp's automated machinery. While enabled, facilities tagged for automatic production receive the outpost level multiplier. Otherwise, they operate at base output.\n\nLevel multipliers:\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
-        <requiredSkill>Intellectual</requiredSkill>
-        <requiredSkillLevel>5</requiredSkillLevel>
         <facilityTag>AutomaticProduction</facilityTag>
       </li>
     </comps>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_PowerHub</defName>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Intellectual</skill>
+        <minLevel>5</minLevel>
+        <colonistsOnly>true</colonistsOnly>
+      </li>
+    </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>power generation hub</label>
-    <description>A centralized control facility that coordinates the outpost's power generators. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise power generators run at their base output.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
+    <description>A centralized control hub for the outpost's generators. While enabled, generators receive the outpost level multiplier. Otherwise, they operate at base power output.\n\nLevel multipliers:\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
-        <requiredSkill>Intellectual</requiredSkill>
-        <requiredSkillLevel>5</requiredSkillLevel>
         <facilityTag>PowerGeneration</facilityTag>
       </li>
     </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_TrainingBase</defName>
+    <category>DreamsOutposts_CategoryOther</category>
+    <label>training base</label>
+    <description>Barracks, drill yards and classrooms gathered into a single training site. Training facilities installed in this outpost train residents faster, in proportion to the level of the training base.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
+    <installableAsExtension>false</installableAsExtension>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

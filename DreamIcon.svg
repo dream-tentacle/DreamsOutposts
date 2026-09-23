@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>梦境</title>
+  <rect width="64" height="64" fill="#30294F"/>
+  <path fill="#E5D5FF" d="m48 7 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/>
+  <path fill="#BEB0E8" d="m57 23 1.2 2.8L61 27l-2.8 1.2L57 31l-1.2-2.8L53 27l2.8-1.2Z"/>
+  <path fill="#fff" d="M35 5C19 4 7 16 7 31c0 10 6 19 14 23l4-9c-6-3-9-8-9-14 0-9 6-16 14-18-2 9 3 18 12 21l5-8C36 25 31 15 35 5Z"/>
+  <path fill="#EBCB91" d="M30 13c-8 2-14 9-14 18 0 6 3 11 9 14l-2 4c-8-4-12-10-12-18 0-10 8-18 19-18Z"/>
+  <path d="M23 31c3-7 10-10 17-8" fill="none" stroke="#A395D6" stroke-width="2.5" stroke-linecap="round"/>
+  <path fill="#fff" d="M29 56a9 9 0 0 1-1-18 12 12 0 0 1 23-1 9.5 9.5 0 0 1 0 19Z"/>
+  <path fill="#C5B8EA" d="M21 49c2 2 5 3 8 3h22c4 0 7-2 9-5a9.5 9.5 0 0 1-9 9H29a9 9 0 0 1-8-7Z"/>
+  <path d="M34 39c1-4 6-6 10-3" fill="none" stroke="#DDD5F1" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

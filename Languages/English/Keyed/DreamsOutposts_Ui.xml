@@ -58,7 +58,10 @@
   <DreamsOutposts.Ui.Nav.Defense>{0} defense</DreamsOutposts.Ui.Nav.Defense>
   <DreamsOutposts.Ui.Nav.Items>{0} item kinds</DreamsOutposts.Ui.Nav.Items>
   <DreamsOutposts.Ui.Nav.Events>{0} active</DreamsOutposts.Ui.Nav.Events>
-  <DreamsOutposts.Ui.CoreFacilityHint>Fixed by the outpost type</DreamsOutposts.Ui.CoreFacilityHint>
+  <DreamsOutposts.Ui.Help.Facilities.Head>Facilities</DreamsOutposts.Ui.Help.Facilities.Head>
+  <DreamsOutposts.Ui.Help.Facilities>Click a facility to view details.</DreamsOutposts.Ui.Help.Facilities>
+  <DreamsOutposts.Ui.Help.WorkSpeed.Head>Work speed</DreamsOutposts.Ui.Help.WorkSpeed.Head>
+  <DreamsOutposts.Ui.Help.WorkSpeed>Total personnel capacity is the weighted sum of each eligible person's capacity: colonists contribute 100%, slaves 80%, and prisoners held by your colony 40%. Downed pawns do not contribute. Pawns from other factions do not contribute, except prisoners held by your colony.</DreamsOutposts.Ui.Help.WorkSpeed>
   <DreamsOutposts.Ui.ExtensionHint>Paid from the outpost stock, half refunded on removal</DreamsOutposts.Ui.ExtensionHint>
   <DreamsOutposts.Ui.EmptySlotHint>Slot {0} · click to choose a facility</DreamsOutposts.Ui.EmptySlotHint>
   <DreamsOutposts.Ui.ProductionAmount>{0} x{1}</DreamsOutposts.Ui.ProductionAmount>
@@ -74,6 +77,7 @@
   <DreamsOutposts.Ui.Install.PayFromStock>Materials are paid from the outpost stock</DreamsOutposts.Ui.Install.PayFromStock>
   <DreamsOutposts.Ui.ModAllProductions>all</DreamsOutposts.Ui.ModAllProductions>
   <DreamsOutposts.Ui.ModProductionFactor>Output {0}</DreamsOutposts.Ui.ModProductionFactor>
+  <DreamsOutposts.Ui.ModTrainingFactor>Training {0}</DreamsOutposts.Ui.ModTrainingFactor>
   <DreamsOutposts.Ui.ModProduction>Produces {0} · every {1}</DreamsOutposts.Ui.ModProduction>
   <DreamsOutposts.Ui.ModProductionInputs>consumes {0}/unit</DreamsOutposts.Ui.ModProductionInputs>
   <DreamsOutposts.Ui.Section.Basics>Basics</DreamsOutposts.Ui.Section.Basics>
@@ -121,10 +125,19 @@
   <DreamsOutposts.Ui.Option.Confirm>Confirm</DreamsOutposts.Ui.Option.Confirm>
   <DreamsOutposts.Ui.Option.Later>Later</DreamsOutposts.Ui.Option.Later>
   <DreamsOutposts.Ui.Help.Title>(?)Info</DreamsOutposts.Ui.Help.Title>
+  <DreamsOutposts.Ui.Hint>(?)Info</DreamsOutposts.Ui.Hint>
+  <DreamsOutposts.Ui.Help.Warehouse.Head>View colonist details</DreamsOutposts.Ui.Help.Warehouse.Head>
+  <DreamsOutposts.Ui.Help.Warehouse>Click a colonist to view their details.</DreamsOutposts.Ui.Help.Warehouse>
+  <DreamsOutposts.Warehouse.SkillFilter>Skill: {0}</DreamsOutposts.Warehouse.SkillFilter>
+  <DreamsOutposts.Warehouse.SkillNone>not shown</DreamsOutposts.Warehouse.SkillNone>
+  <DreamsOutposts.Warehouse.SkillFilterTip>Show every colonist's level in the chosen skill after their name.</DreamsOutposts.Warehouse.SkillFilterTip>
+  <DreamsOutposts.Training.JumpTitle>Colonist skill levels</DreamsOutposts.Training.JumpTitle>
+  <DreamsOutposts.Training.JumpButton>Open warehouse: {0}</DreamsOutposts.Training.JumpButton>
+  <DreamsOutposts.Training.JumpTip>Jump to the warehouse page and show every colonist's {0} level after their name.</DreamsOutposts.Training.JumpTip>
   <DreamsOutposts.Ui.Help.Events.Head>Tendencies</DreamsOutposts.Ui.Help.Events.Head>
-  <DreamsOutposts.Ui.Help.Events>Tendencies affect how likely each outpost event is to appear. You can also turn random events off in the settings.</DreamsOutposts.Ui.Help.Events>
+  <DreamsOutposts.Ui.Help.Events>Tendencies affect how likely each outpost event is to appear.\n\nYou can turn random events off in the settings.</DreamsOutposts.Ui.Help.Events>
   <DreamsOutposts.Ui.Help.Population.Head>Population tendency</DreamsOutposts.Ui.Help.Population.Head>
-  <DreamsOutposts.Ui.Help.Population>Population tendency affects not only event odds, but also the quality of the adventurers the tavern recruits. Population is affected by: outpost level, number of outpost personnel, and special facilities.</DreamsOutposts.Ui.Help.Population>
+  <DreamsOutposts.Ui.Help.Population>Population tendency affects event odds and the quality of new adventurers recruited at the tavern.\n\nPopulation tendency is affected by:\n• Outpost level\n• Number of outpost personnel\n• Special facilities</DreamsOutposts.Ui.Help.Population>
   <DreamsOutposts.Tavern.Title>Tavern</DreamsOutposts.Tavern.Title>
   <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
   <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
@@ -158,4 +171,7 @@
   <DreamsOutposts.Settings.UiStyle.Vanilla.Description>Uses a darker layout closer to RimWorld's vanilla interface.</DreamsOutposts.Settings.UiStyle.Vanilla.Description>
   <DreamsOutposts.Settings.UiStyle.ModernTech>Modern Tech</DreamsOutposts.Settings.UiStyle.ModernTech>
   <DreamsOutposts.Settings.UiStyle.ModernTech.Description>Uses a light modern interface with technical geometry and yellow-green accents.</DreamsOutposts.Settings.UiStyle.ModernTech.Description>
+  <DreamsOutposts.Settings.UiStyle.ModernTechDark>Modern Tech - Dark</DreamsOutposts.Settings.UiStyle.ModernTechDark>
+  <DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>Keeps the modern tech layout and geometry, but swaps the palette to a near-black one with inverted light and dark values. The yellow-green accent stays the same.</DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>
+  <DreamsOutposts.Ui.Notice>Notice</DreamsOutposts.Ui.Notice>
 </LanguageData>

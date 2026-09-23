@@ -602,7 +602,7 @@
         <description>People are short here, and so are working hands. Give him a bed and make him one of the outpost's own.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawn">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <count>1</count>
           </li>
         </effects>
@@ -727,8 +727,8 @@
 
   <DreamsOutposts.OutpostEventDef>
     <defName>DO_Frontier_ExtremeWeather</defName>
-    <label>extreme cold snap or heat wave</label>
-    <description>Weather readings show an extreme cold snap or heat wave closing in, strong enough to crush flimsy shelters. The outpost's current protection is nowhere near enough.</description>
+    <label>typhoon</label>
+    <description>Weather readings show a typhoon closing in, strong enough to crush flimsy shelters. The outpost's current protection is nowhere near enough.</description>
     <category>DreamsOutposts_Frontier</category>
     <weight>2</weight>
     <options>
@@ -801,7 +801,7 @@
         </requirements>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
@@ -994,7 +994,7 @@
         <description>Take him in. Gain one excellent colonist, but settling him in reduces production for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Excellent</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
@@ -1077,7 +1077,7 @@
         <description>Take them all in. Gain three common colonists, but housing and settling them in reduces production for five days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
             <count>3</count>
           </li>
@@ -1093,7 +1093,7 @@
         <description>Keep only the most useful of them. Gain one excellent colonist; production falls slightly for three days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Excellent</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
@@ -1861,7 +1861,7 @@
         <description>Take them all in. Gain two common colonists; housing them reduces production slightly.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
             <count>2</count>
           </li>
@@ -1877,7 +1877,7 @@
         <description>Keep only the most skilled among them. Gain one excellent colonist; production falls slightly.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Excellent</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryProductionFactor">
@@ -1921,7 +1921,7 @@
         <description>Let them compete to see who is best; we will take only the finest.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Excellent</rarity>
           </li>
         </effects>
@@ -1999,7 +1999,7 @@
         </requirements>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_AddTemporaryCategoryOffset">
@@ -2015,7 +2015,7 @@
         <description>House the two sides apart and let whoever wants to stay, stay. Gain two common colonists; production falls for four days.</description>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
             <count>2</count>
           </li>
@@ -2060,7 +2060,7 @@
         </requirements>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
           </li>
           <li Class="DreamsOutposts.OutpostEventEffect_GenerateRandomItems">
@@ -2115,7 +2115,7 @@
         <playerSelectable>false</playerSelectable>
         <effects>
           <li Class="DreamsOutposts.OutpostEventEffect_GeneratePawnByRarity">
-            <pawnKindDef>Refugee</pawnKindDef>
+            <pawnKindDef>DreamsOutposts_Refugee</pawnKindDef>
             <rarity>Common</rarity>
           </li>
         </effects>

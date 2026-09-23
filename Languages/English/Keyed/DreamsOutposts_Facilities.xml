@@ -12,6 +12,7 @@
   <DreamsOutposts.RequiresOutpostLevel>Requires outpost level: {0}</DreamsOutposts.RequiresOutpostLevel>
   <DreamsOutposts.TrainingInfo>Trains: {0} ({1} xp per hour)</DreamsOutposts.TrainingInfo>
   <DreamsOutposts.TrainingTooltip>Trains {0} for colonists stationed here: {1} xp per hour.</DreamsOutposts.TrainingTooltip>
+  <DreamsOutposts.TrainingBaseFactor>Training base multiplier: ×{0}.</DreamsOutposts.TrainingBaseFactor>
   <DreamsOutposts.ProductionFixedPerCycle>{0} per cycle (no skill needed)</DreamsOutposts.ProductionFixedPerCycle>
   <DreamsOutposts.InstallFacility>Install facility</DreamsOutposts.InstallFacility>
   <DreamsOutposts.NoInstallSlot>This page was opened without a slot to install into.</DreamsOutposts.NoInstallSlot>
@@ -36,6 +37,7 @@
   <DreamsOutposts.NoMaterialsNeeded>No materials needed.</DreamsOutposts.NoMaterialsNeeded>
   <DreamsOutposts.NoManagementPage>No management page is available for this outpost.</DreamsOutposts.NoManagementPage>
   <DreamsOutposts.CoreFacilityInfo>Core facility: {0}</DreamsOutposts.CoreFacilityInfo>
+  <DreamsOutposts.LevelSlotsInfo>Level slots: {0}</DreamsOutposts.LevelSlotsInfo>
   <DreamsOutposts.Levels>Levels:</DreamsOutposts.Levels>
   <DreamsOutposts.LevelInfo>- Level {0}: {1} {2}</DreamsOutposts.LevelInfo>
   <DreamsOutposts.BuildCost>Build cost: {0}</DreamsOutposts.BuildCost>
@@ -61,4 +63,5 @@
   <DreamsOutposts.IntelligentAirdropReserve>Store reserve</DreamsOutposts.IntelligentAirdropReserve>
 	<DreamsOutposts.WaystationMovementFactor>Waystation: {0}</DreamsOutposts.WaystationMovementFactor>
 	<DreamsOutposts.TemporaryMovementFactor>Temporary outpost effect: {0}</DreamsOutposts.TemporaryMovementFactor>
+	<DreamsOutposts.ManagePageReopen>A "{0}" page has been added. Close the management window and open it again for the new page to appear.</DreamsOutposts.ManagePageReopen>
 </LanguageData>

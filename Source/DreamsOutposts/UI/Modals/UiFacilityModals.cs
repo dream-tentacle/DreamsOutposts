@@ -34,6 +34,12 @@ namespace DreamsOutposts
 			float y = rect.y;
 			float width = rect.width;
 			bool firstSection = true;
+			if (details.Source?.OperationChips.Count > 0)
+			{
+				float chipHeight = UiDraw.ChipsHeight(details.Source.OperationChips, width, true);
+				if (!measure) UiDraw.Chips(new Rect(rect.x, y, width, chipHeight), details.Source.OperationChips, true);
+				y += chipHeight + 12f;
+			}
 			if (!string.IsNullOrEmpty(details.Description))
 			{
 				float height = UiText.Height(details.Description, UiFont.Body, width);
@@ -385,11 +391,13 @@ namespace DreamsOutposts
 			if (!measure)
 			{
 				Rect head = new Rect(innerX, y, innerWidth, headHeight);
-				bool headHovered = Mouse.IsOver(head);
+				bool headHovered = card.Def != null && Mouse.IsOver(head);
+				Color headColor = card.Def == null ? UiPalette.Ink
+					: (headHovered ? UiPalette.InfoLinkHover : UiPalette.InfoLinkText);
 				UiDraw.Icon(new Rect(head.x, head.y + (head.height - iconSize) * 0.5f, iconSize, iconSize), card.Icon,
-					headHovered ? UiPalette.BrandText : UiPalette.Ink);
+					headColor);
 				UiText.Draw(new Rect(head.x + iconSize + 9f, head.y, innerWidth - iconSize - 9f, head.height), card.Label,
-					UiFont.Body, headHovered ? UiPalette.BrandText : UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+					UiFont.Body, headColor, TextAnchor.MiddleLeft, true, false, true);
 				UiWidgets.Tip(head, card.Tooltip, card.TooltipId);
 				// 点名称/图标 → 原版信息面板
 				if (card.Def != null && Widgets.ButtonInvisible(head))

@@ -23,7 +23,7 @@ namespace DreamsOutposts
 		public const float TitleSubGap = 6f;
 
 		// ---------- 侧栏 ----------
-		public static float SidebarWidth => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 250f : 300f;
+		public static float SidebarWidth => DreamsOutpostsMod.UsesModernTechLayout ? 250f : 300f;
 		public const float SidebarPaddingH = 10f;
 		public const float SidebarPaddingLeft = 32f;
 		public const float SidebarPaddingV = 18f;
@@ -57,7 +57,7 @@ namespace DreamsOutposts
 
 		// ---------- 内容区 ----------
 		public const float ContentPaddingTop = 24f;
-		public static float ManagementHeaderHeight => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 58f : 92f;
+		public static float ManagementHeaderHeight => DreamsOutpostsMod.UsesModernTechLayout ? 58f : 92f;
 		public const float ContentPaddingH = 24f;
 		public const float ContentPaddingBottom = 28f;
 		/// <summary>全屏管理界面里正文的最大有效宽度；其余横向空间交给背景与留白。</summary>
@@ -66,8 +66,8 @@ namespace DreamsOutposts
 		public const float PageHeadSubGap = 4f;
 		public const float PageHeadTitleIndent = 0f;
 		public const float PageHeadMaxTextWidth = 560f;
-		public static float ContentFadeSeconds => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 0.24f : 0.42f;
-		public static float ContentSlideDistance => DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech) ? 16f : 40f;
+		public static float ContentFadeSeconds => DreamsOutpostsMod.UsesModernTechLayout ? 0.24f : 0.42f;
+		public static float ContentSlideDistance => DreamsOutpostsMod.UsesModernTechLayout ? 16f : 40f;
 		public const float SectionSpacing = 24f;
 		public const float SectionHeadGap = 10f;
 		public const float SectionHeadMarginBottom = 14f;
@@ -203,6 +203,7 @@ namespace DreamsOutposts
 		public const float ModernTechFacilityImageSize = 72f;
 		public const float ModernTechFacilityImageGlyph = 26f;
 		public const float ModernTechFacilityImageGap = 16f;
+		/// <summary>保留备用：核心设施卡过去用它给右上角标签留间距，现在标签已移除。</summary>
 		public const float ModernTechFacilityTitleTagGap = 12f;
 		public const float ModernTechDescriptionGap = 8f;
 		public const float ModernTechDescriptionMaxLines = 1f;

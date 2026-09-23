@@ -289,11 +289,17 @@ namespace DreamsOutposts
 			float after = caravan.MassUsage + OutpostExchangeUtility.MassDelta(transferables);
 			if (after > caravan.MassCapacity + 0.001f)
 			{
-				Messages.Message("DreamsOutposts.ExchangeOutpost.OverMass".Translate(after.ToString("F1"), caravan.MassCapacity.ToString("F1")), MessageTypeDefOf.RejectInput, false);
-				SoundDefOf.ClickReject.PlayOneShotOnCamera();
+				Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+					"DreamsOutposts.ExchangeOutpost.OverMassConfirm".Translate(after.ToString("F1"), caravan.MassCapacity.ToString("F1")),
+					ExecuteExchange));
 				return;
 			}
+			ExecuteExchange();
+		}
 
+		private void ExecuteExchange()
+		{
+			if (exchanging || !Valid()) return;
 			exchanging = true;
 			bool success = OutpostExchangeUtility.Execute(caravan, outpost, transferables);
 			exchanging = false;

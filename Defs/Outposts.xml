@@ -35,7 +35,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_AnimalTaming</defName>
     <label>ranger taming outpost</label>
-    <description>A wilderness station whose handlers track, capture and tame animals native to the surrounding region.</description>
+    <description>A wilderness station whose handlers track, capture and tame animals native to the surrounding region.\n\nOutput depends on tame animal chance.</description>
     <workerClass>DreamsOutposts.OutpostWorker_Taming</workerClass>
     <coreFacility>DreamsOutposts_RangerCamp</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
@@ -43,40 +43,40 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Mining</defName>
     <label>mining outpost</label>
-    <description>A basic outpost for mining.</description>
+    <description>A basic outpost for mining.\n\nOutput depends on mining speed.</description>
     <coreFacility>DreamsOutposts_MiningPlant</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Farming</defName>
     <label>farming outpost</label>
-    <description>A basic outpost for growing crops.</description>
+    <description>A basic outpost for growing crops.\n\nOutput depends on plant work speed.</description>
     <coreFacility>DreamsOutposts_Farm</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Logging</defName>
     <label>logging outpost</label>
-    <description>A basic outpost for cutting timber.</description>
+    <description>A basic outpost for cutting timber.\n\nOutput depends on plant work speed.</description>
     <coreFacility>DreamsOutposts_LoggingCamp</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Drilling</defName>
     <label>drilling outpost</label>
-    <description>A basic outpost for pumping and refining chemfuel.</description>
+    <description>A basic outpost for pumping and refining chemfuel.\n\nOutput depends on construction speed.</description>
     <coreFacility>DreamsOutposts_OilDerrick</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Neutroamine</defName>
     <label>neutroamine outpost</label>
-    <description>An industrial outpost for collecting and refining neutroamine precursors.</description>
+    <description>An industrial outpost for collecting and refining neutroamine precursors.\n\nOutput depends on drug synthesis speed.</description>
     <coreFacility>DreamsOutposts_NeutroamineCollector</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_Research</defName>
     <label>research outpost</label>
-    <description>A remote research station that steadily contributes knowledge to the colony's current research project.</description>
+    <description>A remote research station that steadily contributes knowledge to the colony's current research project.\n\nOutput depends on research speed.</description>
     <coreFacility>DreamsOutposts_ResearchStation</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
@@ -114,16 +114,16 @@
       </li>
     </levels>
   </DreamsOutposts.OutpostTypeDef>
-  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="Ludeon.RimWorld.Biotech">
     <defName>DreamsOutposts_Mechanitor</defName>
     <label>mechanitor outpost</label>
-    <description>A remote signal-control site that expands the bandwidth of tuned mechanitors.</description>
+    <description>A remote signal-control outpost that expands mechanitor bandwidth and supports additional band nodes.\n\nAt least one resident colonist with Intellectual 8 or higher is required to maintain its signal facilities. Enabled facilities provide bandwidth to their linked mechanitor once tuned.</description>
     <coreFacility>DreamsOutposts_MechanitorRelay</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_AutomationCamp</defName>
     <label>automation camp</label>
-    <description>A specialized camp organized around centralized automated production.</description>
+    <description>A specialized camp organized around centralized automated production.\n\nIts automation hub requires at least one resident colonist with Intellectual 5 or higher. While the hub is enabled, automatic production increases with outpost level; otherwise, facilities operate at base output.</description>
     <coreFacility>DreamsOutposts_AutomationHub</coreFacility>
     <levels Inherit="False">
       <li>
@@ -182,7 +182,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_PowerGeneration</defName>
     <label>power generation outpost</label>
-    <description>A specialized outpost that coordinates remote power generation.</description>
+    <description>A specialized outpost for remote power generation and transmission.\n\nIts power generation hub requires at least one resident colonist with Intellectual 5 or higher. While the hub is enabled, generator output increases with outpost level; otherwise, generators operate at base power output.</description>
     <coreFacility>DreamsOutposts_PowerHub</coreFacility>
     <levels Inherit="False">
       <li>
@@ -215,6 +215,45 @@
           <ComponentIndustrial>6</ComponentIndustrial>
         </cost>
         <powerGenerationFactor>3</powerGenerationFactor>
+      </li>
+    </levels>
+  </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
+    <defName>DreamsOutposts_TrainingCamp</defName>
+    <label>training base</label>
+    <description>A dedicated site where residents drill under instructors day and night.\n\nTraining facilities installed here train residents faster, depending on the level of its training base.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
+    <coreFacility>DreamsOutposts_TrainingBase</coreFacility>
+    <levels Inherit="False">
+      <li>
+        <slotCount>2</slotCount>
+        <daysRequired>0</daysRequired>
+        <trainingFactor>1.5</trainingFactor>
+      </li>
+      <li>
+        <slotCount>3</slotCount>
+        <daysRequired>2</daysRequired>
+        <cost>
+          <Steel>30</Steel>
+        </cost>
+        <trainingFactor>2</trainingFactor>
+      </li>
+      <li>
+        <slotCount>4</slotCount>
+        <daysRequired>15</daysRequired>
+        <cost>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
+        </cost>
+        <trainingFactor>2.5</trainingFactor>
+      </li>
+      <li>
+        <slotCount>5</slotCount>
+        <daysRequired>30</daysRequired>
+        <cost>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
+        </cost>
+        <trainingFactor>3</trainingFactor>
       </li>
     </levels>
   </DreamsOutposts.OutpostTypeDef>

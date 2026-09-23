@@ -74,6 +74,12 @@ namespace DreamsOutposts
 		/// </summary>
 		public float defense;
 
+		/// <summary>启用所需的条件，全部满足后设施才提供效果。</summary>
+		public List<OutpostFacilityRequirement> operatingRequirements = new List<OutpostFacilityRequirement>();
+
+		/// <summary>将自身防卫加成同时提供给直接相邻地块的己方据点。</summary>
+		public bool sharesDefenseWithNeighbors;
+
 		public int bombardmentShellBonus;
 
 		public bool IsResearchUnlocked
@@ -193,6 +199,11 @@ namespace DreamsOutposts
 
 		public override IEnumerable<string> ConfigErrors()
 		{
+			for (int i = 0; i < (operatingRequirements?.Count ?? 0); i++)
+			{
+				if (operatingRequirements[i] == null) { yield return "Null operating requirement."; continue; }
+				foreach (string error in operatingRequirements[i].ConfigErrors()) yield return error;
+			}
 			foreach (string item in base.ConfigErrors())
 			{
 				yield return item;

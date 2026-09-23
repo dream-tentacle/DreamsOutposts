@@ -133,6 +133,8 @@ namespace DreamsOutposts
 		public readonly List<UiChipView> Chips = new List<UiChipView>();
 
 		public int PowerChipIndex = -1;
+		public int OperationChipIndex = -1;
+		public readonly List<UiChipView> OperationChips = new List<UiChipView>();
 
 		public readonly List<UiProductionView> Productions = new List<UiProductionView>();
 
@@ -289,6 +291,7 @@ namespace DreamsOutposts
 
 	public sealed class UiInstallCardView
 	{
+		public int OperationChipIndex = -1;
 		public OutpostFacilityDef Def;
 
 		public string Label;
@@ -359,6 +362,8 @@ namespace DreamsOutposts
 		public float DefenseFromFacilities { get; private set; }
 
 		public readonly List<UiPawnView> DefensePawns = new List<UiPawnView>();
+		public readonly List<UiFacilityView> WatchtowerSupport = new List<UiFacilityView>();
+		private readonly List<KeyValuePair<Outpost, float>> watchtowerSources = new List<KeyValuePair<Outpost, float>>();
 
 		/// <summary>殖民者（按名字排序），仓库页用。</summary>
 		public readonly List<UiPawnView> Colonists = new List<UiPawnView>();
@@ -560,7 +565,7 @@ namespace DreamsOutposts
 			view.Label = def?.LabelCap.ToString() ?? "DreamsOutposts.UnknownFacility".Translate().ToString();
 			view.Description = def?.description ?? "DreamsOutposts.FacilityNoDef".Translate().ToString();
 			view.Icon = UiIconMap.ForFacility(def);
-			view.Defense = def?.defense ?? 0f;
+			view.Defense = OutpostDefenseUtility.FacilityDefense(outpost, facility);
 			view.RefundLabel = OutpostBuildUtility.RefundLabel(def);
 			view.CostLabel = OutpostBuildUtility.CostLabel(def);
 			view.SubLabel = view.IsCore
@@ -593,11 +598,7 @@ namespace DreamsOutposts
 				}
 				if (OutpostTrainingUtility.Trains(def))
 				{
-					OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
-					view.Chips.Add(new UiChipView(
-						"DreamsOutposts.Ui.Chip.Training".Translate(training.skill.LabelCap, training.xpPerHour.ToString("0.#")).ToString(),
-						UiChipKind.Info,
-						"DreamsOutposts.Ui.Chip.TrainingTip".Translate(training.skill.LabelCap, OutpostTrainingUtility.CountTrainees(outpost, def)).ToString()));
+					view.Chips.Add(new UiChipView(TrainingChipLabel(def), UiChipKind.Info, TrainingTip(def)));
 				}
 				OutpostFacilityComp_PowerGenerator power = facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
 				if (power != null)
@@ -613,11 +614,6 @@ namespace DreamsOutposts
 					}
 					view.PowerChipIndex = view.Chips.Count;
 					view.Chips.Add(new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn));
-				}
-				OutpostFacilityComp_ProductionSupervisor supervisor = facility?.GetComp<OutpostFacilityComp_ProductionSupervisor>();
-				if (supervisor != null)
-				{
-					view.Chips.Add(supervisor.BuildStatusChip());
 				}
 				if (!def.productionModifiers.NullOrEmpty())
 				{
@@ -662,6 +658,8 @@ namespace DreamsOutposts
 					}
 				}
 			}
+			view.OperationChipIndex = view.Chips.Count;
+			RefreshOperationChips(view);
 			// 生产
 			if (def != null && !def.Productions.NullOrEmpty())
 			{
@@ -959,8 +957,56 @@ namespace DreamsOutposts
 			}
 		}
 
+		private void RefreshFacilityDefense(UiFacilityView view)
+		{
+			if (view?.Facility == null) return;
+			view.Defense = OutpostDefenseUtility.FacilityDefense(outpost, view.Facility);
+			if (view.Facility.def?.defense > 0f && view.Chips.Count > 0)
+				view.Chips[0] = new UiChipView("DreamsOutposts.Ui.Chip.Defense".Translate(view.Defense.ToString("0.#")).ToString(), UiChipKind.Info);
+			RefreshOperationChips(view);
+		}
+
+		public static void AddOperationChips(List<UiChipView> chips, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
+		{
+			if (facility != null)
+			{
+				AcceptanceReport report = facility.CanOperate(outpost);
+				chips.Add(new UiChipView((report.Accepted ? "DreamsOutposts.Operation.Enabled" : "DreamsOutposts.Operation.Disabled").Translate().ToString(),
+					report.Accepted ? UiChipKind.Good : UiChipKind.Bad,
+					report.Accepted ? "DreamsOutposts.Operation.EnabledTip".Translate().ToString() : report.Reason));
+			}
+			foreach (OutpostFacilityRequirement requirement in def?.operatingRequirements ?? new List<OutpostFacilityRequirement>())
+			{
+				if (requirement == null) continue;
+				chips.Add(new UiChipView(requirement.Label, requirement.Check(outpost).Accepted ? UiChipKind.Good : UiChipKind.Warn, requirement.Description));
+			}
+		}
+
+		private void RefreshOperationChips(UiFacilityView view)
+		{
+			if (view?.Facility == null || view.OperationChipIndex < 0) return;
+			view.OperationChips.Clear();
+			AddOperationChips(view.OperationChips, outpost, view.Facility.def, view.Facility);
+			view.Chips.RemoveRange(view.OperationChipIndex, view.Chips.Count - view.OperationChipIndex);
+			view.Chips.AddRange(view.OperationChips);
+		}
+
 		private void RefreshDefense()
 		{
+			RefreshFacilityDefense(Core);
+			for (int i = 0; i < Slots.Count; i++) RefreshFacilityDefense(Slots[i]);
+			WatchtowerSupport.Clear();
+			OutpostDefenseUtility.NeighborWatchtowerDefense(outpost, watchtowerSources);
+			foreach (KeyValuePair<Outpost, float> source in watchtowerSources)
+			{
+				WatchtowerSupport.Add(new UiFacilityView
+				{
+					Label = source.Key.LabelCap.ToString(),
+					SubLabel = "DreamsOutposts.WatchtowerSupport".Translate().ToString(),
+					Icon = UiIcon.Turret,
+					Defense = source.Value
+				});
+			}
 			DefenseFromPawns = OutpostDefenseUtility.PawnDefenseTotal(outpost);
 			DefenseFromFacilities = OutpostDefenseUtility.FacilityDefenseTotal(outpost);
 			DefensePawns.Clear();
@@ -1217,6 +1263,12 @@ namespace DreamsOutposts
 		{
 			if (installAll != null && installSlot == slot)
 			{
+				foreach (UiInstallCardView card in installAll)
+				{
+					if (card.OperationChipIndex < 0) continue;
+					card.Chips.RemoveRange(card.OperationChipIndex, card.Chips.Count - card.OperationChipIndex);
+					AddOperationChips(card.Chips, outpost, card.Def);
+				}
 				return onlyAvailable ? installAvailable : installAll;
 			}
 			installSlot = slot;
@@ -1271,11 +1323,9 @@ namespace DreamsOutposts
 					}
 					if (OutpostTrainingUtility.Trains(def))
 					{
-						OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
-						SkillDef trainingSkill = training.skill;
 						int trainees = OutpostTrainingUtility.CountTrainees(outpost, def);
 						card.Chips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.Training".Translate(trainingSkill.LabelCap, training.xpPerHour.ToString("0.#")).ToString(),
+							TrainingChipLabel(def),
 							(trainees > 0) ? UiChipKind.Good : UiChipKind.Bad));
 					}
 					OutpostFacilityCompProperties_PowerGenerator powerProps = def.GetCompProperties<OutpostFacilityCompProperties_PowerGenerator>();
@@ -1319,6 +1369,11 @@ namespace DreamsOutposts
 							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate("×" + modifier.factor.ToString("0.##")).ToString());
 						}
 					}
+					string trainingModLine = TrainingModLine(def);
+					if (!string.IsNullOrEmpty(trainingModLine))
+					{
+						card.ModLines.Add(trainingModLine);
+					}
 					if (!def.Productions.NullOrEmpty())
 					{
 						for (int p = 0; p < def.Productions.Count; p++)
@@ -1341,6 +1396,8 @@ namespace DreamsOutposts
 							card.ModLines.Add(line);
 						}
 					}
+					card.OperationChipIndex = card.Chips.Count;
+					AddOperationChips(card.Chips, outpost, def);
 					all.Add(card);
 					if (card.Allowed)
 					{
@@ -1398,10 +1455,80 @@ namespace DreamsOutposts
 				OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
 				builder.Append("\n").Append("DreamsOutposts.TrainingTooltip".Translate(
 					training.skill.LabelCap,
-					training.xpPerHour.ToString("0.#"),
+					OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#"),
 					OutpostTrainingUtility.CountTrainees(outpost, def)));
+				string factorLine = TrainingFactorLine(def);
+				if (!string.IsNullOrEmpty(factorLine))
+				{
+					builder.Append("\n").Append(factorLine);
+				}
 			}
 			return builder.ToString();
+		}
+
+		// ---------------------------------------------------------------
+		// 训练
+		// ---------------------------------------------------------------
+
+		/// <summary>训练 chip 的文本：写这个据点里实际生效的每小时经验（已计入训练基地的等级倍率）。</summary>
+		private string TrainingChipLabel(OutpostFacilityDef def)
+		{
+			OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
+			if (training == null)
+			{
+				return string.Empty;
+			}
+			return "DreamsOutposts.Ui.Chip.Training".Translate(
+				training.skill.LabelCap,
+				OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#")).ToString();
+		}
+
+		/// <summary>训练 chip 的 tooltip：技能与每人每小时经验（口径与 chip 文本一致），以及训练基地倍率（有加成时）。</summary>
+		private string TrainingTip(OutpostFacilityDef def)
+		{
+			OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
+			if (training == null)
+			{
+				return string.Empty;
+			}
+			string text = "DreamsOutposts.Ui.Chip.TrainingTip".Translate(
+				training.skill.LabelCap,
+				OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#")).ToString();
+			string factorLine = TrainingFactorLine(def);
+			if (!string.IsNullOrEmpty(factorLine))
+			{
+				text = text + "\n" + factorLine;
+			}
+			return text;
+		}
+
+		/// <summary>训练基地等级倍率在本地据点的取值；没有加成时返回 null，调用方不显示这一行。</summary>
+		private float? TrainingFactor(OutpostFacilityDef def)
+		{
+			if (!OutpostTrainingUtility.Trains(def) || !OutpostTrainingUtility.ReceivesTrainingFactor(def))
+			{
+				return null;
+			}
+			float factor = OutpostTrainingUtility.TrainingFactor(outpost);
+			return Mathf.Approximately(factor, 1f) ? (float?)null : factor;
+		}
+
+		/// <summary>tooltip 里的训练基地倍率说明行；没有加成时返回 null。</summary>
+		private string TrainingFactorLine(OutpostFacilityDef def)
+		{
+			float? factor = TrainingFactor(def);
+			return factor.HasValue
+				? "DreamsOutposts.TrainingBaseFactor".Translate(factor.Value.ToString("0.##")).ToString()
+				: null;
+		}
+
+		/// <summary>建造卡片 mods 行里的训练倍率说明；没有加成时返回 null。</summary>
+		private string TrainingModLine(OutpostFacilityDef def)
+		{
+			float? factor = TrainingFactor(def);
+			return factor.HasValue
+				? "DreamsOutposts.Ui.ModTrainingFactor".Translate("×" + factor.Value.ToString("0.##")).ToString()
+				: null;
 		}
 
 		// ---------------------------------------------------------------

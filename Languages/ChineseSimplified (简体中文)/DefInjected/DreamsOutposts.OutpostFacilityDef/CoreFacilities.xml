@@ -4,12 +4,12 @@
   <!-- EN: automation hub -->
   <DreamsOutposts_AutomationHub.label>自动化中枢</DreamsOutposts_AutomationHub.label>
   <!-- EN: A centralized control facility that coordinates the camp's automated machinery. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise facilities tagged for automatic production run at their base output.\n\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x -->
-  <DreamsOutposts_AutomationHub.description>用于协调营地内自动机械的集中控制设施。需要至少1名留驻本据点、智识达到5的殖民者担任管理者，且中枢本身未被事件禁用，带有「自动生产」标签的设施才享有等级倍率；否则按原始产能产出。\n\n1级: 2倍\n2级: 3倍\n3级: 4倍\n4级: 5倍</DreamsOutposts_AutomationHub.description>
+  <DreamsOutposts_AutomationHub.description>用于协调营地内自动机械的集中控制设施。启用后，带有「自动生产」标签的设施享有等级倍率；未启用时按基础产能生产。\n\n等级倍率：\n1级：2倍\n2级：3倍\n3级：4倍\n4级：5倍</DreamsOutposts_AutomationHub.description>
 
   <!-- EN: power generation hub -->
   <DreamsOutposts_PowerHub.label>发电中枢</DreamsOutposts_PowerHub.label>
   <!-- EN: A centralized control facility that coordinates the outpost's power generators. Its level multipliers only apply while a colonist with 5 or more Intellectual is stationed here and the hub itself is not disabled by an event; otherwise power generators run at their base output. -->
-  <DreamsOutposts_PowerHub.description>用于协调据点内发电设施的集中控制中枢。需要至少1名留驻本据点、智识达到5的殖民者担任管理者，且中枢本身未被事件禁用，据点内的发电设施才享有等级倍率；否则按原始功率发电。\n\n1级: 1.5倍\n2级: 2倍\n3级: 2.5倍\n4级: 3倍</DreamsOutposts_PowerHub.description>
+  <DreamsOutposts_PowerHub.description>用于协调据点内发电设施的集中控制中枢。启用后，发电设施享有等级倍率；未启用时按基础功率发电。\n\n等级倍率：\n1级：1.5倍\n2级：2倍\n3级：2.5倍\n4级：3倍</DreamsOutposts_PowerHub.description>
   
   <!-- EN: farm -->
   <DreamsOutposts_Farm.label>农场</DreamsOutposts_Farm.label>
@@ -23,8 +23,8 @@
 
   <!-- EN: mechanitor relay -->
   <DreamsOutposts_MechanitorRelay.label>机械师中继站</DreamsOutposts_MechanitorRelay.label>
-  <!-- EN: A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal. -->
-  <DreamsOutposts_MechanitorRelay.description>大型机械体频带信号中继设施。调谐至一名机械师后，只要有具备足够智识的操作员维持信号，便提供2点带宽。</DreamsOutposts_MechanitorRelay.description>
+  <!-- EN: A large mechanoid-band signal relay. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal, and expanded band nodes can be built here. -->
+  <DreamsOutposts_MechanitorRelay.description>大型机械体频带信号中继设施。启用并完成调谐后，为绑定的机械师提供2点带宽。\n\n可在此据点建造扩展频带节点，进一步增加带宽。</DreamsOutposts_MechanitorRelay.description>
 
   <!-- EN: mining plant -->
   <DreamsOutposts_MiningPlant.label>采矿厂</DreamsOutposts_MiningPlant.label>
@@ -45,6 +45,11 @@
   <DreamsOutposts_RangerCamp.label>巡猎营地</DreamsOutposts_RangerCamp.label>
   <!-- EN: A field camp where handlers track and tame animals native to the surrounding region. -->
   <DreamsOutposts_RangerCamp.description>驯兽师在此追踪并驯化周边地区的原生动物。</DreamsOutposts_RangerCamp.description>
+
+  <!-- EN: training base -->
+  <DreamsOutposts_TrainingBase.label>训练基地</DreamsOutposts_TrainingBase.label>
+  <!-- EN: Barracks, drill yards and classrooms gathered into a single training site. Training facilities installed in this outpost train residents faster, in proportion to the level of the training base.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x -->
+  <DreamsOutposts_TrainingBase.description>把营房、训练场与教室集中在一起的训练设施。本据点内的训练类设施训练居民的速度更快，倍率与训练基地的等级成正比。\n\n1级: 1.5倍\n2级: 2倍\n3级: 2.5倍\n4级: 3倍</DreamsOutposts_TrainingBase.description>
 
   <!-- EN: town center -->
   <DreamsOutposts_TownCenter.label>城镇中心</DreamsOutposts_TownCenter.label>

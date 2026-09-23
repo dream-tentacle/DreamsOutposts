@@ -24,6 +24,8 @@
   <DreamsOutposts.TrainingInfo>训练：{0}（每小时{1}点经验）</DreamsOutposts.TrainingInfo>
   <!-- EN: Trains {0} for colonists stationed here: {1} xp per hour. -->
   <DreamsOutposts.TrainingTooltip>为驻扎在此的殖民者训练{0}：每小时{1}点经验。</DreamsOutposts.TrainingTooltip>
+  <!-- EN: Training base multiplier: ×{0}. -->
+  <DreamsOutposts.TrainingBaseFactor>训练基地倍率：×{0}。</DreamsOutposts.TrainingBaseFactor>
   <!-- EN: {0} per cycle (no skill needed) -->
   <DreamsOutposts.ProductionFixedPerCycle>每周期{0}（不需要技能）</DreamsOutposts.ProductionFixedPerCycle>
   <!-- EN: Install facility -->
@@ -72,6 +74,8 @@
   <DreamsOutposts.NoManagementPage>此据点没有可用的管理页面。</DreamsOutposts.NoManagementPage>
   <!-- EN: Core facility: {0} -->
   <DreamsOutposts.CoreFacilityInfo>核心设施：{0}</DreamsOutposts.CoreFacilityInfo>
+  <!-- EN: Level slots: {0} -->
+  <DreamsOutposts.LevelSlotsInfo>各等级槽位：{0}</DreamsOutposts.LevelSlotsInfo>
   <!-- EN: Levels: -->
   <DreamsOutposts.Levels>等级：</DreamsOutposts.Levels>
   <!-- EN: - Level {0}: {1} {2} -->
@@ -122,4 +126,6 @@
   <DreamsOutposts.WaystationMovementFactor>驿站：{0}</DreamsOutposts.WaystationMovementFactor>
   <!-- EN: Temporary outpost effect: {0} -->
   <DreamsOutposts.TemporaryMovementFactor>据点临时效果：{0}</DreamsOutposts.TemporaryMovementFactor>
+  <!-- EN: A "{0}" page has been added. Close the management window and open it again for the new page to appear. -->
+  <DreamsOutposts.ManagePageReopen>新增了「{0}」页面。需要关闭管理窗口再重新打开，新页面才会出现。</DreamsOutposts.ManagePageReopen>
 </LanguageData>

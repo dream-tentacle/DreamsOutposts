@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <PawnKindDef>
+    <defName>DreamsOutposts_Refugee</defName>
+    <label>refugee</label>
+    <race>Human</race>
+    <apparelAllowHeadgearChance>0.2</apparelAllowHeadgearChance>
+    <apparelMoney>90~280</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li></apparelTags>
+    <backstoryCryptosleepCommonality>0.05</backstoryCryptosleepCommonality>
+    <biocodeWeaponChance>0.1</biocodeWeaponChance>
+    <chemicalAddictionChance>0.12</chemicalAddictionChance>
+    <combatPower>35</combatPower>
+    <gearHealthRange>0.2~0.6</gearHealthRange>
+    <initialResistanceRange>8~14</initialResistanceRange>
+    <initialWillRange>0~1</initialWillRange>
+    <inventoryOptions>
+      <skipChance>0.9</skipChance>
+      <subOptionsChooseOne>
+        <li><thingDef>Silver</thingDef><countRange>30~70</countRange></li>
+        <li><thingDef>MedicineIndustrial</thingDef><countRange>1</countRange></li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+    <invNutrition>0</invNutrition>
+    <itemQuality>Poor</itemQuality>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>50~50</techHediffsMoney>
+    <techHediffsTags><li>Poor</li></techHediffsTags>
+    <weaponMoney>60~200</weaponMoney>
+    <weaponTags>
+      <li>MedievalMeleeBasic</li>
+      <li>NeolithicMeleeBasic</li>
+    </weaponTags>
+    <xenotypeSet>
+      <xenotypeChances>
+        <Highmate MayRequire="Ludeon.RimWorld.Biotech">0.025</Highmate>
+      </xenotypeChances>
+    </xenotypeSet>
+  </PawnKindDef>
+</Defs>

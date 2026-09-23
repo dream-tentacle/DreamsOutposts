@@ -25,12 +25,12 @@
   <DreamsOutposts.IntroTips.Important.Units.Text>任何在据点里的人会强制跳过计算，完全无性能消耗。</DreamsOutposts.IntroTips.Important.Units.Text>
   <!-- EN: Production multiplier: -->
   <DreamsOutposts.IntroTips.Important.Multiplier.Label>倍率调整：</DreamsOutposts.IntroTips.Important.Multiplier.Label>
-  <!-- EN: The production multiplier can be changed in the mod settings.\nThis mod was originally designed around a 1000% production multiplier, lowered to the current value so it would not stand too far apart from Vanilla Outposts Expanded. To play the author's original design, set it to 1000%. -->
-  <DreamsOutposts.IntroTips.Important.Multiplier.Text>在设置里可以改生产倍率。\n这个mod的设计最开始采用的是 1000% 的产出倍率，为了避免与原版据点拓展差距过大，因此降低为目前的数值。如果希望体验作者最初的设计，请设置为 1000% 倍率。</DreamsOutposts.IntroTips.Important.Multiplier.Text>
+  <!-- EN: The production multiplier can be changed in the mod settings.\nThis mod was originally designed around a comparatively high production multiplier, lowered to the current value so it would not stand too far apart from Vanilla Outposts Expanded. To play the author's original design, raise the multiplier. -->
+  <DreamsOutposts.IntroTips.Important.Multiplier.Text>在设置里可以改生产倍率。\n这个mod的设计最开始采用的是较高倍率，为了避免与原版据点拓展差距过大，因此降低为目前的数值。如果希望体验作者最初的设计，可以把倍率调高。</DreamsOutposts.IntroTips.Important.Multiplier.Text>
   <!-- EN: UI style: -->
   <DreamsOutposts.IntroTips.Important.UiStyle.Label>UI风格：</DreamsOutposts.IntroTips.Important.UiStyle.Label>
-  <!-- EN: The interface uses the RimWorld style by default. A modern tech style can be selected in the mod settings. -->
-  <DreamsOutposts.IntroTips.Important.UiStyle.Text>界面默认为原版风格，在设置里可以换成现代科技风。</DreamsOutposts.IntroTips.Important.UiStyle.Text>
+  <!-- EN: The interface uses the RimWorld style by default. Modern tech and modern tech (dark) styles can be selected in the mod settings. -->
+  <DreamsOutposts.IntroTips.Important.UiStyle.Text>界面默认为原版风格，在设置里可以换成现代科技风，或者底色更暗的现代科技风·黑夜。</DreamsOutposts.IntroTips.Important.UiStyle.Text>
   <!-- EN: Managing outposts: -->
   <DreamsOutposts.IntroTips.Important.Manage.Label>据点管理：</DreamsOutposts.IntroTips.Important.Manage.Label>
   <!-- EN: Click an outpost, then click the manage button below. -->

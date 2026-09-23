@@ -41,7 +41,7 @@ namespace DreamsOutposts
 
 		public override void Update(Outpost outpost, int delta)
 		{
-			if (!IsTuning || !OutpostBandwidthUtility.HasOperator(outpost)) return;
+			if (!IsTuning) return;
 			retuneTicksLeft -= delta;
 			if (retuneTicksLeft > 0) return;
 			Pawn old = tunedTo;
@@ -69,11 +69,6 @@ namespace DreamsOutposts
 
 	public static class OutpostBandwidthUtility
 	{
-		public static bool HasOperator(Outpost outpost)
-		{
-			return outpost?.Colonists.Any(p => p?.skills?.GetSkill(SkillDefOf.Intellectual)?.Level >= 8) == true;
-		}
-
 		public static IEnumerable<OutpostFacilityComp_Bandwidth> Nodes(Outpost outpost, bool operationalOnly = false)
 		{
 			IEnumerable<OutpostFacility> facilities = operationalOnly ? outpost?.OperationalFacilities : outpost?.Facilities;
@@ -91,7 +86,7 @@ namespace DreamsOutposts
 			int total = 0;
 			foreach (Outpost outpost in Find.WorldObjects.AllWorldObjects.OfType<Outpost>())
 			{
-				if (outpost.Faction != Faction.OfPlayer || !HasOperator(outpost)) continue;
+				if (outpost.Faction != Faction.OfPlayer) continue;
 				foreach (OutpostFacilityComp_Bandwidth node in Nodes(outpost, true))
 					if (!node.IsTuning && node.tunedTo == pawn) total += node.Props.bandwidth;
 			}

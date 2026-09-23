@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <DreamsOutposts_Watchtower.label>哨塔</DreamsOutposts_Watchtower.label>
+  <DreamsOutposts_Watchtower.description>用于监视周边地区的高架瞭望塔。启用后，每座为本据点及直接相邻地块上的己方据点提供10点防卫。\n\n一名合格居民即可维持本据点所有哨塔，多个哨塔的加成可以叠加。</DreamsOutposts_Watchtower.description>
   
   <!-- EN: ammunition dump -->
   <DreamsOutposts_AmmunitionDump.label>弹药库</DreamsOutposts_AmmunitionDump.label>

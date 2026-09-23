@@ -14,6 +14,12 @@ namespace DreamsOutposts
 
 		private const float CardHoverShadowAlpha = 0.7f;
 
+		private static readonly string[] HelpSections =
+		{
+			"DreamsOutposts.Ui.Help.Facilities",
+			"DreamsOutposts.Ui.Help.WorkSpeed"
+		};
+
 		private OutpostUiCache fallbackCache;
 
 		private int observedLevel = -1;
@@ -27,7 +33,7 @@ namespace DreamsOutposts
 
 		private float builtFlashStartedAt = float.NegativeInfinity;
 
-		/// <summary>滚动画布的可见上下边（正文坐标系），用于挡掉滚出可视区的卡片点击。</summary>
+		/// <summary>滚动画布的可见上下边（视口组内坐标系），用于挡掉滚出可视区的卡片点击。</summary>
 		private float viewportTop;
 
 		private float viewportBottom;
@@ -72,9 +78,9 @@ namespace DreamsOutposts
 
 		public void DrawBody(Rect rect, float availableHeight)
 		{
-			// 记录滚动画布的可见上下边：滚出可视区的卡片仍会收到鼠标事件，整卡点击要靠它挡住
-			viewportTop = rect.y;
-			viewportBottom = rect.y + availableHeight;
+			// 鼠标坐标相对于视口组；rect.y 只是内容的滚动偏移，不能用于视口边界。
+			viewportTop = 0f;
+			viewportBottom = availableHeight;
 			Layout(rect, true);
 		}
 
@@ -87,6 +93,8 @@ namespace DreamsOutposts
 			case OutpostUiStyle.Vanilla:
 				return LayoutVanilla(rect, draw);
 
+			// 黑夜风与现代科技风共用同一套布局，差别只在配色。
+			case OutpostUiStyle.ModernTechDark:
 			case OutpostUiStyle.ModernTech:
 			default:
 				return LayoutModernTech(rect, draw);
@@ -119,7 +127,8 @@ namespace DreamsOutposts
 			}
 			y += levelHeight + SectionGap;
 			// 核心设施
-			y += SectionHead(rect.x, y, width, "DreamsOutposts.CoreFacility".Translate(), null, draw);
+			y += SectionHead(rect.x, y, width, "DreamsOutposts.CoreFacility".Translate(),
+				null, draw, true);
 			UiFacilityView core = cache.Core;
 			if (core != null)
 			{
@@ -235,7 +244,7 @@ namespace DreamsOutposts
 				width,
 				"DreamsOutposts.CoreFacility".Translate(),
 				null,
-				draw);
+				draw, true);
 
 			UiFacilityView core = cache.Core;
 			if (core != null)
@@ -359,7 +368,8 @@ namespace DreamsOutposts
 			float width,
 			string title,
 			string hint,
-			bool draw)
+			bool draw,
+			bool showHelp = false)
 		{
 			float titleHeight = UiText.LineHeight(UiFont.Heading);
 			float hintHeight = UiText.LineHeight(UiFont.Body);
@@ -377,7 +387,11 @@ namespace DreamsOutposts
 					false,
 					true);
 
-				if (!string.IsNullOrEmpty(hint))
+				if (showHelp)
+				{
+					DrawFacilityHelp(x, y, title, lineHeight);
+				}
+				else if (!string.IsNullOrEmpty(hint))
 				{
 					float hintWidth = Mathf.Max(
 						width * 0.40f - UiMetrics.SectionHeadGap,
@@ -466,7 +480,22 @@ namespace DreamsOutposts
 			return UiText.LineHeight(UiFont.Heading) + UiMetrics.SectionHeadMarginBottom;
 		}
 
-		private static float SectionHead(float x, float y, float width, string title, string hint, bool draw)
+		private static void DrawFacilityHelp(float x, float y, string title, float lineHeight)
+		{
+			string label = "DreamsOutposts.Ui.Hint".Translate();
+			float hintWidth = UiText.Width(label, UiFont.Body) + 4f;
+			float hintHeight = UiDraw.HintHeight();
+			// 紧贴标题文字右侧，而不是贴区块右端
+			float hintX = x + UiText.Width(title, UiFont.Heading) + UiMetrics.SectionHeadGap;
+			Rect hintRect = new Rect(hintX, y + (lineHeight - hintHeight) * 0.5f, hintWidth, hintHeight);
+			if (UiDraw.Hint(hintRect, label,
+				UiPalette.WithAlpha(UiPalette.Ink3, 0.82f), UiPalette.WithAlpha(UiPalette.Ink2, 0.82f)))
+			{
+				UiOutpostHelpWindow.Open(HelpSections);
+			}
+		}
+
+		private static float SectionHead(float x, float y, float width, string title, string hint, bool draw, bool showHelp = false)
 		{
 			float titleHeight = UiText.LineHeight(UiFont.Heading);
 			float hintHeight = UiText.LineHeight(UiFont.Body);
@@ -477,7 +506,11 @@ namespace DreamsOutposts
 				UiText.Draw(new Rect(x, y, width * 0.6f, titleHeight), title,
 					UiFont.Heading, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
 
-				if (!string.IsNullOrEmpty(hint))
+				if (showHelp)
+				{
+					DrawFacilityHelp(x, y, title, lineHeight);
+				}
+				else if (!string.IsNullOrEmpty(hint))
 				{
 					float hintWidth = Mathf.Max(width * 0.4f - UiMetrics.SectionHeadGap, 40f);
 					UiText.Draw(new Rect(x + width - hintWidth, y, hintWidth, lineHeight), hint,
@@ -1687,26 +1720,15 @@ namespace DreamsOutposts
 				rect.xMax - UiMetrics.ModernTechCardPaddingH - textX,
 				30f);
 
-			string rightTag = view.IsCore
-				? view.SubLabel
-				: null;
-
-			float tagWidth = string.IsNullOrEmpty(rightTag)
-				? 0f
-				: Mathf.Clamp(
-					UiText.Width(rightTag, UiFont.Body, false) + 16f,
-					32f,
-					Mathf.Max(textWidth * 0.46f, 32f));
-
-			float titleWidth = Mathf.Max(
-				textWidth - tagWidth -
-				((tagWidth > 0f) ? UiMetrics.ModernTechFacilityTitleTagGap : 0f),
-				40f);
+			// 核心设施卡不再显示「核心设施 · 不可拆除」这个右上角标签
+			//（这串说明只在详情弹窗与防御页保留），标题因此可以使用整行文本宽度。
+			float titleWidth = textWidth;
 
 			float descriptionWidth = textWidth;
 
+			// 卡片上只给一行：描述里带换行时只取第一行（补「...」），再按宽度截断
 			string displayDescription = FitSingleLine(
-				view.Description,
+				UiText.FirstLine(view.Description),
 				UiFont.Body,
 				descriptionWidth);
 
@@ -1730,6 +1752,16 @@ namespace DreamsOutposts
 				if (hovered)
 				{
 					UiDraw.Solid(rect, UiPalette.WithAlpha(UiPalette.BrandTint, 0.68f));
+				}
+
+				// 扩展设施卡与空槽位共用同一套四角标记；
+				// 核心设施卡不加（它在页面上是单张的，不需要跟空槽位对齐轮廓）。
+				if (!view.IsCore)
+				{
+					UiDraw.InstrumentFrame(
+						rect,
+						hovered ? UiPalette.BrandLine : UiPalette.LineStrong,
+						hovered ? 24f : 14f);
 				}
 
 				Rect imageRect = new Rect(
@@ -1767,7 +1799,7 @@ namespace DreamsOutposts
 					UiDraw.Box(
 						imageRect,
 						(int)UiMetrics.RadiusSm,
-						UiPalette.NavActive,
+						UiPalette.ArtBlock,
 						UiPalette.LineStrong);
 
 					float glyph = UiMetrics.ModernTechFacilityImageGlyph;
@@ -1800,18 +1832,6 @@ namespace DreamsOutposts
 					true,
 					false,
 					true);
-
-				if (tagWidth > 0f)
-				{
-					Rect tagRect = new Rect(
-						textX + textWidth - tagWidth,
-						y,
-						tagWidth,
-						lineHeight + 4f);
-
-					UiText.Draw(tagRect, rightTag, UiFont.Body, UiPalette.Ink2,
-						TextAnchor.MiddleCenter, false, false, true);
-				}
 
 				if (!string.IsNullOrEmpty(displayDescription) &&
 					descriptionHeight > 0f)
@@ -1968,13 +1988,15 @@ namespace DreamsOutposts
 				? UiPalette.BrandLine
 				: UiPalette.LineStrong;
 
-			UiDraw.Box(
-				rect,
-				(int)UiMetrics.RadiusSm,
-				hovered
-					? UiPalette.WithAlpha(UiPalette.BrandTint, 0.68f)
-					: UiPalette.WithAlpha(UiPalette.PanelGlass, 0.72f),
-				UiPalette.Clear);
+			// 与扩展设施卡保持一致：常态完全透明，只在悬停时铺一层淡绿底。
+			if (hovered)
+			{
+				UiDraw.Solid(
+					rect,
+					UiPalette.WithAlpha(
+						UiPalette.BrandTint,
+						0.68f));
+			}
 
 			UiDraw.InstrumentFrame(rect, line, hovered ? 24f : 14f);
 
@@ -2148,7 +2170,7 @@ namespace DreamsOutposts
 				}
 				else
 				{
-					UiDraw.Box(imageRect, (int)UiMetrics.RadiusSm, UiPalette.NavActive, UiPalette.LineStrong);
+					UiDraw.Box(imageRect, (int)UiMetrics.RadiusSm, UiPalette.ArtBlock, UiPalette.LineStrong);
 					float glyph = UiMetrics.FacilityImageGlyph;
 					UiDraw.Icon(new Rect(imageRect.center.x - glyph * 0.5f, imageRect.center.y - glyph * 0.5f,
 						glyph, glyph), view.Icon, UiPalette.Light);
@@ -2234,7 +2256,7 @@ namespace DreamsOutposts
 					textX += UiMetrics.MatIconSize + 8f;
 				}
 				bool modernTech =
-					DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+					DreamsOutpostsMod.UsesModernTechLayout;
 
 				float mainWidth = string.IsNullOrEmpty(section.MainText)
 					? 0f
@@ -2316,7 +2338,7 @@ namespace DreamsOutposts
 					float h = UiText.LineHeight(UiFont.Body);
 
 					bool modernTech =
-						DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.ModernTech);
+						DreamsOutpostsMod.UsesModernTechLayout;
 
 					float rightWidth =
 						string.IsNullOrEmpty(section.RightText)

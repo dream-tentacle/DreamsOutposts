@@ -57,11 +57,43 @@ namespace DreamsOutposts
 			return count;
 		}
 
-		public static void TickFacility(Outpost outpost, OutpostTrainingProperties training, int delta)
+		/// <summary>
+		/// 据点等级带来的训练速度倍率。只有把等级表里写了 trainingFactor 的据点类型（训练基地）会大于 1，
+		/// 其余据点类型取默认值 1，等于没有加成。数值异常时兜底为 1，避免把经验放大或清零。
+		/// </summary>
+		public static float TrainingFactor(Outpost outpost)
+		{
+			float factor = outpost?.CurrentLevelProperties?.trainingFactor ?? 1f;
+			if (float.IsNaN(factor) || float.IsInfinity(factor) || factor <= 0f)
+			{
+				return 1f;
+			}
+			return factor;
+		}
+
+		/// <summary>这个设施是否属于受等级倍率影响的训练设施（带 Training 标签）。</summary>
+		public static bool ReceivesTrainingFactor(OutpostFacilityDef def)
+		{
+			return string.Equals(def?.facilityTag?.Trim(), OutpostFacilityTagRegistry.Training, StringComparison.OrdinalIgnoreCase);
+		}
+
+		/// <summary>这个设施在本地据点里实际生效的每小时经验（已计入据点等级倍率）。</summary>
+		public static float EffectiveXpPerHour(Outpost outpost, OutpostFacilityDef def)
+		{
+			OutpostTrainingProperties training = GetTraining(def);
+			if (training == null)
+			{
+				return 0f;
+			}
+			return training.xpPerHour * (ReceivesTrainingFactor(def) ? TrainingFactor(outpost) : 1f);
+		}
+
+		public static void TickFacility(Outpost outpost, OutpostFacility facility, OutpostTrainingProperties training, int delta)
 		{
 			if (outpost == null || outpost.Destroyed || training == null || delta <= 0) return;
 			float elapsedHours = (float)delta / TicksPerHour;
-			float xp = training.xpPerHour * elapsedHours;
+			float factor = ReceivesTrainingFactor(facility?.def) ? TrainingFactor(outpost) : 1f;
+			float xp = training.xpPerHour * elapsedHours * factor;
 			if (xp <= 0f)
 			{
 				return;

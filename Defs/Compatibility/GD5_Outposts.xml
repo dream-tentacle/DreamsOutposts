@@ -68,7 +68,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="fxz.glitterworlddestroyer.mk5">
     <defName>DreamsOutposts_PrecisionMechOutpost</defName>
     <label>precision mechanoid outpost</label>
-    <description>An outpost built around a standing force of mechanoids. The machines stationed here do every precision step of the work, machining out precision deck plating or reusable components.</description>
+    <description>An outpost built around a standing force of mechanoids. The machines stationed here do every precision step of the work, machining out precision deck plating or reusable components.\n\nOutput depends on the stationed mechanoids.</description>
     <coreFacility>DreamsOutposts_PrecisionMachiningPlant</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
 </Defs>

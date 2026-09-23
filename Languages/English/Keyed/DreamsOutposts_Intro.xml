@@ -13,9 +13,9 @@
   <DreamsOutposts.IntroTips.Important.Units.Label>About units:</DreamsOutposts.IntroTips.Important.Units.Label>
   <DreamsOutposts.IntroTips.Important.Units.Text>Anyone inside an outpost skips all calculations entirely, with no performance cost at all.</DreamsOutposts.IntroTips.Important.Units.Text>
   <DreamsOutposts.IntroTips.Important.Multiplier.Label>Production multiplier:</DreamsOutposts.IntroTips.Important.Multiplier.Label>
-  <DreamsOutposts.IntroTips.Important.Multiplier.Text>The production multiplier can be changed in the mod settings.\nThis mod was originally designed around a 1000% production multiplier, lowered to the current value so it would not stand too far apart from Vanilla Outposts Expanded. To play the author's original design, set it to 1000%.</DreamsOutposts.IntroTips.Important.Multiplier.Text>
+  <DreamsOutposts.IntroTips.Important.Multiplier.Text>The production multiplier can be changed in the mod settings.\nThis mod was originally designed around a comparatively high production multiplier, lowered to the current value so it would not stand too far apart from Vanilla Outposts Expanded. To play the author's original design, raise the multiplier.</DreamsOutposts.IntroTips.Important.Multiplier.Text>
   <DreamsOutposts.IntroTips.Important.UiStyle.Label>UI style:</DreamsOutposts.IntroTips.Important.UiStyle.Label>
-  <DreamsOutposts.IntroTips.Important.UiStyle.Text>The interface uses the RimWorld style by default. A modern tech style can be selected in the mod settings.</DreamsOutposts.IntroTips.Important.UiStyle.Text>
+  <DreamsOutposts.IntroTips.Important.UiStyle.Text>The interface uses the RimWorld style by default. Modern tech and modern tech (dark) styles can be selected in the mod settings.</DreamsOutposts.IntroTips.Important.UiStyle.Text>
   <DreamsOutposts.IntroTips.Important.Manage.Label>Managing outposts:</DreamsOutposts.IntroTips.Important.Manage.Label>
   <DreamsOutposts.IntroTips.Important.Manage.Text>Click an outpost, then click the manage button below.</DreamsOutposts.IntroTips.Important.Manage.Text>
   <DreamsOutposts.IntroTips.Important.Disable.Label>Hiding this window:</DreamsOutposts.IntroTips.Important.Disable.Label>

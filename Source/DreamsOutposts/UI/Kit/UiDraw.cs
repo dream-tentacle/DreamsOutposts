@@ -494,11 +494,9 @@ namespace DreamsOutposts
 				}
 			}
 
-			// 1px 描边：
-			// 原版风使用白色，现代科技风使用黑色。
-			Color border = DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla)
-				? Color.white
-				: Color.black;
+			// 1px 描边：原版风白色、现代科技风黑色；黑夜风的 chip 底色本身就是暗色，
+			// 再压黑边等于没有描边，所以改用半透明白。
+			Color border = UiPalette.ChipFrame;
 
 			const float borderWidth = 1f;
 			Solid(
@@ -645,14 +643,16 @@ namespace DreamsOutposts
 
 		/// <summary>
 		/// 统一的物品信息入口：图标与名称共用一个点击/悬停区域。
-		/// 悬停颜色默认使用品牌绿，调用方可覆盖。
+		/// 原版使用浅蓝链接色；现代主题保留调用方的文字颜色。悬停使用独立链接色，调用方可覆盖。
 		/// </summary>
 		public static void ThingInfoLink(Rect hitRect, Rect iconRect, Rect labelRect, ThingDef def, string label,
 			UiFont font = UiFont.Body, Color? normalColor = null, Color? hoverColor = null, bool bold = false)
 		{
 			bool hovered = def != null && Mouse.IsOver(hitRect);
 			ThingIcon(iconRect, def);
-			UiText.Draw(labelRect, label, font, hovered ? (hoverColor ?? UiPalette.BrandText) : (normalColor ?? UiPalette.Ink),
+			Color idleColor = normalColor ?? UiPalette.InfoLinkText;
+			if (def != null) idleColor = UiPalette.InfoLinkTextFor(idleColor);
+			UiText.Draw(labelRect, label, font, hovered ? (hoverColor ?? UiPalette.InfoLinkHover) : idleColor,
 				TextAnchor.MiddleLeft, bold, false, true);
 			if (def != null && Widgets.ButtonInvisible(hitRect))
 			{

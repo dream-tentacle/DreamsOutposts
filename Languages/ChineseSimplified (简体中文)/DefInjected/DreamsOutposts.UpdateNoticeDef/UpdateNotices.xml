@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_0_11.label>更新日志</DreamsOutposts_UpdateNotice_1_0_11.label>
+  <DreamsOutposts_UpdateNotice_1_0_11.entries.0>修复未启用 DLC 时的报错。</DreamsOutposts_UpdateNotice_1_0_11.entries.0>
+  <DreamsOutposts_UpdateNotice_1_0_11.entries.1>修复 UI 点击有概率失效的问题。</DreamsOutposts_UpdateNotice_1_0_11.entries.1>
+
+  <DreamsOutposts_UpdateNotice_1_0_10.label>更新日志</DreamsOutposts_UpdateNotice_1_0_10.label>
+  <DreamsOutposts_UpdateNotice_1_0_10.entries.0>新增哨塔，为本地及相邻己方据点提供可叠加的防卫加成。</DreamsOutposts_UpdateNotice_1_0_10.entries.0>
+  <DreamsOutposts_UpdateNotice_1_0_10.entries.1>优化设施启用的技能需求计算和显示。</DreamsOutposts_UpdateNotice_1_0_10.entries.1>
+  <DreamsOutposts_UpdateNotice_1_0_10.entries.2>添加防卫与袭击点数说明，优化提示格式及设施、据点描述。</DreamsOutposts_UpdateNotice_1_0_10.entries.2>
+  <DreamsOutposts_UpdateNotice_1_0_10.entries.3>优化人员工作速度计算方式。</DreamsOutposts_UpdateNotice_1_0_10.entries.3>
+  <DreamsOutposts_UpdateNotice_1_0_10.entries.4>优化配色方案。</DreamsOutposts_UpdateNotice_1_0_10.entries.4>
+
+  <DreamsOutposts_UpdateNotice_1_0_9.label>更新日志</DreamsOutposts_UpdateNotice_1_0_9.label>
+  <DreamsOutposts_UpdateNotice_1_0_9.entries.0>优化远行队交换物资功能。</DreamsOutposts_UpdateNotice_1_0_9.entries.0>
+
+  <DreamsOutposts_UpdateNotice_1_0_8.label>更新日志</DreamsOutposts_UpdateNotice_1_0_8.label>
+  <DreamsOutposts_UpdateNotice_1_0_8.entries.0>添加训练基地据点，其中的训练类设施训练居民速度更快。</DreamsOutposts_UpdateNotice_1_0_8.entries.0>
+  <DreamsOutposts_UpdateNotice_1_0_8.entries.1>优化UI信息与提示。</DreamsOutposts_UpdateNotice_1_0_8.entries.1>
+  <DreamsOutposts_UpdateNotice_1_0_8.entries.2>优化交互体验。</DreamsOutposts_UpdateNotice_1_0_8.entries.2>
+
+  <DreamsOutposts_UpdateNotice_1_0_7.label>更新日志</DreamsOutposts_UpdateNotice_1_0_7.label>
+  <DreamsOutposts_UpdateNotice_1_0_7.entries.0>优化了游戏内提示。</DreamsOutposts_UpdateNotice_1_0_7.entries.0>
+  <DreamsOutposts_UpdateNotice_1_0_7.entries.1>添加了现代科技风的黑夜版本。</DreamsOutposts_UpdateNotice_1_0_7.entries.1>
+
   <DreamsOutposts_UpdateNotice_1_0_6.label>更新日志</DreamsOutposts_UpdateNotice_1_0_6.label>
   <DreamsOutposts_UpdateNotice_1_0_6.entries.0>添加远行队与据点交换物资功能。</DreamsOutposts_UpdateNotice_1_0_6.entries.0>
   <DreamsOutposts_UpdateNotice_1_0_6.entries.1>优化现代科技风视觉效果。</DreamsOutposts_UpdateNotice_1_0_6.entries.1>

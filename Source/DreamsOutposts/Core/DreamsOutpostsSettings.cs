@@ -6,7 +6,10 @@ namespace DreamsOutposts
 	public enum OutpostUiStyle
 	{
 		Vanilla = 0,
-		ModernTech = 1
+		ModernTech = 1,
+
+		/// <summary>与现代科技风共用同一套布局与动画，只是底色压成近黑、黑白关系整体反转。</summary>
+		ModernTechDark = 2
 	}
 
 	/// <summary>
@@ -18,7 +21,8 @@ namespace DreamsOutposts
 		public static readonly OutpostUiStyle[] All =
 		{
 			OutpostUiStyle.Vanilla,
-			OutpostUiStyle.ModernTech
+			OutpostUiStyle.ModernTech,
+			OutpostUiStyle.ModernTechDark
 		};
 
 		public static bool IsDefined(OutpostUiStyle style)
@@ -33,12 +37,25 @@ namespace DreamsOutposts
 			return false;
 		}
 
+		/// <summary>
+		/// 是否属于「现代科技风」这一族（浅色 + 黑夜两种）。
+		/// 两者共用同一套布局、间距与动画，差别只在配色，所以几何判定统一走这里。
+		/// </summary>
+		public static bool IsModernTechFamily(OutpostUiStyle style)
+		{
+			return style == OutpostUiStyle.ModernTech
+				|| style == OutpostUiStyle.ModernTechDark;
+		}
+
 		public static string Label(OutpostUiStyle style)
 		{
 			switch (style)
 			{
 			case OutpostUiStyle.Vanilla:
 				return "DreamsOutposts.Settings.UiStyle.Vanilla".Translate().ToString();
+
+			case OutpostUiStyle.ModernTechDark:
+				return "DreamsOutposts.Settings.UiStyle.ModernTechDark".Translate().ToString();
 
 			case OutpostUiStyle.ModernTech:
 			default:
@@ -52,6 +69,9 @@ namespace DreamsOutposts
 			{
 			case OutpostUiStyle.Vanilla:
 				return "DreamsOutposts.Settings.UiStyle.Vanilla.Description".Translate().ToString();
+
+			case OutpostUiStyle.ModernTechDark:
+				return "DreamsOutposts.Settings.UiStyle.ModernTechDark.Description".Translate().ToString();
 
 			case OutpostUiStyle.ModernTech:
 			default:

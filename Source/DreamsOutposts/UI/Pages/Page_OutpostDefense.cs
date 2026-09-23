@@ -28,6 +28,12 @@ namespace DreamsOutposts
 		private const float LegendGap = 16f;
 
 		private const float ColumnsMarginTop = 16f;
+		private const float HintGap = 8f;
+		private static readonly string[] HelpSections =
+		{
+			"DreamsOutposts.Ui.Help.DefenseSources",
+			"DreamsOutposts.Ui.Help.OutpostAttackPoints"
+		};
 
 		private const float ColumnsGap = 16f;
 
@@ -115,7 +121,14 @@ namespace DreamsOutposts
 			{
 				DrawHero(new Rect(rect.x, y, width, heroHeight), cache);
 			}
-			y += heroHeight + ColumnsMarginTop;
+			y += heroHeight + HintGap;
+			float hintHeight = UiDraw.HintHeight();
+			if (draw && UiDraw.Hint(new Rect(rect.x, y, width, hintHeight), "DreamsOutposts.Ui.Hint".Translate(),
+				UiPalette.WithAlpha(UiPalette.Ink3, 0.82f), UiPalette.WithAlpha(UiPalette.Ink2, 0.82f)))
+			{
+				UiOutpostHelpWindow.Open(HelpSections);
+			}
+			y += hintHeight + ColumnsMarginTop;
 			bool stacked = width < TwoColumnMinWidth;
 			if (stacked)
 			{
@@ -138,7 +151,7 @@ namespace DreamsOutposts
 				float columnWidth = (width - ColumnsGap) * 0.5f;
 				float needed = Mathf.Max(PanelNeededHeight(cache, true), PanelNeededHeight(cache, false));
 				// 自动撑到可视区底部；内容比可视区更高时用内容高度（页面滚动）
-				float fill = Mathf.Max(availableHeight - (heroHeight + ColumnsMarginTop), PanelMinHeight);
+				float fill = Mathf.Max(availableHeight - (y - rect.y), PanelMinHeight);
 				float rowHeight = Mathf.Max(needed, fill);
 				if (draw)
 				{
@@ -277,7 +290,7 @@ namespace DreamsOutposts
 					count++;
 				}
 			}
-			return count;
+			return count + cache.WatchtowerSupport.Count;
 		}
 
 		private void DrawPanel(Rect rect, OutpostUiCache cache, bool pawns)
@@ -423,6 +436,7 @@ namespace DreamsOutposts
 					rows.Add(cache.Slots[i]);
 				}
 			}
+			rows.AddRange(cache.WatchtowerSupport);
 			if (rows.Count == 0)
 			{
 				UiText.Draw(new Rect(rect.x, rect.y, rect.width, UiText.LineHeight(UiFont.Body) + 14f), "DreamsOutposts.None".Translate(),
@@ -456,6 +470,15 @@ namespace DreamsOutposts
 				UiText.Draw(new Rect(x, textY, textWidth, nameHeight), view.Label, UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
 				UiText.Draw(new Rect(x, textY + nameHeight, textWidth, subHeight), view.SubLabel, UiFont.Body, UiPalette.Ink2,
 					TextAnchor.MiddleLeft, false, false, true);
+				// 整行可点：打开的详情弹窗与设施页卡片点击时是同一个
+				if (view.Facility != null && Widgets.ButtonInvisible(row))
+				{
+					Window_OutpostManage shell = Shell;
+					if (shell != null)
+					{
+						shell.OpenDetailsModal(view);
+					}
+				}
 			}
 		}
 	}

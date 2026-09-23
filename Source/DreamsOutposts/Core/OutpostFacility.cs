@@ -3,8 +3,59 @@ using Verse;
 
 namespace DreamsOutposts
 {
+	public abstract class OutpostFacilityRequirement
+	{
+		public abstract AcceptanceReport Check(Outpost outpost);
+		public abstract string Label { get; }
+		public abstract string Description { get; }
+		public virtual IEnumerable<string> ConfigErrors() { yield break; }
+	}
+
+	public class OutpostFacilityRequirement_ResidentSkill : OutpostFacilityRequirement
+	{
+		public RimWorld.SkillDef skill;
+		public int minLevel;
+		public bool colonistsOnly;
+		public override string Label => (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkill" : "DreamsOutposts.Operation.ResidentSkill").Translate(skill.LabelCap, minLevel).ToString();
+		public override string Description => (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkillTip" : "DreamsOutposts.Operation.ResidentSkillTip").Translate(skill.LabelCap, minLevel).ToString();
+
+		public override AcceptanceReport Check(Outpost outpost)
+		{
+			if (skill == null || outpost == null) return false;
+			foreach (Pawn pawn in outpost.Pawns)
+				if (Matches(pawn)) return true;
+			return (colonistsOnly ? "DreamsOutposts.FacilityRequiresColonistSkill" : "DreamsOutposts.FacilityRequiresResidentSkill").Translate(skill.LabelCap, minLevel).ToString();
+		}
+
+		public bool Matches(Pawn pawn)
+		{
+			if (pawn == null || skill == null || (colonistsOnly && !pawn.IsColonist)) return false;
+			return !pawn.Dead && OutpostDefenseUtility.AvailableSkillLevel(pawn, skill) >= minLevel;
+		}
+
+		public override IEnumerable<string> ConfigErrors()
+		{
+			if (skill == null) yield return "Resident skill requirement needs a skill.";
+			if (minLevel < 0 || minLevel > 20) yield return "Resident skill requirement level must be between 0 and 20.";
+		}
+	}
+
 	public class OutpostFacility : IExposable
 	{
+		public AcceptanceReport CanOperate(Outpost outpost)
+		{
+			if (outpost == null || def == null) return false;
+			if (OutpostTemporaryEffectUtility.IsFacilityDisabled(outpost, this))
+				return "DreamsOutposts.FacilityTemporarilyDisabled".Translate().ToString();
+			for (int i = 0; i < (def.operatingRequirements?.Count ?? 0); i++)
+			{
+				if (def.operatingRequirements[i] == null) return false;
+				AcceptanceReport report = def.operatingRequirements[i].Check(outpost);
+				if (!report.Accepted) return report;
+			}
+			return true;
+		}
+
 		public OutpostFacilityDef def;
 
 		public List<OutpostFacilityComp> comps;

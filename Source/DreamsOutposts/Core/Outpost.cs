@@ -97,7 +97,7 @@ namespace DreamsOutposts
 			{
 				foreach (OutpostFacility facility in Facilities)
 				{
-					if (!OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) yield return facility;
+					if (facility.CanOperate(this).Accepted) yield return facility;
 				}
 			}
 		}
@@ -225,7 +225,7 @@ namespace DreamsOutposts
 			OutpostEventUtility.TickEvents(this);
 			foreach (OutpostFacility facility in Facilities)
 			{
-				if (OutpostTemporaryEffectUtility.IsFacilityDisabled(this, facility)) facility.UpdateDisabledComps(this, delta);
+				if (!facility.CanOperate(this).Accepted) facility.UpdateDisabledComps(this, delta);
 				else facility.UpdateComps(this, delta);
 			}
 			AgePawns(delta);

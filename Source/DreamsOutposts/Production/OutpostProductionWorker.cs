@@ -77,9 +77,14 @@ namespace DreamsOutposts
 			float capacity = 0f;
 			foreach (Pawn pawn in pawns)
 			{
-				if (pawn != null && OutpostStatUtility.CanSafelyReadStat(production.capacityStat, pawn) && production.PawnMeetsSkillRequirement(pawn))
+				if (pawn == null || pawn.Downed || (!pawn.IsPrisonerOfColony && pawn.Faction != Faction.OfPlayer))
 				{
-					capacity += pawn.GetStatValue(production.capacityStat);
+					continue;
+				}
+				if (OutpostStatUtility.CanSafelyReadStat(production.capacityStat, pawn) && production.PawnMeetsSkillRequirement(pawn))
+				{
+					float contributionFactor = pawn.IsPrisonerOfColony ? 0.4f : pawn.IsSlave ? 0.8f : 1f;
+					capacity += pawn.GetStatValue(production.capacityStat) * contributionFactor;
 				}
 			}
 			return capacity;

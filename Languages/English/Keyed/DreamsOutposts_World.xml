@@ -13,7 +13,7 @@
   <DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>The caravan has no more of this item.</DreamsOutposts.ExchangeOutpost.CaravanHasNoMore>
   <DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>The outpost storehouse has no more of this item.</DreamsOutposts.ExchangeOutpost.OutpostHasNoMore>
   <DreamsOutposts.ExchangeOutpost.NothingSelected>Select at least one item to transfer.</DreamsOutposts.ExchangeOutpost.NothingSelected>
-  <DreamsOutposts.ExchangeOutpost.OverMass>The caravan would be overloaded after this exchange ({0} / {1}).</DreamsOutposts.ExchangeOutpost.OverMass>
+  <DreamsOutposts.ExchangeOutpost.OverMassConfirm>The caravan will be overloaded after this exchange ({0} / {1}). Continue anyway?</DreamsOutposts.ExchangeOutpost.OverMassConfirm>
   <DreamsOutposts.ExchangeOutpost.PartialFailure>Some items could not be transferred and were returned to where they came from. Other completed transfers were kept.</DreamsOutposts.ExchangeOutpost.PartialFailure>
   <DreamsOutposts.ExchangeOutpost.Done>Supplies exchanged with {0}.</DreamsOutposts.ExchangeOutpost.Done>
   <DreamsOutposts.CreateOutpostDesc>Create an outpost here.</DreamsOutposts.CreateOutpostDesc>

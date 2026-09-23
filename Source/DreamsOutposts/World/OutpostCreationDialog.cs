@@ -57,7 +57,19 @@ namespace DreamsOutposts
 			Rect details = new Rect(create.x - 94f, create.y, 86f, bh);
 			float tx = icon.xMax + 14f;
 			float tw = Mathf.Max(details.x - tx - 14f, 40f);
-			UiText.Draw(new Rect(tx, rect.y + 14f, tw, 24f), def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+			// 名字行挂「各等级槽位」：先量槽位文案的宽度，剩下的宽度留给名字（名字过长由省略号截断）。
+			string levelSlots = LevelSlotsLabel(def);
+			if (levelSlots != null)
+			{
+				float slotsWidth = UiText.Width(levelSlots, UiFont.Body);
+				float nameWidth = Mathf.Max(tw - slotsWidth - 10f, 40f);
+				UiText.Draw(new Rect(tx, rect.y + 14f, nameWidth, 24f), def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+				UiText.Draw(new Rect(tx + nameWidth + 10f, rect.y + 14f, slotsWidth, 24f), levelSlots, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false);
+			}
+			else
+			{
+				UiText.Draw(new Rect(tx, rect.y + 14f, tw, 24f), def.LabelCap, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, true, false, true);
+			}
 			string coreFacility = "DreamsOutposts.CoreFacilityInfo".Translate(def.coreFacility?.LabelCap ?? "DreamsOutposts.None".Translate());
 			UiText.Draw(new Rect(tx, rect.y + 40f, tw, 24f), coreFacility, UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, false, true);
 			if (!report.Accepted) UiText.Draw(new Rect(tx, rect.yMax - 24f, tw, 20f), report.Reason, UiFont.Body, UiPalette.Bad, TextAnchor.UpperLeft, false, false, true);
@@ -67,6 +79,17 @@ namespace DreamsOutposts
 				Close();
 				OutpostUtility.Create(caravan, def);
 			}
+		}
+
+		/// <summary>「各等级槽位：1/2/3/4」文案，按 levels 表逐级取槽位数（等级数不固定）。没有等级表时返回 null，调用方不占位。</summary>
+		private static string LevelSlotsLabel(OutpostTypeDef def)
+		{
+			if (def == null || def.levels.NullOrEmpty())
+			{
+				return null;
+			}
+			string slots = string.Join("/", def.levels.Select(level => (level?.slotCount ?? 0).ToString()));
+			return "DreamsOutposts.LevelSlotsInfo".Translate(slots).ToString();
 		}
 	}
 }
