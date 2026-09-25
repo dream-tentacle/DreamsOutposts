@@ -38,7 +38,7 @@
   <!-- EN: Hiding this window: -->
   <DreamsOutposts.IntroTips.Important.Disable.Label>如何不再出现：</DreamsOutposts.IntroTips.Important.Disable.Label>
   <!-- EN: Turn this popup off in the mod settings. -->
-  <DreamsOutposts.IntroTips.Important.Disable.Text>在设置中关闭弹窗。</DreamsOutposts.IntroTips.Important.Disable.Text>
+  <DreamsOutposts.IntroTips.Important.Disable.Text>在设置中关闭弹窗。本模组在模组设置中的名称为 [DR] Dream's Outposts Expanded，建议使用搜索功能查找。</DreamsOutposts.IntroTips.Important.Disable.Text>
 
   <!-- EN: Defense: -->
   <DreamsOutposts.IntroTips.Knowledge.Defense.Label>关于防卫：</DreamsOutposts.IntroTips.Knowledge.Defense.Label>
@@ -56,6 +56,14 @@
   <DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>关于炮击：</DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>
   <!-- EN: After building a mortar, select an outpost on the map and click the bombardment button. -->
   <DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>建立迫击炮后需要在地图上选择据点并点击炮击按钮。</DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>
+  <!-- EN: How to remove an outpost: -->
+  <DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Label>如何删除据点：</DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Label>
+  <!-- EN: Select the outpost on the world map, then click "Abandon outpost permanently". -->
+  <DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Text>在世界地图上选择据点，然后点击“彻底废弃据点”。</DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Text>
+  <!-- EN: How to remove a facility: -->
+  <DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Label>如何删除设施：</DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Label>
+  <!-- EN: Open the facility details, then click the "Demolish" button. -->
+  <DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Text>打开设施详情，点击“拆除”按钮。</DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Text>
 
   <!-- EN: Show the intro guide -->
   <DreamsOutposts.Settings.ShowIntroTips>显示开局指引弹窗</DreamsOutposts.Settings.ShowIntroTips>

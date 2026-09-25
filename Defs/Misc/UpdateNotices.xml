@@ -15,6 +15,26 @@
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
 	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_1_1</defName>
+		<label>Update log</label>
+		<version>1.1.1</version>
+		<entries>
+			<li>Quality-of-life improvements.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_1_0</defName>
+		<label>Update log</label>
+		<version>1.1.0</version>
+		<entries>
+			<li>Improved the Vanilla-style interface to more closely match RimWorld's original UI. Hope you like it!</li>
+			<li>Pawns now release their assigned beds when entering an outpost.</li>
+			<li>Improved outpost defense calculations.</li>
+		</entries>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_0_11</defName>
 		<label>Update log</label>
 		<version>1.0.11</version>

@@ -112,7 +112,14 @@ namespace DreamsOutposts
 				: Mathf.Min(headHeight + bodyHeight + UiMetrics.ModalBodyPadding * 2f + footerHeight, maxPanelHeight);
 			Rect panel = new Rect(Mathf.Round(inRect.center.x - width * 0.5f), Mathf.Round(inRect.center.y - panelHeight * 0.5f), width, Mathf.Round(panelHeight));
 			UiDebug.Scope("modal.panel", panel);
-			UiDraw.Panel(panel, (int)UiMetrics.RadiusSm, UiPalette.Surface, UiPalette.Line, true);
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				Widgets.DrawWindowBackground(panel);
+			}
+			else
+			{
+				UiDraw.Panel(panel, (int)UiMetrics.RadiusSm, UiPalette.Surface, UiPalette.Line, true);
+			}
 			DrawHead(panel, headHeight);
 			float bodyOuterHeight = Mathf.Max(panel.height - headHeight - footerHeight, 0f);
 			Rect bodyOuter = new Rect(panel.x, panel.y + headHeight, panel.width, bodyOuterHeight);
@@ -158,9 +165,16 @@ namespace DreamsOutposts
 		{
 			Rect head = new Rect(panel.x, panel.y, panel.width, headHeight);
 			UiDebug.Scope("modal.head", head);
-			Rect headInner = new Rect(head.x + 1f, head.y + 1f, Mathf.Max(head.width - 2f, 1f), Mathf.Max(head.height - 2f, 1f));
-			UiDraw.Box(headInner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.TopLeft | UiCorners.TopRight);
-			UiDraw.Divider(new Rect(head.x, head.yMax - 1f, head.width, 1f), UiPalette.Line);
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				Widgets.DrawBoxSolid(new Rect(head.x, head.yMax - 1f, head.width, 1f), Widgets.SeparatorLineColor);
+			}
+			else
+			{
+				Rect headInner = new Rect(head.x + 1f, head.y + 1f, Mathf.Max(head.width - 2f, 1f), Mathf.Max(head.height - 2f, 1f));
+				UiDraw.Box(headInner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.TopLeft | UiCorners.TopRight);
+				UiDraw.Divider(new Rect(head.x, head.yMax - 1f, head.width, 1f), UiPalette.Line);
+			}
 			float textX = head.x + UiMetrics.ModalHeadPaddingH;
 			float closeReserve = ShowCloseButton ? UiMetrics.CloseButtonSize + 8f : 0f;
 			float textWidth = Mathf.Max(head.width - UiMetrics.ModalHeadPaddingH * 2f - closeReserve, 40f);
@@ -173,9 +187,18 @@ namespace DreamsOutposts
 			}
 			if (ShowCloseButton)
 			{
-				Rect closeRect = new Rect(head.xMax - UiMetrics.ModalHeadPaddingH - UiMetrics.CloseButtonSize,
-					head.y + (head.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
-				if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+				bool closeClicked;
+				if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+				{
+					closeClicked = Widgets.CloseButtonFor(panel);
+				}
+				else
+				{
+					Rect closeRect = new Rect(head.xMax - UiMetrics.ModalHeadPaddingH - UiMetrics.CloseButtonSize,
+						head.y + (head.height - UiMetrics.CloseButtonSize) * 0.5f, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+					closeClicked = UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate());
+				}
+				if (closeClicked)
 				{
 					Close();
 				}
@@ -186,9 +209,16 @@ namespace DreamsOutposts
 		{
 			Rect footer = new Rect(panel.x, panel.yMax - footerHeight, panel.width, footerHeight);
 			UiDebug.Scope("modal.foot", footer);
-			Rect footerInner = new Rect(footer.x + 1f, footer.y, Mathf.Max(footer.width - 2f, 1f), Mathf.Max(footer.height - 2f, 1f));
-			UiDraw.Box(footerInner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.BottomLeft | UiCorners.BottomRight);
-			UiDraw.Divider(new Rect(footer.x, footer.y, footer.width, 1f), UiPalette.Line);
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				Widgets.DrawBoxSolid(new Rect(footer.x, footer.y, footer.width, 1f), Widgets.SeparatorLineColor);
+			}
+			else
+			{
+				Rect footerInner = new Rect(footer.x + 1f, footer.y, Mathf.Max(footer.width - 2f, 1f), Mathf.Max(footer.height - 2f, 1f));
+				UiDraw.Box(footerInner, (int)(UiMetrics.RadiusSm - 1f), UiPalette.Raised, UiPalette.Clear, UiCorners.BottomLeft | UiCorners.BottomRight);
+				UiDraw.Divider(new Rect(footer.x, footer.y, footer.width, 1f), UiPalette.Line);
+			}
 			if (FooterDrawer != null)
 			{
 				Rect content = new Rect(footer.x + UiMetrics.ModalFootPaddingH, footer.y,

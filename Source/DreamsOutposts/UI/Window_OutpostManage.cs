@@ -156,10 +156,17 @@ namespace DreamsOutposts
 				return;
 			}
 			int index = Mathf.Clamp(selectedIndex, 0, pages.Count - 1);
-			float sidebarWidth = Mathf.Min(UiMetrics.SidebarWidth, Mathf.Max(panel.width * 0.32f, 120f));
-			DrawSidebar(new Rect(panel.x, panel.y, sidebarWidth, panel.height));
-			Rect contentRect = new Rect(panel.x + sidebarWidth, panel.y, Mathf.Max(panel.width - sidebarWidth, 40f), panel.height);
-			DrawPage(contentRect, pages[index]);
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				DrawVanillaTabsAndPage(panel, pages[index]);
+			}
+			else
+			{
+				float sidebarWidth = Mathf.Min(UiMetrics.SidebarWidth, Mathf.Max(panel.width * 0.32f, 120f));
+				DrawSidebar(new Rect(panel.x, panel.y, sidebarWidth, panel.height));
+				Rect contentRect = new Rect(panel.x + sidebarWidth, panel.y, Mathf.Max(panel.width - sidebarWidth, 40f), panel.height);
+				DrawPage(contentRect, pages[index]);
+			}
 			UiDebug.DrawOverlay();
 			UiDebug.PopSpace();
 		}
@@ -241,10 +248,10 @@ namespace DreamsOutposts
 
 		private static void DrawWindowBackground(Rect rect)
 		{
-			// 原版风格：固定使用 #15191D，不读取也不绘制现代风背景图。
+			// 原版风格直接使用 RimWorld 自带窗口背景。
 			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
-				UiDraw.Solid(rect, UiPalette.Surface);
+				Widgets.DrawWindowBackground(rect);
 				return;
 			}
 
@@ -271,8 +278,60 @@ namespace DreamsOutposts
 		}
 
 		// ---------------------------------------------------------------
-		// 侧栏
+		// 原版顶部页签 / 现代风侧栏
 		// ---------------------------------------------------------------
+
+		/// <summary>
+		/// 原版风格直接使用 RimWorld 自带的 TabDrawer / TabRecord。
+		/// 页签占据窗口顶部，正文从页签下方开始，并自动处理页签过多时的换行高度。
+		/// </summary>
+		private void DrawVanillaTabsAndPage(Rect panel, OutpostManagePage page)
+		{
+			List<TabRecord> tabs = new List<TabRecord>(pages.Count);
+			for (int i = 0; i < pages.Count; i++)
+			{
+				int pageIndex = i;
+				OutpostManagePage tabPage = pages[i];
+				tabs.Add(new TabRecord(tabPage.Label, delegate
+				{
+					SelectPage(pageIndex);
+				}, pageIndex == selectedIndex));
+			}
+
+			// 原版风：先画一个独立的系统标题栏，再把原版页签放到标题栏下方。
+			// 标题与关闭按钮共享同一个 MenuSection，因此视觉上仍是 RimWorld 原版窗口语言。
+			const float titleBarHeight = 54f;
+			const float titleBarGap = 8f;
+			Rect titleBarRect = new Rect(panel.x, panel.y, panel.width, titleBarHeight);
+			Widgets.DrawWindowBackground(titleBarRect);
+
+			GameFont previousFont = Text.Font;
+			TextAnchor previousAnchor = Text.Anchor;
+			Text.Font = GameFont.Medium;
+			Text.Anchor = TextAnchor.MiddleLeft;
+			Rect titleRect = new Rect(titleBarRect.x + 16f, titleBarRect.y,
+				Mathf.Max(titleBarRect.width - 54f, 40f), titleBarRect.height);
+			Color previousColor = GUI.color;
+			GUI.color = Color.white;
+			Widgets.Label(titleRect, "DreamsOutposts.Ui.ManagementSystem".Translate());
+			GUI.color = previousColor;
+			Text.Font = previousFont;
+			Text.Anchor = previousAnchor;
+
+			UiDebug.Scope("page.close", titleBarRect);
+			if (Widgets.CloseButtonFor(titleBarRect))
+			{
+				Close();
+			}
+
+			Rect tabsRect = panel;
+			tabsRect.yMin = titleBarRect.yMax + titleBarGap;
+			float tabsHeight = TabDrawer.GetOverflowTabHeight(tabsRect, tabs, 100f, 200f);
+			Rect contentRect = tabsRect;
+			contentRect.yMin += tabsHeight;
+			TabDrawer.DrawTabsOverflow(tabsRect, tabs, 100f, 200f);
+			DrawPage(contentRect, page);
+		}
 
 		private void DrawSidebar(Rect rect)
 		{
@@ -494,10 +553,16 @@ UiDebug.Scope(
 			}
 			selectedIndex = index;
 			pages[selectedIndex].OnOpen();
-			// 与打开管理窗口时同一个出现音
-			SoundDefOf.DialogBoxAppear.PlayOneShotOnCamera();
-			// 切页时正文淡入
-			contentFadeStart = Time.realtimeSinceStartup;
+			// 原版页签自己会播放 RowTabSelect；现代风保留原有的切页出现音。
+			if (!DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				SoundDefOf.DialogBoxAppear.PlayOneShotOnCamera();
+			}
+			// 原版风格直接切页；现代风保留正文淡入/滑入动画。
+			if (!DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				contentFadeStart = Time.realtimeSinceStartup;
+			}
 		}
 
 		/// <summary>
@@ -568,24 +633,31 @@ UiDebug.Scope(
 		private void DrawPage(Rect rect, OutpostManagePage page)
 		{
 			UiDebug.Scope("window.content", rect);
-			UiDraw.Solid(rect, UiPalette.ContentVeil);
+			bool vanilla = DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla);
+			if (!vanilla)
+			{
+				UiDraw.Solid(rect, UiPalette.ContentVeil);
+			}
 			IUiShellPage shellPage = (IUiShellPage)page;
 			float systemHeadTop = rect.y + UiMetrics.ContentPaddingTop;
-			float pageHeadTop = systemHeadTop + UiMetrics.ManagementHeaderHeight;
+			float pageHeadTop = vanilla ? systemHeadTop : systemHeadTop + UiMetrics.ManagementHeaderHeight;
 
 			// 全屏时不让正文无限变宽：从左侧开始排版，右侧多出的区域保留为背景呼吸空间。
 float availableContentWidth = Mathf.Max(rect.width - UiMetrics.ContentPaddingH * 2f, 60f);
-float contentWidth = Mathf.Min(availableContentWidth, UiMetrics.ContentMaxWidth);
+float contentWidth = vanilla ? availableContentWidth : Mathf.Min(availableContentWidth, UiMetrics.ContentMaxWidth);
 float contentX = rect.x + UiMetrics.ContentPaddingH;
 
-// 系统级页头：所有页面共用，占据独立高度并留出明显空白。
-			UiText.Draw(
-				new Rect(contentX, systemHeadTop, DreamsOutpostsMod.UsesModernTechLayout ? contentWidth * 0.60f : contentWidth, UiText.LineHeight(UiFont.Heading)),
-				"DreamsOutposts.Ui.ManagementSystem".Translate(),
-				UiFont.Heading,
-				UiPalette.Ink,
-				TextAnchor.UpperLeft,
-				true, false, true);
+// 系统级页头：原版风格省略；现代风保留现有管理系统标题与信息。
+			if (!vanilla)
+			{
+				UiText.Draw(
+					new Rect(contentX, systemHeadTop, DreamsOutpostsMod.UsesModernTechLayout ? contentWidth * 0.60f : contentWidth, UiText.LineHeight(UiFont.Heading)),
+					"DreamsOutposts.Ui.ManagementSystem".Translate(),
+					UiFont.Heading,
+					UiPalette.Ink,
+					TextAnchor.UpperLeft,
+					true, false, true);
+			}
 
 			if (DreamsOutpostsMod.UsesModernTechLayout)
 			{
@@ -600,18 +672,24 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 					TextAnchor.MiddleRight, false, false, true);
 			}
 
-			// 关闭按钮固定在系统级页头右上角。
-			Rect closeRect = new Rect(rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize,
-				systemHeadTop, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
-			UiDebug.Scope("page.close", closeRect);
-			if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+			// 原版风的关闭按钮已经提升到“据点管理系统”标题栏；现代风继续固定在系统级页头右上角。
+			Rect closeRect = default(Rect);
+			if (!vanilla)
 			{
-				Close();
+				closeRect = new Rect(rect.xMax - UiMetrics.ContentPaddingH - UiMetrics.CloseButtonSize,
+					systemHeadTop, UiMetrics.CloseButtonSize, UiMetrics.CloseButtonSize);
+				UiDebug.Scope("page.close", closeRect);
+				if (UiWidgets.CloseButton(closeRect, "DreamsOutposts.Ui.Close".Translate()))
+				{
+					Close();
+				}
 			}
 
-			float pageHeadWidth = Mathf.Max(
-				Mathf.Min(contentWidth, closeRect.x - UiMetrics.ButtonGap - contentX),
-				40f);
+			float pageHeadWidth = vanilla
+				? contentWidth
+				: Mathf.Max(
+					Mathf.Min(contentWidth, closeRect.x - UiMetrics.ButtonGap - contentX),
+					40f);
 			float headHeight = DrawPageHead(
 				new Rect(contentX, pageHeadTop, pageHeadWidth, 0f),
 				page, shellPage);
@@ -622,7 +700,9 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 				scrollTop,
 				contentWidth,
 				Mathf.Max(rect.yMax - UiMetrics.ContentPaddingBottom - scrollTop, 20f));
-			float bodyWidth = Mathf.Max(scrollArea.width - UiMetrics.ScrollbarGutter, 60f);
+			float bodyWidth = vanilla
+				? Mathf.Max(scrollArea.width, 60f)
+				: Mathf.Max(scrollArea.width - UiMetrics.ScrollbarGutter, 60f);
 			float bodyHeight = shellPage.BodyHeight(bodyWidth, scrollArea.height);
 			int scrollId = GetHashCode();
 			// 切页动画：正文从右侧滑入 + 淡入，两者共用同一个进度
@@ -639,7 +719,8 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 
 			UiWidgets.ScrollView(scrollArea, ref contentScroll, bodyHeight, delegate(Rect contentRect)
 			{
-				shellPage.DrawBody(new Rect(contentRect.x, contentRect.y, bodyWidth, contentRect.height), scrollArea.height);
+				float actualBodyWidth = vanilla ? contentRect.width : bodyWidth;
+				shellPage.DrawBody(new Rect(contentRect.x, contentRect.y, actualBodyWidth, contentRect.height), scrollArea.height);
 			}, true, scrollId, true, UiMetrics.ContentSlideDistance * (1f - fade));
 
 			GUI.color = previousContentColor;
@@ -648,6 +729,10 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 		/// <summary>正文切页动画的进度：1 = 完全到位（位移归零、不透明）。切页时从 0 开始；首次打开窗口直接是 1。</summary>
 		private float ContentFade()
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return 1f;
+			}
 			if (UiMetrics.ContentFadeSeconds <= 0f || float.IsNegativeInfinity(contentFadeStart))
 			{
 				return 1f;
@@ -676,11 +761,27 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			{
 				body = hint;
 			}
-			float textWidth = Mathf.Min(rect.width, UiMetrics.PageHeadMaxTextWidth);
+			float textWidth = DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla)
+				? rect.width
+				: Mathf.Min(rect.width, UiMetrics.PageHeadMaxTextWidth);
 			float descriptionHeight = !string.IsNullOrEmpty(body) ? UiText.Height(body, UiFont.Body, textWidth) : 0f;
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				// 原版页签已经承担页面标题职责；正文不再重复显示“仓库 / 防卫 / 事件”等大标题。
+				if (string.IsNullOrEmpty(body))
+				{
+					return 4f;
+				}
+				float totalVanilla = descriptionHeight + 10f;
+				UiDebug.Scope("page.head", new Rect(rect.x, rect.y, rect.width, totalVanilla));
+				UiText.Draw(new Rect(rect.x, y, textWidth, descriptionHeight), body,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.UpperLeft, false, true);
+				return totalVanilla;
+			}
+
 			float total = titleHeight + UiMetrics.PageHeadSubGap + descriptionHeight + UiMetrics.PageHeadMarginBottom;
 			UiDebug.Scope("page.head", new Rect(rect.x, rect.y, rect.width, total));
-			// 页面标题：竖直强调条 + 标题。
+			// 现代风页面标题：竖直强调条 + 标题。
 			float barHeight = Mathf.Max(titleHeight - 4f, 18f);
 			UiDraw.Solid(new Rect(rect.x, rect.y + (titleHeight - barHeight) * 0.5f, 3f, barHeight), UiPalette.Brand);
 			float titleX = rect.x + 14f + UiMetrics.PageHeadTitleIndent;
@@ -720,7 +821,9 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			window.TitleText = details.Title;
 			window.SubText = details.Subtitle;
 			window.PanelWidth = UiMetrics.ModalWideWidth;
-			window.Body = new UiDetailsModalBody(details);
+			window.Body = DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla)
+				? (IUiModalBody)new UiVanillaFacilityDetailsModalBody(details)
+				: new UiDetailsModalBody(details);
 			window.FooterDrawer = delegate(Rect footerRect)
 			{
 				DrawDetailsFooter(footerRect, details);
@@ -992,15 +1095,26 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			float buttonHeight = UiWidgets.ButtonHeight(UiButtonSize.Normal);
 			float y = rect.y + (rect.height - buttonHeight) * 0.5f;
 			string cancelLabel = "DreamsOutposts.Ui.Cancel".Translate();
-			float cancelWidth = UiWidgets.ButtonWidth(cancelLabel);
-			Rect cancelRect = new Rect(rect.xMax - cancelWidth, y, cancelWidth, buttonHeight);
+			string demolishLabel = "DreamsOutposts.Demolish".Translate();
+			Rect cancelRect;
+			Rect demolishRect;
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				float buttonWidth = Mathf.Max((rect.width - UiMetrics.ModalFootGap) * 0.5f, 40f);
+				demolishRect = new Rect(rect.x, y, buttonWidth, buttonHeight);
+				cancelRect = new Rect(rect.xMax - buttonWidth, y, buttonWidth, buttonHeight);
+			}
+			else
+			{
+				float cancelWidth = UiWidgets.ButtonWidth(cancelLabel);
+				cancelRect = new Rect(rect.xMax - cancelWidth, y, cancelWidth, buttonHeight);
+				float demolishWidth = UiWidgets.ButtonWidth(demolishLabel);
+				demolishRect = new Rect(cancelRect.x - UiMetrics.ModalFootGap - demolishWidth, y, demolishWidth, buttonHeight);
+			}
 			if (UiWidgets.Button(cancelRect, cancelLabel))
 			{
 				CloseModal();
 			}
-			string demolishLabel = "DreamsOutposts.Demolish".Translate();
-			float demolishWidth = UiWidgets.ButtonWidth(demolishLabel);
-			Rect demolishRect = new Rect(cancelRect.x - UiMetrics.ModalFootGap - demolishWidth, y, demolishWidth, buttonHeight);
 			bool canRemove = view != null && view.CanRemove && view.Slot != null;
 			string tooltip = (view != null) ? view.RemoveTooltipGetter?.Invoke() : null;
 			if (UiWidgets.Button(demolishRect, demolishLabel, UiButtonKind.Danger, canRemove,

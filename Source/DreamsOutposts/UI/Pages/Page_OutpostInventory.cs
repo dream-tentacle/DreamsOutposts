@@ -104,6 +104,10 @@ namespace DreamsOutposts
 
 		private float Layout(Rect rect, float availableHeight, bool draw)
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return LayoutVanilla(rect, availableHeight, draw);
+			}
 			if (rect.width < 80f)
 			{
 				return 1f;
@@ -151,6 +155,183 @@ namespace DreamsOutposts
 					DrawColumn(new Rect(thirdRect.xMax + ColumnsGap, rect.y, firstWidth, rowHeight), cache, 3);
 			}
 			return rowHeight;
+		}
+
+		private float LayoutVanilla(Rect rect, float availableHeight, bool draw)
+		{
+			if (rect.width < 80f)
+			{
+				return 1f;
+			}
+			OutpostUiCache cache = Cache;
+			const float gap = 18f;
+			bool stacked = rect.width < UiMetrics.StackBreakpoint;
+			float peopleHeight = VanillaPeoplePaneHeight(cache);
+			float stockHeight = VanillaStockPaneHeight(cache);
+			if (stacked)
+			{
+				float y = rect.y;
+				if (draw) DrawVanillaPeoplePane(new Rect(rect.x, y, rect.width, peopleHeight), cache);
+				y += peopleHeight + gap;
+				if (draw)
+				{
+					Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+					DrawVanillaStockPane(new Rect(rect.x, y, rect.width, stockHeight), cache);
+				}
+				y += stockHeight;
+				return Mathf.Max(y - rect.y, 1f);
+			}
+
+			float height = Mathf.Max(Mathf.Max(peopleHeight, stockHeight), Mathf.Max(availableHeight, 220f));
+			float columnWidth = (rect.width - gap) * 0.5f;
+			if (draw)
+			{
+				DrawVanillaPeoplePane(new Rect(rect.x, rect.y, columnWidth, height), cache);
+				DrawVanillaStockPane(new Rect(rect.x + columnWidth + gap, rect.y, columnWidth, height), cache);
+				Widgets.DrawBoxSolid(new Rect(rect.x + columnWidth + gap * 0.5f, rect.y, 1f, height), Widgets.SeparatorLineColor);
+			}
+			return height;
+		}
+
+		private static float VanillaPeoplePaneHeight(OutpostUiCache cache)
+		{
+			const float header = 32f;
+			const float subHeader = 28f;
+			const float row = 36f;
+			int colonists = Mathf.Max(cache.Colonists.Count, 1);
+			float height = header + colonists * row;
+			if (cache.OtherPawns.Count > 0)
+			{
+				height += 8f + subHeader + cache.OtherPawns.Count * row;
+			}
+			return height;
+		}
+
+		private static float VanillaStockPaneHeight(OutpostUiCache cache)
+		{
+			const float header = 32f;
+			const float subHeader = 28f;
+			const float row = 36f;
+			int items = Mathf.Max(cache.Inventory.Count, 1);
+			float height = header + items * row;
+			if (cache.Vehicles.Count > 0)
+			{
+				height += 8f + subHeader + cache.Vehicles.Count * row;
+			}
+			return height;
+		}
+
+		private void DrawVanillaPeoplePane(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			float y = inner.y;
+			float buttonWidth = Mathf.Min(220f, inner.width * 0.48f);
+			Rect filterRect = new Rect(inner.xMax - buttonWidth, y, buttonWidth, 28f);
+			string title = ColumnTitle(0) + " (" + cache.Colonists.Count + ")";
+			UiText.Draw(new Rect(inner.x, y, Mathf.Max(filterRect.x - inner.x - 8f, 40f), 28f), title,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			if (Widgets.ButtonText(filterRect, SkillFilterLabel()))
+			{
+				OpenSkillFilterMenu();
+			}
+			Widgets.DrawLineHorizontal(inner.x, y + 30f, inner.width, Widgets.SeparatorLineColor);
+			y += 32f;
+			y = DrawVanillaPawnList(inner.x, y, inner.width, cache.Colonists, skillFilter);
+			if (cache.OtherPawns.Count > 0)
+			{
+				y += 4f;
+				Widgets.DrawLineHorizontal(inner.x, y, inner.width, Widgets.SeparatorLineColor);
+				y += 4f;
+				UiText.Draw(new Rect(inner.x, y, inner.width, 28f), ColumnTitle(1) + " (" + cache.OtherPawns.Count + ")",
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+				y += 28f;
+				DrawVanillaPawnList(inner.x, y, inner.width, cache.OtherPawns, null);
+			}
+		}
+
+		private void DrawVanillaStockPane(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			float y = inner.y;
+			UiText.Draw(new Rect(inner.x, y, inner.width, 28f), ColumnTitle(2) + " (" + cache.Inventory.Count + ")",
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Widgets.DrawLineHorizontal(inner.x, y + 30f, inner.width, Widgets.SeparatorLineColor);
+			y += 32f;
+			y = DrawVanillaItemList(inner.x, y, inner.width, cache.Inventory);
+			if (cache.Vehicles.Count > 0)
+			{
+				y += 4f;
+				Widgets.DrawLineHorizontal(inner.x, y, inner.width, Widgets.SeparatorLineColor);
+				y += 4f;
+				UiText.Draw(new Rect(inner.x, y, inner.width, 28f), ColumnTitle(3) + " (" + cache.Vehicles.Count + ")",
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+				y += 28f;
+				DrawVanillaPawnList(inner.x, y, inner.width, cache.Vehicles, null);
+			}
+		}
+
+		private float DrawVanillaPawnList(float x, float y, float width, List<UiPawnView> rows, SkillDef skill)
+		{
+			const float rowHeight = 36f;
+			if (rows.Count == 0)
+			{
+				UiText.Draw(new Rect(x, y, width, rowHeight), "DreamsOutposts.None".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return y + rowHeight;
+			}
+			for (int i = 0; i < rows.Count; i++)
+			{
+				UiPawnView view = rows[i];
+				Rect row = new Rect(x, y, width, rowHeight);
+				Widgets.DrawHighlightIfMouseover(row);
+				Rect portrait = new Rect(row.x + 4f, row.y + 3f, 30f, 30f);
+				UiDraw.PawnPortrait(portrait, view.Pawn);
+				const float infoSize = Widgets.InfoCardButtonSize;
+				float infoX = row.xMax - infoSize - 4f;
+				UiText.Draw(new Rect(portrait.xMax + 8f, row.y, Mathf.Max(infoX - portrait.xMax - 12f, 30f), row.height),
+					PawnRowName(view, skill), UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				if (view.Pawn != null)
+				{
+					Widgets.InfoCardButton(infoX, row.y + (row.height - infoSize) * 0.5f, view.Pawn);
+				}
+				y += rowHeight;
+			}
+			return y;
+		}
+
+		private float DrawVanillaItemList(float x, float y, float width, List<UiItemStackView> rows)
+		{
+			const float rowHeight = 36f;
+			if (rows.Count == 0)
+			{
+				UiText.Draw(new Rect(x, y, width, rowHeight), "DreamsOutposts.None".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return y + rowHeight;
+			}
+			for (int i = 0; i < rows.Count; i++)
+			{
+				UiItemStackView view = rows[i];
+				Rect row = new Rect(x, y, width, rowHeight);
+				Widgets.DrawHighlightIfMouseover(row);
+				Rect icon = new Rect(row.x + 4f, row.y + 3f, 30f, 30f);
+				if (view.Def != null) Widgets.ThingIcon(icon, view.Def);
+				string count = view.Count.ToString();
+				const float infoSize = Widgets.InfoCardButtonSize;
+				float infoX = row.xMax - infoSize - 4f;
+				float countWidth = Mathf.Max(UiText.Width(count, UiFont.Body, true) + 8f, 36f);
+				float countX = infoX - countWidth - 6f;
+				UiText.Draw(new Rect(countX, row.y, countWidth, row.height), count,
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleRight, true);
+				UiText.Draw(new Rect(icon.xMax + 8f, row.y, Mathf.Max(countX - icon.xMax - 12f, 30f), row.height),
+					(view.Def != null) ? view.Def.LabelCap.ToString() : "-", UiFont.Body, UiPalette.Ink,
+					TextAnchor.MiddleLeft, false, false, true);
+				if (view.Def != null)
+				{
+					Widgets.InfoCardButton(infoX, row.y + (row.height - infoSize) * 0.5f, view.Def);
+				}
+				y += rowHeight;
+			}
+			return y;
 		}
 
 		private float Column(Rect rect, OutpostUiCache cache, int index, bool draw)

@@ -109,6 +109,10 @@ namespace DreamsOutposts
 
 		private float Layout(Rect rect, float availableHeight, bool draw)
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return LayoutVanilla(rect, availableHeight, draw);
+			}
 			if (rect.width < 80f)
 			{
 				return 1f;
@@ -161,6 +165,184 @@ namespace DreamsOutposts
 				y += rowHeight;
 			}
 			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private float LayoutVanilla(Rect rect, float availableHeight, bool draw)
+		{
+			if (rect.width < 80f)
+			{
+				return 1f;
+			}
+			OutpostUiCache cache = Cache;
+			const float gap = 18f;
+			const float summaryHeight = 88f;
+			float y = rect.y;
+			if (draw) DrawVanillaSummary(new Rect(rect.x, y, rect.width, summaryHeight), cache);
+			y += summaryHeight + gap;
+
+			float pawnsHeight = VanillaDefensePaneHeight(cache.DefensePawns.Count);
+			float facilitiesHeight = VanillaDefensePaneHeight(FacilityRowCount(cache));
+			bool stacked = rect.width < UiMetrics.StackBreakpoint;
+			if (stacked)
+			{
+				if (draw) DrawVanillaDefensePane(new Rect(rect.x, y, rect.width, pawnsHeight), cache, true);
+				y += pawnsHeight + gap;
+				if (draw)
+				{
+					Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+					DrawVanillaDefensePane(new Rect(rect.x, y, rect.width, facilitiesHeight), cache, false);
+				}
+				y += facilitiesHeight;
+				return Mathf.Max(y - rect.y, 1f);
+			}
+
+			float remaining = Mathf.Max(availableHeight - (y - rect.y), 220f);
+			float paneHeight = Mathf.Max(Mathf.Max(pawnsHeight, facilitiesHeight), remaining);
+			float columnWidth = (rect.width - gap) * 0.5f;
+			if (draw)
+			{
+				DrawVanillaDefensePane(new Rect(rect.x, y, columnWidth, paneHeight), cache, true);
+				DrawVanillaDefensePane(new Rect(rect.x + columnWidth + gap, y, columnWidth, paneHeight), cache, false);
+				Widgets.DrawBoxSolid(new Rect(rect.x + columnWidth + gap * 0.5f, y, 1f, paneHeight), Widgets.SeparatorLineColor);
+			}
+			y += paneHeight;
+			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private static float VanillaDefensePaneHeight(int count)
+		{
+			return 32f + Mathf.Max(count, 1) * 36f;
+		}
+
+		private static void DrawVanillaSummary(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			float rowHeight = 28f;
+			string defenseLabel = "DreamsOutposts.Defense".Translate();
+			float valueWidth = 90f;
+			const float infoSize = Widgets.InfoCardButtonSize;
+			float labelWidth = Mathf.Min(UiText.Width(defenseLabel, UiFont.Body, true), Mathf.Max(inner.width - valueWidth - infoSize - 12f, 40f));
+			UiText.Draw(new Rect(inner.x, inner.y, labelWidth, rowHeight), defenseLabel,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Rect infoRect = new Rect(inner.x + labelWidth + 6f, inner.y + (rowHeight - infoSize) * 0.5f, infoSize, infoSize);
+			if (Widgets.ButtonImage(infoRect, TexButton.Info))
+			{
+				UiOutpostHelpWindow.Open(HelpSections);
+			}
+			UiText.Draw(new Rect(inner.xMax - valueWidth, inner.y, valueWidth, rowHeight), cache.Defense.ToString("0.#"),
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleRight, true);
+			float y = inner.y + rowHeight;
+			Widgets.DrawLineHorizontal(inner.x, y, inner.width, Widgets.SeparatorLineColor);
+			y += 4f;
+			UiText.Draw(new Rect(inner.x + 4f, y, inner.width - 8f, rowHeight),
+				"DreamsOutposts.DefenseFromPawns".Translate(cache.DefenseFromPawns.ToString("0.#")),
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft);
+			y += rowHeight;
+			UiText.Draw(new Rect(inner.x + 4f, y, inner.width - 8f, rowHeight),
+				"DreamsOutposts.DefenseFromFacilities".Translate(cache.DefenseFromFacilities.ToString("0.#")),
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft);
+		}
+
+		private void DrawVanillaDefensePane(Rect rect, OutpostUiCache cache, bool pawns)
+		{
+			Rect inner = rect;
+			string title = pawns
+				? "DreamsOutposts.DefenseFromPawns".Translate(cache.DefenseFromPawns.ToString("0.#")).ToString()
+				: "DreamsOutposts.DefenseFromFacilities".Translate(cache.DefenseFromFacilities.ToString("0.#")).ToString();
+			UiText.Draw(new Rect(inner.x, inner.y, inner.width, 28f), title,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
+			float y = inner.y + 32f;
+			if (pawns)
+			{
+				DrawVanillaDefensePawnRows(inner.x, y, inner.width, cache);
+			}
+			else
+			{
+				DrawVanillaDefenseFacilityRows(inner.x, y, inner.width, cache);
+			}
+		}
+
+		private void DrawVanillaDefensePawnRows(float x, float y, float width, OutpostUiCache cache)
+		{
+			const float rowHeight = 36f;
+			if (cache.DefensePawns.Count == 0)
+			{
+				UiText.Draw(new Rect(x, y, width, rowHeight), "DreamsOutposts.None".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return;
+			}
+			for (int i = 0; i < cache.DefensePawns.Count; i++)
+			{
+				UiPawnView view = cache.DefensePawns[i];
+				Rect row = new Rect(x, y + i * rowHeight, width, rowHeight);
+				Widgets.DrawHighlightIfMouseover(row);
+				Rect portrait = new Rect(row.x + 4f, row.y + 3f, 30f, 30f);
+				UiDraw.PawnPortrait(portrait, view.Pawn);
+				string secondary = view.IsMechanoid
+					? "DreamsOutposts.Ui.DefenseBandwidth".Translate(view.Bandwidth).ToString()
+					: "DreamsOutposts.Ui.DefenseSkill".Translate(SkillDefOf.Shooting.LabelCap, view.Shooting).ToString() + " · "
+						+ "DreamsOutposts.Ui.DefenseSkill".Translate(SkillDefOf.Melee.LabelCap, view.Melee).ToString();
+				const float infoSize = Widgets.InfoCardButtonSize;
+				float infoX = row.xMax - infoSize - 4f;
+				float defenseWidth = 48f;
+				float defenseX = infoX - defenseWidth - 6f;
+				float textX = portrait.xMax + 8f;
+				float textWidth = Mathf.Max(defenseX - textX - 6f, 30f);
+				UiText.Draw(new Rect(textX, row.y + 1f, textWidth, 17f), view.Name,
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(textX, row.y + 18f, textWidth, 16f), secondary,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(defenseX, row.y, defenseWidth, row.height), view.Defense.ToString(),
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleRight, view.Defense != 0);
+				if (view.Pawn != null)
+				{
+					Widgets.InfoCardButton(infoX, row.y + (row.height - infoSize) * 0.5f, view.Pawn);
+				}
+			}
+		}
+
+		private void DrawVanillaDefenseFacilityRows(float x, float y, float width, OutpostUiCache cache)
+		{
+			List<UiFacilityView> rows = new List<UiFacilityView>();
+			if (cache.Core != null) rows.Add(cache.Core);
+			for (int i = 0; i < cache.Slots.Count; i++) if (cache.Slots[i] != null) rows.Add(cache.Slots[i]);
+			rows.AddRange(cache.WatchtowerSupport);
+			const float rowHeight = 36f;
+			if (rows.Count == 0)
+			{
+				UiText.Draw(new Rect(x, y, width, rowHeight), "DreamsOutposts.None".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return;
+			}
+			for (int i = 0; i < rows.Count; i++)
+			{
+				UiFacilityView view = rows[i];
+				Rect row = new Rect(x, y + i * rowHeight, width, rowHeight);
+				Widgets.DrawHighlightIfMouseover(row);
+				float iconSize = 24f;
+				Rect icon = new Rect(row.x + 7f, row.y + (row.height - iconSize) * 0.5f, iconSize, iconSize);
+				UiDraw.Icon(icon, view.Icon, UiPalette.Ink);
+				const float infoSize = Widgets.InfoCardButtonSize;
+				float infoX = row.xMax - infoSize - 4f;
+				float defenseWidth = 54f;
+				float defenseX = infoX - defenseWidth - 6f;
+				float textX = icon.xMax + 8f;
+				float textWidth = Mathf.Max(defenseX - textX - 6f, 30f);
+				UiText.Draw(new Rect(textX, row.y, textWidth, row.height), view.Label,
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(defenseX, row.y, defenseWidth, row.height), view.Defense.ToString("0.#"),
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleRight, view.Defense != 0f);
+				if (view.Facility != null)
+				{
+					Rect infoRect = new Rect(infoX, row.y + (row.height - infoSize) * 0.5f, infoSize, infoSize);
+					if (Widgets.ButtonImage(infoRect, TexButton.Info))
+					{
+						Window_OutpostManage shell = Shell;
+						if (shell != null) shell.OpenDetailsModal(view);
+					}
+				}
+			}
 		}
 
 		// ---------------------------------------------------------------

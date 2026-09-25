@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Ui.Details.Enabled>Enabled?</DreamsOutposts.Ui.Details.Enabled>
+  <DreamsOutposts.Ui.Details.EnabledDescription>Whether the current facility is enabled.</DreamsOutposts.Ui.Details.EnabledDescription>
+  <DreamsOutposts.Ui.Details.Info>Info {0}</DreamsOutposts.Ui.Details.Info>
+</LanguageData>

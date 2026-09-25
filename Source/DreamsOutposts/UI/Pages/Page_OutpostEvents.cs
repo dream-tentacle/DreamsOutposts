@@ -100,6 +100,10 @@ namespace DreamsOutposts
 
 		private float Layout(Rect rect, bool draw)
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return LayoutVanilla(rect, draw);
+			}
 			if (rect.width < 80f)
 			{
 				return 1f;
@@ -147,6 +151,112 @@ namespace DreamsOutposts
 				y += NoteMarginTop + noteHeight;
 			}
 			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private float LayoutVanilla(Rect rect, bool draw)
+		{
+			if (rect.width < 80f)
+			{
+				return 1f;
+			}
+			OutpostUiCache cache = Cache;
+			const float gap = 18f;
+			float tendencyHeight = 32f + TendencyDefNames.Length * 28f;
+			float eventsHeight = 32f + Mathf.Max(cache.Events.Count, 1) * 62f;
+			float y = rect.y;
+			if (draw) DrawVanillaTendencies(new Rect(rect.x, y, rect.width, tendencyHeight));
+			y += tendencyHeight + gap;
+			if (draw)
+			{
+				Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+				DrawVanillaEvents(new Rect(rect.x, y, rect.width, eventsHeight), cache);
+			}
+			y += eventsHeight;
+			if (cache.ScheduledCount > 0)
+			{
+				y += 8f;
+				if (draw)
+				{
+					UiText.Draw(new Rect(rect.x + 10f, y, Mathf.Max(rect.width - 20f, 40f), 28f),
+						"DreamsOutposts.Ui.ScheduledNote".Translate(cache.ScheduledCount),
+						UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft);
+				}
+				y += 28f;
+			}
+			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private void DrawVanillaTendencies(Rect rect)
+		{
+			Rect inner = rect;
+			string title = "DreamsOutposts.EventWeight.Current".Translate();
+			const float infoSize = Widgets.InfoCardButtonSize;
+			float titleWidth = Mathf.Min(UiText.Width(title, UiFont.Body, true), Mathf.Max(inner.width - infoSize - 8f, 40f));
+			UiText.Draw(new Rect(inner.x, inner.y, titleWidth, 28f), title,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Rect infoRect = new Rect(inner.x + titleWidth + 6f, inner.y + (28f - infoSize) * 0.5f, infoSize, infoSize);
+			if (Widgets.ButtonImage(infoRect, TexButton.Info))
+			{
+				UiOutpostHelpWindow.Open();
+			}
+			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
+			float y = inner.y + 32f;
+			for (int i = 0; i < TendencyDefNames.Length; i++)
+			{
+				OutpostEventCategoryDef category = DefDatabase<OutpostEventCategoryDef>.GetNamedSilentFail(TendencyDefNames[i]);
+				if (category == null) continue;
+				List<OutpostEventWeightContribution> details = new List<OutpostEventWeightContribution>();
+				float total = OutpostEventUtility.GetCategoryWeight(outpost, category, details);
+				Rect row = new Rect(inner.x, y, inner.width, 28f);
+				string tendencyText = category.LabelCap + "：" + total.ToString("0.#");
+				UiText.Draw(new Rect(row.x + 4f, row.y, Mathf.Max(row.width - 8f, 30f), row.height), tendencyText,
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				UiWidgets.Tip(row, TendencyTooltip(category, total, details), GenText.StableStringHash("event-tendency-" + category.defName));
+				y += 28f;
+			}
+		}
+
+		private void DrawVanillaEvents(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			UiText.Draw(new Rect(inner.x, inner.y, inner.width, 28f), "DreamsOutposts.Events".Translate().ToString() + " (" + cache.Events.Count + ")",
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
+			float y = inner.y + 32f;
+			if (cache.Events.Count == 0)
+			{
+				UiText.Draw(new Rect(inner.x, y, inner.width, 62f), "DreamsOutposts.NoCurrentEvents".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return;
+			}
+			for (int i = 0; i < cache.Events.Count; i++)
+			{
+				DrawVanillaEventRow(new Rect(inner.x, y, inner.width, 62f), cache.Events[i]);
+				y += 62f;
+			}
+		}
+
+		private void DrawVanillaEventRow(Rect row, UiEventView view)
+		{
+			Widgets.DrawHighlightIfMouseover(row);
+			float rightWidth = Mathf.Min(220f, row.width * 0.42f);
+			UiText.Draw(new Rect(row.x + 4f, row.y + 4f, Mathf.Max(row.width - rightWidth - 12f, 40f), 24f), view.Label,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			string meta = string.IsNullOrEmpty(view.CategoryLabel)
+				? "DreamsOutposts.Remaining".Translate(view.RemainingText).ToString()
+				: view.CategoryLabel + " · " + "DreamsOutposts.Remaining".Translate(view.RemainingText).ToString();
+			UiText.Draw(new Rect(row.xMax - rightWidth - 4f, row.y + 4f, rightWidth, 24f), meta,
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+			if (!string.IsNullOrEmpty(view.Description))
+			{
+				UiText.Draw(new Rect(row.x + 4f, row.y + 31f, Mathf.Max(row.width - 8f, 40f), 24f),
+					UiText.FirstLine(view.Description), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			}
+			if (Widgets.ButtonInvisible(row))
+			{
+				Window_OutpostManage shell = Shell;
+				if (shell != null) shell.OpenEventModal(view);
+			}
 		}
 
 		private List<UiChipView> BuildTendencyChips()

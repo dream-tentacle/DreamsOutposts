@@ -91,7 +91,7 @@ namespace DreamsOutposts
 			switch (DreamsOutpostsMod.UiStyle)
 			{
 			case OutpostUiStyle.Vanilla:
-				return LayoutVanilla(rect, draw);
+				return LayoutVanillaNative(rect, draw);
 
 			// 黑夜风与现代科技风共用同一套布局，差别只在配色。
 			case OutpostUiStyle.ModernTechDark:
@@ -102,8 +102,229 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// 原版风设施页。
-		/// 这部分故意保留改造前的布局、间距和卡片测量，现代科技风不得复用这里的几何常量。
+		/// 原版风设施页：使用原版 MenuSection + 普通列表行，不复用现代风卡片/网格视觉。
+		/// </summary>
+		private float LayoutVanillaNative(Rect rect, bool draw)
+		{
+			OutpostUiCache cache = Cache;
+			if (rect.width < 80f)
+			{
+				return 1f;
+			}
+			const float gap = 18f;
+			float y = rect.y;
+			float overviewHeight = VanillaOverviewHeight(cache);
+			if (draw) DrawVanillaOverview(new Rect(rect.x, y, rect.width, overviewHeight), cache);
+			y += overviewHeight + gap;
+
+			float coreHeight = 32f + 54f;
+			if (draw)
+			{
+				Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+				DrawVanillaCoreSection(new Rect(rect.x, y, rect.width, coreHeight), cache);
+			}
+			y += coreHeight + gap;
+
+			float extensionHeight = 32f + Mathf.Max(cache.SlotCount, 1) * 54f;
+			if (draw)
+			{
+				Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+				DrawVanillaExtensionSection(new Rect(rect.x, y, rect.width, extensionHeight), cache);
+			}
+			y += extensionHeight;
+			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private static float VanillaOverviewHeight(OutpostUiCache cache)
+		{
+			if (cache.Upgrade.IsMaxLevel)
+			{
+				return 92f;
+			}
+			return 32f + 28f + cache.Upgrade.Checks.Count * 30f + 40f;
+		}
+
+		private void DrawVanillaOverview(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			float y = inner.y;
+			string levelText = "DreamsOutposts.Level".Translate(outpost.level, cache.MaxLevel);
+			UiText.Draw(new Rect(inner.x, y, inner.width, 28f), levelText,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Widgets.DrawLineHorizontal(inner.x, y + 30f, inner.width, Widgets.SeparatorLineColor);
+			y += 32f;
+			float half = inner.width * 0.5f;
+			UiText.Draw(new Rect(inner.x, y, half, 28f), cache.DaysText,
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			UiText.Draw(new Rect(inner.x + half, y, half, 28f),
+				"DreamsOutposts.Ui.Chip.CurrentSlots".Translate(outpost.SlotCountForLevel),
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+			y += 28f;
+			Widgets.DrawLineHorizontal(inner.x, y, inner.width, Widgets.SeparatorLineColor);
+			y += 4f;
+
+			if (cache.Upgrade.IsMaxLevel)
+			{
+				UiText.Draw(new Rect(inner.x, y, inner.width, 28f), cache.Upgrade.MaxLevelText,
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+				return;
+			}
+
+			for (int i = 0; i < cache.Upgrade.Checks.Count; i++)
+			{
+				UiUpgradeCheck check = cache.Upgrade.Checks[i];
+				Rect row = new Rect(inner.x, y, inner.width, 30f);
+				Widgets.DrawHighlightIfMouseover(row);
+				float valueWidth = Mathf.Min(180f, row.width * 0.42f);
+				UiText.Draw(new Rect(row.x + 4f, row.y, Mathf.Max(row.width - valueWidth - 8f, 40f), row.height), check.Name,
+					UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, false, false, true);
+				UiText.Draw(new Rect(row.xMax - valueWidth - 4f, row.y, valueWidth, row.height), check.ValueText,
+					UiFont.Body, check.Ok ? UiPalette.Good : UiPalette.Bad, TextAnchor.MiddleRight, check.Ok);
+				y += 30f;
+			}
+
+			string buttonLabel = "DreamsOutposts.Ui.Upgrade.Button".Translate().ToString();
+			float buttonWidth = Mathf.Min(220f, inner.width);
+			Rect button = new Rect(inner.center.x - buttonWidth * 0.5f, y + 4f, buttonWidth, 32f);
+			string tip = cache.Upgrade.CanUpgrade
+				? "DreamsOutposts.Ui.Upgrade.ConfirmTip".Translate().ToString()
+				: cache.Upgrade.Reason;
+			if (UiWidgets.Button(button, buttonLabel, UiButtonKind.Secondary, cache.Upgrade.CanUpgrade,
+				cache.Upgrade.Reason, UiButtonSize.Normal, tip))
+			{
+				if (OutpostUpgradeUtility.TryUpgrade(outpost))
+				{
+					Window_OutpostManage shell = Shell;
+					if (shell != null) shell.Cache.Invalidate();
+				}
+			}
+		}
+
+		private void DrawVanillaCoreSection(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			string title = "DreamsOutposts.CoreFacility".Translate();
+			const float infoSize = Widgets.InfoCardButtonSize;
+			float infoX = inner.x + UiText.Width(title, UiFont.Body, true) + 6f;
+			UiText.Draw(new Rect(inner.x, inner.y, Mathf.Max(infoX - inner.x, 40f), 28f), title,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Rect infoRect = new Rect(infoX, inner.y + (28f - infoSize) * 0.5f, infoSize, infoSize);
+			if (Widgets.ButtonImage(infoRect, TexButton.Info))
+			{
+				UiOutpostHelpWindow.Open(HelpSections);
+			}
+			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
+			Rect row = new Rect(inner.x, inner.y + 32f, inner.width, 54f);
+			if (cache.Core != null)
+			{
+				DrawVanillaFacilityRow(row, cache.Core);
+			}
+			else
+			{
+				UiText.Draw(row, "DreamsOutposts.FacilityNoDef".Translate(), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+			}
+		}
+
+		private void DrawVanillaExtensionSection(Rect rect, OutpostUiCache cache)
+		{
+			Rect inner = rect;
+			UiText.Draw(new Rect(inner.x, inner.y, inner.width, 28f),
+				"DreamsOutposts.ExtensionFacilities".Translate(cache.UsedSlots, cache.SlotCount),
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
+			float y = inner.y + 32f;
+			if (cache.SlotCount == 0)
+			{
+				UiText.Draw(new Rect(inner.x, y, inner.width, 54f), "DreamsOutposts.NoExtensionSlots".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return;
+			}
+			for (int i = 0; i < cache.SlotCount; i++)
+			{
+				Rect row = new Rect(inner.x, y, inner.width, 54f);
+				UiFacilityView view = (i < cache.Slots.Count) ? cache.Slots[i] : null;
+				if (view != null)
+				{
+					DrawVanillaFacilityRow(row, view);
+				}
+				else
+				{
+					DrawVanillaEmptySlotRow(row, i);
+				}
+				y += 54f;
+			}
+		}
+
+		private void DrawVanillaFacilityRow(Rect row, UiFacilityView view)
+		{
+			Widgets.DrawHighlightIfMouseover(row);
+			const float iconSize = 30f;
+			Rect icon = new Rect(row.x + 6f, row.y + (row.height - iconSize) * 0.5f, iconSize, iconSize);
+			UiDraw.Icon(icon, view.Icon, UiPalette.Ink);
+
+			const float infoSize = Widgets.InfoCardButtonSize;
+			float infoX = row.xMax - infoSize - 4f;
+			float rightWidth = 90f;
+			float rightX = infoX - rightWidth - 6f;
+			float textX = icon.xMax + 10f;
+			float textWidth = Mathf.Max(rightX - textX - 6f, 40f);
+
+			UiText.Draw(new Rect(textX, row.y + 5f, textWidth, 22f), view.Label,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			string secondary = VanillaFacilitySummary(view);
+			UiText.Draw(new Rect(textX, row.y + 27f, textWidth, 20f), secondary,
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			if (view.Defense > 0f)
+			{
+				UiText.Draw(new Rect(rightX, row.y, rightWidth, row.height),
+					"DreamsOutposts.Defense".Translate().ToString() + " " + view.Defense.ToString("0.#"),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight);
+			}
+			if (view.Facility != null)
+			{
+				Rect infoRect = new Rect(infoX, row.y + (row.height - infoSize) * 0.5f, infoSize, infoSize);
+				if (Widgets.ButtonImage(infoRect, TexButton.Info))
+				{
+					Window_OutpostManage shell = Shell;
+					if (shell != null) shell.OpenDetailsModal(view);
+				}
+			}
+		}
+
+		private static string VanillaFacilitySummary(UiFacilityView view)
+		{
+			if (!string.IsNullOrEmpty(view.SubLabel))
+			{
+				return view.SubLabel;
+			}
+			if (view.Productions.Count > 0)
+			{
+				UiProductionView production = view.Productions[0];
+				return production.ProductLabel + " ×" + production.Output.ToString("0.#") + " / " + production.IntervalText;
+			}
+			return view.Description ?? string.Empty;
+		}
+
+		private void DrawVanillaEmptySlotRow(Rect row, int index)
+		{
+			Widgets.DrawHighlightIfMouseover(row);
+			float buttonWidth = Mathf.Min(160f, row.width * 0.32f);
+			Rect button = new Rect(row.xMax - buttonWidth - 6f, row.y + 11f, buttonWidth, 32f);
+			UiText.Draw(new Rect(row.x + 8f, row.y, Mathf.Max(button.x - row.x - 16f, 40f), row.height),
+				"DreamsOutposts.Ui.EmptySlotHint".Translate(index + 1),
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			if (Widgets.ButtonText(button, "DreamsOutposts.InstallFacility".Translate()))
+			{
+				Window_OutpostManage shell = Shell;
+				if (shell != null && outpost.extensionSlots != null && index >= 0 && index < outpost.extensionSlots.Count)
+				{
+					shell.OpenInstallModal(outpost.extensionSlots[index], index);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 旧版原版风设施布局，保留供对照；当前 Vanilla 已切换到上面的原版列表式布局。
 		/// </summary>
 		private float LayoutVanilla(Rect rect, bool draw)
 		{

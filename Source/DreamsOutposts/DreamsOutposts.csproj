@@ -218,6 +218,7 @@
     <Compile Include="UI\Pages\Page_OutpostEvents.cs" />
 	<Compile Include="UI\Pages\Page_OutpostTavern.cs" />
     <Compile Include="UI\Modals\UiFacilityModals.cs" />
+    <Compile Include="UI\Modals\UiVanillaFacilityDetailsModal.cs" />
 	<Compile Include="UI\Modals\UiAutomaticAirdropModal.cs" />
     <Compile Include="UI\Modals\UiEventModal.cs" />
     <Compile Include="UI\Modals\UiIntroTipsModal.cs" />

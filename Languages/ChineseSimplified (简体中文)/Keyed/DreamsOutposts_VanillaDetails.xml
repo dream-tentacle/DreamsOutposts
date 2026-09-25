@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Ui.Details.Enabled>是否启用</DreamsOutposts.Ui.Details.Enabled>
+  <DreamsOutposts.Ui.Details.EnabledDescription>当前设施是否已启用。</DreamsOutposts.Ui.Details.EnabledDescription>
+  <DreamsOutposts.Ui.Details.Info>信息{0}</DreamsOutposts.Ui.Details.Info>
+</LanguageData>

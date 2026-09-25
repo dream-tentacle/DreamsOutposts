@@ -19,7 +19,7 @@
   <DreamsOutposts.IntroTips.Important.Manage.Label>Managing outposts:</DreamsOutposts.IntroTips.Important.Manage.Label>
   <DreamsOutposts.IntroTips.Important.Manage.Text>Click an outpost, then click the manage button below.</DreamsOutposts.IntroTips.Important.Manage.Text>
   <DreamsOutposts.IntroTips.Important.Disable.Label>Hiding this window:</DreamsOutposts.IntroTips.Important.Disable.Label>
-  <DreamsOutposts.IntroTips.Important.Disable.Text>Turn this popup off in the mod settings.</DreamsOutposts.IntroTips.Important.Disable.Text>
+  <DreamsOutposts.IntroTips.Important.Disable.Text>Turn this popup off in the mod settings. This mod appears in the mod settings as [DR] Dream's Outposts Expanded. Using the search function is recommended.</DreamsOutposts.IntroTips.Important.Disable.Text>
 
   <DreamsOutposts.IntroTips.Knowledge.Defense.Label>Defense:</DreamsOutposts.IntroTips.Knowledge.Defense.Label>
   <DreamsOutposts.IntroTips.Knowledge.Defense.Text>A colonist's melee or shooting ability raises defense. Defense facilities can also be built to raise it.</DreamsOutposts.IntroTips.Knowledge.Defense.Text>
@@ -29,6 +29,10 @@
   <DreamsOutposts.IntroTips.Knowledge.Raid.Text>Raids occur from time to time against a randomly chosen outpost. The result is decided by a defense roll.</DreamsOutposts.IntroTips.Knowledge.Raid.Text>
   <DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>Bombardment:</DreamsOutposts.IntroTips.Knowledge.Bombardment.Label>
   <DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>After building a mortar, select an outpost on the map and click the bombardment button.</DreamsOutposts.IntroTips.Knowledge.Bombardment.Text>
+  <DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Label>How to remove an outpost:</DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Label>
+  <DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Text>Select the outpost on the world map, then click "Abandon outpost permanently".</DreamsOutposts.IntroTips.Knowledge.RemoveOutpost.Text>
+  <DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Label>How to remove a facility:</DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Label>
+  <DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Text>Open the facility details, then click the "remove" button.</DreamsOutposts.IntroTips.Knowledge.RemoveFacility.Text>
 
   <DreamsOutposts.Settings.ShowIntroTips>Show the intro guide</DreamsOutposts.Settings.ShowIntroTips>
   <DreamsOutposts.Settings.ShowIntroTips.Description>Shows the outpost system guide every time you start a new game or load a save.</DreamsOutposts.Settings.ShowIntroTips.Description>

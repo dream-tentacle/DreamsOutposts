@@ -88,7 +88,11 @@ namespace DreamsOutposts
 				return;
 			}
 			OutpostUtility.TakeOutOfWorld(pawn);
-			if (!vehicle) OutpostUtility.MovePawnInventoryIntoOutpost(outpost, pawn);
+			if (!vehicle)
+			{
+				OutpostUtility.ReleaseBedOnOutpostEntry(pawn);
+				OutpostUtility.MovePawnInventoryIntoOutpost(outpost, pawn);
+			}
 			outpost.RequestUpdate();
 		}
 	}

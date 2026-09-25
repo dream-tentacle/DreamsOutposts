@@ -51,7 +51,7 @@ namespace DreamsOutposts
 		/// </summary>
 		public static int PawnDefense(Pawn pawn)
 		{
-			if (pawn == null)
+			if (pawn == null || pawn.Downed)
 			{
 				return 0;
 			}

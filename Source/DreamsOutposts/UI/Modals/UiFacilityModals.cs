@@ -239,7 +239,7 @@ namespace DreamsOutposts
 		/// <summary>正文高度（只影响滚动范围，面板大小由 UseMaxHeight 固定）。</summary>
 		public float Height(float width)
 		{
-			float tagTabsHeight = GetTagTabsHeight();
+			float tagTabsHeight = GetTagTabsHeight(width);
 			return tagTabsHeight + UiMetrics.InstallGridGap + MeasureGrid(width, FilteredCards());
 		}
 
@@ -279,7 +279,7 @@ namespace DreamsOutposts
 
 		public void Draw(Rect rect)
 		{
-			float tagTabsHeight = GetTagTabsHeight();
+			float tagTabsHeight = GetTagTabsHeight(rect.width);
 			DrawTagTabs(new Rect(rect.x, rect.y, rect.width, tagTabsHeight));
 			Rect gridRect = new Rect(rect.x, rect.y + tagTabsHeight + UiMetrics.InstallGridGap, rect.width,
 				Mathf.Max(rect.height - tagTabsHeight - UiMetrics.InstallGridGap, 0f));
@@ -330,6 +330,12 @@ namespace DreamsOutposts
 
 		private void DrawTagTabs(Rect rect)
 		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				TabDrawer.DrawTabsOverflow(rect, BuildVanillaTagTabs(), 100f, 200f);
+				return;
+			}
+
 			IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
 			OutpostFacilityCategoryDef selected = SelectedCategory;
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
@@ -354,8 +360,30 @@ namespace DreamsOutposts
 			}
 		}
 
-		private static float GetTagTabsHeight()
+		private List<TabRecord> BuildVanillaTagTabs()
 		{
+			IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
+			OutpostFacilityCategoryDef selected = SelectedCategory;
+			List<TabRecord> tabs = new List<TabRecord>(categories.Count);
+			for (int i = 0; i < categories.Count; i++)
+			{
+				OutpostFacilityCategoryDef category = categories[i];
+				tabs.Add(new TabRecord(category.LabelCap.ToString(), delegate
+				{
+					selectedCategory = category;
+				}, category == selected));
+			}
+			return tabs;
+		}
+
+		private float GetTagTabsHeight(float width)
+		{
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				Rect tabsRect = new Rect(0f, 0f, Mathf.Max(width, 1f), 1000f);
+				return TabDrawer.GetOverflowTabHeight(tabsRect, BuildVanillaTagTabs(), 100f, 200f);
+			}
+
 			int rowCount = Mathf.CeilToInt((float)OutpostFacilityCategoryUtility.AllInOrder.Count / TagTabsPerRow);
 			return Mathf.Max(rowCount, 1) * TagTabRowHeight;
 		}

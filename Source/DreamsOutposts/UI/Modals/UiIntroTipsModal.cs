@@ -39,7 +39,9 @@ namespace DreamsOutposts
 			"DreamsOutposts.IntroTips.Knowledge.Defense",
 			"DreamsOutposts.IntroTips.Knowledge.SpecialBuildings",
 			"DreamsOutposts.IntroTips.Knowledge.Raid",
-			"DreamsOutposts.IntroTips.Knowledge.Bombardment"
+			"DreamsOutposts.IntroTips.Knowledge.Bombardment",
+			"DreamsOutposts.IntroTips.Knowledge.RemoveOutpost",
+			"DreamsOutposts.IntroTips.Knowledge.RemoveFacility"
 		};
 
 		public float Height(float width)
@@ -126,7 +128,7 @@ namespace DreamsOutposts
 	public static class UiIntroTipsWindow
 	{
 		/// <summary>自动弹出时「确定」被锁住的秒数：先让玩家把上面读完。</summary>
-		public const float AutoLockSeconds = 10f;
+		public const float AutoLockSeconds = 3f;
 
 		/// <param name="lockSeconds">大于 0 时，这段时间内「确定」不可点，按钮上显示倒计时。</param>
 		public static void Open(float lockSeconds = 0f)

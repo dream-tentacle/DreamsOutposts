@@ -642,6 +642,13 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				bool previous = value;
+				Widgets.CheckboxLabeled(rect, label ?? string.Empty, ref value);
+				Tip(rect, tooltip);
+				return previous != value;
+			}
 			bool hovered = Mouse.IsOver(rect);
 			float boxSize = CheckboxSize;
 			Rect boxRect = new Rect(rect.x, rect.y + (rect.height - boxSize) * 0.5f, boxSize, boxSize);
@@ -677,6 +684,22 @@ namespace DreamsOutposts
 		{
 			if (outRect.width <= 0f || outRect.height <= 0f)
 			{
+				return false;
+			}
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				float vanillaViewHeight = Mathf.Max(contentHeight, outRect.height);
+				bool needsScrollbar = vanillaViewHeight > outRect.height + 0.5f;
+				float viewWidth = Mathf.Max(outRect.width - (needsScrollbar ? 16f : 0f), 1f);
+				Rect viewRect = new Rect(0f, 0f, viewWidth, vanillaViewHeight);
+				Widgets.BeginScrollView(outRect, ref scroll, viewRect, drawBar && needsScrollbar);
+				if (drawContent != null)
+				{
+					UiDebug.PushSpace("scroll", outRect.position);
+					drawContent(new Rect(contentOffsetX, 0f, viewRect.width, viewRect.height));
+					UiDebug.PopSpace();
+				}
+				Widgets.EndScrollView();
 				return false;
 			}
 			float gutter = reserveBar ? UiMetrics.ScrollbarGutter : 0f;

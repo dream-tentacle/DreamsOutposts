@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_1_1.label>更新日志</DreamsOutposts_UpdateNotice_1_1_1.label>
+  <DreamsOutposts_UpdateNotice_1_1_1.entries.0>生活质量优化。</DreamsOutposts_UpdateNotice_1_1_1.entries.0>
+
+  <DreamsOutposts_UpdateNotice_1_1_0.label>更新日志</DreamsOutposts_UpdateNotice_1_1_0.label>
+  <DreamsOutposts_UpdateNotice_1_1_0.entries.0>更加贴近了原版风格，希望你们喜欢。</DreamsOutposts_UpdateNotice_1_1_0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_1_0.entries.1>进入据点后，角色会取消原地图上的床位分配。</DreamsOutposts_UpdateNotice_1_1_0.entries.1>
+  <DreamsOutposts_UpdateNotice_1_1_0.entries.2>优化了防卫的计算逻辑。</DreamsOutposts_UpdateNotice_1_1_0.entries.2>
+
   <DreamsOutposts_UpdateNotice_1_0_11.label>更新日志</DreamsOutposts_UpdateNotice_1_0_11.label>
   <DreamsOutposts_UpdateNotice_1_0_11.entries.0>修复未启用 DLC 时的报错。</DreamsOutposts_UpdateNotice_1_0_11.entries.0>
   <DreamsOutposts_UpdateNotice_1_0_11.entries.1>修复 UI 点击有概率失效的问题。</DreamsOutposts_UpdateNotice_1_0_11.entries.1>

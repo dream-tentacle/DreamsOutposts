@@ -172,9 +172,16 @@ namespace DreamsOutposts
 				return false;
 			}
 			TakeOutOfWorld(pawn);
+			ReleaseBedOnOutpostEntry(pawn);
 			MovePawnInventoryIntoOutpost(outpost, pawn);
 			if (!alreadyPresent) outpost.RequestUpdate();
 			return true;
+		}
+
+		/// <summary>Pawn 正式进入据点后释放原地图床位；不影响王座、死亡安息棺等其他归属。</summary>
+		public static void ReleaseBedOnOutpostEntry(Pawn pawn)
+		{
+			pawn?.ownership?.UnclaimBed();
 		}
 
 		public static void MovePawnInventoryIntoOutpost(Outpost outpost, Pawn pawn)

@@ -44,12 +44,21 @@ namespace DreamsOutposts
 		public float BodyHeight(float width, float availableHeight)
 		{
 			int count = Mathf.Max(outpost?.adventurerRecruitment?.offers.Count ?? 0, 1);
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				return 78f + Gap + count * 82f;
+			}
 			return ControlsHeight + Gap + count * (CardHeight + Gap);
 		}
 
 		public void DrawBody(Rect rect, float availableHeight)
 		{
 			if (outpost?.adventurerRecruitment == null) return;
+			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
+			{
+				DrawVanillaBody(rect);
+				return;
+			}
 			DrawControls(new Rect(rect.x, rect.y, rect.width, ControlsHeight));
 			float y = rect.y + ControlsHeight + Gap;
 			List<AdventurerOffer> offers = outpost.adventurerRecruitment.offers;
@@ -63,6 +72,120 @@ namespace DreamsOutposts
 			{
 				DrawOffer(new Rect(rect.x, y, rect.width, CardHeight), offers[i]);
 				y += CardHeight + Gap;
+			}
+		}
+
+		private void DrawVanillaBody(Rect rect)
+		{
+			const float controlsHeight = 78f;
+			DrawVanillaControls(new Rect(rect.x, rect.y, rect.width, controlsHeight));
+			float y = rect.y + controlsHeight + Gap;
+			List<AdventurerOffer> offers = outpost.adventurerRecruitment.offers;
+			float listHeight = Mathf.Max(offers.Count, 1) * 82f;
+			Widgets.DrawLineHorizontal(rect.x, y - Gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
+			DrawVanillaOffers(new Rect(rect.x, y, rect.width, listHeight), offers);
+		}
+
+		private void DrawVanillaControls(Rect rect)
+		{
+			Rect inner = rect;
+			SkillDef preferred = outpost.adventurerRecruitment.preferredSkill;
+			string value = preferred?.LabelCap.ToString() ?? "DreamsOutposts.Tavern.AnySkill".Translate().ToString();
+			float labelWidth = Mathf.Min(150f, inner.width * 0.28f);
+			float buttonWidth = Mathf.Min(250f, inner.width * 0.38f);
+			UiText.Draw(new Rect(inner.x, inner.y, labelWidth, 30f), "DreamsOutposts.Tavern.Preference".Translate(),
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Rect button = new Rect(inner.x + labelWidth, inner.y, buttonWidth, 30f);
+			if (Widgets.ButtonText(button, value)) OpenSkillMenu();
+
+			int now = Find.TickManager.TicksGame;
+			int remaining = outpost.adventurerRecruitment.nextRecruitTick - now;
+			string next = remaining > 0
+				? "DreamsOutposts.Tavern.Next".Translate(remaining.ToStringTicksToPeriod()).ToString()
+				: "DreamsOutposts.Tavern.Waiting".Translate().ToString();
+			string timer = outpost.adventurerRecruitment.offers.Count >= AdventurerRecruitUtility.MaxOffers
+				? "DreamsOutposts.Tavern.Full".Translate().ToString()
+				: next + " · " + "DreamsOutposts.Tavern.Chance".Translate(
+					AdventurerRecruitUtility.RecruitChance(outpost).ToStringPercent("F0"),
+					AdventurerRecruitUtility.SocialSkillTotal(outpost),
+					AdventurerRecruitUtility.RecruitChanceDivisor.ToString("0")).ToString();
+			UiText.Draw(new Rect(button.xMax + 10f, inner.y, Mathf.Max(inner.xMax - button.xMax - 10f, 30f), 30f), timer,
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight, false, false, true);
+
+			AdventurerRarityProbabilities odds = AdventurerRecruitUtility.ProbabilitiesFor(outpost);
+			StringBuilder oddsText = new StringBuilder();
+			oddsText.Append("DreamsOutposts.Tavern.Odds.Population".Translate(
+				AdventurerRecruitUtility.PopulationTendency(outpost).ToString("0.#")).ToString());
+			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Common, odds.Common));
+			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Excellent, odds.Excellent));
+			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Elite, odds.Elite));
+			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Epic, odds.Epic));
+			const float infoSize = Widgets.InfoCardButtonSize;
+			Rect oddsRect = new Rect(inner.x, inner.y + 42f, Mathf.Max(inner.width - infoSize - 6f, 40f), 30f);
+			UiText.Draw(oddsRect, oddsText.ToString(),
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			Rect infoRect = new Rect(inner.xMax - infoSize, inner.y + 42f + (30f - infoSize) * 0.5f, infoSize, infoSize);
+			if (Widgets.ButtonImage(infoRect, TexButton.Info))
+			{
+				UiOutpostHelpWindow.Open();
+			}
+		}
+
+		private void DrawVanillaOffers(Rect rect, List<AdventurerOffer> offers)
+		{
+			Rect inner = rect;
+			if (offers.Count == 0)
+			{
+				UiText.Draw(new Rect(inner.x, inner.y, inner.width, 82f), "DreamsOutposts.Tavern.Empty".Translate(),
+					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleCenter);
+				return;
+			}
+			float y = inner.y;
+			for (int i = 0; i < offers.Count; i++)
+			{
+				DrawVanillaOfferRow(new Rect(inner.x, y, inner.width, 82f), offers[i]);
+				y += 82f;
+			}
+		}
+
+		private void DrawVanillaOfferRow(Rect row, AdventurerOffer offer)
+		{
+			Pawn pawn = offer?.pawn;
+			if (pawn == null) return;
+			Widgets.DrawHighlightIfMouseover(row);
+			Rect portrait = new Rect(row.x + 6f, row.y + 8f, 52f, 52f);
+			UiDraw.PawnPortrait(portrait, pawn);
+			AdventurerRarity rarity = AdventurerRecruitUtility.RarityFor(pawn);
+			Color rarityColor = AdventurerRecruitUtility.IsLegendary(pawn) ? UiPalette.Legendary : RarityColor(rarity);
+			const float buttonWidth = 86f;
+			const float buttonHeight = 28f;
+			Rect recruitRect = new Rect(row.xMax - buttonWidth * 2f - 12f, row.y + 10f, buttonWidth, buttonHeight);
+			Rect dismissRect = new Rect(row.xMax - buttonWidth - 6f, row.y + 10f, buttonWidth, buttonHeight);
+			float textX = portrait.xMax + 10f;
+			float textWidth = Mathf.Max(recruitRect.x - textX - 10f, 60f);
+			UiText.Draw(new Rect(textX, row.y + 5f, textWidth, 24f), pawn.LabelCap,
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
+			UiText.Draw(new Rect(textX, row.y + 29f, textWidth, 22f), RatingText(pawn, rarity),
+				UiFont.Body, rarityColor, TextAnchor.MiddleLeft, false, false, true);
+			List<SkillRecord> top = pawn.skills?.skills.Where(s => !s.TotallyDisabled).OrderByDescending(s => s.Level).Take(3).ToList() ?? new List<SkillRecord>();
+			string skills = string.Join(" · ", top.Select(s => s.def.LabelCap + " " + s.Level + PassionText(s.passion)).ToArray());
+			int left = Mathf.Max(offer.expireTick - Find.TickManager.TicksGame, 0);
+			string footer = skills + " · " + "DreamsOutposts.Tavern.Expires".Translate(left.ToStringTicksToPeriod()).ToString();
+			UiText.Draw(new Rect(textX, row.y + 52f, Mathf.Max(row.xMax - textX - 6f, 60f), 24f), footer,
+				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			if (Widgets.ButtonText(recruitRect, "DreamsOutposts.Tavern.Recruit".Translate()))
+			{
+				AdventurerRecruitUtility.Recruit(outpost, offer);
+			}
+			if (Widgets.ButtonText(dismissRect, "DreamsOutposts.Tavern.Dismiss".Translate()))
+			{
+				Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+					"DreamsOutposts.Tavern.DismissConfirm".Translate(pawn.LabelShortCap),
+					() => AdventurerRecruitUtility.RemoveOffer(outpost, offer), destructive: true));
+			}
+			if (!Mouse.IsOver(recruitRect) && !Mouse.IsOver(dismissRect) && Widgets.ButtonInvisible(row))
+			{
+				Find.WindowStack.Add(new Dialog_InfoCard(pawn));
 			}
 		}
 
