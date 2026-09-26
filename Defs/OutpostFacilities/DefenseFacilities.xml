@@ -5,7 +5,7 @@
     <facilityTag>Defense</facilityTag>
     <category>DreamsOutposts_CategoryDefense</category>
     <label>watchtower</label>
-    <description>An elevated lookout overlooking the surrounding area. While enabled, each tower adds 10 defense to this outpost and friendly outposts on immediately adjacent tiles.\n\nOne qualified resident can operate all watchtowers in this outpost. Bonuses from multiple towers stack.</description>
+    <description>An elevated lookout overlooking the surrounding area.\n\nActivation requirement: at least one non-downed resident at this outpost with Shooting 10 or higher. One qualified resident can operate all watchtowers in this outpost. While enabled, each tower adds 10 defense to this outpost and friendly outposts on immediately adjacent tiles. Bonuses from multiple towers stack.</description>
     <uiIcon>Turret</uiIcon>
     <buildCost>
       <Steel>100</Steel>

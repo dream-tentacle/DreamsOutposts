@@ -9,7 +9,7 @@
   <!-- EN: Signal operator ready (Intellectual 8+). -->
   <DreamsOutposts.BandTuning.OperatorReady>信号操作员就绪（智识8级以上）。</DreamsOutposts.BandTuning.OperatorReady>
   <!-- EN: Inactive: this outpost needs a colonist with Intellectual 8 or higher. -->
-  <DreamsOutposts.BandTuning.OperatorMissing>未生效：据点需要至少一名智识达到8级的殖民者。</DreamsOutposts.BandTuning.OperatorMissing>
+  <DreamsOutposts.BandTuning.OperatorMissing>未生效：据点需要至少一名未倒地、智识达到8级的殖民者。</DreamsOutposts.BandTuning.OperatorMissing>
   <!-- EN: +{0} bandwidth -->
   <DreamsOutposts.BandTuning.Bonus>+{0}带宽</DreamsOutposts.BandTuning.Bonus>
   <!-- EN: Tuned to {0} -->
@@ -80,8 +80,10 @@
   <DreamsOutposts.Ui.Chip.EventCategoryFactor>{0}倾向 ×{1}</DreamsOutposts.Ui.Chip.EventCategoryFactor>
   <!-- EN: This facility shifts how often {0} events happen. -->
   <DreamsOutposts.Ui.Chip.EventCategoryTip>此设施会改变{0}类事件的发生倾向。</DreamsOutposts.Ui.Chip.EventCategoryTip>
-  <!-- EN: Production modifier from outpost level {0}. -->
-  <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自据点等级 {0} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <!-- EN: Production modifier from {0} level {1}. -->
+  <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自{0}等级 {1} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <!-- EN: Current research speed total; research point output is calculated from this value. -->
+  <DreamsOutposts.Ui.Chip.ResearchSpeedTip>当前据点人员的科研速度合计；科研点数产出会根据这一数值计算。</DreamsOutposts.Ui.Chip.ResearchSpeedTip>
   <!-- EN: outpost level {0} -->
   <DreamsOutposts.Ui.LevelSource>据点等级 {0}</DreamsOutposts.Ui.LevelSource>
   <!-- EN: Limit {0} (built {1}) -->
@@ -102,6 +104,9 @@
   <DreamsOutposts.Ui.Rule.FixedCapacity>固定产能 1</DreamsOutposts.Ui.Rule.FixedCapacity>
   <!-- EN: Efficiency {0} -->
   <DreamsOutposts.Ui.Rule.Efficiency>效率 {0}</DreamsOutposts.Ui.Rule.Efficiency>
+  <DreamsOutposts.Ui.Fact.Efficiency>效率</DreamsOutposts.Ui.Fact.Efficiency>
+  <DreamsOutposts.Ui.Fact.Bandwidth>带宽</DreamsOutposts.Ui.Fact.Bandwidth>
+  <DreamsOutposts.Ui.Fact.BandwidthCompact>带宽 +{0}</DreamsOutposts.Ui.Fact.BandwidthCompact>
   <!-- EN: Core facility · cannot be removed -->
   <DreamsOutposts.Ui.CoreSubLabel>核心设施 · 不可拆除</DreamsOutposts.Ui.CoreSubLabel>
   <!-- EN: Slot {0} -->
@@ -184,6 +189,10 @@
   <DreamsOutposts.Ui.Kv.PerStrikeCost>每次炮击消耗</DreamsOutposts.Ui.Kv.PerStrikeCost>
   <!-- EN: Progress {0}%, {1} left -->
   <DreamsOutposts.Ui.Rule.Progress>进度 {0}%，还需 {1}</DreamsOutposts.Ui.Rule.Progress>
+  <!-- EN: {0}% · {1} -->
+  <DreamsOutposts.Ui.ProgressCompact>{0}% · {1}</DreamsOutposts.Ui.ProgressCompact>
+  <!-- EN: Progress -->
+  <DreamsOutposts.Ui.Details.Progress>进度</DreamsOutposts.Ui.Details.Progress>
   <!-- EN: Output {0} x {1} -->
   <DreamsOutposts.Ui.Rule.Output>产量 {0} × {1}</DreamsOutposts.Ui.Rule.Output>
   <!-- EN: Expected {0} / {1} -->

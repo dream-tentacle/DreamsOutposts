@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>DreamsOutposts_CulturalCenter</defName>
+    <facilityTag>Other</facilityTag>
+    <category>DreamsOutposts_CategoryOther</category>
+    <uiIcon>Person</uiIcon>
+    <label>cultural center</label>
+    <description>A place for sermons, debate and organized cultural instruction.\n\nOperating requirement: at least one non-downed adult colonist at this outpost who follows the colony's primary ideoligion and has Social 5 or higher, plus at least one resident of another ideoligion to instruct. The qualified colonist with the highest conversion power becomes the guide. Every eligible resident is indoctrinated independently, with their own 2-day cycle; when a resident's cycle completes, the guide makes one normal-strength conversion attempt using vanilla conversion rules. All cycles pause while there is no qualified guide or the facility is disabled.</description>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost>
+      <Steel>50</Steel>
+    </buildCost>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Indoctrination">
+        <intervalTicks>120000</intervalTicks>
+        <minSocial>5</minSocial>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

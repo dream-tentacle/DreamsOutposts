@@ -5,15 +5,21 @@
   <DreamsOutposts.Operation.EnabledTip>Operating requirements are met and the facility is not disabled by an event. Individual functions may still require tuning, fuel, or other operating resources.</DreamsOutposts.Operation.EnabledTip>
   <DreamsOutposts.Operation.ColonistSkill>Colonist {0} ≥{1}</DreamsOutposts.Operation.ColonistSkill>
   <DreamsOutposts.Operation.ResidentSkill>Resident {0} ≥{1}</DreamsOutposts.Operation.ResidentSkill>
-  <DreamsOutposts.Operation.ColonistSkillTip>Requires at least one resident colonist with usable {0} at level {1} or higher.</DreamsOutposts.Operation.ColonistSkillTip>
-  <DreamsOutposts.Operation.ResidentSkillTip>Requires at least one resident with usable {0} at level {1} or higher.</DreamsOutposts.Operation.ResidentSkillTip>
-  <DreamsOutposts.FacilityRequiresColonistSkill>Inactive: requires a colonist with {0} ≥ {1}</DreamsOutposts.FacilityRequiresColonistSkill>
+  <DreamsOutposts.Operation.AdultColonistSkill>Adult colonist {0} ≥{1}</DreamsOutposts.Operation.AdultColonistSkill>
+  <DreamsOutposts.Operation.AdultResidentSkill>Adult resident {0} ≥{1}</DreamsOutposts.Operation.AdultResidentSkill>
+  <DreamsOutposts.Operation.ColonistSkillTip>Requires at least one non-downed resident colonist with usable {0} at level {1} or higher.</DreamsOutposts.Operation.ColonistSkillTip>
+  <DreamsOutposts.Operation.ResidentSkillTip>Requires at least one non-downed resident with usable {0} at level {1} or higher.</DreamsOutposts.Operation.ResidentSkillTip>
+  <DreamsOutposts.Operation.AdultColonistSkillTip>Requires at least one adult resident colonist who is not downed and has usable {0} at level {1} or higher.</DreamsOutposts.Operation.AdultColonistSkillTip>
+  <DreamsOutposts.Operation.AdultResidentSkillTip>Requires at least one adult resident who is not downed and has usable {0} at level {1} or higher.</DreamsOutposts.Operation.AdultResidentSkillTip>
+  <DreamsOutposts.FacilityRequiresColonistSkill>Inactive: requires a non-downed colonist with {0} ≥ {1}</DreamsOutposts.FacilityRequiresColonistSkill>
+  <DreamsOutposts.FacilityRequiresAdultColonistSkill>Inactive: requires a non-downed adult colonist with {0} ≥ {1}</DreamsOutposts.FacilityRequiresAdultColonistSkill>
   <DreamsOutposts.Ui.Help.DefenseSources.Head>Defense point sources</DreamsOutposts.Ui.Help.DefenseSources.Head>
   <DreamsOutposts.Ui.Help.DefenseSources>Colonists capable of combat, mechanoids, and defensive facilities.</DreamsOutposts.Ui.Help.DefenseSources>
   <DreamsOutposts.Ui.Help.OutpostAttackPoints.Head>Outpost attack points</DreamsOutposts.Ui.Help.OutpostAttackPoints.Head>
   <DreamsOutposts.Ui.Help.OutpostAttackPoints>Vanilla raid points are calculated from the colony's current situation, then converted into outpost attack points.\n\nExamples (base conversion):\n100 raid points → 12 outpost attack points\n1000 raid points → 27 outpost attack points\n10000 raid points → 58 outpost attack points\n\nActual outpost attack points vary randomly between 80% and 120% of the base value.</DreamsOutposts.Ui.Help.OutpostAttackPoints>
   <DreamsOutposts.WatchtowerSupport>Adjacent watchtower support</DreamsOutposts.WatchtowerSupport>
-  <DreamsOutposts.FacilityRequiresResidentSkill>Inactive: requires a resident with {0} ≥ {1}</DreamsOutposts.FacilityRequiresResidentSkill>
+  <DreamsOutposts.FacilityRequiresResidentSkill>Inactive: requires a non-downed resident with {0} ≥ {1}</DreamsOutposts.FacilityRequiresResidentSkill>
+  <DreamsOutposts.FacilityRequiresAdultResidentSkill>Inactive: requires a non-downed adult resident with {0} ≥ {1}</DreamsOutposts.FacilityRequiresAdultResidentSkill>
   <DreamsOutposts.FacilityTemporarilyDisabled>Temporarily disabled</DreamsOutposts.FacilityTemporarilyDisabled>
   <DreamsOutposts.Defense>Defense</DreamsOutposts.Defense>
   <DreamsOutposts.DefenseFromPawns>From people: {0}</DreamsOutposts.DefenseFromPawns>

@@ -31,7 +31,7 @@ namespace DreamsOutposts
 			return false;
 		}
 
-		public static float ProductionFactor(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		public static float ProcessFactor(Outpost outpost, OutpostFacility facility, OutpostProcessProperties process)
 		{
 			float result = 1f;
 			int now = Find.TickManager.TicksGame;
@@ -39,15 +39,25 @@ namespace DreamsOutposts
 			for (int i = 0; i < (effects?.Count ?? 0); i++)
 			{
 				OutpostTemporaryEffect effect = effects[i];
-				if (effect != null && effect.IsActive(now) && effect.kind == OutpostTemporaryEffectKind.ProductionFactor && effect.MatchesProduction(outpost, facility, production)) result *= Mathf.Max(effect.value, 0f);
+				if (effect != null && effect.IsActive(now) && effect.kind == OutpostTemporaryEffectKind.ProductionFactor && effect.MatchesProcess(outpost, facility, process)) result *= Mathf.Max(effect.value, 0f);
 			}
 			return result;
 		}
 
-		public static void ConsumeProductionEffects(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		public static void ConsumeProcessEffects(Outpost outpost, OutpostFacility facility, OutpostProcessProperties process)
 		{
 			int now = Find.TickManager.TicksGame;
-			outpost?.temporaryEffects?.RemoveAll(effect => effect != null && effect.consumeAfterProduction && effect.IsActive(now) && effect.kind == OutpostTemporaryEffectKind.ProductionFactor && effect.MatchesProduction(outpost, facility, production));
+			outpost?.temporaryEffects?.RemoveAll(effect => effect != null && effect.consumeAfterProduction && effect.IsActive(now) && effect.kind == OutpostTemporaryEffectKind.ProductionFactor && effect.MatchesProcess(outpost, facility, process));
+		}
+
+		public static float ProductionFactor(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		{
+			return ProcessFactor(outpost, facility, production);
+		}
+
+		public static void ConsumeProductionEffects(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		{
+			ConsumeProcessEffects(outpost, facility, production);
 		}
 
 		public static float CategoryOffset(Outpost outpost, OutpostEventCategoryDef category)

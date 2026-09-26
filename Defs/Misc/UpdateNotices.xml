@@ -15,6 +15,36 @@
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
 	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_0</defName>
+		<label>Update log</label>
+		<version>1.2.0</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#6FA8FF&gt;Content&lt;/color&gt;</heading>
+				<entries>
+					<li>Added school outposts and education facilities.</li>
+					<li>Added cultural indoctrination facilities and a dedicated Indoctrination page.</li>
+				</entries>
+			</li>
+			<li>
+				<heading>&lt;color=#78D06B&gt;Experience improvements&lt;/color&gt;</heading>
+				<entries>
+					<li>Greatly improved facility information display. Vanilla and Modern styles now use more consistent information logic.</li>
+					<li>Improved activation requirements, status tips and descriptions so actual mechanics are clearer.</li>
+					<li>Improved trade-order events. If an order quest cannot be generated, a follow-up event now occurs instead of the order silently failing.</li>
+				</entries>
+			</li>
+			<li>
+				<heading>&lt;color=#B98CFF&gt;Balance adjustments&lt;/color&gt;</heading>
+				<entries>
+					<li>Improved mechanitor outposts. The core relay now gains 2 additional bandwidth for each outpost level, and expanded band nodes now provide 2 bandwidth.</li>
+					<li>Added the "Invincible quantum power" setting, which removes distance-based efficiency loss from remote power transmission.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_1_1</defName>
 		<label>Update log</label>
 		<version>1.1.1</version>

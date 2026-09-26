@@ -132,6 +132,29 @@ namespace DreamsOutposts
 
 		public bool IsProducer => !Productions.NullOrEmpty();
 
+		public IEnumerable<OutpostProcessProperties> Processes
+		{
+			get
+			{
+				for (int i = 0; i < (comps?.Count ?? 0); i++)
+				{
+					if (!(comps[i] is OutpostFacilityCompProperties_ProcessBase processProps)) continue;
+					foreach (OutpostProcessProperties process in processProps.Processes)
+						if (process != null) yield return process;
+				}
+			}
+		}
+
+		public bool HasProcesses
+		{
+			get
+			{
+				foreach (OutpostProcessProperties process in Processes)
+					if (process != null) return true;
+				return false;
+			}
+		}
+
 		public bool IsProductionModifier => !productionModifiers.NullOrEmpty();
 
 		public T GetCompProperties<T>() where T : OutpostFacilityCompProperties
@@ -160,23 +183,36 @@ namespace DreamsOutposts
 			return new AcceptanceReport("DreamsOutposts.InstallFail.LevelTooLow".Translate(outpost.level, minOutpostLevel));
 		}
 
-		public void GetProductionModifiersFor(OutpostProductionProperties production, out float offsetSum, out float factorProduct)
+		public void GetProcessModifiersFor(OutpostProcessProperties process, out float offsetSum, out float factorProduct)
 		{
 			offsetSum = 0f;
 			factorProduct = 1f;
-			if (productionModifiers == null || production == null)
+			if (productionModifiers == null || process == null)
 			{
 				return;
 			}
 			for (int i = 0; i < productionModifiers.Count; i++)
 			{
 				OutpostProductionModifier modifier = productionModifiers[i];
-				if (modifier != null && modifier.Matches(production))
+				if (modifier != null && modifier.Matches(process))
 				{
 					offsetSum += modifier.offset;
 					factorProduct *= modifier.factor;
 				}
 			}
+		}
+
+		public void GetProductionModifiersFor(OutpostProductionProperties production, out float offsetSum, out float factorProduct)
+		{
+			GetProcessModifiersFor(production, out offsetSum, out factorProduct);
+		}
+
+		public OutpostProcessProperties GetProcess(string id)
+		{
+			if (string.IsNullOrEmpty(id)) return null;
+			foreach (OutpostProcessProperties process in Processes)
+				if (process.id == id) return process;
+			return null;
 		}
 
 		public OutpostProductionProperties GetProduction(string id)
@@ -253,26 +289,12 @@ namespace DreamsOutposts
 					yield return "researchPrerequisites[" + i + "] is null.";
 				}
 			}
-			List<OutpostProductionProperties> productions = Productions;
-			HashSet<string> ids = new HashSet<string>();
-			for (int j = 0; j < productions.Count; j++)
+			HashSet<string> processIds = new HashSet<string>();
+			foreach (OutpostProcessProperties process in Processes)
 			{
-				OutpostProductionProperties production = productions[j];
-				if (production == null)
+				if (process != null && !processIds.Add(process.id ?? string.Empty))
 				{
-					yield return "productions[" + j + "] is null.";
-					continue;
-				}
-				if (!ids.Add(production.id ?? string.Empty))
-				{
-					yield return "Duplicate production id: " + production.id;
-				}
-				using (IEnumerator<string> enumerator6 = production.ConfigErrors().GetEnumerator())
-				{
-					while (enumerator6.MoveNext())
-					{
-						yield return string.Concat(str3: enumerator6.Current, str0: "Production ", str1: production.id, str2: ": ");
-					}
+					yield return "Duplicate process id across facility comps: " + process.id;
 				}
 			}
 		}

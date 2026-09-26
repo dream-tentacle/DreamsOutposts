@@ -29,7 +29,21 @@ namespace DreamsOutposts
 		public virtual void Update(Outpost outpost, int delta) { }
 		public virtual void UpdateDisabled(Outpost outpost, int delta) { }
 		public virtual void PreRemove(Outpost outpost) { }
-		public virtual void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output) { }
+		/// <summary>
+		/// 输出风格无关的设施语义信息。现代/原版 UI 只负责把这些信息投影成各自的视觉样式。
+		/// </summary>
+		public virtual void BuildUiInfo(Outpost outpost, UiFacilityInfoModel output) { }
+
+		protected UiFacilityInfoGroup NewUiInfoGroup(string title, ThingDef iconThing = null, string tooltip = null)
+		{
+			return new UiFacilityInfoGroup
+			{
+				Title = title,
+				IconThing = iconThing,
+				Tooltip = tooltip,
+				SourceCompType = GetType()
+			};
+		}
 		public virtual void ExposeData() { }
 	}
 }

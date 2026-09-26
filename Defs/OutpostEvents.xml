@@ -948,7 +948,9 @@
         <label>Accept the order</label>
         <description>Take the order and generate a standard trade request quest.</description>
         <effects>
-          <li Class="DreamsOutposts.OutpostEventEffect_GenerateTradeRequestQuest" />
+          <li Class="DreamsOutposts.OutpostEventEffect_GenerateTradeRequestQuest">
+            <failureEvent>DO_Population_BulkOrderFailed</failureEvent>
+          </li>
         </effects>
       </li>
       <li>
@@ -968,7 +970,9 @@
             <thingDef>Silver</thingDef>
             <count>500</count>
           </li>
-          <li Class="DreamsOutposts.OutpostEventEffect_GenerateTradeRequestQuest" />
+          <li Class="DreamsOutposts.OutpostEventEffect_GenerateTradeRequestQuest">
+            <failureEvent>DO_Population_BulkOrderFailed</failureEvent>
+          </li>
         </effects>
       </li>
       <li>
@@ -978,6 +982,34 @@
       </li>
     </options>
     <defaultOptionId>refuse</defaultOptionId>
+    <durationTicks>120000</durationTicks>
+  </DreamsOutposts.OutpostEventDef>
+
+  <DreamsOutposts.OutpostEventDef>
+    <defName>DO_Population_BulkOrderFailed</defName>
+    <label>awkward</label>
+    <description>The caravan contacted headquarters to confirm the order, only to discover that headquarters could not authorize the deal after all. Embarrassed by the mix-up, they offer 500 silver as compensation for breaking the agreement.</description>
+    <category>DreamsOutposts_Population</category>
+    <weight>0</weight>
+    <options>
+      <li>
+        <id>accept</id>
+        <label>Accept</label>
+        <description>Accept the 500 silver compensation.</description>
+        <effects>
+          <li Class="DreamsOutposts.OutpostEventEffect_AddItem">
+            <thingDef>Silver</thingDef>
+            <count>500</count>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <id>forgive</id>
+        <label>Forget it. It wasn't your fault.</label>
+        <description>Decline the compensation. Sometimes things simply fall through.</description>
+      </li>
+    </options>
+    <defaultOptionId>accept</defaultOptionId>
     <durationTicks>120000</durationTicks>
   </DreamsOutposts.OutpostEventDef>
 

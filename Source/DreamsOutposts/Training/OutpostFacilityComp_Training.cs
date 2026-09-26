@@ -16,7 +16,7 @@ namespace DreamsOutposts
 			OutpostTrainingUtility.TickFacility(outpost, parent, (OutpostTrainingProperties)props, delta);
 		}
 
-		public override void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output)
+		public override void BuildUiInfo(Outpost outpost, UiFacilityInfoModel output)
 		{
 			OutpostTrainingProperties training = props as OutpostTrainingProperties;
 			if (training?.skill == null)
@@ -24,15 +24,19 @@ namespace DreamsOutposts
 				return;
 			}
 			SkillDef skill = training.skill;
-			UiFacilitySectionView section = new UiFacilitySectionView();
-			section.Title = "DreamsOutposts.Training.JumpTitle".Translate().ToString();
-			section.ActionLabel = "DreamsOutposts.Training.JumpButton".Translate(skill.LabelCap).ToString();
-			section.ActionTooltip = "DreamsOutposts.Training.JumpTip".Translate(skill.LabelCap).ToString();
-			section.Action = delegate
+			UiFacilityInfoGroup group = NewUiInfoGroup("DreamsOutposts.Training.JumpTitle".Translate().ToString());
+			group.Items.Add(new UiFacilityInfoItem
 			{
-				Window_OutpostManage.JumpToWarehouse(skill);
-			};
-			output.Add(section);
+				Kind = UiFacilityInfoKind.Action,
+				Importance = UiFacilityInfoImportance.Supporting,
+				ActionLabel = "DreamsOutposts.Training.JumpButton".Translate(skill.LabelCap).ToString(),
+				ActionTooltip = "DreamsOutposts.Training.JumpTip".Translate(skill.LabelCap).ToString(),
+				Action = delegate
+				{
+					Window_OutpostManage.JumpToWarehouse(skill);
+				}
+			});
+			output.Groups.Add(group);
 		}
 	}
 }

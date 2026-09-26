@@ -94,6 +94,8 @@
   <DreamsOutposts.Settings.ProductionMultiplier>产出倍率：{0}</DreamsOutposts.Settings.ProductionMultiplier>
   <!-- EN: Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected. -->
   <DreamsOutposts.Settings.ProductionMultiplierDescription>影响常规物品生产、动物驯养数量和研究点。加工设施会随产出提升按比例消耗更多原料；事件奖励及其他收益不受影响。</DreamsOutposts.Settings.ProductionMultiplierDescription>
+  <DreamsOutposts.Settings.InvincibleQuantumPower>无敌量子发电</DreamsOutposts.Settings.InvincibleQuantumPower>
+  <DreamsOutposts.Settings.InvincibleQuantumPower.Description>开启后，远距离发电不再受到距离造成的输电效率折损，所有有效连接均以100%效率输送电力。</DreamsOutposts.Settings.InvincibleQuantumPower.Description>
   <!-- EN: Outpost random events -->
   <DreamsOutposts.Settings.RandomEvents>据点随机事件</DreamsOutposts.Settings.RandomEvents>
   <!-- EN: Enable outpost random events -->

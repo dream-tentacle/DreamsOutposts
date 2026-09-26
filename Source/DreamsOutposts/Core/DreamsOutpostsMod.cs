@@ -229,6 +229,21 @@ namespace DreamsOutposts
 
 			listing.GapLine();
 
+			bool previousQuantumPower = Settings.invincibleQuantumPower;
+			listing.CheckboxLabeled(
+				"DreamsOutposts.Settings.InvincibleQuantumPower".Translate(),
+				ref Settings.invincibleQuantumPower,
+				"DreamsOutposts.Settings.InvincibleQuantumPower.Description".Translate());
+			if (Settings.invincibleQuantumPower != previousQuantumPower)
+			{
+				RemotePowerUtility.NotifyAllLinkedReceivers();
+			}
+
+			listing.Label(
+				"DreamsOutposts.Settings.InvincibleQuantumPower.Description".Translate());
+
+			listing.GapLine();
+
 			listing.Label(
 				"DreamsOutposts.Settings.RandomEvents".Translate());
 

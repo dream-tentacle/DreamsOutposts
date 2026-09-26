@@ -2,5 +2,8 @@
 <LanguageData>
   <DreamsOutposts.Ui.Details.Enabled>Enabled?</DreamsOutposts.Ui.Details.Enabled>
   <DreamsOutposts.Ui.Details.EnabledDescription>Whether the current facility is enabled.</DreamsOutposts.Ui.Details.EnabledDescription>
+  <DreamsOutposts.Ui.Details.ActivationRequirement>Activation requirement</DreamsOutposts.Ui.Details.ActivationRequirement>
+  <DreamsOutposts.Ui.Details.RequirementMet>{0} (met)</DreamsOutposts.Ui.Details.RequirementMet>
+  <DreamsOutposts.Ui.Details.RequirementUnmet>{0} (not met)</DreamsOutposts.Ui.Details.RequirementUnmet>
   <DreamsOutposts.Ui.Details.Info>Info {0}</DreamsOutposts.Ui.Details.Info>
 </LanguageData>

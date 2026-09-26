@@ -20,6 +20,10 @@ namespace DreamsOutposts
 
 		private const float RowGap = 10f;
 
+		private const float SubsectionGap = 16f;
+
+		private const float SubsectionHeadGap = 6f;
+
 		private const string Bullet = "• ";
 
 		private readonly List<UpdateNoticeDef> notices;
@@ -60,19 +64,42 @@ namespace DreamsOutposts
 		private static float SectionHeight(float width, UpdateNoticeDef def)
 		{
 			float height = SectionHeadHeight() + SectionHeadGap;
+			if (!def.sections.NullOrEmpty())
+			{
+				bool drewSection = false;
+				for (int i = 0; i < def.sections.Count; i++)
+				{
+					UpdateNoticeSection section = def.sections[i];
+					if (section == null || section.entries.NullOrEmpty()) continue;
+					if (drewSection) height += SubsectionGap;
+					if (!section.heading.NullOrEmpty())
+					{
+						height += UiText.Height(section.heading, UiFont.Body, width, true) + SubsectionHeadGap;
+					}
+					height += EntriesHeight(section.entries, width);
+					drewSection = true;
+				}
+			}
+			else
+			{
+				height += EntriesHeight(def.entries, width);
+			}
+			return height;
+		}
+
+		private static float EntriesHeight(List<string> entries, float width)
+		{
+			if (entries.NullOrEmpty()) return 0f;
+			float height = 0f;
 			float textWidth = Mathf.Max(width - BulletWidth(), 40f);
-			List<string> entries = def.entries;
+			bool drewEntry = false;
 			for (int i = 0; i < entries.Count; i++)
 			{
-				if (entries[i].NullOrEmpty())
-				{
-					continue;
-				}
-				if (i > 0)
-				{
-					height += RowGap;
-				}
-				height += UiText.Height(entries[i], UiFont.Body, textWidth);
+				string text = entries[i];
+				if (text.NullOrEmpty()) continue;
+				if (drewEntry) height += RowGap;
+				height += UiText.Height(text, UiFont.Body, textWidth);
+				drewEntry = true;
 			}
 			return height;
 		}
@@ -97,26 +124,51 @@ namespace DreamsOutposts
 			stack.Gap(SectionHeadGap);
 
 			float width = stack.Area.width;
+			if (!def.sections.NullOrEmpty())
+			{
+				bool drewSection = false;
+				for (int i = 0; i < def.sections.Count; i++)
+				{
+					UpdateNoticeSection section = def.sections[i];
+					if (section == null || section.entries.NullOrEmpty()) continue;
+					if (drewSection) stack.Gap(SubsectionGap);
+					if (!section.heading.NullOrEmpty())
+					{
+						float headingHeight = UiText.Height(section.heading, UiFont.Body, width, true);
+						// 不在代码里指定小标题颜色。Color.white 仅作为中性乘数，
+						// 实际颜色可由 heading 文本里的 <color> 富文本标签控制。
+						UiText.Draw(stack.Next(headingHeight), section.heading, UiFont.Body, Color.white,
+							TextAnchor.UpperLeft, true, true);
+						stack.Gap(SubsectionHeadGap);
+					}
+					DrawEntries(ref stack, section.entries);
+					drewSection = true;
+				}
+			}
+			else
+			{
+				DrawEntries(ref stack, def.entries);
+			}
+		}
+
+		private static void DrawEntries(ref UiStack stack, List<string> entries)
+		{
+			if (entries.NullOrEmpty()) return;
+			float width = stack.Area.width;
 			float bulletWidth = BulletWidth();
 			float textWidth = Mathf.Max(width - bulletWidth, 40f);
-			List<string> entries = def.entries;
+			bool drewEntry = false;
 			for (int i = 0; i < entries.Count; i++)
 			{
 				string text = entries[i];
-				if (text.NullOrEmpty())
-				{
-					continue;
-				}
-				if (i > 0)
-				{
-					stack.Gap(RowGap);
-				}
+				if (text.NullOrEmpty()) continue;
+				if (drewEntry) stack.Gap(RowGap);
 				float height = UiText.Height(text, UiFont.Body, textWidth);
 				Rect row = stack.Next(height);
-				// 悬挂缩进：项目符号单独画在左边，正文右移一段并换行，续行不会跑到符号底下。
 				UiText.Draw(new Rect(row.x, row.y, bulletWidth, height), Bullet, UiFont.Body, UiPalette.Ink2);
 				UiText.Draw(new Rect(row.x + bulletWidth, row.y, textWidth, height), text, UiFont.Body, UiPalette.Ink2,
 					TextAnchor.UpperLeft, false, true);
+				drewEntry = true;
 			}
 		}
 

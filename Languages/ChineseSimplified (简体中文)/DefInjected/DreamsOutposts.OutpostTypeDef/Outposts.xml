@@ -9,12 +9,12 @@
   <!-- EN: automation camp -->
   <DreamsOutposts_AutomationCamp.label>自动化营地</DreamsOutposts_AutomationCamp.label>
   <!-- EN: A specialized camp organized around centralized automated production.\n\nOutput depends on the level of its automation hub.\n\nRequires a colonist with 5 or more Intellectual to maintain. -->
-  <DreamsOutposts_AutomationCamp.description>围绕集中式自动生产体系建立的专业营地。\n\n自动化中枢由至少一名智识达到5级的殖民者维护。中枢启用后，自动生产设施按营地等级提高产量；未启用时按基础产能生产。</DreamsOutposts_AutomationCamp.description>
+  <DreamsOutposts_AutomationCamp.description>围绕集中式自动生产体系建立的专业营地。\n\n自动化中枢启用条件：据点内至少有一名未倒地、智识达到5级的殖民者。中枢启用时，自动生产设施享有据点等级倍率；中枢未启用时，自动生产设施按基础产能生产。</DreamsOutposts_AutomationCamp.description>
 
   <!-- EN: power generation outpost -->
   <DreamsOutposts_PowerGeneration.label>发电据点</DreamsOutposts_PowerGeneration.label>
   <!-- EN: A specialized outpost that coordinates remote power generation.\n\nOutput depends on the level of its power generation hub. -->
-  <DreamsOutposts_PowerGeneration.description>围绕远程发电与输电体系建立的专业据点。\n\n发电中枢由至少一名智识达到5级的殖民者维护。中枢启用后，发电设施按据点等级提高功率；未启用时按基础功率发电。</DreamsOutposts_PowerGeneration.description>
+  <DreamsOutposts_PowerGeneration.description>围绕远程发电与输电体系建立的专业据点。\n\n发电中枢启用条件：据点内至少有一名未倒地、智识达到5级的殖民者。中枢启用时，发电设施享有据点等级倍率；中枢未启用时，发电设施按基础功率发电。</DreamsOutposts_PowerGeneration.description>
 
   <!-- EN: drilling outpost -->
   <DreamsOutposts_Drilling.label>钻井据点</DreamsOutposts_Drilling.label>
@@ -34,7 +34,7 @@
   <!-- EN: mechanitor outpost -->
   <DreamsOutposts_Mechanitor.label>机械师据点</DreamsOutposts_Mechanitor.label>
   <!-- EN: A remote signal-control site that expands the bandwidth of tuned mechanitors, and expanded band nodes can be built here.\n\nRequires a colonist with 8 or more Intellectual to maintain. -->
-  <DreamsOutposts_Mechanitor.description>用于维持机械体频带信号、拓展机械师带宽的远程据点，可建造扩展频带节点。\n\n至少需要一名智识达到8级的殖民者维护信号设施。设施启用并完成调谐后，为绑定的机械师提供带宽。</DreamsOutposts_Mechanitor.description>
+  <DreamsOutposts_Mechanitor.description>用于维持机械体频带信号、拓展机械师带宽的远程据点，可建造扩展频带节点。\n\n信号设施启用条件：据点内至少有一名未倒地、智识达到8级的殖民者。一名合格殖民者即可维持本据点所有机械师中继站和扩展频带节点。设施启用并完成调谐后，为绑定的机械师提供带宽。</DreamsOutposts_Mechanitor.description>
 
   <!-- EN: mining outpost -->
   <DreamsOutposts_Mining.label>采矿据点</DreamsOutposts_Mining.label>
@@ -55,6 +55,11 @@
   <DreamsOutposts_TrainingCamp.label>训练基地</DreamsOutposts_TrainingCamp.label>
   <!-- EN: A dedicated site where residents drill under instructors day and night.\n\nTraining facilities installed here train residents faster, depending on the level of its training base.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x -->
   <DreamsOutposts_TrainingCamp.description>一座专供训练使用的据点，居民在教官带领下日夜操练。\n\n安装在此据点的训练类设施训练居民的速度更快，倍率与训练基地的等级相关\n\n1级: 1.5倍\n2级: 2倍\n3级: 2.5倍\n4级: 3倍</DreamsOutposts_TrainingCamp.description>
+
+  <!-- EN: school outpost -->
+  <DreamsOutposts_School.label>学校据点</DreamsOutposts_School.label>
+  <!-- EN: A dedicated outpost for raising and educating children. It requires at least one adult colonist with Social 5 or higher as caretaker.\n\nThe school starts at 35% education quality. Each education facility adds 12%, up to 95%. Education quality directly simulates the long-term learning level used for child growth points. -->
+  <DreamsOutposts_School.description>一座专门照料和教育儿童的据点。\n\n学校中心启用条件：据点内至少有一名未倒地、社交达到5级的成年殖民者。学校中心启用时，儿童会按照教育质量持续获得成长点数；学校中心未启用时，教育质量不会提供成长点数。\n\n学校基础教育质量为35%，每个教育类扩建设施增加12%，最高95%。\n\n学校据点的升级时间大幅缩短：升级至2、3、4级分别只需1、2、5天。</DreamsOutposts_School.description>
 
   <!-- EN: town outpost -->
   <DreamsOutposts_Town.label>城镇据点</DreamsOutposts_Town.label>

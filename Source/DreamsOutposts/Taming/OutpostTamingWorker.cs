@@ -12,70 +12,57 @@ namespace DreamsOutposts
 		public override AcceptanceReport CanCreate(IEnumerable<Pawn> pawns, PlanetTile tile)
 		{
 			BiomeDef biome = tile.Valid ? Find.WorldGrid[tile].PrimaryBiome : null;
-			return OutpostProductionWorker_Taming.GetLocalAnimals(biome).Any()
+			return OutpostProcessWorker_Taming.GetLocalAnimals(biome).Any()
 				? AcceptanceReport.WasAccepted
 				: new AcceptanceReport("DreamsOutposts.Taming.NoAnimals".Translate());
 		}
 	}
 
-	public class OutpostProductionWorker_Taming : OutpostProductionWorker
+	public class OutpostProcessWorker_Taming : OutpostProcessWorker
 	{
 		private const string RareFacilityDefName = "DreamsOutposts_RareAnimalTrackingCenter";
 		private const float RareAnimalChance = 0.05f;
-
 		private static List<PawnKindDef> rareAnimals;
 
-		public override bool UsesDynamicProduct => true;
-
-		public override bool OverrideProductionCycle(OutpostProductionContext context)
+		public override void Execute(OutpostProcessContext context)
 		{
 			BiomeDef biome = Find.WorldGrid[context.Outpost.Tile].PrimaryBiome;
 			List<PawnKindDef> localAnimals = GetLocalAnimals(biome).ToList();
 			if (localAnimals.Count == 0)
 			{
-				context.Outcome = OutpostProductionOutcome.Idle;
+				context.Outcome = OutpostProcessOutcome.Idle;
 				context.FailureReason = "no naturally spawning animals on this tile";
-				return true;
+				return;
 			}
 
-			context.BaseOutput = CalculateProduction(context.Outpost, context.Production, context.State);
-			context.ModifiedOutput = OutpostProductionUtility.ApplyModifiers(context.Outpost, context.Facility, context.Production, context.BaseOutput);
-			context.WantedAmount = GenMath.RoundRandom(context.ModifiedOutput);
-			context.ActualAmount = context.WantedAmount;
-			if (context.ActualAmount <= 0)
+			int count = GenMath.RoundRandom(context.ModifiedOutput);
+			if (count <= 0)
 			{
-				context.Outcome = OutpostProductionOutcome.Idle;
+				context.Outcome = OutpostProcessOutcome.Idle;
 				context.FailureReason = "taming capacity rounded to zero";
-				return true;
+				return;
 			}
 
-			for (int i = 0; i < context.ActualAmount; i++)
-			{
+			for (int i = 0; i < count; i++)
 				Capture(context.Outpost, localAnimals.RandomElement());
-			}
 
-			if (HasRareFacility(context.Outpost) && Rand.Chance(RareAnimalChance) && RareAnimals.TryRandomElement(out PawnKindDef rareAnimal))
+			if (HasRareFacility(context.Outpost) &&
+				Rand.Chance(RareAnimalChance) &&
+				RareAnimals.TryRandomElement(out PawnKindDef rareAnimal))
 			{
 				Capture(context.Outpost, rareAnimal);
 			}
 
-			context.Outcome = OutpostProductionOutcome.Completed;
-			OutpostTemporaryEffectUtility.ConsumeProductionEffects(context.Outpost, context.Facility, context.Production);
-			return true;
+			context.Outcome = OutpostProcessOutcome.Completed;
 		}
 
 		public static IEnumerable<PawnKindDef> GetLocalAnimals(BiomeDef biome)
 		{
-			if (biome == null)
-			{
-				yield break;
-			}
+			if (biome == null) yield break;
 			foreach (PawnKindDef kind in biome.AllWildAnimals)
 			{
 				if (IsEligibleAnimal(kind) && biome.CommonalityOfAnimal(kind) > 0f)
-				{
 					yield return kind;
-				}
 			}
 		}
 
@@ -98,17 +85,18 @@ namespace DreamsOutposts
 		private static bool IsEligibleAnimal(PawnKindDef kind)
 		{
 			RaceProperties race = kind?.race?.race;
-			return race != null
-				&& race.Animal
-				&& race.IsFlesh
-				&& !race.IsAnomalyEntity
-				&& race.allowedOnCaravan
-				&& race.trainability != null;
+			return race != null &&
+				race.Animal &&
+				race.IsFlesh &&
+				!race.IsAnomalyEntity &&
+				race.allowedOnCaravan &&
+				race.trainability != null;
 		}
 
 		private static bool HasRareFacility(Outpost outpost)
 		{
-			return outpost.OperationalFacilities.Any(facility => facility?.def?.defName == RareFacilityDefName);
+			return outpost.OperationalFacilities.Any(
+				facility => facility?.def?.defName == RareFacilityDefName);
 		}
 
 		private static void Capture(Outpost outpost, PawnKindDef kind)
@@ -117,7 +105,8 @@ namespace DreamsOutposts
 			if (!outpost.pawns.TryAdd(pawn))
 			{
 				pawn.Destroy();
-				throw new InvalidOperationException("Outpost refused captured animal " + kind.defName + ".");
+				throw new InvalidOperationException(
+					"Outpost refused captured animal " + kind.defName + ".");
 			}
 			outpost.RequestUpdate();
 		}

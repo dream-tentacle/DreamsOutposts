@@ -332,6 +332,18 @@
 
   <DO_Population_BulkOrder.options.2.description>我们的生产线已经够忙了。拒绝订单。</DO_Population_BulkOrder.options.2.description>
  
+  <DO_Population_BulkOrderFailed.label>尴尬</DO_Population_BulkOrderFailed.label>
+
+  <DO_Population_BulkOrderFailed.description>商队联系总部确认订单时，才发现总部那边无法批准这笔交易。对方显然也有些尴尬，并提出支付500白银作为违约赔偿。</DO_Population_BulkOrderFailed.description>
+
+  <DO_Population_BulkOrderFailed.options.0.label>接受</DO_Population_BulkOrderFailed.options.0.label>
+
+  <DO_Population_BulkOrderFailed.options.0.description>接受500白银的赔偿。</DO_Population_BulkOrderFailed.options.0.description>
+
+  <DO_Population_BulkOrderFailed.options.1.label>算了，也不是你们的过错</DO_Population_BulkOrderFailed.options.1.label>
+
+  <DO_Population_BulkOrderFailed.options.1.description>不收这笔赔偿。事情没谈成也不全是他们的责任。</DO_Population_BulkOrderFailed.options.1.description>
+ 
   <DO_Population_GroupMigration.label>集体迁居</DO_Population_GroupMigration.label>
 
   <DO_Population_GroupMigration.description>一小群无家可归者来到据点外。他们不想再继续流浪，希望所有人一起留下——连同他们的饥饿、疲惫和能干活的双手。</DO_Population_GroupMigration.description>

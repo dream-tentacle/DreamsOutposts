@@ -98,6 +98,9 @@ namespace DreamsOutposts
 
 		public float productionMultiplier = DefaultProductionMultiplier;
 
+		/// <summary>开启后，远距离发电不再因世界地图距离产生输电效率折损。</summary>
+		public bool invincibleQuantumPower;
+
 		/// <summary>据点普通随机事件的全局开关。关闭后不再生成随机事件。</summary>
 		public bool randomEventsEnabled = true;
 
@@ -145,6 +148,11 @@ namespace DreamsOutposts
 				ref productionMultiplier,
 				"productionMultiplier",
 				DefaultProductionMultiplier);
+
+			Scribe_Values.Look(
+				ref invincibleQuantumPower,
+				"invincibleQuantumPower",
+				false);
 
 			Scribe_Values.Look(
 				ref uiStyleValue,

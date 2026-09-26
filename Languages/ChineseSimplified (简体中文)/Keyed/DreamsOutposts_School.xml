@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: {0} students · {1} -->
+  <DreamsOutposts.School.NavSummary>{0}名学生 · {1}</DreamsOutposts.School.NavSummary>
+  <!-- EN: Education quality -->
+  <DreamsOutposts.School.EducationQuality>教育质量</DreamsOutposts.School.EducationQuality>
+  <!-- EN: Caretaker -->
+  <DreamsOutposts.School.CaretakerStatus>看护人</DreamsOutposts.School.CaretakerStatus>
+  <!-- EN: Operational -->
+  <DreamsOutposts.School.Running>正常运行</DreamsOutposts.School.Running>
+  <!-- EN: Inactive: {0} -->
+  <DreamsOutposts.School.NotRunning>未运行：{0}</DreamsOutposts.School.NotRunning>
+  <!-- EN: no qualified caretaker -->
+  <DreamsOutposts.School.NoCaretaker>缺少合格看护人</DreamsOutposts.School.NoCaretaker>
+  <!-- EN: Student growth -->
+  <DreamsOutposts.School.StudentGrowth>儿童成长</DreamsOutposts.School.StudentGrowth>
+  <!-- EN: No children are currently studying at this outpost. -->
+  <DreamsOutposts.School.NoStudents>当前没有儿童在此据点学习。</DreamsOutposts.School.NoStudents>
+  <!-- EN: Age {0} · next growth moment at {1} -->
+  <DreamsOutposts.School.AgeAndNextGrowth>年龄 {0} · 下次成长时刻 {1}岁</DreamsOutposts.School.AgeAndNextGrowth>
+  <!-- EN: Age {0} -->
+  <DreamsOutposts.School.AgeOnly>年龄 {0}</DreamsOutposts.School.AgeOnly>
+  <!-- EN: +{0}/day -->
+  <DreamsOutposts.School.GrowthPerDay>+{0}/天</DreamsOutposts.School.GrowthPerDay>
+  <!-- EN: Growth paused -->
+  <DreamsOutposts.School.GrowthPaused>成长暂停</DreamsOutposts.School.GrowthPaused>
+  <!-- EN: Tier {0} -->
+  <DreamsOutposts.School.GrowthTier>成长档位 {0}</DreamsOutposts.School.GrowthTier>
+</LanguageData>

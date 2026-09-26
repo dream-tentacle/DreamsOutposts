@@ -131,14 +131,27 @@ namespace DreamsOutposts
 		public Func<string> RemoveTooltipGetter;
 
 		public readonly List<UiChipView> Chips = new List<UiChipView>();
+		/// <summary>现代风最终显示的 chip 投影。</summary>
+		public readonly List<UiChipView> DisplayChips = new List<UiChipView>();
+
+		/// <summary>
+		/// 风格无关的设施事实。现代风将 Compact 信息投影为 chip，
+		/// 原版风则在信息面板中以属性形式展示。
+		/// </summary>
+		public readonly List<UiFacilityInfoItem> Facts = new List<UiFacilityInfoItem>();
 
 		public int PowerChipIndex = -1;
 		public int OperationChipIndex = -1;
+		/// <summary>由 operatingRequirements 直接生成的风格无关启用状态/条件。</summary>
+		public readonly List<UiFacilityInfoItem> OperationInfo = new List<UiFacilityInfoItem>();
+		/// <summary>OperationInfo 的现代风 chip 投影；不作为信息源。</summary>
 		public readonly List<UiChipView> OperationChips = new List<UiChipView>();
 
 		public readonly List<UiProductionView> Productions = new List<UiProductionView>();
 
-		public readonly List<UiFacilitySectionView> Sections = new List<UiFacilitySectionView>();
+		/// <summary>由设施 Comp 直接产出的风格无关语义信息。</summary>
+		public readonly UiFacilityInfoModel CompInfo = new UiFacilityInfoModel();
+		public List<UiFacilityInfoGroup> InfoGroups => CompInfo.Groups;
 
 		public int ChainId;
 
@@ -629,6 +642,7 @@ namespace DreamsOutposts
 							UiChipKind.Good));
 					}
 				}
+				AddLevelProductionFactorChips(view, def);
 				// 设施对事件分类倾向（倾向）的修正：静态 def 数据，和产能 chip 一样只建一次
 				if (!def.eventCategoryModifiers.NullOrEmpty())
 				{
@@ -679,6 +693,56 @@ namespace DreamsOutposts
 				}
 			}
 			return view;
+		}
+
+		private void AddLevelProductionFactorChips(UiFacilityView view, OutpostFacilityDef def)
+		{
+			List<OutpostProductionModifier> levelModifiers = outpost?.CurrentLevelProperties?.productionModifiers;
+			if (levelModifiers.NullOrEmpty() || def == null || !def.HasProcesses)
+			{
+				return;
+			}
+
+			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
+			for (int i = 0; i < levelModifiers.Count; i++)
+			{
+				OutpostProductionModifier modifier = levelModifiers[i];
+				if (modifier == null || Mathf.Approximately(modifier.factor, 1f))
+				{
+					continue;
+				}
+
+				bool matches = false;
+				foreach (OutpostProcessProperties process in def.Processes)
+				{
+					if (modifier.Matches(process, def))
+					{
+						matches = true;
+						break;
+					}
+				}
+				if (!matches)
+				{
+					continue;
+				}
+
+				bool suppressed = supervisor != null && supervisor.Gates(modifier) && !supervisor.AllowsLevelFactor;
+				string sourceTip = "DreamsOutposts.Ui.Chip.LevelProductionModifierTip"
+					.Translate(
+						outpost?.outpostTypeDef?.LabelCap ?? "DreamsOutposts.Unknown".Translate(),
+						outpost.level)
+					.ToString();
+				string tip = suppressed
+					? sourceTip + "\n\n" + supervisor.InactiveReasons()
+					: sourceTip;
+				UiChipKind kind = suppressed
+					? UiChipKind.Warn
+					: (modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad);
+				view.Chips.Add(new UiChipView(
+					"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
+					kind,
+					tip));
+			}
 		}
 
 		private void BuildModifierChips(UiProductionView productionView, OutpostFacility producingFacility, OutpostProductionProperties production)
@@ -766,22 +830,87 @@ namespace DreamsOutposts
 			RefreshUpgrade();
 			// 生产
 			RefreshProductions(Core);
-			RefreshSections(Core);
+			RefreshInfoGroups(Core);
 			RefreshPowerChip(Core);
+			RefreshFacilityFacts(Core);
 			for (int i = 0; i < Slots.Count; i++)
 			{
 				RefreshProductions(Slots[i]);
-				RefreshSections(Slots[i]);
+				RefreshInfoGroups(Slots[i]);
 				RefreshPowerChip(Slots[i]);
+				RefreshFacilityFacts(Slots[i]);
 			}
 		}
 
-		private void RefreshSections(UiFacilityView view)
+		private void RefreshInfoGroups(UiFacilityView view)
 		{
 			if (view == null) return;
-			view.Sections.Clear();
+			view.CompInfo.Clear();
 			for (int i = 0; i < (view.Facility?.comps?.Count ?? 0); i++)
-				view.Facility.comps[i]?.BuildUiSections(outpost, view.Sections);
+			{
+				OutpostFacilityComp comp = view.Facility.comps[i];
+				if (comp == null) continue;
+				comp.BuildUiInfo(outpost, view.CompInfo);
+			}
+		}
+
+		/// <summary>
+		/// 统一设施事实入口。结构类 chip 仍处于迁移阶段，会在这里归一化；
+		/// 启用状态与启用条件则直接来自 OperationInfo，不再从现代 chip 反推。
+		/// </summary>
+		private void RefreshFacilityFacts(UiFacilityView view)
+		{
+			if (view == null) return;
+			view.Facts.Clear();
+
+			int structuralCount = view.OperationChipIndex >= 0
+				? Mathf.Min(view.OperationChipIndex, view.Chips.Count)
+				: view.Chips.Count;
+			for (int i = 0; i < structuralCount; i++)
+			{
+				UiChipView chip = view.Chips[i];
+				view.Facts.Add(new UiFacilityInfoItem
+				{
+					Kind = UiFacilityInfoKind.Compact,
+					Importance = UiFacilityInfoImportance.Compact,
+					Value = chip.Label,
+					CompactText = chip.Label,
+					Tooltip = chip.Tooltip,
+					Tone = chip.Kind
+				});
+			}
+
+			for (int i = 0; i < view.CompInfo.Facts.Count; i++)
+			{
+				view.Facts.Add(view.CompInfo.Facts[i]);
+			}
+
+			for (int i = 0; i < view.OperationInfo.Count; i++)
+			{
+				view.Facts.Add(view.OperationInfo[i]);
+			}
+
+			RebuildDisplayChips(view, structuralCount);
+		}
+
+		private void RebuildDisplayChips(UiFacilityView view, int structuralCount)
+		{
+			view.DisplayChips.Clear();
+
+			for (int i = 0; i < structuralCount; i++)
+				view.DisplayChips.Add(view.Chips[i]);
+
+			for (int i = 0; i < view.CompInfo.Facts.Count; i++)
+			{
+				UiFacilityInfoItem fact = view.CompInfo.Facts[i];
+				if (fact == null || fact.Importance != UiFacilityInfoImportance.Compact) continue;
+				string text = fact.DisplayText;
+				if (string.IsNullOrEmpty(text)) continue;
+				view.DisplayChips.Add(new UiChipView(text, fact.Tone, fact.Tooltip));
+			}
+
+			for (int i = structuralCount; i < view.Chips.Count; i++)
+				view.DisplayChips.Add(view.Chips[i]);
 		}
 
 		private void RefreshPowerChip(UiFacilityView view)
@@ -968,25 +1097,78 @@ namespace DreamsOutposts
 
 		public static void AddOperationChips(List<UiChipView> chips, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
 		{
+			List<UiFacilityInfoItem> info = new List<UiFacilityInfoItem>();
+			AddOperationInfo(info, outpost, def, facility);
+			for (int i = 0; i < info.Count; i++)
+			{
+				UiFacilityInfoItem item = info[i];
+				chips.Add(new UiChipView(
+					item.CompactText ?? item.DisplayText,
+					item.Tone,
+					item.Tooltip));
+			}
+		}
+
+		public static void AddOperationInfo(List<UiFacilityInfoItem> output, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
+		{
+			if (output == null) return;
+
 			if (facility != null)
 			{
 				AcceptanceReport report = facility.CanOperate(outpost);
-				chips.Add(new UiChipView((report.Accepted ? "DreamsOutposts.Operation.Enabled" : "DreamsOutposts.Operation.Disabled").Translate().ToString(),
-					report.Accepted ? UiChipKind.Good : UiChipKind.Bad,
-					report.Accepted ? "DreamsOutposts.Operation.EnabledTip".Translate().ToString() : report.Reason));
+				output.Add(new UiFacilityInfoItem
+				{
+					Id = "operation.status",
+					Kind = UiFacilityInfoKind.Status,
+					Importance = UiFacilityInfoImportance.Compact,
+					Label = "DreamsOutposts.Ui.Details.Enabled".Translate().ToString(),
+					Value = (report.Accepted ? "Yes" : "No").Translate().ToString(),
+					CompactText = (report.Accepted
+						? "DreamsOutposts.Operation.Enabled"
+						: "DreamsOutposts.Operation.Disabled").Translate().ToString(),
+					Tooltip = report.Accepted
+						? "DreamsOutposts.Operation.EnabledTip".Translate().ToString()
+						: report.Reason,
+					Tone = report.Accepted ? UiChipKind.Good : UiChipKind.Bad
+				});
 			}
-			foreach (OutpostFacilityRequirement requirement in def?.operatingRequirements ?? new List<OutpostFacilityRequirement>())
+
+			List<OutpostFacilityRequirement> requirements = def?.operatingRequirements;
+			for (int i = 0; i < (requirements?.Count ?? 0); i++)
 			{
+				OutpostFacilityRequirement requirement = requirements[i];
 				if (requirement == null) continue;
-				chips.Add(new UiChipView(requirement.Label, requirement.Check(outpost).Accepted ? UiChipKind.Good : UiChipKind.Warn, requirement.Description));
+				AcceptanceReport report = requirement.Check(outpost);
+				output.Add(new UiFacilityInfoItem
+				{
+					Id = "operation.requirement." + i,
+					Kind = UiFacilityInfoKind.Requirement,
+					Importance = UiFacilityInfoImportance.Compact,
+					Label = "DreamsOutposts.Ui.Details.ActivationRequirement".Translate().ToString(),
+					Value = (report.Accepted
+						? "DreamsOutposts.Ui.Details.RequirementMet"
+						: "DreamsOutposts.Ui.Details.RequirementUnmet").Translate(requirement.Label).ToString(),
+					CompactText = requirement.Label,
+					Tooltip = requirement.Description,
+					Tone = report.Accepted ? UiChipKind.Good : UiChipKind.Warn
+				});
 			}
 		}
 
 		private void RefreshOperationChips(UiFacilityView view)
 		{
 			if (view?.Facility == null || view.OperationChipIndex < 0) return;
+			view.OperationInfo.Clear();
+			AddOperationInfo(view.OperationInfo, outpost, view.Facility.def, view.Facility);
 			view.OperationChips.Clear();
-			AddOperationChips(view.OperationChips, outpost, view.Facility.def, view.Facility);
+			for (int i = 0; i < view.OperationInfo.Count; i++)
+			{
+				UiFacilityInfoItem item = view.OperationInfo[i];
+				view.OperationChips.Add(new UiChipView(
+					item.CompactText ?? item.DisplayText,
+					item.Tone,
+					item.Tooltip));
+			}
 			view.Chips.RemoveRange(view.OperationChipIndex, view.Chips.Count - view.OperationChipIndex);
 			view.Chips.AddRange(view.OperationChips);
 		}
@@ -1568,18 +1750,6 @@ namespace DreamsOutposts
 				rule.Facts.Add("DreamsOutposts.Ui.Rule.Expected".Translate(production.Output.ToString("0.#"), production.IntervalText).ToString());
 				rule.FactKinds.Add("good");
 				AddTemporaryProductionEffectFacts(rule, view.Facility, props);
-				float capacity = 0f;
-				if (props.Worker.UsesPersonnelCapacity(props))
-				{
-					OutpostProductionUtility.TryCalculatePersonnelCapacity(outpost, props, out capacity);
-				}
-				// 产能这一条完全交给 worker 描述：StatDef 格式、普通数字、或「固定产能 1」。
-				string capacityFact = props.Worker.DescribeCapacity(outpost, props, capacity);
-				if (!string.IsNullOrEmpty(capacityFact))
-				{
-					rule.Facts.Add(capacityFact);
-					rule.FactKinds.Add("neutral");
-				}
 				if (props.HasSkillRequirement)
 				{
 					rule.Facts.Add("DreamsOutposts.Ui.Rule.SkillFilter".Translate(props.requiredSkill.LabelCap, props.requiredSkillLevel).ToString());

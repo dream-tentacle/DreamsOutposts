@@ -25,5 +25,13 @@
   <DreamsOutposts_ManagePage_Tavern.label>酒馆</DreamsOutposts_ManagePage_Tavern.label>
   <!-- EN: Adventurers currently available to recruit. -->
   <DreamsOutposts_ManagePage_Tavern.description>当前可供招募的冒险者。</DreamsOutposts_ManagePage_Tavern.description>
+
+  <!-- EN: students -->
+  <DreamsOutposts_ManagePage_School.label>学生</DreamsOutposts_ManagePage_School.label>
+  <!-- EN: Current child growth and education status at this school outpost. -->
+  <DreamsOutposts_ManagePage_School.description>查看此学校据点中儿童当前的成长与教育情况。</DreamsOutposts_ManagePage_School.description>
+
+  <DreamsOutposts_ManagePage_Indoctrination.label>教化</DreamsOutposts_ManagePage_Indoctrination.label>
+  <DreamsOutposts_ManagePage_Indoctrination.description>查看所有居民的教化状态，以及距离下一次改信尝试的进度。</DreamsOutposts_ManagePage_Indoctrination.description>
   
 </LanguageData>

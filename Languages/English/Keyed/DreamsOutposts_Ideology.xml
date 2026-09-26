@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <DreamsOutposts.Indoctrination.TargetIdeo>Target ideoligion</DreamsOutposts.Indoctrination.TargetIdeo>
+  <DreamsOutposts.Indoctrination.Guide>Guide: {0}</DreamsOutposts.Indoctrination.Guide>
+  <DreamsOutposts.Indoctrination.NoGuide>No qualified guide (adult primary-ideoligion colonist, Social ≥ {0})</DreamsOutposts.Indoctrination.NoGuide>
+  <DreamsOutposts.Indoctrination.GuideTip>{0} is currently leading cultural instruction. Conversion power: {1}.</DreamsOutposts.Indoctrination.GuideTip>
+  <DreamsOutposts.Indoctrination.CurrentTarget>Current instruction</DreamsOutposts.Indoctrination.CurrentTarget>
+  <DreamsOutposts.Indoctrination.NoTarget>No resident needs conversion</DreamsOutposts.Indoctrination.NoTarget>
+  <DreamsOutposts.Indoctrination.Certainty>Certainty: {0}</DreamsOutposts.Indoctrination.Certainty>
+  <DreamsOutposts.Indoctrination.Converted>{0} has converted to {1} under the guidance of {2}.</DreamsOutposts.Indoctrination.Converted>
+  <DreamsOutposts.Indoctrination.Panel.NavSummary>{0} targets · {1}</DreamsOutposts.Indoctrination.Panel.NavSummary>
+  <DreamsOutposts.Indoctrination.Panel.Running>Running</DreamsOutposts.Indoctrination.Panel.Running>
+  <DreamsOutposts.Indoctrination.Panel.Paused>Paused</DreamsOutposts.Indoctrination.Panel.Paused>
+  <DreamsOutposts.Indoctrination.Panel.ProgressHeading>Indoctrination progress</DreamsOutposts.Indoctrination.Panel.ProgressHeading>
+  <DreamsOutposts.Indoctrination.Panel.NoTargets>No residents currently need indoctrination.</DreamsOutposts.Indoctrination.Panel.NoTargets>
+  <DreamsOutposts.Indoctrination.Panel.GuideStatus>Indoctrination status</DreamsOutposts.Indoctrination.Panel.GuideStatus>
+  <DreamsOutposts.Indoctrination.Panel.TargetCount>Residents needing indoctrination: {0}</DreamsOutposts.Indoctrination.Panel.TargetCount>
+  <DreamsOutposts.Indoctrination.Panel.ConversionPower>Conversion power: {0}</DreamsOutposts.Indoctrination.Panel.ConversionPower>
+  <DreamsOutposts.Indoctrination.Panel.CurrentIdeo>Current ideoligion: {0}</DreamsOutposts.Indoctrination.Panel.CurrentIdeo>
+  <DreamsOutposts.Indoctrination.Panel.NextAttempt>{0}% · next attempt in {1}</DreamsOutposts.Indoctrination.Panel.NextAttempt>
+  <DreamsOutposts.Indoctrination.Panel.ProgressPaused>{0}% · paused</DreamsOutposts.Indoctrination.Panel.ProgressPaused>
+  <DreamsOutposts.Indoctrination.Panel.GuideRunning>{0} is leading indoctrination</DreamsOutposts.Indoctrination.Panel.GuideRunning>
+</LanguageData>

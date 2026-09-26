@@ -96,8 +96,16 @@
   <DreamsOutposts.FacilityTag.Recruitment>招募</DreamsOutposts.FacilityTag.Recruitment>
   <!-- EN: Training -->
   <DreamsOutposts.FacilityTag.Training>训练</DreamsOutposts.FacilityTag.Training>
+  <!-- EN: Education -->
+  <DreamsOutposts.FacilityTag.Education>教育</DreamsOutposts.FacilityTag.Education>
   <!-- EN: Other -->
   <DreamsOutposts.FacilityTag.Other>其他</DreamsOutposts.FacilityTag.Other>
+  <!-- EN: Education quality -->
+  <DreamsOutposts.Education.Quality>教育质量</DreamsOutposts.Education.Quality>
+  <!-- EN: {0} students -->
+  <DreamsOutposts.Education.Students>{0}名学生</DreamsOutposts.Education.Students>
+  <!-- EN: Education contribution -->
+  <DreamsOutposts.Education.Contribution>教育贡献</DreamsOutposts.Education.Contribution>
   <!-- EN: Manager present ({1} {0}) -->
   <DreamsOutposts.ProductionSupervisor.Present>已有{0}{1}管理者</DreamsOutposts.ProductionSupervisor.Present>
   <!-- EN: Missing manager ({1} {0}) -->

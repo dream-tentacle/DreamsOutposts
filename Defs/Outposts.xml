@@ -117,13 +117,13 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="Ludeon.RimWorld.Biotech">
     <defName>DreamsOutposts_Mechanitor</defName>
     <label>mechanitor outpost</label>
-    <description>A remote signal-control outpost that expands mechanitor bandwidth and supports additional band nodes.\n\nAt least one resident colonist with Intellectual 8 or higher is required to maintain its signal facilities. Enabled facilities provide bandwidth to their linked mechanitor once tuned.</description>
+    <description>A remote signal-control outpost that expands mechanitor bandwidth and supports additional band nodes.\n\nActivation requirement for its signal facilities: at least one non-downed colonist at this outpost with Intellectual 8 or higher. One qualified colonist can maintain all mechanitor relays and expanded band nodes here. Enabled and tuned facilities provide bandwidth to their linked mechanitor.</description>
     <coreFacility>DreamsOutposts_MechanitorRelay</coreFacility>
   </DreamsOutposts.OutpostTypeDef>
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_AutomationCamp</defName>
     <label>automation camp</label>
-    <description>A specialized camp organized around centralized automated production.\n\nIts automation hub requires at least one resident colonist with Intellectual 5 or higher. While the hub is enabled, automatic production increases with outpost level; otherwise, facilities operate at base output.</description>
+    <description>A specialized camp organized around centralized automated production.\n\nActivation requirement for the automation hub: at least one non-downed colonist at this outpost with Intellectual 5 or higher. While the hub is enabled, automatic production receives the outpost level multiplier. While it is disabled, automatic production facilities operate at base output.</description>
     <coreFacility>DreamsOutposts_AutomationHub</coreFacility>
     <levels Inherit="False">
       <li>
@@ -182,7 +182,7 @@
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase">
     <defName>DreamsOutposts_PowerGeneration</defName>
     <label>power generation outpost</label>
-    <description>A specialized outpost for remote power generation and transmission.\n\nIts power generation hub requires at least one resident colonist with Intellectual 5 or higher. While the hub is enabled, generator output increases with outpost level; otherwise, generators operate at base power output.</description>
+    <description>A specialized outpost for remote power generation and transmission.\n\nActivation requirement for the power generation hub: at least one non-downed colonist at this outpost with Intellectual 5 or higher. While the hub is enabled, generators receive the outpost level multiplier. While it is disabled, generators operate at base power output.</description>
     <coreFacility>DreamsOutposts_PowerHub</coreFacility>
     <levels Inherit="False">
       <li>
@@ -254,6 +254,41 @@
           <ComponentIndustrial>6</ComponentIndustrial>
         </cost>
         <trainingFactor>3</trainingFactor>
+      </li>
+    </levels>
+  </DreamsOutposts.OutpostTypeDef>
+  <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_School</defName>
+    <label>school outpost</label>
+    <description>A dedicated outpost for raising and educating children.\n\nActivation requirement for the school center: at least one non-downed adult colonist at this outpost with Social 5 or higher. While the school center is enabled, children gain growth points according to education quality. While it is disabled, education quality contributes no growth points.\n\nThe school starts at 35% education quality. Each education facility adds 12%, up to 95%.\n\nSchool outposts have greatly reduced upgrade times: upgrading to levels 2, 3 and 4 takes only 1, 2 and 5 days respectively.</description>
+    <coreFacility>DreamsOutposts_SchoolCenter</coreFacility>
+    <levels Inherit="False">
+      <li>
+        <slotCount>2</slotCount>
+        <daysRequired>0</daysRequired>
+      </li>
+      <li>
+        <slotCount>3</slotCount>
+        <daysRequired>1</daysRequired>
+        <cost>
+          <Steel>30</Steel>
+        </cost>
+      </li>
+      <li>
+        <slotCount>4</slotCount>
+        <daysRequired>2</daysRequired>
+        <cost>
+          <Steel>50</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
+        </cost>
+      </li>
+      <li>
+        <slotCount>5</slotCount>
+        <daysRequired>5</daysRequired>
+        <cost>
+          <Steel>100</Steel>
+          <ComponentIndustrial>6</ComponentIndustrial>
+        </cost>
       </li>
     </levels>
   </DreamsOutposts.OutpostTypeDef>

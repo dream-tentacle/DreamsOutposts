@@ -50,8 +50,14 @@
   </DreamsOutposts.OutpostFacilityCategoryDef>
 
   <DreamsOutposts.OutpostFacilityCategoryDef>
+    <defName>DreamsOutposts_CategoryEducation</defName>
+    <label>Education</label>
+    <order>8</order>
+  </DreamsOutposts.OutpostFacilityCategoryDef>
+
+  <DreamsOutposts.OutpostFacilityCategoryDef>
     <defName>DreamsOutposts_CategoryOther</defName>
     <label>Other</label>
-    <order>8</order>
+    <order>9</order>
   </DreamsOutposts.OutpostFacilityCategoryDef>
 </Defs>

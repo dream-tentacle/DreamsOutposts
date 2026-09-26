@@ -88,7 +88,7 @@ namespace DreamsOutposts
 		{
 			List<UiChipView> chips = new List<UiChipView>
 			{
-				new UiChipView("DreamsOutposts.BandTuning.Bonus".Translate(node.Props.bandwidth).ToString(), UiChipKind.Info)
+				new UiChipView("DreamsOutposts.BandTuning.Bonus".Translate(node.BandwidthFor(outpost)).ToString(), UiChipKind.Info)
 			};
 			chips.Add(new UiChipView((hasOperator ? "DreamsOutposts.Operation.Enabled" : "DreamsOutposts.Operation.Disabled").Translate().ToString(),
 				hasOperator ? UiChipKind.Good : UiChipKind.Bad, hasOperator ? "DreamsOutposts.Operation.EnabledTip".Translate().ToString() : node.parent.CanOperate(outpost).Reason));

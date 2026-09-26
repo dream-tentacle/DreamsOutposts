@@ -3,7 +3,7 @@
   
   <!-- EN: expanded band node -->
   <DreamsOutposts_ExpandedBandNode.label>扩展频带节点</DreamsOutposts_ExpandedBandNode.label>
-  <!-- EN: A dedicated mechanoid-band amplifier. Once tuned to a mechanitor, it provides 1 bandwidth while an intellectual operator maintains the signal. -->
-  <DreamsOutposts_ExpandedBandNode.description>专用机械体频带信号放大设施。启用并完成调谐后，为绑定的机械师提供1点带宽。</DreamsOutposts_ExpandedBandNode.description>
+  <!-- EN: A dedicated mechanoid-band amplifier. Once tuned to a mechanitor, it provides 2 bandwidth while an intellectual operator maintains the signal. -->
+  <DreamsOutposts_ExpandedBandNode.description>专用机械体频带信号放大设施。\n\n启用条件：据点内至少有一名未倒地、智识达到8级的殖民者。一名合格殖民者即可维持本据点所有机械师中继站和扩展频带节点。设施启用并完成调谐后，为绑定的机械师提供2点带宽。</DreamsOutposts_ExpandedBandNode.description>
   
 </LanguageData>

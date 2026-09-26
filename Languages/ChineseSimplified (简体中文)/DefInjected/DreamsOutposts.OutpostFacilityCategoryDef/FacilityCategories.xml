@@ -21,6 +21,9 @@
   <!-- EN: Training -->
   <DreamsOutposts_CategoryTraining.label>训练</DreamsOutposts_CategoryTraining.label>
 
+  <!-- EN: Education -->
+  <DreamsOutposts_CategoryEducation.label>教育</DreamsOutposts_CategoryEducation.label>
+
   <!-- EN: Other -->
   <DreamsOutposts_CategoryOther.label>其他</DreamsOutposts_CategoryOther.label>
 </LanguageData>

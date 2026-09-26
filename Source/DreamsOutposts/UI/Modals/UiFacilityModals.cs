@@ -34,10 +34,10 @@ namespace DreamsOutposts
 			float y = rect.y;
 			float width = rect.width;
 			bool firstSection = true;
-			if (details.Source?.OperationChips.Count > 0)
+			if (details.Source?.Chips.Count > 0)
 			{
-				float chipHeight = UiDraw.ChipsHeight(details.Source.OperationChips, width, true);
-				if (!measure) UiDraw.Chips(new Rect(rect.x, y, width, chipHeight), details.Source.OperationChips, true);
+				float chipHeight = UiDraw.ChipsHeight(details.Source.DisplayChips, width, true);
+				if (!measure) UiDraw.Chips(new Rect(rect.x, y, width, chipHeight), details.Source.DisplayChips, true);
 				y += chipHeight + 12f;
 			}
 			if (!string.IsNullOrEmpty(details.Description))
@@ -221,9 +221,9 @@ namespace DreamsOutposts
 		{
 			get
 			{
-				if (selectedCategory == null)
+				List<OutpostFacilityCategoryDef> categories = VisibleCategories();
+				if (selectedCategory == null || !categories.Contains(selectedCategory))
 				{
-					IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
 					selectedCategory = (categories.Count > 0) ? categories[0] : null;
 				}
 				return selectedCategory;
@@ -248,6 +248,29 @@ namespace DreamsOutposts
 			List<UiInstallCardView> source = shell.Cache.InstallCandidates(slot, shell.InstallOnlyAvailable);
 			OutpostFacilityCategoryDef category = SelectedCategory;
 			return source.FindAll(card => card?.Def != null && card.Def.Category == category);
+		}
+
+		/// <summary>
+		/// 只显示当前据点类型实际有设施候选的分类。
+		/// 使用「全部候选」而不是「当前可建」列表，因此资源、研究、等级等临时条件不会让分类标签消失。
+		/// </summary>
+		private List<OutpostFacilityCategoryDef> VisibleCategories()
+		{
+			List<UiInstallCardView> source = shell.Cache.InstallCandidates(slot, onlyAvailable: false);
+			HashSet<OutpostFacilityCategoryDef> used = new HashSet<OutpostFacilityCategoryDef>();
+			for (int i = 0; i < source.Count; i++)
+			{
+				OutpostFacilityCategoryDef category = source[i]?.Def?.Category;
+				if (category != null) used.Add(category);
+			}
+
+			IReadOnlyList<OutpostFacilityCategoryDef> all = OutpostFacilityCategoryUtility.AllInOrder;
+			List<OutpostFacilityCategoryDef> result = new List<OutpostFacilityCategoryDef>();
+			for (int i = 0; i < all.Count; i++)
+			{
+				if (used.Contains(all[i])) result.Add(all[i]);
+			}
+			return result;
 		}
 
 		private static float MeasureGrid(float width, List<UiInstallCardView> cards)
@@ -336,7 +359,8 @@ namespace DreamsOutposts
 				return;
 			}
 
-			IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
+			List<OutpostFacilityCategoryDef> categories = VisibleCategories();
+			if (categories.Count == 0) return;
 			OutpostFacilityCategoryDef selected = SelectedCategory;
 			UiDraw.Box(rect, (int)UiMetrics.RadiusSm, UiPalette.Raised, UiPalette.Line);
 			Rect inner = rect.ContractedBy(4f);
@@ -362,7 +386,7 @@ namespace DreamsOutposts
 
 		private List<TabRecord> BuildVanillaTagTabs()
 		{
-			IReadOnlyList<OutpostFacilityCategoryDef> categories = OutpostFacilityCategoryUtility.AllInOrder;
+			List<OutpostFacilityCategoryDef> categories = VisibleCategories();
 			OutpostFacilityCategoryDef selected = SelectedCategory;
 			List<TabRecord> tabs = new List<TabRecord>(categories.Count);
 			for (int i = 0; i < categories.Count; i++)
@@ -378,13 +402,15 @@ namespace DreamsOutposts
 
 		private float GetTagTabsHeight(float width)
 		{
+			List<OutpostFacilityCategoryDef> categories = VisibleCategories();
+			if (categories.Count == 0) return 0f;
 			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
 				Rect tabsRect = new Rect(0f, 0f, Mathf.Max(width, 1f), 1000f);
 				return TabDrawer.GetOverflowTabHeight(tabsRect, BuildVanillaTagTabs(), 100f, 200f);
 			}
 
-			int rowCount = Mathf.CeilToInt((float)OutpostFacilityCategoryUtility.AllInOrder.Count / TagTabsPerRow);
+			int rowCount = Mathf.CeilToInt((float)categories.Count / TagTabsPerRow);
 			return Mathf.Max(rowCount, 1) * TagTabRowHeight;
 		}
 	}

@@ -4,7 +4,7 @@
   <DreamsOutposts.BandTuning.GizmoDesc>Tune this outpost's band relays to specific mechanitors.</DreamsOutposts.BandTuning.GizmoDesc>
   <DreamsOutposts.BandTuning.Title>Band tuning</DreamsOutposts.BandTuning.Title>
   <DreamsOutposts.BandTuning.OperatorReady>Signal operator ready (Intellectual 8+).</DreamsOutposts.BandTuning.OperatorReady>
-  <DreamsOutposts.BandTuning.OperatorMissing>Inactive: this outpost needs a colonist with Intellectual 8 or higher.</DreamsOutposts.BandTuning.OperatorMissing>
+  <DreamsOutposts.BandTuning.OperatorMissing>Inactive: this outpost needs a non-downed colonist with Intellectual 8 or higher.</DreamsOutposts.BandTuning.OperatorMissing>
   <DreamsOutposts.BandTuning.Bonus>+{0} bandwidth</DreamsOutposts.BandTuning.Bonus>
   <DreamsOutposts.BandTuning.Tuned>Tuned to {0}</DreamsOutposts.BandTuning.Tuned>
   <DreamsOutposts.BandTuning.Untuned>Untuned</DreamsOutposts.BandTuning.Untuned>
@@ -41,7 +41,8 @@
   <DreamsOutposts.Ui.Chip.EventCategoryOffset>{0} tendency {1}</DreamsOutposts.Ui.Chip.EventCategoryOffset>
   <DreamsOutposts.Ui.Chip.EventCategoryFactor>{0} tendency ×{1}</DreamsOutposts.Ui.Chip.EventCategoryFactor>
   <DreamsOutposts.Ui.Chip.EventCategoryTip>This facility shifts how often {0} events happen.</DreamsOutposts.Ui.Chip.EventCategoryTip>
-  <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>Production modifier from outpost level {0}.</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>Production modifier from {0} level {1}.</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
+  <DreamsOutposts.Ui.Chip.ResearchSpeedTip>Current total research speed of eligible outpost personnel; research point output is calculated from this value.</DreamsOutposts.Ui.Chip.ResearchSpeedTip>
   <DreamsOutposts.Ui.LevelSource>outpost level {0}</DreamsOutposts.Ui.LevelSource>
   <DreamsOutposts.Ui.Chip.Limit>Limit {0} (built {1})</DreamsOutposts.Ui.Chip.Limit>
   <DreamsOutposts.Ui.Chip.ResearchDone>Research done</DreamsOutposts.Ui.Chip.ResearchDone>
@@ -52,6 +53,9 @@
   <DreamsOutposts.Ui.Chip.TrainingTip>{0}: every colonist stationed here gains {1} xp per hour. Pawns who are incapable of that work gain nothing.</DreamsOutposts.Ui.Chip.TrainingTip>
   <DreamsOutposts.Ui.Rule.FixedCapacity>Fixed capacity 1</DreamsOutposts.Ui.Rule.FixedCapacity>
   <DreamsOutposts.Ui.Rule.Efficiency>Efficiency {0}</DreamsOutposts.Ui.Rule.Efficiency>
+  <DreamsOutposts.Ui.Fact.Efficiency>Efficiency</DreamsOutposts.Ui.Fact.Efficiency>
+  <DreamsOutposts.Ui.Fact.Bandwidth>Bandwidth</DreamsOutposts.Ui.Fact.Bandwidth>
+  <DreamsOutposts.Ui.Fact.BandwidthCompact>Bandwidth +{0}</DreamsOutposts.Ui.Fact.BandwidthCompact>
   <DreamsOutposts.Ui.CoreSubLabel>Core facility · cannot be removed</DreamsOutposts.Ui.CoreSubLabel>
   <DreamsOutposts.Ui.SlotLabel>Slot {0}</DreamsOutposts.Ui.SlotLabel>
   <DreamsOutposts.Ui.Nav.Slots>{0}/{1} slots</DreamsOutposts.Ui.Nav.Slots>
@@ -95,6 +99,8 @@
   <DreamsOutposts.Ui.Kv.SkillReq>Skill requirement</DreamsOutposts.Ui.Kv.SkillReq>
   <DreamsOutposts.Ui.Kv.PerStrikeCost>Cost per strike</DreamsOutposts.Ui.Kv.PerStrikeCost>
   <DreamsOutposts.Ui.Rule.Progress>Progress {0}%, {1} left</DreamsOutposts.Ui.Rule.Progress>
+  <DreamsOutposts.Ui.ProgressCompact>{0}% · {1}</DreamsOutposts.Ui.ProgressCompact>
+  <DreamsOutposts.Ui.Details.Progress>Progress</DreamsOutposts.Ui.Details.Progress>
   <DreamsOutposts.Ui.Rule.Output>Output {0} x {1}</DreamsOutposts.Ui.Rule.Output>
   <DreamsOutposts.Ui.Rule.Expected>Expected {0} / {1}</DreamsOutposts.Ui.Rule.Expected>
   <DreamsOutposts.Ui.Rule.TemporaryProduction>Event output ×{0}, {1} left</DreamsOutposts.Ui.Rule.TemporaryProduction>

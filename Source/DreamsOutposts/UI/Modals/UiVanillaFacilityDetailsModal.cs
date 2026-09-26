@@ -73,34 +73,49 @@ namespace DreamsOutposts
             });
 
             UiFacilityView source = details.Source;
-            if (source?.OperationChips.Count > 0)
+            int basicsInfoIndex = 1;
+            for (int i = 0; i < (source?.Facts?.Count ?? 0); i++)
             {
-                UiChipView status = source.OperationChips[0];
-                bool enabled = status.Kind == UiChipKind.Good;
-                string explanation = "DreamsOutposts.Ui.Details.EnabledDescription".Translate();
-                if (!enabled && !string.IsNullOrEmpty(status.Tooltip))
+                AddSemanticEntry(basics, source.Facts[i], ref basicsInfoIndex);
+            }
+
+            // 设施 Comp 的信息只在缓存层归一化一次。原版详情不再判断“这是什么设施”，
+            // 只把统一信息组投影成 StatsReport 风格的属性行。
+            for (int groupIndex = 0; groupIndex < (source?.InfoGroups?.Count ?? 0); groupIndex++)
+            {
+                UiFacilityInfoGroup group = source.InfoGroups[groupIndex];
+                if (group == null || group.SourceCompType == typeof(OutpostFacilityComp_Production))
                 {
-                    explanation += "\n\n" + status.Tooltip;
+                    // 普通生产规则在下面已有更完整的 UiRuleView，避免同一信息显示两遍。
+                    continue;
                 }
 
-                entries.Add(new Entry
+                string category = string.IsNullOrEmpty(group.Title) ? basics : group.Title;
+                int infoIndex = 1;
+                for (int itemIndex = 0; itemIndex < group.Items.Count; itemIndex++)
                 {
-                    Category = basics,
-                    Label = "DreamsOutposts.Ui.Details.Enabled".Translate(),
-                    Value = (enabled ? "Yes" : "No").Translate(),
-                    Detail = explanation
-                });
-
-                for (int i = 1; i < source.OperationChips.Count; i++)
-                {
-                    string infoValue = source.OperationChips[i].Label ?? string.Empty;
-                    entries.Add(new Entry
+                    UiFacilityInfoItem item = group.Items[itemIndex];
+                    if (item == null || item.Kind == UiFacilityInfoKind.Action)
                     {
-                        Category = basics,
-                        Label = "DreamsOutposts.Ui.Details.Info".Translate(i),
-                        Value = infoValue,
-                        Detail = infoValue
-                    });
+                        continue;
+                    }
+
+                    if (item.Kind == UiFacilityInfoKind.Progress)
+                    {
+                        AddInfoEntry(category, ref infoIndex, item.LeftText);
+                        entries.Add(new Entry
+                        {
+                            Category = category,
+                            Label = "DreamsOutposts.Ui.Details.Progress".Translate(),
+                            Value = item.ProgressText ?? (Mathf.RoundToInt(Mathf.Clamp01(item.Progress) * 100f) + "%"),
+                            Detail = !string.IsNullOrEmpty(item.Tooltip)
+                                ? item.Tooltip
+                                : (item.ProgressText ?? string.Empty)
+                        });
+                        continue;
+                    }
+
+                    AddSemanticEntry(category, item, ref infoIndex);
                 }
             }
 
@@ -150,6 +165,44 @@ namespace DreamsOutposts
                     Detail = string.Empty
                 });
             }
+        }
+
+        private void AddSemanticEntry(string category, UiFacilityInfoItem item, ref int infoIndex)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            string value = !string.IsNullOrEmpty(item.Value) ? item.Value : item.DisplayText;
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            string label = item.Label;
+            if (string.IsNullOrEmpty(label))
+            {
+                label = "DreamsOutposts.Ui.Details.Info".Translate(infoIndex++).ToString();
+            }
+
+            string detail = !string.IsNullOrEmpty(item.Tooltip) ? item.Tooltip : value;
+            if (item.Id == "operation.status")
+            {
+                detail = "DreamsOutposts.Ui.Details.EnabledDescription".Translate().ToString();
+                if (item.Tone != UiChipKind.Good && !string.IsNullOrEmpty(item.Tooltip))
+                {
+                    detail += "\n\n" + item.Tooltip;
+                }
+            }
+
+            entries.Add(new Entry
+            {
+                Category = category,
+                Label = label,
+                Value = value,
+                Detail = detail
+            });
         }
 
         private void AddInfoEntry(string category, ref int infoIndex, string value)

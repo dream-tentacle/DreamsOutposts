@@ -14,373 +14,152 @@ namespace DreamsOutposts
 
 	public static class OutpostProductionUtility
 	{
-		public const int ProductionCheckIntervalTicks = 250;
-
-		public const int MaxCatchUpCyclesPerCheck = 100;
-
-		private static readonly HashSet<int> failureDialogShown = new HashSet<int>();
-
-		public static void TickFacility(Outpost outpost, OutpostFacility facility)
+		public static bool TryGetCycleProgress(
+			OutpostFacility facility,
+			OutpostProductionProperties production,
+			out float progress,
+			out int ticksRemaining)
 		{
-			if (outpost == null || outpost.Destroyed)
+			return OutpostProcessUtility.TryGetCycleProgress(
+				facility, production, out progress, out ticksRemaining);
+		}
+
+		public static bool TryCalculatePersonnelCapacity(
+			Outpost outpost,
+			OutpostProductionProperties production,
+			out float capacity)
+		{
+			return OutpostProcessUtility.TryCalculatePersonnelCapacity(
+				outpost, production, out capacity);
+		}
+
+		public static IEnumerable<OutpostProductionModifierSource> MatchingModifiers(
+			Outpost outpost,
+			OutpostFacility producingFacility,
+			OutpostProductionProperties production)
+		{
+			foreach (OutpostProcessModifierSource source in
+				OutpostProcessUtility.MatchingModifiers(outpost, producingFacility, production))
 			{
-				return;
-			}
-			int now = Find.TickManager.TicksGame;
-			if (facility == null || facility.def == null)
-				return;
-			List<OutpostProductionProperties> productions = facility.def.Productions;
-			for (int i = 0; i < productions.Count; i++)
-			{
-				OutpostProductionProperties production = productions[i];
-				if (production != null)
+				yield return new OutpostProductionModifierSource
 				{
-					try
-					{
-						TickProduction(outpost, facility, production, now);
-					}
-					catch (Exception ex)
-					{
-						ReportFailure(outpost, facility, production, ex.ToString());
-					}
-				}
+					Modifier = source.Modifier,
+					SourceFacility = source.SourceFacility,
+					IsLevelModifier = source.IsLevelModifier
+				};
 			}
 		}
 
-		public static bool TryGetCycleProgress(OutpostFacility facility, OutpostProductionProperties production, out float progress, out int ticksRemaining)
+		public static void GetModifierTotals(
+			Outpost outpost,
+			OutpostFacility producingFacility,
+			OutpostProductionProperties production,
+			out float offsetSum,
+			out float factorProduct)
 		{
-			progress = 0f;
-			ticksRemaining = 0;
-			if (facility == null || production == null || string.IsNullOrEmpty(production.id))
-			{
-				return false;
-			}
-			int intervalTicks = production.Worker.GetProductionIntervalTicks(production, facility.GetProductionState(production.id));
-			if (intervalTicks <= 0)
-			{
-				return false;
-			}
-			OutpostProductionState state = facility.GetProductionState(production.id);
-			if (state == null)
-			{
-				return false;
-			}
-			ticksRemaining = Mathf.Max(state.nextProductionTick - Find.TickManager.TicksGame, 0);
-			progress = Mathf.Clamp01(1f - (float)ticksRemaining / (float)intervalTicks);
-			return true;
+			OutpostProcessUtility.GetModifierTotals(
+				outpost,
+				producingFacility,
+				production,
+				out offsetSum,
+				out factorProduct);
 		}
 
-		public static bool TryCalculatePersonnelCapacity(Outpost outpost, OutpostProductionProperties production, out float capacity)
+		public static float ApplyModifiers(
+			Outpost outpost,
+			OutpostFacility producingFacility,
+			OutpostProductionProperties production,
+			float baseOutput)
 		{
-			capacity = 0f;
-			if (outpost == null || production == null)
-			{
-				return false;
-			}
-			try
-			{
-				capacity = production.Worker.CalculatePersonnelCapacity(outpost, production);
-				return true;
-			}
-			catch (Exception)
-			{
-				return false;
-			}
+			return OutpostProcessUtility.ApplyModifiers(
+				outpost,
+				producingFacility,
+				production,
+				baseOutput);
 		}
 
-		public static IEnumerable<OutpostProductionModifierSource> MatchingModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production)
+		public static bool TryCalculateExpectedOutput(
+			Outpost outpost,
+			OutpostFacility facility,
+			OutpostProductionProperties production,
+			out float expectedOutput)
 		{
-			if (outpost == null || production == null)
-			{
-				yield break;
-			}
-			foreach (OutpostFacility sourceFacility in outpost.OperationalFacilities)
-			{
-				List<OutpostProductionModifier> modifiers = sourceFacility?.def?.productionModifiers;
-				for (int i = 0; i < (modifiers?.Count ?? 0); i++)
-				{
-					OutpostProductionModifier modifier = modifiers[i];
-					if (modifier != null && modifier.Matches(production, producingFacility?.def))
-					{
-						yield return new OutpostProductionModifierSource { Modifier = modifier, SourceFacility = sourceFacility.def };
-					}
-				}
-			}
-			List<OutpostProductionModifier> levelModifiers = outpost.CurrentLevelProperties?.productionModifiers;
-			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
-			for (int i = 0; i < (levelModifiers?.Count ?? 0); i++)
-			{
-				OutpostProductionModifier modifier = levelModifiers[i];
-				if (modifier == null || !modifier.Matches(production, producingFacility?.def))
-				{
-					continue;
-				}
-				// 营地的等级倍率需要中枢正常运转且有人在管：任一条件不满足，这一档倍率就不生效，产出回到原始值。
-				// 组件每 1250 tick 刷新一次这个状态，这里只读缓存。
-				if (supervisor != null && supervisor.Gates(modifier) && !supervisor.AllowsLevelFactor)
-				{
-					continue;
-				}
-				yield return new OutpostProductionModifierSource { Modifier = modifier, IsLevelModifier = true };
-			}
+			return OutpostProcessUtility.TryCalculateExpectedOutput(
+				outpost,
+				facility,
+				production,
+				out expectedOutput);
 		}
 
-		public static void GetModifierTotals(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, out float offsetSum, out float factorProduct)
-		{
-			offsetSum = 0f;
-			factorProduct = 1f;
-			foreach (OutpostProductionModifierSource source in MatchingModifiers(outpost, producingFacility, production))
-			{
-				offsetSum += source.Modifier.offset;
-				factorProduct *= source.Modifier.factor;
-			}
-			factorProduct *= OutpostTemporaryEffectUtility.ProductionFactor(outpost, producingFacility, production);
-		}
-
-		public static float ApplyModifiers(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production, float baseOutput)
-		{
-			GetModifierTotals(outpost, producingFacility, production, out var offsetSum, out var factorProduct);
-			float globalMultiplier = DreamsOutpostsMod.Settings?.productionMultiplier ?? DreamsOutpostsSettings.DefaultProductionMultiplier;
-			return Mathf.Max((baseOutput + offsetSum) * factorProduct * globalMultiplier, 0f);
-		}
-
-		public static bool TryCalculateExpectedOutput(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production, out float expectedOutput)
-		{
-			expectedOutput = 0f;
-			if (outpost == null || production == null)
-			{
-				return false;
-			}
-			try
-			{
-				expectedOutput = ApplyModifiers(outpost, facility, production, production.Worker.CalculateProduction(outpost, production, facility?.GetProductionState(production.id)));
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Log.ErrorOnce("Outpost production forecast failed: outpost=" + outpost.Label + ", production=" + RuleLabel(facility, production) + "\n" + ex, FailureKey(facility, production));
-				return false;
-			}
-		}
-
-		public static bool TryGetProductionProduct(OutpostFacility facility, OutpostProductionProperties production, out ThingDef product)
+		public static bool TryGetProductionProduct(
+			OutpostFacility facility,
+			OutpostProductionProperties production,
+			out ThingDef product)
 		{
 			product = null;
-			if (production == null)
-			{
-				return false;
-			}
-			product = production.Worker.GetProduct(production, facility?.GetProductionState(production.id));
+			if (production == null) return false;
+			product = production.Worker.GetProduct(
+				production,
+				facility?.GetProductionState(production.id));
 			return product != null;
 		}
 
-		private static void TickProduction(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production, int now)
+		public static bool TakeInputsFromStock(
+			Outpost outpost,
+			OutpostFacility facility,
+			OutpostProductionProperties production,
+			int amount)
 		{
-			OutpostProductionState state = facility.GetProductionState(production.id);
-			if (state == null)
-			{
-				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(facility, production) + " has no production state. Run SynchronizeProductionStates or check the save.", FailureKey(facility, production));
-				return;
-			}
-			int intervalTicks = production.Worker.GetProductionIntervalTicks(production, state);
-			if (intervalTicks <= 0)
-			{
-				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(facility, production) + " has an effective production interval of " + intervalTicks + "; it must be positive. ConfigErrors should have reported this.", FailureKey(facility, production));
-				return;
-			}
-			int cycles = 0;
-			while (now >= state.nextProductionTick)
-			{
-				OutpostProductionContext context = new OutpostProductionContext(outpost, facility, production, state, now);
-				try
-				{
-					ProduceOneCycle(context);
-				}
-				catch (Exception ex)
-				{
-					InvokeFailedHook(context, ex);
-					ReportFailure(outpost, facility, production, ex.ToString());
-					state.nextProductionTick += context.EffectiveInterval;
-					break;
-				}
-				state.nextProductionTick += context.EffectiveInterval;
-				if (++cycles >= MaxCatchUpCyclesPerCheck)
-				{
-					break;
-				}
-			}
-		}
+			if (production == null || !production.HasInputs || amount <= 0) return true;
 
-		private static void ProduceOneCycle(OutpostProductionContext context)
-		{
-			try
-			{
-				RunProductionPipeline(context);
-			}
-			catch (Exception ex)
-			{
-				context.Outcome = OutpostProductionOutcome.Failed;
-				context.FailureReason = ex.Message;
-				throw;
-			}
-			finally
-			{
-				InvokeAfterHook(context);
-			}
-		}
-
-		private static void RunProductionPipeline(OutpostProductionContext context)
-		{
-			OutpostProductionWorker worker = context.Worker;
-			OutpostProductionProperties production = context.Production;
-			if (worker.OverrideProductionCycle(context))
-			{
-				context.Outcome = OutpostProductionOutcome.TakenOver;
-				return;
-			}
-			if (!worker.CanProduce(context))
-			{
-				context.Outcome = OutpostProductionOutcome.Idle;
-				context.FailureReason = "declined by CanProduce";
-				return;
-			}
-			context.BaseOutput = worker.CalculateProduction(context.Outpost, production, context.State);
-			context.ModifiedOutput = ApplyModifiers(context.Outpost, context.Facility, production, context.BaseOutput);
-			context.WantedAmount = GenMath.RoundRandom(context.ModifiedOutput);
-			worker.ModifyProduction(context);
-			if (context.WantedAmount <= 0)
-			{
-				context.Outcome = OutpostProductionOutcome.Idle;
-				context.FailureReason = "wanted amount is zero for this cycle";
-				return;
-			}
-			context.Product = worker.GetProduct(production, context.State);
-			if (context.Product == null)
-			{
-				context.Outcome = OutpostProductionOutcome.Failed;
-				context.FailureReason = "no product def";
-				Log.ErrorOnce("Outpost production skipped: facility=" + RuleLabel(context.Facility, production) + " has no product (dynamic-product rules need a valid plant selection).", FailureKey(context.Facility, production));
-				return;
-			}
-			context.ActualAmount = context.WantedAmount;
-			int maxProducible = worker.MaxProducibleAmount(context);
-			if (maxProducible < context.ActualAmount)
-			{
-				context.ActualAmount = maxProducible;
-			}
-			if (context.ActualAmount <= 0)
-			{
-				context.Outcome = OutpostProductionOutcome.Idle;
-				context.FailureReason = "not enough resources for a single unit";
-				return;
-			}
-			if (!worker.ConsumeInputs(context))
-			{
-				context.Outcome = OutpostProductionOutcome.Failed;
-				context.FailureReason = "inputs could not be consumed";
-				return;
-			}
-			if (context.ActualAmount <= 0)
-			{
-				context.Outcome = OutpostProductionOutcome.Idle;
-				context.FailureReason = "the amount became zero while consuming inputs";
-				return;
-			}
-			List<Thing> created = worker.CreateProducts(context);
-			if (created != null)
-			{
-				context.Products = created;
-			}
-			worker.DeliverProducts(context);
-			context.Outcome = OutpostProductionOutcome.Completed;
-			OutpostTemporaryEffectUtility.ConsumeProductionEffects(context.Outpost, context.Facility, production);
-		}
-
-		private static void InvokeAfterHook(OutpostProductionContext context)
-		{
-			try
-			{
-				context.Worker.AfterProduction(context);
-			}
-			catch (Exception ex)
-			{
-				Log.Error("[DreamsOutposts] Outpost production AfterProduction hook threw for " + context.RuleLabel + ": " + ex);
-			}
-		}
-
-		private static void InvokeFailedHook(OutpostProductionContext context, Exception ex)
-		{
-			try
-			{
-				context.Worker.OnProductionFailed(context, ex);
-			}
-			catch (Exception ex2)
-			{
-				Log.Error("[DreamsOutposts] Outpost production OnProductionFailed hook threw for " + context.RuleLabel + ": " + ex2);
-			}
-		}
-
-		public static bool TakeInputsFromStock(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production, int amount)
-		{
-			if (production == null || !production.HasInputs)
-			{
-				return true;
-			}
-			if (amount <= 0)
-			{
-				return true;
-			}
 			List<ThingDefCountClass> inputs = production.inputs;
 			HashSet<ThingDef> handled = new HashSet<ThingDef>();
 			Dictionary<ThingDef, int> required = new Dictionary<ThingDef, int>();
+
 			for (int i = 0; i < inputs.Count; i++)
 			{
 				ThingDefCountClass input = inputs[i];
 				if (input?.thingDef == null || input.count <= 0 || !handled.Add(input.thingDef))
-				{
 					continue;
-				}
+
 				int requiredPerUnit = 0;
 				for (int j = 0; j < inputs.Count; j++)
 				{
 					ThingDefCountClass other = inputs[j];
 					if (other?.thingDef == input.thingDef && other.count > 0)
-					{
 						requiredPerUnit += other.count;
-					}
 				}
+
 				int need = requiredPerUnit * amount;
-				if (need > 0)
-				{
-					required[input.thingDef] = need;
-				}
+				if (need > 0) required[input.thingDef] = need;
 			}
+
 			foreach (KeyValuePair<ThingDef, int> entry in required)
 			{
 				int available = OutpostStockUtility.CountInStock(outpost, entry.Key);
 				if (available < entry.Value)
 				{
-					Log.ErrorOnce("Outpost production could not consume its inputs: outpost=" + outpost.Label + ", production=" + RuleLabel(facility, production) + ", needed " + entry.Value + " " + entry.Key.defName + " but available only " + available + ".", FailureKey(facility, production));
+					Log.ErrorOnce(
+						"Outpost production could not consume its inputs: outpost=" + outpost.Label +
+						", production=" + RuleLabel(facility, production) +
+						", needed " + entry.Value + " " + entry.Key.defName +
+						" but available only " + available + ".",
+						OutpostProcessUtility.FailureKey(facility, production));
 					return false;
 				}
 			}
+
 			foreach (KeyValuePair<ThingDef, int> entry in required)
-			{
 				OutpostStockUtility.TakeFromStock(outpost, entry.Key, entry.Value);
-			}
+
 			return true;
 		}
 
 		public static List<Thing> MakeProductThings(ThingDef product, int amount)
 		{
-			if (amount <= 0)
-			{
-				return new List<Thing>();
-			}
-			if (product == null)
-			{
-				throw new InvalidOperationException("Production has no product def.");
-			}
+			if (amount <= 0) return new List<Thing>();
+			if (product == null) throw new InvalidOperationException("Production has no product def.");
+
 			List<Thing> products = new List<Thing>();
 			int stackLimit = Mathf.Max(product.stackLimit, 1);
 			int remaining = amount;
@@ -396,14 +175,10 @@ namespace DreamsOutposts
 
 		public static void StoreInOutpostInventory(Outpost outpost, List<Thing> products)
 		{
-			if (products.NullOrEmpty())
-			{
-				return;
-			}
+			if (products.NullOrEmpty()) return;
 			if (outpost?.inventory == null)
-			{
 				throw new InvalidOperationException("Outpost has no inventory to add products to.");
-			}
+
 			for (int i = 0; i < products.Count; i++)
 			{
 				Thing thing = products[i];
@@ -413,32 +188,18 @@ namespace DreamsOutposts
 					string productDefName = thing.def?.defName ?? "null";
 					thing.Destroy();
 					for (int j = i + 1; j < products.Count; j++)
-					{
 						products[j]?.Destroy();
-					}
-					throw new InvalidOperationException("Outpost inventory refused " + refused + " " + productDefName + ".");
+					throw new InvalidOperationException(
+						"Outpost inventory refused " + refused + " " + productDefName + ".");
 				}
 			}
 		}
 
-		private static void ReportFailure(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production, string detail)
+		public static string RuleLabel(
+			OutpostFacility facility,
+			OutpostProductionProperties production)
 		{
-			int key = FailureKey(facility, production);
-			Log.ErrorOnce("Outpost production failed: outpost=" + outpost.Label + ", facility=" + RuleLabel(facility, production) + "\n" + detail, key);
-			if (failureDialogShown.Add(key))
-			{
-				Find.WindowStack.Add(new Dialog_MessageBox("DreamsOutposts.ProductionErrorText".Translate(outpost.LabelCap, facility?.def?.LabelCap ?? ((TaggedString)"null"), production?.id ?? "null"), null, null, null, null, "DreamsOutposts.ProductionErrorTitle".Translate()));
-			}
-		}
-
-		public static string RuleLabel(OutpostFacility facility, OutpostProductionProperties production)
-		{
-			return (facility?.def?.defName ?? "null") + "." + (production?.id ?? "null");
-		}
-
-		private static int FailureKey(OutpostFacility facility, OutpostProductionProperties production)
-		{
-			return GenText.StableStringHash("DreamsOutposts.ProductionFailure." + RuleLabel(facility, production));
+			return OutpostProcessUtility.RuleLabel(facility, production);
 		}
 	}
 }

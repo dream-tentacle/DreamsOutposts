@@ -11,6 +11,7 @@ namespace DreamsOutposts
 		public const string PowerGeneration = "PowerGeneration";
 		public const string Recruitment = "Recruitment";
 		public const string Training = "Training";
+		public const string Education = "Education";
 		public const string Other = "Other";
 
 		private static readonly List<string> tags = new List<string>();
@@ -40,6 +41,7 @@ namespace DreamsOutposts
 			tags.Add(PowerGeneration);
 			tags.Add(Recruitment);
 			tags.Add(Training);
+			tags.Add(Education);
 			tags.Add(Other);
 		}
 
@@ -54,6 +56,7 @@ namespace DreamsOutposts
 				case PowerGeneration:
 				case Recruitment:
 				case Training:
+				case Education:
 				case Other:
 					return tag;
 				default:

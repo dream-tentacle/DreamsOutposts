@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_2_0.label>更新日志</DreamsOutposts_UpdateNotice_1_2_0.label>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.0.heading>&lt;color=#6FA8FF&gt;内容&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_0.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.0>新增学校据点及教育设施。</DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.1>新增文化教化设施及教化页面。</DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.1>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.1.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_0.sections.1.heading>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.0>大幅优化设施信息显示。统一原版风格与现代风格的信息逻辑。</DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.1>完善启用条件、状态提示和描述，使实际机制更加清晰。</DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.1>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.2>改进贸易订单事件。当订单任务无法正常生成时，现在会触发对应的后续事件，而不是直接失效。</DreamsOutposts_UpdateNotice_1_2_0.sections.1.entries.2>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.2.heading>&lt;color=#B98CFF&gt;平衡性调整&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_0.sections.2.heading>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.2.entries.0>强化机械师据点。核心中继站现在每提升1个据点等级额外提供2点带宽，扩展频带节点提供的带宽提高至2点。</DreamsOutposts_UpdateNotice_1_2_0.sections.2.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_0.sections.2.entries.1>新增“无敌量子发电”设置，开启后远距离发电不再受到距离造成的效率折损。</DreamsOutposts_UpdateNotice_1_2_0.sections.2.entries.1>
+
   <DreamsOutposts_UpdateNotice_1_1_1.label>更新日志</DreamsOutposts_UpdateNotice_1_1_1.label>
   <DreamsOutposts_UpdateNotice_1_1_1.entries.0>生活质量优化。</DreamsOutposts_UpdateNotice_1_1_1.entries.0>
 

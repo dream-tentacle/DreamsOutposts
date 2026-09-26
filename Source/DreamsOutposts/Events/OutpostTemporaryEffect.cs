@@ -37,18 +37,23 @@ namespace DreamsOutposts
 			return startTick <= now && !IsExpired(now);
 		}
 
-		public bool MatchesProduction(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		public bool MatchesProcess(Outpost outpost, OutpostFacility facility, OutpostProcessProperties process)
 		{
 			if (expectedFacility != null && !MatchesFacility(outpost, facility)) return false;
 			if (targetCore && facility != outpost?.coreFacility) return false;
 			if (producingFacility != null && facility?.def != producingFacility) return false;
 			if (string.IsNullOrWhiteSpace(productionTag)) return true;
-			if (production?.tags == null) return excludeProductionTag;
-			for (int i = 0; i < production.tags.Count; i++)
+			if (process?.tags == null) return excludeProductionTag;
+			for (int i = 0; i < process.tags.Count; i++)
 			{
-				if (string.Equals(production.tags[i]?.Trim(), productionTag.Trim(), StringComparison.OrdinalIgnoreCase)) return !excludeProductionTag;
+				if (string.Equals(process.tags[i]?.Trim(), productionTag.Trim(), StringComparison.OrdinalIgnoreCase)) return !excludeProductionTag;
 			}
 			return excludeProductionTag;
+		}
+
+		public bool MatchesProduction(Outpost outpost, OutpostFacility facility, OutpostProductionProperties production)
+		{
+			return MatchesProcess(outpost, facility, production);
 		}
 
 		public bool MatchesFacility(Outpost outpost, OutpostFacility facility)

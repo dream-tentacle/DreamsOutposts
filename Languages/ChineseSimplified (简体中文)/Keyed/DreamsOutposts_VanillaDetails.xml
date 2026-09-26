@@ -2,5 +2,8 @@
 <LanguageData>
   <DreamsOutposts.Ui.Details.Enabled>是否启用</DreamsOutposts.Ui.Details.Enabled>
   <DreamsOutposts.Ui.Details.EnabledDescription>当前设施是否已启用。</DreamsOutposts.Ui.Details.EnabledDescription>
+  <DreamsOutposts.Ui.Details.ActivationRequirement>启用条件</DreamsOutposts.Ui.Details.ActivationRequirement>
+  <DreamsOutposts.Ui.Details.RequirementMet>{0}（已满足）</DreamsOutposts.Ui.Details.RequirementMet>
+  <DreamsOutposts.Ui.Details.RequirementUnmet>{0}（未满足）</DreamsOutposts.Ui.Details.RequirementUnmet>
   <DreamsOutposts.Ui.Details.Info>信息{0}</DreamsOutposts.Ui.Details.Info>
 </LanguageData>

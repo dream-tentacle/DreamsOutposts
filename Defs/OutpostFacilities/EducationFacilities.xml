@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef Name="DreamsOutposts_EducationFacilityBase" Abstract="True" MayRequire="Ludeon.RimWorld.Biotech">
+    <installableAsExtension>true</installableAsExtension>
+    <facilityTag>Education</facilityTag>
+    <category>DreamsOutposts_CategoryEducation</category>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_School</li>
+    </allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost>
+      <Steel>50</Steel>
+    </buildCost>
+    <comps>
+      <li Class="DreamsOutposts.OutpostEducationProperties">
+        <qualityBonus>0.12</qualityBonus>
+      </li>
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_EducationFacilityBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_SchoolClassroom</defName>
+    <label>classroom</label>
+    <description>A dedicated room for lessons, discussion and supervised study. Adds 12% education quality to a school outpost.</description>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_EducationFacilityBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_SchoolLibrary</defName>
+    <label>school library</label>
+    <description>A collection of books and quiet reading spaces that broadens the children's studies. Adds 12% education quality to a school outpost.</description>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_EducationFacilityBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_PracticalClassroom</defName>
+    <label>practical classroom</label>
+    <description>A supervised workshop where children learn by handling tools, materials and small projects. Adds 12% education quality to a school outpost.</description>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_EducationFacilityBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_SchoolGarden</defName>
+    <label>school garden</label>
+    <description>A tended plot used for outdoor lessons, observation and practical experience. Adds 12% education quality to a school outpost.</description>
+  </DreamsOutposts.OutpostFacilityDef>
+
+  <DreamsOutposts.OutpostFacilityDef ParentName="DreamsOutposts_EducationFacilityBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_ActivityYard</defName>
+    <label>activity yard</label>
+    <description>An open yard for games, exercise and group activities under supervision. Adds 12% education quality to a school outpost.</description>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: cultural center -->
+  <DreamsOutposts_CulturalCenter.label>文化教化中心</DreamsOutposts_CulturalCenter.label>
+  <!-- EN: A place for sermons, debate and organized cultural instruction. If an adult, non-downed colonist of the colony's primary ideoligion with Social 5 or higher is present, the most capable guide focuses on the resident of another ideoligion with the lowest certainty. Every 2 days, the guide makes one normal-strength conversion attempt using vanilla conversion rules. The timer pauses while there is no qualified guide or no target. -->
+  <DreamsOutposts_CulturalCenter.description>用于布道、讨论与组织文化教化的场所。\n\n运行条件：据点内至少有一名未倒地、属于殖民地主意识形态且社交达到5级的成年殖民者，并存在至少一名其他意识形态的可教化居民。符合条件且转换能力最高的殖民者会担任教化者。所有可教化居民都会独立接受教化，各自拥有2天的教化周期；某人的周期结束时，会按原版规则进行一次正常强度的改信尝试。缺少合格教化者或设施被停用时，所有人的周期都会暂停。</DreamsOutposts_CulturalCenter.description>
+</LanguageData>

@@ -117,7 +117,7 @@ namespace DreamsOutposts
 			if (draw) DrawVanillaOverview(new Rect(rect.x, y, rect.width, overviewHeight), cache);
 			y += overviewHeight + gap;
 
-			float coreHeight = 32f + 54f;
+			float coreHeight = 32f + VanillaFacilityRowHeight(cache.Core);
 			if (draw)
 			{
 				Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
@@ -125,7 +125,19 @@ namespace DreamsOutposts
 			}
 			y += coreHeight + gap;
 
-			float extensionHeight = 32f + Mathf.Max(cache.SlotCount, 1) * 54f;
+			float extensionHeight = 32f;
+			if (cache.SlotCount == 0)
+			{
+				extensionHeight += 54f;
+			}
+			else
+			{
+				for (int i = 0; i < cache.SlotCount; i++)
+				{
+					UiFacilityView view = (i < cache.Slots.Count) ? cache.Slots[i] : null;
+					extensionHeight += view != null ? VanillaFacilityRowHeight(view) : 54f;
+				}
+			}
 			if (draw)
 			{
 				Widgets.DrawLineHorizontal(rect.x, y - gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
@@ -214,7 +226,7 @@ namespace DreamsOutposts
 				UiOutpostHelpWindow.Open(HelpSections);
 			}
 			Widgets.DrawLineHorizontal(inner.x, inner.y + 30f, inner.width, Widgets.SeparatorLineColor);
-			Rect row = new Rect(inner.x, inner.y + 32f, inner.width, 54f);
+			Rect row = new Rect(inner.x, inner.y + 32f, inner.width, VanillaFacilityRowHeight(cache.Core));
 			if (cache.Core != null)
 			{
 				DrawVanillaFacilityRow(row, cache.Core);
@@ -241,8 +253,9 @@ namespace DreamsOutposts
 			}
 			for (int i = 0; i < cache.SlotCount; i++)
 			{
-				Rect row = new Rect(inner.x, y, inner.width, 54f);
 				UiFacilityView view = (i < cache.Slots.Count) ? cache.Slots[i] : null;
+				float rowHeight = view != null ? VanillaFacilityRowHeight(view) : 54f;
+				Rect row = new Rect(inner.x, y, inner.width, rowHeight);
 				if (view != null)
 				{
 					DrawVanillaFacilityRow(row, view);
@@ -251,8 +264,34 @@ namespace DreamsOutposts
 				{
 					DrawVanillaEmptySlotRow(row, i);
 				}
-				y += 54f;
+				y += rowHeight;
 			}
+		}
+
+		private static float VanillaFacilityRowHeight(UiFacilityView view)
+		{
+			return VanillaProgressInfo(view) != null ? 78f : 54f;
+		}
+
+		private static UiFacilityInfoItem VanillaProgressInfo(UiFacilityView view)
+		{
+			if (view?.InfoGroups == null)
+			{
+				return null;
+			}
+			for (int groupIndex = 0; groupIndex < view.InfoGroups.Count; groupIndex++)
+			{
+				UiFacilityInfoGroup group = view.InfoGroups[groupIndex];
+				for (int itemIndex = 0; itemIndex < (group?.Items?.Count ?? 0); itemIndex++)
+				{
+					UiFacilityInfoItem item = group.Items[itemIndex];
+					if (item != null && item.Kind == UiFacilityInfoKind.Progress)
+					{
+						return item;
+					}
+				}
+			}
+			return null;
 		}
 
 		private void DrawVanillaFacilityRow(Rect row, UiFacilityView view)
@@ -262,23 +301,65 @@ namespace DreamsOutposts
 			Rect icon = new Rect(row.x + 6f, row.y + (row.height - iconSize) * 0.5f, iconSize, iconSize);
 			UiDraw.Icon(icon, view.Icon, UiPalette.Ink);
 
+			UiProductionView configurableProduction = VanillaConfigurableProduction(view);
 			const float infoSize = Widgets.InfoCardButtonSize;
 			float infoX = row.xMax - infoSize - 4f;
-			float rightWidth = 90f;
-			float rightX = infoX - rightWidth - 6f;
+			string switchLabel = "DreamsOutposts.Ui.Switch".Translate();
+			float switchWidth = configurableProduction != null
+				? Mathf.Clamp(UiText.Width(switchLabel, UiFont.Body) + 24f, 64f, 90f)
+				: 0f;
+			float switchX = configurableProduction != null ? infoX - switchWidth - 6f : infoX;
+			float defenseWidth = view.Defense > 0f ? 90f : 0f;
+			float defenseX = view.Defense > 0f ? switchX - defenseWidth - 6f : switchX;
+			float textRight = view.Defense > 0f ? defenseX : switchX;
 			float textX = icon.xMax + 10f;
-			float textWidth = Mathf.Max(rightX - textX - 6f, 40f);
+			float textWidth = Mathf.Max(textRight - textX - 6f, 40f);
 
 			UiText.Draw(new Rect(textX, row.y + 5f, textWidth, 22f), view.Label,
 				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true, false, true);
 			string secondary = VanillaFacilitySummary(view);
 			UiText.Draw(new Rect(textX, row.y + 27f, textWidth, 20f), secondary,
 				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
+			UiFacilityInfoItem progressInfo = VanillaProgressInfo(view);
+			if (progressInfo != null)
+			{
+				Rect progressRect = new Rect(textX, row.y + 53f, textWidth, 18f);
+				Widgets.FillableBar(progressRect, Mathf.Clamp01(progressInfo.Progress));
+				UiText.Draw(
+					progressRect,
+					progressInfo.ProgressText ?? string.Empty,
+					UiFont.Caption,
+					UiPalette.Ink,
+					TextAnchor.MiddleCenter,
+					true,
+					false,
+					true);
+				if (!string.IsNullOrEmpty(progressInfo.Tooltip))
+				{
+					UiWidgets.Tip(
+						progressRect,
+						progressInfo.Tooltip,
+						GenText.StableStringHash("vanilla-facility-progress-" + view.SlotIndex));
+				}
+			}
 			if (view.Defense > 0f)
 			{
-				UiText.Draw(new Rect(rightX, row.y, rightWidth, row.height),
+				UiText.Draw(new Rect(defenseX, row.y, defenseWidth, row.height),
 					"DreamsOutposts.Defense".Translate().ToString() + " " + view.Defense.ToString("0.#"),
 					UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleRight);
+			}
+			if (configurableProduction != null && view.Facility != null)
+			{
+				Rect switchRect = new Rect(switchX, row.y + 11f, switchWidth, 32f);
+				string tip = configurableProduction.Props.Worker.ConfigurationTip(configurableProduction.Props);
+				TooltipHandler.TipRegion(switchRect, new TipSignal(tip, GenText.StableStringHash("vanilla-production-config-" + view.SlotIndex + "-" + configurableProduction.Props.id)));
+				if (Widgets.ButtonText(switchRect, switchLabel))
+				{
+					configurableProduction.Props.Worker.OpenConfiguration(
+						configurableProduction.Props,
+						view.Facility.GetProductionState(configurableProduction.Props.id),
+						Cache.Invalidate);
+				}
 			}
 			if (view.Facility != null)
 			{
@@ -291,8 +372,52 @@ namespace DreamsOutposts
 			}
 		}
 
+		private static UiProductionView VanillaConfigurableProduction(UiFacilityView view)
+		{
+			if (view?.Productions == null)
+			{
+				return null;
+			}
+			for (int i = 0; i < view.Productions.Count; i++)
+			{
+				UiProductionView production = view.Productions[i];
+				if (production != null && production.HasConfiguration && production.Props?.Worker != null)
+				{
+					return production;
+				}
+			}
+			return null;
+		}
+
 		private static string VanillaFacilitySummary(UiFacilityView view)
 		{
+			UiProductionView configurableProduction = VanillaConfigurableProduction(view);
+			if (configurableProduction != null && !string.IsNullOrEmpty(configurableProduction.ConfigurationSummary))
+			{
+				return configurableProduction.ConfigurationSummary;
+			}
+			if (view?.InfoGroups != null)
+			{
+				for (int groupIndex = 0; groupIndex < view.InfoGroups.Count; groupIndex++)
+				{
+					UiFacilityInfoGroup group = view.InfoGroups[groupIndex];
+					for (int itemIndex = 0; itemIndex < (group?.Items?.Count ?? 0); itemIndex++)
+					{
+						UiFacilityInfoItem item = group.Items[itemIndex];
+						if (item == null) continue;
+						if (item.Kind == UiFacilityInfoKind.Progress && !string.IsNullOrEmpty(item.LeftText))
+						{
+							return item.LeftText;
+						}
+						if (item.Importance == UiFacilityInfoImportance.Supporting &&
+							item.Kind == UiFacilityInfoKind.Value &&
+							!string.IsNullOrEmpty(item.Value))
+						{
+							return item.Value;
+						}
+					}
+				}
+			}
 			if (!string.IsNullOrEmpty(view.SubLabel))
 			{
 				return view.SubLabel;
@@ -2090,7 +2215,7 @@ namespace DreamsOutposts
 
 			float sectionsTop = y;
 
-			if (view.Sections.Count > 0)
+			if (view.InfoGroups.Count > 0)
 			{
 				if (draw)
 				{
@@ -2106,18 +2231,18 @@ namespace DreamsOutposts
 				y += UiMetrics.ModernTechFacilitySectionTopGap;
 			}
 
-			for (int i = 0; i < view.Sections.Count; i++)
+			for (int i = 0; i < view.InfoGroups.Count; i++)
 			{
 				if (i > 0)
 				{
 					y += UiMetrics.ProdListGap;
 				}
 
-				y += LayoutFacilitySection(
+				y += LayoutFacilityInfoGroup(
 					innerX,
 					y,
 					innerWidth,
-					view.Sections[i],
+					view.InfoGroups[i],
 					draw) + UiMetrics.ModernTechCardGap;
 			}
 
@@ -2172,14 +2297,14 @@ namespace DreamsOutposts
 					UiMetrics.ModernTechCardPaddingH * 2f,
 				30f);
 
-			float chipsHeight = (view.Chips.Count > 0)
+			float chipsHeight = (view.DisplayChips.Count > 0)
 				? UiDraw.ChipsHeight(
-					view.Chips,
+					view.DisplayChips,
 					innerWidth,
 					true)
 				: 0f;
 
-			if (!draw || view.Chips.Count == 0)
+			if (!draw || view.DisplayChips.Count == 0)
 			{
 				return chipsHeight;
 			}
@@ -2196,7 +2321,7 @@ namespace DreamsOutposts
 					footerY,
 					innerWidth,
 					chipsHeight),
-				view.Chips,
+				view.DisplayChips,
 				true);
 
 			return chipsHeight;
@@ -2430,13 +2555,13 @@ namespace DreamsOutposts
 			y += headHeight + UiMetrics.CardGap;
 
 			float sectionsTop = y;
-			for (int i = 0; i < view.Sections.Count; i++)
+			for (int i = 0; i < view.InfoGroups.Count; i++)
 			{
 				if (i > 0)
 				{
 					y += UiMetrics.ProdListGap;
 				}
-				y += LayoutFacilitySection(innerX, y, innerWidth, view.Sections[i], draw) + UiMetrics.CardGap;
+				y += LayoutFacilityInfoGroup(innerX, y, innerWidth, view.InfoGroups[i], draw) + UiMetrics.CardGap;
 			}
 
 			y = Mathf.Max(y, sectionsTop + UiMetrics.FacilityBodyMinHeight);
@@ -2461,55 +2586,99 @@ namespace DreamsOutposts
 			return Mathf.Max(rect.height, natural);
 		}
 
-		private float LayoutFacilitySection(float x, float y, float width, UiFacilitySectionView section, bool draw)
+		private float LayoutFacilityInfoGroup(float x, float y, float width, UiFacilityInfoGroup group, bool draw)
 		{
+			if (group == null)
+			{
+				return 0f;
+			}
+
+			UiFacilityInfoItem primary = null;
+			UiFacilityInfoItem progressItem = null;
+			UiFacilityInfoItem actionItem = null;
+			string leftText = null;
+			string rightText = null;
+			List<UiChipView> compactChips = new List<UiChipView>();
+
+			for (int i = 0; i < group.Items.Count; i++)
+			{
+				UiFacilityInfoItem item = group.Items[i];
+				if (item == null) continue;
+
+				if (item.Kind == UiFacilityInfoKind.Progress && progressItem == null)
+				{
+					progressItem = item;
+					continue;
+				}
+				if (item.Kind == UiFacilityInfoKind.Action && actionItem == null)
+				{
+					actionItem = item;
+					continue;
+				}
+				if (item.Kind == UiFacilityInfoKind.Compact)
+				{
+					compactChips.Add(new UiChipView(item.DisplayText, item.Tone, item.Tooltip));
+					continue;
+				}
+				if (item.Importance == UiFacilityInfoImportance.Primary && primary == null)
+				{
+					primary = item;
+					continue;
+				}
+				if (item.Importance == UiFacilityInfoImportance.Supporting && string.IsNullOrEmpty(leftText))
+				{
+					leftText = item.DisplayText;
+				}
+				else if (item.Importance == UiFacilityInfoImportance.Detail && string.IsNullOrEmpty(rightText))
+				{
+					rightText = item.DisplayText;
+				}
+			}
+
+			if (progressItem != null)
+			{
+				if (!string.IsNullOrEmpty(progressItem.LeftText)) leftText = progressItem.LeftText;
+				if (!string.IsNullOrEmpty(progressItem.RightText)) rightText = progressItem.RightText;
+			}
+
+			string mainText = primary?.DisplayText ?? string.Empty;
+			string tooltip = !string.IsNullOrEmpty(group.Tooltip)
+				? group.Tooltip
+				: (progressItem?.Tooltip ?? primary?.Tooltip);
+
 			float innerX = x + UiMetrics.ProdPaddingH;
 			float innerWidth = Mathf.Max(width - UiMetrics.ProdPaddingH * 2f, 20f);
 			float cursor = y + UiMetrics.ProdPaddingV;
 			float topHeight = Mathf.Max(UiMetrics.MatIconSize, UiText.LineHeight(UiFont.Body));
+
 			if (draw)
 			{
 				float textX = innerX;
-				if (section.IconThing != null)
+				if (group.IconThing != null)
 				{
 					Rect icon = new Rect(innerX, cursor + (topHeight - UiMetrics.MatIconSize) * 0.5f, UiMetrics.MatIconSize, UiMetrics.MatIconSize);
-					Widgets.ThingIcon(icon, section.IconThing);
+					Widgets.ThingIcon(icon, group.IconThing);
 					textX += UiMetrics.MatIconSize + 8f;
 				}
-				bool modernTech =
-					DreamsOutpostsMod.UsesModernTechLayout;
 
-				float mainWidth = string.IsNullOrEmpty(section.MainText)
+				bool modernTech = DreamsOutpostsMod.UsesModernTechLayout;
+				float mainWidth = string.IsNullOrEmpty(mainText)
 					? 0f
-					: Mathf.Max(
-						UiText.Width(section.MainText, UiFont.Number, true) + 6f,
-						48f);
+					: Mathf.Max(UiText.Width(mainText, UiFont.Number, true) + 6f, 48f);
 
 				if (modernTech)
 				{
-					mainWidth = Mathf.Min(
-						mainWidth,
-						innerWidth * 0.42f);
+					mainWidth = Mathf.Min(mainWidth, innerWidth * 0.42f);
 				}
 
-				float titleWidth = Mathf.Max(
-					innerX + innerWidth - textX - mainWidth,
-					20f);
-
-				string sectionTitle = modernTech
-					? FitSingleLine(
-						section.Title ?? string.Empty,
-						UiFont.Body,
-						titleWidth)
-					: section.Title ?? string.Empty;
+				float titleWidth = Mathf.Max(innerX + innerWidth - textX - mainWidth, 20f);
+				string groupTitle = modernTech
+					? FitSingleLine(group.Title ?? string.Empty, UiFont.Body, titleWidth)
+					: group.Title ?? string.Empty;
 
 				UiText.Draw(
-					new Rect(
-						textX,
-						cursor,
-						titleWidth,
-						topHeight),
-					sectionTitle,
+					new Rect(textX, cursor, titleWidth, topHeight),
+					groupTitle,
 					UiFont.Body,
 					UiPalette.Ink2,
 					TextAnchor.MiddleLeft,
@@ -2519,79 +2688,62 @@ namespace DreamsOutposts
 
 				if (mainWidth > 0f)
 				{
-					string mainText = modernTech
-						? FitSingleLine(
-							section.MainText,
-							UiFont.Number,
-							mainWidth,
-							true)
-						: section.MainText;
-
+					string fittedMain = modernTech
+						? FitSingleLine(mainText, UiFont.Number, mainWidth, true)
+						: mainText;
 					UiText.Draw(
-						new Rect(
-							innerX + innerWidth - mainWidth,
-							cursor,
-							mainWidth,
-							topHeight),
-						mainText,
+						new Rect(innerX + innerWidth - mainWidth, cursor, mainWidth, topHeight),
+						fittedMain,
 						UiFont.Number,
 						UiPalette.Ink,
 						TextAnchor.MiddleRight,
 						true);
 				}
 			}
+
 			cursor += topHeight;
-			if (section.ShowProgress)
+
+			if (progressItem != null)
 			{
 				cursor += UiMetrics.ProdGap;
 				if (draw)
 				{
-					Color fill = section.ProgressKind == UiChipKind.Good ? UiPalette.Good : section.ProgressKind == UiChipKind.Warn ? UiPalette.Warn : section.ProgressKind == UiChipKind.Bad ? UiPalette.Bad : UiPalette.Accent;
-					UiDraw.Bar(new Rect(innerX, cursor, innerWidth, UiMetrics.BarHeight), Mathf.Clamp01(section.Progress), fill, UiPalette.Track);
+					Color fill = progressItem.Tone == UiChipKind.Good
+						? UiPalette.Good
+						: progressItem.Tone == UiChipKind.Warn
+							? UiPalette.Warn
+							: progressItem.Tone == UiChipKind.Bad
+								? UiPalette.Bad
+								: UiPalette.Accent;
+					UiDraw.Bar(new Rect(innerX, cursor, innerWidth, UiMetrics.BarHeight), Mathf.Clamp01(progressItem.Progress), fill, UiPalette.Track);
 				}
 				cursor += UiMetrics.BarHeight;
 			}
-			if (!string.IsNullOrEmpty(section.LeftText) || !string.IsNullOrEmpty(section.RightText))
+
+			if (!string.IsNullOrEmpty(leftText) || !string.IsNullOrEmpty(rightText))
 			{
 				cursor += UiMetrics.ProdGap;
 				if (draw)
 				{
 					float h = UiText.LineHeight(UiFont.Body);
-
-					bool modernTech =
-						DreamsOutpostsMod.UsesModernTechLayout;
-
-					float rightWidth =
-						string.IsNullOrEmpty(section.RightText)
-							? 0f
-							: Mathf.Max(
-								UiText.Width(section.RightText, UiFont.Body) + 4f,
-								60f);
+					bool modernTech = DreamsOutpostsMod.UsesModernTechLayout;
+					float rightWidth = string.IsNullOrEmpty(rightText)
+						? 0f
+						: Mathf.Max(UiText.Width(rightText, UiFont.Body) + 4f, 60f);
 
 					if (modernTech)
 					{
-						rightWidth = Mathf.Min(
-							rightWidth,
-							innerWidth * 0.46f);
+						rightWidth = Mathf.Min(rightWidth, innerWidth * 0.46f);
 					}
 
-					float leftWidth =
-						Mathf.Max(innerWidth - rightWidth, 20f);
-
-					string leftText = modernTech
-						? FitSingleLine(
-							section.LeftText ?? string.Empty,
-							UiFont.Body,
-							leftWidth)
-						: section.LeftText ?? string.Empty;
+					float leftWidth = Mathf.Max(innerWidth - rightWidth, 20f);
+					string fittedLeft = modernTech
+						? FitSingleLine(leftText ?? string.Empty, UiFont.Body, leftWidth)
+						: leftText ?? string.Empty;
 
 					UiText.Draw(
-						new Rect(
-							innerX,
-							cursor,
-							leftWidth,
-							h),
-						leftText,
+						new Rect(innerX, cursor, leftWidth, h),
+						fittedLeft,
 						UiFont.Body,
 						UiPalette.Ink2,
 						TextAnchor.MiddleLeft,
@@ -2601,20 +2753,12 @@ namespace DreamsOutposts
 
 					if (rightWidth > 0f)
 					{
-						string rightText = modernTech
-							? FitSingleLine(
-								section.RightText,
-								UiFont.Body,
-								rightWidth)
-							: section.RightText;
-
+						string fittedRight = modernTech
+							? FitSingleLine(rightText, UiFont.Body, rightWidth)
+							: rightText;
 						UiText.Draw(
-							new Rect(
-								innerX + innerWidth - rightWidth,
-								cursor,
-								rightWidth,
-								h),
-							rightText,
+							new Rect(innerX + innerWidth - rightWidth, cursor, rightWidth, h),
+							fittedRight,
 							UiFont.Body,
 							UiPalette.Ink2,
 							TextAnchor.MiddleRight,
@@ -2625,21 +2769,41 @@ namespace DreamsOutposts
 				}
 				cursor += UiText.LineHeight(UiFont.Body);
 			}
-			if (section.Action != null)
+
+			if (actionItem?.Action != null)
 			{
 				cursor += UiMetrics.ProdGap;
 				float h = UiWidgets.ButtonHeight(UiButtonSize.Small);
-				if (draw && UiWidgets.Button(new Rect(innerX, cursor, innerWidth, h), section.ActionLabel ?? "DreamsOutposts.Ui.Switch".Translate(), UiButtonKind.Secondary, true, null, UiButtonSize.Small, section.ActionTooltip)) section.Action();
+				if (draw && UiWidgets.Button(
+					new Rect(innerX, cursor, innerWidth, h),
+					actionItem.ActionLabel ?? "DreamsOutposts.Ui.Switch".Translate(),
+					UiButtonKind.Secondary,
+					true,
+					null,
+					UiButtonSize.Small,
+					actionItem.ActionTooltip))
+				{
+					actionItem.Action();
+				}
 				cursor += h;
 			}
-			if (section.Chips.Count > 0)
+
+			if (compactChips.Count > 0)
 			{
 				cursor += UiMetrics.ProdGap;
-				float h = UiDraw.ChipsHeight(section.Chips, innerWidth, true);
-				if (draw) UiDraw.Chips(new Rect(innerX, cursor, innerWidth, h), section.Chips, true);
+				float h = UiDraw.ChipsHeight(compactChips, innerWidth, true);
+				if (draw) UiDraw.Chips(new Rect(innerX, cursor, innerWidth, h), compactChips, true);
 				cursor += h;
 			}
-			if (draw && !string.IsNullOrEmpty(section.Tooltip)) UiWidgets.Tip(new Rect(x, y, width, cursor + UiMetrics.ProdPaddingV - y), section.Tooltip, GenText.StableStringHash(section.Title ?? "facility-section"));
+
+			if (draw && !string.IsNullOrEmpty(tooltip))
+			{
+				UiWidgets.Tip(
+					new Rect(x, y, width, cursor + UiMetrics.ProdPaddingV - y),
+					tooltip,
+					GenText.StableStringHash(group.Title ?? "facility-info-group"));
+			}
+
 			return cursor + UiMetrics.ProdPaddingV - y;
 		}
 
@@ -2727,14 +2891,14 @@ namespace DreamsOutposts
 		{
 			float innerX = cardRect.x + UiMetrics.CardPaddingH;
 			float innerWidth = Mathf.Max(cardRect.width - UiMetrics.CardPaddingH * 2f, 30f);
-			float chipsHeight = (view.Chips.Count > 0) ? UiDraw.ChipsHeight(view.Chips, innerWidth, true) : 0f;
-			if (!draw || view.Chips.Count == 0)
+			float chipsHeight = (view.DisplayChips.Count > 0) ? UiDraw.ChipsHeight(view.DisplayChips, innerWidth, true) : 0f;
+			if (!draw || view.DisplayChips.Count == 0)
 			{
 				return chipsHeight;
 			}
 			// 从底部钉住（等价 .fc-foot 的 margin-top: auto）
 			float footerY = Mathf.Max(cardRect.yMax - UiMetrics.CardPaddingBottom - chipsHeight, y);
-			UiDraw.Chips(new Rect(innerX, footerY, innerWidth, chipsHeight), view.Chips, true);
+			UiDraw.Chips(new Rect(innerX, footerY, innerWidth, chipsHeight), view.DisplayChips, true);
 			return chipsHeight;
 		}
 

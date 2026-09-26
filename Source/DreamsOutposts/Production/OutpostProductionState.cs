@@ -1,27 +1,26 @@
-using Verse;
-
 namespace DreamsOutposts
 {
-	public class OutpostProductionState : IExposable
+	public class OutpostProductionState : OutpostProcessState
 	{
-		public string productionId;
+		public string productionId
+		{
+			get => processId;
+			set => processId = value;
+		}
 
-		public int nextProductionTick;
+		public int nextProductionTick
+		{
+			get => nextProcessTick;
+			set => nextProcessTick = value;
+		}
 
 		public OutpostProductionState()
 		{
 		}
 
 		public OutpostProductionState(string productionId, int nextProductionTick)
+			: base(productionId, nextProductionTick)
 		{
-			this.productionId = productionId;
-			this.nextProductionTick = nextProductionTick;
-		}
-
-		public virtual void ExposeData()
-		{
-			Scribe_Values.Look(ref productionId, "productionId");
-			Scribe_Values.Look(ref nextProductionTick, "nextProductionTick", 0);
 		}
 
 		public override string ToString()

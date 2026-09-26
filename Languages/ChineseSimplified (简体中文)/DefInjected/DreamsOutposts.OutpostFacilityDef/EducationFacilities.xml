@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: classroom -->
+  <DreamsOutposts_SchoolClassroom.label>教室</DreamsOutposts_SchoolClassroom.label>
+  <!-- EN: A dedicated room for lessons, discussion and supervised study. Adds 12% education quality to a school outpost. -->
+  <DreamsOutposts_SchoolClassroom.description>用于授课、讨论和集中学习的专门教室。为学校据点增加12%教育质量。</DreamsOutposts_SchoolClassroom.description>
+
+  <!-- EN: school library -->
+  <DreamsOutposts_SchoolLibrary.label>学校图书室</DreamsOutposts_SchoolLibrary.label>
+  <!-- EN: A collection of books and quiet reading spaces that broadens the children's studies. Adds 12% education quality to a school outpost. -->
+  <DreamsOutposts_SchoolLibrary.description>收藏书籍并提供安静阅读空间，帮助儿童拓展学习内容。为学校据点增加12%教育质量。</DreamsOutposts_SchoolLibrary.description>
+
+  <!-- EN: practical classroom -->
+  <DreamsOutposts_PracticalClassroom.label>实践教室</DreamsOutposts_PracticalClassroom.label>
+  <!-- EN: A supervised workshop where children learn by handling tools, materials and small projects. Adds 12% education quality to a school outpost. -->
+  <DreamsOutposts_PracticalClassroom.description>在看护下使用工具和材料完成小型实践项目的教学空间。为学校据点增加12%教育质量。</DreamsOutposts_PracticalClassroom.description>
+
+  <!-- EN: school garden -->
+  <DreamsOutposts_SchoolGarden.label>学校园地</DreamsOutposts_SchoolGarden.label>
+  <!-- EN: A tended plot used for outdoor lessons, observation and practical experience. Adds 12% education quality to a school outpost. -->
+  <DreamsOutposts_SchoolGarden.description>用于户外课程、观察与实践的教学园地。为学校据点增加12%教育质量。</DreamsOutposts_SchoolGarden.description>
+
+  <!-- EN: activity yard -->
+  <DreamsOutposts_ActivityYard.label>活动场</DreamsOutposts_ActivityYard.label>
+  <!-- EN: An open yard for games, exercise and group activities under supervision. Adds 12% education quality to a school outpost. -->
+  <DreamsOutposts_ActivityYard.description>供儿童在看护下进行游戏、锻炼和集体活动的开放场地。为学校据点增加12%教育质量。</DreamsOutposts_ActivityYard.description>
+</LanguageData>

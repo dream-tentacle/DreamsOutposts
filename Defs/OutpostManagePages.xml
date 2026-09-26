@@ -30,6 +30,26 @@
     <uiIcon>Person</uiIcon>
     <order>15</order>
   </DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_ManagePage_School</defName>
+    <label>students</label>
+    <description>Current child growth and education status at this school outpost.</description>
+    <pageClass>DreamsOutposts.Page_OutpostSchool</pageClass>
+    <uiIcon>Person</uiIcon>
+    <order>15</order>
+    <allowedOutpostTypes>
+      <li>DreamsOutposts_School</li>
+    </allowedOutpostTypes>
+    <whitelistOnly>true</whitelistOnly>
+  </DreamsOutposts.OutpostManagePageDef>
+  <DreamsOutposts.OutpostManagePageDef MayRequire="Ludeon.RimWorld.Ideology">
+    <defName>DreamsOutposts_ManagePage_Indoctrination</defName>
+    <label>indoctrination</label>
+    <description>Residents currently undergoing cultural indoctrination and the progress of their next conversion attempts.</description>
+    <pageClass>DreamsOutposts.Page_OutpostIndoctrination</pageClass>
+    <uiIcon>Person</uiIcon>
+    <order>16</order>
+  </DreamsOutposts.OutpostManagePageDef>
   <DreamsOutposts.OutpostManagePageDef>
     <defName>DreamsOutposts_ManagePage_Events</defName>
     <label>events</label>

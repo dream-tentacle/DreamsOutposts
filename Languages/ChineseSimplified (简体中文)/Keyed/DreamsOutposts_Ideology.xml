@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: Target ideoligion -->
+  <DreamsOutposts.Indoctrination.TargetIdeo>目标意识形态</DreamsOutposts.Indoctrination.TargetIdeo>
+  <!-- EN: Guide: {0} -->
+  <DreamsOutposts.Indoctrination.Guide>教化者：{0}</DreamsOutposts.Indoctrination.Guide>
+  <!-- EN: No qualified guide (adult primary-ideoligion colonist, Social ≥ {0}) -->
+  <DreamsOutposts.Indoctrination.NoGuide>缺少合格教化者（成年、主意识形态殖民者，社交 ≥ {0}）</DreamsOutposts.Indoctrination.NoGuide>
+  <!-- EN: {0} is currently leading cultural instruction. Conversion power: {1}. -->
+  <DreamsOutposts.Indoctrination.GuideTip>{0}正在主持文化教化。转换能力：{1}。</DreamsOutposts.Indoctrination.GuideTip>
+  <!-- EN: Current instruction -->
+  <DreamsOutposts.Indoctrination.CurrentTarget>当前教化</DreamsOutposts.Indoctrination.CurrentTarget>
+  <!-- EN: No resident needs conversion -->
+  <DreamsOutposts.Indoctrination.NoTarget>当前没有需要改信的居民</DreamsOutposts.Indoctrination.NoTarget>
+  <!-- EN: Certainty: {0} -->
+  <DreamsOutposts.Indoctrination.Certainty>认可度：{0}</DreamsOutposts.Indoctrination.Certainty>
+  <!-- EN: {0} has converted to {1} under the guidance of {2}. -->
+  <DreamsOutposts.Indoctrination.Converted>在{2}的教化下，{0}已改信{1}。</DreamsOutposts.Indoctrination.Converted>
+  <DreamsOutposts.Indoctrination.Panel.NavSummary>{0}人 · {1}</DreamsOutposts.Indoctrination.Panel.NavSummary>
+  <DreamsOutposts.Indoctrination.Panel.Running>运行中</DreamsOutposts.Indoctrination.Panel.Running>
+  <DreamsOutposts.Indoctrination.Panel.Paused>已暂停</DreamsOutposts.Indoctrination.Panel.Paused>
+  <DreamsOutposts.Indoctrination.Panel.ProgressHeading>教化进度</DreamsOutposts.Indoctrination.Panel.ProgressHeading>
+  <DreamsOutposts.Indoctrination.Panel.NoTargets>当前没有需要教化的居民</DreamsOutposts.Indoctrination.Panel.NoTargets>
+  <DreamsOutposts.Indoctrination.Panel.GuideStatus>教化状态</DreamsOutposts.Indoctrination.Panel.GuideStatus>
+  <DreamsOutposts.Indoctrination.Panel.TargetCount>需要教化的居民：{0}人</DreamsOutposts.Indoctrination.Panel.TargetCount>
+  <DreamsOutposts.Indoctrination.Panel.ConversionPower>转换能力：{0}</DreamsOutposts.Indoctrination.Panel.ConversionPower>
+  <DreamsOutposts.Indoctrination.Panel.CurrentIdeo>当前意识形态：{0}</DreamsOutposts.Indoctrination.Panel.CurrentIdeo>
+  <DreamsOutposts.Indoctrination.Panel.NextAttempt>{0}% · 下次教化 {1}</DreamsOutposts.Indoctrination.Panel.NextAttempt>
+  <DreamsOutposts.Indoctrination.Panel.ProgressPaused>{0}% · 已暂停</DreamsOutposts.Indoctrination.Panel.ProgressPaused>
+  <DreamsOutposts.Indoctrination.Panel.GuideRunning>{0}正在主持教化</DreamsOutposts.Indoctrination.Panel.GuideRunning>
+</LanguageData>

@@ -47,6 +47,8 @@
   <DreamsOutposts.Settings.TabParameters>Parameters</DreamsOutposts.Settings.TabParameters>
   <DreamsOutposts.Settings.ProductionMultiplier>Production multiplier: {0}</DreamsOutposts.Settings.ProductionMultiplier>
   <DreamsOutposts.Settings.ProductionMultiplierDescription>Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected.</DreamsOutposts.Settings.ProductionMultiplierDescription>
+  <DreamsOutposts.Settings.InvincibleQuantumPower>Invincible quantum power</DreamsOutposts.Settings.InvincibleQuantumPower>
+  <DreamsOutposts.Settings.InvincibleQuantumPower.Description>Removes distance-based transmission loss from remote power generation. All valid links transmit power at 100% efficiency while enabled.</DreamsOutposts.Settings.InvincibleQuantumPower.Description>
   <DreamsOutposts.Settings.RandomEvents>Outpost random events</DreamsOutposts.Settings.RandomEvents>
   <DreamsOutposts.Settings.RandomEvents.Enable>Enable outpost random events</DreamsOutposts.Settings.RandomEvents.Enable>
   <DreamsOutposts.Settings.RandomEvents.Interval>Interval: {0} days</DreamsOutposts.Settings.RandomEvents.Interval>

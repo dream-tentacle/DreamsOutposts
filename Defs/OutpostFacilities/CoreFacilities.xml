@@ -7,20 +7,20 @@
     <description>A field camp where handlers track and tame animals native to the surrounding region.</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
-      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Production">
-        <productions>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Process">
+        <processes>
           <li>
             <id>capturedAnimals</id>
             <outputLabelKey>DreamsOutposts.Taming.CapturedAnimals</outputLabelKey>
             <capacityStat>TameAnimalChance</capacityStat>
             <intervalTicks>300000</intervalTicks>
             <outputPerCapacity>1</outputPerCapacity>
-            <workerClass>DreamsOutposts.OutpostProductionWorker_Taming</workerClass>
+            <workerClass>DreamsOutposts.OutpostProcessWorker_Taming</workerClass>
             <tags>
               <li>AnimalTaming</li>
             </tags>
           </li>
-        </productions>
+        </processes>
       </li>
     </comps>
   </DreamsOutposts.OutpostFacilityDef>
@@ -35,10 +35,10 @@
     </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>mechanitor relay</label>
-    <description>A large mechanoid-band signal relay. While enabled and tuned, it provides 2 bandwidth to its linked mechanitor.\n\nExpanded band nodes can be built at this outpost to provide additional bandwidth.</description>
+    <description>A large mechanoid-band signal relay.\n\nActivation requirement: at least one non-downed colonist at this outpost with Intellectual 8 or higher. One qualified colonist can maintain all mechanitor relays and expanded band nodes at the outpost. While enabled and tuned, this relay provides 2 bandwidth at outpost level 1 and gains 2 additional bandwidth for each outpost level, reaching 8 bandwidth at level 4.\n\nExpanded band nodes can be built at this outpost to provide additional bandwidth.</description>
     <installableAsExtension>false</installableAsExtension>
     <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>
-    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>2</bandwidth></li></comps>
+    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>2</bandwidth><bandwidthPerOutpostLevel>2</bandwidthPerOutpostLevel></li></comps>
   </DreamsOutposts.OutpostFacilityDef>
   <DreamsOutposts.OutpostFacilityDef>
     <defName>DreamsOutposts_MiningPlant</defName>
@@ -184,7 +184,7 @@
     </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>automation hub</label>
-    <description>A centralized control facility that coordinates the camp's automated machinery. While enabled, facilities tagged for automatic production receive the outpost level multiplier. Otherwise, they operate at base output.\n\nLevel multipliers:\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
+    <description>A centralized control facility that coordinates the camp's automated machinery.\n\nActivation requirement: at least one non-downed colonist at this outpost with Intellectual 5 or higher. While the hub is enabled, facilities tagged for automatic production receive the outpost level multiplier. While it is disabled, those facilities operate at base output.\n\nLevel multipliers:\nLevel 1: 2x\nLevel 2: 3x\nLevel 3: 4x\nLevel 4: 5x</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
@@ -203,7 +203,7 @@
     </operatingRequirements>
     <category>DreamsOutposts_CategoryOther</category>
     <label>power generation hub</label>
-    <description>A centralized control hub for the outpost's generators. While enabled, generators receive the outpost level multiplier. Otherwise, they operate at base power output.\n\nLevel multipliers:\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
+    <description>A centralized control hub for the outpost's generators.\n\nActivation requirement: at least one non-downed colonist at this outpost with Intellectual 5 or higher. While the hub is enabled, generators receive the outpost level multiplier. While it is disabled, generators operate at base power output.\n\nLevel multipliers:\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
     <installableAsExtension>false</installableAsExtension>
     <comps>
       <li Class="DreamsOutposts.OutpostFacilityCompProperties_ProductionSupervisor">
@@ -217,5 +217,26 @@
     <label>training base</label>
     <description>Barracks, drill yards and classrooms gathered into a single training site. Training facilities installed in this outpost train residents faster, in proportion to the level of the training base.\n\nLevel 1: 1.5x\nLevel 2: 2x\nLevel 3: 2.5x\nLevel 4: 3x</description>
     <installableAsExtension>false</installableAsExtension>
+  </DreamsOutposts.OutpostFacilityDef>
+  <DreamsOutposts.OutpostFacilityDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_SchoolCenter</defName>
+    <operatingRequirements>
+      <li Class="DreamsOutposts.OutpostFacilityRequirement_ResidentSkill">
+        <skill>Social</skill>
+        <minLevel>5</minLevel>
+        <colonistsOnly>true</colonistsOnly>
+        <adultOnly>true</adultOnly>
+      </li>
+    </operatingRequirements>
+    <category>DreamsOutposts_CategoryOther</category>
+    <label>school center</label>
+    <description>The classrooms, dormitories and common spaces that organize education at this outpost.\n\nActivation requirement: at least one non-downed adult colonist at this outpost with Social 5 or higher. While the school center is enabled, children gain growth points according to the school's education quality. While it is disabled, education quality contributes no growth points.</description>
+    <installableAsExtension>false</installableAsExtension>
+    <comps>
+      <li Class="DreamsOutposts.OutpostEducationProperties">
+        <baseQuality>0.35</baseQuality>
+        <settlesGrowth>true</settlesGrowth>
+      </li>
+    </comps>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

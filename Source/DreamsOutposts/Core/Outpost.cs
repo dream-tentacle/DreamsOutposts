@@ -352,8 +352,10 @@ namespace DreamsOutposts
 
 		public void SetLevel(int newLevel)
 		{
+			int oldLevel = level;
 			level = Mathf.Clamp(newLevel, 1, MaxLevel);
 			EnsureExtensionSlots();
+			if (level != oldLevel) OutpostBandwidthUtility.NotifyBandwidthChanged(this);
 		}
 
 		private void InitializeCoreFacility()

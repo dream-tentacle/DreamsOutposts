@@ -49,6 +49,8 @@ namespace DreamsOutposts
 		{
 			if (distance == int.MaxValue)
 				return 0f;
+			if (DreamsOutpostsMod.Settings?.invincibleQuantumPower == true)
+				return 1f;
 			return distance <= 2 ? 0.95f : Mathf.Pow(0.95f, distance - 1);
 		}
 
@@ -74,6 +76,17 @@ namespace DreamsOutposts
 		{
 			if (IsValidReceiver(receiver))
 				receiver.TryGetComp<CompRemotePowerReceiver>().NotifySourceChanged();
+		}
+
+		public static void NotifyAllLinkedReceivers()
+		{
+			foreach (Building receiver in AllSources()
+				.Select(source => source.Comp?.linkedReceiver)
+				.Where(IsValidReceiver)
+				.Distinct())
+			{
+				NotifyReceiver(receiver);
+			}
 		}
 
 	}

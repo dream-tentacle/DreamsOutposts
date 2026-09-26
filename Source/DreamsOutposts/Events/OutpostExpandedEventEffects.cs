@@ -118,17 +118,42 @@ namespace DreamsOutposts
 
 	public class OutpostEventEffect_GenerateTradeRequestQuest : OutpostEventEffect
 	{
+		public OutpostEventDef failureEvent;
+
 		public override void Apply(OutpostEventContext context)
 		{
 			QuestScriptDef def = DefDatabase<QuestScriptDef>.GetNamedSilentFail("TradeRequest");
-			if (def == null) { Log.Warning("DreamsOutposts: TradeRequest quest Def was unavailable."); return; }
+			if (def == null)
+			{
+				Log.Warning("DreamsOutposts: TradeRequest quest Def was unavailable.");
+				TriggerFailureEvent(context);
+				return;
+			}
 			float points = StorytellerUtility.DefaultThreatPointsNow(Find.AnyPlayerHomeMap ?? (IIncidentTarget)Find.World);
 			Slate slate = new Slate();
 			slate.Set("points", points);
-			if (!def.CanRun(slate, Find.World)) { Log.Warning("DreamsOutposts: TradeRequest quest could not run."); return; }
+			if (!def.CanRun(slate, Find.World))
+			{
+				Log.Warning("DreamsOutposts: TradeRequest quest could not run.");
+				TriggerFailureEvent(context);
+				return;
+			}
 			Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(def, slate);
+			if (quest == null)
+			{
+				Log.Warning("DreamsOutposts: TradeRequest quest generation returned null.");
+				TriggerFailureEvent(context);
+				return;
+			}
 			if (!quest.hidden && def.sendAvailableLetter) QuestUtility.SendLetterQuestAvailable(quest);
 		}
+
+		private void TriggerFailureEvent(OutpostEventContext context)
+		{
+			if (context?.outpost == null || failureEvent == null) return;
+			context.outpost.AddEvent(failureEvent);
+		}
+
 		public override string GetPreview(OutpostEventContext context) => "DreamsOutposts.EventEffect.TradeRequest".Translate();
 	}
 

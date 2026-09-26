@@ -16,21 +16,29 @@ namespace DreamsOutposts
 		public RimWorld.SkillDef skill;
 		public int minLevel;
 		public bool colonistsOnly;
-		public override string Label => (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkill" : "DreamsOutposts.Operation.ResidentSkill").Translate(skill.LabelCap, minLevel).ToString();
-		public override string Description => (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkillTip" : "DreamsOutposts.Operation.ResidentSkillTip").Translate(skill.LabelCap, minLevel).ToString();
+		public bool adultOnly;
+		public override string Label => (adultOnly
+			? (colonistsOnly ? "DreamsOutposts.Operation.AdultColonistSkill" : "DreamsOutposts.Operation.AdultResidentSkill")
+			: (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkill" : "DreamsOutposts.Operation.ResidentSkill")).Translate(skill.LabelCap, minLevel).ToString();
+		public override string Description => (adultOnly
+			? (colonistsOnly ? "DreamsOutposts.Operation.AdultColonistSkillTip" : "DreamsOutposts.Operation.AdultResidentSkillTip")
+			: (colonistsOnly ? "DreamsOutposts.Operation.ColonistSkillTip" : "DreamsOutposts.Operation.ResidentSkillTip")).Translate(skill.LabelCap, minLevel).ToString();
 
 		public override AcceptanceReport Check(Outpost outpost)
 		{
 			if (skill == null || outpost == null) return false;
 			foreach (Pawn pawn in outpost.Pawns)
 				if (Matches(pawn)) return true;
-			return (colonistsOnly ? "DreamsOutposts.FacilityRequiresColonistSkill" : "DreamsOutposts.FacilityRequiresResidentSkill").Translate(skill.LabelCap, minLevel).ToString();
+			return (adultOnly
+				? (colonistsOnly ? "DreamsOutposts.FacilityRequiresAdultColonistSkill" : "DreamsOutposts.FacilityRequiresAdultResidentSkill")
+				: (colonistsOnly ? "DreamsOutposts.FacilityRequiresColonistSkill" : "DreamsOutposts.FacilityRequiresResidentSkill")).Translate(skill.LabelCap, minLevel).ToString();
 		}
 
 		public bool Matches(Pawn pawn)
 		{
-			if (pawn == null || skill == null || (colonistsOnly && !pawn.IsColonist)) return false;
-			return !pawn.Dead && OutpostDefenseUtility.AvailableSkillLevel(pawn, skill) >= minLevel;
+			if (pawn == null || skill == null || pawn.Dead || pawn.Downed || (colonistsOnly && !pawn.IsColonist)) return false;
+			if (adultOnly && !pawn.DevelopmentalStage.Adult()) return false;
+			return OutpostDefenseUtility.AvailableSkillLevel(pawn, skill) >= minLevel;
 		}
 
 		public override IEnumerable<string> ConfigErrors()
@@ -118,14 +126,37 @@ namespace DreamsOutposts
 			for (int i = 0; i < (comps?.Count ?? 0); i++) comps[i]?.PreRemove(outpost);
 		}
 
+		public void SynchronizeProcessStates()
+		{
+			for (int i = 0; i < (comps?.Count ?? 0); i++)
+				if (comps[i] is OutpostFacilityComp_Process processComp)
+					processComp.SynchronizeStates();
+		}
+
 		public void SynchronizeProductionStates()
 		{
 			GetComp<OutpostFacilityComp_Production>()?.SynchronizeStates();
 		}
 
+		public OutpostProcessState GetProcessState(string processId)
+		{
+			if (string.IsNullOrEmpty(processId)) return null;
+			for (int i = 0; i < (comps?.Count ?? 0); i++)
+			{
+				if (comps[i] is OutpostFacilityComp_Process processComp)
+				{
+					OutpostProcessState state = processComp.GetState(processId);
+					if (state != null) return state;
+				}
+			}
+			return null;
+		}
+
 		public OutpostProductionState GetProductionState(string productionId)
 		{
-			return string.IsNullOrEmpty(productionId) ? null : GetComp<OutpostFacilityComp_Production>()?.GetState(productionId);
+			return string.IsNullOrEmpty(productionId)
+				? null
+				: GetComp<OutpostFacilityComp_Production>()?.GetState(productionId);
 		}
 
 		public bool TryGetProductionState(string productionId, out OutpostProductionState state)
@@ -147,7 +178,7 @@ namespace DreamsOutposts
 				{
 					if (i < (def?.comps?.Count ?? 0)) comps[i].Initialize(this, def.comps[i]);
 				}
-				SynchronizeProductionStates();
+				SynchronizeProcessStates();
 			}
 		}
 	}

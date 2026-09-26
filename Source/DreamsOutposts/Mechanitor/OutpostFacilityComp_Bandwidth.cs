@@ -8,8 +8,16 @@ namespace DreamsOutposts
 	public class OutpostFacilityCompProperties_Bandwidth : OutpostFacilityCompProperties
 	{
 		public int bandwidth = 1;
+		public int bandwidthPerOutpostLevel;
 		public int retuneTicks = 60000;
 		public OutpostFacilityCompProperties_Bandwidth() { compClass = typeof(OutpostFacilityComp_Bandwidth); }
+
+		public override IEnumerable<string> ConfigErrors()
+		{
+			foreach (string error in base.ConfigErrors()) yield return error;
+			if (bandwidth < 0) yield return "bandwidth cannot be negative.";
+			if (bandwidthPerOutpostLevel < 0) yield return "bandwidthPerOutpostLevel cannot be negative.";
+		}
 	}
 
 	public class OutpostFacilityComp_Bandwidth : OutpostFacilityComp
@@ -20,6 +28,27 @@ namespace DreamsOutposts
 		private bool hasBeenTuned;
 		public OutpostFacilityCompProperties_Bandwidth Props => (OutpostFacilityCompProperties_Bandwidth)props;
 		public bool IsTuning => tuningTo != null && retuneTicksLeft > 0;
+
+		public int BandwidthFor(Outpost outpost)
+		{
+			int level = outpost?.level ?? 1;
+			return Props.bandwidth + (level > 1 ? level - 1 : 0) * Props.bandwidthPerOutpostLevel;
+		}
+
+		public override void BuildUiInfo(Outpost outpost, UiFacilityInfoModel output)
+		{
+			int bandwidth = BandwidthFor(outpost);
+			output.AddFact(new UiFacilityInfoItem
+			{
+				Id = "bandwidth.output",
+				Kind = UiFacilityInfoKind.Value,
+				Importance = UiFacilityInfoImportance.Compact,
+				Label = "DreamsOutposts.Ui.Fact.Bandwidth".Translate().ToString(),
+				Value = "+" + bandwidth,
+				CompactText = "DreamsOutposts.Ui.Fact.BandwidthCompact".Translate(bandwidth).ToString(),
+				Tone = UiChipKind.Info
+			});
+		}
 
 		public void StartTuning(Pawn pawn)
 		{
@@ -88,9 +117,21 @@ namespace DreamsOutposts
 			{
 				if (outpost.Faction != Faction.OfPlayer) continue;
 				foreach (OutpostFacilityComp_Bandwidth node in Nodes(outpost, true))
-					if (!node.IsTuning && node.tunedTo == pawn) total += node.Props.bandwidth;
+					if (!node.IsTuning && node.tunedTo == pawn) total += node.BandwidthFor(outpost);
 			}
 			return total;
+		}
+
+		public static void NotifyBandwidthChanged(Outpost outpost)
+		{
+			if (outpost == null) return;
+			foreach (Pawn pawn in Nodes(outpost)
+				.SelectMany(node => new[] { node.tunedTo, node.tuningTo })
+				.Where(pawn => pawn?.mechanitor != null)
+				.Distinct())
+			{
+				pawn.mechanitor.Notify_BandwidthChanged();
+			}
 		}
 	}
 }

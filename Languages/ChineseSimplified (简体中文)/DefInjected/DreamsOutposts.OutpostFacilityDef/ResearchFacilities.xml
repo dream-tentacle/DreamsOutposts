@@ -8,8 +8,8 @@
   
   <!-- EN: research station -->
   <DreamsOutposts_ResearchStation.label>科研站</DreamsOutposts_ResearchStation.label>
-  <!-- EN: A permanent research operation that contributes 61.875 research points to the colony's current project every half-day. -->
-  <DreamsOutposts_ResearchStation.description>每半天为殖民地当前研究项目贡献61.875点科研点数的常设研究设施。</DreamsOutposts_ResearchStation.description>
+  <!-- EN: A permanent research operation that contributes research points to the colony's current project every half-day. Actual output depends on the combined research speed of residents at this outpost. -->
+  <DreamsOutposts_ResearchStation.description>每半天为殖民地当前研究项目结算一次科研点数。实际产出取决于据点内居民的科研速度合计。</DreamsOutposts_ResearchStation.description>
   
   <!-- EN: sterile analysis apparatus -->
   <DreamsOutposts_SterileAnalysisApparatus.label>无菌分析装置</DreamsOutposts_SterileAnalysisApparatus.label>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <DreamsOutposts.School.NavSummary>{0} students · {1}</DreamsOutposts.School.NavSummary>
+  <DreamsOutposts.School.EducationQuality>Education quality</DreamsOutposts.School.EducationQuality>
+  <DreamsOutposts.School.CaretakerStatus>Caretaker</DreamsOutposts.School.CaretakerStatus>
+  <DreamsOutposts.School.Running>Operational</DreamsOutposts.School.Running>
+  <DreamsOutposts.School.NotRunning>Inactive: {0}</DreamsOutposts.School.NotRunning>
+  <DreamsOutposts.School.NoCaretaker>no qualified caretaker</DreamsOutposts.School.NoCaretaker>
+  <DreamsOutposts.School.StudentGrowth>Student growth</DreamsOutposts.School.StudentGrowth>
+  <DreamsOutposts.School.NoStudents>No children are currently studying at this outpost.</DreamsOutposts.School.NoStudents>
+  <DreamsOutposts.School.AgeAndNextGrowth>Age {0} · next growth moment at {1}</DreamsOutposts.School.AgeAndNextGrowth>
+  <DreamsOutposts.School.AgeOnly>Age {0}</DreamsOutposts.School.AgeOnly>
+  <DreamsOutposts.School.GrowthPerDay>+{0}/day</DreamsOutposts.School.GrowthPerDay>
+  <DreamsOutposts.School.GrowthPaused>Growth paused</DreamsOutposts.School.GrowthPaused>
+  <DreamsOutposts.School.GrowthTier>Tier {0}</DreamsOutposts.School.GrowthTier>
+</LanguageData>

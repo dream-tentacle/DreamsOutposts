@@ -5,15 +5,21 @@
   <DreamsOutposts.Operation.EnabledTip>启用条件已满足，且设施未被事件停用。具体功能仍需满足调谐、燃料等运行要求。</DreamsOutposts.Operation.EnabledTip>
   <DreamsOutposts.Operation.ColonistSkill>殖民者{0} ≥{1}</DreamsOutposts.Operation.ColonistSkill>
   <DreamsOutposts.Operation.ResidentSkill>居民{0} ≥{1}</DreamsOutposts.Operation.ResidentSkill>
-  <DreamsOutposts.Operation.ColonistSkillTip>至少需要一名驻守本据点、{0}达到{1}级且该技能可用的殖民者。</DreamsOutposts.Operation.ColonistSkillTip>
-  <DreamsOutposts.Operation.ResidentSkillTip>至少需要一名驻守本据点、{0}达到{1}级且该技能可用的居民。</DreamsOutposts.Operation.ResidentSkillTip>
-  <DreamsOutposts.FacilityRequiresColonistSkill>未启用：需要一名{0} ≥ {1}的殖民者</DreamsOutposts.FacilityRequiresColonistSkill>
+  <DreamsOutposts.Operation.AdultColonistSkill>成年殖民者{0} ≥{1}</DreamsOutposts.Operation.AdultColonistSkill>
+  <DreamsOutposts.Operation.AdultResidentSkill>成年居民{0} ≥{1}</DreamsOutposts.Operation.AdultResidentSkill>
+  <DreamsOutposts.Operation.ColonistSkillTip>至少需要一名驻守本据点、未倒地、{0}达到{1}级且该技能可用的殖民者。</DreamsOutposts.Operation.ColonistSkillTip>
+  <DreamsOutposts.Operation.ResidentSkillTip>至少需要一名驻守本据点、未倒地、{0}达到{1}级且该技能可用的居民。</DreamsOutposts.Operation.ResidentSkillTip>
+  <DreamsOutposts.Operation.AdultColonistSkillTip>至少需要一名驻守本据点、未倒地的成年殖民者，且{0}达到{1}级并可用。</DreamsOutposts.Operation.AdultColonistSkillTip>
+  <DreamsOutposts.Operation.AdultResidentSkillTip>至少需要一名驻守本据点、未倒地的成年居民，且{0}达到{1}级并可用。</DreamsOutposts.Operation.AdultResidentSkillTip>
+  <DreamsOutposts.FacilityRequiresColonistSkill>未启用：需要一名未倒地、{0} ≥ {1}的殖民者</DreamsOutposts.FacilityRequiresColonistSkill>
+  <DreamsOutposts.FacilityRequiresAdultColonistSkill>未启用：需要一名未倒地、{0} ≥ {1}的成年殖民者</DreamsOutposts.FacilityRequiresAdultColonistSkill>
   <DreamsOutposts.Ui.Help.DefenseSources.Head>防卫点数来源</DreamsOutposts.Ui.Help.DefenseSources.Head>
   <DreamsOutposts.Ui.Help.DefenseSources>有战斗能力的殖民者、机械族、防卫设施。</DreamsOutposts.Ui.Help.DefenseSources>
   <DreamsOutposts.Ui.Help.OutpostAttackPoints.Head>据点袭击点数</DreamsOutposts.Ui.Help.OutpostAttackPoints.Head>
   <DreamsOutposts.Ui.Help.OutpostAttackPoints>根据殖民地情况计算原版袭击点数，再折算为据点袭击点数。\n\n示例（基础折算值）：\n100 袭击点数 → 12 据点袭击点数\n1000 袭击点数 → 27 据点袭击点数\n10000 袭击点数 → 58 据点袭击点数\n\n实际据点袭击点数会在基础值的 80%～120% 之间随机浮动。</DreamsOutposts.Ui.Help.OutpostAttackPoints>
   <DreamsOutposts.WatchtowerSupport>相邻地块哨塔支援</DreamsOutposts.WatchtowerSupport>
-  <DreamsOutposts.FacilityRequiresResidentSkill>未启用：需要一名{0} ≥ {1}的居民</DreamsOutposts.FacilityRequiresResidentSkill>
+  <DreamsOutposts.FacilityRequiresResidentSkill>未启用：需要一名未倒地、{0} ≥ {1}的居民</DreamsOutposts.FacilityRequiresResidentSkill>
+  <DreamsOutposts.FacilityRequiresAdultResidentSkill>未启用：需要一名未倒地、{0} ≥ {1}的成年居民</DreamsOutposts.FacilityRequiresAdultResidentSkill>
   <DreamsOutposts.FacilityTemporarilyDisabled>暂时停用</DreamsOutposts.FacilityTemporarilyDisabled>
   <!-- EN: Defense -->
   <DreamsOutposts.Defense>防卫</DreamsOutposts.Defense>

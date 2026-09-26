@@ -3,6 +3,12 @@ using Verse;
 
 namespace DreamsOutposts
 {
+	public class UpdateNoticeSection
+	{
+		public string heading;
+		public List<string> entries = new List<string>();
+	}
+
 	/// <summary>
 	/// 一条更新日志：一个版本一条，写在 Defs 里的任意 XML 中。
 	/// - version：本条日志对应的 Mod 版本号，与 About.xml 的 modVersion 比较。
@@ -21,6 +27,9 @@ namespace DreamsOutposts
 		/// <summary>日志正文，每条一段。</summary>
 		public List<string> entries = new List<string>();
 
+		/// <summary>可选的分组正文。填写后优先按小标题分组显示；entries 继续兼容旧日志。</summary>
+		public List<UpdateNoticeSection> sections = new List<UpdateNoticeSection>();
+
 		public override IEnumerable<string> ConfigErrors()
 		{
 			foreach (string error in base.ConfigErrors())
@@ -33,9 +42,27 @@ namespace DreamsOutposts
 				yield return "version is null or empty (should match the modVersion in About.xml).";
 			}
 
-			if (entries.NullOrEmpty())
+			if (entries.NullOrEmpty() && sections.NullOrEmpty())
 			{
-				yield return "entries is null or empty.";
+				yield return "both entries and sections are null or empty.";
+			}
+
+			for (int i = 0; i < (sections?.Count ?? 0); i++)
+			{
+				UpdateNoticeSection section = sections[i];
+				if (section == null)
+				{
+					yield return "sections[" + i + "] is null.";
+					continue;
+				}
+				if (section.heading.NullOrEmpty())
+				{
+					yield return "sections[" + i + "].heading is null or empty.";
+				}
+				if (section.entries.NullOrEmpty())
+				{
+					yield return "sections[" + i + "].entries is null or empty.";
+				}
 			}
 		}
 	}

@@ -233,7 +233,7 @@ namespace DreamsOutposts
 			for (int i = 0; i < defs.Count; i++)
 			{
 				OutpostFacilityDef def = defs[i];
-				if (def != null && def.installableAsExtension && def.IsAllowedIn(outpostTypeDef) && MatchesCoreProduction(def, outpostTypeDef))
+				if (def != null && def.installableAsExtension && def.IsAllowedIn(outpostTypeDef) && MatchesCoreProcess(def, outpostTypeDef))
 				{
 					result.Add(def);
 				}
@@ -242,23 +242,23 @@ namespace DreamsOutposts
 			return result;
 		}
 
-		private static bool MatchesCoreProduction(OutpostFacilityDef facility, OutpostTypeDef outpostType)
+		private static bool MatchesCoreProcess(OutpostFacilityDef facility, OutpostTypeDef outpostType)
 		{
 			if (facility.FacilityTag != OutpostFacilityTagRegistry.ProductionBoost)
 			{
 				return true;
 			}
-			List<OutpostProductionProperties> coreProductions = outpostType?.coreFacility?.Productions;
-			if (coreProductions.NullOrEmpty() || facility.productionModifiers.NullOrEmpty())
+			OutpostFacilityDef coreFacility = outpostType?.coreFacility;
+			if (coreFacility == null || !coreFacility.HasProcesses || facility.productionModifiers.NullOrEmpty())
 			{
 				return false;
 			}
 			for (int i = 0; i < facility.productionModifiers.Count; i++)
 			{
 				OutpostProductionModifier modifier = facility.productionModifiers[i];
-				for (int j = 0; j < coreProductions.Count; j++)
+				foreach (OutpostProcessProperties process in coreFacility.Processes)
 				{
-					if (modifier != null && modifier.Matches(coreProductions[j])) return true;
+					if (modifier != null && modifier.Matches(process, coreFacility)) return true;
 				}
 			}
 			return false;

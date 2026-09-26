@@ -12,11 +12,11 @@
     <facilityTag>Other</facilityTag>
     <category>DreamsOutposts_CategoryOther</category>
     <label>expanded band node</label>
-    <description>A dedicated mechanoid-band amplifier. While enabled and tuned, it provides 1 bandwidth to its linked mechanitor.</description>
+    <description>A dedicated mechanoid-band amplifier.\n\nActivation requirement: at least one non-downed colonist at this outpost with Intellectual 8 or higher. One qualified colonist can maintain all mechanitor relays and expanded band nodes at the outpost. While enabled and tuned, this node provides 2 bandwidth to its linked mechanitor.</description>
     <allowedOutpostTypes><li>DreamsOutposts_Mechanitor</li></allowedOutpostTypes>
     <whitelistOnly>true</whitelistOnly>
     <researchPrerequisites><li>BasicMechtech</li></researchPrerequisites>
     <buildCost><Steel>200</Steel><ComponentIndustrial>4</ComponentIndustrial></buildCost>
-    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>1</bandwidth></li></comps>
+    <comps><li Class="DreamsOutposts.OutpostFacilityCompProperties_Bandwidth"><bandwidth>2</bandwidth></li></comps>
   </DreamsOutposts.OutpostFacilityDef>
 </Defs>

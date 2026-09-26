@@ -69,7 +69,7 @@ namespace DreamsOutposts
 			RemotePowerUtility.NotifyReceiver(receiver);
 		}
 
-		public override void BuildUiSections(Outpost outpost, List<UiFacilitySectionView> output)
+		public override void BuildUiInfo(Outpost outpost, UiFacilityInfoModel output)
 		{
 			int now = Find.TickManager.TicksGame;
 			bool active = IsPoweredNow && RemotePowerUtility.IsValidReceiver(linkedReceiver);
@@ -85,21 +85,71 @@ namespace DreamsOutposts
 					? "DreamsOutposts.RemotePower.StatusActive".Translate(watts.ToString("0"), remaining.ToStringTicksToPeriod()).ToString()
 					: "DreamsOutposts.RemotePower.StatusContinuous".Translate(watts.ToString("0")).ToString())
 					: "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(Props.fuel.LabelCap, Props.fuelPerCycle).ToString());
-			UiFacilitySectionView section = new UiFacilitySectionView
+			string tooltip = Props.requiresFuel
+				? "DreamsOutposts.RemotePower.FuelCycle".Translate(Props.fuel.LabelCap, Props.fuelPerCycle, Props.cycleTicks.ToStringTicksToPeriod()).ToString()
+				: "DreamsOutposts.RemotePower.Continuous".Translate((Props.basePowerOutput * RemotePowerUtility.PowerGenerationFactor(outpost)).ToString("0")).ToString();
+
+			UiFacilityInfoGroup group = NewUiInfoGroup(
+				"DreamsOutposts.RemotePower.SectionTitle".Translate().ToString(),
+				Props.fuel,
+				tooltip);
+
+			if (active)
 			{
-				Title = "DreamsOutposts.RemotePower.SectionTitle".Translate(),
-				IconThing = Props.fuel,
-				MainText = active ? watts.ToString("0") + " W" : string.Empty,
-				LeftText = status,
-				RightText = linkedReceiver == null ? string.Empty : "DreamsOutposts.RemotePower.DistanceEfficiency".Translate(distance, efficiency.ToStringPercent()).ToString(),
-				ShowProgress = Props.requiresFuel,
-				Progress = progress,
-				ProgressKind = active ? UiChipKind.Good : UiChipKind.Warn,
-				Tooltip = Props.requiresFuel
-					? "DreamsOutposts.RemotePower.FuelCycle".Translate(Props.fuel.LabelCap, Props.fuelPerCycle, Props.cycleTicks.ToStringTicksToPeriod()).ToString()
-					: "DreamsOutposts.RemotePower.Continuous".Translate((Props.basePowerOutput * RemotePowerUtility.PowerGenerationFactor(outpost)).ToString("0")).ToString()
-			};
-			output.Add(section);
+				group.Items.Add(new UiFacilityInfoItem
+				{
+					Kind = UiFacilityInfoKind.Value,
+					Importance = UiFacilityInfoImportance.Primary,
+					Value = watts.ToString("0") + " W",
+					Tooltip = tooltip
+				});
+			}
+
+			string distanceText = linkedReceiver == null
+				? string.Empty
+				: "DreamsOutposts.RemotePower.DistanceEfficiency".Translate(distance, efficiency.ToStringPercent()).ToString();
+
+			if (Props.requiresFuel)
+			{
+				group.Items.Add(new UiFacilityInfoItem
+				{
+					Kind = UiFacilityInfoKind.Progress,
+					Importance = UiFacilityInfoImportance.Supporting,
+					Label = "DreamsOutposts.RemotePower.SectionTitle".Translate().ToString(),
+					Progress = progress,
+					ProgressText = active
+						? "DreamsOutposts.Ui.ProgressCompact".Translate(
+							Mathf.RoundToInt(progress * 100f),
+							remaining.ToStringTicksToPeriod()).ToString()
+						: "0%",
+					LeftText = status,
+					RightText = distanceText,
+					Tooltip = tooltip,
+					Tone = active ? UiChipKind.Good : UiChipKind.Warn
+				});
+			}
+			else
+			{
+				group.Items.Add(new UiFacilityInfoItem
+				{
+					Kind = UiFacilityInfoKind.Value,
+					Importance = UiFacilityInfoImportance.Supporting,
+					Value = status,
+					Tooltip = tooltip
+				});
+				if (!string.IsNullOrEmpty(distanceText))
+				{
+					group.Items.Add(new UiFacilityInfoItem
+					{
+						Kind = UiFacilityInfoKind.Value,
+						Importance = UiFacilityInfoImportance.Detail,
+						Value = distanceText,
+						Tooltip = tooltip
+					});
+				}
+			}
+
+			output.Groups.Add(group);
 		}
 
 		public override void ExposeData()

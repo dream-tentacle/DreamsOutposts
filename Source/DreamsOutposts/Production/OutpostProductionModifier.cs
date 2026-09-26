@@ -22,9 +22,9 @@ namespace DreamsOutposts
 
 		public bool IsGlobal => string.IsNullOrEmpty(NormalizedTag) && string.IsNullOrEmpty(NormalizedFacilityTag) && product == null;
 
-		public bool Matches(OutpostProductionProperties production, OutpostFacilityDef producingFacility = null)
+		public bool Matches(OutpostProcessProperties process, OutpostFacilityDef producingFacility = null)
 		{
-			if (production == null)
+			if (process == null)
 			{
 				return false;
 			}
@@ -34,7 +34,7 @@ namespace DreamsOutposts
 			{
 				return false;
 			}
-			if (product != null && production.product != product)
+			if (product != null && (!(process is OutpostProductionProperties production) || production.product != product))
 			{
 				return false;
 			}
@@ -43,7 +43,7 @@ namespace DreamsOutposts
 			{
 				return true;
 			}
-			List<string> tags = production.tags;
+			List<string> tags = process.tags;
 			if (tags == null)
 			{
 				return false;

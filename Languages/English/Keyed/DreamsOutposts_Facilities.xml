@@ -48,7 +48,11 @@
   <DreamsOutposts.FacilityTag.PowerGeneration>Power generation</DreamsOutposts.FacilityTag.PowerGeneration>
   <DreamsOutposts.FacilityTag.Recruitment>Recruitment</DreamsOutposts.FacilityTag.Recruitment>
   <DreamsOutposts.FacilityTag.Training>Training</DreamsOutposts.FacilityTag.Training>
+  <DreamsOutposts.FacilityTag.Education>Education</DreamsOutposts.FacilityTag.Education>
   <DreamsOutposts.FacilityTag.Other>Other</DreamsOutposts.FacilityTag.Other>
+  <DreamsOutposts.Education.Quality>Education quality</DreamsOutposts.Education.Quality>
+  <DreamsOutposts.Education.Students>{0} students</DreamsOutposts.Education.Students>
+  <DreamsOutposts.Education.Contribution>Education contribution</DreamsOutposts.Education.Contribution>
   <DreamsOutposts.ProductionSupervisor.Present>Manager present ({1} {0})</DreamsOutposts.ProductionSupervisor.Present>
   <DreamsOutposts.ProductionSupervisor.Missing>Missing manager ({1} {0})</DreamsOutposts.ProductionSupervisor.Missing>
   <DreamsOutposts.ProductionSupervisor.Disabled>Hub disabled</DreamsOutposts.ProductionSupervisor.Disabled>
