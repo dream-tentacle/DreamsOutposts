@@ -14,7 +14,7 @@
             <outputLabelKey>DreamsOutposts.ResearchPoints</outputLabelKey>
             <capacityStat>ResearchSpeed</capacityStat>
             <intervalTicks>30000</intervalTicks>
-            <outputPerCapacity>6.1875</outputPerCapacity>
+            <outputPerCapacity>14</outputPerCapacity>
             <workerClass>DreamsOutposts.OutpostProcessWorker_Research</workerClass>
             <tags>
               <li>Research</li>

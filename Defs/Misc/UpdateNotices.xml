@@ -17,7 +17,7 @@
 	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_3_1</defName>
 		<label>Update log</label>
-		<version>1.3.1</version>
+		<version>1.2.1</version>
 		<sections>
 			<li>
 				<heading>&lt;color=#FF6B6B&gt;Bug fixes&lt;/color&gt;</heading>
@@ -30,6 +30,18 @@
 				<heading>&lt;color=#6FA8FF&gt;Content&lt;/color&gt;</heading>
 				<entries>
 					<li>Added a distinct map icon for every outpost type.</li>
+				</entries>
+			</li>
+			<li>
+				<heading>&lt;color=#AAAAAA&gt;Other&lt;/color&gt;</heading>
+				<entries>
+					<li>The version number was incorrect earlier and has now been corrected. If you see this notice twice, that is fine.</li>
+				</entries>
+			</li>
+			<li>
+				<heading>&lt;color=#B98CFF&gt;Balance adjustments&lt;/color&gt;</heading>
+				<entries>
+					<li>Improved research outposts. Also, remember to add extension facilities to your research outposts if you have overlooked them.</li>
 				</entries>
 			</li>
 		</sections>
