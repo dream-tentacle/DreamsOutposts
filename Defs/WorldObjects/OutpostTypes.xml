@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshCultivation_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_FleshCultivation</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_FleshCultivation</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="HaiLuan.FleshHive">
+    <defName>DreamsOutposts_FleshHiveRelay_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_FleshHiveRelay</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_FleshHiveRelay</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="fxz.glitterworlddestroyer.mk5">
+    <defName>DreamsOutposts_PrecisionMechOutpost_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_PrecisionMechOutpost</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_PrecisionMechOutpost</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="Ancot.MiliraRace">
+    <defName>DreamsOutposts_SolarOutpost_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_SolarOutpost</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_SolarOutpost</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="RI.RimImmortal.Core">
+    <defName>DreamsOutposts_ImmortalGate_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_ImmortalGate</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_ImmortalGate</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_AnimalTaming_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_AnimalTaming</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_AnimalTaming</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Mining_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Mining</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Mining</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Farming_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Farming</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Farming</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Logging_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Logging</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Logging</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Drilling_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Drilling</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Drilling</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Neutroamine_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Neutroamine</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Neutroamine</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Research_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Research</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Research</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_Town_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Town</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Town</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_Mechanitor_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_Mechanitor</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_Mechanitor</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_AutomationCamp_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_AutomationCamp</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_AutomationCamp</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_PowerGeneration_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_PowerGeneration</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_PowerGeneration</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase">
+    <defName>DreamsOutposts_TrainingCamp_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_TrainingCamp</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_TrainingCamp</expandingIconTexture>
+  </WorldObjectDef>
+
+  <WorldObjectDef ParentName="DreamsOutposts_WorldObjectBase" MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>DreamsOutposts_School_WorldObject</defName>
+    <texture>DreamsOutposts/World/DreamsOutposts_School</texture>
+    <expandingIconTexture>DreamsOutposts/World/DreamsOutposts_School</expandingIconTexture>
+  </WorldObjectDef>
+</Defs>

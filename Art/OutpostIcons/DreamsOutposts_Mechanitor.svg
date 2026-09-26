@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">机械师据点</title>
+<desc id="desc">中继塔与信号弧。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M36 120L57 54H71L92 120Z"/>
+  <path d="M51 89H77L82 105H46Z" fill="#999999" stroke="none"/>
+  <path d="M64 48V71" fill="none"/>
+  <circle cx="64" cy="37" r="12"/>
+  <path d="M35 16C23 28 23 46 35 58M93 16C105 28 105 46 93 58" fill="none" stroke-width="8"/>
+  <path d="M20 7C1 24 1 50 20 68M108 7C127 24 127 50 108 68" fill="none" stroke-width="7"/>
+  <path d="M25 121H103" fill="none"/>
+</g>
+</svg>

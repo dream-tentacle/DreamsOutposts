@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">巢群神经中继站</title>
+<desc id="desc">神经主干与分叉节点。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 121C41 109 45 86 48 68L26 51L33 40L55 53L58 23H71L75 53L96 37L104 48L82 69C83 92 90 111 108 121Z"/>
+  <path d="M49 117C59 99 61 81 63 59C67 82 69 99 80 117Z" fill="#999999" stroke="none"/>
+  <path d="M48 18C48 6 64 3 70 11C84 7 91 26 79 33C70 43 50 35 48 26Z"/>
+  <circle cx="28" cy="44" r="15"/>
+  <circle cx="102" cy="41" r="15"/>
+  <circle cx="28" cy="44" r="6" fill="#999999" stroke="none"/>
+  <circle cx="102" cy="41" r="6" fill="#999999" stroke="none"/>
+  <path d="M65 16V29" fill="none" stroke="#999999" stroke-width="6"/>
+</g>
+</svg>

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_3_1.label>更新日志</DreamsOutposts_UpdateNotice_1_3_1.label>
+  <DreamsOutposts_UpdateNotice_1_3_1.sections.0.heading>&lt;color=#FF6B6B&gt;修复bug&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_3_1.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.0>修复了上一次更新后导致驯兽据点循环报错的bug</DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.1>修复了上一次更新后导致科研据点组件不匹配的bug</DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.1>
+  <DreamsOutposts_UpdateNotice_1_3_1.sections.1.heading>&lt;color=#6FA8FF&gt;内容&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_3_1.sections.1.heading>
+  <DreamsOutposts_UpdateNotice_1_3_1.sections.1.entries.0>为每一种据点添加了不同的地图图标</DreamsOutposts_UpdateNotice_1_3_1.sections.1.entries.0>
+
   <DreamsOutposts_UpdateNotice_1_2_0.label>更新日志</DreamsOutposts_UpdateNotice_1_2_0.label>
   <DreamsOutposts_UpdateNotice_1_2_0.sections.0.heading>&lt;color=#6FA8FF&gt;内容&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_0.sections.0.heading>
   <DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.0>新增学校据点及教育设施。</DreamsOutposts_UpdateNotice_1_2_0.sections.0.entries.0>

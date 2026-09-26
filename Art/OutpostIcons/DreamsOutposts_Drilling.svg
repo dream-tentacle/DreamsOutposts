@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">钻井据点</title>
+<desc id="desc">梯形井架与油滴。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 121L39 9H64L89 121Z"/>
+  <path d="M25 115H79M31 89H73M37 63H67M43 37H61" fill="none" stroke="#999999" stroke-width="6"/>
+  <path d="M25 115L73 89L37 63L61 37" fill="none" stroke="#999999" stroke-width="6"/>
+  <path d="M8 121H98" fill="none"/>
+  <path d="M102 52C96 66 83 80 83 94C83 107 91 115 102 115C113 115 121 107 121 94C121 80 108 66 102 52Z" fill="#999999"/>
+  <path d="M94 92C92 99 96 104 101 104" fill="none" stroke="white" stroke-width="5"/>
+</g>
+</svg>

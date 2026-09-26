@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">科研据点</title>
+<desc id="desc">圆顶研究站与望远镜。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M73 49L104 17L118 31L85 64Z"/>
+  <path d="M102 15L119 32" fill="none" stroke-width="9"/>
+  <path d="M16 121V76H106V121Z"/>
+  <path d="M10 77C10 48 31 29 60 29C89 29 110 48 110 77Z"/>
+  <path d="M56 35C44 46 40 60 41 72H58C55 57 59 44 65 35Z" fill="#999999" stroke="none"/>
+  <path d="M47 91H74V121H47ZM24 90H35V106H24ZM86 90H98V106H86Z" fill="#999999" stroke="none"/>
+  <path d="M16 80V121H106V80" fill="none"/>
+</g>
+</svg>

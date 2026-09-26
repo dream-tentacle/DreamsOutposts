@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">伐木据点</title>
+<desc id="desc">针叶树与原木。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M40 107V80H65V107Z" fill="#999999"/>
+  <path d="M52 7L24 45H36L12 76H28L9 99H94L77 76H91L68 45H80Z"/>
+  <path d="M53 38L42 58H53L40 82H70L59 58H66Z" fill="#999999" stroke="none"/>
+  <path d="M37 94H105C117 94 122 101 122 109C122 117 117 122 105 122H37Z"/>
+  <ellipse cx="37" cy="108" rx="15" ry="14"/>
+  <ellipse cx="37" cy="108" rx="6" ry="6" fill="#999999" stroke="none"/>
+  <path d="M65 106H103" fill="none" stroke="#999999" stroke-width="5"/>
+</g>
+</svg>

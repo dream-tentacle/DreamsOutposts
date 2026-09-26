@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">太阳据点</title>
+<desc id="desc">太阳与冶炼炉。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M64 5V14M31 14L37 22M10 39L21 43M97 14L91 22M118 39L107 43" fill="none" stroke-width="7"/>
+  <circle cx="64" cy="48" r="26"/>
+  <path d="M17 120V79L31 65H97L111 79V120Z"/>
+  <path d="M12 80H116" fill="none"/>
+  <path d="M44 121V102C44 77 84 77 84 102V121Z" fill="#999999" stroke="none"/>
+  <path d="M64 92L54 106L64 118L74 106Z" stroke="none"/>
+  <path d="M24 92H34V112H24ZM94 92H104V112H94Z" fill="#999999" stroke="none"/>
+  <path d="M17 83V120H111V83" fill="none"/>
+</g>
+</svg>

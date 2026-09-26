@@ -67,6 +67,8 @@
 	<Compile Include="Core\DreamsOutpostsSettings.cs" />
 	<Compile Include="Compatibility\IOutpostCompatibility.cs" />
 	<Compile Include="Compatibility\CompatibilityManager.cs" />
+	<Compile Include="Compatibility\OutpostFacilityCompMigration.cs" />
+	<Compile Include="Compatibility\OutpostFacilityComp_Research.cs" />
 	<Compile Include="Compatibility\FleshHiveCompatibility.cs" />
 	<Compile Include="Compatibility\VehicleFrameworkCompatibility.cs" />
 	<Compile Include="Compatibility\VehicleCaravanCompat.cs" />

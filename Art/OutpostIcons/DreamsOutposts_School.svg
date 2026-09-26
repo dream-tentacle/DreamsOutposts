@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">学校据点</title>
+<desc id="desc">钟楼校舍与书本。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 118V68H113V118Z"/>
+  <path d="M8 68L32 43H96L120 68Z"/>
+  <path d="M45 70V31H83V70Z"/>
+  <path d="M38 32L64 8L90 32Z"/>
+  <circle cx="64" cy="49" r="11" fill="#999999" stroke="none"/>
+  <path d="M64 41V49H71" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M29 83C42 79 52 81 64 87C76 81 87 79 100 83V116C87 112 76 114 64 121C52 114 41 112 29 116Z"/>
+  <path d="M64 88V120" fill="none" stroke="#999999" stroke-width="5"/>
+  <path d="M38 94L54 97M75 97L91 94M38 104L54 107M75 107L91 104" fill="none" stroke="#999999" stroke-width="4"/>
+</g>
+</svg>

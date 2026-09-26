@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">训练基地</title>
+<desc id="desc">营房与训练靶。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 119V76L22 51H59L76 77V119Z"/>
+  <path d="M11 77H72" fill="none"/>
+  <path d="M29 89H48V119H29Z" fill="#999999" stroke="none"/>
+  <path d="M9 119V76L22 51H59L76 77V119Z" fill="none"/>
+  <path d="M91 74V120M74 121H109" fill="none" stroke-width="8"/>
+  <circle cx="89" cy="43" r="31"/>
+  <circle cx="89" cy="43" r="20" fill="#999999" stroke="none"/>
+  <circle cx="89" cy="43" r="10" stroke="none"/>
+  <circle cx="89" cy="43" r="4" fill="#999999" stroke="none"/>
+</g>
+</svg>

@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="768" viewBox="0 0 1140 768" role="img" aria-labelledby="sheet-title"><title id="sheet-title">Dream 的据点拓展：18 种据点图标总览</title><rect width="1140" height="768" fill="#e4e2dd"/><g font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif"><text x="26" y="47" font-size="26" font-weight="700" fill="#20201e">Dream 的据点拓展 · 据点图标</text><text x="26" y="77" font-size="15" fill="#666666">18 种类型 / 128 × 128 / 透明背景 SVG / 黑白灰</text><g transform="translate(24 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 65V119H116V65L103 51H25Z"/>
+  <path d="M24 69H104V108H24Z" fill="#999999" stroke="none"/>
+  <path d="M34 66V110M94 66V110" fill="none" stroke="white" stroke-width="9"/>
+  <path d="M46 95C39 96 36 89 40 82L49 67C55 57 68 58 75 65L88 81C94 89 90 97 82 95L65 91Z"/>
+  <ellipse cx="34" cy="49" rx="10" ry="14" transform="rotate(-26 34 49)"/>
+  <ellipse cx="55" cy="32" rx="10" ry="14" transform="rotate(-8 55 32)"/>
+  <ellipse cx="79" cy="34" rx="10" ry="14" transform="rotate(14 79 34)"/>
+  <ellipse cx="99" cy="52" rx="10" ry="14" transform="rotate(30 99 52)"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">驯兽据点</text></g><g transform="translate(208 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M7 120L12 72L27 39L48 19L78 16L101 34L115 65L121 120Z"/>
+  <path d="M25 120V78C25 31 103 31 103 78V120Z" fill="#999999" stroke="none"/>
+  <path d="M35 120V67H93V120" fill="none" stroke="white" stroke-width="9" stroke-linecap="butt"/>
+  <path d="M39 72L49 84M89 72L79 84" fill="none" stroke="white" stroke-width="6"/>
+  <path d="M51 120L58 95M77 120L70 95M55 108H73" fill="none" stroke="white" stroke-width="5"/>
+  <path d="M7 120L12 72L27 39L48 19L78 16L101 34L115 65L121 120Z" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">采矿据点</text></g><g transform="translate(392 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 121V66L27 40L55 25L83 40L97 66V121Z"/>
+  <path d="M12 66H97" fill="none"/>
+  <path d="M37 84H73V121H37Z" fill="#999999" stroke="none"/>
+  <path d="M55 86V120" fill="none" stroke="white" stroke-width="4"/>
+  <path d="M13 121V66L27 40L55 25L83 40L97 66V121Z" fill="none"/>
+  <path d="M105 111V30" fill="none"/>
+  <path d="M105 31C94 23 98 13 105 7C113 15 115 24 105 31Z"/>
+  <path d="M105 55C91 55 84 43 88 33C100 34 106 43 105 55Z"/>
+  <path d="M105 78C119 73 123 62 120 52C108 55 103 65 105 78Z"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">农业据点</text></g><g transform="translate(576 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M40 107V80H65V107Z" fill="#999999"/>
+  <path d="M52 7L24 45H36L12 76H28L9 99H94L77 76H91L68 45H80Z"/>
+  <path d="M53 38L42 58H53L40 82H70L59 58H66Z" fill="#999999" stroke="none"/>
+  <path d="M37 94H105C117 94 122 101 122 109C122 117 117 122 105 122H37Z"/>
+  <ellipse cx="37" cy="108" rx="15" ry="14"/>
+  <ellipse cx="37" cy="108" rx="6" ry="6" fill="#999999" stroke="none"/>
+  <path d="M65 106H103" fill="none" stroke="#999999" stroke-width="5"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">伐木据点</text></g><g transform="translate(760 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 121L39 9H64L89 121Z"/>
+  <path d="M25 115H79M31 89H73M37 63H67M43 37H61" fill="none" stroke="#999999" stroke-width="6"/>
+  <path d="M25 115L73 89L37 63L61 37" fill="none" stroke="#999999" stroke-width="6"/>
+  <path d="M8 121H98" fill="none"/>
+  <path d="M102 52C96 66 83 80 83 94C83 107 91 115 102 115C113 115 121 107 121 94C121 80 108 66 102 52Z" fill="#999999"/>
+  <path d="M94 92C92 99 96 104 101 104" fill="none" stroke="white" stroke-width="5"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">钻井据点</text></g><g transform="translate(944 108)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M49 64H79V48" fill="none" stroke-width="13"/>
+  <path d="M49 64H79V48" fill="none" stroke="white" stroke-width="5"/>
+  <path d="M14 118V40C14 24 58 24 58 40V118Z"/>
+  <path d="M71 118V27C71 11 114 11 114 27V118Z"/>
+  <path d="M21 73H51V111H21ZM78 62H107V111H78Z" fill="#999999" stroke="none"/>
+  <path d="M15 45H57M72 33H113" fill="none" stroke="#999999" stroke-width="5"/>
+  <path d="M93 72C89 79 84 84 84 89A9 9 0 0 0 102 89C102 84 97 79 93 72Z" stroke="none"/>
+  <path d="M7 121H121" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">中性胺据点</text></g><g transform="translate(24 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M73 49L104 17L118 31L85 64Z"/>
+  <path d="M102 15L119 32" fill="none" stroke-width="9"/>
+  <path d="M16 121V76H106V121Z"/>
+  <path d="M10 77C10 48 31 29 60 29C89 29 110 48 110 77Z"/>
+  <path d="M56 35C44 46 40 60 41 72H58C55 57 59 44 65 35Z" fill="#999999" stroke="none"/>
+  <path d="M47 91H74V121H47ZM24 90H35V106H24ZM86 90H98V106H86Z" fill="#999999" stroke="none"/>
+  <path d="M16 80V121H106V80" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">科研据点</text></g><g transform="translate(208 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8 120V80H46V120ZM82 120V80H120V120Z"/>
+  <path d="M5 81L27 59L49 81ZM79 81L101 59L123 81Z"/>
+  <path d="M35 120V54H93V120Z"/>
+  <path d="M27 55L64 14L101 55Z"/>
+  <path d="M52 88H76V120H52ZM51 65H61V77H51ZM68 65H78V77H68ZM16 93H27V108H16ZM101 93H112V108H101Z" fill="#999999" stroke="none"/>
+  <path d="M35 58V120H93V58" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">城镇据点</text></g><g transform="translate(392 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M36 120L57 54H71L92 120Z"/>
+  <path d="M51 89H77L82 105H46Z" fill="#999999" stroke="none"/>
+  <path d="M64 48V71" fill="none"/>
+  <circle cx="64" cy="37" r="12"/>
+  <path d="M35 16C23 28 23 46 35 58M93 16C105 28 105 46 93 58" fill="none" stroke-width="8"/>
+  <path d="M20 7C1 24 1 50 20 68M108 7C127 24 127 50 108 68" fill="none" stroke-width="7"/>
+  <path d="M25 121H103" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">机械师据点</text></g><g transform="translate(576 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M98 61V14H114V70"/>
+  <path d="M9 120V59L42 36V59L75 36V59L119 70V120Z"/>
+  <path d="M61 67H73L76 75L85 73L93 82L89 91L94 98L88 108L78 107L73 115H61L57 107L47 108L41 98L46 90L42 82L50 73L58 75Z" fill="#999999" stroke="none"/>
+  <circle cx="67" cy="91" r="10" stroke="none"/>
+  <path d="M19 78H29V94H19ZM104 84H113V101H104Z" fill="#999999" stroke="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">自动化营地</text></g><g transform="translate(760 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 119C25 93 26 65 23 38H62C59 66 60 94 74 119Z"/>
+  <path d="M62 119C75 88 77 61 73 23H105C102 60 104 92 119 119Z"/>
+  <path d="M24 48H60M74 34H104" fill="none" stroke="#999999" stroke-width="7"/>
+  <path d="M68 54L43 89H61L52 113L90 77H70L82 54Z" fill="#999999" stroke="white" stroke-width="4"/>
+  <path d="M7 121H121" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">发电据点</text></g><g transform="translate(944 320)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 119V76L22 51H59L76 77V119Z"/>
+  <path d="M11 77H72" fill="none"/>
+  <path d="M29 89H48V119H29Z" fill="#999999" stroke="none"/>
+  <path d="M9 119V76L22 51H59L76 77V119Z" fill="none"/>
+  <path d="M91 74V120M74 121H109" fill="none" stroke-width="8"/>
+  <circle cx="89" cy="43" r="31"/>
+  <circle cx="89" cy="43" r="20" fill="#999999" stroke="none"/>
+  <circle cx="89" cy="43" r="10" stroke="none"/>
+  <circle cx="89" cy="43" r="4" fill="#999999" stroke="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">训练基地</text></g><g transform="translate(24 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M15 118V68H113V118Z"/>
+  <path d="M8 68L32 43H96L120 68Z"/>
+  <path d="M45 70V31H83V70Z"/>
+  <path d="M38 32L64 8L90 32Z"/>
+  <circle cx="64" cy="49" r="11" fill="#999999" stroke="none"/>
+  <path d="M64 41V49H71" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M29 83C42 79 52 81 64 87C76 81 87 79 100 83V116C87 112 76 114 64 121C52 114 41 112 29 116Z"/>
+  <path d="M64 88V120" fill="none" stroke="#999999" stroke-width="5"/>
+  <path d="M38 94L54 97M75 97L91 94M38 104L54 107M75 107L91 104" fill="none" stroke="#999999" stroke-width="4"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">学校据点</text></g><g transform="translate(208 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 120C4 109 7 96 18 91C10 69 20 53 39 51C42 30 62 22 80 34C94 26 112 39 109 56C124 65 126 88 113 99C124 108 121 119 115 121Z"/>
+  <path d="M22 110C16 97 31 91 42 96C39 73 58 63 73 75C89 62 105 76 99 92C112 98 109 110 103 113H26Z" fill="#999999" stroke="none"/>
+  <path d="M39 52C55 47 65 52 67 64M79 35C75 44 78 53 86 58M44 96C48 104 57 108 65 108" fill="none" stroke="#999999" stroke-width="6"/>
+  <path d="M76 83C69 91 71 101 79 104" fill="none" stroke="white" stroke-width="5"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">血肉培育据点</text></g><g transform="translate(392 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 121C41 109 45 86 48 68L26 51L33 40L55 53L58 23H71L75 53L96 37L104 48L82 69C83 92 90 111 108 121Z"/>
+  <path d="M49 117C59 99 61 81 63 59C67 82 69 99 80 117Z" fill="#999999" stroke="none"/>
+  <path d="M48 18C48 6 64 3 70 11C84 7 91 26 79 33C70 43 50 35 48 26Z"/>
+  <circle cx="28" cy="44" r="15"/>
+  <circle cx="102" cy="41" r="15"/>
+  <circle cx="28" cy="44" r="6" fill="#999999" stroke="none"/>
+  <circle cx="102" cy="41" r="6" fill="#999999" stroke="none"/>
+  <path d="M65 16V29" fill="none" stroke="#999999" stroke-width="6"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">巢群神经中继站</text></g><g transform="translate(576 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 120V45L29 23H100L119 45V120Z"/>
+  <path d="M19 60H109V110H19Z" fill="#999999" stroke="none"/>
+  <path d="M9 46H119" fill="none"/>
+  <path d="M54 47V63L41 76L47 92L56 88L52 78L64 69L76 78L72 88L81 92L87 76L74 63V47Z"/>
+  <path d="M52 103L64 95L77 103V120H52Z"/>
+  <path d="M64 96V119" fill="none" stroke="#999999" stroke-width="4"/>
+  <path d="M27 31H42M86 31H100" fill="none" stroke="#999999" stroke-width="5"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">精密机械据点</text></g><g transform="translate(760 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M64 5V14M31 14L37 22M10 39L21 43M97 14L91 22M118 39L107 43" fill="none" stroke-width="7"/>
+  <circle cx="64" cy="48" r="26"/>
+  <path d="M17 120V79L31 65H97L111 79V120Z"/>
+  <path d="M12 80H116" fill="none"/>
+  <path d="M44 121V102C44 77 84 77 84 102V121Z" fill="#999999" stroke="none"/>
+  <path d="M64 92L54 106L64 118L74 106Z" stroke="none"/>
+  <path d="M24 92H34V112H24ZM94 92H104V112H94Z" fill="#999999" stroke="none"/>
+  <path d="M17 83V120H111V83" fill="none"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">太阳据点</text></g><g transform="translate(944 532)"><rect width="172" height="196" rx="12" fill="#f5f3ef"/><g transform="translate(22 12)"><g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M25 119V51H41V119ZM87 119V51H103V119Z"/>
+  <path d="M14 120H50M78 120H114" fill="none" stroke-width="7"/>
+  <path d="M7 34C23 40 46 28 64 12C82 28 105 40 121 34L111 54H17Z"/>
+  <path d="M25 61H103V72H25Z"/>
+  <path d="M64 78L78 96L64 115L50 96Z"/>
+  <path d="M64 79V114L77 96Z" fill="#999999" stroke="none"/>
+  <path d="M48 42H80" fill="none" stroke="#999999" stroke-width="5"/>
+</g></g><text x="86" y="165" text-anchor="middle" font-size="16" fill="#20201e">仙门据点</text></g></g></svg>

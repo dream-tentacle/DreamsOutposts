@@ -1,5 +1,5 @@
 <Defs>
-  <WorldObjectDef>
+  <WorldObjectDef Name="DreamsOutposts_WorldObjectBase">
     <defName>DreamsOutposts_Outpost</defName>
     <label>outpost</label>
     <description>A persistent outpost.</description>

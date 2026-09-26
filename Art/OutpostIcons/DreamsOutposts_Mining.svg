@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">采矿据点</title>
+<desc id="desc">拱形矿洞、坑木与短轨道。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M7 120L12 72L27 39L48 19L78 16L101 34L115 65L121 120Z"/>
+  <path d="M25 120V78C25 31 103 31 103 78V120Z" fill="#999999" stroke="none"/>
+  <path d="M35 120V67H93V120" fill="none" stroke="white" stroke-width="9" stroke-linecap="butt"/>
+  <path d="M39 72L49 84M89 72L79 84" fill="none" stroke="white" stroke-width="6"/>
+  <path d="M51 120L58 95M77 120L70 95M55 108H73" fill="none" stroke="white" stroke-width="5"/>
+  <path d="M7 120L12 72L27 39L48 19L78 16L101 34L115 65L121 120Z" fill="none"/>
+</g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">驯兽据点</title>
+<desc id="desc">兽栏与兽爪印。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 65V119H116V65L103 51H25Z"/>
+  <path d="M24 69H104V108H24Z" fill="#999999" stroke="none"/>
+  <path d="M34 66V110M94 66V110" fill="none" stroke="white" stroke-width="9"/>
+  <path d="M46 95C39 96 36 89 40 82L49 67C55 57 68 58 75 65L88 81C94 89 90 97 82 95L65 91Z"/>
+  <ellipse cx="34" cy="49" rx="10" ry="14" transform="rotate(-26 34 49)"/>
+  <ellipse cx="55" cy="32" rx="10" ry="14" transform="rotate(-8 55 32)"/>
+  <ellipse cx="79" cy="34" rx="10" ry="14" transform="rotate(14 79 34)"/>
+  <ellipse cx="99" cy="52" rx="10" ry="14" transform="rotate(30 99 52)"/>
+</g>
+</svg>

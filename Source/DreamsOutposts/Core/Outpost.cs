@@ -191,6 +191,16 @@ namespace DreamsOutposts
 
 		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
 
+		public override void Print(LayerSubMesh subMesh)
+		{
+			// Baked into the static world mesh; keep icons at a fixed angle
+			// instead of the random rotation used by WorldObject.Print.
+			float averageTileSize = Tile.Layer.AverageTileSize;
+			float altitudeOffset = Rand.RangeSeeded(0f, 0.01f, ID) + def.drawAltitudeOffset;
+			WorldRendererUtility.PrintQuadTangentialToPlanet(DrawPos, 0.7f * averageTileSize,
+				0.03f + altitudeOffset, subMesh, counterClockwise: false, rotation: 90f);
+		}
+
 		protected override int UpdateRateTicks => updateRequested ? 1 : Window_OutpostManage.Current?.Outpost == this ? 60 : 1250;
 
 		public void RequestUpdate()
@@ -272,6 +282,10 @@ namespace DreamsOutposts
 			Scribe_Deep.Look(ref adventurerRecruitment, "adventurerRecruitment");
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
+				// Existing outposts used the shared world-object Def. Bind them to
+				// their type's current Def so the new map icons also apply on load.
+				if (outpostTypeDef?.worldObjectDef != null)
+					def = outpostTypeDef.worldObjectDef;
 				if (pawns == null)
 				{
 					pawns = new ThingOwner<Pawn>(this, oneStackOnly: false);

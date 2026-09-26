@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">仙门据点</title>
+<desc id="desc">翘檐山门与悬浮晶石。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M25 119V51H41V119ZM87 119V51H103V119Z"/>
+  <path d="M14 120H50M78 120H114" fill="none" stroke-width="7"/>
+  <path d="M7 34C23 40 46 28 64 12C82 28 105 40 121 34L111 54H17Z"/>
+  <path d="M25 61H103V72H25Z"/>
+  <path d="M64 78L78 96L64 115L50 96Z"/>
+  <path d="M64 79V114L77 96Z" fill="#999999" stroke="none"/>
+  <path d="M48 42H80" fill="none" stroke="#999999" stroke-width="5"/>
+</g>
+</svg>

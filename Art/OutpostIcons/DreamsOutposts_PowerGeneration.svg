@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">发电据点</title>
+<desc id="desc">冷却塔与闪电。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 119C25 93 26 65 23 38H62C59 66 60 94 74 119Z"/>
+  <path d="M62 119C75 88 77 61 73 23H105C102 60 104 92 119 119Z"/>
+  <path d="M24 48H60M74 34H104" fill="none" stroke="#999999" stroke-width="7"/>
+  <path d="M68 54L43 89H61L52 113L90 77H70L82 54Z" fill="#999999" stroke="white" stroke-width="4"/>
+  <path d="M7 121H121" fill="none"/>
+</g>
+</svg>

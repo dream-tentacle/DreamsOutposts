@@ -37,6 +37,7 @@
 
   <DreamsOutposts.OutpostTypeDef ParentName="DreamsOutposts_OutpostBase" MayRequire="RI.RimImmortal.Core">
     <defName>DreamsOutposts_ImmortalGate</defName>
+    <worldObjectDef>DreamsOutposts_ImmortalGate_WorldObject</worldObjectDef>
     <label>immortal gate outpost</label>
     <description>A gate of the immortal path built on a remote node of flowing qi. Cultivators stationed here gather spiritual crystal or liquid jade from the land itself.\n\nOutput depends on the number and cultivation rank of stationed cultivators.</description>
     <coreFacility>DreamsOutposts_SpiritGatheringAltar</coreFacility>

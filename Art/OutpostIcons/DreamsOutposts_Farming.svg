@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">农业据点</title>
+<desc id="desc">谷仓与麦穗。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 121V66L27 40L55 25L83 40L97 66V121Z"/>
+  <path d="M12 66H97" fill="none"/>
+  <path d="M37 84H73V121H37Z" fill="#999999" stroke="none"/>
+  <path d="M55 86V120" fill="none" stroke="white" stroke-width="4"/>
+  <path d="M13 121V66L27 40L55 25L83 40L97 66V121Z" fill="none"/>
+  <path d="M105 111V30" fill="none"/>
+  <path d="M105 31C94 23 98 13 105 7C113 15 115 24 105 31Z"/>
+  <path d="M105 55C91 55 84 43 88 33C100 34 106 43 105 55Z"/>
+  <path d="M105 78C119 73 123 62 120 52C108 55 103 65 105 78Z"/>
+</g>
+</svg>

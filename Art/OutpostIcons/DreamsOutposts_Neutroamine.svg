@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">中性胺据点</title>
+<desc id="desc">相连的双储罐。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M49 64H79V48" fill="none" stroke-width="13"/>
+  <path d="M49 64H79V48" fill="none" stroke="white" stroke-width="5"/>
+  <path d="M14 118V40C14 24 58 24 58 40V118Z"/>
+  <path d="M71 118V27C71 11 114 11 114 27V118Z"/>
+  <path d="M21 73H51V111H21ZM78 62H107V111H78Z" fill="#999999" stroke="none"/>
+  <path d="M15 45H57M72 33H113" fill="none" stroke="#999999" stroke-width="5"/>
+  <path d="M93 72C89 79 84 84 84 89A9 9 0 0 0 102 89C102 84 97 79 93 72Z" stroke="none"/>
+  <path d="M7 121H121" fill="none"/>
+</g>
+</svg>

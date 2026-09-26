@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">城镇据点</title>
+<desc id="desc">高低错落的房屋。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8 120V80H46V120ZM82 120V80H120V120Z"/>
+  <path d="M5 81L27 59L49 81ZM79 81L101 59L123 81Z"/>
+  <path d="M35 120V54H93V120Z"/>
+  <path d="M27 55L64 14L101 55Z"/>
+  <path d="M52 88H76V120H52ZM51 65H61V77H51ZM68 65H78V77H68ZM16 93H27V108H16ZM101 93H112V108H101Z" fill="#999999" stroke="none"/>
+  <path d="M35 58V120H93V58" fill="none"/>
+</g>
+</svg>

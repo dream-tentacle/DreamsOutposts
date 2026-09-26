@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">自动化营地</title>
+<desc id="desc">锯齿屋顶厂房与齿轮。透明背景，黑色轮廓、白色主体及灰色细节。</desc>
+<g fill="#ffffff" stroke="#20201e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M98 61V14H114V70"/>
+  <path d="M9 120V59L42 36V59L75 36V59L119 70V120Z"/>
+  <path d="M61 67H73L76 75L85 73L93 82L89 91L94 98L88 108L78 107L73 115H61L57 107L47 108L41 98L46 90L42 82L50 73L58 75Z" fill="#999999" stroke="none"/>
+  <circle cx="67" cy="91" r="10" stroke="none"/>
+  <path d="M19 78H29V94H19ZM104 84H113V101H104Z" fill="#999999" stroke="none"/>
+</g>
+</svg>

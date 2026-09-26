@@ -173,12 +173,7 @@ namespace DreamsOutposts
 			Scribe_Collections.Look(ref comps, "comps", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{
-				if (comps == null) InitializeComps();
-				for (int i = 0; i < comps.Count; i++)
-				{
-					if (i < (def?.comps?.Count ?? 0)) comps[i].Initialize(this, def.comps[i]);
-				}
-				SynchronizeProcessStates();
+				OutpostFacilityCompMigration.Restore(this);
 			}
 		}
 	}
