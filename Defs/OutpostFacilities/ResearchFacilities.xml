@@ -30,7 +30,7 @@
     <facilityTag>ProductionBoost</facilityTag>
     <category>DreamsOutposts_CategoryProductionBoost</category>
     <label>advanced research apparatus</label>
-    <description>A high-tech research installation that multiplies research output by 1.33.</description>
+    <description>A high-tech research installation that multiplies research output by 1.5.</description>
     <allowedOutpostTypes>
       <li>DreamsOutposts_Research</li>
     </allowedOutpostTypes>
@@ -44,7 +44,7 @@
     <productionModifiers>
       <li>
         <productionTag>Research</productionTag>
-        <factor>1.33</factor>
+        <factor>1.5</factor>
       </li>
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>
@@ -54,7 +54,7 @@
     <facilityTag>ProductionBoost</facilityTag>
     <category>DreamsOutposts_CategoryProductionBoost</category>
     <label>sterile analysis apparatus</label>
-    <description>A sterile analytical suite that multiplies research output by 1.3.</description>
+    <description>A sterile analytical suite that multiplies research output by 2.</description>
     <allowedOutpostTypes>
       <li>DreamsOutposts_Research</li>
     </allowedOutpostTypes>
@@ -71,7 +71,7 @@
     <productionModifiers>
       <li>
         <productionTag>Research</productionTag>
-        <factor>1.3</factor>
+        <factor>2</factor>
       </li>
     </productionModifiers>
   </DreamsOutposts.OutpostFacilityDef>

@@ -10,10 +10,75 @@
 	  entries  日志正文，每条一段；可用 DefInjected 翻译，见
 	           Languages/*/DefInjected/DreamsOutposts.UpdateNoticeDef/
 
-	读档时若当前 Mod 版本高于记录文件（Config\Mod_<文件夹名>_UpdateNotice.xml）里的版本，
-	则「不高于当前版本」的这些日志会一起弹出；同一个版本只弹一次。
+	读档时若当前 Mod 版本与记录文件（Config\Mod_<文件夹名>_UpdateNotice.xml）里的版本不匹配，
+	则弹出与当前版本匹配的公告；版本不变时不重复提示，降版本也会提示。
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_5</defName>
+		<label>Update log</label>
+		<version>1.2.5</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#78D06B&gt;Experience improvements&lt;/color&gt;</heading>
+				<entries>
+					<li>Improved loop logic to prevent incompatibilities from freezing the game.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_4</defName>
+		<label>Update log</label>
+		<version>1.2.4</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#FF6B6B&gt;Bug fixes&lt;/color&gt;</heading>
+				<entries>
+					<li>Added debug logging, disabled by default.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_3</defName>
+		<label>Update log</label>
+		<version>1.2.3</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#FF6B6B&gt;Bug fixes&lt;/color&gt;</heading>
+				<entries>
+					<li>Fixed airdroppers failing to detect output from ranger camps and slaughterhouses.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_2</defName>
+		<label>Update log</label>
+		<version>1.2.2</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#6FA8FF&gt;Content&lt;/color&gt;</heading>
+				<entries>
+					<li>Added slaughterhouses, which automatically butcher animals in the outpost and collect the products. They are paused when built; move any animals you want to keep out of the outpost before enabling them.</li>
+					<li>Added a preferred faction setting to the tavern. It prioritizes recruits from the selected humanlike faction and falls back to the usual selection rules if that faction has no eligible candidates of the requested quality.</li>
+				</entries>
+			</li>
+			<li>
+				<heading>&lt;color=#78D06B&gt;Experience improvements&lt;/color&gt;</heading>
+				<entries>
+					<li>Added the "Never show the update log" setting. The log can still be viewed manually when automatic popups are disabled.</li>
+					<li>Improved the display of facility production bonuses and their sources.</li>
+					<li>Improved facility information and status indicators in the Modern-style interface.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
 	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_3_1</defName>
 		<label>Update log</label>

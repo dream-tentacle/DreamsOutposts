@@ -62,6 +62,13 @@ namespace DreamsOutposts
 
 		public override void Update(Outpost outpost, int delta)
 		{
+			const int maxAttemptsPerTarget = 100;
+			int interval = Props.intervalTicks;
+			if (interval <= 0)
+			{
+				Log.Warning("[DreamsOutposts] Ideology/OutpostFacilityComp_Indoctrination.cs: Update: invalid intervalTicks=" + interval + "; skipped.");
+				return;
+			}
 			if (!ModsConfig.IdeologyActive || Find.IdeoManager == null || Find.IdeoManager.classicMode)
 			{
 				return;
@@ -88,10 +95,11 @@ namespace DreamsOutposts
 
 				if (delta > 0)
 				{
-					state.progressTicks += delta;
+					state.progressTicks = (int)Math.Min((long)state.progressTicks + delta, int.MaxValue);
 				}
 
-				while (state.progressTicks >= Props.intervalTicks)
+				int attempts = 0;
+				for (; attempts < maxAttemptsPerTarget && state.progressTicks >= interval; attempts++)
 				{
 					float reduction = InteractionWorker_ConvertIdeoAttempt.CertaintyReduction(guide, target);
 					bool converted = target.ideo.IdeoConversionAttempt(reduction, primary);
@@ -105,8 +113,10 @@ namespace DreamsOutposts
 						break;
 					}
 
-					state.progressTicks -= Props.intervalTicks;
+					state.progressTicks -= interval;
 				}
+				if (attempts >= maxAttemptsPerTarget && state.progressTicks >= interval)
+					Log.Warning("[DreamsOutposts] Ideology/OutpostFacilityComp_Indoctrination.cs: Update: loop limit=" + maxAttemptsPerTarget + ", target=" + target + ", remainingTicks=" + state.progressTicks + "; deferred.");
 			}
 		}
 

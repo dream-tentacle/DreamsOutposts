@@ -340,7 +340,13 @@ namespace DreamsOutposts
 				extensionSlots = new List<OutpostSlot>();
 			}
 			int wanted = outpostTypeDef?.GetSlotCount(level) ?? 0;
-			while (extensionSlots.Count > wanted)
+			if (wanted < 0)
+			{
+				Log.Warning("[DreamsOutposts] Core/Outpost.cs: EnsureExtensionSlots: invalid slot count=" + wanted + ", outpost=" + Label + "; skipped.");
+				return;
+			}
+			const int maxSlotChanges = 128;
+			for (int changes = 0; changes < maxSlotChanges && extensionSlots.Count > wanted; changes++)
 			{
 				int index = extensionSlots.Count - 1;
 				for (int i = extensionSlots.Count - 1; i >= 0; i--)
@@ -358,10 +364,14 @@ namespace DreamsOutposts
 				}
 				extensionSlots.RemoveAt(index);
 			}
-			while (extensionSlots.Count < wanted)
+			if (extensionSlots.Count > wanted)
+				Log.Warning("[DreamsOutposts] Core/Outpost.cs: EnsureExtensionSlots/remove: loop limit=" + maxSlotChanges + ", outpost=" + Label + ", current=" + extensionSlots.Count + ", wanted=" + wanted + "; deferred.");
+			for (int changes = 0; changes < maxSlotChanges && extensionSlots.Count < wanted; changes++)
 			{
 				extensionSlots.Add(new OutpostSlot());
 			}
+			if (extensionSlots.Count < wanted)
+				Log.Warning("[DreamsOutposts] Core/Outpost.cs: EnsureExtensionSlots/add: loop limit=" + maxSlotChanges + ", outpost=" + Label + ", current=" + extensionSlots.Count + ", wanted=" + wanted + "; deferred.");
 		}
 
 		public void SetLevel(int newLevel)

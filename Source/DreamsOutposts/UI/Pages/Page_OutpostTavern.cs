@@ -12,17 +12,19 @@ namespace DreamsOutposts
 		private const float Gap = 14f;
 		private const float CardHeight = 174f;
 		private const float PortraitSize = 80f;
-		/// <summary>控制条里的行布局：按钮行 → 间隔 → 概率行 → 间隔 → 提示行 → 上下留白。</summary>
+		/// <summary>控制条里的行布局：技能行 → 派系行 → 概率行 → 提示行，包含间隔与上下留白。</summary>
 		private const float ControlsPadding = 12f;
 
 		private const float ControlsActionHeight = 54f;
+		private const float ControlsFactionHeight = 46f;
+		private const float VanillaControlsHeight = 120f;
 		private const float ControlsOddsHeight = 20f;
 		private const float ControlsRowGap = 8f;
 
 		/// <summary>提示行的高度（与 UiDraw.HintHeight() 的结果一致，这里写死是为了能用在 const 里）。</summary>
 		private const float ControlsHintHeight = 22f;
 
-		private const float ControlsHeight = ControlsPadding * 2f + ControlsActionHeight + ControlsRowGap
+		private const float ControlsHeight = ControlsPadding * 2f + ControlsActionHeight + ControlsFactionHeight + ControlsRowGap
 			+ ControlsOddsHeight + ControlsRowGap + ControlsHintHeight;
 		/// <summary>候选人卡右侧「招募 / 驱离」两个底图按钮的高度（宽度由底图长宽比反推）。</summary>
 		private const float TavernActionButtonHeight = 34f;
@@ -46,7 +48,7 @@ namespace DreamsOutposts
 			int count = Mathf.Max(outpost?.adventurerRecruitment?.offers.Count ?? 0, 1);
 			if (DreamsOutpostsMod.IsUiStyle(OutpostUiStyle.Vanilla))
 			{
-				return 78f + Gap + count * 82f;
+				return VanillaControlsHeight + Gap + count * 82f;
 			}
 			return ControlsHeight + Gap + count * (CardHeight + Gap);
 		}
@@ -77,9 +79,8 @@ namespace DreamsOutposts
 
 		private void DrawVanillaBody(Rect rect)
 		{
-			const float controlsHeight = 78f;
-			DrawVanillaControls(new Rect(rect.x, rect.y, rect.width, controlsHeight));
-			float y = rect.y + controlsHeight + Gap;
+			DrawVanillaControls(new Rect(rect.x, rect.y, rect.width, VanillaControlsHeight));
+			float y = rect.y + VanillaControlsHeight + Gap;
 			List<AdventurerOffer> offers = outpost.adventurerRecruitment.offers;
 			float listHeight = Mathf.Max(offers.Count, 1) * 82f;
 			Widgets.DrawLineHorizontal(rect.x, y - Gap * 0.5f, rect.width, Widgets.SeparatorLineColor);
@@ -97,6 +98,7 @@ namespace DreamsOutposts
 				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
 			Rect button = new Rect(inner.x + labelWidth, inner.y, buttonWidth, 30f);
 			if (Widgets.ButtonText(button, value)) OpenSkillMenu();
+			DrawFactionPreference(new Rect(inner.x, inner.y + 42f, inner.width, 30f), labelWidth, buttonWidth);
 
 			int now = Find.TickManager.TicksGame;
 			int remaining = outpost.adventurerRecruitment.nextRecruitTick - now;
@@ -121,10 +123,10 @@ namespace DreamsOutposts
 			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Elite, odds.Elite));
 			oddsText.Append(" · ").Append(OddsEntry(AdventurerRarity.Epic, odds.Epic));
 			const float infoSize = Widgets.InfoCardButtonSize;
-			Rect oddsRect = new Rect(inner.x, inner.y + 42f, Mathf.Max(inner.width - infoSize - 6f, 40f), 30f);
+			Rect oddsRect = new Rect(inner.x, inner.y + 84f, Mathf.Max(inner.width - infoSize - 6f, 40f), 30f);
 			UiText.Draw(oddsRect, oddsText.ToString(),
 				UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft, false, false, true);
-			Rect infoRect = new Rect(inner.xMax - infoSize, inner.y + 42f + (30f - infoSize) * 0.5f, infoSize, infoSize);
+			Rect infoRect = new Rect(inner.xMax - infoSize, inner.y + 84f + (30f - infoSize) * 0.5f, infoSize, infoSize);
 			if (Widgets.ButtonImage(infoRect, TexButton.Info))
 			{
 				UiOutpostHelpWindow.Open();
@@ -197,6 +199,7 @@ namespace DreamsOutposts
 			float buttonWidth = Mathf.Min(250f, rect.width * 0.38f);
 			UiText.Draw(new Rect(rect.x + 14f, rect.y + 2f, 136f, 54f), "DreamsOutposts.Tavern.Preference".Translate(), UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
 			if (UiWidgets.Button(new Rect(rect.x + 150f, rect.y + 10f, buttonWidth, 38f), value, UiButtonKind.Secondary, true, null, UiButtonSize.Normal)) OpenSkillMenu();
+			DrawFactionPreference(new Rect(rect.x + 14f, rect.y + 10f + ControlsActionHeight, rect.width - 28f, 38f), 136f, buttonWidth);
 			int now = Find.TickManager.TicksGame;
 			// 还没排期（刚建好营地、暂停中据点尚未 tick）时不再显示成「0秒」，而是明确的等待文案。
 			int remaining = outpost.adventurerRecruitment.nextRecruitTick - now;
@@ -213,7 +216,33 @@ namespace DreamsOutposts
 			UiWidgets.Tip(timerRect, "DreamsOutposts.Tavern.ChanceTip".Translate(
 				AdventurerRecruitUtility.SocialSkillTotal(outpost), AdventurerRecruitUtility.RecruitChanceDivisor.ToString("0")),
 				GenText.StableStringHash("tavern-chance"));
-			DrawOdds(new Rect(rect.x + 14f, rect.y + ControlsPadding + ControlsActionHeight + ControlsRowGap, rect.width - 28f, ControlsOddsHeight));
+			DrawOdds(new Rect(rect.x + 14f, rect.y + ControlsPadding + ControlsActionHeight + ControlsFactionHeight + ControlsRowGap, rect.width - 28f, ControlsOddsHeight));
+		}
+
+		private void DrawFactionPreference(Rect rect, float labelWidth, float buttonWidth)
+		{
+			Faction preferred = outpost.adventurerRecruitment.preferredFaction;
+			string value = preferred?.Name ?? "DreamsOutposts.Tavern.AnyFaction".Translate().ToString();
+			UiText.Draw(new Rect(rect.x, rect.y, labelWidth, rect.height), "DreamsOutposts.Tavern.FactionPreference".Translate(),
+				UiFont.Body, UiPalette.Ink, TextAnchor.MiddleLeft, true);
+			Rect button = new Rect(rect.x + labelWidth, rect.y, buttonWidth, rect.height);
+			if (UiWidgets.Button(button, value, UiButtonKind.Secondary, true, null, UiButtonSize.Normal)) OpenFactionMenu();
+			UiWidgets.Tip(rect, value + "\n\n" + "DreamsOutposts.Tavern.FactionPreferenceTip".Translate());
+		}
+
+		private void OpenFactionMenu()
+		{
+			List<FloatMenuOption> options = new List<FloatMenuOption>
+			{
+				new FloatMenuOption("DreamsOutposts.Tavern.AnyFaction".Translate(), () => outpost.adventurerRecruitment.preferredFaction = null)
+			};
+			foreach (Faction faction in AdventurerRecruitUtility.RecruitableFactions().OrderBy(f => f.Name))
+			{
+				Faction captured = faction;
+				options.Add(new FloatMenuOption(faction.Name + " (" + faction.def.LabelCap + ")",
+					() => outpost.adventurerRecruitment.preferredFaction = captured));
+			}
+			Find.WindowStack.Add(new FloatMenu(options));
 		}
 
 		/// <summary>

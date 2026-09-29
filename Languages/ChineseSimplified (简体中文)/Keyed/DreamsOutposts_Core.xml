@@ -90,6 +90,8 @@
   <DreamsOutposts.Settings.TabAppearance>外观</DreamsOutposts.Settings.TabAppearance>
   <!-- EN: Parameters -->
   <DreamsOutposts.Settings.TabParameters>参数</DreamsOutposts.Settings.TabParameters>
+  <DreamsOutposts.Settings.DebugLogging>debug日志记录</DreamsOutposts.Settings.DebugLogging>
+  <DreamsOutposts.Settings.DebugLogging.Description>记录据点事件选项结算及随后界面刷新的定位日志。默认关闭，排查问题时开启。普通错误和警告不受影响。</DreamsOutposts.Settings.DebugLogging.Description>
   <!-- EN: Production multiplier: {0} -->
   <DreamsOutposts.Settings.ProductionMultiplier>产出倍率：{0}</DreamsOutposts.Settings.ProductionMultiplier>
   <!-- EN: Multiplies regular item production, animal taming, and research points. Processing facilities consume inputs in proportion to their increased output. Event rewards and other benefits are unaffected. -->

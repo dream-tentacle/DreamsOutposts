@@ -5,6 +5,8 @@
   <DreamsOutposts.UpdateNotice.VersionPrefix>Version {0}</DreamsOutposts.UpdateNotice.VersionPrefix>
   <DreamsOutposts.UpdateNotice.Confirm>Got it</DreamsOutposts.UpdateNotice.Confirm>
 
+  <DreamsOutposts.Settings.NeverShowUpdateLog>Never show the update log</DreamsOutposts.Settings.NeverShowUpdateLog>
+  <DreamsOutposts.Settings.NeverShowUpdateLog.Description>Stops the update log from opening automatically, including after future updates. Applies to all saves and remains enabled after restarting the game. You can still view the log manually below.</DreamsOutposts.Settings.NeverShowUpdateLog.Description>
   <DreamsOutposts.Settings.OpenUpdateLog>View update log</DreamsOutposts.Settings.OpenUpdateLog>
   <DreamsOutposts.Settings.OpenUpdateLog.Description>Shows what changed in each released version of this mod.</DreamsOutposts.Settings.OpenUpdateLog.Description>
 </LanguageData>

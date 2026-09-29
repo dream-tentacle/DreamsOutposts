@@ -34,7 +34,7 @@ namespace DreamsOutposts
 			float y = rect.y;
 			float width = rect.width;
 			bool firstSection = true;
-			if (details.Source?.Chips.Count > 0)
+			if (details.Source?.DisplayChips.Count > 0)
 			{
 				float chipHeight = UiDraw.ChipsHeight(details.Source.DisplayChips, width, true);
 				if (!measure) UiDraw.Chips(new Rect(rect.x, y, width, chipHeight), details.Source.DisplayChips, true);
@@ -48,6 +48,21 @@ namespace DreamsOutposts
 					UiText.Draw(new Rect(rect.x, y, width, height), details.Description, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, false, true);
 				}
 				y += height + 4f;
+			}
+			// Modern-card filtering must never remove secondary facts from the details panel.
+			if (details.Source != null)
+			{
+				foreach (UiFacilityInfoItem fact in details.Source.Facts)
+				{
+					if (fact == null || fact.Importance == UiFacilityInfoImportance.Compact) continue;
+					y += DetailFact(new Rect(rect.x, y, width, 0f), fact, measure);
+				}
+				foreach (UiFacilityInfoGroup group in details.Source.InfoGroups)
+				{
+					if (group == null) continue;
+					foreach (UiFacilityInfoItem item in group.DetailItems)
+						y += DetailFact(new Rect(rect.x, y, width, 0f), item, measure);
+				}
 			}
 			// 「基础」段已整段移除；下面第一个真正出现的段落用 firstSection 顶到最上面
 			if (details.Rules.Count > 0)
@@ -67,6 +82,19 @@ namespace DreamsOutposts
 				y = KvGrid(rect.x, y, width, details.Bombardment, measure);
 			}
 			return Mathf.Max(y - rect.y, 1f);
+		}
+
+		private static float DetailFact(Rect rect, UiFacilityInfoItem item, bool measure)
+		{
+			if (string.IsNullOrEmpty(item.DisplayText)) return 0f;
+			float height = UiText.Height(item.DisplayText, UiFont.Body, rect.width);
+			if (!measure)
+			{
+				Rect row = new Rect(rect.x, rect.y, rect.width, height);
+				UiText.Draw(row, item.DisplayText, UiFont.Body, UiPalette.Ink, TextAnchor.UpperLeft, false, true);
+				if (!string.IsNullOrEmpty(item.Tooltip)) UiWidgets.Tip(row, item.Tooltip, row.GetHashCode());
+			}
+			return height + 8f;
 		}
 
 		private float SectionTitle(float x, float y, float width, string text, bool measure, bool isFirst)

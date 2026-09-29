@@ -199,6 +199,13 @@ namespace DreamsOutposts
 			// simply that kind's rating.
 			AdventurerRarity wanted = forcedRarity ?? RollRarity(outpost);
 			List<Pair<PawnKindDef, Faction>> candidates = pool.Where(p => RarityForKind(p.First) == wanted).ToList();
+			Faction preferredFaction = outpost.adventurerRecruitment.preferredFaction;
+			if (preferredFaction != null)
+			{
+				// Prefer this faction only when it fields the requested tier; otherwise keep the original pool and fallback.
+				List<Pair<PawnKindDef, Faction>> preferredCandidates = candidates.Where(p => p.Second == preferredFaction).ToList();
+				if (preferredCandidates.Count > 0) candidates = preferredCandidates;
+			}
 			if (candidates.Count == 0)
 			{
 				// No kind of the wanted tier exists in this save (for instance the factions that field
@@ -686,6 +693,11 @@ namespace DreamsOutposts
 			if (record == null || record.TotallyDisabled) return -1f;
 			float passion = record.passion == Passion.Major ? 2f : record.passion == Passion.Minor ? 1f : 0f;
 			return record.Level * 10f + passion;
+		}
+
+		public static IEnumerable<Faction> RecruitableFactions()
+		{
+			return BuildPawnKindPool().Select(p => p.Second).Distinct();
 		}
 
 		private static List<Pair<PawnKindDef, Faction>> BuildPawnKindPool()

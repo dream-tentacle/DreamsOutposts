@@ -130,6 +130,10 @@
   <DreamsOutposts.AutomaticAirdropDelivered>自动空投机已空投物品：{0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
   <!-- EN: Store reserve -->
   <DreamsOutposts.IntelligentAirdropReserve>仓库保留数量</DreamsOutposts.IntelligentAirdropReserve>
+  <!-- EN: Reserve this many of each product in the outpost. Animals are counted separately for each species. Only newly produced output above the reserve is airdropped. -->
+  <DreamsOutposts.IntelligentAirdropReserveTip>每种产物分别在据点保留此数量，动物按种类分别计数。仅空投新产出中超出保留数量的部分。</DreamsOutposts.IntelligentAirdropReserveTip>
+  <!-- EN: Meat, leather and other butcher products -->
+  <DreamsOutposts.AutomaticAirdropSlaughterProducts>肉、皮革及其他屠宰产物</DreamsOutposts.AutomaticAirdropSlaughterProducts>
   <!-- EN: Waystation: {0} -->
   <DreamsOutposts.WaystationMovementFactor>驿站：{0}</DreamsOutposts.WaystationMovementFactor>
   <!-- EN: Temporary outpost effect: {0} -->

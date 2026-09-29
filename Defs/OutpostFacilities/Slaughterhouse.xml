@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <DreamsOutposts.OutpostFacilityDef>
+    <defName>DreamsOutposts_Slaughterhouse</defName>
+    <label>slaughterhouse</label>
+    <description>Slaughters all live animals in the outpost's warehouse and stores their meat, leather and other butcher products. Yield follows the storyteller's butcher yield setting. Starts paused; use the facility button to start or pause slaughter. Move animals you want to keep out of the outpost before starting.</description>
+    <facilityTag>Processing</facilityTag>
+    <category>DreamsOutposts_CategoryProcessing</category>
+    <maxPerOutpost>1</maxPerOutpost>
+    <buildCost><Steel>150</Steel><WoodLog>100</WoodLog></buildCost>
+    <comps>
+      <li Class="DreamsOutposts.OutpostFacilityCompProperties_Slaughterhouse" />
+    </comps>
+  </DreamsOutposts.OutpostFacilityDef>
+</Defs>

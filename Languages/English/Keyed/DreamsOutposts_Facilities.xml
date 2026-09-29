@@ -65,6 +65,8 @@
   <DreamsOutposts.AutomaticAirdropNoProducers>This outpost has no production facilities to select.</DreamsOutposts.AutomaticAirdropNoProducers>
   <DreamsOutposts.AutomaticAirdropDelivered>Automatic airdropper delivered: {0} ×{1}</DreamsOutposts.AutomaticAirdropDelivered>
   <DreamsOutposts.IntelligentAirdropReserve>Store reserve</DreamsOutposts.IntelligentAirdropReserve>
+  <DreamsOutposts.IntelligentAirdropReserveTip>Reserve this many of each product in the outpost. Animals are counted separately for each species. Only newly produced output above the reserve is airdropped.</DreamsOutposts.IntelligentAirdropReserveTip>
+  <DreamsOutposts.AutomaticAirdropSlaughterProducts>Meat, leather and other butcher products</DreamsOutposts.AutomaticAirdropSlaughterProducts>
 	<DreamsOutposts.WaystationMovementFactor>Waystation: {0}</DreamsOutposts.WaystationMovementFactor>
 	<DreamsOutposts.TemporaryMovementFactor>Temporary outpost effect: {0}</DreamsOutposts.TemporaryMovementFactor>
 	<DreamsOutposts.ManagePageReopen>A "{0}" page has been added. Close the management window and open it again for the new page to appear.</DreamsOutposts.ManagePageReopen>

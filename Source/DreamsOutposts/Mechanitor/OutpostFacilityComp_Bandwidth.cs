@@ -42,6 +42,7 @@ namespace DreamsOutposts
 			{
 				Id = "bandwidth.output",
 				Kind = UiFacilityInfoKind.Value,
+				CardPlacement = UiFacilityCardPlacement.Chip,
 				Importance = UiFacilityInfoImportance.Compact,
 				Label = "DreamsOutposts.Ui.Fact.Bandwidth".Translate().ToString(),
 				Value = "+" + bandwidth,

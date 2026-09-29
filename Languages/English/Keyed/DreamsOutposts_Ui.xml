@@ -42,7 +42,7 @@
   <DreamsOutposts.Ui.Chip.EventCategoryFactor>{0} tendency ×{1}</DreamsOutposts.Ui.Chip.EventCategoryFactor>
   <DreamsOutposts.Ui.Chip.EventCategoryTip>This facility shifts how often {0} events happen.</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>Production modifier from {0} level {1}.</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
-  <DreamsOutposts.Ui.Chip.ResearchSpeedTip>Current total research speed of eligible outpost personnel; research point output is calculated from this value.</DreamsOutposts.Ui.Chip.ResearchSpeedTip>
+  <DreamsOutposts.Ui.Rule.CapacityTip>Total {0} in the outpost, calculated using personnel contribution rates. For details, see the help button to the right of "{1}".</DreamsOutposts.Ui.Rule.CapacityTip>
   <DreamsOutposts.Ui.LevelSource>outpost level {0}</DreamsOutposts.Ui.LevelSource>
   <DreamsOutposts.Ui.Chip.Limit>Limit {0} (built {1})</DreamsOutposts.Ui.Chip.Limit>
   <DreamsOutposts.Ui.Chip.ResearchDone>Research done</DreamsOutposts.Ui.Chip.ResearchDone>
@@ -148,6 +148,9 @@
   <DreamsOutposts.Tavern.Nav>{0}/{1} candidates</DreamsOutposts.Tavern.Nav>
   <DreamsOutposts.Tavern.Preference>Skill preference</DreamsOutposts.Tavern.Preference>
   <DreamsOutposts.Tavern.AnySkill>No preference</DreamsOutposts.Tavern.AnySkill>
+  <DreamsOutposts.Tavern.FactionPreference>Preferred faction</DreamsOutposts.Tavern.FactionPreference>
+  <DreamsOutposts.Tavern.AnyFaction>No preference</DreamsOutposts.Tavern.AnyFaction>
+  <DreamsOutposts.Tavern.FactionPreferenceTip>Prefer adventurers from this faction at the rolled quality. If none are available, use the usual selection from all eligible factions. Applies to new tavern arrivals, including those sent by events.</DreamsOutposts.Tavern.FactionPreferenceTip>
   <DreamsOutposts.Tavern.Next>Next candidate in {0}</DreamsOutposts.Tavern.Next>
   <DreamsOutposts.Tavern.Waiting>Waiting...</DreamsOutposts.Tavern.Waiting>
   <DreamsOutposts.Tavern.Chance>Chance {0} ({1}/{2} Social)</DreamsOutposts.Tavern.Chance>

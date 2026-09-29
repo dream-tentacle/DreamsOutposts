@@ -44,13 +44,13 @@ namespace DreamsOutposts
 			}
 
 			for (int i = 0; i < count; i++)
-				Capture(context.Outpost, localAnimals.RandomElement());
+				Capture(context.Outpost, context.Facility, localAnimals.RandomElement());
 
 			if (HasRareFacility(context.Outpost) &&
 				Rand.Chance(RareAnimalChance) &&
 				RareAnimals.TryRandomElement(out PawnKindDef rareAnimal))
 			{
-				Capture(context.Outpost, rareAnimal);
+				Capture(context.Outpost, context.Facility, rareAnimal);
 			}
 
 			context.Outcome = OutpostProcessOutcome.Completed;
@@ -99,10 +99,11 @@ namespace DreamsOutposts
 				facility => facility?.def?.defName == RareFacilityDefName);
 		}
 
-		private static void Capture(Outpost outpost, PawnKindDef kind)
+		private static void Capture(Outpost outpost, OutpostFacility facility, PawnKindDef kind)
 		{
 			Pawn pawn = PawnGenerator.GeneratePawn(kind, Faction.OfPlayer, outpost.Tile);
-			if (!outpost.pawns.TryAdd(pawn))
+			if (!OutpostAutomaticAirdropUtility.TryDeliver(outpost, facility, new List<Thing> { pawn })
+				&& !outpost.pawns.TryAdd(pawn))
 			{
 				pawn.Destroy();
 				throw new InvalidOperationException(

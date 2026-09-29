@@ -91,6 +91,7 @@ namespace DreamsOutposts
 
 		public bool UsesDynamicProduct;
 
+		public readonly UiFacilityInfoModel ModifierInfo = new UiFacilityInfoModel();
 		public readonly List<UiChipView> ModifierChips = new List<UiChipView>();
 	}
 
@@ -130,22 +131,18 @@ namespace DreamsOutposts
 
 		public Func<string> RemoveTooltipGetter;
 
-		public readonly List<UiChipView> Chips = new List<UiChipView>();
-		/// <summary>现代风最终显示的 chip 投影。</summary>
+		/// <summary>设施的完整事实快照；chip 和详情均从这里读取。</summary>
+		public readonly UiFacilityInfoModel Info = new UiFacilityInfoModel();
+		/// <summary>经典卡片和详情使用的完整 chip 投影。</summary>
 		public readonly List<UiChipView> DisplayChips = new List<UiChipView>();
+		/// <summary>按常驻用途和优先级筛选的现代风 chip。</summary>
+		public readonly List<UiChipView> ModernDisplayChips = new List<UiChipView>();
 
 		/// <summary>
 		/// 风格无关的设施事实。现代风将 Compact 信息投影为 chip，
 		/// 原版风则在信息面板中以属性形式展示。
 		/// </summary>
-		public readonly List<UiFacilityInfoItem> Facts = new List<UiFacilityInfoItem>();
-
-		public int PowerChipIndex = -1;
-		public int OperationChipIndex = -1;
-		/// <summary>由 operatingRequirements 直接生成的风格无关启用状态/条件。</summary>
-		public readonly List<UiFacilityInfoItem> OperationInfo = new List<UiFacilityInfoItem>();
-		/// <summary>OperationInfo 的现代风 chip 投影；不作为信息源。</summary>
-		public readonly List<UiChipView> OperationChips = new List<UiChipView>();
+		public List<UiFacilityInfoItem> Facts => Info.Facts;
 
 		public readonly List<UiProductionView> Productions = new List<UiProductionView>();
 
@@ -304,7 +301,7 @@ namespace DreamsOutposts
 
 	public sealed class UiInstallCardView
 	{
-		public int OperationChipIndex = -1;
+		public readonly UiFacilityInfoModel Info = new UiFacilityInfoModel();
 		public OutpostFacilityDef Def;
 
 		public string Label;
@@ -410,6 +407,13 @@ namespace DreamsOutposts
 
 		public readonly UiUpgradeView Upgrade = new UiUpgradeView();
 
+		private string pendingResolutionTraceId;
+
+		internal void TraceNextResolutionRefresh(string traceId)
+		{
+			if (traceId != null) pendingResolutionTraceId = traceId;
+		}
+
 		public void Invalidate()
 		{
 			builtStamp = -1;
@@ -420,25 +424,36 @@ namespace DreamsOutposts
 
 		public void Refresh()
 		{
+			// Consume before doing any work: even a failed refresh must not log on every frame.
+			string traceId = pendingResolutionTraceId;
+			pendingResolutionTraceId = null;
 			if (outpost == null || outpost.Destroyed)
 			{
+				OutpostEventUtility.TraceResolution(traceId, "cache.refresh.skipped");
 				return;
 			}
+			OutpostEventUtility.TraceResolution(traceId, "cache.signature.begin");
 			int stamp = StructureStamp();
+			OutpostEventUtility.TraceResolution(traceId, "cache.signature.end");
 			if (stamp != builtStamp)
 			{
 				builtStamp = stamp;
 				builtTick = -1;
 				installAll = null;
 				installAvailable = null;
+				OutpostEventUtility.TraceResolution(traceId, "cache.structure.begin");
 				RebuildStructure();
+				OutpostEventUtility.TraceResolution(traceId, "cache.structure.end");
 			}
 			int tick = Find.TickManager.TicksGame;
 			if (tick != builtTick)
 			{
 				builtTick = tick;
+				OutpostEventUtility.TraceResolution(traceId, "cache.dynamic.begin");
 				RefreshDynamic();
+				OutpostEventUtility.TraceResolution(traceId, "cache.dynamic.end");
 			}
+			OutpostEventUtility.TraceResolution(traceId, "cache.refresh.end");
 		}
 
 		private int StructureStamp()
@@ -594,86 +609,6 @@ namespace DreamsOutposts
 				view.RemoveTooltipId = GenText.StableStringHash("facility-remove-" + slotIndex);
 				view.RemoveTooltipGetter = () => "DreamsOutposts.RemoveFacility".Translate(view.Label, OutpostBuildUtility.RefundLabel(def)).ToString();
 			}
-			// footer chips（结构相关）
-			if (def != null)
-			{
-				if (def.defense > 0f)
-				{
-					view.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.Defense".Translate(def.defense.ToString("0.#")).ToString(), UiChipKind.Info));
-				}
-				if (def.bombardment != null)
-				{
-					view.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.Bombardable".Translate().ToString(), UiChipKind.Warn));
-				}
-				if (def.bombardmentShellBonus > 0)
-				{
-					view.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.ShellBonus".Translate(def.bombardmentShellBonus).ToString(), UiChipKind.Warn));
-				}
-				if (OutpostTrainingUtility.Trains(def))
-				{
-					view.Chips.Add(new UiChipView(TrainingChipLabel(def), UiChipKind.Info, TrainingTip(def)));
-				}
-				OutpostFacilityComp_PowerGenerator power = facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
-				if (power != null)
-				{
-					string status;
-					if (power.linkedReceiver == null) status = "DreamsOutposts.RemotePower.StatusUnbound".Translate();
-					else if (!power.IsPoweredNow) status = "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(power.Props.fuel.LabelCap, power.Props.fuelPerCycle);
-					else
-					{
-						RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = power };
-						float watts = RemotePowerUtility.PowerOutput(source, power.linkedReceiver);
-						status = watts.ToString("0") + " W";
-					}
-					view.PowerChipIndex = view.Chips.Count;
-					view.Chips.Add(new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn));
-				}
-				if (!def.productionModifiers.NullOrEmpty())
-				{
-					for (int i = 0; i < def.productionModifiers.Count; i++)
-					{
-						OutpostProductionModifier modifier = def.productionModifiers[i];
-						if (modifier == null)
-						{
-							continue;
-						}
-						view.Chips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
-							UiChipKind.Good));
-					}
-				}
-				AddLevelProductionFactorChips(view, def);
-				// 设施对事件分类倾向（倾向）的修正：静态 def 数据，和产能 chip 一样只建一次
-				if (!def.eventCategoryModifiers.NullOrEmpty())
-				{
-					for (int i = 0; i < def.eventCategoryModifiers.Count; i++)
-					{
-						OutpostEventCategoryModifier categoryModifier = def.eventCategoryModifiers[i];
-						if (categoryModifier?.category == null)
-						{
-							continue;
-						}
-						string categoryTip = "DreamsOutposts.Ui.Chip.EventCategoryTip".Translate(categoryModifier.category.LabelCap).ToString();
-						if (!Mathf.Approximately(categoryModifier.offset, 0f))
-						{
-							string sign = categoryModifier.offset >= 0f ? "+" : string.Empty;
-							view.Chips.Add(new UiChipView(
-								"DreamsOutposts.Ui.Chip.EventCategoryOffset".Translate(categoryModifier.category.LabelCap, sign + categoryModifier.offset.ToString("0.##")).ToString(),
-								categoryModifier.offset > 0f ? UiChipKind.Good : UiChipKind.Bad,
-								categoryTip));
-						}
-						if (!Mathf.Approximately(categoryModifier.factor, 1f))
-						{
-							view.Chips.Add(new UiChipView(
-								"DreamsOutposts.Ui.Chip.EventCategoryFactor".Translate(categoryModifier.category.LabelCap, categoryModifier.factor.ToString("0.##")).ToString(),
-								categoryModifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
-								categoryTip));
-						}
-					}
-				}
-			}
-			view.OperationChipIndex = view.Chips.Count;
-			RefreshOperationChips(view);
 			// 生产
 			if (def != null && !def.Productions.NullOrEmpty())
 			{
@@ -688,14 +623,96 @@ namespace DreamsOutposts
 					productionView.Props = production;
 					productionView.HasConfiguration = production.Worker.HasConfiguration(production);
 					productionView.UsesDynamicProduct = production.Worker.UsesDynamicProduct;
-					BuildModifierChips(productionView, facility, production);
 					view.Productions.Add(productionView);
 				}
 			}
 			return view;
 		}
 
-		private void AddLevelProductionFactorChips(UiFacilityView view, OutpostFacilityDef def)
+		private void AddFacilityFacts(UiFacilityView view)
+		{
+			OutpostFacility facility = view.Facility;
+			OutpostFacilityDef def = facility?.def;
+			if (def != null)
+			{
+				if (def.defense > 0f)
+				{
+					view.Info.AddCompactFact(UiFacilityFactIds.Defense, "DreamsOutposts.Ui.Chip.Defense".Translate(view.Defense.ToString("0.#")).ToString(), UiChipKind.Info);
+				}
+				if (def.bombardment != null)
+				{
+					view.Info.AddCompactFact(UiFacilityFactIds.Bombardment, "DreamsOutposts.Ui.Chip.Bombardable".Translate().ToString(), UiChipKind.Warn);
+				}
+				if (def.bombardmentShellBonus > 0)
+				{
+					view.Info.AddCompactFact(UiFacilityFactIds.ShellBonus, "DreamsOutposts.Ui.Chip.ShellBonus".Translate(def.bombardmentShellBonus).ToString(), UiChipKind.Warn);
+				}
+				if (OutpostTrainingUtility.Trains(def))
+				{
+					view.Info.AddCompactFact("training." + OutpostTrainingUtility.GetTraining(def).skill.defName, TrainingChipLabel(def), UiChipKind.Info, TrainingTip(def), UiFacilityCardPriority.Core);
+				}
+				OutpostFacilityComp_PowerGenerator power = facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
+				if (power != null)
+				{
+					string status;
+					if (power.linkedReceiver == null) status = "DreamsOutposts.RemotePower.StatusUnbound".Translate();
+					else if (!power.IsPoweredNow) status = "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(power.Props.fuel.LabelCap, power.Props.fuelPerCycle);
+					else
+					{
+						RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = facility, Comp = power };
+						float watts = RemotePowerUtility.PowerOutput(source, power.linkedReceiver);
+						status = watts.ToString("0") + " W";
+					}
+					view.Info.AddCompactFact(UiFacilityFactIds.PowerStatus, status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn,
+						cardPriority: power.IsPoweredNow ? UiFacilityCardPriority.Core : UiFacilityCardPriority.Alert);
+				}
+				if (!def.productionModifiers.NullOrEmpty())
+				{
+					for (int i = 0; i < def.productionModifiers.Count; i++)
+					{
+						OutpostProductionModifier modifier = def.productionModifiers[i];
+						if (modifier == null)
+						{
+							continue;
+						}
+						view.Info.AddCompactFact(UiFacilityFactIds.ForSource("production.provided", modifier) + ".factor",
+							"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
+							UiChipKind.Good);
+					}
+				}
+				AddLevelProductionFactorFacts(view, def);
+				// 设施对事件分类倾向的修正也作为有身份的事实生成。
+				if (!def.eventCategoryModifiers.NullOrEmpty())
+				{
+					for (int i = 0; i < def.eventCategoryModifiers.Count; i++)
+					{
+						OutpostEventCategoryModifier categoryModifier = def.eventCategoryModifiers[i];
+						if (categoryModifier?.category == null)
+						{
+							continue;
+						}
+						string categoryTip = "DreamsOutposts.Ui.Chip.EventCategoryTip".Translate(categoryModifier.category.LabelCap).ToString();
+						if (!Mathf.Approximately(categoryModifier.offset, 0f))
+						{
+							string sign = categoryModifier.offset >= 0f ? "+" : string.Empty;
+							view.Info.AddCompactFact(UiFacilityFactIds.ForSource("event.modifier", categoryModifier) + ".offset",
+								"DreamsOutposts.Ui.Chip.EventCategoryOffset".Translate(categoryModifier.category.LabelCap, sign + categoryModifier.offset.ToString("0.##")).ToString(),
+								categoryModifier.offset > 0f ? UiChipKind.Good : UiChipKind.Bad,
+								categoryTip);
+						}
+						if (!Mathf.Approximately(categoryModifier.factor, 1f))
+						{
+							view.Info.AddCompactFact(UiFacilityFactIds.ForSource("event.modifier", categoryModifier) + ".factor",
+								"DreamsOutposts.Ui.Chip.EventCategoryFactor".Translate(categoryModifier.category.LabelCap, categoryModifier.factor.ToString("0.##")).ToString(),
+								categoryModifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
+								categoryTip);
+						}
+					}
+				}
+			}
+		}
+
+		private void AddLevelProductionFactorFacts(UiFacilityView view, OutpostFacilityDef def)
 		{
 			List<OutpostProductionModifier> levelModifiers = outpost?.CurrentLevelProperties?.productionModifiers;
 			if (levelModifiers.NullOrEmpty() || def == null || !def.HasProcesses)
@@ -738,46 +755,50 @@ namespace DreamsOutposts
 				UiChipKind kind = suppressed
 					? UiChipKind.Warn
 					: (modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad);
-				view.Chips.Add(new UiChipView(
+				view.Info.AddCompactFact(UiFacilityFactIds.ForSource("production.level", modifier) + ".factor",
 					"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
 					kind,
-					tip));
+					tip);
 			}
 		}
 
-		private void BuildModifierChips(UiProductionView productionView, OutpostFacility producingFacility, OutpostProductionProperties production)
+		private void BuildModifierFacts(UiProductionView productionView, OutpostFacility producingFacility, OutpostProductionProperties production)
 		{
-			foreach (OutpostProductionModifierSource source in OutpostProductionUtility.MatchingModifiers(outpost, producingFacility, production))
+			productionView.ModifierInfo.Clear();
+			foreach (OutpostProcessModifierSource source in OutpostProcessUtility.MatchingModifiers(outpost, producingFacility, production))
 			{
 				OutpostProductionModifier modifier = source.Modifier;
+				string factId = ProductionModifierFactId(source.SourceInstance, modifier, source.IsLevelModifier);
 				string sourceLabel = source.IsLevelModifier
 					? "DreamsOutposts.Ui.LevelSource".Translate(outpost.level).ToString()
 					: source.SourceFacility.LabelCap.ToString();
 				if (!Mathf.Approximately(modifier.factor, 1f))
 				{
 					string multiplier = "×" + modifier.factor.ToString("0.##");
-					productionView.ModifierChips.Add(new UiChipView(
+					productionView.ModifierInfo.AddCompactFact(factId + ".factor",
 						"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(multiplier, sourceLabel).ToString(),
 						modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
-						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
+						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString());
 				}
 				if (!Mathf.Approximately(modifier.offset, 0f))
 				{
-					productionView.ModifierChips.Add(new UiChipView(
+					productionView.ModifierInfo.AddCompactFact(factId + ".offset",
 						"DreamsOutposts.Ui.Chip.ProductionOffset".Translate(modifier.offset.ToString("0.##"), sourceLabel).ToString(),
 						UiChipKind.Neutral,
-						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString()));
+						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString());
 				}
 			}
 			// 等级倍率没生效时补一颗警示芯片，免得玩家以为设施突然减产了
 			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
 			if (supervisor != null && supervisor.SuppressesLevelFactorFor(outpost, producingFacility, production))
 			{
-				productionView.ModifierChips.Add(new UiChipView(
+				productionView.ModifierInfo.AddCompactFact("production.level.suppressed",
 					"DreamsOutposts.Ui.Chip.LevelFactorSuppressed".Translate().ToString(),
 					UiChipKind.Warn,
-					supervisor.InactiveReasons()));
+					supervisor.InactiveReasons());
 			}
+			productionView.ModifierChips.Clear();
+			AppendFactChips(productionView.ModifierInfo, productionView.ModifierChips);
 		}
 
 		private string FacilityTooltip(UiFacilityView view)		{
@@ -831,13 +852,11 @@ namespace DreamsOutposts
 			// 生产
 			RefreshProductions(Core);
 			RefreshInfoGroups(Core);
-			RefreshPowerChip(Core);
 			RefreshFacilityFacts(Core);
 			for (int i = 0; i < Slots.Count; i++)
 			{
 				RefreshProductions(Slots[i]);
 				RefreshInfoGroups(Slots[i]);
-				RefreshPowerChip(Slots[i]);
 				RefreshFacilityFacts(Slots[i]);
 			}
 		}
@@ -852,81 +871,93 @@ namespace DreamsOutposts
 				if (comp == null) continue;
 				comp.BuildUiInfo(outpost, view.CompInfo);
 			}
+			AddFacilityProductionModifierFacts(view);
 		}
 
-		/// <summary>
-		/// 统一设施事实入口。结构类 chip 仍处于迁移阶段，会在这里归一化；
-		/// 启用状态与启用条件则直接来自 OperationInfo，不再从现代 chip 反推。
-		/// </summary>
+		private static string ProductionModifierFactId(OutpostFacility source, OutpostProductionModifier modifier, bool isLevel)
+		{
+			string prefix = isLevel ? "production.level" : UiFacilityFactIds.ForSource("production.source", source);
+			return UiFacilityFactIds.ForSource(prefix + ".modifier", modifier);
+		}
+
+		private void AddFacilityProductionModifierFacts(UiFacilityView view)
+		{
+			OutpostFacility facility = view.Facility;
+			if (facility?.def == null || !facility.def.HasProcesses) return;
+
+			// Deduplicate across processes, while preserving separately installed sources.
+			var seen = new Dictionary<OutpostFacility, HashSet<OutpostProductionModifier>>();
+			foreach (OutpostProcessProperties process in facility.def.Processes)
+			{
+				foreach (OutpostProcessModifierSource source in OutpostProcessUtility.MatchingModifiers(outpost, facility, process))
+				{
+					if (source.IsLevelModifier || source.SourceInstance == null) continue;
+					if (!seen.TryGetValue(source.SourceInstance, out HashSet<OutpostProductionModifier> modifiers))
+					{
+						modifiers = new HashSet<OutpostProductionModifier>();
+						seen.Add(source.SourceInstance, modifiers);
+					}
+					OutpostProductionModifier modifier = source.Modifier;
+					if (!modifiers.Add(modifier)) continue;
+					string factId = ProductionModifierFactId(source.SourceInstance, modifier, false);
+					string sourceLabel = source.SourceFacility.LabelCap.ToString();
+					string tip = "DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString();
+					if (!Mathf.Approximately(modifier.factor, 1f))
+					{
+						view.CompInfo.AddFact(new UiFacilityInfoItem
+						{
+							Id = factId + ".factor",
+							Kind = UiFacilityInfoKind.Compact,
+							Importance = UiFacilityInfoImportance.Compact,
+							CardPlacement = UiFacilityCardPlacement.Chip,
+							CardPriority = UiFacilityCardPriority.Effect,
+							CompactText = "DreamsOutposts.Ui.Chip.ProductionDelta"
+								.Translate("×" + modifier.factor.ToString("0.##"), sourceLabel).ToString(),
+							Tooltip = tip,
+							Tone = modifier.factor > 1f ? UiChipKind.Good : UiChipKind.Bad
+						});
+					}
+					if (!Mathf.Approximately(modifier.offset, 0f))
+					{
+						view.CompInfo.AddFact(new UiFacilityInfoItem
+						{
+							Id = factId + ".offset",
+							Kind = UiFacilityInfoKind.Compact,
+							Importance = UiFacilityInfoImportance.Compact,
+							CardPlacement = UiFacilityCardPlacement.Chip,
+							CardPriority = UiFacilityCardPriority.Effect,
+							CompactText = "DreamsOutposts.Ui.Chip.ProductionOffset"
+								.Translate(modifier.offset.ToString("0.##"), sourceLabel).ToString(),
+							Tooltip = tip,
+							Tone = modifier.offset > 0f ? UiChipKind.Good : UiChipKind.Bad
+						});
+					}
+				}
+			}
+		}
+
+		/// <summary>Rebuild the complete snapshot, then project it. Missing facts disappear on this refresh.</summary>
 		private void RefreshFacilityFacts(UiFacilityView view)
 		{
 			if (view == null) return;
-			view.Facts.Clear();
-
-			int structuralCount = view.OperationChipIndex >= 0
-				? Mathf.Min(view.OperationChipIndex, view.Chips.Count)
-				: view.Chips.Count;
-			for (int i = 0; i < structuralCount; i++)
-			{
-				UiChipView chip = view.Chips[i];
-				view.Facts.Add(new UiFacilityInfoItem
-				{
-					Kind = UiFacilityInfoKind.Compact,
-					Importance = UiFacilityInfoImportance.Compact,
-					Value = chip.Label,
-					CompactText = chip.Label,
-					Tooltip = chip.Tooltip,
-					Tone = chip.Kind
-				});
-			}
-
-			for (int i = 0; i < view.CompInfo.Facts.Count; i++)
-			{
-				view.Facts.Add(view.CompInfo.Facts[i]);
-			}
-
-			for (int i = 0; i < view.OperationInfo.Count; i++)
-			{
-				view.Facts.Add(view.OperationInfo[i]);
-			}
-
-			RebuildDisplayChips(view, structuralCount);
-		}
-
-		private void RebuildDisplayChips(UiFacilityView view, int structuralCount)
-		{
+			view.Info.Clear();
+			AddFacilityFacts(view);
+			foreach (UiFacilityInfoItem fact in view.CompInfo.Facts)
+				view.Info.AddFact(fact);
+			AddOperationInfo(view.Info, outpost, view.Facility?.def, view.Facility);
+			foreach (UiProductionView production in view.Productions)
+				BuildModifierFacts(production, view.Facility, production.Props);
 			view.DisplayChips.Clear();
-
-			for (int i = 0; i < structuralCount; i++)
-				view.DisplayChips.Add(view.Chips[i]);
-
-			for (int i = 0; i < view.CompInfo.Facts.Count; i++)
-			{
-				UiFacilityInfoItem fact = view.CompInfo.Facts[i];
-				if (fact == null || fact.Importance != UiFacilityInfoImportance.Compact) continue;
-				string text = fact.DisplayText;
-				if (string.IsNullOrEmpty(text)) continue;
-				view.DisplayChips.Add(new UiChipView(text, fact.Tone, fact.Tooltip));
-			}
-
-			for (int i = structuralCount; i < view.Chips.Count; i++)
-				view.DisplayChips.Add(view.Chips[i]);
+			AppendFactChips(view.Info, view.DisplayChips);
+			view.ModernDisplayChips.Clear();
+			foreach (UiFacilityInfoItem fact in view.Info.CardFacts)
+				view.ModernDisplayChips.Add(new UiChipView(fact.DisplayText, fact.Tone, fact.Tooltip));
 		}
 
-		private void RefreshPowerChip(UiFacilityView view)
+		private static void AppendFactChips(UiFacilityInfoModel info, List<UiChipView> chips)
 		{
-			if (view == null || view.PowerChipIndex < 0 || view.PowerChipIndex >= view.Chips.Count) return;
-			OutpostFacilityComp_PowerGenerator power = view.Facility?.GetComp<OutpostFacilityComp_PowerGenerator>();
-			if (power == null) return;
-			string status;
-			if (power.linkedReceiver == null) status = "DreamsOutposts.RemotePower.StatusUnbound".Translate();
-			else if (!power.IsPoweredNow) status = "DreamsOutposts.RemotePower.StatusWaitingFuel".Translate(power.Props.fuel.LabelCap, power.Props.fuelPerCycle);
-			else
-			{
-				RemotePowerSource source = new RemotePowerSource { Outpost = outpost, Facility = view.Facility, Comp = power };
-				status = RemotePowerUtility.PowerOutput(source, power.linkedReceiver).ToString("0") + " W";
-			}
-			view.Chips[view.PowerChipIndex] = new UiChipView(status.ToString(), power.IsPoweredNow ? UiChipKind.Good : UiChipKind.Warn);
+			foreach (UiFacilityInfoItem fact in info.CompactFacts)
+				chips.Add(new UiChipView(fact.DisplayText, fact.Tone, fact.Tooltip));
 		}
 
 		/// <summary>防卫页数据：人员分解（按防卫值降序）+ 两侧合计；顺带维护仓库页要的两个分组。</summary>
@@ -1090,37 +1121,29 @@ namespace DreamsOutposts
 		{
 			if (view?.Facility == null) return;
 			view.Defense = OutpostDefenseUtility.FacilityDefense(outpost, view.Facility);
-			if (view.Facility.def?.defense > 0f && view.Chips.Count > 0)
-				view.Chips[0] = new UiChipView("DreamsOutposts.Ui.Chip.Defense".Translate(view.Defense.ToString("0.#")).ToString(), UiChipKind.Info);
-			RefreshOperationChips(view);
 		}
 
 		public static void AddOperationChips(List<UiChipView> chips, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
 		{
-			List<UiFacilityInfoItem> info = new List<UiFacilityInfoItem>();
+			UiFacilityInfoModel info = new UiFacilityInfoModel();
 			AddOperationInfo(info, outpost, def, facility);
-			for (int i = 0; i < info.Count; i++)
-			{
-				UiFacilityInfoItem item = info[i];
-				chips.Add(new UiChipView(
-					item.CompactText ?? item.DisplayText,
-					item.Tone,
-					item.Tooltip));
-			}
+			AppendFactChips(info, chips);
 		}
 
-		public static void AddOperationInfo(List<UiFacilityInfoItem> output, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
+		public static void AddOperationInfo(UiFacilityInfoModel output, Outpost outpost, OutpostFacilityDef def, OutpostFacility facility = null)
 		{
 			if (output == null) return;
 
 			if (facility != null)
 			{
 				AcceptanceReport report = facility.CanOperate(outpost);
-				output.Add(new UiFacilityInfoItem
+				output.AddFact(new UiFacilityInfoItem
 				{
-					Id = "operation.status",
+					Id = UiFacilityFactIds.OperationStatus,
+					CardPriority = report.Accepted ? UiFacilityCardPriority.Secondary : UiFacilityCardPriority.Alert,
 					Kind = UiFacilityInfoKind.Status,
 					Importance = UiFacilityInfoImportance.Compact,
+					CardPlacement = UiFacilityCardPlacement.Chip,
 					Label = "DreamsOutposts.Ui.Details.Enabled".Translate().ToString(),
 					Value = (report.Accepted ? "Yes" : "No").Translate().ToString(),
 					CompactText = (report.Accepted
@@ -1139,11 +1162,13 @@ namespace DreamsOutposts
 				OutpostFacilityRequirement requirement = requirements[i];
 				if (requirement == null) continue;
 				AcceptanceReport report = requirement.Check(outpost);
-				output.Add(new UiFacilityInfoItem
+				output.AddFact(new UiFacilityInfoItem
 				{
-					Id = "operation.requirement." + i,
+					Id = UiFacilityFactIds.ForSource("operation.requirement", requirement),
+					CardPriority = UiFacilityCardPriority.Alert,
 					Kind = UiFacilityInfoKind.Requirement,
 					Importance = UiFacilityInfoImportance.Compact,
+					CardPlacement = report.Accepted ? UiFacilityCardPlacement.Detail : UiFacilityCardPlacement.Chip,
 					Label = "DreamsOutposts.Ui.Details.ActivationRequirement".Translate().ToString(),
 					Value = (report.Accepted
 						? "DreamsOutposts.Ui.Details.RequirementMet"
@@ -1153,24 +1178,6 @@ namespace DreamsOutposts
 					Tone = report.Accepted ? UiChipKind.Good : UiChipKind.Warn
 				});
 			}
-		}
-
-		private void RefreshOperationChips(UiFacilityView view)
-		{
-			if (view?.Facility == null || view.OperationChipIndex < 0) return;
-			view.OperationInfo.Clear();
-			AddOperationInfo(view.OperationInfo, outpost, view.Facility.def, view.Facility);
-			view.OperationChips.Clear();
-			for (int i = 0; i < view.OperationInfo.Count; i++)
-			{
-				UiFacilityInfoItem item = view.OperationInfo[i];
-				view.OperationChips.Add(new UiChipView(
-					item.CompactText ?? item.DisplayText,
-					item.Tone,
-					item.Tooltip));
-			}
-			view.Chips.RemoveRange(view.OperationChipIndex, view.Chips.Count - view.OperationChipIndex);
-			view.Chips.AddRange(view.OperationChips);
 		}
 
 		private void RefreshDefense()
@@ -1447,9 +1454,7 @@ namespace DreamsOutposts
 			{
 				foreach (UiInstallCardView card in installAll)
 				{
-					if (card.OperationChipIndex < 0) continue;
-					card.Chips.RemoveRange(card.OperationChipIndex, card.Chips.Count - card.OperationChipIndex);
-					AddOperationChips(card.Chips, outpost, card.Def);
+					RefreshInstallCardFacts(card);
 				}
 				return onlyAvailable ? installAvailable : installAll;
 			}
@@ -1495,49 +1500,6 @@ namespace DreamsOutposts
 							card.Cost.Add(line);
 						}
 					}
-					// chips
-					if (def.maxPerOutpost > 0)
-					{
-						int installed = OutpostUtility.CountInstalled(outpost, def);
-						card.Chips.Add(new UiChipView(
-							"DreamsOutposts.Ui.Chip.Limit".Translate(def.maxPerOutpost, installed).ToString(),
-							(installed >= def.maxPerOutpost) ? UiChipKind.Bad : UiChipKind.Neutral));
-					}
-					if (OutpostTrainingUtility.Trains(def))
-					{
-						int trainees = OutpostTrainingUtility.CountTrainees(outpost, def);
-						card.Chips.Add(new UiChipView(
-							TrainingChipLabel(def),
-							(trainees > 0) ? UiChipKind.Good : UiChipKind.Bad));
-					}
-					OutpostFacilityCompProperties_PowerGenerator powerProps = def.GetCompProperties<OutpostFacilityCompProperties_PowerGenerator>();
-					if (powerProps != null && powerProps.requiresFuel && powerProps.fuel != null)
-						card.Chips.Add(new UiChipView("DreamsOutposts.RemotePower.FuelCycle".Translate(powerProps.fuel.LabelCap, powerProps.fuelPerCycle, powerProps.cycleTicks.ToStringTicksToPeriod()).ToString(), UiChipKind.Info));
-					if (!def.researchPrerequisites.NullOrEmpty())
-					{
-						card.Chips.Add(def.IsResearchUnlocked
-							? new UiChipView("DreamsOutposts.Ui.Chip.ResearchDone".Translate().ToString(), UiChipKind.Good)
-							: new UiChipView("DreamsOutposts.Ui.Chip.ResearchMissing".Translate(def.FirstMissingResearch?.LabelCap ?? "DreamsOutposts.Unknown".Translate()).ToString(), UiChipKind.Bad));
-					}
-					if (def.minOutpostLevel > 1)
-					{
-						int outpostLevel = outpost?.level ?? 1;
-						card.Chips.Add(def.IsLevelRequirementMetBy(outpostLevel)
-							? new UiChipView("DreamsOutposts.Ui.Chip.LevelOk".Translate(def.minOutpostLevel).ToString(), UiChipKind.Good)
-							: new UiChipView("DreamsOutposts.Ui.Chip.LevelMissing".Translate(outpostLevel, def.minOutpostLevel).ToString(), UiChipKind.Bad));
-					}
-					if (def.defense > 0f)
-					{
-						card.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.Defense".Translate(def.defense.ToString("0.#")).ToString(), UiChipKind.Info));
-					}
-					if (def.bombardment != null)
-					{
-						card.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.Bombardable".Translate().ToString(), UiChipKind.Warn));
-					}
-					if (def.bombardmentShellBonus > 0)
-					{
-						card.Chips.Add(new UiChipView("DreamsOutposts.Ui.Chip.ShellBonus".Translate(def.bombardmentShellBonus).ToString(), UiChipKind.Warn));
-					}
 					// mods 行
 					if (!def.productionModifiers.NullOrEmpty())
 					{
@@ -1578,8 +1540,7 @@ namespace DreamsOutposts
 							card.ModLines.Add(line);
 						}
 					}
-					card.OperationChipIndex = card.Chips.Count;
-					AddOperationChips(card.Chips, outpost, def);
+					RefreshInstallCardFacts(card);
 					all.Add(card);
 					if (card.Allowed)
 					{
@@ -1592,6 +1553,57 @@ namespace DreamsOutposts
 			installAll = all;
 			installAvailable = available;
 			return onlyAvailable ? available : all;
+		}
+
+		private void RefreshInstallCardFacts(UiInstallCardView card)
+		{
+			card.Info.Clear();
+			OutpostFacilityDef def = card.Def;
+			if (def != null)
+			{
+				if (def.maxPerOutpost > 0)
+				{
+					int installed = OutpostUtility.CountInstalled(outpost, def);
+					card.Info.AddCompactFact("install.limit",
+						"DreamsOutposts.Ui.Chip.Limit".Translate(def.maxPerOutpost, installed).ToString(),
+						installed >= def.maxPerOutpost ? UiChipKind.Bad : UiChipKind.Neutral);
+				}
+				if (OutpostTrainingUtility.Trains(def))
+				{
+					int trainees = OutpostTrainingUtility.CountTrainees(outpost, def);
+					card.Info.AddCompactFact("training." + OutpostTrainingUtility.GetTraining(def).skill.defName,
+						TrainingChipLabel(def), trainees > 0 ? UiChipKind.Good : UiChipKind.Bad);
+				}
+				OutpostFacilityCompProperties_PowerGenerator powerProps = def.GetCompProperties<OutpostFacilityCompProperties_PowerGenerator>();
+				if (powerProps != null && powerProps.requiresFuel && powerProps.fuel != null)
+					card.Info.AddCompactFact("power.fuelCycle", "DreamsOutposts.RemotePower.FuelCycle"
+						.Translate(powerProps.fuel.LabelCap, powerProps.fuelPerCycle, powerProps.cycleTicks.ToStringTicksToPeriod()).ToString(), UiChipKind.Info);
+				if (!def.researchPrerequisites.NullOrEmpty())
+				{
+					card.Info.AddCompactFact("install.research", def.IsResearchUnlocked
+						? "DreamsOutposts.Ui.Chip.ResearchDone".Translate().ToString()
+						: "DreamsOutposts.Ui.Chip.ResearchMissing".Translate(def.FirstMissingResearch?.LabelCap ?? "DreamsOutposts.Unknown".Translate()).ToString(),
+						def.IsResearchUnlocked ? UiChipKind.Good : UiChipKind.Bad);
+				}
+				if (def.minOutpostLevel > 1)
+				{
+					int level = outpost?.level ?? 1;
+					bool meetsLevel = def.IsLevelRequirementMetBy(level);
+					card.Info.AddCompactFact("install.level", meetsLevel
+						? "DreamsOutposts.Ui.Chip.LevelOk".Translate(def.minOutpostLevel).ToString()
+						: "DreamsOutposts.Ui.Chip.LevelMissing".Translate(level, def.minOutpostLevel).ToString(),
+						meetsLevel ? UiChipKind.Good : UiChipKind.Bad);
+				}
+				if (def.defense > 0f)
+					card.Info.AddCompactFact(UiFacilityFactIds.Defense, "DreamsOutposts.Ui.Chip.Defense".Translate(def.defense.ToString("0.#")).ToString(), UiChipKind.Info);
+				if (def.bombardment != null)
+					card.Info.AddCompactFact(UiFacilityFactIds.Bombardment, "DreamsOutposts.Ui.Chip.Bombardable".Translate().ToString(), UiChipKind.Warn);
+				if (def.bombardmentShellBonus > 0)
+					card.Info.AddCompactFact(UiFacilityFactIds.ShellBonus, "DreamsOutposts.Ui.Chip.ShellBonus".Translate(def.bombardmentShellBonus).ToString(), UiChipKind.Warn);
+				AddOperationInfo(card.Info, outpost, def);
+			}
+			card.Chips.Clear();
+			AppendFactChips(card.Info, card.Chips);
 		}
 
 		private static int CompareInstallCards(UiInstallCardView a, UiInstallCardView b)

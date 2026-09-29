@@ -7,12 +7,14 @@ namespace DreamsOutposts
 	public class AdventurerRecruitState : IExposable
 	{
 		public SkillDef preferredSkill;
+		public Faction preferredFaction;
 		public int nextRecruitTick;
 		public List<AdventurerOffer> offers = new List<AdventurerOffer>();
 
 		public void ExposeData()
 		{
 			Scribe_Defs.Look(ref preferredSkill, "preferredSkill");
+			Scribe_References.Look(ref preferredFaction, "preferredFaction");
 			Scribe_Values.Look(ref nextRecruitTick, "nextRecruitTick");
 			Scribe_Collections.Look(ref offers, "offers", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit && offers == null)

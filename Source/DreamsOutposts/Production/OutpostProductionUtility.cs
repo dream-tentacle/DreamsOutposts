@@ -163,13 +163,16 @@ namespace DreamsOutposts
 			List<Thing> products = new List<Thing>();
 			int stackLimit = Mathf.Max(product.stackLimit, 1);
 			int remaining = amount;
-			while (remaining > 0)
+			const int maxStacks = 1000;
+			for (int stacks = 0; stacks < maxStacks && remaining > 0; stacks++)
 			{
 				Thing thing = ThingMaker.MakeThing(product);
 				thing.stackCount = Mathf.Min(remaining, stackLimit);
 				remaining -= thing.stackCount;
 				products.Add(thing);
 			}
+			if (remaining > 0)
+				Log.Warning("[DreamsOutposts] Production/OutpostProductionUtility.cs: MakeProductThings: loop limit=" + maxStacks + ", product=" + product.defName + ", ungenerated=" + remaining + "; stopped.");
 			return products;
 		}
 

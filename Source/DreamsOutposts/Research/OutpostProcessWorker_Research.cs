@@ -38,10 +38,5 @@ namespace DreamsOutposts
 		{
 			return remaining.ToStringTicksToPeriod().ToString();
 		}
-
-		public override string CapacityTooltip(Outpost outpost, OutpostProcessProperties process)
-		{
-			return "DreamsOutposts.Ui.Chip.ResearchSpeedTip".Translate().ToString();
-		}
 	}
 }

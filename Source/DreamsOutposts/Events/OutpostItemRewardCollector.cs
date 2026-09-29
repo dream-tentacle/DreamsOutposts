@@ -29,13 +29,16 @@ namespace DreamsOutposts
 			}
 			int remaining = count;
 			int stackLimit = Mathf.Max(thingDef.stackLimit, 1);
-			while (remaining > 0)
+			const int maxStacks = 1000;
+			for (int stacks = 0; stacks < maxStacks && remaining > 0; stacks++)
 			{
 				Thing thing = ThingMaker.MakeThing(thingDef, thingDef.MadeFromStuff ? GenStuff.DefaultStuffFor(thingDef) : null);
 				thing.stackCount = Mathf.Min(remaining, stackLimit);
 				remaining -= thing.stackCount;
 				things.Add(thing);
 			}
+			if (remaining > 0)
+				Log.Warning("[DreamsOutposts] Events/OutpostItemRewardCollector.cs: Add: loop limit=" + maxStacks + ", product=" + thingDef.defName + ", ungenerated=" + remaining + "; stopped.");
 		}
 
 		public void Add(Thing thing)

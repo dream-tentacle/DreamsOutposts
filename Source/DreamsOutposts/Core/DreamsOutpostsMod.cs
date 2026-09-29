@@ -197,6 +197,18 @@ namespace DreamsOutposts
 
 			listing.GapLine();
 
+			UpdateNoticeSettings noticeSettings = UpdateNoticeSettings.Current;
+			bool neverShowUpdateLog = noticeSettings.neverShowUpdateLog;
+			listing.CheckboxLabeled(
+				"DreamsOutposts.Settings.NeverShowUpdateLog".Translate(),
+				ref neverShowUpdateLog,
+				"DreamsOutposts.Settings.NeverShowUpdateLog.Description".Translate());
+			if (neverShowUpdateLog != noticeSettings.neverShowUpdateLog)
+			{
+				noticeSettings.neverShowUpdateLog = neverShowUpdateLog;
+				noticeSettings.Save();
+			}
+
 			if (listing.ButtonText(
 				"DreamsOutposts.Settings.OpenUpdateLog".Translate()))
 			{
@@ -283,6 +295,12 @@ namespace DreamsOutposts
 
 			listing.Label(
 				"DreamsOutposts.Settings.Attacks.Description".Translate());
+
+			listing.GapLine();
+			listing.CheckboxLabeled(
+				"DreamsOutposts.Settings.DebugLogging".Translate(),
+				ref Settings.debugLogging,
+				"DreamsOutposts.Settings.DebugLogging.Description".Translate());
 		}
 
 		/// <summary>

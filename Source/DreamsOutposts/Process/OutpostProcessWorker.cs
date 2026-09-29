@@ -164,7 +164,10 @@ namespace DreamsOutposts
 
 		public virtual string CapacityTooltip(Outpost outpost, OutpostProcessProperties process)
 		{
-			return null;
+			if (process?.capacityStat == null) return null;
+			return "DreamsOutposts.Ui.Rule.CapacityTip".Translate(
+				process.capacityStat.LabelCap,
+				"DreamsOutposts.CoreFacility".Translate()).ToString();
 		}
 
 		public virtual string ProgressLeftText(

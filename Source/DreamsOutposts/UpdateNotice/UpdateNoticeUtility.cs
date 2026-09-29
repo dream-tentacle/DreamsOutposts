@@ -66,34 +66,13 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// current 是否比 other 新。两者都能按版本号解析时比较数值，否则「不同即视为更新」。
-		/// other 为空（还没有记录）时视为需要提示，返回 true。
+		/// 版本号是否匹配。忽略两端空白和大小写，不比较版本大小。
+		/// 空版本不匹配，尚未记录版本时仍应提示。
 		/// </summary>
-		public static bool IsNewerThan(string current, string other)
+		public static bool VersionsMatch(string current, string other)
 		{
-			if (current.NullOrEmpty())
-			{
-				return false;
-			}
-
-			if (other.NullOrEmpty())
-			{
-				return true;
-			}
-
-			if (string.Equals(current.Trim(), other.Trim(), StringComparison.OrdinalIgnoreCase))
-			{
-				return false;
-			}
-
-			Version a;
-			Version b;
-			if (Version.TryParse(current.Trim(), out a) && Version.TryParse(other.Trim(), out b))
-			{
-				return a > b;
-			}
-
-			return true;
+			return !string.IsNullOrWhiteSpace(current) && !string.IsNullOrWhiteSpace(other) &&
+				string.Equals(current.Trim(), other.Trim(), StringComparison.OrdinalIgnoreCase);
 		}
 
 		/// <summary>版本号比较：可解析时按数值比较，否则按字符串序比较（仅用于排序展示）。</summary>
@@ -125,40 +104,23 @@ namespace DreamsOutposts
 		}
 
 		/// <summary>
-		/// 收集「比 seenVersion 新、且不高于当前版本」的日志，按版本从高到低排序（新版本排在最上面）。
-		/// seenVersion 为空时返回全部不高于当前版本的日志（老存档首次引入本模块的情况）。
+		/// 当前版本与已提示版本不匹配时，只收集与 About 当前版本匹配的公告。
+		/// 升级、降级和首次提示使用同一规则。
 		/// </summary>
 		public static List<UpdateNoticeDef> PendingNotices(string seenVersion)
 		{
 			string current = CurrentVersion;
 			List<UpdateNoticeDef> result = new List<UpdateNoticeDef>();
+			if (string.IsNullOrWhiteSpace(current) || VersionsMatch(current, seenVersion))
+				return result;
 			List<UpdateNoticeDef> all = DefDatabase<UpdateNoticeDef>.AllDefsListForReading;
 			for (int i = 0; i < all.Count; i++)
 			{
 				UpdateNoticeDef def = all[i];
-				if (def == null || def.version.NullOrEmpty())
-				{
-					continue;
-				}
-
-				if (!IsNewerThan(def.version, seenVersion))
-				{
-					continue;
-				}
-
-				// 日志版本高于当前 Mod 版本（玩家降级了 Mod）时不展示，升级回来后仍会提示。
-				if (!current.NullOrEmpty() && IsNewerThan(def.version, current))
-				{
-					continue;
-				}
-
-				result.Add(def);
+				if (def != null && VersionsMatch(def.version, current))
+					result.Add(def);
 			}
 
-			result.Sort(delegate(UpdateNoticeDef x, UpdateNoticeDef y)
-			{
-				return CompareVersions(y.version, x.version);
-			});
 			return result;
 		}
 
@@ -167,7 +129,16 @@ namespace DreamsOutposts
 		/// </summary>
 		public static List<UpdateNoticeDef> AllNotices()
 		{
-			return PendingNotices(null);
+			string current = CurrentVersion;
+			List<UpdateNoticeDef> result = new List<UpdateNoticeDef>();
+			foreach (UpdateNoticeDef def in DefDatabase<UpdateNoticeDef>.AllDefsListForReading)
+			{
+				if (def == null || string.IsNullOrWhiteSpace(def.version)) continue;
+				if (!string.IsNullOrWhiteSpace(current) && CompareVersions(def.version, current) > 0) continue;
+				result.Add(def);
+			}
+			result.Sort((x, y) => CompareVersions(y.version, x.version));
+			return result;
 		}
 	}
 }

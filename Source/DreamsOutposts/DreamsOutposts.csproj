@@ -99,6 +99,7 @@
     <Compile Include="Education\OutpostFacilityComp_Education.cs" />
     <Compile Include="Ideology\OutpostFacilityComp_Indoctrination.cs" />
     <Compile Include="Taming\OutpostTamingWorker.cs" />
+    <Compile Include="Taming\OutpostFacilityComp_Slaughterhouse.cs" />
     <Compile Include="Defense\OutpostDefenseUtility.cs" />
     <Compile Include="Events\OutpostEventDef.cs" />
     <Compile Include="Events\OutpostAttackEventDef.cs" />

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Slaughterhouse.Title>自动屠宰</DreamsOutposts.Slaughterhouse.Title>
+  <DreamsOutposts.Slaughterhouse.Start>开始屠宰</DreamsOutposts.Slaughterhouse.Start>
+  <DreamsOutposts.Slaughterhouse.Pause>暂停屠宰</DreamsOutposts.Slaughterhouse.Pause>
+  <DreamsOutposts.Slaughterhouse.Paused>已暂停</DreamsOutposts.Slaughterhouse.Paused>
+  <DreamsOutposts.Slaughterhouse.Running>正在自动屠宰</DreamsOutposts.Slaughterhouse.Running>
+  <DreamsOutposts.Slaughterhouse.Tooltip>启用后，每次据点更新都会屠宰仓库内的全部活体动物，包括幼年及羁绊动物。请先将需要保留的动物移出据点；之后新入库的动物也会被屠宰。暂停后停止处理，暂停状态随存档保存。产率遵循当前叙事者的“屠宰量”设置。</DreamsOutposts.Slaughterhouse.Tooltip>
+</LanguageData>

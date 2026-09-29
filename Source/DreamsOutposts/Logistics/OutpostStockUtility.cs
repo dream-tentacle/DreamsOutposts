@@ -64,7 +64,9 @@ namespace DreamsOutposts
 			int stackLimit = Mathf.Max(thingDef.stackLimit, 1);
 			int added = 0;
 			int remaining = count;
-			while (remaining > 0)
+			const int maxStacks = 1000;
+			int stacks = 0;
+			for (; stacks < maxStacks && remaining > 0; stacks++)
 			{
 				Thing thing = ThingMaker.MakeThing(thingDef, thingDef.MadeFromStuff ? GenStuff.DefaultStuffFor(thingDef) : null);
 				thing.stackCount = Mathf.Min(remaining, stackLimit);
@@ -78,6 +80,8 @@ namespace DreamsOutposts
 				thing.Destroy();
 				break;
 			}
+			if (stacks >= maxStacks && remaining > 0)
+				Log.Warning("[DreamsOutposts] Logistics/OutpostStockUtility.cs: AddToStock: loop limit=" + maxStacks + ", outpost=" + outpost.Label + ", product=" + thingDef.defName + ", ungenerated=" + remaining + "; stopped.");
 			return added;
 		}
 

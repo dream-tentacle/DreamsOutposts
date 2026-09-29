@@ -98,7 +98,10 @@ namespace DreamsOutposts
 			{
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "power.output",
 					Kind = UiFacilityInfoKind.Value,
+					CardPlacement = UiFacilityCardPlacement.Header,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Primary,
 					Value = watts.ToString("0") + " W",
 					Tooltip = tooltip
@@ -113,7 +116,10 @@ namespace DreamsOutposts
 			{
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "power.progress",
 					Kind = UiFacilityInfoKind.Progress,
+					CardPlacement = UiFacilityCardPlacement.Progress,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Supporting,
 					Label = "DreamsOutposts.RemotePower.SectionTitle".Translate().ToString(),
 					Progress = progress,
@@ -132,7 +138,10 @@ namespace DreamsOutposts
 			{
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "power.status",
 					Kind = UiFacilityInfoKind.Value,
+					CardPlacement = UiFacilityCardPlacement.Body,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Supporting,
 					Value = status,
 					Tooltip = tooltip
@@ -141,7 +150,10 @@ namespace DreamsOutposts
 				{
 					group.Items.Add(new UiFacilityInfoItem
 					{
+						Id = "power.distance",
 						Kind = UiFacilityInfoKind.Value,
+						CardPlacement = UiFacilityCardPlacement.Body,
+						CardPriority = UiFacilityCardPriority.Secondary,
 						Importance = UiFacilityInfoImportance.Detail,
 						Value = distanceText,
 						Tooltip = tooltip

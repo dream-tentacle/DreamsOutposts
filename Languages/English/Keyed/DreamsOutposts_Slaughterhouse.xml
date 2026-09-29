@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts.Slaughterhouse.Title>Automatic slaughter</DreamsOutposts.Slaughterhouse.Title>
+  <DreamsOutposts.Slaughterhouse.Start>Start slaughter</DreamsOutposts.Slaughterhouse.Start>
+  <DreamsOutposts.Slaughterhouse.Pause>Pause slaughter</DreamsOutposts.Slaughterhouse.Pause>
+  <DreamsOutposts.Slaughterhouse.Paused>Paused</DreamsOutposts.Slaughterhouse.Paused>
+  <DreamsOutposts.Slaughterhouse.Running>Slaughtering automatically</DreamsOutposts.Slaughterhouse.Running>
+  <DreamsOutposts.Slaughterhouse.Tooltip>When enabled, every outpost update slaughters all live animals in the warehouse, including young and bonded animals. Move animals you want to keep out of the outpost first. Newly stored animals will also be slaughtered. Pausing stops processing, and the pause state is saved with the game. Yield follows the current storyteller butcher yield setting.</DreamsOutposts.Slaughterhouse.Tooltip>
+</LanguageData>

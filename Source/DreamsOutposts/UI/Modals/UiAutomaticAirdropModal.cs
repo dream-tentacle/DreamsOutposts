@@ -57,6 +57,7 @@ namespace DreamsOutposts
 					Rect labelRect = new Rect(row.x + 38f, row.y + 52f, labelWidth, 22f);
 					Rect fieldRect = new Rect(labelRect.xMax + 6f, labelRect.y, Mathf.Max(row.xMax - 14f - labelRect.xMax - 6f, 54f), 22f);
 					UiText.Draw(labelRect, "DreamsOutposts.IntelligentAirdropReserve".Translate(), UiFont.Body, UiPalette.Ink2, TextAnchor.MiddleLeft);
+					TooltipHandler.TipRegion(labelRect, "DreamsOutposts.IntelligentAirdropReserveTip".Translate());
 					int target = facility.intelligentAirdropStockTarget;
 					Widgets.TextFieldNumeric(fieldRect, ref target, ref buffer, 0, int.MaxValue);
 					facility.intelligentAirdropStockTarget = Mathf.Max(target, 0);
@@ -85,6 +86,14 @@ namespace DreamsOutposts
 		private static string ProductSummary(OutpostFacility facility)
 		{
 			StringBuilder text = new StringBuilder();
+			if (facility.def.GetCompProperties<OutpostFacilityCompProperties_Slaughterhouse>() != null)
+				text.Append("DreamsOutposts.AutomaticAirdropSlaughterProducts".Translate());
+			foreach (OutpostProcessProperties process in facility.def.Processes)
+			{
+				if (!(process?.Worker is OutpostProcessWorker_Taming)) continue;
+				if (text.Length > 0) text.Append("、");
+				text.Append("DreamsOutposts.Taming.CapturedAnimals".Translate());
+			}
 			for (int i = 0; i < facility.def.Productions.Count; i++)
 			{
 				OutpostProductionProperties production = facility.def.Productions[i];

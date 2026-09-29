@@ -411,6 +411,8 @@ namespace DreamsOutposts
 			{
 				return;
 			}
+			string traceId = ResolutionTraceId(instance, option);
+			TraceResolution(traceId, "resolve.begin");
 			OutpostEventContext context = new OutpostEventContext
 			{
 				outpost = outpost,
@@ -418,9 +420,11 @@ namespace DreamsOutposts
 			};
 			if (!CheckRequirements(option, context, out var _))
 			{
+				TraceResolution(traceId, "resolve.requirementsRejected");
 				return;
 			}
-			ApplyEffectsAndRemove(outpost, instance, option, context);
+			ApplyEffectsAndRemove(outpost, instance, option, context, traceId: traceId);
+			TraceResolution(traceId, "resolve.end");
 		}
 
 		public static void ResolveByTimeout(Outpost outpost, OutpostEventInstance instance)
@@ -442,26 +446,46 @@ namespace DreamsOutposts
 			}, sendExpiredLetter: true);
 		}
 
-		private static void ApplyEffectsAndRemove(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option, OutpostEventContext context, bool sendExpiredLetter = false)
+		private static void ApplyEffectsAndRemove(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option, OutpostEventContext context, bool sendExpiredLetter = false, string traceId = null)
 		{
 			context.itemRewards = new OutpostItemRewardCollector(outpost);
 			if (option.effects != null)
 			{
 				for (int i = 0; i < option.effects.Count; i++)
 				{
+					if (traceId != null) TraceResolution(traceId, "effect.begin index=" + i + " type=" + option.effects[i]?.GetType().Name);
 					option.effects[i]?.Apply(context);
+					if (traceId != null) TraceResolution(traceId, "effect.end index=" + i);
 				}
 			}
+			TraceResolution(traceId, "rewards.commit.begin");
 			context.itemRewards.Commit();
+			TraceResolution(traceId, "rewards.commit.end");
+			TraceResolution(traceId, "event.remove.begin");
 			int index = outpost.events?.IndexOf(instance) ?? -1;
 			if (index >= 0)
 			{
 				outpost.events.RemoveAt(index);
+				TraceResolution(traceId, "event.remove.end");
 				if (sendExpiredLetter)
 				{
 					SendExpiredLetter(outpost, instance, option);
 				}
 			}
+		}
+
+		// Trace player-triggered resolutions only. Avoid pawn labels/stat queries in the trace itself.
+		internal static string ResolutionTraceId(OutpostEventInstance instance, OutpostEventOption option)
+		{
+			return DreamsOutpostsMod.Settings?.debugLogging == true && instance?.def != null
+				? "[DreamsOutposts][EventTrace] event=" + instance.def.defName + " createdTick=" + instance.createdTick + " option=" + option?.id
+				: null;
+		}
+
+		internal static void TraceResolution(string traceId, string stage)
+		{
+			if (traceId != null && DreamsOutpostsMod.Settings?.debugLogging == true)
+				Log.Message(traceId + " tick=" + Find.TickManager.TicksGame + " " + stage);
 		}
 
 		public static void SendCreatedLetter(Outpost outpost, OutpostEventInstance instance)

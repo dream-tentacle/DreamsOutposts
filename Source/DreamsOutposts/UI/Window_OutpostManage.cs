@@ -918,9 +918,14 @@ float contentX = rect.x + UiMetrics.ContentPaddingH;
 			Rect confirmRect = new Rect(rect.x, y, confirmWidth, buttonHeight);
 			if (UiWidgets.Button(confirmRect, confirmLabel, UiButtonKind.Primary, canConfirm, null, UiButtonSize.Normal))
 			{
+				string traceId = OutpostEventUtility.ResolutionTraceId(view.Instance, selected.Option);
+				OutpostEventUtility.TraceResolution(traceId, "confirm.begin");
 				OutpostEventUtility.ResolveByPlayer(outpost, view.Instance, selected.Option);
+				cache.TraceNextResolutionRefresh(traceId);
 				cache.Invalidate();
+				OutpostEventUtility.TraceResolution(traceId, "modal.close.begin");
 				CloseModal();
+				OutpostEventUtility.TraceResolution(traceId, "modal.close.end");
 			}
 			string laterLabel = "DreamsOutposts.Ui.Option.Later".Translate();
 			float laterWidth = UiWidgets.ButtonWidth(laterLabel);

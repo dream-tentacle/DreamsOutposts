@@ -6,14 +6,17 @@ namespace DreamsOutposts
 {
 	/// <summary>
 	/// 更新日志模块自带的独立记录文件（全局，所有存档共用）：
-	/// Config\Mod_&lt;Mod 文件夹名&gt;_UpdateNotice.xml，只记「上次已经提示过的 Mod 版本号」。
-	/// 刻意不使用 DreamsOutpostsSettings：这里的内容属于本机提示状态，不属于玩家的 Mod 设置，
-	/// 也不该跟着存档走；独立文件还能让模块整体挪到别的 Mod 里。
+	/// Config\Mod_&lt;Mod 文件夹名&gt;_UpdateNotice.xml，记录已提示版本和自动弹窗开关。
+	/// 刻意不使用 DreamsOutpostsSettings：提示记录与偏好由模块独立保存，不跟着存档走；
+	/// 独立文件还能让模块整体挪到别的 Mod 里。
 	/// </summary>
 	public class UpdateNoticeSettings : IExposable
 	{
 		/// <summary>上次已提示过的 Mod 版本号。</summary>
 		private string lastSeenVersion;
+
+		/// <summary>永久关闭自动更新日志弹窗，仍可在设置中手动查看。</summary>
+		public bool neverShowUpdateLog;
 
 		private static UpdateNoticeSettings current;
 
@@ -39,6 +42,7 @@ namespace DreamsOutposts
 		public void ExposeData()
 		{
 			Scribe_Values.Look(ref lastSeenVersion, "lastSeenVersion");
+			Scribe_Values.Look(ref neverShowUpdateLog, "neverShowUpdateLog", false);
 		}
 
 		/// <summary>本模块记录文件的路径。</summary>

@@ -9,6 +9,7 @@ namespace DreamsOutposts
 	{
 		public OutpostProductionModifier Modifier;
 		public OutpostFacilityDef SourceFacility;
+		public OutpostFacility SourceInstance;
 		public bool IsLevelModifier;
 	}
 
@@ -116,7 +117,8 @@ namespace DreamsOutposts
 						yield return new OutpostProcessModifierSource
 						{
 							Modifier = modifier,
-							SourceFacility = sourceFacility.def
+							SourceFacility = sourceFacility.def,
+							SourceInstance = sourceFacility
 						};
 					}
 				}
@@ -194,7 +196,7 @@ namespace DreamsOutposts
 			}
 
 			int cycles = 0;
-			while (now >= state.nextProcessTick)
+			for (; cycles < MaxCatchUpCyclesPerCheck && now >= state.nextProcessTick; cycles++)
 			{
 				OutpostProcessContext context = process.Worker.CreateContext(
 					outpost, facility, process, state, now);
@@ -221,8 +223,9 @@ namespace DreamsOutposts
 				}
 
 				state.nextProcessTick += context.EffectiveInterval;
-				if (++cycles >= MaxCatchUpCyclesPerCheck) break;
 			}
+			if (cycles >= MaxCatchUpCyclesPerCheck && now >= state.nextProcessTick)
+				Log.Warning("[DreamsOutposts] Process/OutpostProcessUtility.cs: TickProcess: loop limit=" + MaxCatchUpCyclesPerCheck + ", outpost=" + outpost.Label + ", process=" + RuleLabel(facility, process) + ", nextProcessTick=" + state.nextProcessTick + ", now=" + now + "; deferred.");
 		}
 
 		private static void RunProcessPipeline(OutpostProcessContext context)

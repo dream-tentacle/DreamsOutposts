@@ -27,7 +27,10 @@ namespace DreamsOutposts
 			UiFacilityInfoGroup group = NewUiInfoGroup("DreamsOutposts.Training.JumpTitle".Translate().ToString());
 			group.Items.Add(new UiFacilityInfoItem
 			{
+				Id = "training.inspect",
 				Kind = UiFacilityInfoKind.Action,
+				CardPlacement = UiFacilityCardPlacement.Action,
+				CardPriority = UiFacilityCardPriority.Secondary,
 				Importance = UiFacilityInfoImportance.Supporting,
 				ActionLabel = "DreamsOutposts.Training.JumpButton".Translate(skill.LabelCap).ToString(),
 				ActionTooltip = "DreamsOutposts.Training.JumpTip".Translate(skill.LabelCap).ToString(),

@@ -174,13 +174,19 @@ namespace DreamsOutposts
 				UiFacilityInfoGroup group = NewUiInfoGroup("DreamsOutposts.Education.Quality".Translate().ToString());
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "education.quality",
 					Kind = UiFacilityInfoKind.Value,
+					CardPlacement = UiFacilityCardPlacement.Header,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Primary,
 					Value = OutpostEducationUtility.EffectiveQuality(outpost).ToStringPercent("F0")
 				});
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "education.students",
 					Kind = UiFacilityInfoKind.Value,
+					CardPlacement = UiFacilityCardPlacement.Body,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Supporting,
 					Value = "DreamsOutposts.Education.Students".Translate(OutpostEducationUtility.StudentCount(outpost)).ToString()
 				});
@@ -191,7 +197,10 @@ namespace DreamsOutposts
 				UiFacilityInfoGroup group = NewUiInfoGroup("DreamsOutposts.Education.Contribution".Translate().ToString());
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "education.contribution",
 					Kind = UiFacilityInfoKind.Value,
+					CardPlacement = UiFacilityCardPlacement.Header,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Primary,
 					Value = "+" + Props.qualityBonus.ToStringPercent("F0")
 				});

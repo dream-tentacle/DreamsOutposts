@@ -143,6 +143,7 @@ namespace DreamsOutposts
 						{
 							Id = process.Worker.CapacityFactId(process),
 							Kind = UiFacilityInfoKind.Value,
+							CardPlacement = UiFacilityCardPlacement.Chip,
 							Importance = UiFacilityInfoImportance.Compact,
 							Label = process.Worker.CapacityLabel(process),
 							Value = process.Worker.CapacityValue(process, capacity),
@@ -166,7 +167,10 @@ namespace DreamsOutposts
 				{
 					group.Items.Add(new UiFacilityInfoItem
 					{
+						Id = "process." + process.id + ".output",
 						Kind = UiFacilityInfoKind.Value,
+						CardPlacement = UiFacilityCardPlacement.Header,
+						CardPriority = UiFacilityCardPriority.Core,
 						Importance = UiFacilityInfoImportance.Primary,
 						Value = "×" + amount.ToString("0.#")
 					});
@@ -174,7 +178,10 @@ namespace DreamsOutposts
 
 				group.Items.Add(new UiFacilityInfoItem
 				{
+					Id = "process." + process.id + ".progress",
 					Kind = UiFacilityInfoKind.Progress,
+					CardPlacement = UiFacilityCardPlacement.Progress,
+					CardPriority = UiFacilityCardPriority.Core,
 					Importance = UiFacilityInfoImportance.Supporting,
 					Label = label,
 					Progress = displayProgress,
@@ -194,7 +201,10 @@ namespace DreamsOutposts
 				{
 					group.Items.Add(new UiFacilityInfoItem
 					{
+						Id = "process." + process.id + ".configure",
 						Kind = UiFacilityInfoKind.Action,
+						CardPlacement = UiFacilityCardPlacement.Action,
+						CardPriority = UiFacilityCardPriority.Secondary,
 						Importance = UiFacilityInfoImportance.Supporting,
 						ActionLabel = process.Worker.ConfigurationSummary(process, state),
 						ActionTooltip = process.Worker.ConfigurationTip(process),

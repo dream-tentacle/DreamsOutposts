@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
@@ -35,13 +36,24 @@ namespace DreamsOutposts
 
 		public static bool IsSelectableProducer(OutpostFacility facility)
 		{
-			return facility?.def != null && !facility.def.automaticAirdropController && !facility.def.Productions.NullOrEmpty();
+			if (facility?.def == null || facility.def.automaticAirdropController) return false;
+			if (!facility.def.Productions.NullOrEmpty()
+				|| facility.def.GetCompProperties<OutpostFacilityCompProperties_Slaughterhouse>() != null) return true;
+			foreach (OutpostProcessProperties process in facility.def.Processes)
+				if (process?.Worker is OutpostProcessWorker_Taming) return true;
+			return false;
 		}
 
 		public static bool TryDeliver(OutpostProductionContext context)
 		{
-			if (context?.Outpost == null || !IsSelectableProducer(context.Facility) || !context.Facility.autoAirdropEnabled
-				|| !HasController(context.Outpost) || context.Products.NullOrEmpty())
+			return context != null && TryDeliver(context.Outpost, context.Facility, context.Products);
+		}
+
+		// All entries must be newly produced, unowned things; false leaves them untouched for the caller to store.
+		public static bool TryDeliver(Outpost outpost, OutpostFacility facility, List<Thing> output)
+		{
+			if (outpost == null || !IsSelectableProducer(facility) || !facility.autoAirdropEnabled
+				|| !HasController(outpost) || output.NullOrEmpty())
 			{
 				return false;
 			}
@@ -53,37 +65,38 @@ namespace DreamsOutposts
 
 			List<Thing> products = new List<Thing>();
 			List<Thing> storedProducts = new List<Thing>();
-			int totalCount = 0;
-			ThingDef productDef = null;
-			bool intelligent = HasIntelligentController(context.Outpost);
-			int keepRemaining = intelligent
-				? Mathf.Max(context.Facility.intelligentAirdropStockTarget - OutpostStockUtility.CountInStock(context.Outpost, context.Product), 0)
-				: 0;
-			for (int i = 0; i < context.Products.Count; i++)
+			Dictionary<ThingDef, int> remainingByDef = new Dictionary<ThingDef, int>();
+			Dictionary<ThingDef, int> deliveredByDef = new Dictionary<ThingDef, int>();
+			bool intelligent = HasIntelligentController(outpost);
+			for (int i = 0; i < output.Count; i++)
 			{
-				Thing thing = context.Products[i];
+				Thing thing = output[i];
 				if (thing != null && !thing.Destroyed && thing.stackCount > 0)
 				{
+					int keepRemaining;
+					if (!remainingByDef.TryGetValue(thing.def, out keepRemaining))
+						keepRemaining = intelligent ? Mathf.Max(facility.intelligentAirdropStockTarget - CountStored(outpost, thing.def), 0) : 0;
 					if (keepRemaining > 0)
 					{
 						int keep = Mathf.Min(keepRemaining, thing.stackCount);
+						remainingByDef[thing.def] = keepRemaining - keep;
 						if (keep == thing.stackCount)
 						{
 							storedProducts.Add(thing);
-							keepRemaining -= keep;
 							continue;
 						}
 						storedProducts.Add(thing.SplitOff(keep));
-						keepRemaining -= keep;
 					}
+					else remainingByDef[thing.def] = 0;
 					products.Add(thing);
-					totalCount += thing.stackCount;
-					productDef = productDef ?? thing.def;
+					deliveredByDef.TryGetValue(thing.def, out int delivered);
+					deliveredByDef[thing.def] = delivered + thing.stackCount;
 				}
 			}
-			if (storedProducts.Count > 0)
+			foreach (Thing thing in storedProducts)
 			{
-				OutpostProductionUtility.StoreInOutpostInventory(context.Outpost, storedProducts);
+				bool stored = thing is Pawn pawn ? outpost.pawns.TryAdd(pawn) : outpost.inventory.TryAdd(thing);
+				if (!stored) throw new InvalidOperationException("Could not store reserved airdrop output " + thing + ".");
 			}
 			if (products.Count == 0)
 			{
@@ -93,10 +106,18 @@ namespace DreamsOutposts
 			IntVec3 dropSpot = DropCellFinder.TradeDropSpot(map);
 			DropPodUtility.DropThingsNear(dropSpot, map, products, 110, canInstaDropDuringInit: false,
 				leaveSlag: false, canRoofPunch: false, forbid: false, allowFogged: false, faction: Faction.OfPlayer);
-			string productLabel = productDef?.LabelCap ?? "DreamsOutposts.Nothing".Translate();
-			Messages.Message("DreamsOutposts.AutomaticAirdropDelivered".Translate(productLabel, totalCount),
-				new TargetInfo(dropSpot, map), MessageTypeDefOf.TaskCompletion, historical: false);
+			foreach (KeyValuePair<ThingDef, int> entry in deliveredByDef)
+				Messages.Message("DreamsOutposts.AutomaticAirdropDelivered".Translate(entry.Key.LabelCap, entry.Value),
+					new TargetInfo(dropSpot, map), MessageTypeDefOf.TaskCompletion, historical: false);
 			return true;
+		}
+
+		private static int CountStored(Outpost outpost, ThingDef def)
+		{
+			int count = OutpostStockUtility.CountInStock(outpost, def);
+			foreach (Pawn pawn in outpost.PawnsListForReading)
+				if (pawn != null && !pawn.Dead && !pawn.Destroyed && pawn.def == def) count += pawn.stackCount;
+			return count;
 		}
 	}
 }

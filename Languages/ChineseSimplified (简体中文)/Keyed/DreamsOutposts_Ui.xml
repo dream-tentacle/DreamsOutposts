@@ -82,8 +82,8 @@
   <DreamsOutposts.Ui.Chip.EventCategoryTip>此设施会改变{0}类事件的发生倾向。</DreamsOutposts.Ui.Chip.EventCategoryTip>
   <!-- EN: Production modifier from {0} level {1}. -->
   <DreamsOutposts.Ui.Chip.LevelProductionModifierTip>来自{0}等级 {1} 的产能修正。</DreamsOutposts.Ui.Chip.LevelProductionModifierTip>
-  <!-- EN: Current research speed total; research point output is calculated from this value. -->
-  <DreamsOutposts.Ui.Chip.ResearchSpeedTip>当前据点人员的科研速度合计；科研点数产出会根据这一数值计算。</DreamsOutposts.Ui.Chip.ResearchSpeedTip>
+  <!-- EN: Total {0} in the outpost, calculated using personnel contribution rates. For details, see the help button to the right of "{1}". -->
+  <DreamsOutposts.Ui.Rule.CapacityTip>据点中按比例计算得到的总{0}，详细见「{1}」右侧的提示按钮。</DreamsOutposts.Ui.Rule.CapacityTip>
   <!-- EN: outpost level {0} -->
   <DreamsOutposts.Ui.LevelSource>据点等级 {0}</DreamsOutposts.Ui.LevelSource>
   <!-- EN: Limit {0} (built {1}) -->
@@ -286,6 +286,9 @@
   <DreamsOutposts.Tavern.Preference>技能倾向</DreamsOutposts.Tavern.Preference>
   <!-- EN: No preference -->
   <DreamsOutposts.Tavern.AnySkill>无倾向</DreamsOutposts.Tavern.AnySkill>
+  <DreamsOutposts.Tavern.FactionPreference>优先派系</DreamsOutposts.Tavern.FactionPreference>
+  <DreamsOutposts.Tavern.AnyFaction>无倾向</DreamsOutposts.Tavern.AnyFaction>
+  <DreamsOutposts.Tavern.FactionPreferenceTip>优先从所选派系抽取当前品质的冒险者；没有符合条件的人选时，按原有规则从全部合格派系抽取。适用于之后抵达酒馆的冒险者，包括事件带来的候选人。</DreamsOutposts.Tavern.FactionPreferenceTip>
   <!-- EN: Next candidate in {0} -->
   <DreamsOutposts.Tavern.Next>下一名候选人：{0}</DreamsOutposts.Tavern.Next>
   <!-- EN: Waiting... -->

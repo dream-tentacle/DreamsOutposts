@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts_UpdateNotice_1_2_5.label>更新日志</DreamsOutposts_UpdateNotice_1_2_5.label>
+  <DreamsOutposts_UpdateNotice_1_2_5.sections.0.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_5.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_5.sections.0.entries.0>优化循环逻辑，避免因不兼容而直接卡死</DreamsOutposts_UpdateNotice_1_2_5.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_4.label>更新日志</DreamsOutposts_UpdateNotice_1_2_4.label>
+  <DreamsOutposts_UpdateNotice_1_2_4.sections.0.heading>&lt;color=#FF6B6B&gt;修复bug&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_4.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_4.sections.0.entries.0>添加日志记录，默认关闭。</DreamsOutposts_UpdateNotice_1_2_4.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_3.label>更新日志</DreamsOutposts_UpdateNotice_1_2_3.label>
+  <DreamsOutposts_UpdateNotice_1_2_3.sections.0.heading>&lt;color=#FF6B6B&gt;bug修复&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_3.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_3.sections.0.entries.0>修复空投机无法检测巡猎营地和屠宰场产出的问题</DreamsOutposts_UpdateNotice_1_2_3.sections.0.entries.0>
   <!-- 更新日志的中文翻译 -->
+  <DreamsOutposts_UpdateNotice_1_2_2.label>更新日志</DreamsOutposts_UpdateNotice_1_2_2.label>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.0.heading>&lt;color=#6FA8FF&gt;内容&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_2.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.0.entries.0>新增屠宰场，可自动屠宰据点内的动物并收集产物。建成后默认暂停，启用前请移出需要保留的动物。</DreamsOutposts_UpdateNotice_1_2_2.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.0.entries.1>酒馆新增“优先派系”设置，优先从指定人类派系招募；没有对应品质的人选时，回退原有规则。</DreamsOutposts_UpdateNotice_1_2_2.sections.0.entries.1>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.1.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_2.sections.1.heading>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.0>新增“永远不显示更新日志”设置，关闭自动弹窗后，仍可手动查看。</DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.1>完善设施产能加成及其来源的显示。</DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.1>
+  <DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.2>优化现代风设施卡的信息显示与状态提示。</DreamsOutposts_UpdateNotice_1_2_2.sections.1.entries.2>
+
   <DreamsOutposts_UpdateNotice_1_3_1.label>更新日志</DreamsOutposts_UpdateNotice_1_3_1.label>
   <DreamsOutposts_UpdateNotice_1_3_1.sections.0.heading>&lt;color=#FF6B6B&gt;修复bug&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_3_1.sections.0.heading>
   <DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.0>修复了上一次更新后导致驯兽据点循环报错的bug</DreamsOutposts_UpdateNotice_1_3_1.sections.0.entries.0>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DreamsOutposts_Slaughterhouse.label>屠宰场</DreamsOutposts_Slaughterhouse.label>
+  <DreamsOutposts_Slaughterhouse.description>屠宰据点仓库内的全部活体动物，将肉、皮革及其他屠宰产物存入仓库。产率遵循叙事者的“屠宰量”设置。建成后默认暂停，可通过设施按钮开始或暂停屠宰。开始前请将需要保留的动物移出据点。</DreamsOutposts_Slaughterhouse.description>
+</LanguageData>
