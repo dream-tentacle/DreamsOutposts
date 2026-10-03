@@ -1,3 +1,4 @@
+using System;
 using Verse;
 
 namespace DreamsOutposts
@@ -71,14 +72,16 @@ namespace DreamsOutposts
 			{
 				return;
 			}
-			if (OutpostRandomEventScheduler.TryCreateRandomEvent())
+			// Keep a retry delay even if creation throws after partially applying its effects.
+			nextRandomEventTick = now + OutpostRandomEventScheduler.RetryDelayTicks;
+			try
 			{
-				nextRandomEventTick = now + OutpostRandomEventScheduler.RollIntervalTicks();
+				if (OutpostRandomEventScheduler.TryCreateRandomEvent())
+					nextRandomEventTick = now + OutpostRandomEventScheduler.RollIntervalTicks();
 			}
-			else
+			catch (Exception ex)
 			{
-				// 当前没有任何符合条件的据点：1 天后重新检查，不每 Tick 重试，也不提示玩家。
-				nextRandomEventTick = now + OutpostRandomEventScheduler.RetryDelayTicks;
+				Log.Warning("[DreamsOutpostsExpanded] Random event creation failed; the next attempt is delayed: " + ex);
 			}
 		}
 	}

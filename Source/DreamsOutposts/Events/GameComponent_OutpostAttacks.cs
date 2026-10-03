@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using RimWorld;
 using UnityEngine;
@@ -99,11 +100,18 @@ namespace DreamsOutposts
 				nextAttackTick = now + CheckIntervalTicks;
 				return;
 			}
-			OutpostEventDef def = DefDatabase<OutpostEventDef>.GetNamedSilentFail("DO_OutpostAttack");
-			if (def != null && outposts.RandomElement().AddEvent(def) != null)
-				nextAttackTick = now + RollAttackIntervalTicks();
-			else
-				nextAttackTick = now + TicksPerDay;
+			// Reserve the failure delay before invoking event initialization and callbacks.
+			nextAttackTick = now + TicksPerDay;
+			try
+			{
+				OutpostEventDef def = DefDatabase<OutpostEventDef>.GetNamedSilentFail("DO_OutpostAttack");
+				if (def != null && outposts.RandomElement().AddEvent(def) != null)
+					nextAttackTick = now + RollAttackIntervalTicks();
+			}
+			catch (Exception ex)
+			{
+				Log.Warning("[DreamsOutpostsExpanded] Attack event creation failed; the next attempt is delayed: " + ex);
+			}
 		}
 	}
 }

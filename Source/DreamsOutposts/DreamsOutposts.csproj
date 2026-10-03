@@ -81,6 +81,8 @@
 	<Compile Include="Compatibility\MiliraCompatibility.cs" />
     <Compile Include="Core\OutpostTypeDef.cs" />
     <Compile Include="Core\OutpostLevelProperties.cs" />
+    <Compile Include="Facilities\OutpostModifierUtility.cs" />
+    <Compile Include="UI\UiOutpostModifiers.cs" />
     <Compile Include="Core\OutpostFacilityDef.cs" />
     <Compile Include="Core\OutpostFacility.cs" />
     <Compile Include="Core\OutpostSlot.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="Bombardment\OutpostBombardmentUtility.cs" />
     <Compile Include="Bombardment\MapComponent_OutpostBombardment.cs" />
     <Compile Include="UI\Window_OutpostManage.cs" />
+    <Compile Include="UI\WITab_OutpostRename.cs" />
     <Compile Include="UI\IUiShellPage.cs" />
     <Compile Include="UI\OutpostUiCache.cs" />
     <Compile Include="UI\UiFacilityInfo.cs" />

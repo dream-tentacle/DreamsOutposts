@@ -63,13 +63,7 @@ namespace DreamsOutposts
 
 		public static float PowerGenerationFactor(Outpost outpost)
 		{
-			float factor = outpost?.CurrentLevelProperties?.powerGenerationFactor ?? 1f;
-			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
-			if (supervisor != null && supervisor.GatesFacilityTag(OutpostFacilityTagRegistry.PowerGeneration) && !supervisor.AllowsLevelFactor)
-			{
-				return 1f;
-			}
-			return factor;
+			return OutpostModifierUtility.Power(outpost).EffectiveFactor;
 		}
 
 		public static void NotifyReceiver(Building receiver)

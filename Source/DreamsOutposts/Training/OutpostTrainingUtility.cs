@@ -63,12 +63,7 @@ namespace DreamsOutposts
 		/// </summary>
 		public static float TrainingFactor(Outpost outpost)
 		{
-			float factor = outpost?.CurrentLevelProperties?.trainingFactor ?? 1f;
-			if (float.IsNaN(factor) || float.IsInfinity(factor) || factor <= 0f)
-			{
-				return 1f;
-			}
-			return factor;
+			return OutpostModifierUtility.Training(outpost).EffectiveFactor;
 		}
 
 		/// <summary>这个设施是否属于受等级倍率影响的训练设施（带 Training 标签）。</summary>

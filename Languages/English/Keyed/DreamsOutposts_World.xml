@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts.RenameOutpost.Tab>Rename</DreamsOutposts.RenameOutpost.Tab>
+  <DreamsOutposts.RenameOutpost.Name>Outpost name</DreamsOutposts.RenameOutpost.Name>
+  <DreamsOutposts.RenameOutpost.Confirm>Confirm</DreamsOutposts.RenameOutpost.Confirm>
+  <DreamsOutposts.RenameOutpost.InvalidName>Enter a name containing 1 to {0} characters. A name cannot contain only spaces.</DreamsOutposts.RenameOutpost.InvalidName>
   <DreamsOutposts.EnterOutpost>Enter outpost</DreamsOutposts.EnterOutpost>
   <DreamsOutposts.EnterOutpostDesc>Move every pawn and everything this caravan carries into the outpost, then disband the caravan.</DreamsOutposts.EnterOutpostDesc>
   <DreamsOutposts.ExchangeOutpost.Command>Exchange supplies</DreamsOutposts.ExchangeOutpost.Command>

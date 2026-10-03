@@ -11,6 +11,10 @@ namespace DreamsOutposts
 {
 	public class Outpost : WorldObject, IThingHolder, IThingHolderTickable
 	{
+		public const int MaxNameLength = 28;
+
+		private string customName;
+
 		public OutpostTypeDef outpostTypeDef;
 
 		public ThingOwner<Pawn> pawns;
@@ -187,7 +191,19 @@ namespace DreamsOutposts
 
 		public float DaysSinceEstablished => (float)TicksSinceEstablished / 60000f;
 
-		public override string Label => outpostTypeDef?.label ?? base.Label;
+		// Old saves have no customName. Keep the default label until the player renames the outpost.
+		public override string Label => string.IsNullOrWhiteSpace(customName)
+			? outpostTypeDef?.label ?? base.Label
+			: customName;
+
+		public bool TryRename(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name)) return false;
+			string trimmedName = name.Trim();
+			if (trimmedName.Length > MaxNameLength) return false;
+			customName = trimmedName;
+			return true;
+		}
 
 		public override Material Material => MaterialPool.MatFrom(def.texture, ShaderDatabase.WorldOverlayTransparentLit, (base.Faction == null) ? Color.white : base.Faction.Color, 3550);
 
@@ -263,6 +279,7 @@ namespace DreamsOutposts
 		public override void ExposeData()
 		{
 			base.ExposeData();
+			Scribe_Values.Look(ref customName, "customName", null);
 			Scribe_Defs.Look(ref outpostTypeDef, "outpostTypeDef");
 			Scribe_Values.Look(ref establishedTick, "establishedTick", 0);
 			Scribe_Values.Look(ref level, "level", 1);

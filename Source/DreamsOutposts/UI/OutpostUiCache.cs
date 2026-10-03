@@ -680,7 +680,7 @@ namespace DreamsOutposts
 							UiChipKind.Good);
 					}
 				}
-				AddLevelProductionFactorFacts(view, def);
+				UiOutpostModifiers.Add(view.Info, outpost, OutpostModifierUtility.ForFacility(outpost, def));
 				// 设施对事件分类倾向的修正也作为有身份的事实生成。
 				if (!def.eventCategoryModifiers.NullOrEmpty())
 				{
@@ -712,91 +712,11 @@ namespace DreamsOutposts
 			}
 		}
 
-		private void AddLevelProductionFactorFacts(UiFacilityView view, OutpostFacilityDef def)
-		{
-			List<OutpostProductionModifier> levelModifiers = outpost?.CurrentLevelProperties?.productionModifiers;
-			if (levelModifiers.NullOrEmpty() || def == null || !def.HasProcesses)
-			{
-				return;
-			}
-
-			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
-			for (int i = 0; i < levelModifiers.Count; i++)
-			{
-				OutpostProductionModifier modifier = levelModifiers[i];
-				if (modifier == null || Mathf.Approximately(modifier.factor, 1f))
-				{
-					continue;
-				}
-
-				bool matches = false;
-				foreach (OutpostProcessProperties process in def.Processes)
-				{
-					if (modifier.Matches(process, def))
-					{
-						matches = true;
-						break;
-					}
-				}
-				if (!matches)
-				{
-					continue;
-				}
-
-				bool suppressed = supervisor != null && supervisor.Gates(modifier) && !supervisor.AllowsLevelFactor;
-				string sourceTip = "DreamsOutposts.Ui.Chip.LevelProductionModifierTip"
-					.Translate(
-						outpost?.outpostTypeDef?.LabelCap ?? "DreamsOutposts.Unknown".Translate(),
-						outpost.level)
-					.ToString();
-				string tip = suppressed
-					? sourceTip + "\n\n" + supervisor.InactiveReasons()
-					: sourceTip;
-				UiChipKind kind = suppressed
-					? UiChipKind.Warn
-					: (modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad);
-				view.Info.AddCompactFact(UiFacilityFactIds.ForSource("production.level", modifier) + ".factor",
-					"DreamsOutposts.Ui.Chip.ProductionFactor".Translate(modifier.factor.ToString("0.##")).ToString(),
-					kind,
-					tip);
-			}
-		}
-
 		private void BuildModifierFacts(UiProductionView productionView, OutpostFacility producingFacility, OutpostProductionProperties production)
 		{
 			productionView.ModifierInfo.Clear();
-			foreach (OutpostProcessModifierSource source in OutpostProcessUtility.MatchingModifiers(outpost, producingFacility, production))
-			{
-				OutpostProductionModifier modifier = source.Modifier;
-				string factId = ProductionModifierFactId(source.SourceInstance, modifier, source.IsLevelModifier);
-				string sourceLabel = source.IsLevelModifier
-					? "DreamsOutposts.Ui.LevelSource".Translate(outpost.level).ToString()
-					: source.SourceFacility.LabelCap.ToString();
-				if (!Mathf.Approximately(modifier.factor, 1f))
-				{
-					string multiplier = "×" + modifier.factor.ToString("0.##");
-					productionView.ModifierInfo.AddCompactFact(factId + ".factor",
-						"DreamsOutposts.Ui.Chip.ProductionDelta".Translate(multiplier, sourceLabel).ToString(),
-						modifier.factor >= 1f ? UiChipKind.Good : UiChipKind.Bad,
-						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString());
-				}
-				if (!Mathf.Approximately(modifier.offset, 0f))
-				{
-					productionView.ModifierInfo.AddCompactFact(factId + ".offset",
-						"DreamsOutposts.Ui.Chip.ProductionOffset".Translate(modifier.offset.ToString("0.##"), sourceLabel).ToString(),
-						UiChipKind.Neutral,
-						"DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString());
-				}
-			}
-			// 等级倍率没生效时补一颗警示芯片，免得玩家以为设施突然减产了
-			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
-			if (supervisor != null && supervisor.SuppressesLevelFactorFor(outpost, producingFacility, production))
-			{
-				productionView.ModifierInfo.AddCompactFact("production.level.suppressed",
-					"DreamsOutposts.Ui.Chip.LevelFactorSuppressed".Translate().ToString(),
-					UiChipKind.Warn,
-					supervisor.InactiveReasons());
-			}
+			UiOutpostModifiers.Add(productionView.ModifierInfo, outpost,
+				OutpostModifierUtility.ForProcess(outpost, producingFacility?.def, production));
 			productionView.ModifierChips.Clear();
 			AppendFactChips(productionView.ModifierInfo, productionView.ModifierChips);
 		}
@@ -870,69 +790,6 @@ namespace DreamsOutposts
 				OutpostFacilityComp comp = view.Facility.comps[i];
 				if (comp == null) continue;
 				comp.BuildUiInfo(outpost, view.CompInfo);
-			}
-			AddFacilityProductionModifierFacts(view);
-		}
-
-		private static string ProductionModifierFactId(OutpostFacility source, OutpostProductionModifier modifier, bool isLevel)
-		{
-			string prefix = isLevel ? "production.level" : UiFacilityFactIds.ForSource("production.source", source);
-			return UiFacilityFactIds.ForSource(prefix + ".modifier", modifier);
-		}
-
-		private void AddFacilityProductionModifierFacts(UiFacilityView view)
-		{
-			OutpostFacility facility = view.Facility;
-			if (facility?.def == null || !facility.def.HasProcesses) return;
-
-			// Deduplicate across processes, while preserving separately installed sources.
-			var seen = new Dictionary<OutpostFacility, HashSet<OutpostProductionModifier>>();
-			foreach (OutpostProcessProperties process in facility.def.Processes)
-			{
-				foreach (OutpostProcessModifierSource source in OutpostProcessUtility.MatchingModifiers(outpost, facility, process))
-				{
-					if (source.IsLevelModifier || source.SourceInstance == null) continue;
-					if (!seen.TryGetValue(source.SourceInstance, out HashSet<OutpostProductionModifier> modifiers))
-					{
-						modifiers = new HashSet<OutpostProductionModifier>();
-						seen.Add(source.SourceInstance, modifiers);
-					}
-					OutpostProductionModifier modifier = source.Modifier;
-					if (!modifiers.Add(modifier)) continue;
-					string factId = ProductionModifierFactId(source.SourceInstance, modifier, false);
-					string sourceLabel = source.SourceFacility.LabelCap.ToString();
-					string tip = "DreamsOutposts.Ui.Chip.ProductionModifierTip".Translate(sourceLabel).ToString();
-					if (!Mathf.Approximately(modifier.factor, 1f))
-					{
-						view.CompInfo.AddFact(new UiFacilityInfoItem
-						{
-							Id = factId + ".factor",
-							Kind = UiFacilityInfoKind.Compact,
-							Importance = UiFacilityInfoImportance.Compact,
-							CardPlacement = UiFacilityCardPlacement.Chip,
-							CardPriority = UiFacilityCardPriority.Effect,
-							CompactText = "DreamsOutposts.Ui.Chip.ProductionDelta"
-								.Translate("×" + modifier.factor.ToString("0.##"), sourceLabel).ToString(),
-							Tooltip = tip,
-							Tone = modifier.factor > 1f ? UiChipKind.Good : UiChipKind.Bad
-						});
-					}
-					if (!Mathf.Approximately(modifier.offset, 0f))
-					{
-						view.CompInfo.AddFact(new UiFacilityInfoItem
-						{
-							Id = factId + ".offset",
-							Kind = UiFacilityInfoKind.Compact,
-							Importance = UiFacilityInfoImportance.Compact,
-							CardPlacement = UiFacilityCardPlacement.Chip,
-							CardPriority = UiFacilityCardPriority.Effect,
-							CompactText = "DreamsOutposts.Ui.Chip.ProductionOffset"
-								.Translate(modifier.offset.ToString("0.##"), sourceLabel).ToString(),
-							Tooltip = tip,
-							Tone = modifier.offset > 0f ? UiChipKind.Good : UiChipKind.Bad
-						});
-					}
-				}
 			}
 		}
 
@@ -1513,11 +1370,6 @@ namespace DreamsOutposts
 							card.ModLines.Add("DreamsOutposts.Ui.ModProductionFactor".Translate("×" + modifier.factor.ToString("0.##")).ToString());
 						}
 					}
-					string trainingModLine = TrainingModLine(def);
-					if (!string.IsNullOrEmpty(trainingModLine))
-					{
-						card.ModLines.Add(trainingModLine);
-					}
 					if (!def.Productions.NullOrEmpty())
 					{
 						for (int p = 0; p < def.Productions.Count; p++)
@@ -1600,6 +1452,7 @@ namespace DreamsOutposts
 					card.Info.AddCompactFact(UiFacilityFactIds.Bombardment, "DreamsOutposts.Ui.Chip.Bombardable".Translate().ToString(), UiChipKind.Warn);
 				if (def.bombardmentShellBonus > 0)
 					card.Info.AddCompactFact(UiFacilityFactIds.ShellBonus, "DreamsOutposts.Ui.Chip.ShellBonus".Translate(def.bombardmentShellBonus).ToString(), UiChipKind.Warn);
+				UiOutpostModifiers.Add(card.Info, outpost, OutpostModifierUtility.ForFacility(outpost, def));
 				AddOperationInfo(card.Info, outpost, def);
 			}
 			card.Chips.Clear();
@@ -1651,11 +1504,6 @@ namespace DreamsOutposts
 					training.skill.LabelCap,
 					OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#"),
 					OutpostTrainingUtility.CountTrainees(outpost, def)));
-				string factorLine = TrainingFactorLine(def);
-				if (!string.IsNullOrEmpty(factorLine))
-				{
-					builder.Append("\n").Append(factorLine);
-				}
 			}
 			return builder.ToString();
 		}
@@ -1677,7 +1525,7 @@ namespace DreamsOutposts
 				OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#")).ToString();
 		}
 
-		/// <summary>训练 chip 的 tooltip：技能与每人每小时经验（口径与 chip 文本一致），以及训练基地倍率（有加成时）。</summary>
+		/// <summary>训练 chip 的 tooltip：技能与每人每小时经验，口径与实际结算一致。</summary>
 		private string TrainingTip(OutpostFacilityDef def)
 		{
 			OutpostTrainingProperties training = OutpostTrainingUtility.GetTraining(def);
@@ -1688,41 +1536,7 @@ namespace DreamsOutposts
 			string text = "DreamsOutposts.Ui.Chip.TrainingTip".Translate(
 				training.skill.LabelCap,
 				OutpostTrainingUtility.EffectiveXpPerHour(outpost, def).ToString("0.#")).ToString();
-			string factorLine = TrainingFactorLine(def);
-			if (!string.IsNullOrEmpty(factorLine))
-			{
-				text = text + "\n" + factorLine;
-			}
 			return text;
-		}
-
-		/// <summary>训练基地等级倍率在本地据点的取值；没有加成时返回 null，调用方不显示这一行。</summary>
-		private float? TrainingFactor(OutpostFacilityDef def)
-		{
-			if (!OutpostTrainingUtility.Trains(def) || !OutpostTrainingUtility.ReceivesTrainingFactor(def))
-			{
-				return null;
-			}
-			float factor = OutpostTrainingUtility.TrainingFactor(outpost);
-			return Mathf.Approximately(factor, 1f) ? (float?)null : factor;
-		}
-
-		/// <summary>tooltip 里的训练基地倍率说明行；没有加成时返回 null。</summary>
-		private string TrainingFactorLine(OutpostFacilityDef def)
-		{
-			float? factor = TrainingFactor(def);
-			return factor.HasValue
-				? "DreamsOutposts.TrainingBaseFactor".Translate(factor.Value.ToString("0.##")).ToString()
-				: null;
-		}
-
-		/// <summary>建造卡片 mods 行里的训练倍率说明；没有加成时返回 null。</summary>
-		private string TrainingModLine(OutpostFacilityDef def)
-		{
-			float? factor = TrainingFactor(def);
-			return factor.HasValue
-				? "DreamsOutposts.Ui.ModTrainingFactor".Translate("×" + factor.Value.ToString("0.##")).ToString()
-				: null;
 		}
 
 		// ---------------------------------------------------------------

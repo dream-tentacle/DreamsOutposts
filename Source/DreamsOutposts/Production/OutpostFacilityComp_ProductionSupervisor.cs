@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
-using RimWorld;
 using Verse;
 
 namespace DreamsOutposts
 {
 	/// <summary>
 	/// 营地等级产能倍率的监管条件：本设施（据点的核心设施）正常运转、且据点里有合格的管理者，
-	/// 受监管的等级倍率才生效。任一条件不满足时 OutpostProductionUtility.MatchingModifiers 会跳过这些倍率，
+	/// 受监管的等级倍率才生效。OutpostModifierUtility 统一读取此状态，未生效的倍率不参与结算，
 	/// 产出回到没有等级倍率时的原始值。
 	///
 	/// 状态由据点统一更新入口刷新；取值路径只读取缓存。
@@ -88,28 +86,6 @@ namespace DreamsOutposts
 			string wanted = Props.facilityTag?.Trim();
 			return string.IsNullOrEmpty(wanted) ||
 				string.Equals(facilityTag?.Trim(), wanted, StringComparison.OrdinalIgnoreCase);
-		}
-
-		/// <summary>
-		/// 本设施监管、却因为中枢被禁用或缺少管理者而没有生效的等级倍率是否命中这条生产规则。
-		/// 只给 UI 提示用：真正取值的地方是 OutpostProductionUtility.MatchingModifiers。
-		/// </summary>
-		public bool SuppressesLevelFactorFor(Outpost outpost, OutpostFacility producingFacility, OutpostProductionProperties production)
-		{
-			if (production == null || AllowsLevelFactor)
-			{
-				return false;
-			}
-			List<OutpostProductionModifier> levelModifiers = outpost?.CurrentLevelProperties?.productionModifiers;
-			for (int i = 0; i < (levelModifiers?.Count ?? 0); i++)
-			{
-				OutpostProductionModifier modifier = levelModifiers[i];
-				if (Gates(modifier) && modifier.Matches(production, producingFacility?.def))
-				{
-					return true;
-				}
-			}
-			return false;
 		}
 
 		public string InactiveReasons() => inactiveReason ?? string.Empty;

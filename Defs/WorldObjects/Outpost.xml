@@ -8,6 +8,9 @@
     <saved>true</saved>
 <canHaveMap>false</canHaveMap>
     <selectable>true</selectable>
+    <inspectorTabs>
+      <li>DreamsOutposts.WITab_OutpostRename</li>
+    </inspectorTabs>
 <expandingIcon>true</expandingIcon>
     <expandingIconTexture>World/WorldObjects/Expanding/Sites/Outpost</expandingIconTexture>
     <texture>World/WorldObjects/Sites/Outpost</texture>

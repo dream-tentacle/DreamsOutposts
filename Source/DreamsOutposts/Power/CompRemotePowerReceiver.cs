@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
@@ -43,16 +44,25 @@ namespace DreamsOutposts
 
 		private void RefreshCachedPower()
 		{
+			nextRefreshTick = Find.TickManager.TicksGame + RefreshIntervalTicks;
 			cachedSources.Clear();
 			cachedPowerOutput = 0f;
-			foreach (RemotePowerSource source in RemotePowerUtility.AllSources())
+			try
 			{
-				if (source.Comp.linkedReceiver != parent)
-					continue;
-				cachedSources.Add(source);
-				cachedPowerOutput += RemotePowerUtility.PowerOutput(source, (Building)parent);
+				foreach (RemotePowerSource source in RemotePowerUtility.AllSources())
+				{
+					if (source.Comp.linkedReceiver != parent)
+						continue;
+					cachedSources.Add(source);
+					cachedPowerOutput += RemotePowerUtility.PowerOutput(source, (Building)parent);
+				}
 			}
-			nextRefreshTick = Find.TickManager.TicksGame + RefreshIntervalTicks;
+			catch (Exception ex)
+			{
+				cachedSources.Clear();
+				cachedPowerOutput = 0f;
+				Log.Warning("[DreamsOutpostsExpanded] Remote power refresh failed; output is zero until a later refresh: " + ex);
+			}
 		}
 
 		public void NotifySourceChanged()

@@ -183,4 +183,9 @@
   <DreamsOutposts.Settings.UiStyle.ModernTechDark>Modern Tech - Dark</DreamsOutposts.Settings.UiStyle.ModernTechDark>
   <DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>Keeps the modern tech layout and geometry, but swaps the palette to a near-black one with inverted light and dark values. The yellow-green accent stays the same.</DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>
   <DreamsOutposts.Ui.Notice>Notice</DreamsOutposts.Ui.Notice>
+  <DreamsOutposts.Ui.Modifier.Production>Production</DreamsOutposts.Ui.Modifier.Production>
+  <DreamsOutposts.Ui.Modifier.Power>Power</DreamsOutposts.Ui.Modifier.Power>
+  <DreamsOutposts.Ui.Modifier.Training>Training</DreamsOutposts.Ui.Modifier.Training>
+  <DreamsOutposts.Ui.Modifier.Inactive>Inactive</DreamsOutposts.Ui.Modifier.Inactive>
+  <DreamsOutposts.Ui.Modifier.Source>Source: {0}</DreamsOutposts.Ui.Modifier.Source>
 </LanguageData>

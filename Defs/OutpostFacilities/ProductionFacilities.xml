@@ -345,7 +345,7 @@
             <id>automaticSteel</id>
             <product>Steel</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>12.632</outputPerCapacity>
+            <outputPerCapacity>37.894737</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -372,7 +372,7 @@
             <id>automaticChemfuel</id>
             <product>Chemfuel</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>10.434</outputPerCapacity>
+            <outputPerCapacity>31.304348</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -399,7 +399,7 @@
             <id>automaticNeutroamine</id>
             <product>Neutroamine</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>2</outputPerCapacity>
+            <outputPerCapacity>11</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -427,7 +427,7 @@
             <id>automaticPlasteel</id>
             <product>Plasteel</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>2.666</outputPerCapacity>
+            <outputPerCapacity>8</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -456,7 +456,7 @@
             <id>automaticGold</id>
             <product>Gold</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>2.4</outputPerCapacity>
+            <outputPerCapacity>7.2</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -483,7 +483,7 @@
             <id>automaticCloth</id>
             <product>Cloth</product>
             <intervalTicks>60000</intervalTicks>
-            <outputPerCapacity>12.632</outputPerCapacity>
+            <outputPerCapacity>48</outputPerCapacity>
           </li>
         </productions>
       </li>
@@ -510,7 +510,7 @@
           <li Class="DreamsOutposts.OutpostProductionProperties_AdaptiveMining">
             <id>adaptiveMineral</id>
             <intervalTicks>60000</intervalTicks>
-            <dailyMarketValue>20</dailyMarketValue>
+            <dailyMarketValue>70</dailyMarketValue>
           </li>
         </productions>
       </li>

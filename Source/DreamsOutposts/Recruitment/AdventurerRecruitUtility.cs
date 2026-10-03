@@ -127,6 +127,20 @@ namespace DreamsOutposts
 
 		public static void Tick(Outpost outpost)
 		{
+			try
+			{
+				TickInternal(outpost);
+			}
+			catch (Exception ex)
+			{
+				if (outpost?.adventurerRecruitment != null)
+					outpost.adventurerRecruitment.nextRecruitTick = Find.TickManager.TicksGame + RecruitIntervalTicks;
+				Log.Warning("[DreamsOutpostsExpanded] Adventurer recruitment update failed; the next generation attempt is delayed: " + ex);
+			}
+		}
+
+		private static void TickInternal(Outpost outpost)
+		{
 			if (outpost?.adventurerRecruitment == null || outpost.adventurerCandidates == null) return;
 			int now = Find.TickManager.TicksGame;
 			RemoveExpired(outpost, now);
@@ -140,6 +154,9 @@ namespace DreamsOutposts
 				outpost.adventurerRecruitment.nextRecruitTick = now + RecruitIntervalTicks;
 			if (outpost.adventurerRecruitment.offers.Count >= MaxOffers) return;
 			if (now < outpost.adventurerRecruitment.nextRecruitTick) return;
+			// Schedule first so an exception during generation or candidate disposal cannot trigger
+			// another batch on the next outpost update.
+			outpost.adventurerRecruitment.nextRecruitTick = now + RecruitIntervalTicks;
 			// One roll per attempt. A failed roll produces nothing at all - no letter, no message - and
 			// the next attempt is a whole interval away, so a weak camp is simply quiet for longer.
 			if (Rand.Chance(RecruitChance(outpost)))
@@ -161,7 +178,6 @@ namespace DreamsOutposts
 						historical: false);
 				}
 			}
-			outpost.adventurerRecruitment.nextRecruitTick = now + RecruitIntervalTicks;
 		}
 
 		public static void Reconcile(Outpost outpost)
@@ -252,7 +268,7 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex)
 			{
-				Log.Warning("DreamsOutposts: failed to generate adventurer of kind " + kind?.defName + ": " + ex.Message);
+				Log.Warning("[DreamsOutpostsExpanded] Failed to generate adventurer of kind " + kind?.defName + ": " + ex);
 				return null;
 			}
 		}

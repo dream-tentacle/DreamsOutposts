@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts_UpdateNotice_1_2_8.label>更新日志</DreamsOutposts_UpdateNotice_1_2_8.label>
+  <DreamsOutposts_UpdateNotice_1_2_8.sections.0.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_8.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_8.sections.0.entries.0>完善了设施倍率的显示</DreamsOutposts_UpdateNotice_1_2_8.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_8.sections.1.heading>&lt;color=#B98CFF&gt;平衡性调整&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_8.sections.1.heading>
+  <DreamsOutposts_UpdateNotice_1_2_8.sections.1.entries.0>大幅增强自动化设施的产率</DreamsOutposts_UpdateNotice_1_2_8.sections.1.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_7.label>更新日志</DreamsOutposts_UpdateNotice_1_2_7.label>
+  <DreamsOutposts_UpdateNotice_1_2_7.sections.0.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_7.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_7.sections.0.entries.0>可以选中据点后在左下角修改名称</DreamsOutposts_UpdateNotice_1_2_7.sections.0.entries.0>
+  <DreamsOutposts_UpdateNotice_1_2_6.label>更新日志</DreamsOutposts_UpdateNotice_1_2_6.label>
+  <DreamsOutposts_UpdateNotice_1_2_6.sections.0.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_6.sections.0.heading>
+  <DreamsOutposts_UpdateNotice_1_2_6.sections.0.entries.0>优化了一些因其他mod导致的报错引入的逻辑循环</DreamsOutposts_UpdateNotice_1_2_6.sections.0.entries.0>
   <DreamsOutposts_UpdateNotice_1_2_5.label>更新日志</DreamsOutposts_UpdateNotice_1_2_5.label>
   <DreamsOutposts_UpdateNotice_1_2_5.sections.0.heading>&lt;color=#78D06B&gt;体验优化&lt;/color&gt;</DreamsOutposts_UpdateNotice_1_2_5.sections.0.heading>
   <DreamsOutposts_UpdateNotice_1_2_5.sections.0.entries.0>优化循环逻辑，避免因不兼容而直接卡死</DreamsOutposts_UpdateNotice_1_2_5.sections.0.entries.0>

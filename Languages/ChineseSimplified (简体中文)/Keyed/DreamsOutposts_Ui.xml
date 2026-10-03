@@ -342,4 +342,9 @@
   <DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>沿用现代科技风的布局与几何元素，底色换成近黑夜面色阶、明暗整体反转，黄绿色强调色保持不变。</DreamsOutposts.Settings.UiStyle.ModernTechDark.Description>
   <!-- EN: Notice -->
   <DreamsOutposts.Ui.Notice>提示</DreamsOutposts.Ui.Notice>
+  <DreamsOutposts.Ui.Modifier.Production>产能</DreamsOutposts.Ui.Modifier.Production>
+  <DreamsOutposts.Ui.Modifier.Power>发电</DreamsOutposts.Ui.Modifier.Power>
+  <DreamsOutposts.Ui.Modifier.Training>训练</DreamsOutposts.Ui.Modifier.Training>
+  <DreamsOutposts.Ui.Modifier.Inactive>未生效</DreamsOutposts.Ui.Modifier.Inactive>
+  <DreamsOutposts.Ui.Modifier.Source>来源：{0}</DreamsOutposts.Ui.Modifier.Source>
 </LanguageData>

@@ -30,6 +30,9 @@ namespace DreamsOutposts
 				}
 				catch (Exception ex)
 				{
+					OutpostProcessState state = comp.GetState(process.id);
+					if (state != null)
+						state.nextProcessTick = now + (process.intervalTicks > 0 ? process.intervalTicks : 60000);
 					ReportFailure(outpost, facility, process, ex.ToString());
 				}
 			}
@@ -91,8 +94,8 @@ namespace DreamsOutposts
 			}
 			catch (Exception ex)
 			{
-				Log.ErrorOnce(
-					"Outpost process forecast failed: outpost=" + outpost.Label +
+				Log.WarningOnce(
+					"[DreamsOutpostsExpanded] Outpost process forecast failed: outpost=" + outpost.Label +
 					", process=" + RuleLabel(facility, process) + "\n" + ex,
 					FailureKey(facility, process));
 				return false;
@@ -100,41 +103,17 @@ namespace DreamsOutposts
 		}
 
 		public static IEnumerable<OutpostProcessModifierSource> MatchingModifiers(
-			Outpost outpost,
-			OutpostFacility facility,
-			OutpostProcessProperties process)
+			Outpost outpost, OutpostFacility facility, OutpostProcessProperties process)
 		{
-			if (outpost == null || process == null) yield break;
-
-			foreach (OutpostFacility sourceFacility in outpost.OperationalFacilities)
+			foreach (OutpostModifierInfo info in OutpostModifierUtility.ForProcess(outpost, facility?.def, process))
 			{
-				List<OutpostProductionModifier> modifiers = sourceFacility?.def?.productionModifiers;
-				for (int i = 0; i < (modifiers?.Count ?? 0); i++)
-				{
-					OutpostProductionModifier modifier = modifiers[i];
-					if (modifier != null && modifier.Matches(process, facility?.def))
-					{
-						yield return new OutpostProcessModifierSource
-						{
-							Modifier = modifier,
-							SourceFacility = sourceFacility.def,
-							SourceInstance = sourceFacility
-						};
-					}
-				}
-			}
-
-			List<OutpostProductionModifier> levelModifiers = outpost.CurrentLevelProperties?.productionModifiers;
-			OutpostFacilityComp_ProductionSupervisor supervisor = OutpostFacilityComp_ProductionSupervisor.GateFor(outpost);
-			for (int i = 0; i < (levelModifiers?.Count ?? 0); i++)
-			{
-				OutpostProductionModifier modifier = levelModifiers[i];
-				if (modifier == null || !modifier.Matches(process, facility?.def)) continue;
-				if (supervisor != null && supervisor.Gates(modifier) && !supervisor.AllowsLevelFactor) continue;
+				if (!info.Active) continue;
 				yield return new OutpostProcessModifierSource
 				{
-					Modifier = modifier,
-					IsLevelModifier = true
+					Modifier = info.ProductionModifier,
+					SourceFacility = info.IsLevelModifier ? null : info.SourceInstance?.def,
+					SourceInstance = info.IsLevelModifier ? null : info.SourceInstance,
+					IsLevelModifier = info.IsLevelModifier
 				};
 			}
 		}
@@ -148,10 +127,10 @@ namespace DreamsOutposts
 		{
 			offsetSum = 0f;
 			factorProduct = 1f;
-			foreach (OutpostProcessModifierSource source in MatchingModifiers(outpost, facility, process))
+			foreach (OutpostModifierInfo info in OutpostModifierUtility.ForProcess(outpost, facility?.def, process))
 			{
-				offsetSum += source.Modifier.offset;
-				factorProduct *= source.Modifier.factor;
+				offsetSum += info.EffectiveOffset;
+				factorProduct *= info.EffectiveFactor;
 			}
 			factorProduct *= OutpostTemporaryEffectUtility.ProcessFactor(outpost, facility, process);
 		}
@@ -185,11 +164,13 @@ namespace DreamsOutposts
 				return;
 			}
 
+			if (now < state.nextProcessTick) return;
 			int intervalTicks = process.Worker.GetProcessIntervalTicks(process, state);
 			if (intervalTicks <= 0)
 			{
-				Log.ErrorOnce(
-					"Outpost process skipped: " + RuleLabel(facility, process) +
+				state.nextProcessTick = now + (process.intervalTicks > 0 ? process.intervalTicks : 60000);
+				Log.WarningOnce(
+					"[DreamsOutpostsExpanded] Outpost process skipped: " + RuleLabel(facility, process) +
 					" has invalid interval " + intervalTicks + ".",
 					FailureKey(facility, process));
 				return;
@@ -198,27 +179,32 @@ namespace DreamsOutposts
 			int cycles = 0;
 			for (; cycles < MaxCatchUpCyclesPerCheck && now >= state.nextProcessTick; cycles++)
 			{
-				OutpostProcessContext context = process.Worker.CreateContext(
-					outpost, facility, process, state, now);
+				OutpostProcessContext context = null;
 				try
 				{
+					context = process.Worker.CreateContext(outpost, facility, process, state, now);
 					RunProcessPipeline(context);
 				}
 				catch (Exception ex)
 				{
-					context.Outcome = OutpostProcessOutcome.Failed;
-					context.FailureReason = ex.Message;
-					try
+					// Drop overdue catch-up cycles after failure; the next attempt must be in the future.
+					state.nextProcessTick = now + (context != null && context.NextProcessInterval > 0
+						? context.NextProcessInterval : intervalTicks);
+					if (context != null)
 					{
-						context.Worker.OnProcessFailed(context, ex);
-					}
-					catch (Exception hookEx)
-					{
-						Log.Error("[DreamsOutposts] Process failure hook threw for " +
-							context.RuleLabel + ": " + hookEx);
+						context.Outcome = OutpostProcessOutcome.Failed;
+						context.FailureReason = ex.Message;
+						try
+						{
+							context.Worker.OnProcessFailed(context, ex);
+						}
+						catch (Exception hookEx)
+						{
+							Log.Warning("[DreamsOutpostsExpanded] Process failure hook threw for " +
+								context.RuleLabel + ": " + hookEx);
+						}
 					}
 					ReportFailure(outpost, facility, process, ex.ToString());
-					state.nextProcessTick += context.EffectiveInterval;
 					break;
 				}
 
@@ -261,15 +247,8 @@ namespace DreamsOutposts
 			}
 			finally
 			{
-				try
-				{
-					context.Worker.AfterProcess(context);
-				}
-				catch (Exception ex)
-				{
-					Log.Error("[DreamsOutposts] Process AfterProcess hook threw for " +
-						context.RuleLabel + ": " + ex);
-				}
+				// Let the cycle handler delay the next attempt if cleanup itself fails.
+				context.Worker.AfterProcess(context);
 			}
 		}
 
@@ -289,8 +268,8 @@ namespace DreamsOutposts
 			OutpostProcessProperties process,
 			string detail)
 		{
-			Log.ErrorOnce(
-				"Outpost process failed: outpost=" + (outpost?.Label ?? "null") +
+			Log.WarningOnce(
+				"[DreamsOutpostsExpanded] Outpost process failed: outpost=" + (outpost?.Label ?? "null") +
 				", process=" + RuleLabel(facility, process) + "\n" + detail,
 				FailureKey(facility, process));
 		}

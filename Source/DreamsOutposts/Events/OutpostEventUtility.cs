@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
@@ -407,7 +408,7 @@ namespace DreamsOutposts
 
 		public static void ResolveByPlayer(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option)
 		{
-			if (outpost == null || instance == null || option == null || !option.playerSelectable)
+			if (outpost == null || instance == null || instance.resolutionStarted || option == null || !option.playerSelectable)
 			{
 				return;
 			}
@@ -433,10 +434,17 @@ namespace DreamsOutposts
 			{
 				return;
 			}
+			if (instance.resolutionStarted)
+			{
+				outpost.events?.Remove(instance);
+				return;
+			}
 			OutpostEventOption option = instance.def.options?.FirstOrDefault((OutpostEventOption candidate) => candidate != null && candidate.id == instance.def.defaultOptionId);
 			if (option == null)
 			{
-				Log.Error("[DreamsOutposts] Outpost event " + instance.def.defName + " expired, but defaultOptionId '" + instance.def.defaultOptionId + "' did not match any option; keeping the event instance.");
+				instance.resolutionStarted = true;
+				outpost.events?.Remove(instance);
+				Log.Warning("[DreamsOutpostsExpanded] Outpost event " + instance.def.defName + " expired, but defaultOptionId '" + instance.def.defaultOptionId + "' did not match any option; removed without applying effects.");
 				return;
 			}
 			ApplyEffectsAndRemove(outpost, instance, option, new OutpostEventContext
@@ -448,29 +456,37 @@ namespace DreamsOutposts
 
 		private static void ApplyEffectsAndRemove(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option, OutpostEventContext context, bool sendExpiredLetter = false, string traceId = null)
 		{
-			context.itemRewards = new OutpostItemRewardCollector(outpost);
-			if (option.effects != null)
+			if (instance.resolutionStarted) return;
+			instance.resolutionStarted = true;
+			try
 			{
-				for (int i = 0; i < option.effects.Count; i++)
+				context.itemRewards = new OutpostItemRewardCollector(outpost);
+				if (option.effects != null)
 				{
-					if (traceId != null) TraceResolution(traceId, "effect.begin index=" + i + " type=" + option.effects[i]?.GetType().Name);
-					option.effects[i]?.Apply(context);
-					if (traceId != null) TraceResolution(traceId, "effect.end index=" + i);
+					for (int i = 0; i < option.effects.Count; i++)
+					{
+						if (traceId != null) TraceResolution(traceId, "effect.begin index=" + i + " type=" + option.effects[i]?.GetType().Name);
+						option.effects[i]?.Apply(context);
+						if (traceId != null) TraceResolution(traceId, "effect.end index=" + i);
+					}
 				}
+				TraceResolution(traceId, "rewards.commit.begin");
+				context.itemRewards.Commit();
+				TraceResolution(traceId, "rewards.commit.end");
+				if (sendExpiredLetter) SendExpiredLetter(outpost, instance, option);
 			}
-			TraceResolution(traceId, "rewards.commit.begin");
-			context.itemRewards.Commit();
-			TraceResolution(traceId, "rewards.commit.end");
-			TraceResolution(traceId, "event.remove.begin");
-			int index = outpost.events?.IndexOf(instance) ?? -1;
-			if (index >= 0)
+			catch (Exception ex)
 			{
-				outpost.events.RemoveAt(index);
+				Log.Warning("[DreamsOutpostsExpanded] Event resolution stopped after an exception; effects will not be retried. Event="
+					+ instance.def?.defName + ", createdTick=" + instance.createdTick + ", option=" + option.id + ": " + ex);
+				return;
+			}
+			finally
+			{
+				// Effects cannot be rolled back safely; retire even a partially applied event.
+				TraceResolution(traceId, "event.remove.begin");
+				outpost.events?.Remove(instance);
 				TraceResolution(traceId, "event.remove.end");
-				if (sendExpiredLetter)
-				{
-					SendExpiredLetter(outpost, instance, option);
-				}
 			}
 		}
 

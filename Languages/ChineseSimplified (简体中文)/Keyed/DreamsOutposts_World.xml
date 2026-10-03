@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <DreamsOutposts.RenameOutpost.Tab>重命名</DreamsOutposts.RenameOutpost.Tab>
+  <DreamsOutposts.RenameOutpost.Name>据点名称</DreamsOutposts.RenameOutpost.Name>
+  <DreamsOutposts.RenameOutpost.Confirm>确认</DreamsOutposts.RenameOutpost.Confirm>
+  <DreamsOutposts.RenameOutpost.InvalidName>请输入 1 至 {0} 个字符的名称，不能只包含空白。</DreamsOutposts.RenameOutpost.InvalidName>
   <!-- EN: Enter outpost -->
   <DreamsOutposts.EnterOutpost>进入据点</DreamsOutposts.EnterOutpost>
   <!-- EN: Move every pawn and everything this caravan carries into the outpost, then disband the caravan. -->
