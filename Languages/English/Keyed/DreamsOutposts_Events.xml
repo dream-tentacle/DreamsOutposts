@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <DreamsOutposts.JumpToEventPage>Jump to events tab</DreamsOutposts.JumpToEventPage>
 	<DreamsOutposts.EventWeight.Current>Current tendencies</DreamsOutposts.EventWeight.Current>
 	<DreamsOutposts.EventWeight.Hint>(?)Info</DreamsOutposts.EventWeight.Hint>
 	<DreamsOutposts.EventWeight.Base>Base</DreamsOutposts.EventWeight.Base>

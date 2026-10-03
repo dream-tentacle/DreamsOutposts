@@ -122,6 +122,7 @@
 	<Compile Include="Events\OutpostExpandedEventEffects.cs" />
 	<Compile Include="Events\Window_OutpostTemporaryMarket.cs" />
     <Compile Include="Events\OutpostEventUtility.cs" />
+    <Compile Include="Events\ChoiceLetter_OutpostEvent.cs" />
     <Compile Include="Events\OutpostRandomEventScheduler.cs" />
     <Compile Include="Events\GameComponent_OutpostRandomEvents.cs" />
     <Compile Include="Events\DebugActions_OutpostEvents.cs" />

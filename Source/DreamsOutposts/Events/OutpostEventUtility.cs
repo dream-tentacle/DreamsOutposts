@@ -510,7 +510,8 @@ namespace DreamsOutposts
 			{
 				return;
 			}
-			Find.LetterStack.ReceiveLetter(instance.def.LabelCap, "DreamsOutposts.EventLetter".Translate(instance.def.DescriptionFor(instance), RemainingTimeLabel(instance)), LetterDefOf.NeutralEvent, new LookTargets(outpost));
+			Find.LetterStack.ReceiveLetter(instance.def.LabelCap, "DreamsOutposts.EventLetter".Translate(instance.def.DescriptionFor(instance), RemainingTimeLabel(instance)),
+				DefDatabase<LetterDef>.GetNamed("DreamsOutposts_OutpostEvent"), new LookTargets(outpost));
 		}
 
 		private static void SendExpiredLetter(Outpost outpost, OutpostEventInstance instance, OutpostEventOption option)

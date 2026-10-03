@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
+  <!-- EN: Jump to events tab -->
+  <DreamsOutposts.JumpToEventPage>跳转到事件栏位</DreamsOutposts.JumpToEventPage>
 	<!-- EN: Current tendencies -->
   <DreamsOutposts.EventWeight.Current>当前倾向</DreamsOutposts.EventWeight.Current>
   <!-- EN: (?)Info -->

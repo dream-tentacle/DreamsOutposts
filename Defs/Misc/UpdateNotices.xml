@@ -15,6 +15,20 @@
 	新增版本时：在这里加一条，并把 About.xml 的 modVersion 同步改成一样的版本号。
 	-->
 	<DreamsOutposts.UpdateNoticeDef>
+		<defName>DreamsOutposts_UpdateNotice_1_2_9</defName>
+		<label>Update log</label>
+		<version>1.2.9</version>
+		<sections>
+			<li>
+				<heading>&lt;color=#78D06B&gt;Experience improvements&lt;/color&gt;</heading>
+				<entries>
+					<li>Added a "Jump to events tab" option to outpost event letters, making events easier to open and view.</li>
+				</entries>
+			</li>
+		</sections>
+	</DreamsOutposts.UpdateNoticeDef>
+
+	<DreamsOutposts.UpdateNoticeDef>
 		<defName>DreamsOutposts_UpdateNotice_1_2_8</defName>
 		<label>Update log</label>
 		<version>1.2.8</version>
